@@ -22,32 +22,71 @@
 #include "animation.h"
 #include "image.h"
 #include "camera.h"
+#include "cfloorbase.h"
+#include "coffice.h"
 
 int
 main ()
 {
     camera * cam = camera::get_instance ();
     cam->set_cam_size (800, 600);
-    cam->set_cam_size (1024, 768);
+    cam->set_cam_size (1280, 1080);
     cam->set_max_framerate (60);
     cam->create ("test");
     image_manager * image_man = image_manager::get_instance ();
-    image_man->set_path ("data/");
-    animation test_anim;
-    test_anim.add_frame (image_man->get_image ("office_o_d_1.png"), 1000);
-    test_anim.add_frame (image_man->get_image ("office_o_d_2.png"), 1000);
-    test_anim.add_frame (image_man->get_image ("office_o_d_3.png"), 1000);
-    test_anim.add_frame (image_man->get_image ("office_o_d_4.png"), 1000);
-    test_anim.add_frame (image_man->get_image ("office_o_d_5.png"), 1000);
     sf::Event event;
+    C_office my_office (400, 1);
+    C_office my_office2 (400, 2);
+    C_office my_office3 (472, 1);
+    C_office my_office4 (472, 2);
+    C_office my_office5 (544, 1);
+    C_office my_office6 (544, 2);
+    C_office my_office7 (450, 3);
+    C_office my_office8 (522, 3);
     while (1) {
         while (cam->get_event (event)) {
             if (event.Type == sf::Event::Closed)
                 exit (0);
+            if (event.Type == sf::Event::KeyPressed) {
+                if (event.Key.Code == sf::Key::A) {
+                    cam->m_v.first = -200;
+                    cam->m_a.first = 150;
+                }
+                if (event.Key.Code == sf::Key::S) {
+                    cam->m_v.second = 200;
+                    cam->m_a.second = -150;
+                }
+                if (event.Key.Code == sf::Key::D) {
+                    cam->m_v.first = 200;
+                    cam->m_a.first = -150;
+                }
+                if (event.Key.Code == sf::Key::W) {
+                    cam->m_v.second = -200;
+                    cam->m_a.second = 150;
+                }
+                if (event.Key.Code == sf::Key::E) {
+                    cam->set_velocity (0, 0);
+                }
+            }
         }
         cam->clear ();
-        test_anim.update (100);
-        cam->draw (test_anim);
+        cam->integrate (60);
+        my_office.update (60);
+        my_office.draw ();
+        my_office2.update (60);
+        my_office2.draw ();
+        my_office3.update (60);
+        my_office3.draw ();
+        my_office4.update (60);
+        my_office4.draw ();
+        my_office5.update (60);
+        my_office5.draw ();
+        my_office6.update (60);
+        my_office6.draw ();
+        my_office7.update (60);
+        my_office7.draw ();
+        my_office8.update (60);
+        my_office8.draw ();
         cam->display ();
     }
     return 0;

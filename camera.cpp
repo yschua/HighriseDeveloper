@@ -29,6 +29,12 @@ camera::camera ()
     m_window = new sf::RenderWindow ();
 }
 
+int
+camera::get_world_y ()
+{
+    return m_world_y;
+}
+
 void
 camera::set_max_framerate (int rate)
 {

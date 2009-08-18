@@ -20,11 +20,9 @@
 typedef std::pair<float, float> vector2;
 
 class body
-{
-protected:
-    vector2 m_s, m_v, m_a;
-    
+{  
 public:
+    vector2 m_s, m_v, m_a;
     body (float x, float y);
     body ();
     float get_position_x ();
@@ -42,4 +40,5 @@ public:
     void set_acceleration (float x, float y);
     void integrate (float dt);
 };
+
 #endif

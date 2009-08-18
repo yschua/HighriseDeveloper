@@ -16,6 +16,7 @@
 
 #ifndef _IMAGE_H
 #define _IMAGE_H
+
 class image_manager
 {
 private:
@@ -30,4 +31,5 @@ public:
     int preload_image (const std::string & name);
     void set_path (const std::string & prefix);
 };
+
 #endif

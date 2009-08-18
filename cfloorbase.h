@@ -17,10 +17,16 @@
 #ifndef _CFLOORBASE_H
 #define _CFLOORBASE_H
 
-class C_floor_base : public C_state_base
+class C_floor_base
 {
-private:
+protected:
+    int m_level;
+    int m_current_animation;
+    int m_x, m_x2, m_y;
     
+public:
+    virtual void update (float dt);
+    virtual void draw ();
 };
 
 #endif

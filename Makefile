@@ -2,8 +2,8 @@ CC=g++
 CFLAGS=-O3
 LFLAGS=-lsfml-graphics -lsfml-window -lsfml-system 
 AR=ar
-SRCS=tower.cpp physics.cpp camera.cpp image.cpp animation.cpp
-OBJS=tower.o physics.o camera.o image.o animation.o
+SRCS=tower.cpp physics.cpp camera.cpp image.cpp animation.cpp cfloorbase.cpp coffice.cpp
+OBJS=tower.o physics.o camera.o image.o animation.o cfloorbase.o coffice.o
 
 all : tower
 

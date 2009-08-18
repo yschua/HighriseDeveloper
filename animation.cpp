@@ -36,7 +36,6 @@ animation::add_frame (sf::Image * image, float duration)
 void
 animation::update (float dt)
 {
-    integrate (dt);
     m_time += dt;
     if (m_time > m_frames[m_current_frame].second) {
         m_time = 0;

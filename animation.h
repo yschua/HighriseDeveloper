@@ -16,6 +16,7 @@
 
 #ifndef _ANIMATION_H
 #define _ANIMATION_H
+
 class animation : public body
 {
 private:
@@ -29,4 +30,5 @@ public:
     void update (float dt);
     sf::Sprite * sprite;
 };
+
 #endif

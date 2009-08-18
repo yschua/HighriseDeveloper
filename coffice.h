@@ -14,29 +14,28 @@
  *   along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <iostream>
+#ifndef _COFFICE_H
+#define _COFFICE_H
 
-#include "cstatebase.h"
+enum office_state {
+    s_unoccupied_day,
+    s_occupied_day
+};
 
-void
-C_state_base::add_state (int state_num, state_function * function)
+class C_office : public C_floor_base
 {
-    m_states[state_num] = function;
-}
+private:
+    office_state unoccupied_day (float dt);
+    office_state occupied_day (float dt);
+    std::map<office_state, animation *> m_animations;
+    office_state m_current_state;
 
-void
-C_state_base::operator() (float dt)
-{
-    if (m_current_state_function != NULL) {
-        int new_state = m_current_state_function (dt);
-        if (new_state != m_current_state)
-            m_current_state_function = m_states[new_state];
-    }
-}
+public:
 
-void
-C_state_base::set_state (int id)
-{
-    m_current_state = id;
-    m_current_state_function = m_states[id];
-}
+    //ctor
+    void update (float dt);
+    void draw ();
+    C_office (int x, int level);
+};
+
+#endif

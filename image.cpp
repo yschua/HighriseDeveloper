@@ -22,7 +22,7 @@
 image_manager * image_manager::m_instance = NULL;
 
 image_manager::image_manager ()
-:   m_path_prefix ("")
+:   m_path_prefix ("data/")
 {
 }
 

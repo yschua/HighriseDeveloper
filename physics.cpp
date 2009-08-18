@@ -111,4 +111,12 @@ body::integrate (float dt)
     m_s.second += m_v.second * dt_secs;
     m_v.first += m_a.first * dt_secs;
     m_v.second += m_a.second * dt_secs;
+    if ((m_v.first > -10) && (m_v.first < 10)) {
+        m_v.first = 0;
+        m_a.first = 0;
+    }
+    if ((m_v.second > -10) && (m_v.second < 10)) {
+        m_v.second = 0;
+        m_a.second = 0;
+    }
 }

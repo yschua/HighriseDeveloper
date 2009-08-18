@@ -33,6 +33,7 @@ public:
     void set_max_framerate (int rate);
     void set_cam_size (int x, int y);
     void set_world_size (int x, int y);
+    int get_world_y ();
     void create (const std::string & caption);
     void center (int x, int y);
     bool get_event (sf::Event & event);

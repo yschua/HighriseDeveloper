@@ -45,3 +45,9 @@ animation::update (float dt)
         sprite->SetImage (*m_frames[m_current_frame].first);
     }
 }
+
+animation_single::animation_single (sf::Image * image)
+{
+    sprite = new sf::Sprite ();
+    sprite->SetImage (*image);
+}

@@ -14,32 +14,23 @@
  *   along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef _CAMERA_H
-#define _CAMERA_H
+#ifndef _CLEVEL_H
+#define _CLEVEL_H
 
-class camera : public body
+class C_level
 {
 private:
-    int m_world_x, m_world_y, m_cam_x, m_cam_y;
-    sf::RenderWindow * m_window;
-    sf::Color m_back_color;
-    static camera * m_instance;
-    camera ();
-
+    std::list<C_floor_base> m_floors;
+    animation_single * m_fire_escape_l;
+    animation_single * m_fire_escape_r;
+    int m_level;
+    int m_x, m_x2, m_y;
+    
 public:
-    static camera * get_instance ();
-    void display ();
-    void clear ();
-    void draw (animation & to_draw);
-    void draw (animation_single & to_draw);
-    void set_max_framerate (int rate);
-    void set_cam_size (int x, int y);
-    void set_world_size (int x, int y);
-    int get_world_y ();
-    int get_world_x ();
-    void create (const std::string & caption);
-    void center (int x, int y);
-    bool get_event (sf::Event & event);
+    C_level (int m_level);
+    void add_floor (C_floor_base & floor);
+    void update (float dt);
+    void draw ();
 };
 
 #endif

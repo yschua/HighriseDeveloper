@@ -31,8 +31,6 @@ private:
     office_state m_current_state;
 
 public:
-
-    //ctor
     void update (float dt);
     void draw ();
     C_office (int x, int level);

@@ -31,4 +31,11 @@ public:
     sf::Sprite * sprite;
 };
 
+class animation_single : public body
+{
+public:
+    sf::Sprite * sprite;
+    animation_single (sf::Image * image);
+};
+
 #endif

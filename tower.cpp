@@ -17,6 +17,7 @@
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <list>
 
 #include "physics.h"
 #include "animation.h"
@@ -24,13 +25,14 @@
 #include "camera.h"
 #include "cfloorbase.h"
 #include "coffice.h"
+#include "clevel.h"
 
 int
 main ()
 {
     camera * cam = camera::get_instance ();
     cam->set_cam_size (800, 600);
-    cam->set_cam_size (1280, 1080);
+    cam->set_world_size (1280, 1080);
     cam->set_max_framerate (60);
     cam->create ("test");
     image_manager * image_man = image_manager::get_instance ();
@@ -43,6 +45,17 @@ main ()
     C_office my_office6 (544, 2);
     C_office my_office7 (450, 3);
     C_office my_office8 (522, 3);
+    C_level level_1 (1);
+    C_level level_2 (2);
+    C_level level_3 (3);
+    level_1.add_floor (my_office);
+    level_1.add_floor (my_office3);
+    level_1.add_floor (my_office5);
+    level_2.add_floor (my_office2);
+    level_2.add_floor (my_office4);
+    level_2.add_floor (my_office6);
+    level_3.add_floor (my_office7);
+    level_3.add_floor (my_office8);
     while (1) {
         while (cam->get_event (event)) {
             if (event.Type == sf::Event::Closed)
@@ -71,22 +84,12 @@ main ()
         }
         cam->clear ();
         cam->integrate (60);
-        my_office.update (60);
-        my_office.draw ();
-        my_office2.update (60);
-        my_office2.draw ();
-        my_office3.update (60);
-        my_office3.draw ();
-        my_office4.update (60);
-        my_office4.draw ();
-        my_office5.update (60);
-        my_office5.draw ();
-        my_office6.update (60);
-        my_office6.draw ();
-        my_office7.update (60);
-        my_office7.draw ();
-        my_office8.update (60);
-        my_office8.draw ();
+        level_1.update (60);
+        level_1.draw ();
+        level_2.update (60);
+        level_2.draw ();
+        level_3.update (60);
+        level_3.draw ();
         cam->display ();
     }
     return 0;

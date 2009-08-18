@@ -22,9 +22,9 @@ class C_floor_base
 protected:
     int m_level;
     int m_current_animation;
-    int m_x, m_x2, m_y;
     
 public:
+    int m_x, m_x2, m_y;
     virtual void update (float dt);
     virtual void draw ();
 };

@@ -35,6 +35,12 @@ camera::get_world_y ()
     return m_world_y;
 }
 
+int
+camera::get_world_x ()
+{
+    return m_world_x;
+}
+
 void
 camera::set_max_framerate (int rate)
 {
@@ -91,6 +97,13 @@ camera::center (int x, int y)
 
 void
 camera::draw (animation & to_draw)
+{
+    to_draw.sprite->SetPosition (to_draw.get_position_x () - m_s.first, to_draw.get_position_y () - m_s.second);
+    m_window->Draw (*to_draw.sprite);
+}
+
+void
+camera::draw (animation_single & to_draw)
 {
     to_draw.sprite->SetPosition (to_draw.get_position_x () - m_s.first, to_draw.get_position_y () - m_s.second);
     m_window->Draw (*to_draw.sprite);

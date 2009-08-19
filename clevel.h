@@ -20,7 +20,7 @@
 class C_level
 {
 private:
-    std::list<C_floor_base> m_floors;
+    std::list<C_floor_base *> m_floors;
     animation_single * m_fire_escape_l;
     animation_single * m_fire_escape_r;
     int m_level;
@@ -28,7 +28,7 @@ private:
     
 public:
     C_level (int m_level);
-    void add_floor (C_floor_base & floor);
+    void add_floor (C_floor_base * floor);
     void update (float dt);
     void draw ();
 };

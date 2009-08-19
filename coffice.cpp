@@ -47,7 +47,7 @@ C_office::C_office (int x, int level)
     image_manager * image_man = image_manager::get_instance ();
     m_level = --level;
     m_x = x;
-    m_x2 = x + 36;
+    m_x2 = x + 72;
     m_y = (camera::get_instance()->get_world_y () ) - (level * 36);
     std::cout << "newly made office is at " << m_x << " , " << m_y << std::endl;
     m_animations[s_occupied_day] = new animation ();

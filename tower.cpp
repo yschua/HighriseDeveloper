@@ -48,14 +48,14 @@ main ()
     C_level level_1 (1);
     C_level level_2 (2);
     C_level level_3 (3);
-    level_1.add_floor (my_office);
-    level_1.add_floor (my_office3);
-    level_1.add_floor (my_office5);
-    level_2.add_floor (my_office2);
-    level_2.add_floor (my_office4);
-    level_2.add_floor (my_office6);
-    level_3.add_floor (my_office7);
-    level_3.add_floor (my_office8);
+    level_1.add_floor (&my_office);
+    level_1.add_floor (&my_office3);
+    level_1.add_floor (&my_office5);
+    level_2.add_floor (&my_office2);
+    level_2.add_floor (&my_office4);
+    level_2.add_floor (&my_office6);
+    level_3.add_floor (&my_office7);
+    level_3.add_floor (&my_office8);
     while (1) {
         while (cam->get_event (event)) {
             if (event.Type == sf::Event::Closed)

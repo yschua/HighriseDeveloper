@@ -17,7 +17,7 @@
 #ifndef _FLOORBASE_H
 #define _FLOORBASE_H
 
-class C_floor_base
+class C_FloorBase
 {
 protected:
     int m_level;

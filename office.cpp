@@ -44,20 +44,20 @@ C_office::occupied_day (float dt)
 C_office::C_office (int x, int level)
 :   m_current_state (s_unoccupied_day)
 {
-    image_manager * image_man = image_manager::get_instance ();
+    C_ImageManager * image_man = C_ImageManager::get_instance ();
     m_level = --level;
     m_x = x;
     m_x2 = x + 72;
-    m_y = (camera::get_instance()->get_world_y () ) - (level * 36);
-    std::cout << "newly made office is at " << m_x << " , " << m_y << std::endl;
-    m_animations[s_occupied_day] = new animation ();
+    m_y = (C_Camera::get_instance()->get_world_y () ) - (level * 36);
+    std::cout << "New office at " << m_x << ", " << m_y << std::endl;
+    m_animations[s_occupied_day] = new C_Animation ();
     m_animations[s_occupied_day]->add_frame (image_man->get_image ("office_o_d_1.png"), 1000);
     m_animations[s_occupied_day]->add_frame (image_man->get_image ("office_o_d_2.png"), 1000);
     m_animations[s_occupied_day]->add_frame (image_man->get_image ("office_o_d_3.png"), 1000);
     m_animations[s_occupied_day]->add_frame (image_man->get_image ("office_o_d_4.png"), 1000);
     m_animations[s_occupied_day]->add_frame (image_man->get_image ("office_o_d_5.png"), 1000);
     m_animations[s_occupied_day]->set_position (m_x, m_y);
-    m_animations[s_unoccupied_day] = new animation ();
+    m_animations[s_unoccupied_day] = new C_Animation ();
     m_animations[s_unoccupied_day]->add_frame (image_man->get_image ("office_u_d.png"), 1000);
     m_animations[s_unoccupied_day]->set_position (m_x, m_y);
 }
@@ -81,5 +81,5 @@ C_office::update (float dt)
 void
 C_office::draw ()
 {
-    camera::get_instance()->draw (*m_animations[m_current_state]);
+    C_Camera::get_instance()->draw (*m_animations[m_current_state]);
 }

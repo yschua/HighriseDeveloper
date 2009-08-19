@@ -30,12 +30,11 @@
 int
 main ()
 {
-    camera * cam = camera::get_instance ();
+    C_Camera * cam = C_Camera::get_instance ();
     cam->set_cam_size (800, 600);
     cam->set_world_size (1280, 1080);
     cam->set_max_framerate (60);
     cam->create ("test");
-    image_manager * image_man = image_manager::get_instance ();
     sf::Event event;
     C_office my_office (400, 1);
     C_office my_office2 (400, 2);

@@ -20,7 +20,7 @@
 #include "physics.h"
 #include "animation.h"
 
-animation::animation ()
+C_Animation::C_Animation ()
 {
     m_current_frame = 0;
     m_time = 0;
@@ -28,13 +28,13 @@ animation::animation ()
 }
 
 void
-animation::add_frame (sf::Image * image, float duration)
+C_Animation::add_frame (sf::Image * image, float duration)
 {
     m_frames.push_back (std::pair<sf::Image *, float> (image, duration));
 }
 
 void
-animation::update (float dt)
+C_Animation::update (float dt)
 {
     m_time += dt;
     if (m_time > m_frames[m_current_frame].second) {
@@ -46,7 +46,7 @@ animation::update (float dt)
     }
 }
 
-animation_single::animation_single (sf::Image * image)
+C_AnimationSingle::C_AnimationSingle (sf::Image * image)
 {
     sprite = new sf::Sprite ();
     sprite->SetImage (*image);

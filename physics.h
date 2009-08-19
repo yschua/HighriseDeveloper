@@ -19,12 +19,12 @@
 
 typedef std::pair<float, float> vector2;
 
-class body
+class C_Body
 {  
 public:
     vector2 m_s, m_v, m_a;
-    body (float x, float y);
-    body ();
+    C_Body (float x, float y);
+    C_Body ();
     float get_position_x ();
     float get_position_y ();
     float get_velocity_x ();

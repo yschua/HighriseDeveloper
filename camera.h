@@ -17,21 +17,21 @@
 #ifndef _CAMERA_H
 #define _CAMERA_H
 
-class camera : public body
+class C_Camera : public C_Body
 {
 private:
     int m_world_x, m_world_y, m_cam_x, m_cam_y;
     sf::RenderWindow * m_window;
     sf::Color m_back_color;
-    static camera * m_instance;
-    camera ();
+    static C_Camera * m_instance;
+    C_Camera ();
 
 public:
-    static camera * get_instance ();
+    static C_Camera * get_instance ();
     void display ();
     void clear ();
-    void draw (animation & to_draw);
-    void draw (animation_single & to_draw);
+    void draw (C_Animation & to_draw);
+    void draw (C_AnimationSingle & to_draw);
     void set_max_framerate (int rate);
     void set_cam_size (int x, int y);
     void set_world_size (int x, int y);

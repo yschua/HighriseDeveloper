@@ -19,30 +19,30 @@
 #include <SFML/Graphics.hpp>
 #include "image.h"
 
-image_manager * image_manager::m_instance = NULL;
+C_ImageManager * C_ImageManager::m_instance = NULL;
 
-image_manager::image_manager ()
+C_ImageManager::C_ImageManager ()
 :   m_path_prefix ("data/")
 {
 }
 
-image_manager *
-image_manager::get_instance ()
+C_ImageManager *
+C_ImageManager::get_instance ()
 {
     if (m_instance == NULL) {
-        m_instance = new image_manager ();
+        m_instance = new C_ImageManager ();
     }
     return m_instance;
 }
 
 void
-image_manager::set_path (const std::string & prefix)
+C_ImageManager::set_path (const std::string & prefix)
 {
     m_path_prefix = prefix;
 }
 
 sf::Image *
-image_manager::get_image (const std::string & name)
+C_ImageManager::get_image (const std::string & name)
 {
     if (m_images[name] == NULL) {
         sf::Image * temp;
@@ -52,11 +52,12 @@ image_manager::get_image (const std::string & name)
         m_images[name] = temp;
         return temp;
     }
+    std::cout << "Using preloaded file " << name << std::endl;
     return m_images[name];
 }
 
 int
-image_manager::preload_image (const std::string & name)
+C_ImageManager::preload_image (const std::string & name)
 {
     if (m_images[name] == NULL) {
         sf::Image * temp;

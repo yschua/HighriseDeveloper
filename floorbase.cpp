@@ -23,13 +23,13 @@
 #include "floorbase.h"
 
 void
-C_floor_base::update (float dt)
+C_FloorBase::update (float dt)
 {
     std::cout << "Floor base class: update function called" << std::endl;
 }
 
 void
-C_floor_base::draw ()
+C_FloorBase::draw ()
 {
     std::cout << "Floor base class: draw function called" << std::endl;
 }

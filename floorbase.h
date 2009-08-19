@@ -14,8 +14,8 @@
  *   along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef _CFLOORBASE_H
-#define _CFLOORBASE_H
+#ifndef _FLOORBASE_H
+#define _FLOORBASE_H
 
 class C_floor_base
 {

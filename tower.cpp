@@ -23,9 +23,9 @@
 #include "animation.h"
 #include "image.h"
 #include "camera.h"
-#include "cfloorbase.h"
-#include "coffice.h"
-#include "clevel.h"
+#include "floorbase.h"
+#include "office.h"
+#include "level.h"
 
 int
 main ()

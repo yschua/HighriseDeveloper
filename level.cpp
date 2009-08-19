@@ -22,10 +22,10 @@
 #include "physics.h"
 #include "animation.h"
 #include "camera.h"
-#include "cfloorbase.h"
-#include "coffice.h"
+#include "floorbase.h"
+#include "office.h"
 #include "image.h"
-#include "clevel.h"
+#include "level.h"
  
 C_level::C_level (int level)
 :   m_level (--level)

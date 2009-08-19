@@ -14,23 +14,26 @@
  *   along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef _CLEVEL_H
-#define _CLEVEL_H
+#ifndef _OFFICE_H
+#define _OFFICE_H
 
-class C_level
+enum office_state {
+    s_unoccupied_day,
+    s_occupied_day
+};
+
+class C_office : public C_floor_base
 {
 private:
-    std::list<C_floor_base *> m_floors;
-    animation_single * m_fire_escape_l;
-    animation_single * m_fire_escape_r;
-    int m_level;
-    int m_x, m_x2, m_y;
-    
+    office_state unoccupied_day (float dt);
+    office_state occupied_day (float dt);
+    std::map<office_state, animation *> m_animations;
+    office_state m_current_state;
+
 public:
-    C_level (int m_level);
-    void add_floor (C_floor_base * floor);
-    void update (float dt);
-    void draw ();
+    virtual void update (float dt);
+    virtual void draw ();
+    C_office (int x, int level);
 };
 
 #endif

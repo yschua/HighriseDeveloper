@@ -21,8 +21,8 @@
 #include "physics.h"
 #include "animation.h"
 #include "camera.h"
-#include "cfloorbase.h"
-#include "coffice.h"
+#include "floorbase.h"
+#include "office.h"
 #include "image.h"
 
 office_state

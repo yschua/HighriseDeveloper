@@ -14,22 +14,23 @@
  *   along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <iostream>
-#include <SFML/System.hpp>
-#include <SFML/Graphics.hpp>
-#include "physics.h"
-#include "animation.h"
-#include "camera.h"
-#include "cfloorbase.h"
+#ifndef _LEVEL_H
+#define _LEVEL_H
 
-void
-C_floor_base::update (float dt)
+class C_level
 {
-    std::cout << "Floor base class: update function called" << std::endl;
-}
+private:
+    std::list<C_floor_base *> m_floors;
+    animation_single * m_fire_escape_l;
+    animation_single * m_fire_escape_r;
+    int m_level;
+    int m_x, m_x2, m_y;
+    
+public:
+    C_level (int m_level);
+    void add_floor (C_floor_base * floor);
+    void update (float dt);
+    void draw ();
+};
 
-void
-C_floor_base::draw ()
-{
-    std::cout << "Floor base class: draw function called" << std::endl;
-}
+#endif

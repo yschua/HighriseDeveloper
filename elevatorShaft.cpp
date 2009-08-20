@@ -37,7 +37,7 @@ C_ElevatorShaft::C_ElevatorShaft ( int x, int level, C_Elevator* pElevator )
 
 C_ElevatorShaft::~C_ElevatorShaft()
 {
-};
+}
 
 void
 C_ElevatorShaft::update (float dt)

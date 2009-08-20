@@ -51,7 +51,7 @@ main ()
       level_2.add_floor (&my_office6);
       level_3.add_floor (&my_office7);
       level_3.add_floor (&my_office8);
-       
+      
       pElevator = new C_Elevator( C_Elevator::LS_Standard, 450+16, 0 );
       routes.add_route( pElevator );
 
@@ -59,24 +59,30 @@ main ()
          while (cam->get_event (event)) {
             if (event.Type == sf::Event::Closed)
                exit (0);
-            if (event.Type == sf::Event::KeyPressed) {
-               if (event.Key.Code == sf::Key::A) {
+            if (event.Type == sf::Event::KeyPressed)
+            {
+               if (event.Key.Code == sf::Key::A)
+               {
                   cam->m_v.first = -200;
                   cam->m_a.first = 150;
                }
-               if (event.Key.Code == sf::Key::S) {
+               if (event.Key.Code == sf::Key::S)
+               {
                   cam->m_v.second = 200;
                   cam->m_a.second = -150;
                }
-               if (event.Key.Code == sf::Key::D) {
+               if (event.Key.Code == sf::Key::D)
+               {
                   cam->m_v.first = 200;
                   cam->m_a.first = -150;
                }
-               if (event.Key.Code == sf::Key::W) {
+               if (event.Key.Code == sf::Key::W)
+               {
                   cam->m_v.second = -200;
                   cam->m_a.second = 150;
                }
-               if (event.Key.Code == sf::Key::E) {
+               if (event.Key.Code == sf::Key::E)
+               {
                   cam->set_velocity (0, 0);
                }
             }

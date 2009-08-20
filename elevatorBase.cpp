@@ -38,7 +38,7 @@ C_ElevatorBase::C_ElevatorBase ( int x, int level, C_Elevator* pElevator )
 
 C_ElevatorBase::~C_ElevatorBase()
 {
-};
+}
 
 void
 C_ElevatorBase::update (float dt)

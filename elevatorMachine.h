@@ -19,6 +19,7 @@
 
 class C_Elevator;
 class C_FloorBase;
+class C_Camera;
 
 class C_ElevatorMachine : public C_ElevatorBase
 {
@@ -37,7 +38,9 @@ protected:
    short m_ImageFrame;
    short m_LastFrame;
    short m_FirstFrame;
-    std::map<short, C_Animation *> m_animations;
+   C_Animation* m_LifterAnimation;
+   C_Camera* m_cam;;
+
 
 public:
    // CTOR/DTOR
@@ -45,6 +48,7 @@ public:
    virtual ~C_ElevatorMachine();
 
    // Implemantation
+   void pos_calc ();
    virtual void update (float dt);
    virtual void draw ();
 };

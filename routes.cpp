@@ -14,40 +14,33 @@
  *   along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <cstdlib> 
-#include <iostream>
-#include <SFML/System.hpp>
-#include <SFML/Graphics.hpp>
-#include "image.h"
-#include "physics.h"
-#include "animation.h"
-#include "tiler.h"
+#include <list>
 
 #include "routeBase.h"
-#include "elevator.h"
 #include "elevatorBase.h"
+#include "routes.h"
 
-C_ElevatorBase::C_ElevatorBase ( int x, int level, C_Elevator* pElevator )
+C_Routes::C_Routes()
 {
-   m_x = x;
-   m_y = 0;
-   m_Level = level;
-   m_pParent = pElevator;
-   C_ImageManager * image_man = C_ImageManager::get_instance ();
+}
+void C_Routes::add_route(C_RouteBase * route)
+{
+   m_Routes.push_back( route );
 }
 
-C_ElevatorBase::~C_ElevatorBase()
+void C_Routes::update (float dt)
 {
-};
-
-void
-C_ElevatorBase::update (float dt)
-{
-
+   for each( C_RouteBase * route in m_Routes )
+   {
+      route->update( dt );
+   }
 }
 
-void
-C_ElevatorBase::draw ()
+void C_Routes::draw ()
 {
-//    C_Camera::get_instance()->draw (*m_animations[m_current_state]);
+   for each( C_RouteBase * route in m_Routes )
+   {
+      route->draw( );
+   }
 }
+

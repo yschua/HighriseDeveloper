@@ -25,63 +25,80 @@ main ()
     cam->set_max_framerate (60);
     cam->create ("test");
     sf::Event event;
-    C_Lobby my_lobby (370, 640, 0);
-    C_office my_office (400, 1);
-    C_office my_office2 (400, 2);
-    C_office my_office3 (472, 1);
-    C_office my_office4 (472, 2);
-    C_office my_office5 (544, 1);
-    C_office my_office6 (544, 2);
-    C_office my_office7 (450, 3);
-    C_office my_office8 (522, 3);
-    C_level level_1 (1);
-    C_level level_2 (2);
-    C_level level_3 (3);
-    level_1.add_floor (&my_office);
-    level_1.add_floor (&my_office3);
-    level_1.add_floor (&my_office5);
-    level_2.add_floor (&my_office2);
-    level_2.add_floor (&my_office4);
-    level_2.add_floor (&my_office6);
-    level_3.add_floor (&my_office7);
-    level_3.add_floor (&my_office8);
-    while (1) {
-        while (cam->get_event (event)) {
-            if (event.Type == sf::Event::Closed)
-                exit (0);
-            if (event.Type == sf::Event::KeyPressed) {
-                if (event.Key.Code == sf::Key::A) {
-                    cam->m_v.first = -200;
-                    cam->m_a.first = 150;
-                }
-                if (event.Key.Code == sf::Key::S) {
-                    cam->m_v.second = 200;
-                    cam->m_a.second = -150;
-                }
-                if (event.Key.Code == sf::Key::D) {
-                    cam->m_v.first = 200;
-                    cam->m_a.first = -150;
-                }
-                if (event.Key.Code == sf::Key::W) {
-                    cam->m_v.second = -200;
-                    cam->m_a.second = 150;
-                }
-                if (event.Key.Code == sf::Key::E) {
-                    cam->set_velocity (0, 0);
-                }
-            }
-        }
-        cam->clear ();
-        cam->integrate (60);
-        level_1.update (60);
-        level_1.draw ();
-        level_2.update (60);
-        level_2.draw ();
-        level_3.update (60);
-        level_3.draw ();
-        my_lobby.update (60);
-        my_lobby.draw ();
-        cam->display ();
+    C_Elevator* pElevator;
+
+    try
+    {
+       C_Lobby my_lobby (370, 640, 0);
+       C_office my_office (400, 1);
+       C_office my_office2 (400, 2);
+       C_office my_office3 (472, 1);
+       C_office my_office4 (472, 2);
+       C_office my_office5 (544, 1);
+       C_office my_office6 (544, 2);
+       C_office my_office7 (450, 3);
+       C_office my_office8 (522, 3);
+
+       C_Routes routes;
+       C_level level_1 (1);
+       C_level level_2 (2);
+       C_level level_3 (3);
+       level_1.add_floor (&my_office);
+       level_1.add_floor (&my_office3);
+       level_1.add_floor (&my_office5);
+       level_2.add_floor (&my_office2);
+       level_2.add_floor (&my_office4);
+       level_2.add_floor (&my_office6);
+       level_3.add_floor (&my_office7);
+       level_3.add_floor (&my_office8);
+       
+       pElevator = new C_Elevator( C_Elevator::Lift_Styles::LS_Standard, 450+16, 0 );
+       routes.add_route( pElevator );
+
+       while (1) {
+           while (cam->get_event (event)) {
+               if (event.Type == sf::Event::Closed)
+                   exit (0);
+               if (event.Type == sf::Event::KeyPressed) {
+                   if (event.Key.Code == sf::Key::A) {
+                       cam->m_v.first = -200;
+                       cam->m_a.first = 150;
+                   }
+                   if (event.Key.Code == sf::Key::S) {
+                       cam->m_v.second = 200;
+                       cam->m_a.second = -150;
+                   }
+                   if (event.Key.Code == sf::Key::D) {
+                       cam->m_v.first = 200;
+                       cam->m_a.first = -150;
+                   }
+                   if (event.Key.Code == sf::Key::W) {
+                       cam->m_v.second = -200;
+                       cam->m_a.second = 150;
+                   }
+                   if (event.Key.Code == sf::Key::E) {
+                       cam->set_velocity (0, 0);
+                   }
+               }
+           }
+           cam->clear ();
+           cam->integrate (60);
+           level_1.update (60);
+           level_1.draw ();
+           level_2.update (60);
+           level_2.draw ();
+           level_3.update (60);
+           level_3.draw ();
+           my_lobby.update (60);
+           my_lobby.draw ();
+           routes.update(60);
+           routes.draw();
+           cam->display ();
+       }
+    }
+    catch( C_HighriseException* ex )
+    {
+       std::cout << "Exception caught in main: " << ex->get_Message();
     }
     return 0;
 }

@@ -13,24 +13,17 @@
  *   You should have received a copy of the GNU General Public License
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
-#include <iostream>
-#include <list>
-#include <SFML/System.hpp>
-#include <SFML/Graphics.hpp>
 
-#include "highriseException.h"
+#ifndef _ROUTEBASE_H
+#define _ROUTEBASE_H
 
-#include "physics.h"
-#include "animation.h"
-#include "tiler.h"
-#include "image.h"
-#include "camera.h"
+class C_RouteBase
+{
+    
+public:
+   C_RouteBase() {};
+   virtual void update (float dt) = 0;
+   virtual void draw () = 0;
+};
 
-#include "floorbase.h"
-#include "routeBase.h"
-#include "office.h"
-#include "level.h"
-#include "lobby.h"
-#include "elevator.h"
-#include "routes.h"
+#endif //_ROUTEBASE_H

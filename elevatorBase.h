@@ -35,6 +35,7 @@ public:
    virtual ~C_ElevatorBase( );
 
    // Implemantation
+   void pos_calc ();
    virtual void update (float dt) = 0; // pure
    virtual void draw () = 0;
 };

@@ -24,15 +24,18 @@
 // ListPit is the crash landing pit below in the event of a break failure.
 // This three parts build the shaft for the elevator/lift to run in.
 
-class C_LiftMachine; // mover above
+// these decls allow inclusion of this header without the need to load these class headers.
+class C_RouteBase;
+class C_ElevatorMachine; // mover above
 class C_LiftPit;     // landing pit below
 class C_Body;
+class C_Camera;
 
-class C_Elevator : public C_Body
+class C_Elevator : public C_Body, public C_RouteBase
 {
 public:
 
-   enum LiftOps_State : short
+   enum LiftOps_State
    {
       LOS_EStop = 0,
       LOS_FireMode,
@@ -44,7 +47,7 @@ public:
       LOS_ReturnToHome, // Send car to set home floor
    };
 
-   enum Lift_Styles : short
+   enum Lift_Styles
    {
       LS_Small = 0,
       LS_Standard,
@@ -54,23 +57,36 @@ public:
    };
 
 protected:
+
+   C_AnimationSingle* m_ElevatorImage;
+   C_AnimationSingle* m_LiftPit;
+   C_ElevatorMachine* m_LiftMachine;
+   C_Camera* m_cam;
    // Controls this things motion
    int   m_X;
+   int   m_Y;
    short m_Level;
    short m_CurrentLevel;
    short m_Direction;
+   short m_TopLevel;
+   short m_BottomLevel;
+   short m_Position;
+   short m_IdleTime;
    LiftOps_State  m_LiftOperation;
-   Lift_Styles    m_LiftStyle;
+   unsigned char  m_LiftStyle;
 
+public:
    // CTOR/DTOR  Use create to make on
    C_Elevator( Lift_Styles style, int x, int level );
    virtual ~C_Elevator();
+
 public:
-   C_Elevator* Create( Lift_Styles style, int x, int level );
+   static C_Elevator* Create( Lift_Styles style, int x, int level );  // this is rejected for som reason
 
    // Implemantation
    void Move( int x, int y );
    void Resize( int x, int y );
+   void pos_calc ();
    virtual void update (float dt);
    virtual void draw ();
 };

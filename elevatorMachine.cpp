@@ -32,23 +32,32 @@ C_ElevatorMachine::C_ElevatorMachine (int x, int level, C_Elevator* pElevator )
 :  C_ElevatorBase( x, level, pElevator )
 ,  m_State( LMS_Idle )
 {
-   m_x = x;
-   m_Level = level;
    C_ImageManager * image_man = C_ImageManager::get_instance ();
     m_y = (C_Camera::get_instance()->get_world_y () ) - (level * 36);
     std::cout << "New elevator machine at " << m_x << ", " << m_y << std::endl;
-    m_animations[0] = new C_Animation ();
-    m_animations[0]->add_frame (image_man->get_image ("liftMachine_1.png"), 1000);
-    m_animations[1]->add_frame (image_man->get_image ("liftMachine_2.png"), 1000);
-    m_animations[2]->add_frame (image_man->get_image ("liftMachine_3.png"), 1000);
+    m_LifterAnimation = new C_Animation ();
+    m_LifterAnimation->add_frame (image_man->get_image ("liftMachine_1.png"), 1000);
+    m_LifterAnimation->add_frame (image_man->get_image ("liftMachine_2.png"), 1000);
+    m_LifterAnimation->add_frame (image_man->get_image ("liftMachine_3.png"), 1000);
    m_ImageFrame = 0;
    m_FirstFrame = 0;
    m_LastFrame = 2;
+   m_cam = C_Camera::get_instance ();
+   m_y = ( m_cam->get_world_y ()) - (level * 36);
+   pos_calc();
 }
 
 C_ElevatorMachine::~C_ElevatorMachine()
 {
+   delete m_LifterAnimation;
 };
+
+
+void
+C_ElevatorMachine::pos_calc ()
+{
+   m_LifterAnimation->set_position ((float)m_x, (float)(m_y) ); // elevator sprite is only 32x32
+}
 
 void
 C_ElevatorMachine::update (float dt)
@@ -70,11 +79,11 @@ C_ElevatorMachine::update (float dt)
        m_ImageFrame = m_LastFrame;
     if( m_ImageFrame > m_LastFrame )
        m_ImageFrame = m_FirstFrame;
-//    m_animations[m_ImageFrame]->update (dt);
+    m_LifterAnimation->update (dt);
 }
 
 void
 C_ElevatorMachine::draw ()
 {
-//    C_Camera::get_instance()->draw (*m_animations[m_current_state]);
+   this->m_cam->draw( * m_LifterAnimation );
 }

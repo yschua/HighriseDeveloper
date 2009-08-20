@@ -13,24 +13,22 @@
  *   You should have received a copy of the GNU General Public License
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
-#include <iostream>
-#include <list>
-#include <SFML/System.hpp>
-#include <SFML/Graphics.hpp>
 
-#include "highriseException.h"
+#ifndef _ROUTES_H
+#define _ROUTES_H
 
-#include "physics.h"
-#include "animation.h"
-#include "tiler.h"
-#include "image.h"
-#include "camera.h"
+class C_RouteBase; // aggregate of elevators and stairs
 
-#include "floorbase.h"
-#include "routeBase.h"
-#include "office.h"
-#include "level.h"
-#include "lobby.h"
-#include "elevator.h"
-#include "routes.h"
+class C_Routes
+{
+private:
+    std::list<C_RouteBase *> m_Routes;
+    
+public:
+    C_Routes();
+    void add_route(C_RouteBase * route);
+    void update (float dt);
+    void draw ();
+};
+
+#endif //_ROUTES_H

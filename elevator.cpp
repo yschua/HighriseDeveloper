@@ -24,6 +24,7 @@
 #include "camera.h"
 #include "image.h"
 
+#include "routeBase.h"
 #include "elevatorBase.h"
 #include "elevatorMachine.h"
 #include "elevatorShaft.h"
@@ -42,23 +43,92 @@ C_Elevator::C_Elevator ( Lift_Styles style, int x, int level)
 :  m_LiftStyle( style )
 ,  m_LiftOperation( LOS_Waiting )
 {
-   m_X = x;
    m_Level = level;
-   C_ImageManager * image_man = C_ImageManager::get_instance ();
+   m_TopLevel = 3;
+   m_BottomLevel = 0;
+   m_Position = 0;
+   m_Direction = 0;
+   m_IdleTime = 30;
+
+   C_ImageManager * images = C_ImageManager::get_instance ();
+   m_ElevatorImage = new C_AnimationSingle (images->get_image ("elevator_u_s.png"));
+   m_LiftPit = new C_AnimationSingle (images->get_image ("liftpit_1.png"));
+
+   m_cam = C_Camera::get_instance ();
+   m_X = x;
+   m_Y = ( m_cam->get_world_y ()) - (level * 36);
+   m_LiftMachine = new C_ElevatorMachine( x, m_TopLevel+1, this );
+   m_LiftPit->set_position ((float)m_X, (float)(m_Y + 36) );
 }
 
 C_Elevator::~C_Elevator()
 {
+   delete m_ElevatorImage;
 };
+
+void
+C_Elevator::pos_calc ()
+{
+   m_ElevatorImage->set_position ((float)m_X, (float)(m_Y - m_Position + 4) ); // elevator sprite is only 32x32
+}
 
 void
 C_Elevator::update (float dt)
 {
+   int max = m_TopLevel * 36;
+   int min = m_BottomLevel * 36;
 
+   // test plug
+   switch( m_Direction )
+   {
+   case 0:
+      if( m_IdleTime > 0 )
+      {
+         m_IdleTime--;
+      }
+      else
+      {
+         if( m_Position > m_BottomLevel+9 )
+         {
+            m_Direction = -1;
+         }
+         else
+         {
+            m_Direction = 1;
+         }
+      }
+      break;
+   case 1:
+      if( m_Position < max )
+      {
+         m_Position++;
+         m_LiftMachine->update( dt );
+      }
+      else
+      {
+         m_Direction = 0;
+         m_IdleTime = 30;
+      }
+      break;
+   case -1:
+      if( m_Position > min )
+      {
+         m_Position--;
+         m_LiftMachine->update( dt );
+      }
+      else
+      {
+         m_Direction = 0;
+         m_IdleTime = 30;
+      }
+   }
+   pos_calc();
 }
 
 void
 C_Elevator::draw ()
 {
-//    C_Camera::get_instance()->draw (*m_animations[m_current_state]);
+   m_LiftMachine->draw();
+   m_cam->draw (*m_LiftPit );
+   m_cam->draw (*m_ElevatorImage);
 }

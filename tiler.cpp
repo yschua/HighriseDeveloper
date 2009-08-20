@@ -16,14 +16,21 @@
 
 #include "highrisedev.h"
 
-void
-C_FloorBase::update (float dt)
+C_Tiler::C_Tiler (sf::Image * image, int x, int x2, int y)
 {
-    std::cout << "Floor base class: update function called" << std::endl;
-}
-
-void
-C_FloorBase::draw ()
-{
-    std::cout << "Floor base class: draw function called" << std::endl;
+    m_frame = image;
+    m_X = x;
+    m_X2 = x2;
+    m_Y = y;
+    m_ImageSizeX = m_frame->GetWidth();
+    m_ImageSizeY = m_frame->GetHeight();
+    unsigned int tiled_num = (unsigned int) ((x2 - x) / m_ImageSizeX);
+    int part = (int) ((tiled_num * m_ImageSizeX) + x);
+    for (int i = 0; i <= tiled_num; i++) {
+        C_AnimationSingle * new_tiler_part = new C_AnimationSingle (m_frame);
+        m_Sprites.push_back (new_tiler_part);
+        new_tiler_part->set_position (m_X + (i * m_ImageSizeX), m_Y);
+    }
+    C_AnimationSingle * end = m_Sprites[m_Sprites.size () - 1];
+    end->SetSubRect (0, 0, x2 - part, m_ImageSizeY);
 }

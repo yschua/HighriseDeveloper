@@ -1,31 +1,20 @@
 /*   This file is part of Highrise Developer.
  *
- *   Foobar is free software: you can redistribute it and/or modify
+ *   Highrise Developer is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
  *   (at your option) any later version.
 
- *   Foobar is distributed in the hope that it will be useful,
+ *   Highrise Developer is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
  *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *   GNU General Public License for more details.
  *
  *   You should have received a copy of the GNU General Public License
- *   along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
+ *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <SFML/System.hpp>
-#include <SFML/Graphics.hpp>
-#include <iostream>
-#include <list>
-
-#include "physics.h"
-#include "animation.h"
-#include "image.h"
-#include "camera.h"
-#include "floorbase.h"
-#include "office.h"
-#include "level.h"
+#include "highrisedev.h"
 
 int
 main ()
@@ -36,6 +25,7 @@ main ()
     cam->set_max_framerate (60);
     cam->create ("test");
     sf::Event event;
+    C_Lobby my_lobby (370, 640, 0);
     C_office my_office (400, 1);
     C_office my_office2 (400, 2);
     C_office my_office3 (472, 1);
@@ -89,6 +79,8 @@ main ()
         level_2.draw ();
         level_3.update (60);
         level_3.draw ();
+        my_lobby.update (60);
+        my_lobby.draw ();
         cam->display ();
     }
     return 0;

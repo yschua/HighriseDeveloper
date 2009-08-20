@@ -13,17 +13,18 @@
  *   You should have received a copy of the GNU General Public License
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
+ 
+#include <SFML/System.hpp>
+#include <SFML/Graphics.hpp>
+#include <iostream>
+#include <list>
 
-#include "highrisedev.h"
-
-void
-C_FloorBase::update (float dt)
-{
-    std::cout << "Floor base class: update function called" << std::endl;
-}
-
-void
-C_FloorBase::draw ()
-{
-    std::cout << "Floor base class: draw function called" << std::endl;
-}
+#include "physics.h"
+#include "animation.h"
+#include "tiler.h"
+#include "image.h"
+#include "camera.h"
+#include "floorbase.h"
+#include "office.h"
+#include "level.h"
+#include "lobby.h"

@@ -14,16 +14,24 @@
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "highrisedev.h"
+#ifndef _LOBBY_H
+#define _LOBBY_H
 
-void
-C_FloorBase::update (float dt)
+class C_Lobby
 {
-    std::cout << "Floor base class: update function called" << std::endl;
-}
+private:
+    int m_level;
+    int m_x, m_x2, m_y;
+    C_Tiler * tile;
+    C_AnimationSingle * awn_left;
+    C_AnimationSingle * awn_right;
+    C_Camera * cam;
+    void pos_calc ();
 
-void
-C_FloorBase::draw ()
-{
-    std::cout << "Floor base class: draw function called" << std::endl;
-}
+public:
+    void update (float dt);
+    void draw ();
+    C_Lobby (int x, int x2, int level);
+};
+
+#endif

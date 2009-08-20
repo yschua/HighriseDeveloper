@@ -14,16 +14,23 @@
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "highrisedev.h"
+#ifndef _TILER_H
+#define _TILER_H
 
-void
-C_FloorBase::update (float dt)
+class C_Tiler
 {
-    std::cout << "Floor base class: update function called" << std::endl;
-}
+private:
+    bool m_ClipMode;
+    int m_X, m_X2, m_Y;
+    int m_ImageSizeX, m_ImageSizeY;
+    sf::Image * m_frame;
+    
+public:
+    C_Tiler (sf::Image * image, int x, int x2, int y);
+    void Resize (int x, int x2);
+    void SetY (int y);
+    void SetImage (sf::Image * image);
+    std::vector <C_AnimationSingle *> m_Sprites;
+};
 
-void
-C_FloorBase::draw ()
-{
-    std::cout << "Floor base class: draw function called" << std::endl;
-}
+#endif

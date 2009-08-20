@@ -1,24 +1,20 @@
 /*   This file is part of Highrise Developer.
  *
- *   Foobar is free software: you can redistribute it and/or modify
+ *   Highrise Developer is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
  *   (at your option) any later version.
 
- *   Foobar is distributed in the hope that it will be useful,
+ *   Highrise Developer is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
  *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *   GNU General Public License for more details.
  *
  *   You should have received a copy of the GNU General Public License
- *   along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
+ *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <iostream>
-#include <SFML/System.hpp>
-#include <SFML/Graphics.hpp>
-#include "physics.h"
-#include "animation.h"
+#include "highrisedev.h"
 
 C_Animation::C_Animation ()
 {
@@ -50,4 +46,11 @@ C_AnimationSingle::C_AnimationSingle (sf::Image * image)
 {
     sprite = new sf::Sprite ();
     sprite->SetImage (*image);
+}
+
+void
+C_AnimationSingle::SetSubRect (int x1, int y1, int x2, int y2)
+{
+    sf::IntRect * subrect = new sf::IntRect (x1, y1, x2, y2);
+    sprite->SetSubRect (*subrect);
 }

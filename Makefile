@@ -2,12 +2,12 @@ CC=g++
 CFLAGS=-O3
 LFLAGS=-lsfml-graphics -lsfml-window -lsfml-system 
 AR=ar
-SRCS=tower.cpp physics.cpp camera.cpp image.cpp animation.cpp floorbase.cpp office.cpp level.cpp
-OBJS=tower.o physics.o camera.o image.o animation.o floorbase.o office.o level.o
+SRCS=highrisedev.cpp physics.cpp camera.cpp image.cpp animation.cpp floorbase.cpp office.cpp level.cpp tiler.cpp lobby.cpp
+OBJS=highrisedev.o physics.o camera.o image.o animation.o floorbase.o office.o level.o tiler.o lobby.o
 
-all : tower
+all : highrisedev
 
-tower : $(OBJS) $(SRCS)
+highrisedev : $(OBJS) $(SRCS)
 	$(CC) $(CFLAGS) $(OBJS) $(LFLAGS) -o $@
 
 .c.o : $(SRCS)

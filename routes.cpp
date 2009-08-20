@@ -30,17 +30,18 @@ void C_Routes::add_route(C_RouteBase * route)
 
 void C_Routes::update (float dt)
 {
-   for each( C_RouteBase * route in m_Routes )
+   std::list<C_RouteBase *>::iterator i;
+   for (i = m_Routes.begin (); i != m_Routes.end (); i++)
    {
-      route->update( dt );
+      (*i)->update( dt );
    }
 }
 
 void C_Routes::draw ()
 {
-   for each( C_RouteBase * route in m_Routes )
+   std::list<C_RouteBase *>::iterator i;
+   for (i = m_Routes.begin (); i != m_Routes.end (); i++)
    {
-      route->draw( );
+      (*i)->draw( );
    }
 }
-

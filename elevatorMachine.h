@@ -24,7 +24,7 @@ class C_Camera;
 class C_ElevatorMachine : public C_ElevatorBase
 {
 public:
-   enum ElevatorMachine_State : short
+   enum ElevatorMachine_State
    {
       LMS_Idle = 0,
       LMS_Down = 1,

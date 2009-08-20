@@ -8,5 +8,6 @@ C_HighriseException::C_HighriseException( const char* message )
 }
 
 C_HighriseException::~C_HighriseException(void)
+throw ()
 {
 }

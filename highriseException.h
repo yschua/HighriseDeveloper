@@ -10,7 +10,7 @@ class C_HighriseException :
    std::string m_Message;
 public:
    C_HighriseException( const char* message );
-   ~C_HighriseException(void);
+   ~C_HighriseException (void) throw ();
 
    string& get_Message()
    {

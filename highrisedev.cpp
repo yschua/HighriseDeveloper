@@ -52,7 +52,7 @@ main ()
        level_3.add_floor (&my_office7);
        level_3.add_floor (&my_office8);
        
-       pElevator = new C_Elevator( C_Elevator::Lift_Styles::LS_Standard, 450+16, 0 );
+       pElevator = new C_Elevator( C_Elevator::LS_Standard, 450+16, 0 );
        routes.add_route( pElevator );
 
        while (1) {

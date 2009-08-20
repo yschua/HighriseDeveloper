@@ -16,8 +16,8 @@ all : highrisedev
 highrisedev : $(OBJS) $(SRCS)
 	$(CC) $(CFLAGS) $(OBJS) $(LFLAGS) -o $@
 
-.c.o : $(SRCS)
-	$(CC) -c $(CFLAGS) $*.c
+.cpp.o : $(SRCS)
+	$(CC) -c $(CFLAGS) $*.cpp
 
 clean : 
 	rm -rf *.o *.a *.exe stdout.txt stderr.txt

@@ -18,23 +18,23 @@
 #define _OFFICE_H
 
 enum office_state {
-    s_unoccupied_day,
-    s_occupied_day
+   s_unoccupied_day,
+   s_occupied_day
 };
 
 class C_office : public C_FloorBase
 {
 private:
-    office_state unoccupied_day (float dt);
-    office_state occupied_day (float dt);
-    std::map<office_state, C_Animation *> m_animations;
-    office_state m_current_state;
-    int m_current_animation;
+   office_state unoccupied_day (float dt);
+   office_state occupied_day (float dt);
+   std::map<office_state, C_Animation *> m_animations;
+   office_state m_current_state;
+   int m_current_animation;
 
 public:
-    virtual void update (float dt);
-    virtual void draw ();
-    C_office (int x, int level);
+   virtual void update (float dt);
+   virtual void draw ();
+   C_office (int x, int level);
 };
 
 #endif

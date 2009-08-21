@@ -26,6 +26,7 @@ main ()
    cam->create ("test");
    sf::Event event;
    C_Elevator* pElevator;
+   C_Background * pBackground;
 
    try
    {
@@ -52,8 +53,9 @@ main ()
       level_3.add_floor (&my_office7);
       level_3.add_floor (&my_office8);
       
-      pElevator = new C_Elevator( C_Elevator::LS_Standard, 450+16, 0 );
+      pElevator = new C_Elevator( C_Elevator::LS_Standard, 450+16, 0, 3 );
       routes.add_route( pElevator );
+      pBackground = new C_Background ();
 
       while (1) {
          while (cam->get_event (event)) {
@@ -89,6 +91,7 @@ main ()
          }
          cam->clear ();
          cam->integrate (60);
+         pBackground->draw ();
          level_1.update (60);
          level_1.draw ();
          level_2.update (60);

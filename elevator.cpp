@@ -35,19 +35,19 @@
 // this object is the elevator collection (Machines, Shaft, Pit) and the car.
 // At this time there is no LiftCar class.
 
-C_Elevator* C_Elevator::Create( Lift_Styles style, int x, int level )
+C_Elevator* C_Elevator::Create( Lift_Styles style, int x, short BottLevel, short TopLevel )
 {
-   return new C_Elevator( style, x, level );
+   return new C_Elevator( style, x, BottLevel, TopLevel );
 }
 
-C_Elevator::C_Elevator ( Lift_Styles style, int x, int level)
+C_Elevator::C_Elevator ( Lift_Styles style, int x, short BottomLevel, short TopLevel)
 :  m_LiftStyle( style )
 ,  m_LiftOperation( LOS_Waiting )
 {
    //m_Level = level; depricate
-   m_TopLevel = 3;
-   m_BottomLevel = 0;
-   m_Position = 0;
+   m_TopLevel = TopLevel + 11;
+   m_BottomLevel = BottomLevel + 11;
+   m_Position = (m_BottomLevel + 1) * 36;
    m_Direction = 0;
    m_IdleTime = 30;
 
@@ -61,9 +61,10 @@ C_Elevator::C_Elevator ( Lift_Styles style, int x, int level)
 
    m_cam = C_Camera::get_instance ();
    m_X = x;
-   m_Y = ( m_cam->get_world_y ()) - (level * 36);
+   m_Y = ( m_cam->get_world_y ()) - (m_BottomLevel * 36);
    m_LiftMachine = new C_ElevatorMachine( x, m_TopLevel+1, this );
    m_LiftPit->set_position ((float)m_X, (float)(m_Y + 36) );
+   m_ElevatorShaft = new C_Tiler (images->get_image ("liftshaft.png"), C_Tiler::Vertical, m_cam->get_world_y () - (m_TopLevel * 36), m_cam->get_world_y () - ((m_BottomLevel - 1) * 36), m_X);
 }
 
 C_Elevator::~C_Elevator()
@@ -74,7 +75,7 @@ C_Elevator::~C_Elevator()
 void
 C_Elevator::pos_calc ()
 {
-   m_ElevatorImage->set_position ((float)m_X, (float)(m_Y - m_Position + 4) ); // elevator sprite is only 32x32
+   m_ElevatorImage->set_position ((float)m_X, (float)(m_Y - (m_Position - 396) + 4) ); // elevator sprite is only 32x32
 }
 
 void
@@ -82,9 +83,10 @@ C_Elevator::setRoute( C_RouteVisitor* visitor )
 {
    // more plugging until the routing is done
    RoutingRequest* req = visitor->getRoute();
-   this->m_StartRoute = req->OriginLevel;
-   this->m_EndRoute = req->DestinLevel;
+   m_StartRoute = req->OriginLevel;
+   m_EndRoute = req->DestinLevel;
    int cur_level = m_Position/36;
+   std::cout << "Route: origin: " << m_StartRoute << " end: " << m_EndRoute << " Current level " << cur_level << std::endl;
    if( cur_level == m_StartRoute )
    {
       m_Direction = (cur_level < m_EndRoute) ? 1 : -1;
@@ -120,8 +122,8 @@ C_Elevator::update (float dt)
          // BS CODE
          if( m_StartRoute == m_EndRoute )
          {
-            int start = rand() % m_TopLevel; // this will work if start level is zero.
-            int end = rand() % m_TopLevel; // this will work if start level is zero.
+            int start = (rand() % (m_TopLevel - m_BottomLevel)) + m_BottomLevel; // this will work if start level is zero.
+            int end = (rand() % (m_TopLevel - m_BottomLevel)) + m_BottomLevel; // this will work if start level is zero.
             if (end == start )
             {
                m_IdleTime = 10;
@@ -143,7 +145,7 @@ C_Elevator::update (float dt)
          {
             m_Direction = (m_StartRoute > m_EndRoute) ? 1 : -1;
             m_StartRoute = m_EndRoute; // this stops the elevator at the destination to wait for a request.
-      // in the real code we will pull this request when it ends
+       // in the real code we will pull this request when it ends
          }
          // End BS code
          //if( m_Position > m_BottomLevel+9 )
@@ -186,6 +188,7 @@ C_Elevator::update (float dt)
 void
 C_Elevator::draw ()
 {
+   m_cam->draw (*m_ElevatorShaft);
    m_LiftMachine->draw();
    m_cam->draw (*m_LiftPit );
    m_cam->draw (*m_ElevatorImage);

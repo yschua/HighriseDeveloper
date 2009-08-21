@@ -1,6 +1,6 @@
 /*   This file is part of Highrise Developer.
  *
- *   Foobar is free software: you can redistribute it and/or modify
+ *   Highrise Developer is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
  *   (at your option) any later version.
@@ -11,7 +11,7 @@
  *   GNU General Public License for more details.
  *
  *   You should have received a copy of the GNU General Public License
- *   along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
+ *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include <cstdlib> 
@@ -33,12 +33,12 @@ C_ElevatorMachine::C_ElevatorMachine (int x, int level, C_Elevator* pElevator )
 ,  m_State( LMS_Idle )
 {
    C_ImageManager * image_man = C_ImageManager::get_instance ();
-    m_y = (C_Camera::get_instance()->get_world_y () ) - (level * 36);
-    std::cout << "New elevator machine at " << m_x << ", " << m_y << std::endl;
-    m_LifterAnimation = new C_Animation ();
-    m_LifterAnimation->add_frame (image_man->get_image ("liftMachine_1.png"), 1000);
-    m_LifterAnimation->add_frame (image_man->get_image ("liftMachine_2.png"), 1000);
-    m_LifterAnimation->add_frame (image_man->get_image ("liftMachine_3.png"), 1000);
+   m_y = (C_Camera::get_instance()->get_world_y () ) - (level * 36);
+   std::cout << "New elevator machine at " << m_x << ", " << m_y << std::endl;
+   m_LifterAnimation = new C_Animation ();
+   m_LifterAnimation->add_frame (image_man->get_image ("liftMachine_1.png"), 1000);
+   m_LifterAnimation->add_frame (image_man->get_image ("liftMachine_2.png"), 1000);
+   m_LifterAnimation->add_frame (image_man->get_image ("liftMachine_3.png"), 1000);
    m_ImageFrame = 0;
    m_FirstFrame = 0;
    m_LastFrame = 2;
@@ -50,8 +50,7 @@ C_ElevatorMachine::C_ElevatorMachine (int x, int level, C_Elevator* pElevator )
 C_ElevatorMachine::~C_ElevatorMachine()
 {
    delete m_LifterAnimation;
-};
-
+}
 
 void
 C_ElevatorMachine::pos_calc ()
@@ -62,24 +61,24 @@ C_ElevatorMachine::pos_calc ()
 void
 C_ElevatorMachine::update (float dt)
 {
-    switch (m_State)
-    {
-     case LMS_Down :
-        m_Direction = -1;
-        break;
-     case LMS_Up :
-        m_Direction = 1;
-        break;
-     case LMS_Idle :
-        m_Direction = 0;
-        break;
-    }
-    m_ImageFrame += m_Direction;
-    if( m_ImageFrame < 0 )
-       m_ImageFrame = m_LastFrame;
-    if( m_ImageFrame > m_LastFrame )
-       m_ImageFrame = m_FirstFrame;
-    m_LifterAnimation->update (dt);
+   switch (m_State)
+   {
+      case LMS_Down :
+         m_Direction = -1;
+      break;
+      case LMS_Up :
+         m_Direction = 1;
+      break;
+      case LMS_Idle :
+         m_Direction = 0;
+      break;
+   }
+   m_ImageFrame += m_Direction;
+   if( m_ImageFrame < 0 )
+      m_ImageFrame = m_LastFrame;
+   if( m_ImageFrame > m_LastFrame )
+      m_ImageFrame = m_FirstFrame;
+   m_LifterAnimation->update (dt);
 }
 
 void

@@ -62,6 +62,7 @@ protected:
    C_AnimationSingle* m_ElevatorImage;
    C_AnimationSingle* m_LiftPit;
    C_ElevatorMachine* m_LiftMachine;
+   C_Tiler * m_ElevatorShaft; // temporary to make a nice looking demo :]
    C_Camera* m_cam;
    // Controls this things motion
    int   m_X;
@@ -81,11 +82,10 @@ protected:
 
 public:
    // CTOR/DTOR  Use create to make on
-   C_Elevator( Lift_Styles style, int x, int level );
+   C_Elevator( Lift_Styles style, int x, short BottLevel, short TopLevel );
    virtual ~C_Elevator();
 
-public:
-   static C_Elevator* Create( Lift_Styles style, int x, int level );  // this is rejected for som reason
+   static C_Elevator* Create( Lift_Styles style, int x, short BottomLevel, short TopLevel );  // this is rejected for som reason
 
    // Implemantation
    void Move( int x, int y );

@@ -20,17 +20,17 @@
 class C_level
 {
 private:
-    std::list<C_FloorBase *> m_floors;
-    C_AnimationSingle * m_fire_escape_l;
-    C_AnimationSingle * m_fire_escape_r;
-    int m_level;
-    int m_x, m_x2, m_y;
-    
+   std::list<C_FloorBase *> m_floors;
+   C_AnimationSingle * m_fire_escape_l;
+   C_AnimationSingle * m_fire_escape_r;
+   int m_level;
+   int m_x, m_x2, m_y;
+
 public:
-    C_level (int m_level);
-    void add_floor (C_FloorBase * floor);
-    void update (float dt);
-    void draw ();
+   C_level (int m_level);
+   void add_floor (C_FloorBase * floor);
+   void update (float dt);
+   void draw ();
 };
 
 #endif

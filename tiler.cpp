@@ -16,25 +16,55 @@
 
 #include "highrisedev.h"
 
-C_Tiler::C_Tiler (sf::Image * image, int x, int x2, int y)
+C_Tiler::C_Tiler (sf::Image * image, draw_direction direction, int x, int x2, int y)
 {
-    m_frame = image;
-    m_X = x;
-    m_X2 = x2;
-    m_Y = y;
-    m_ImageSizeX = m_frame->GetWidth();
-    m_ImageSizeY = m_frame->GetHeight();
+   m_ClipMode = true;
+   m_frame = image;
+   m_X = x;
+   m_X2 = x2;
+   m_Y = y;
+   m_ImageSizeX = m_frame->GetWidth();
+   m_ImageSizeY = m_frame->GetHeight();
 
-    if( (m_ImageSizeY * m_ImageSizeX) == 0 )
-       throw new C_HighriseException( "Missing image file" );
+   if( (m_ImageSizeY * m_ImageSizeX) == 0 )
+      throw new C_HighriseException( "Missing image file" );
+      
+   if (direction == Horizontal)
+   {
+      unsigned int tiled_num = (unsigned int) ((x2 - x) / m_ImageSizeX);
+      int part = (int) ((tiled_num * m_ImageSizeX) + x);
+      for ( unsigned int i = 0; i <= tiled_num; i++)
+      {
+         C_AnimationSingle * new_tiler_part = new C_AnimationSingle (m_frame);
+         m_Sprites.push_back (new_tiler_part);
+         new_tiler_part->set_position ((float)(m_X + (i * m_ImageSizeX)), (float)m_Y);
+      }
+      if (m_ClipMode)
+      {
+         C_AnimationSingle * end = m_Sprites[m_Sprites.size()-1];
+         end->SetSubRect (0, 0, x2 - part, m_ImageSizeY);
+      }
+   }
+   else
+   {
+      unsigned int tiled_num = (unsigned int) ((x2 - x) / m_ImageSizeY);
+      int part = (int) ((tiled_num * m_ImageSizeY) + x);
+      for ( unsigned int i = 0; i <= tiled_num; i++)
+      {
+         C_AnimationSingle * new_tiler_part = new C_AnimationSingle (m_frame);
+         m_Sprites.push_back (new_tiler_part);
+         new_tiler_part->set_position ((float)m_Y, (float)(m_X + (i * m_ImageSizeY)));
+      }
+      if (m_ClipMode)
+      {
+         C_AnimationSingle * end = m_Sprites[m_Sprites.size()-1];
+         end->SetSubRect (0, 0, m_ImageSizeX, x2 - part);
+      }
+   }
+}
 
-    unsigned int tiled_num = (unsigned int) ((x2 - x) / m_ImageSizeX);
-    int part = (int) ((tiled_num * m_ImageSizeX) + x);
-    for ( unsigned int i = 0; i <= tiled_num; i++) {
-        C_AnimationSingle * new_tiler_part = new C_AnimationSingle (m_frame);
-        m_Sprites.push_back (new_tiler_part);
-        new_tiler_part->set_position ((float)(m_X + (i * m_ImageSizeX)), (float)m_Y);
-    }
-    C_AnimationSingle * end = m_Sprites[m_Sprites.size () - 1];
-    end->SetSubRect (0, 0, x2 - part, m_ImageSizeY);
+void
+C_Tiler::SetClipping (bool clipping_mode)
+{
+   m_ClipMode = clipping_mode;
 }

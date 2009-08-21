@@ -20,17 +20,25 @@
 class C_Tiler
 {
 private:
-    bool m_ClipMode;
-    int m_X, m_X2, m_Y;
-    int m_ImageSizeX, m_ImageSizeY;
-    sf::Image * m_frame;
-    
+   bool m_ClipMode;
+   int m_X, m_X2, m_Y;
+   int m_ImageSizeX, m_ImageSizeY;
+   sf::Image * m_frame;
+   
 public:
-    C_Tiler (sf::Image * image, int x, int x2, int y);
-    void Resize (int x, int x2);
-    void SetY (int y);
-    void SetImage (sf::Image * image);
-    std::vector <C_AnimationSingle *> m_Sprites;
+   enum draw_direction
+   {
+      Horizontal,
+      Vertical
+   };
+   draw_direction m_direction;
+   C_Tiler (sf::Image * image, draw_direction direction, int x, int x2, int y);
+   void CalcPos ();
+   void Resize (int x, int x2);
+   void SetY (int y);
+   void SetImage (sf::Image * image);
+   std::vector <C_AnimationSingle *> m_Sprites;
+   void SetClipping (bool clipping_mode);
 };
 
 #endif

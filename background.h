@@ -13,25 +13,22 @@
  *   You should have received a copy of the GNU General Public License
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
-#include <iostream>
-#include <list>
-#include <SFML/System.hpp>
-#include <SFML/Graphics.hpp>
 
-#include "highriseException.h"
+#ifndef _BACKGROUND_H
+#define _BACKGROUND_H
 
-#include "physics.h"
-#include "animation.h"
-#include "tiler.h"
-#include "image.h"
-#include "camera.h"
+class C_Background
+{
+private:
+   C_AnimationSingle * m_BackImage;
+   C_Tiler * m_BackBuildings;
+   C_Tiler * m_BackGround;
+   C_Camera * cam;
 
-#include "floorbase.h"
-#include "routeBase.h"
-#include "office.h"
-#include "level.h"
-#include "lobby.h"
-#include "elevator.h"
-#include "routes.h"
-#include "background.h"
+public:
+   void draw ();
+   C_Background::C_Background ();
+   
+};
+
+#endif //_BACKGROUND_H

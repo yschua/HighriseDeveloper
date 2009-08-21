@@ -19,11 +19,11 @@
 void
 C_FloorBase::update (float dt)
 {
-    std::cout << "Floor base class: update function called" << std::endl;
+   std::cout << "Floor base class: update function called" << std::endl;
 }
 
 void
 C_FloorBase::draw ()
 {
-    std::cout << "Floor base class: draw function called" << std::endl;
+   std::cout << "Floor base class: draw function called" << std::endl;
 }

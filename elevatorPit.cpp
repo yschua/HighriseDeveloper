@@ -43,7 +43,7 @@ C_ElevatorPit::C_ElevatorPit ( int x, int level, C_Elevator* pElevator )
 
 C_ElevatorPit::~C_ElevatorPit()
 {
-};
+}
 
 void
 C_ElevatorPit::update (float dt)

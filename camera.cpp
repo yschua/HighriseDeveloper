@@ -21,98 +21,99 @@ C_Camera * C_Camera::m_instance = NULL;
 C_Camera::C_Camera ()
 :   m_back_color (0, 0, 0)
 {
-    m_window = new sf::RenderWindow ();
+   m_window = new sf::RenderWindow ();
 }
 
 int
 C_Camera::get_world_y ()
 {
-    return m_world_y;
+   return m_world_y;
 }
 
 int
 C_Camera::get_world_x ()
 {
-    return m_world_x;
+   return m_world_x;
 }
 
 void
 C_Camera::set_max_framerate (int rate)
 {
-    m_window->SetFramerateLimit (rate);
+   m_window->SetFramerateLimit (rate);
 }
 
 void
 C_Camera::set_cam_size (int x, int y)
 {
-    m_cam_x = x;
-    m_cam_y = y;
+   m_cam_x = x;
+   m_cam_y = y;
 }
 
 void
 C_Camera::set_world_size (int x, int y)
 {
-    m_world_x = x;
-    m_world_y = y;
+   m_world_x = x;
+   m_world_y = y;
 }
 
 void
 C_Camera::create (const std::string & caption)
 {
-    m_window->Create (sf::VideoMode (m_cam_x, m_cam_y, 32), caption);
+   m_window->Create (sf::VideoMode (m_cam_x, m_cam_y, 32), caption);
 }
 
 C_Camera *
 C_Camera::get_instance ()
 {
-    if (m_instance == NULL) {
-        m_instance = new C_Camera ();
-    }
-    return m_instance;
+   if (m_instance == NULL)
+   {
+      m_instance = new C_Camera ();
+   }
+   return m_instance;
 }
 
 void
 C_Camera::clear ()
 {
-    m_window->Clear (m_back_color);
+   m_window->Clear (m_back_color);
 }
 
 void
 C_Camera::display ()
 {
-    m_window->Display ();
+   m_window->Display ();
 }
 
 void
 C_Camera::center (int x, int y)
 {
-    m_s.first = x - (m_cam_x / 2);
-    m_s.second = y - (m_cam_y / 2);
+   m_s.first = x - (m_cam_x / 2);
+   m_s.second = y - (m_cam_y / 2);
 }
 
 void
 C_Camera::draw (C_Animation & to_draw)
 {
-    to_draw.sprite->SetPosition (to_draw.get_position_x () - m_s.first, to_draw.get_position_y () - m_s.second);
-    m_window->Draw (*to_draw.sprite);
+   to_draw.sprite->SetPosition (to_draw.get_position_x () - m_s.first, to_draw.get_position_y () - m_s.second);
+   m_window->Draw (*to_draw.sprite);
 }
 
 void
 C_Camera::draw (C_AnimationSingle & to_draw)
 {
-    to_draw.sprite->SetPosition (to_draw.get_position_x () - m_s.first, to_draw.get_position_y () - m_s.second);
-    m_window->Draw (*to_draw.sprite);
+   to_draw.sprite->SetPosition (to_draw.get_position_x () - m_s.first, to_draw.get_position_y () - m_s.second);
+   m_window->Draw (*to_draw.sprite);
 }
 
 void
 C_Camera::draw (C_Tiler & to_draw)
 {
-    for (int i = 0; i < to_draw.m_Sprites.size (); i++)
-        draw (*to_draw.m_Sprites[i]);
+   for (int i = 0; i < to_draw.m_Sprites.size (); i++)
+      draw (*to_draw.m_Sprites[i]);
 }
 
 bool
 C_Camera::get_event (sf::Event & event)
 {
-    return m_window->GetEvent (event);
+   return m_window->GetEvent (event);
 }

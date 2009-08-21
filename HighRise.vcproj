@@ -182,6 +182,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\background.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\camera.cpp"
 				>
 			</File>
@@ -234,11 +238,23 @@
 				>
 			</File>
 			<File
+				RelativePath=".\pathAgent.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\person.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\physics.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\routes.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\routeVisitor.cpp"
 				>
 			</File>
 			<File
@@ -257,6 +273,10 @@
 			>
 			<File
 				RelativePath=".\animation.h"
+				>
+			</File>
+			<File
+				RelativePath=".\background.h"
 				>
 			</File>
 			<File
@@ -312,6 +332,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\pathAgent.h"
+				>
+			</File>
+			<File
+				RelativePath=".\person.h"
+				>
+			</File>
+			<File
 				RelativePath=".\physics.h"
 				>
 			</File>
@@ -321,6 +349,10 @@
 			</File>
 			<File
 				RelativePath=".\routes.h"
+				>
+			</File>
+			<File
+				RelativePath=".\routeVisitor.h"
 				>
 			</File>
 			<File

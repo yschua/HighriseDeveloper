@@ -26,6 +26,7 @@
 
 // these decls allow inclusion of this header without the need to load these class headers.
 class C_RouteBase;
+class C_RouteVisitor;
 class C_ElevatorMachine; // mover above
 class C_LiftPit;     // landing pit below
 class C_Body;
@@ -65,13 +66,16 @@ protected:
    // Controls this things motion
    int   m_X;
    int   m_Y;
-   short m_Level;
+   //short m_Level;
    short m_CurrentLevel;
    short m_Direction;
    short m_TopLevel;
    short m_BottomLevel;
    short m_Position;
    short m_IdleTime;
+   // test code
+   short m_StartRoute;
+   short m_EndRoute;
    LiftOps_State  m_LiftOperation;
    unsigned char  m_LiftStyle;
 
@@ -87,6 +91,7 @@ public:
    void Move( int x, int y );
    void Resize( int x, int y );
    void pos_calc ();
+   void setRoute( C_RouteVisitor* visitor );
    virtual void update (float dt);
    virtual void draw ();
 };

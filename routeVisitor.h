@@ -13,17 +13,30 @@
  *   You should have received a copy of the GNU General Public License
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
+// If you have trouble compiling with pragma one please lest us know at highrisedev/sourceforge.org
+#pragma once
+#ifndef _ROUTEVISITOR
+#define _ROUTEVISITOR
 
-#ifndef _ROUTEBASE_H
-#define _ROUTEBASE_H
-
-class C_RouteBase // Abstract, does not even have a CPP file at this point.
+struct RoutingRequest
 {
-    
-public:
-   C_RouteBase() {};
-   virtual void update (float dt) = 0;
-   virtual void draw () = 0;
+   int OriginLevel;
+   int DestinLevel;
 };
 
-#endif //_ROUTEBASE_H
+// lightweight vistor pattern that minimizes interface with elevators and other means of floor level transit.
+class C_RouteVisitor 
+{
+protected:
+   RoutingRequest* m_routingRequest; // for now a single request, later we may use a collection.
+public:
+   C_RouteVisitor (RoutingRequest* rq);
+   ~C_RouteVisitor (void);
+
+   virtual RoutingRequest* getRoute( )
+   {
+      return m_routingRequest;
+   }
+};
+
+#endif //_ROUTEVISITOR

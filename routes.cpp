@@ -20,6 +20,17 @@
 #include "elevatorBase.h"
 #include "routes.h"
 
+C_Routes* C_Routes::m_instance;
+
+C_Routes* C_Routes::get_instance ()
+{
+   if (m_instance == NULL)
+   {
+      m_instance = new C_Routes ();
+   }
+   return m_instance;
+}
+
 C_Routes::C_Routes()
 {
 }

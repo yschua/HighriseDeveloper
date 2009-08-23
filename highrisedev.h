@@ -35,3 +35,4 @@
 #include "elevator.h"
 #include "routes.h"
 #include "background.h"
+#include "person.h"

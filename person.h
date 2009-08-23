@@ -29,25 +29,39 @@ struct Location
 {
    short m_State;    // 0 = Idle, 1 = waiting, 2 = moving
    short m_Building;
-   short m_level;   // 0 = lobby
-   short m_x;       // 0 = outide the building
-
+   short m_Level;   // 0 = lobby
+   short m_X;       // 0 = outide the building
+   Location ()
+   {
+      clear ();   // any time this structure is instantiated, clear the inner data
+   }
    void clear()
    {
       m_State = 0;
       m_Building = 0;
-      m_level = 0;
-      m_x = 0;
+      m_Level = 0;
+      m_X = 0;
    }
 };
 
-struct Occupation
+struct Path // this could have been a list<T> but it would slow this high traffic structure
 {
-   short m_Working; // 0 == looking, 1 = employed
+   short size;   // elements in play at this time
+   short index;  // the current position of the person in the array.
+   Location m_PathList[8]; // the max is 4 or so transistions a person cares to make.
+   Path() { clear(); }
+   void clear()
+   {
+      for (int idx = 0; idx < 8; ++idx )
+      {
+         m_PathList[idx].clear();
+      }
+   }
 };
 
 class C_Person
 {
+public:
    // enumerations
    enum Health_State
    {
@@ -84,18 +98,59 @@ class C_Person
       AS_OnVacation,  // we'll post pics in the lobby when we return
       AS_Evacuating,
       AS_WatchingMovie,
-      AS_Socializing
+      AS_Socializing,
+      AS_JobHunting,
+      AS_ApartmentHunting,
+      AS_CondoHunting,   // Income dependant.
+      AS_HotelHunting
    };
 
 private:
+   Location       m_Location;
+   Path           m_WorkPath;    // To and from work, stays permanant as long as working.
+                                 // Changes if they change jobs or the business goes bust.
+   Path           m_OtherPath;   // To and from other activities when they go shopping etc.
+                                 // Changes almost daily
    Health_State   m_Health;
    Mood_State     m_Mood;
-   Occupation     m_Employment;  // school and retired are valid occupations
+   Activity_State m_Activity;
+   int            m_Occupation;  // school and retired are valid occupations
+                                 // not set on if this will be a class or enum
 
+   int            m_Home;        // Where's the Crib
 public:
+   // CTOR/DTOR
    C_Person (Location& loc);    // x is their starting point, usually in the lobby.
    virtual ~C_Person (void);
 
+   // Properties
+   Path& get_WorkPath()    // this gets called to fill and route to and from work.
+   {
+      return m_WorkPath;
+   }
+   Path& get_OtherPath()   // this gets called to fill, move the person and alternate checking paths.
+   {
+      return m_OtherPath;
+   }
+
+   Activity_State get_Activity () // inline for faster access, same isolation, just quicker code.
+   {
+      return m_Activity;
+   }
+   void set_Activity (Activity_State state )
+   {
+      m_Activity = state;
+   }
+   void set_Occupation( int occ )
+   {
+      m_Occupation = occ;
+   }
+   Location& get_Location()
+   {
+      return m_Location;
+   }
+
+   // Implementation
    virtual void update (float dt);
    virtual void draw ();
 };

@@ -15,6 +15,8 @@
  */
 
 #include "highrisedev.h"
+#include "citizensAgent.h"
+#include "pathAgent.h"
 
 int
 main ()
@@ -27,6 +29,7 @@ main ()
    sf::Event event;
    C_Elevator* pElevator;
    C_Background * pBackground;
+   C_CitizensAgent People;
 
    try
    {
@@ -40,7 +43,7 @@ main ()
       C_office my_office7 (450, 3);
       C_office my_office8 (522, 3);
 
-      C_Routes routes;
+      C_Routes& routes = *C_Routes::get_instance();
       C_level level_1 (1);
       C_level level_2 (2);
       C_level level_3 (3);
@@ -103,6 +106,8 @@ main ()
          routes.update(60);
          routes.draw();
          cam->display ();
+
+         People.update( 40 );
       }
    }
    catch( C_HighriseException* ex )

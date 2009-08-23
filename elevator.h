@@ -77,6 +77,7 @@ protected:
    // test code
    short m_StartRoute;
    short m_EndRoute;
+   short m_End2;
    LiftOps_State  m_LiftOperation;
    unsigned char  m_LiftStyle;
 
@@ -91,7 +92,7 @@ public:
    void Move( int x, int y );
    void Resize( int x, int y );
    void pos_calc ();
-   void setRoute( C_RouteVisitor* visitor );
+   virtual void setRoute( C_RouteVisitor* visitor );
    virtual void update (float dt);
    virtual void draw ();
 };

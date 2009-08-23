@@ -50,6 +50,7 @@ C_Elevator::C_Elevator ( Lift_Styles style, int x, short BottomLevel, short TopL
    m_Position = (m_BottomLevel + 1) * 36;
    m_Direction = 0;
    m_IdleTime = 30;
+   m_End2 = -1;
 
    // test code
    m_StartRoute = m_BottomLevel;
@@ -81,22 +82,25 @@ C_Elevator::pos_calc ()
 void
 C_Elevator::setRoute( C_RouteVisitor* visitor )
 {
+   if( m_StartRoute == m_EndRoute )
+   {
    // more plugging until the routing is done
-   RoutingRequest* req = visitor->getRoute();
-   m_StartRoute = req->OriginLevel;
-   m_EndRoute = req->DestinLevel;
-   int cur_level = m_Position/36;
-   std::cout << "Route: origin: " << m_StartRoute << " end: " << m_EndRoute << " Current level " << cur_level << std::endl;
-   if( cur_level == m_StartRoute )
-   {
-      m_Direction = (cur_level < m_EndRoute) ? 1 : -1;
-      m_StartRoute = m_EndRoute; // this stops the elevator at the destination to wait for a request.
-      // in the real code we will pull this request when it ends
-      m_IdleTime = 10; // pause at drop off floor;
-   }
-   else
-   {
-      m_Direction = (cur_level < m_StartRoute) ? 1 : -1;
+      RoutingRequest* req = visitor->getRoute();
+      m_StartRoute = req->OriginLevel + 11;
+      m_EndRoute = req->DestinLevel + 11;
+      int cur_level = m_Position/36;
+      std::cout << "Route: origin: " << m_StartRoute << " end: " << m_EndRoute << " Current level " << cur_level << std::endl;
+      if( cur_level == m_StartRoute )
+      {
+         m_Direction = (cur_level < m_EndRoute) ? 1 : -1;
+         m_StartRoute = m_EndRoute; // this stops the elevator at the destination to wait for a request.
+         // in the real code we will pull this request when it ends
+         m_IdleTime = 10; // pause at drop off floor;
+      }
+      else
+      {
+         m_Direction = (cur_level < m_StartRoute) ? 1 : -1;
+      }
    }
 }
 
@@ -123,7 +127,7 @@ C_Elevator::update (float dt)
          if( m_StartRoute == m_EndRoute )
          {
             int start = (rand() % (m_TopLevel - m_BottomLevel)) + m_BottomLevel; // this will work if start level is zero.
-            int end = (rand() % (m_TopLevel - m_BottomLevel)) + m_BottomLevel; // this will work if start level is zero.
+            int end = (rand() % (m_TopLevel - m_BottomLevel)) + m_BottomLevel; // this will work if end level is zero.
             if (end == start )
             {
                m_IdleTime = 10;
@@ -131,20 +135,19 @@ C_Elevator::update (float dt)
             else
             {
                // this will be done by the path finder and rousing manager code
-               RoutingRequest req;
-               req.OriginLevel = start;
-               req.DestinLevel = end;
-               C_RouteVisitor visitor( &req );  // while this seems an extra load to create a class to pass a struct
-                                                // the class will be managing the elevators operations (somewhat an agent).
-                                                // for now, we hotwire this in.
-               setRoute( &visitor );
+               //RoutingRequest req;
+               //req.OriginLevel = start;
+               //req.DestinLevel = end;
+               //C_RouteVisitor visitor( &req );  // while this seems an extra load to create a class to pass a struct
+               //                                 // the class will be managing the elevators operations (somewhat an agent).
+               //                                 // for now, we hotwire this in.
+               //setRoute( &visitor );
                m_IdleTime = 10; // pause at pickup floor;
             }
          }
          else
          {
             m_Direction = (m_StartRoute > m_EndRoute) ? 1 : -1;
-            m_StartRoute = m_EndRoute; // this stops the elevator at the destination to wait for a request.
        // in the real code we will pull this request when it ends
          }
          // End BS code
@@ -166,8 +169,9 @@ C_Elevator::update (float dt)
       }
       else
       {
+         m_StartRoute = m_EndRoute; // this stops the elevator at the destination to wait for a request.
          m_Direction = 0;
-         m_IdleTime = 30;
+         m_IdleTime = 90;
       }
       break;
    case -1:
@@ -178,8 +182,9 @@ C_Elevator::update (float dt)
       }
       else
       {
+         m_StartRoute = m_EndRoute; // this stops the elevator at the destination to wait for a request.
          m_Direction = 0;
-         m_IdleTime = 30;
+         m_IdleTime = 90;
       }
    }
    pos_calc();

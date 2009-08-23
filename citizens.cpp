@@ -24,48 +24,21 @@
 // the person procedes there. If time exceeds A&B limit then a moderate distance is searched. Same
 // for limit C but forther. If still no satifaction, enter drastic mode( leave, move etc).
 
-#include <list>
+#include <algorithm>
 #include "person.h"
-#include "pathAgent.h"
-#include "routes.h"
-#include "routeBase.h"
+#include "citezens.h"
 
-C_PathAgent::C_PathAgent (C_Person* peep )
-:  m_Peep( peep )
+C_Citezens::C_Citezens ( )
 {
 
 }
 
-C_PathAgent::~C_PathAgent ()
+C_Citezens::~C_Citezens ()
 {
 
 }
 
-bool C_PathAgent::findPath (Location& origin, Location& dest)
+void C_Citezens::update (float dt)
 {
-   Path& path = m_Peep->get_WorkPath(); // for now just doing work
-   path.clear();
-   // normally we would use the commented code but for now I've pluged direct to a single elevator
-   //C_Routes* routeList = C_Routes::get_instance();
-   //std::list<C_RouteBase*>::iterator i;
-   //for (i = routeList.begin (); i != routeList.end (); i++)
-   //{
-   //   C_RouteBase* route = (*i);
-   //   C_RouteVisitor* visitor;
-   //   if( route->GetRoute( visitor )
-   //   {
-   //   }
-   //}
-   path.m_PathList[0].m_Building = dest.m_Building;
-   path.m_PathList[0].m_Level = 0;
-   path.m_PathList[0].m_State = dest.m_State;
-   path.m_PathList[0].m_X = 0;
-   path.m_PathList[1].m_Building = dest.m_Building;
-   path.m_PathList[1].m_Level = dest.m_Level;
-   path.m_PathList[1].m_State = dest.m_State;
-   path.m_PathList[1].m_X = dest.m_X;
-   path.index = 0;
-   path.size = 2;
-   return true;
 }
 

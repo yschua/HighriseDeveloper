@@ -40,7 +40,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;..\..\VC\SFML-1.5\include&quot;"
+				AdditionalIncludeDirectories="&quot;F:\Dev\VC++\SFML-1.5\include&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -63,7 +63,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="sfml-Graphics-d.lib sfml-System-d.lib sfml-Window-d.lib"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;..\..\VC\SFML-1.5\lib\vc2005&quot;"
+				AdditionalLibraryDirectories="&quot;F:\Dev\VC++\SFML-1.5\lib\vc2005&quot;"
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				TargetMachine="1"
@@ -190,6 +190,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\citizensAgent.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\elevator.cpp"
 				>
 			</File>
@@ -284,6 +288,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\citizensAgent.h"
+				>
+			</File>
+			<File
 				RelativePath=".\elevator.h"
 				>
 			</File>
@@ -344,7 +352,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\routeBase.h"
+				RelativePath=".\routebase.h"
 				>
 			</File>
 			<File

@@ -17,11 +17,16 @@
 #ifndef _LOBBY_H
 #define _LOBBY_H
 
-class C_Lobby
+class C_Tiler;
+class C_AnimationSingle;
+class C_Camera;
+class C_level;
+
+class C_Lobby : public C_level // make lobby a level in itself
 {
 private:
-    int m_level;
-    int m_x, m_x2, m_y;
+//    int m_level;
+    //int m_x, m_x2, m_y;
     C_Tiler * tile;
     C_AnimationSingle * awn_left;
     C_AnimationSingle * awn_right;

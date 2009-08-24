@@ -17,20 +17,23 @@
 #ifndef _LEVEL_H
 #define _LEVEL_H
 
+class C_AnimationSingle;
+
 class C_level
 {
 private:
    std::list<C_FloorBase *> m_floors;
    C_AnimationSingle * m_fire_escape_l;
    C_AnimationSingle * m_fire_escape_r;
+protected:
    int m_level;
    int m_x, m_x2, m_y;
 
 public:
    C_level (int m_level);
    void add_floor (C_FloorBase * floor);
-   void update (float dt);
-   void draw ();
+   virtual void update (float dt);
+   virtual void draw ();
 };
 
 #endif

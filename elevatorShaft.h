@@ -19,17 +19,23 @@
 
 class C_Elevator;
 class C_FloorBase;
+class C_Camera;
 
 class C_ElevatorShaft : public C_ElevatorBase
 {
 protected:
 
    int m_X;
-   short m_Level;
+   short m_TopLevel;
+   short m_BottomLevel; // if these are changed, update the tiler ShaftImages
+
+   // moved from elevator and changed name to ShaftTiler to show it is a tiler object
+   C_Tiler * m_ShaftTiler; // temporary to make a nice looking demo :]
+   C_Camera* m_cam;
 
 public:
    // CTOR/DTOR
-   C_ElevatorShaft( int x, int level, C_Elevator* pElevator );
+   C_ElevatorShaft( int x, int topLevel, int bottomLevel, C_Elevator* pElevator );
    virtual ~C_ElevatorShaft( );
 
    // Implemantation

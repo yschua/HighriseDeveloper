@@ -17,25 +17,48 @@
 #include "highrisedev.h"
  
 C_level::C_level (int level)
-:   m_level (level + 11)
+:   m_level (level)// + 11)
 {
    m_y = (C_Camera::get_instance()->get_world_y () ) - (m_level * 36);
    m_x = C_Camera::get_instance()->get_world_x ();
    m_x2 = 0;
+   if(level < 0)
+   {
+      m_fire_escape_l = new C_AnimationSingle (C_ImageManager::get_instance()->get_image("foundation.png"));
+      m_fire_escape_r = new C_AnimationSingle (C_ImageManager::get_instance()->get_image("foundation.png"));
+   }
+   else if(level > 0)
+   {
+      m_fire_escape_l = new C_AnimationSingle (C_ImageManager::get_instance()->get_image("fire_escape_l.png"));
+      m_fire_escape_r = new C_AnimationSingle (C_ImageManager::get_instance()->get_image("fire_escape_r.png"));
+   }
+   else
+   {
+      m_fire_escape_l = new C_AnimationSingle (C_ImageManager::get_instance()->get_image("awning_l.png"));
+      m_fire_escape_r = new C_AnimationSingle (C_ImageManager::get_instance()->get_image("awning_r.png"));
+   }
 }
 
 void
 C_level::add_floor (C_FloorBase * floor)
 {
-   m_fire_escape_l = new C_AnimationSingle (C_ImageManager::get_instance()->get_image("fire_escape_l.png"));
-   m_fire_escape_r = new C_AnimationSingle (C_ImageManager::get_instance()->get_image("fire_escape_r.png"));
+   //m_fire_escape_l = new C_AnimationSingle (C_ImageManager::get_instance()->get_image("fire_escape_l.png"));
+   //m_fire_escape_r = new C_AnimationSingle (C_ImageManager::get_instance()->get_image("fire_escape_r.png"));
    m_floors.push_back (floor);
    if (floor->m_x < m_x)
       m_x = floor->m_x;
    if (floor->m_x2 > m_x2)
       m_x2 = floor->m_x2;
-   m_fire_escape_l->set_position (m_x - 24, m_y);
-   m_fire_escape_r->set_position (m_x2, m_y);
+   if( m_level < 0 )
+   {
+      m_fire_escape_l->set_position (m_x - 9, m_y); // pour some concrete
+      m_fire_escape_r->set_position (m_x2, m_y);
+   }
+   else
+   {
+      m_fire_escape_l->set_position (m_x - 24, m_y);
+      m_fire_escape_r->set_position (m_x2, m_y);
+   }
 }
 
 void

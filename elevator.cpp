@@ -45,8 +45,8 @@ C_Elevator::C_Elevator ( Lift_Styles style, int x, short BottomLevel, short TopL
 ,  m_LiftOperation( LOS_Waiting )
 {
    //m_Level = level; depricate
-   m_TopLevel = TopLevel + 11;
-   m_BottomLevel = BottomLevel + 11;
+   m_TopLevel = TopLevel;
+   m_BottomLevel = BottomLevel;
    m_Position = (m_BottomLevel + 1) * 36;
    m_Direction = 0;
    m_IdleTime = 30;
@@ -65,7 +65,8 @@ C_Elevator::C_Elevator ( Lift_Styles style, int x, short BottomLevel, short TopL
    m_Y = ( m_cam->get_world_y ()) - (m_BottomLevel * 36);
    m_LiftMachine = new C_ElevatorMachine( x, m_TopLevel+1, this );
    m_LiftPit->set_position ((float)m_X, (float)(m_Y + 36) );
-   m_ElevatorShaft = new C_Tiler (images->get_image ("liftshaft.png"), C_Tiler::Vertical, m_cam->get_world_y () - (m_TopLevel * 36), m_cam->get_world_y () - ((m_BottomLevel - 1) * 36), m_X);
+   m_ElevatorShaft = new C_ElevatorShaft( m_X, m_TopLevel, m_BottomLevel, this );
+//   m_ElevatorShaft = new C_Tiler (images->get_image ("liftshaft.png"), C_Tiler::Vertical, m_cam->get_world_y () - (m_TopLevel * 36), m_cam->get_world_y () - ((m_BottomLevel - 1) * 36), m_X);
 }
 
 C_Elevator::~C_Elevator()
@@ -76,7 +77,8 @@ C_Elevator::~C_Elevator()
 void
 C_Elevator::pos_calc ()
 {
-   m_ElevatorImage->set_position ((float)m_X, (float)(m_Y - (m_Position - 396) + 4) ); // elevator sprite is only 32x32
+//   m_ElevatorImage->set_position ((float)m_X, (float)(m_Y - (m_Position - 396) + 4) ); // elevator sprite is only 32x32
+   m_ElevatorImage->set_position ((float)m_X, (float)(m_Y - m_Position + 4) ); // elevator sprite is only 32x32
 }
 
 void
@@ -86,8 +88,8 @@ C_Elevator::setRoute( C_RouteVisitor* visitor )
    {
    // more plugging until the routing is done
       RoutingRequest* req = visitor->getRoute();
-      m_StartRoute = req->OriginLevel + 11;
-      m_EndRoute = req->DestinLevel + 11;
+      m_StartRoute = req->OriginLevel;// + 11;
+      m_EndRoute = req->DestinLevel;// + 11;
       int cur_level = m_Position/36;
       std::cout << "Route: origin: " << m_StartRoute << " end: " << m_EndRoute << " Current level " << cur_level << std::endl;
       if( cur_level == m_StartRoute )
@@ -193,8 +195,8 @@ C_Elevator::update (float dt)
 void
 C_Elevator::draw ()
 {
-   m_cam->draw (*m_ElevatorShaft);
-   m_LiftMachine->draw();
+   m_ElevatorShaft->draw ();
+   m_LiftMachine->draw ();
    m_cam->draw (*m_LiftPit );
    m_cam->draw (*m_ElevatorImage);
 }

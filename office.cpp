@@ -36,7 +36,7 @@ C_office::C_office (int x, int level)
 :   m_current_state (s_unoccupied_day)
 {
    C_ImageManager * image_man = C_ImageManager::get_instance ();
-   m_level = level + 11;
+   m_level = level;// + 11;
    m_x = x;
    m_x2 = x + 72;
    m_y = (C_Camera::get_instance()->get_world_y () ) - (m_level * 36);

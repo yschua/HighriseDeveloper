@@ -30,33 +30,37 @@ main ()
    C_Elevator* pElevator;
    C_Background * pBackground;
    C_CitizensAgent People;
+   C_Tower theTower (1); // numero uno
 
    try
    {
-      C_Lobby my_lobby (370, 640, 0);
-      C_office my_office (400, 1);
-      C_office my_office2 (400, 2);
-      C_office my_office3 (472, 1);
-      C_office my_office4 (472, 2);
-      C_office my_office5 (544, 1);
-      C_office my_office6 (544, 2);
-      C_office my_office7 (450, 3);
-      C_office my_office8 (522, 3);
+//      C_Lobby* my_lobby = new C_Lobby(370, 640, 0);
+      C_office* my_office = new C_office(400, 1);
+      C_office* my_office2 = new C_office (400, 2);
+      C_office* my_office3 = new C_office (472, 1);
+      C_office* my_office4 = new C_office (472, 2);
+      C_office* my_office5 = new C_office (544, 1);
+      C_office* my_office6 = new C_office (544, 2);
+      C_office* my_office7 = new C_office (450, 3);
+      C_office* my_office8 = new C_office (522, 3);
+      C_office* my_basement = new C_office (400, -1);
 
       C_Routes& routes = *C_Routes::get_instance();
-      C_level level_1 (1);
-      C_level level_2 (2);
-      C_level level_3 (3);
-      level_1.add_floor (&my_office);
-      level_1.add_floor (&my_office3);
-      level_1.add_floor (&my_office5);
-      level_2.add_floor (&my_office2);
-      level_2.add_floor (&my_office4);
-      level_2.add_floor (&my_office6);
-      level_3.add_floor (&my_office7);
-      level_3.add_floor (&my_office8);
+      C_level* sublevel = theTower.newSubLevel();
+      C_level* level_1 = theTower.newLevel();
+      C_level* level_2 = theTower.newLevel();
+      C_level* level_3 = theTower.newLevel();
+      level_1->add_floor (my_office);
+      level_1->add_floor (my_office3);
+      level_1->add_floor (my_office5);
+      level_2->add_floor (my_office2);
+      level_2->add_floor (my_office4);
+      level_2->add_floor (my_office6);
+      level_3->add_floor (my_office7);
+      level_3->add_floor (my_office8);
+      sublevel->add_floor (my_basement);
       
-      pElevator = new C_Elevator( C_Elevator::LS_Standard, 450+16, 0, 3 );
+      pElevator = new C_Elevator( C_Elevator::LS_Standard, 450+16, -1, 3 );
       routes.add_route( pElevator );
       pBackground = new C_Background ();
 
@@ -95,16 +99,18 @@ main ()
          cam->clear ();
          cam->integrate (60);
          pBackground->draw ();
-         level_1.update (60);
-         level_1.draw ();
-         level_2.update (60);
-         level_2.draw ();
-         level_3.update (60);
-         level_3.draw ();
-         my_lobby.update (60);
-         my_lobby.draw ();
-         routes.update(60);
-         routes.draw();
+         //level_1.update (60);
+         //level_1.draw ();
+         //level_2.update (60);
+         //level_2.draw ();
+         //level_3.update (60);
+         //level_3.draw ();
+         //my_lobby.update (60);
+         //my_lobby.draw ();
+         theTower.update (60);
+         routes.update (60);
+         theTower.draw ();
+         routes.draw ();
          cam->display ();
 
          People.update( 40 );

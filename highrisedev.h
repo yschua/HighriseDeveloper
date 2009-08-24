@@ -36,3 +36,4 @@
 #include "routes.h"
 #include "background.h"
 #include "person.h"
+#include "tower.h"

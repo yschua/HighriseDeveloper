@@ -17,7 +17,8 @@
 #include "highrisedev.h"
 
 C_Lobby::C_Lobby (int x, int x2, int level)
-:   m_level (level + 11)
+:  C_level( level ) // +11 )
+//:   m_level (level + 11)
 {
    m_x = x;
    m_x2 = x2;

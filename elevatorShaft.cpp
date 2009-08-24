@@ -27,12 +27,17 @@
 #include "elevatorBase.h"
 #include "ElevatorShaft.h"
 
-C_ElevatorShaft::C_ElevatorShaft ( int x, int level, C_Elevator* pElevator )
-:  C_ElevatorBase( x, level, pElevator )
+C_ElevatorShaft::C_ElevatorShaft ( int x, int topLevel, int bottomLevel, C_Elevator* pElevator )
+:  C_ElevatorBase( x, bottomLevel, pElevator )
 {
    m_X = x;
-   m_Level = level;
-   C_ImageManager * image_man = C_ImageManager::get_instance ();
+   m_TopLevel = topLevel;
+   m_BottomLevel = bottomLevel;
+   C_ImageManager * images = C_ImageManager::get_instance ();
+   m_cam = C_Camera::get_instance ();
+   m_ShaftTiler = new C_Tiler (images->get_image ("liftshaft.png"), C_Tiler::Vertical, 
+                              m_cam->get_world_y () - (m_TopLevel * 36), 
+                              m_cam->get_world_y () - ((m_BottomLevel - 1) * 36), m_X );
 }
 
 C_ElevatorShaft::~C_ElevatorShaft()
@@ -48,5 +53,5 @@ C_ElevatorShaft::update (float dt)
 void
 C_ElevatorShaft::draw ()
 {
-//    C_Camera::get_instance()->draw (*m_animations[m_current_state]);
+   m_cam->draw (*m_ShaftTiler);
 }

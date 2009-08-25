@@ -30,7 +30,7 @@ class C_RouteVisitor
 protected:
    RoutingRequest* m_routingRequest; // for now a single request, later we may use a collection.
 public:
-   C_RouteVisitor (RoutingRequest* rq);
+   C_RouteVisitor (RoutingRequest* rq, int count);
    ~C_RouteVisitor (void);
 
    virtual RoutingRequest* getRoute( )

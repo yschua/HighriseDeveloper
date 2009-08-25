@@ -46,16 +46,14 @@ bool C_PathAgent::findPath (Location& origin, Location& dest)
    Path& path = m_Peep->get_WorkPath(); // for now just doing work
    path.clear();
    // normally we would use the commented code but for now I've pluged direct to a single elevator
-   //C_Routes* routeList = C_Routes::get_instance();
-   //std::list<C_RouteBase*>::iterator i;
-   //for (i = routeList.begin (); i != routeList.end (); i++)
-   //{
-   //   C_RouteBase* route = (*i);
-   //   C_RouteVisitor* visitor;
-   //   if( route->GetRoute( visitor )
-   //   {
-   //   }
-   //}
+   C_Routes* routeList = C_Routes::get_instance();
+   std::vector<C_RouteBase*>::iterator i;
+   for (i = routeList->get_Routes().begin (); i != routeList->get_Routes().end (); i++)
+   {
+      C_RouteBase* route = (*i);
+//      C_RouteVisitor visitor( req );
+//      route->getRoute( visitor );
+   }
    path.m_PathList[0].m_Building = dest.m_Building;
    path.m_PathList[0].m_Level = 0;
    path.m_PathList[0].m_State = dest.m_State;

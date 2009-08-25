@@ -51,6 +51,7 @@ C_Elevator::C_Elevator ( Lift_Styles style, int x, short BottomLevel, short TopL
    m_Direction = 0;
    m_IdleTime = 30;
    m_End2 = -1;
+   m_Offset = BottomLevel * -36;
 
    // test code
    m_StartRoute = m_BottomLevel;
@@ -66,7 +67,6 @@ C_Elevator::C_Elevator ( Lift_Styles style, int x, short BottomLevel, short TopL
    m_LiftMachine = new C_ElevatorMachine( x, m_TopLevel+1, this );
    m_LiftPit->set_position ((float)m_X, (float)(m_Y + 36) );
    m_ElevatorShaft = new C_ElevatorShaft( m_X, m_TopLevel, m_BottomLevel, this );
-//   m_ElevatorShaft = new C_Tiler (images->get_image ("liftshaft.png"), C_Tiler::Vertical, m_cam->get_world_y () - (m_TopLevel * 36), m_cam->get_world_y () - ((m_BottomLevel - 1) * 36), m_X);
 }
 
 C_Elevator::~C_Elevator()
@@ -77,8 +77,7 @@ C_Elevator::~C_Elevator()
 void
 C_Elevator::pos_calc ()
 {
-//   m_ElevatorImage->set_position ((float)m_X, (float)(m_Y - (m_Position - 396) + 4) ); // elevator sprite is only 32x32
-   m_ElevatorImage->set_position ((float)m_X, (float)(m_Y - m_Position + 4) ); // elevator sprite is only 32x32
+   m_ElevatorImage->set_position ((float)m_X, (float)(m_Y - (m_Offset + m_Position) + 4) ); // elevator sprite is only 32x32
 }
 
 void

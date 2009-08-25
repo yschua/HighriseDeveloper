@@ -29,12 +29,13 @@ class C_Tower
    friend class C_TowerAgent;
 private:
    int m_TowerNo;
-   std::vector<C_level *> m_Levels;     // Lobby is at 0
-   std::vector<C_level *> m_SubLevels;  // basement level (-1 = 1, -2 = 2 ) 
+   int m_No_SubLevels;
+   std::vector<C_level *> m_Levels;     // Lobby is at m_No_SubLevels not zero
+//   std::vector<C_level *> m_SubLevels;  // basement level (-1 = 1, -2 = 2 ) 
                                           //SubLevel 0 = power and utilies not accessible to people
 public:
    // ctor/dtor
-   C_Tower( int towerNo );
+   C_Tower( int towerNo, int NoSubLevels );
    ~C_Tower();
    // properties
 
@@ -44,13 +45,13 @@ protected:
    {
       return m_Levels;
    }
-   std::vector<C_level *>& get_SubLevels()
-   {
-      return m_SubLevels;
-   }
+   //std::vector<C_level *>& get_SubLevels()
+   //{
+   //   return m_SubLevels;
+   //}
 public:
    C_level* newLevel( );  
-   C_level* newSubLevel( );
+//   C_level* newSubLevel( );
    C_level* getLevel( int level ); // positive gets you a level above, negative gets you a basement level
 
 

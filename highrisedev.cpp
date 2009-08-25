@@ -30,7 +30,7 @@ main ()
    C_Elevator* pElevator;
    C_Background * pBackground;
    C_CitizensAgent People;
-   C_Tower theTower (1); // numero uno
+   C_Tower theTower (1,10); // numero uno with 10 sub levels
 
    try
    {
@@ -55,7 +55,8 @@ main ()
       C_office* my_basement = new C_office (400, -1);
 
       C_Routes& routes = *C_Routes::get_instance();
-      C_level* sublevel = theTower.newSubLevel();
+//      C_level* sublevel = theTower.newSubLevel();
+      C_level* sublevel = theTower.getLevel(-1);
       C_level* level_1 = theTower.newLevel();
       C_level* level_2 = theTower.newLevel();
       C_level* level_3 = theTower.newLevel();
@@ -77,7 +78,7 @@ main ()
       level_5->add_floor (my_apt5);
       sublevel->add_floor (my_basement);
       
-      pElevator = new C_Elevator( C_Elevator::LS_Standard, 450+16, -1, 6 );
+      pElevator = new C_Elevator( C_Elevator::LS_Standard, 472+18, -1, 6 );
       routes.add_route( pElevator );
       pBackground = new C_Background ();
 

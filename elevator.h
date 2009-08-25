@@ -77,6 +77,7 @@ protected:
    short m_BottomLevel;
    short m_Position;
    short m_IdleTime;
+   short m_Offset;   // adjust for starting floor.
    // test code
    short m_StartRoute;
    short m_EndRoute;

@@ -59,12 +59,12 @@ C_CitizensAgent::~C_CitizensAgent ()
 
 void C_CitizensAgent::update (float dt)
 {
-   if( (rand() % (int)dt) == 3 )   // TODO: need a better spawn mechanism
+   if( (rand() % 100) == 3 )   // TODO: need a better spawn mechanism, raised to 100
    {
       Location loc; // all zeros
       C_Person* peep = new C_Person( loc );
       m_People.push_back( peep );
-      std::cout << "A new person has entered your building looking for work";
+      std::cout << "A new person has entered your city";
    }
    std::vector<C_Person *>::iterator i;
    for (i = m_People.begin (); i != m_People.end (); i++)
@@ -97,7 +97,6 @@ void C_CitizensAgent::update (float dt)
          if( path.index < path.size )
          {
             int idx = path.index;
-            //path.index++;
             int curLevel = peep->get_Location().m_Level;
             if( curLevel == path.m_PathList[idx].m_Level )
             {
@@ -114,10 +113,10 @@ void C_CitizensAgent::update (float dt)
                   RoutingRequest req;
                   req.OriginLevel = curLevel;
                   req.DestinLevel = path.m_PathList[idx].m_Level;
-                  C_RouteVisitor visitor(&req);
+                  C_RouteVisitor visitor(&req, 1);
                   route->setRoute( &visitor );
                }
-               path.index++; // TOFO: wait for elevator, we are moving ahead before getting to the level
+               path.index++; // TODO: wait for elevator, we are moving ahead before getting to the level
             }
          }
          else
@@ -130,7 +129,6 @@ void C_CitizensAgent::update (float dt)
          if( path.index >= 0 )
          {
             int idx = path.index;
-            //path.index++;
             int curLevel = peep->get_Location().m_Level;
             if( curLevel == path.m_PathList[idx].m_Level )
             {
@@ -147,10 +145,10 @@ void C_CitizensAgent::update (float dt)
                   RoutingRequest req;
                   req.OriginLevel = curLevel;
                   req.DestinLevel = path.m_PathList[idx].m_Level;
-                  C_RouteVisitor visitor(&req);
+                  C_RouteVisitor visitor(&req, 1);
                   route->setRoute( &visitor );
                }
-               path.index--; // TOFO: wait for elevator, we are moving ahead before getting to the level
+               path.index--; // TODO: wait for elevator, we are moving ahead before getting to the level
             }
          }
          else

@@ -26,11 +26,18 @@
 #include "lobby.h"
 #include "tower.h"
 
-C_Tower::C_Tower( int towerNo )
+C_Tower::C_Tower( int towerNo, int NoSubLevels )
 :  m_TowerNo( towerNo )
+,  m_No_SubLevels( NoSubLevels )
 {
-   C_level* maint = new C_level (0);
-   m_SubLevels.push_back (maint);
+   //C_level* maint = new C_level (0);
+   //m_SubLevels.push_back (maint);
+   int nsubs = -NoSubLevels;
+   for (int sub = nsubs; sub < 0; ++sub)
+   {
+      C_level* level = new C_level(sub);
+      m_Levels.push_back (level);
+   }
    C_Lobby* lobby = new C_Lobby (370, 640, 0);
    m_Levels.push_back (lobby);
 }
@@ -41,39 +48,41 @@ C_Tower::~C_Tower( )
 
 C_level* C_Tower::newLevel( )
 {
-   int level = m_Levels.size();
+   int level = m_Levels.size() - m_No_SubLevels;
    C_level* floor = new C_level( level);   
    m_Levels.push_back (floor);
    return floor;
 }
 
-C_level* C_Tower::newSubLevel( )
-{
-   int level = m_Levels.size();
-   C_level* floor = new C_level( -level);
-   m_SubLevels.push_back (floor);
-   return floor;
-}
+//C_level* C_Tower::newSubLevel( )
+//{
+//   int level = m_Levels.size();
+//   C_level* floor = new C_level( -level);
+//   m_SubLevels.push_back (floor);
+//   return floor;
+//}
 
 C_level* C_Tower::getLevel( int level ) // positive gets you a level above, negative gets you a basement level
 {
    C_level* floor = 0;
-   if( level < 0 )
-   {
-      unsigned int ul = abs(level);
-      if( ul <= this->m_Levels.size() )
-      {
-//         pLevel = m_Levels[ul];
-      }
-   }
-   else
-   {
-      unsigned int ul = abs(level);
-      if( ul <= this->m_Levels.size() )
-      {
-//         pLevel = m_Levels[ul];
-      }
-   }
+   int index = level + m_No_SubLevels;
+   floor = m_Levels[index];
+//   if( level < 0 )
+//   {
+//      unsigned int ul = abs(level);
+//      if( ul <= this->m_Levels.size() )
+//      {
+////         pLevel = m_Levels[ul];
+//      }
+//   }
+//   else
+//   {
+//      unsigned int ul = abs(level);
+//      if( ul <= this->m_SubLevels.size() )
+//      {
+////         pLevel = m_Levels[ul];
+//      }
+//   }
    return floor;
 }
 
@@ -84,11 +93,11 @@ void C_Tower::update (float dt)
    {
       (*iLevel)->update( dt );
    }
-   std::vector<C_level *>::iterator iSub;
-   for (iSub = m_SubLevels.begin (); iSub != m_SubLevels.end (); iSub++)
-   {
-      (*iSub)->update( dt );
-   }
+   //std::vector<C_level *>::iterator iSub;
+   //for (iSub = m_SubLevels.begin (); iSub != m_SubLevels.end (); iSub++)
+   //{
+   //   (*iSub)->update( dt );
+   //}
 }
 
 void C_Tower::draw ()
@@ -98,9 +107,9 @@ void C_Tower::draw ()
    {
       (*iLevel)->draw( );
    }
-   std::vector<C_level *>::iterator iSub;
-   for (iSub = m_SubLevels.begin (); iSub != m_SubLevels.end (); iSub++)
-   {
-      (*iSub)->draw( );
-   }
+   //std::vector<C_level *>::iterator iSub;
+   //for (iSub = m_SubLevels.begin (); iSub != m_SubLevels.end (); iSub++)
+   //{
+   //   (*iSub)->draw( );
+   //}
 }

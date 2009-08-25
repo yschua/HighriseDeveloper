@@ -34,6 +34,7 @@ main ()
 
    try
    {
+      // stuffing the floors with test spaces
 //      C_Lobby* my_lobby = new C_Lobby(370, 640, 0);
       C_office* my_office = new C_office(400, 1);
       C_office* my_office2 = new C_office (400, 2);
@@ -41,8 +42,16 @@ main ()
       C_office* my_office4 = new C_office (472, 2);
       C_office* my_office5 = new C_office (544, 1);
       C_office* my_office6 = new C_office (544, 2);
-      C_office* my_office7 = new C_office (450, 3);
-      C_office* my_office8 = new C_office (522, 3);
+      C_office* my_office7 = new C_office (400, 3);
+      C_office* my_office8 = new C_office (472, 3);
+      C_office* my_office9 = new C_office (544, 3);
+
+      C_Apartment* my_apt1 = new C_Apartment (400, 4);
+      C_Apartment* my_apt2 = new C_Apartment (472, 4);
+      C_Apartment* my_apt3 = new C_Apartment (544, 4);
+      C_Apartment* my_apt4 = new C_Apartment (472, 5);
+      C_Apartment* my_apt5 = new C_Apartment (544, 5);
+
       C_office* my_basement = new C_office (400, -1);
 
       C_Routes& routes = *C_Routes::get_instance();
@@ -50,6 +59,8 @@ main ()
       C_level* level_1 = theTower.newLevel();
       C_level* level_2 = theTower.newLevel();
       C_level* level_3 = theTower.newLevel();
+      C_level* level_4 = theTower.newLevel();
+      C_level* level_5 = theTower.newLevel();
       level_1->add_floor (my_office);
       level_1->add_floor (my_office3);
       level_1->add_floor (my_office5);
@@ -58,9 +69,15 @@ main ()
       level_2->add_floor (my_office6);
       level_3->add_floor (my_office7);
       level_3->add_floor (my_office8);
+      level_3->add_floor (my_office9);
+      level_4->add_floor (my_apt1);
+      level_4->add_floor (my_apt2);
+      level_4->add_floor (my_apt3);
+      level_5->add_floor (my_apt4);
+      level_5->add_floor (my_apt5);
       sublevel->add_floor (my_basement);
       
-      pElevator = new C_Elevator( C_Elevator::LS_Standard, 450+16, -1, 3 );
+      pElevator = new C_Elevator( C_Elevator::LS_Standard, 450+16, -1, 6 );
       routes.add_route( pElevator );
       pBackground = new C_Background ();
 

@@ -16,6 +16,7 @@
 
 // People that make the tower thrive.
 
+#include <iostream>
 #include "person.h"
 
 C_Person::C_Person (Location& loc)
@@ -43,8 +44,9 @@ void C_Person::update (float dt)
    {
       m_Activity = AS_CondoHunting; // if income < $n AS_ApartmentHunting.
    }
-   if (m_Activity == AS_GoingToWork)
+   switch (m_Activity)
    {
+   case AS_GoingToWork:
       if (m_WorkPath.index < m_WorkPath.size)
       {
          Location& cur = m_WorkPath.m_PathList[m_WorkPath.index];
@@ -63,6 +65,37 @@ void C_Person::update (float dt)
       {
          set_Activity( AS_Working ); // offices and businesses show employees at work.
       }
+      break;
+   case AS_Working:
+      if (rand() % 100 == 50 )
+      {
+         set_Activity( AS_GoingHome );
+         int home_level = (rand() % 1) + 4;   // test code, give them a home
+         Location& cur = m_WorkPath.m_PathList[0];
+         cur.m_Level = home_level;
+         cur.m_X = 2;
+         m_WorkPath.index--;  // this is the return trip home
+      }
+      break;
+   case AS_GoingHome:
+      if (m_WorkPath.index > 0)
+      {
+         Location& cur = m_WorkPath.m_PathList[m_WorkPath.index];
+         // TODO: check building first but for now we only have 1
+         if (cur.m_Level == m_Location.m_Level)
+         {
+            m_Location.m_X = cur.m_X; // TODO: Move peep in animator
+         }
+         else
+         {
+            // waiting or on an elevator
+         }
+      }
+      if (m_WorkPath.index >= m_WorkPath.size) // this can be handled better and also need to check times
+      {
+         set_Activity( AS_Working ); // offices and businesses show employees at work.
+      }
+      break;
    }
 }
 

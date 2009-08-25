@@ -14,27 +14,34 @@
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef _LEVEL_H
-#define _LEVEL_H
+// "I movin on up, to that delux apartment in the sky" The Jefferson's
 
-class C_AnimationSingle;
-class C_FloorBase;
+#ifndef _APARTMENT_H
+#define _APARTMENT_H
 
-class C_level
+enum apartment_state
 {
-private:
-   std::list<C_FloorBase *> m_floors;
-   C_AnimationSingle * m_fire_escape_l;
-   C_AnimationSingle * m_fire_escape_r;
-protected:
-   int m_level;
-   int m_x, m_x2, m_y;
-
-public:
-   C_level (int m_level);
-   void add_floor (C_FloorBase * floor);
-   virtual void update (float dt);
-   virtual void draw ();
+   apt_unoccupied_day,
+   apt_occupied_day,
+   apt_occupied_night,
+   apt_occupied_sleep
 };
 
-#endif
+class C_Apartment : public C_FloorBase
+{
+private:
+   apartment_state unoccupied_day (float dt);
+   apartment_state occupied_day (float dt);
+   apartment_state occupied_night (float dt);
+   apartment_state occupied_sleep (float dt);       // running sandman functions
+   std::map<apartment_state, C_Animation *> m_animations;
+   apartment_state m_current_state;
+   int m_current_animation;
+
+public:
+   virtual void update (float dt);
+   virtual void draw ();
+   C_Apartment (int x, int level);
+};
+
+#endif   // _APARTMENT_H

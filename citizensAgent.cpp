@@ -124,6 +124,39 @@ void C_CitizensAgent::update (float dt)
          {
          }
       }
+      else if( act == C_Person::AS_GoingHome )
+      {
+         Path& path = peep->get_WorkPath(); // for now just doing work
+         if( path.index >= 0 )
+         {
+            int idx = path.index;
+            //path.index++;
+            int curLevel = peep->get_Location().m_Level;
+            if( curLevel == path.m_PathList[idx].m_Level )
+            {
+               // just moving on the same level
+            }
+            else
+            {
+               C_Routes* routeList = C_Routes::get_instance();
+               if(  routeList->get_Routes().size() > 0 )
+               {
+                  std::list<C_RouteBase*>::iterator i;
+                  i = routeList->get_Routes().begin ();
+                  C_RouteBase* route = (*i);
+                  RoutingRequest req;
+                  req.OriginLevel = curLevel;
+                  req.DestinLevel = path.m_PathList[idx].m_Level;
+                  C_RouteVisitor visitor(&req);
+                  route->setRoute( &visitor );
+               }
+               path.index--; // TOFO: wait for elevator, we are moving ahead before getting to the level
+            }
+         }
+         else
+         {
+         }
+      }
    }   
 }
 

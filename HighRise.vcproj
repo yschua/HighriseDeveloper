@@ -182,6 +182,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\apartment.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\background.cpp"
 				>
 			</File>
@@ -211,6 +215,10 @@
 			</File>
 			<File
 				RelativePath=".\elevatorShaft.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\floorAgent.cpp"
 				>
 			</File>
 			<File
@@ -269,6 +277,10 @@
 				RelativePath=".\tiler.cpp"
 				>
 			</File>
+			<File
+				RelativePath=".\tower.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -277,6 +289,10 @@
 			>
 			<File
 				RelativePath=".\animation.h"
+				>
+			</File>
+			<File
+				RelativePath=".\apartment.h"
 				>
 			</File>
 			<File
@@ -309,6 +325,10 @@
 			</File>
 			<File
 				RelativePath=".\elevatorShaft.h"
+				>
+			</File>
+			<File
+				RelativePath=".\floorAgent.h"
 				>
 			</File>
 			<File
@@ -369,6 +389,10 @@
 			</File>
 			<File
 				RelativePath=".\tiler.h"
+				>
+			</File>
+			<File
+				RelativePath=".\tower.h"
 				>
 			</File>
 		</Filter>

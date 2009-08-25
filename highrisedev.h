@@ -30,6 +30,7 @@
 #include "floorbase.h"
 #include "routeBase.h"
 #include "office.h"
+#include "apartment.h"
 #include "level.h"
 #include "lobby.h"
 #include "elevator.h"

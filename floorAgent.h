@@ -13,28 +13,23 @@
  *   You should have received a copy of the GNU General Public License
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
+// look for vacancies and fill them.
+// Might be able to partner with the citizens agent to find jobs and places to live and play.
 
-#ifndef _LEVEL_H
-#define _LEVEL_H
+#ifndef _FLOORAGENT_H
+#define _FLOORAGENT_H
 
-class C_AnimationSingle;
-class C_FloorBase;
+struct Location;
 
-class C_level
+class C_FloorAgent
 {
-private:
-   std::list<C_FloorBase *> m_floors;
-   C_AnimationSingle * m_fire_escape_l;
-   C_AnimationSingle * m_fire_escape_r;
 protected:
-   int m_level;
-   int m_x, m_x2, m_y;
-
+   C_level* m_Level;
+    
 public:
-   C_level (int m_level);
-   void add_floor (C_FloorBase * floor);
-   virtual void update (float dt);
-   virtual void draw ();
+   C_FloorAgent ( C_level* level );
+   ~C_FloorAgent ( );
+   bool findSpace (Location& origin);
 };
 
 #endif

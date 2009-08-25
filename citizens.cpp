@@ -25,20 +25,19 @@
 // for limit C but forther. If still no satifaction, enter drastic mode( leave, move etc).
 
 #include <algorithm>
-#include "person.h"
-#include "citezens.h"
+#include "highrisedev.h"
 
-C_Citezens::C_Citezens ( )
+C_Citizens::C_Citizens (C_Person* peep, Location* dest)
 {
 
 }
 
-C_Citezens::~C_Citezens ()
+C_Citizens::~C_Citizens ()
 {
 
 }
 
-void C_Citezens::update (float dt)
+void C_Citizens::update (float dt)
 {
 }
 

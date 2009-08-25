@@ -29,19 +29,19 @@
 struct Location; // from person
 class C_Person;
 
-class C_Citezens
+class C_Citizens
 {
 private:
-   std::list<C_Person*> m_People;
+   std::list <C_Person*> m_People;
 
 public:
    void update (float dt);
    void draw ()   // just a pass through
    {
       // nothing to draw unless we have set the follow this person flag in the menu. (Much later code).
-   };
-   C_ActivitiesAgent (C_Person* peep, Location* dest );
-   virtual ~C_ActivitiesAgent (void);
+   }
+   C_Citizens (C_Person* peep, Location* dest );
+   virtual ~C_Citizens (void);
 };
 
 #endif //_CITIZENS_H

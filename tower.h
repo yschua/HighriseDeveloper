@@ -26,7 +26,7 @@ class C_TowerAgent;
 
 class C_Tower
 {
-   friend C_TowerAgent;
+   friend class C_TowerAgent;
 private:
    int m_TowerNo;
    std::list<C_level *> m_Levels;     // Lobby is at 0

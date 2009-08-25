@@ -35,7 +35,7 @@ main ()
    try
    {
       // stuffing the floors with test spaces
-//      C_Lobby* my_lobby = new C_Lobby(370, 640, 0);
+      // C_Lobby* my_lobby = new C_Lobby(370, 640, 0);
       C_office* my_office = new C_office(400, 1);
       C_office* my_office2 = new C_office (400, 2);
       C_office* my_office3 = new C_office (472, 1);

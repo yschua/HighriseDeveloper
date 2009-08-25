@@ -155,4 +155,4 @@ public:
    virtual void draw ();
 };
 
-#endif /_PERSON_H
+#endif //_PERSON_H

@@ -38,3 +38,6 @@
 #include "background.h"
 #include "person.h"
 #include "tower.h"
+
+#include "person.h"
+#include "citizens.h"

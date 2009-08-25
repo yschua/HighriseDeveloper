@@ -17,7 +17,7 @@
 // When a new floor space object is added, it needs to be built, detailed and rented or sold.
 // This code will also have to release spaces when tenants move out.
 
-#include <list>
+#include <vector>
 #include "level.h"
 #include "floorBase.h"
 #include "floorAgent.h"

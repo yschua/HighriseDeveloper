@@ -24,7 +24,7 @@
 // the person procedes there. If time exceeds A&B limit then a moderate distance is searched. Same
 // for limit C but forther. If still no satifaction, enter drastic mode( leave, move etc).
 
-#include <list>
+#include <vector>
 #include <iostream>
 #include "person.h"
 #include "citizensAgent.h"
@@ -44,7 +44,7 @@ C_CitizensAgent::~C_CitizensAgent ()
    std::cout << "Cleaning up C_Citizens";
    try
    {
-      std::list<C_Person *>::iterator i;
+      std::vector<C_Person *>::iterator i;
       for (i = m_People.begin (); i != m_People.end (); i++)
       {
          C_Person* peep = (*i);
@@ -66,7 +66,7 @@ void C_CitizensAgent::update (float dt)
       m_People.push_back( peep );
       std::cout << "A new person has entered your building looking for work";
    }
-   std::list<C_Person *>::iterator i;
+   std::vector<C_Person *>::iterator i;
    for (i = m_People.begin (); i != m_People.end (); i++)
    {
       C_Person* peep = (*i);
@@ -108,7 +108,7 @@ void C_CitizensAgent::update (float dt)
                C_Routes* routeList = C_Routes::get_instance();
                if(  routeList->get_Routes().size() > 0 )
                {
-                  std::list<C_RouteBase*>::iterator i;
+                  std::vector<C_RouteBase*>::iterator i;
                   i = routeList->get_Routes().begin ();
                   C_RouteBase* route = (*i);
                   RoutingRequest req;
@@ -141,7 +141,7 @@ void C_CitizensAgent::update (float dt)
                C_Routes* routeList = C_Routes::get_instance();
                if(  routeList->get_Routes().size() > 0 )
                {
-                  std::list<C_RouteBase*>::iterator i;
+                  std::vector<C_RouteBase*>::iterator i;
                   i = routeList->get_Routes().begin ();
                   C_RouteBase* route = (*i);
                   RoutingRequest req;

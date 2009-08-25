@@ -14,7 +14,7 @@
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <list>
+#include <vector> // changed from list to vector so the collection can be scrolled in up and down
 
 #include "routeBase.h"
 #include "routes.h"
@@ -79,12 +79,12 @@ C_level* C_Tower::getLevel( int level ) // positive gets you a level above, nega
 
 void C_Tower::update (float dt)
 {
-   std::list<C_level *>::iterator iLevel;
+   std::vector<C_level *>::iterator iLevel;
    for (iLevel = m_Levels.begin (); iLevel != m_Levels.end (); iLevel++)
    {
       (*iLevel)->update( dt );
    }
-   std::list<C_level *>::iterator iSub;
+   std::vector<C_level *>::iterator iSub;
    for (iSub = m_SubLevels.begin (); iSub != m_SubLevels.end (); iSub++)
    {
       (*iSub)->update( dt );
@@ -93,12 +93,12 @@ void C_Tower::update (float dt)
 
 void C_Tower::draw ()
 {
-   std::list<C_level *>::iterator iLevel;
+   std::vector<C_level *>::iterator iLevel;
    for (iLevel = m_Levels.begin (); iLevel != m_Levels.end (); iLevel++)
    {
       (*iLevel)->draw( );
    }
-   std::list<C_level *>::iterator iSub;
+   std::vector<C_level *>::iterator iSub;
    for (iSub = m_SubLevels.begin (); iSub != m_SubLevels.end (); iSub++)
    {
       (*iSub)->draw( );

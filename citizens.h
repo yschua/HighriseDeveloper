@@ -14,15 +14,9 @@
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// When somone wants to go somewhere, just hand them over to their own personal travel agent.
-// "MyPathAgent 2500 will take you to your destination quickly and safely, only 19.95 + S&H"
-// The Activities Agent will hand people to this agent when they enter a travel state.
-// A location and destination will be set for the person(s) preparing to embark. The path agent will
-// then find the best path to that destination. Folks in the tower(s) will be transitioned from
-// point to point. The nearest elevalor is found and enqueued. Should the wait time exceed A limt
-// the PA will look for the another elevator close by that stops on the level desired. It found then
-// the person procedes there. If time exceeds A&B limit then a moderate distance is searched. Same
-// for limit C but forther. If still no satifaction, enter drastic mode( leave, move etc).
+// These are all the people or citizens of your city some are in your tower(s) others are looking for a place
+// to work, eat, shop and sleep or just hang out. The more of them you get the more profits you should see.
+
 #ifndef _CITIZENS_H
 #define _CITIZENS_H
 
@@ -32,7 +26,7 @@ class C_Person;
 class C_Citizens
 {
 private:
-   std::list <C_Person*> m_People;
+   std::vector <C_Person*> m_People;
 
 public:
    void update (float dt);

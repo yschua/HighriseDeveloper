@@ -29,8 +29,8 @@ class C_Tower
    friend class C_TowerAgent;
 private:
    int m_TowerNo;
-   std::list<C_level *> m_Levels;     // Lobby is at 0
-   std::list<C_level *> m_SubLevels;  // basement level (-1 = 1, -2 = 2 ) 
+   std::vector<C_level *> m_Levels;     // Lobby is at 0
+   std::vector<C_level *> m_SubLevels;  // basement level (-1 = 1, -2 = 2 ) 
                                           //SubLevel 0 = power and utilies not accessible to people
 public:
    // ctor/dtor
@@ -40,11 +40,11 @@ public:
 
    // implementation
 protected:
-   std::list<C_level *>& get_Levels()
+   std::vector<C_level *>& get_Levels()
    {
       return m_Levels;
    }
-   std::list<C_level *>& get_SubLevels()
+   std::vector<C_level *>& get_SubLevels()
    {
       return m_SubLevels;
    }

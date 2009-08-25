@@ -24,7 +24,7 @@
 // the person procedes there. If time exceeds A&B limit then a moderate distance is searched. Same
 // for limit C but forther. If still no satifaction, enter drastic mode( leave, move etc).
 
-#include <list>
+#include <vector>
 #include "person.h"
 #include "pathAgent.h"
 #include "routes.h"

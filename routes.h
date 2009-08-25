@@ -22,13 +22,13 @@ class C_RouteBase; // aggregate of elevators and stairs
 class C_Routes
 {
 private:
-   std::list<C_RouteBase *> m_Routes;
+   std::vector<C_RouteBase *> m_Routes;
    static C_Routes* m_instance;
    C_Routes();
 
 public:
    static C_Routes* get_instance ();
-   std::list<C_RouteBase *>& get_Routes()
+   std::vector<C_RouteBase *>& get_Routes()
    {
       return m_Routes;
    }

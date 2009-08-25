@@ -32,7 +32,7 @@ class C_Person;
 class C_CitizensAgent
 {
 private:
-   std::list<C_Person*> m_People;
+   std::vector<C_Person*> m_People;
 
 public:
    void update (float dt);

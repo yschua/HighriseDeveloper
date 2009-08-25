@@ -13,7 +13,7 @@
  *   You should have received a copy of the GNU General Public License
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 #include "highrisedev.h"
  
 C_level::C_level (int level)
@@ -64,7 +64,7 @@ C_level::add_floor (C_FloorBase * floor)
 void
 C_level::update (float dt)
 {
-   std::list<C_FloorBase *>::iterator i;
+   std::vector<C_FloorBase *>::iterator i;
    for (i = m_floors.begin (); i != m_floors.end (); i++)
       (*i)->update (dt);
 }
@@ -72,7 +72,7 @@ C_level::update (float dt)
 void
 C_level::draw ()
 {
-   std::list<C_FloorBase *>::iterator i;
+   std::vector<C_FloorBase *>::iterator i;
    for (i = m_floors.begin (); i != m_floors.end (); i++)
       (*i)->draw ();
    C_Camera::get_instance()->draw (*m_fire_escape_l);

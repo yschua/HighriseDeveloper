@@ -23,7 +23,7 @@ class C_FloorBase;
 class C_level
 {
 private:
-   std::list<C_FloorBase *> m_floors;
+   std::vector<C_FloorBase *> m_floors;
    C_AnimationSingle * m_fire_escape_l;
    C_AnimationSingle * m_fire_escape_r;
 protected:

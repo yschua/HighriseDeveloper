@@ -14,7 +14,7 @@
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <list>
+#include <vector>
 
 #include "routeBase.h"
 #include "elevatorBase.h"
@@ -42,7 +42,7 @@ void C_Routes::add_route(C_RouteBase * route)
 
 void C_Routes::update (float dt)
 {
-   std::list<C_RouteBase *>::iterator i;
+   std::vector<C_RouteBase *>::iterator i;
    for (i = m_Routes.begin (); i != m_Routes.end (); i++)
    {
       (*i)->update( dt );
@@ -51,7 +51,7 @@ void C_Routes::update (float dt)
 
 void C_Routes::draw ()
 {
-   std::list<C_RouteBase *>::iterator i;
+   std::vector<C_RouteBase *>::iterator i;
    for (i = m_Routes.begin (); i != m_Routes.end (); i++)
    {
       (*i)->draw( );

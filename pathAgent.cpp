@@ -26,9 +26,12 @@
 
 #include <vector>
 #include "person.h"
-#include "pathAgent.h"
 #include "routes.h"
 #include "routeBase.h"
+#include "tower.h"
+#include "citizensagent.h"
+
+#include "pathAgent.h"
 
 C_PathAgent::C_PathAgent (C_Person* peep )
 :  m_Peep( peep )
@@ -41,19 +44,19 @@ C_PathAgent::~C_PathAgent ()
 
 }
 
-bool C_PathAgent::findPath (Location& origin, Location& dest)
+bool C_PathAgent::findPath (Location& origin, Location& dest, C_Tower& tower )
 {
    Path& path = m_Peep->get_WorkPath(); // for now just doing work
    path.clear();
    // normally we would use the commented code but for now I've pluged direct to a single elevator
-   C_Routes* routeList = C_Routes::get_instance();
+   //C_Routes* routeList = C_Routes::get_instance();
+   C_Routes& routeList = tower.get_Routes();
+   C_CitizensAgent People( tower );
    std::vector<C_RouteBase*>::iterator i;
-   for (i = routeList->get_Routes().begin (); i != routeList->get_Routes().end (); i++)
-   {
-      C_RouteBase* route = (*i);
-//      C_RouteVisitor visitor( req );
-//      route->getRoute( visitor );
-   }
+   //for (i = routeList.get_Routes().begin (); i != routeList.get_Routes().end (); i++)
+   //{
+   //   C_RouteBase* route = (*i);
+   //}
    path.m_PathList[0].m_Building = dest.m_Building;
    path.m_PathList[0].m_Level = 0;
    path.m_PathList[0].m_State = dest.m_State;

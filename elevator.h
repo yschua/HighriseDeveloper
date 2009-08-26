@@ -33,6 +33,32 @@ class C_ElevatorShaft;   // holds the tiler to show the shaft
 class C_ElevatorPit;     // landing pit below
 class C_Body;
 class C_Camera;
+class C_Person;
+
+// The UI should read the FloorStops array and the range of floors.
+// Then display all available floors and ticking those floors in the FloorStops array.
+// The user will be able to untick levels to diable and tick levels to enable.
+// Then the FloorStops array is reloaded with only floors that are ticked.
+// This code and the routing agent can determine which elevators reach which levels
+//  to determine what paths are available virtically through the tower.
+// ButtonFlag is the direction a person wishes to travel to their destination.
+// BUTTON_UP and BUTTON_DOWN are the bit flags.
+
+#define BUTTON_UP 0x01;
+#define BUTTON_DOWN 0x02;
+#define DESINATION  0x04;  // this is a destination level.
+
+struct FloorStop
+{
+   short m_Level;
+   char  m_ButtonFlag;
+};
+
+struct Rider
+{
+   C_Person* m_Person;
+   short    m_DestLevel;
+};
 
 class C_Elevator : public C_Body, public C_RouteBase
 {
@@ -65,6 +91,10 @@ protected:
    C_AnimationSingle* m_LiftPit;
    C_ElevatorMachine* m_LiftMachine;
    C_ElevatorShaft*   m_ElevatorShaft;
+
+   Rider       m_Riders[16];
+   FloorStop   m_Stops[32];
+
    //C_Tiler * m_ElevatorShaft; // temporary to make a nice looking demo :] Moved into shaft object.
    C_Camera* m_cam;
    // Controls this things motion
@@ -82,6 +112,7 @@ protected:
    short m_StartRoute;
    short m_EndRoute;
    short m_End2;
+   short m_RidersOnBoard;
    LiftOps_State  m_LiftOperation;
    unsigned char  m_LiftStyle;
 

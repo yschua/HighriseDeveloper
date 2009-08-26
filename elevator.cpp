@@ -53,6 +53,11 @@ C_Elevator::C_Elevator ( Lift_Styles style, int x, short BottomLevel, short TopL
    m_End2 = -1;
    m_Offset = BottomLevel * -36;
 
+   m_RidersOnBoard = 0;
+   memset( m_Riders, 0, sizeof(m_Riders) );
+   memset( m_Stops, 0, sizeof(m_Stops) );
+   
+
    // test code
    m_StartRoute = m_BottomLevel;
    m_EndRoute = m_TopLevel;

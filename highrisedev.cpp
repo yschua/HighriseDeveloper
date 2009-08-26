@@ -29,13 +29,12 @@ main ()
    sf::Event event;
    C_Elevator* pElevator;
    C_Background * pBackground;
-   C_CitizensAgent People;
    C_Tower theTower (1,10); // numero uno with 10 sub levels
+   C_CitizensAgent People( theTower ); // known tower, later this will be a tower list for mutiple towers
 
    try
    {
       // stuffing the floors with test spaces
-      // C_Lobby* my_lobby = new C_Lobby(370, 640, 0);
       C_office* my_office = new C_office(400, 1);
       C_office* my_office2 = new C_office (400, 2);
       C_office* my_office3 = new C_office (472, 1);
@@ -54,8 +53,6 @@ main ()
 
       C_office* my_basement = new C_office (400, -1);
 
-      C_Routes& routes = *C_Routes::get_instance();
-//      C_level* sublevel = theTower.newSubLevel();
       C_level* sublevel = theTower.getLevel(-1);
       C_level* level_1 = theTower.newLevel();
       C_level* level_2 = theTower.newLevel();
@@ -78,8 +75,10 @@ main ()
       level_5->add_floor (my_apt5);
       sublevel->add_floor (my_basement);
       
-      pElevator = new C_Elevator( C_Elevator::LS_Standard, 472+18, -1, 6 );
-      routes.add_route( pElevator );
+      pElevator = new C_Elevator( C_Elevator::LS_Standard, 472, -1, 6 );
+      theTower.get_Routes().add_route( pElevator );
+      pElevator = new C_Elevator( C_Elevator::LS_Standard, 472 + 36 + 9, 0, 4 );
+      theTower.get_Routes().add_route( pElevator );
       pBackground = new C_Background ();
 
       while (1) {
@@ -117,18 +116,10 @@ main ()
          cam->clear ();
          cam->integrate (60);
          pBackground->draw ();
-         //level_1.update (60);
-         //level_1.draw ();
-         //level_2.update (60);
-         //level_2.draw ();
-         //level_3.update (60);
-         //level_3.draw ();
-         //my_lobby.update (60);
-         //my_lobby.draw ();
          theTower.update (60);
-         routes.update (60);
+//         routes.update (60); now in tower
          theTower.draw ();
-         routes.draw ();
+//         routes.draw (); now in tower
          cam->display ();
 
          People.update( 40 );

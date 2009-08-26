@@ -67,22 +67,6 @@ C_level* C_Tower::getLevel( int level ) // positive gets you a level above, nega
    C_level* floor = 0;
    int index = level + m_No_SubLevels;
    floor = m_Levels[index];
-//   if( level < 0 )
-//   {
-//      unsigned int ul = abs(level);
-//      if( ul <= this->m_Levels.size() )
-//      {
-////         pLevel = m_Levels[ul];
-//      }
-//   }
-//   else
-//   {
-//      unsigned int ul = abs(level);
-//      if( ul <= this->m_SubLevels.size() )
-//      {
-////         pLevel = m_Levels[ul];
-//      }
-//   }
    return floor;
 }
 
@@ -93,11 +77,7 @@ void C_Tower::update (float dt)
    {
       (*iLevel)->update( dt );
    }
-   //std::vector<C_level *>::iterator iSub;
-   //for (iSub = m_SubLevels.begin (); iSub != m_SubLevels.end (); iSub++)
-   //{
-   //   (*iSub)->update( dt );
-   //}
+   m_Routes.update( dt );
 }
 
 void C_Tower::draw ()
@@ -107,9 +87,5 @@ void C_Tower::draw ()
    {
       (*iLevel)->draw( );
    }
-   //std::vector<C_level *>::iterator iSub;
-   //for (iSub = m_SubLevels.begin (); iSub != m_SubLevels.end (); iSub++)
-   //{
-   //   (*iSub)->draw( );
-   //}
+   m_Routes.draw();
 }

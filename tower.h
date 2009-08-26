@@ -22,7 +22,10 @@
 
 class C_FloorBase; // aggregate of floor spaces for offices, condos and hotels
 class C_level;
+class C_Elevator;
 class C_TowerAgent;
+class C_Routes;
+
 
 class C_Tower
 {
@@ -30,28 +33,30 @@ class C_Tower
 private:
    int m_TowerNo;
    int m_No_SubLevels;
+
    std::vector<C_level *> m_Levels;     // Lobby is at m_No_SubLevels not zero
-//   std::vector<C_level *> m_SubLevels;  // basement level (-1 = 1, -2 = 2 ) 
-                                          //SubLevel 0 = power and utilies not accessible to people
+   C_Routes m_Routes;
+
 public:
    // ctor/dtor
    C_Tower( int towerNo, int NoSubLevels );
    ~C_Tower();
-   // properties
 
-   // implementation
+   // properties
+   C_Routes& get_Routes()
+   {
+      return m_Routes;  // For routing citizens
+   }
+
 protected:
    std::vector<C_level *>& get_Levels()
    {
       return m_Levels;
    }
-   //std::vector<C_level *>& get_SubLevels()
-   //{
-   //   return m_SubLevels;
-   //}
+
+   // implementation
 public:
    C_level* newLevel( );  
-//   C_level* newSubLevel( );
    C_level* getLevel( int level ); // positive gets you a level above, negative gets you a basement level
 
 

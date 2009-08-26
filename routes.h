@@ -23,11 +23,12 @@ class C_Routes
 {
 private:
    std::vector<C_RouteBase *> m_Routes;
-   static C_Routes* m_instance;
-   C_Routes();
+//   static C_Routes* m_instance; no longer static as each tower has it's own routes
 
 public:
-   static C_Routes* get_instance ();
+   C_Routes(); // not part of Tower.
+
+//   static C_Routes* get_instance ();
    std::vector<C_RouteBase *>& get_Routes()
    {
       return m_Routes;

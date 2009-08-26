@@ -27,14 +27,17 @@
 #include <vector>
 #include <iostream>
 #include "person.h"
-#include "citizensAgent.h"
 #include "pathAgent.h"
 #include "routeVisitor.h"
 #include "routeBase.h"
 #include "routes.h"
+#include "tower.h"
 #include "HighriseException.h"
 
-C_CitizensAgent::C_CitizensAgent ( )
+#include "citizensAgent.h"
+
+C_CitizensAgent::C_CitizensAgent (C_Tower& tower) // use a tower agent for multiple towers
+:  m_Tower (tower)
 {
 
 }
@@ -83,7 +86,7 @@ void C_CitizensAgent::update (float dt)
          std::cout << "A new person has entered your building looking for work on Level# " << dest.m_Level;
          peep->set_Activity( C_Person::AS_GoingToWork );
          peep->set_Occupation( 1 );
-         Path.findPath( peep->get_Location(), dest );
+         Path.findPath( peep->get_Location(), dest, m_Tower );
       }
       else if( act == C_Person::AS_CondoHunting )
       {
@@ -104,11 +107,12 @@ void C_CitizensAgent::update (float dt)
             }
             else
             {
-               C_Routes* routeList = C_Routes::get_instance();
-               if(  routeList->get_Routes().size() > 0 )
+               //C_Routes* routeList = C_Routes::get_instance();
+               C_Routes& routeList = m_Tower.get_Routes();
+               if(  routeList.get_Routes().size() > 0 )
                {
                   std::vector<C_RouteBase*>::iterator i;
-                  i = routeList->get_Routes().begin ();
+                  i = routeList.get_Routes().begin ();
                   C_RouteBase* route = (*i);
                   RoutingRequest req;
                   req.OriginLevel = curLevel;
@@ -136,11 +140,12 @@ void C_CitizensAgent::update (float dt)
             }
             else
             {
-               C_Routes* routeList = C_Routes::get_instance();
-               if(  routeList->get_Routes().size() > 0 )
+               //C_Routes* routeList = C_Routes::get_instance();
+               C_Routes& routeList = m_Tower.get_Routes();
+               if(  routeList.get_Routes().size() > 0 )
                {
                   std::vector<C_RouteBase*>::iterator i;
-                  i = routeList->get_Routes().begin ();
+                  i = routeList.get_Routes().begin ();
                   C_RouteBase* route = (*i);
                   RoutingRequest req;
                   req.OriginLevel = curLevel;

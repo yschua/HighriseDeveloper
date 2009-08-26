@@ -28,11 +28,15 @@
 
 struct Location; // from person
 class C_Person;
+class C_Tower;
 
 class C_CitizensAgent
 {
 private:
    std::vector<C_Person*> m_People;
+
+protected:
+   C_Tower& m_Tower; // must have one
 
 public:
    void update (float dt);
@@ -40,7 +44,7 @@ public:
    {
       // nothing to draw unless we have set the follow this person flag in the menu. (Much later code).
    };
-   C_CitizensAgent ();
+   C_CitizensAgent (C_Tower& m_Tower); // use a tower agent for multiple towers
    virtual ~C_CitizensAgent (void);
 };
 

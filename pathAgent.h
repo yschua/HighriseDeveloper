@@ -28,6 +28,7 @@
 
 struct Location; // from person
 class C_Person;
+class C_Tower;
 
 class C_PathAgent
 {
@@ -36,7 +37,7 @@ private:
    Path        m_CurrentPath; // local scratch
 
 public:
-   bool findPath (Location& origin, Location& dest);
+   bool findPath (Location& origin, Location& dest, C_Tower& tower);
    C_PathAgent (C_Person* peep);
    virtual ~C_PathAgent (void);
 };

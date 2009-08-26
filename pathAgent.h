@@ -33,12 +33,13 @@ class C_Tower;
 class C_PathAgent
 {
 private:
-   C_Person*   m_Peep;
+   C_Person*   m_Person;
    Path        m_CurrentPath; // local scratch
 
 public:
    bool findPath (Location& origin, Location& dest, C_Tower& tower);
-   C_PathAgent (C_Person* peep);
+   C_PathAgent (C_Person* person);
+   C_PathAgent (C_Person* person, int level); // deposit person on this level;
    virtual ~C_PathAgent (void);
 };
 

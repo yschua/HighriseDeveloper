@@ -14,30 +14,93 @@
 *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-// When somone wants to go somewhere, just hand them over to their own personal travel agent.
-// "MyPathAgent 2500 will take you to your destination quickly and safely, only 19.95 + S&H"
-// The Activities Agent will hand people to this agent when they enter a travel state.
-// A location and destination will be set for the person(s) preparing to embark. The path agent will
-// then find the best path to that destination. Folks in the tower(s) will be transitioned from
-// point to point. The nearest elevalor is found and enqueued. Should the wait time exceed A limt
-// the PA will look for the another elevator close by that stops on the level desired. It found then
-// the person procedes there. If time exceeds A&B limit then a moderate distance is searched. Same
-// for limit C but forther. If still no satifaction, enter drastic mode( leave, move etc).
+// Here lies all your people. The purpose of this class it to keep track of people.
+// Everyone in your city will be here including non-residents of your tower(s).
+// This is stritly the data storage collection of persons and where they are created and destroyed.
 
-#include <algorithm>
-#include "highrisedev.h"
+#include <list>
+#include <iostream>
+#include "person.h"
+#include "highriseException.h"
 
-C_Citizens::C_Citizens (C_Person* peep, Location* dest)
+#include "citizens.h"
+
+C_Citizens* C_Citizens::m_instance = NULL;
+
+C_Citizens* C_Citizens::get_Instance()
+{
+   if (m_instance == NULL)
+   {
+      m_instance = new C_Citizens();
+   }
+   return m_instance;
+}
+void C_Citizens::destroy() // clear out the city
+{
+   try
+   {
+      if(m_instance != NULL)
+      {
+         delete m_instance;
+      }
+      m_instance = NULL;
+   }
+   catch( C_HighriseException* ex )
+   {
+      m_instance = NULL;
+      throw ex;            // pass on app generated exception
+   }
+   catch (...)
+   {
+      throw new C_HighriseException( "Error in cleaning up the Citezens collection" );
+   }
+}
+
+C_Citizens::C_Citizens()
 {
 
 }
 
-C_Citizens::~C_Citizens ()
+C_Citizens::~C_Citizens()
 {
-
+   std::cout << "Cleaning up C_Citizens";
+   try
+   {
+      std::list<C_Person *>::iterator i;
+      for (i = m_People.begin (); i != m_People.end (); i++)
+      {
+         C_Person* peep = (*i);
+         delete peep;
+      }
+   }
+   catch (...)
+   {
+      throw new C_HighriseException( "Error in Citezens destructor" );
+   }
 }
 
 void C_Citizens::update (float dt)
 {
 }
 
+C_Person* C_Citizens::NewPerson()
+{
+   Location loc;
+   C_Person* person = new C_Person( loc );
+   m_People.push_back (person);
+   return person;
+}
+
+void C_Citizens::DestroyPerson( C_Person* person )
+{
+   std::list<C_Person *>::iterator i;
+   for (i = m_People.begin (); i != m_People.end (); i++)
+   {
+      C_Person* peep = (*i);
+      if (peep == person)
+      {
+         m_People.remove(peep);
+         delete peep;
+      }
+   }
+}

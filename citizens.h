@@ -22,20 +22,35 @@
 
 struct Location; // from person
 class C_Person;
+class C_CitizensAgent;
 
-class C_Citizens
+class C_Citizens // : public C_Storage // add the serialization base
 {
+   friend C_CitizensAgent;
 private:
-   std::vector <C_Person*> m_People;
+   std::list <C_Person*> m_People;  // reverted back to a list as we will only use a forward iterator
+protected:
+   static C_Citizens* m_instance;
+
+   C_Citizens();
+   virtual ~C_Citizens(void);
 
 public:
-   void update (float dt);
-   void draw ()   // just a pass through
+   // instance
+   static C_Citizens* get_Instance();
+   void destroy(); 
+   // properties
+   std::list <C_Person*>& get_Persons()
    {
-      // nothing to draw unless we have set the follow this person flag in the menu. (Much later code).
+      return m_People;
    }
-   C_Citizens (C_Person* peep, Location* dest );
-   virtual ~C_Citizens (void);
+
+   // methods
+   C_Person* NewPerson();
+   void DestroyPerson( C_Person* person );
+
+   void C_Citizens::update (float dt);
+   void Draw() {}; // nothing to draw unless we draw the people here
 };
 
 #endif //_CITIZENS_H

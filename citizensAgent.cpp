@@ -24,6 +24,7 @@
 // the person procedes there. If time exceeds A&B limit then a moderate distance is searched. Same
 // for limit C but forther. If still no satifaction, enter drastic mode( leave, move etc).
 
+#include <list>
 #include <vector>
 #include <iostream>
 #include "person.h"
@@ -32,6 +33,7 @@
 #include "routeBase.h"
 #include "routes.h"
 #include "tower.h"
+#include "citizens.h"
 #include "HighriseException.h"
 
 #include "citizensAgent.h"
@@ -44,33 +46,24 @@ C_CitizensAgent::C_CitizensAgent (C_Tower& tower) // use a tower agent for multi
 
 C_CitizensAgent::~C_CitizensAgent ()
 {
-   std::cout << "Cleaning up C_Citizens";
-   try
-   {
-      std::vector<C_Person *>::iterator i;
-      for (i = m_People.begin (); i != m_People.end (); i++)
-      {
-         C_Person* peep = (*i);
-         delete peep;
-      }
-   }
-   catch (...)
-   {
-      throw new C_HighriseException( "Error in CitezensAgent destructor" );
-   }
 }
 
 void C_CitizensAgent::update (float dt)
 {
-   if( (rand() % 100) == 3 )   // TODO: need a better spawn mechanism, raised to 100
+   C_Citizens* citizens = C_Citizens::get_Instance(); // the citizens object that holds the people collection
+   if( (rand() % 200) == 3 )   // TODO: need a better spawn mechanism, raised to 100
    {
-      Location loc; // all zeros
-      C_Person* peep = new C_Person( loc );
-      m_People.push_back( peep );
+
+      //Location loc; // all zeros
+      C_Person* peep = citizens->NewPerson();
+//      C_Person* peep = new C_Person( loc );
+//      m_People.push_back( peep );
       std::cout << "A new person has entered your city";
    }
-   std::vector<C_Person *>::iterator i;
-   for (i = m_People.begin (); i != m_People.end (); i++)
+   std::list<C_Person *>::iterator i;
+   std::list<C_Person *>& persons = citizens->get_Persons(); // get the persons collection.
+   // TODO: Need to create a better interface that provides a clear persons iteration.
+   for (i = persons.begin (); i != persons.end (); i++)
    {
       C_Person* peep = (*i);
       peep->update( dt );
@@ -146,6 +139,7 @@ void C_CitizensAgent::update (float dt)
                {
                   std::vector<C_RouteBase*>::iterator i;
                   i = routeList.get_Routes().begin ();
+                  i++;  // go home on the 2nd elevator
                   C_RouteBase* route = (*i);
                   RoutingRequest req;
                   req.OriginLevel = curLevel;

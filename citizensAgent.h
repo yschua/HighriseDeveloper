@@ -33,10 +33,10 @@ class C_Tower;
 class C_CitizensAgent
 {
 private:
-   std::vector<C_Person*> m_People;
+//   std::vector<C_Person*> m_People; now using the citizens collection
 
 protected:
-   C_Tower& m_Tower; // must have one
+   C_Tower& m_Tower; // must have one or more
 
 public:
    void update (float dt);

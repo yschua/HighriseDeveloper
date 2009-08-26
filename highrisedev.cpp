@@ -77,7 +77,7 @@ main ()
       
       pElevator = new C_Elevator( C_Elevator::LS_Standard, 472, -1, 6 );
       theTower.get_Routes().add_route( pElevator );
-      pElevator = new C_Elevator( C_Elevator::LS_Standard, 472 + 36 + 9, 0, 4 );
+      pElevator = new C_Elevator( C_Elevator::LS_Standard, 472 + 36 + 9, -1, 5 );
       theTower.get_Routes().add_route( pElevator );
       pBackground = new C_Background ();
 

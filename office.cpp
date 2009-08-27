@@ -32,14 +32,11 @@ C_office::occupied_day (float dt)
    return s_occupied_day;
 }
 
-C_office::C_office (int x, int level)
-:   m_current_state (s_unoccupied_day)
+C_office::C_office (int x, int level, C_Tower * TowerParent)
+:  m_current_state (s_unoccupied_day)
+,  C_FloorBase (x, x + 72, level, TowerParent)
 {
    C_ImageManager * image_man = C_ImageManager::get_instance ();
-   m_level = level;// + 11;
-   m_x = x;
-   m_x2 = x + 72;
-   m_y = (C_Camera::get_instance()->get_world_y () ) - (m_level * 36);
    std::cout << "New office at " << m_x << ", " << m_y << " level " << m_level << std::endl;
    m_animations[s_occupied_day] = new C_Animation ();
    m_animations[s_occupied_day]->add_frame (image_man->get_image ("office_o_d_1.png"), 1000);

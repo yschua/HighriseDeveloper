@@ -26,7 +26,7 @@ class C_CitizensAgent;
 
 class C_Citizens // : public C_Storage // add the serialization base
 {
-   friend C_CitizensAgent;
+   friend class C_CitizensAgent;
 private:
    std::list <C_Person*> m_People;  // reverted back to a list as we will only use a forward iterator
 protected:

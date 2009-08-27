@@ -16,8 +16,9 @@
 
 #include "highrisedev.h"
  
-C_level::C_level (int level)
-:   m_level (level)// + 11)
+C_level::C_level (int level, C_Tower * TowerParent)
+:  m_level (TowerParent->ToRawLevel (level))
+,  m_TowerParent (TowerParent)
 {
    m_y = (C_Camera::get_instance()->get_world_y () ) - (m_level * 36);
    m_x = C_Camera::get_instance()->get_world_x ();
@@ -34,16 +35,14 @@ C_level::C_level (int level)
    }
    else
    {
-      m_fire_escape_l = new C_AnimationSingle (C_ImageManager::get_instance()->get_image("awning_l.png"));
-      m_fire_escape_r = new C_AnimationSingle (C_ImageManager::get_instance()->get_image("awning_r.png"));
+      m_fire_escape_l = new C_AnimationSingle (C_ImageManager::get_instance()->get_image("awn_left.png"));
+      m_fire_escape_r = new C_AnimationSingle (C_ImageManager::get_instance()->get_image("awn_right.png"));
    }
 }
 
 void
 C_level::add_floor (C_FloorBase * floor)
 {
-   //m_fire_escape_l = new C_AnimationSingle (C_ImageManager::get_instance()->get_image("fire_escape_l.png"));
-   //m_fire_escape_r = new C_AnimationSingle (C_ImageManager::get_instance()->get_image("fire_escape_r.png"));
    m_floors.push_back (floor);
    if (floor->m_x < m_x)
       m_x = floor->m_x;

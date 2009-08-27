@@ -41,7 +41,7 @@ private:
 public:
    virtual void update (float dt);
    virtual void draw ();
-   C_Apartment (int x, int level);
+   C_Apartment (int x, int level, C_Tower * TowerParent);
 };
 
 #endif   // _APARTMENT_H

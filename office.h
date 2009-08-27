@@ -34,7 +34,7 @@ private:
 public:
    virtual void update (float dt);
    virtual void draw ();
-   C_office (int x, int level);
+   C_office::C_office (int x, int level, C_Tower * TowerParent);
 };
 
 #endif

@@ -25,18 +25,15 @@ class C_level;
 class C_Lobby : public C_level // make lobby a level in itself
 {
 private:
-//    int m_level;
-    //int m_x, m_x2, m_y;
-    C_Tiler * tile;
-    C_AnimationSingle * awn_left;
-    C_AnimationSingle * awn_right;
-    C_Camera * cam;
-    void pos_calc ();
+   C_Tiler * tile;
+   C_AnimationSingle * awn_left;
+   C_AnimationSingle * awn_right;
+   C_Camera * cam;
 
 public:
-    void update (float dt);
-    void draw ();
-    C_Lobby (int x, int x2, int level);
+   void update (float dt);
+   void draw ();
+   C_Lobby::C_Lobby (int x, int x2, int level, C_Tower * TowerParent);
 };
 
 #endif

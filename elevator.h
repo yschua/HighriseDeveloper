@@ -34,6 +34,7 @@ class C_ElevatorPit;     // landing pit below
 class C_Body;
 class C_Camera;
 class C_Person;
+class C_Tower;
 
 // The UI should read the FloorStops array and the range of floors.
 // Then display all available floors and ticking those floors in the FloorStops array.
@@ -115,13 +116,15 @@ protected:
    short m_RidersOnBoard;
    LiftOps_State  m_LiftOperation;
    unsigned char  m_LiftStyle;
+   
+   C_Tower * m_TowerParent;
 
 public:
    // CTOR/DTOR  Use create to make on
-   C_Elevator( Lift_Styles style, int x, short BottLevel, short TopLevel );
+   C_Elevator( Lift_Styles style, int x, short BottLevel, short TopLevel, C_Tower * TowerParent );
    virtual ~C_Elevator();
 
-   static C_Elevator* Create( Lift_Styles style, int x, short BottomLevel, short TopLevel );  // this is rejected for som reason
+   static C_Elevator* Create( Lift_Styles style, int x, short BottomLevel, short TopLevel, C_Tower * TowerParent );  // this is rejected for som reason
 
    // Implemantation
    void Move( int x, int y );

@@ -14,7 +14,9 @@
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+ /*
 #include <vector> // changed from list to vector so the collection can be scrolled in up and down
+
 
 #include "routeBase.h"
 #include "routes.h"
@@ -24,7 +26,9 @@
 #include "floorbase.h"
 #include "level.h"
 #include "lobby.h"
-#include "tower.h"
+#include "tower.h"*/
+
+#include "highrisedev.h"
 
 C_Tower::C_Tower( int towerNo, int NoSubLevels )
 :  m_TowerNo( towerNo )
@@ -35,21 +39,22 @@ C_Tower::C_Tower( int towerNo, int NoSubLevels )
    int nsubs = -NoSubLevels;
    for (int sub = nsubs; sub < 0; ++sub)
    {
-      C_level* level = new C_level(sub);
+      C_level* level = new C_level (sub, this);
       m_Levels.push_back (level);
    }
-   C_Lobby* lobby = new C_Lobby (370, 640, 0);
+   C_Lobby* lobby = new C_Lobby (370, 640, 0, this);
    m_Levels.push_back (lobby);
 }
 
 C_Tower::~C_Tower( )
 {
+
 }
 
-C_level* C_Tower::newLevel( )
+C_level * C_Tower::newLevel( )
 {
    int level = m_Levels.size() - m_No_SubLevels;
-   C_level* floor = new C_level( level);   
+   C_level* floor = new C_level (level, this);   
    m_Levels.push_back (floor);
    return floor;
 }

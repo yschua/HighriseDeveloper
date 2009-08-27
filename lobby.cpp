@@ -16,26 +16,16 @@
 
 #include "highrisedev.h"
 
-C_Lobby::C_Lobby (int x, int x2, int level)
-:  C_level( level ) // +11 )
-//:   m_level (level + 11)
+C_Lobby::C_Lobby (int x, int x2, int level, C_Tower * TowerParent)
+:   C_level ( level, TowerParent )
 {
-   m_x = x;
    m_x2 = x2;
+   m_x = x;
    C_ImageManager * images = C_ImageManager::get_instance ();
    cam = C_Camera::get_instance ();
-   m_y = (cam->get_world_y ()) - (m_level * 36);
    tile = new C_Tiler (images->get_image("lobby.png"), C_Tiler::Horizontal, x, x2, m_y);
-   awn_left = new C_AnimationSingle (images->get_image ("awn_left.png"));
-   awn_right = new C_AnimationSingle (images->get_image ("awn_right.png"));
-   pos_calc ();
-}
-
-void
-C_Lobby::pos_calc ()
-{
-   awn_left->set_position (m_x - 56, m_y);
-   awn_right->set_position (m_x2, m_y);
+   m_fire_escape_l->set_position (m_x - 56, m_y);
+   m_fire_escape_r->set_position (m_x2, m_y);
    std::cout << "New lobby at " << m_x << " to " << m_x2 << " Y level " << m_y << std::endl;
 }
 
@@ -49,6 +39,6 @@ void
 C_Lobby::draw ()
 {
    cam->draw (*tile);
-   cam->draw (*awn_left);
-   cam->draw (*awn_right);
+   cam->draw (*m_fire_escape_l);
+   cam->draw (*m_fire_escape_r);
 }

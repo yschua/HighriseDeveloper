@@ -17,15 +17,19 @@
 #ifndef _FLOORBASE_H
 #define _FLOORBASE_H
 
+class C_Tower;
+
 class C_FloorBase
 {
 protected:
-    int m_level;
+   int m_level;
+   C_Tower * m_TowerParent;
     
 public:
-    int m_x, m_x2, m_y;
-    virtual void update (float dt);
-    virtual void draw ();
+   int m_x, m_x2, m_y;
+   virtual void update (float dt);
+   virtual void draw ();
+   C_FloorBase (int x, int x2, int level, C_Tower * TowerParent);
 };
 
 #endif

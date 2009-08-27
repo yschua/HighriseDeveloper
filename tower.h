@@ -30,6 +30,7 @@ class C_Routes;
 class C_Tower
 {
    friend class C_TowerAgent;
+   
 private:
    int m_TowerNo;
    int m_No_SubLevels;
@@ -43,13 +44,17 @@ public:
    ~C_Tower();
 
    // properties
-   C_Routes& get_Routes()
+   inline C_Routes & get_Routes()
    {
       return m_Routes;  // For routing citizens
    }
+   inline int ToRawLevel (int level)
+   {
+      return level + m_No_SubLevels + 1;
+   }
 
 protected:
-   std::vector<C_level *>& get_Levels()
+   inline std::vector<C_level *>& get_Levels()
    {
       return m_Levels;
    }

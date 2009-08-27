@@ -29,29 +29,29 @@ main ()
    sf::Event event;
    C_Elevator* pElevator;
    C_Background * pBackground;
-   C_Tower theTower (1,10); // numero uno with 10 sub levels
+   C_Tower theTower (1, 10); // numero uno with 10 sub levels
    C_CitizensAgent People( theTower ); // known tower, later this will be a tower list for mutiple towers
 
    try
    {
       // stuffing the floors with test spaces
-      C_office* my_office = new C_office(400, 1);
-      C_office* my_office2 = new C_office (400, 2);
-      C_office* my_office3 = new C_office (472, 1);
-      C_office* my_office4 = new C_office (472, 2);
-      C_office* my_office5 = new C_office (544, 1);
-      C_office* my_office6 = new C_office (544, 2);
-      C_office* my_office7 = new C_office (400, 3);
-      C_office* my_office8 = new C_office (472, 3);
-      C_office* my_office9 = new C_office (544, 3);
+      C_office* my_office = new C_office(400, 1, &theTower);
+      C_office* my_office2 = new C_office (400, 2, &theTower);
+      C_office* my_office3 = new C_office (472, 1, &theTower);
+      C_office* my_office4 = new C_office (472, 2, &theTower);
+      C_office* my_office5 = new C_office (544, 1, &theTower);
+      C_office* my_office6 = new C_office (544, 2, &theTower);
+      C_office* my_office7 = new C_office (400, 3, &theTower);
+      C_office* my_office8 = new C_office (472, 3, &theTower);
+      C_office* my_office9 = new C_office (544, 3, &theTower);
 
-      C_Apartment* my_apt1 = new C_Apartment (400, 4);
-      C_Apartment* my_apt2 = new C_Apartment (472, 4);
-      C_Apartment* my_apt3 = new C_Apartment (544, 4);
-      C_Apartment* my_apt4 = new C_Apartment (472, 5);
-      C_Apartment* my_apt5 = new C_Apartment (544, 5);
+      C_Apartment* my_apt1 = new C_Apartment (400, 4, &theTower);
+      C_Apartment* my_apt2 = new C_Apartment (472, 4, &theTower);
+      C_Apartment* my_apt3 = new C_Apartment (544, 4, &theTower);
+      C_Apartment* my_apt4 = new C_Apartment (472, 5, &theTower);
+      C_Apartment* my_apt5 = new C_Apartment (544, 5, &theTower);
 
-      C_office* my_basement = new C_office (400, -1);
+      C_office* my_basement = new C_office (400, -1, &theTower);
 
       C_level* sublevel = theTower.getLevel(-1);
       C_level* level_1 = theTower.newLevel();
@@ -75,9 +75,9 @@ main ()
       level_5->add_floor (my_apt5);
       sublevel->add_floor (my_basement);
       
-      pElevator = new C_Elevator( C_Elevator::LS_Standard, 472, -1, 6 );
+      pElevator = new C_Elevator( C_Elevator::LS_Standard, 472, -1, 6, &theTower );
       theTower.get_Routes().add_route( pElevator );
-      pElevator = new C_Elevator( C_Elevator::LS_Standard, 472 + 36 + 9, -1, 5 );
+      pElevator = new C_Elevator( C_Elevator::LS_Standard, 472 + 36 + 9, -1, 5, &theTower );
       theTower.get_Routes().add_route( pElevator );
       pBackground = new C_Background ();
 

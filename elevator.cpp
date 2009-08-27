@@ -14,39 +14,22 @@
  *   along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <cstdlib> 
-#include <iostream>
-#include <SFML/System.hpp>
-#include <SFML/Graphics.hpp>
-#include "physics.h"
-#include "animation.h"
-#include "tiler.h"
-#include "camera.h"
-#include "image.h"
-
-#include "routeBase.h"  // Elevators route (levels).
-#include "routeVisitor.h"  // class that will update the elevators route request queue
-#include "elevatorBase.h"
-#include "elevatorMachine.h"
-#include "elevatorShaft.h"
-#include "elevatorPit.h"
-#include "elevator.h"
-
+#include "highrisedev.h"
 // this object is the elevator collection (Machines, Shaft, Pit) and the car.
 // At this time there is no LiftCar class.
 
-C_Elevator* C_Elevator::Create( Lift_Styles style, int x, short BottLevel, short TopLevel )
+C_Elevator* C_Elevator::Create( Lift_Styles style, int x, short BottLevel, short TopLevel, C_Tower * TowerParent )
 {
-   return new C_Elevator( style, x, BottLevel, TopLevel );
+   return new C_Elevator( style, x, BottLevel, TopLevel, TowerParent );
 }
 
-C_Elevator::C_Elevator ( Lift_Styles style, int x, short BottomLevel, short TopLevel)
+C_Elevator::C_Elevator ( Lift_Styles style, int x, short BottomLevel, short TopLevel, C_Tower * TowerParent)
 :  m_LiftStyle( style )
 ,  m_LiftOperation( LOS_Waiting )
+,  m_TowerParent (TowerParent)
 {
-   //m_Level = level; depricate
-   m_TopLevel = TopLevel;
-   m_BottomLevel = BottomLevel;
+   m_TopLevel = TowerParent->ToRawLevel (TopLevel);
+   m_BottomLevel = TowerParent->ToRawLevel (BottomLevel);
    m_Position = (m_BottomLevel + 1) * 36;
    m_Direction = 0;
    m_IdleTime = 30;

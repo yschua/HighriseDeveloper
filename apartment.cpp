@@ -51,15 +51,12 @@ C_Apartment::occupied_sleep (float dt)
    return apt_occupied_day;
 }
 
-C_Apartment::C_Apartment (int x, int level)
-:   m_current_state (apt_occupied_day)
+C_Apartment::C_Apartment (int x, int level, C_Tower * TowerParent)
+:  m_current_state (apt_occupied_day)
+,  C_FloorBase (x, x + 72, level, TowerParent)
 {
    C_ImageManager * image_man = C_ImageManager::get_instance ();
-   m_level = level;// + 11;
-   m_x = x;
-   m_x2 = x + 72;
-   m_y = (C_Camera::get_instance()->get_world_y () ) - (m_level * 36);
-   std::cout << "New office at " << m_x << ", " << m_y << " level " << m_level << std::endl;
+   std::cout << "New apartment at " << m_x << ", " << m_y << " level " << m_level << std::endl;
    m_animations[apt_occupied_day] = new C_Animation ();
    m_animations[apt_occupied_day]->add_frame (image_man->get_image ("apartment_r_d_1.png"), 1000);
    m_animations[apt_occupied_day]->add_frame (image_man->get_image ("apartment_r_n_1.png"), 1000);

@@ -42,3 +42,11 @@
 
 #include "person.h"
 #include "citizens.h"
+
+#include "routeBase.h"  // Elevators route (levels).
+#include "routeVisitor.h"  // class that will update the elevators route request queue
+#include "elevatorBase.h"
+#include "elevatorMachine.h"
+#include "elevatorShaft.h"
+#include "elevatorPit.h"
+#include "elevator.h"

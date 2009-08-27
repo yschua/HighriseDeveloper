@@ -23,10 +23,12 @@ private:
    int m_world_x, m_world_y, m_cam_x, m_cam_y;
    sf::RenderWindow * m_window;
    sf::View * m_View;
+   sf::View * m_StaticView;
    sf::Color m_back_color;
    static C_Camera * m_instance;
    C_Camera ();
    float m_ZoomFactor;
+   bool m_IgnoreCamera;
 
 public:
    static C_Camera * get_instance ();
@@ -44,6 +46,7 @@ public:
    void center (int x, int y);
    bool get_event (sf::Event & event);
    void Zoom (float Factor);
+   void SetStatic (bool set);
 };
 
 #endif

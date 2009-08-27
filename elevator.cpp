@@ -47,8 +47,8 @@ C_Elevator::C_Elevator ( Lift_Styles style, int x, short BottomLevel, short TopL
 ,  m_LiftOperation( LOS_Waiting )
 ,  m_TowerParent (TowerParent)
 {
-   m_TopLevel = TowerParent->ToRawLevel (TopLevel);
-   m_BottomLevel = TowerParent->ToRawLevel (BottomLevel);
+   m_TopLevel = (TopLevel);
+   m_BottomLevel = (BottomLevel);
    m_Position = (m_BottomLevel + 1) * 36;
    m_Direction = 0;
    m_IdleTime = 30;

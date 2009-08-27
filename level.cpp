@@ -17,7 +17,7 @@
 #include "highrisedev.h"
  
 C_level::C_level (int level, C_Tower * TowerParent)
-:  m_level (TowerParent->ToRawLevel (level))
+:  m_level (level)
 ,  m_TowerParent (TowerParent)
 {
    m_y = (C_Camera::get_instance()->get_world_y () ) - (m_level * 36);

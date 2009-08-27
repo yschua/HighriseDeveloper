@@ -23,7 +23,7 @@ main ()
 {
    C_Camera * cam = C_Camera::get_instance ();
    cam->set_cam_size (800, 600);
-   cam->set_world_size (1280, 1080);
+   cam->set_world_size (1280, 720);
    cam->set_max_framerate (60);
    cam->create ("test");
    sf::Event event;

@@ -85,7 +85,7 @@ main ()
          while (cam->get_event (event)) {
             if (event.Type == sf::Event::Closed)
                exit (0);
-            if (event.Type == sf::Event::KeyPressed)
+            else if (event.Type == sf::Event::KeyPressed)
             {
                if (event.Key.Code == sf::Key::A)
                {
@@ -111,6 +111,10 @@ main ()
                {
                   cam->set_velocity (0, 0);
                }
+            }
+            else if (event.Type == sf::Event::MouseWheelMoved)
+            {
+               cam->Zoom (event.MouseWheel.Delta);
             }
          }
          cam->clear ();

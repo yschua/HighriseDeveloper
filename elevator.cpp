@@ -13,6 +13,25 @@
  *   You should have received a copy of the GNU General Public License
  *   along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
  */
+/*
+#include <cstdlib> 
+#include <iostream>
+#include <SFML/System.hpp>
+#include <SFML/Graphics.hpp>
+#include "physics.h"
+#include "animation.h"
+#include "tiler.h"
+#include "camera.h"
+#include "image.h"
+
+#include "routeBase.h"  // Elevators route (levels).
+#include "routeVisitor.h"  // class that will update the elevators route request queue
+#include "elevatorBase.h"
+#include "elevatorMachine.h"
+#include "elevatorShaft.h"
+#include "elevatorPit.h"
+#include "elevator.h"
+*/
 
 #include "highrisedev.h"
 // this object is the elevator collection (Machines, Shaft, Pit) and the car.

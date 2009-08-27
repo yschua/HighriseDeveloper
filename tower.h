@@ -52,6 +52,10 @@ public:
    {
       return level + m_No_SubLevels + 1;
    }
+   inline int UnRawLevel (int level)
+   {
+      return level - m_No_SubLevels - 1;
+   }
 
 protected:
    inline std::vector<C_level *>& get_Levels()

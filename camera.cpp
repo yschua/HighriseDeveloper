@@ -19,9 +19,19 @@
 C_Camera * C_Camera::m_instance = NULL;
 
 C_Camera::C_Camera ()
-:   m_back_color (0, 0, 0)
+:  m_back_color (0, 0, 0)
 {
    m_window = new sf::RenderWindow ();
+   m_View = &(m_window->GetDefaultView ());
+   m_ZoomFactor = 1;
+}
+
+void
+C_Camera::Zoom (float Factor)
+{
+   std::cout << "Zoom factor: " << Factor << std::endl;
+   Factor *= 0.05;
+   m_View->Zoom (1.0f + Factor);
 }
 
 int

@@ -27,7 +27,7 @@
 // Above subject to change.
 struct Location
 {
-   short m_State;    // 0 = Idle, 1 = waiting, 2 = moving
+   short m_Route;   // changed from state to route meaning any elevator, stairs or other mode of traversal.
    short m_Building;
    short m_Level;   // 0 = lobby
    short m_X;       // 0 = outide the building
@@ -37,7 +37,7 @@ struct Location
    }
    void clear()
    {
-      m_State = 0;
+      m_Route = -1;
       m_Building = 0;
       m_Level = 0;
       m_X = 0;
@@ -105,6 +105,16 @@ public:
       AS_HotelHunting
    };
 
+   enum Current_State   // had to add this to describe what a person is doing while heading to work, home or play.
+   {                    // may also cover other activities. A person heading to work may also be stuck in an elevator queue.
+      CS_Idle = 0,      // Idle is defined as doing nothing
+      CS_Busy,          // Waiting for a timed event to trigger their next move. At work, sleeping etc.
+      CS_Walking,       // Ok good, going somewhere
+      CS_Riding,        // In a vehicle, elevator, train, car etc.
+      CS_Disembarking,  // Car just dropped a person off;
+      CS_Waiting        // In queue
+   };
+
 private:
    Location       m_Location;
    Path           m_WorkPath;    // To and from work, stays permanant as long as working.
@@ -114,6 +124,7 @@ private:
    Health_State   m_Health;
    Mood_State     m_Mood;
    Activity_State m_Activity;
+   Current_State  m_CurrentState;// Covers busy, waiting, walking, riding.
    int            m_Occupation;  // school and retired are valid occupations
                                  // not set on if this will be a class or enum
 
@@ -140,6 +151,14 @@ public:
    void set_Activity (Activity_State state )
    {
       m_Activity = state;
+   }
+   Current_State get_CurrentState () // inline for faster access, same isolation, just quicker code.
+   {
+      return m_CurrentState;
+   }
+   void set_CurrentState (Current_State state )
+   {
+      m_CurrentState = state;
    }
    void set_Occupation( int occ )
    {

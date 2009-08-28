@@ -67,11 +67,11 @@ bool C_PathAgent::findPath (Location& origin, Location& dest, C_Tower& tower )
    //}
    path.m_PathList[0].m_Building = dest.m_Building;
    path.m_PathList[0].m_Level = 0;
-   path.m_PathList[0].m_State = dest.m_State;
+   path.m_PathList[0].m_Route = 0; // first option
    path.m_PathList[0].m_X = 0;
    path.m_PathList[1].m_Building = dest.m_Building;
    path.m_PathList[1].m_Level = dest.m_Level;
-   path.m_PathList[1].m_State = dest.m_State;
+   path.m_PathList[1].m_Route = 0;
    path.m_PathList[1].m_X = dest.m_X;
    path.index = 0;
    path.size = 2;

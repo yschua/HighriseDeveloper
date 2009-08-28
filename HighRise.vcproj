@@ -194,6 +194,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\citizens.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\citizensAgent.cpp"
 				>
 			</File>
@@ -301,6 +305,10 @@
 			</File>
 			<File
 				RelativePath=".\camera.h"
+				>
+			</File>
+			<File
+				RelativePath=".\citizens.h"
 				>
 			</File>
 			<File

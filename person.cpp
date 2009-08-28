@@ -26,6 +26,7 @@ C_Person::C_Person (Location& loc)
    m_Activity = AS_JobHunting; // noob, starts out looking for home, job etc.
    m_Occupation = 0;
    m_Home = 1;          // have a home (Test code)
+   m_CurrentState = CS_Idle;
    m_Location = loc;    // copy
 }
 
@@ -63,6 +64,7 @@ void C_Person::update (float dt)
       }
       if (m_WorkPath.index >= m_WorkPath.size) // this can be handled better and also need to check times
       {
+         m_Location.m_Level = m_WorkPath.m_PathList[m_WorkPath.index-1].m_Level; // this will bring the car to the office level at days end
          set_Activity( AS_Working ); // offices and businesses show employees at work.
       }
       break;
@@ -85,15 +87,16 @@ void C_Person::update (float dt)
          if (cur.m_Level == m_Location.m_Level)
          {
             m_Location.m_X = cur.m_X; // TODO: Move peep in animator
+            m_WorkPath.index--;
          }
          else
          {
             // waiting or on an elevator
          }
       }
-      if (m_WorkPath.index >= m_WorkPath.size) // this can be handled better and also need to check times
+      else
       {
-         set_Activity( AS_Working ); // offices and businesses show employees at work.
+         set_Activity( AS_Relaxing ); // offices and businesses show employees at work.
       }
       break;
    }

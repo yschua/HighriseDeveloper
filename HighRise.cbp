@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="HighRiseDev" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug Win32">
+				<Option output="HighRise" prefix_auto="1" extension_auto="1" />
+				<Option object_output="Debug Win32" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-DWIN32" />
+					<Add option="-D_DEBUG" />
+					<Add option="-D_CONSOLE" />
+					<Add option="-W" />
+					<Add option="-g" />
+					<Add option="-O0" />
+					<Add directory="F:/Dev/VC++/SFML-1.5/include" />
+				</Compiler>
+				<ResourceCompiler>
+					<Add directory="F:/Dev/VC++/SFML-1.5/include" />
+				</ResourceCompiler>
+				<Linker>
+					<Add library="sfml-Graphics-d" />
+					<Add library="sfml-System-d" />
+					<Add library="sfml-Window-d" />
+					<Add directory="F:/Dev/VC++/SFML-1.5/lib/vc2005" />
+				</Linker>
+			</Target>
+			<Target title="Release Win32">
+				<Option output="HighRise" prefix_auto="1" extension_auto="1" />
+				<Option object_output="Release Win32" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-DWIN32" />
+					<Add option="-DNDEBUG" />
+					<Add option="-D_CONSOLE" />
+					<Add option="-W" />
+				</Compiler>
+			</Target>
+			<Target title="Linux-dbg">
+				<Option platforms="Unix;Mac;" />
+				<Option output="highrise" prefix_auto="1" extension_auto="1" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Linker>
+					<Add library="sfml-graphics" />
+					<Add library="sfml-system" />
+					<Add library="sfml-window" />
+				</Linker>
+			</Target>
+		</Build>
+		<Unit filename="ReadMe.txt" />
+		<Unit filename="animation.cpp" />
+		<Unit filename="animation.h" />
+		<Unit filename="apartment.cpp" />
+		<Unit filename="apartment.h" />
+		<Unit filename="background.cpp" />
+		<Unit filename="background.h" />
+		<Unit filename="camera.cpp" />
+		<Unit filename="camera.h" />
+		<Unit filename="citizens.cpp" />
+		<Unit filename="citizens.h" />
+		<Unit filename="citizensAgent.cpp" />
+		<Unit filename="citizensAgent.h" />
+		<Unit filename="elevator.cpp" />
+		<Unit filename="elevator.h" />
+		<Unit filename="elevatorBase.cpp" />
+		<Unit filename="elevatorBase.h" />
+		<Unit filename="elevatorMachine.cpp" />
+		<Unit filename="elevatorMachine.h" />
+		<Unit filename="elevatorPit.cpp" />
+		<Unit filename="elevatorPit.h" />
+		<Unit filename="elevatorShaft.cpp" />
+		<Unit filename="elevatorShaft.h" />
+		<Unit filename="floorAgent.cpp" />
+		<Unit filename="floorAgent.h" />
+		<Unit filename="floorBase.h" />
+		<Unit filename="floorbase.cpp" />
+		<Unit filename="highRiseException.cpp" />
+		<Unit filename="highriseException.h" />
+		<Unit filename="highrisedev.cpp" />
+		<Unit filename="highrisedev.h" />
+		<Unit filename="image.cpp" />
+		<Unit filename="image.h" />
+		<Unit filename="level.cpp" />
+		<Unit filename="level.h" />
+		<Unit filename="lobby.cpp" />
+		<Unit filename="lobby.h" />
+		<Unit filename="office.cpp" />
+		<Unit filename="office.h" />
+		<Unit filename="pathAgent.cpp" />
+		<Unit filename="pathAgent.h" />
+		<Unit filename="person.cpp" />
+		<Unit filename="person.h" />
+		<Unit filename="physics.cpp" />
+		<Unit filename="physics.h" />
+		<Unit filename="routeVisitor.cpp" />
+		<Unit filename="routeVisitor.h" />
+		<Unit filename="routebase.h" />
+		<Unit filename="routes.cpp" />
+		<Unit filename="routes.h" />
+		<Unit filename="stdafx.cpp" />
+		<Unit filename="stdafx.h" />
+		<Unit filename="tiler.cpp" />
+		<Unit filename="tiler.h" />
+		<Unit filename="tower.cpp" />
+		<Unit filename="tower.h" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

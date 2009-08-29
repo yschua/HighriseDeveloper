@@ -138,7 +138,7 @@ C_Camera::draw (C_AnimationSingle & to_draw)
 void
 C_Camera::draw (C_Tiler & to_draw)
 {
-   for (int i = 0; i < to_draw.m_Sprites.size (); i++)
+   for (unsigned int i = 0; i < to_draw.m_Sprites.size (); i++)
       draw (*to_draw.m_Sprites[i]);
 }
 

@@ -13,7 +13,7 @@
  *   You should have received a copy of the GNU General Public License
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 #include <cstring>
 #include <iostream>
 #include <list>
@@ -29,7 +29,7 @@
 #include "image.h"
 #include "camera.h"
 
-#include "floorbase.h"
+#include "floorBase.h"
 #include "routeBase.h"
 #include "office.h"
 #include "apartment.h"

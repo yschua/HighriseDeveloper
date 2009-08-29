@@ -59,7 +59,7 @@ void C_CitizensAgent::update (float dt)
       C_Person* peep = citizens->NewPerson();
 //      C_Person* peep = new C_Person( loc );
 //      m_People.push_back( peep );
-      std::cout << "A new person has entered your city";
+      std::cout << "A new person has entered your city" << std::endl;
    }
    std::list<C_Person *>::iterator i;
    std::list<C_Person *>& persons = citizens->get_Persons(); // get the persons collection.
@@ -84,7 +84,7 @@ void C_CitizensAgent::update (float dt)
             dest.m_Level = 1 + (rand() % 3); // TODO:  get a real job finder
             dest.m_Route = 0;              // plugged into first elevater until pathfinder does the job.
             dest.m_X = 1;                  // TODO:  find the room number
-            std::cout << "A new person has entered your building looking for work on Level# " << dest.m_Level;
+            std::cout << "A new person has entered your building looking for work on Level# " << dest.m_Level << std::endl;
             peep->set_Activity( C_Person::AS_GoingToWork );
             peep->set_Occupation( 1 );
             C_PathAgent Path( peep );

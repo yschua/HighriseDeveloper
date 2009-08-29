@@ -18,104 +18,150 @@
 
 C_Body::C_Body ()
 {
-    m_s.first = 0;
-    m_s.second = 0;
-    m_v.first = 0;
-    m_v.second = 0;
-    m_a.first = 0;
-    m_a.second = 0;
+   m_s.first = 0;
+   m_s.second = 0;
+   m_v.first = 0;
+   m_v.second = 0;
+   m_a.first = 0;
+   m_a.second = 0;
 }
 
 C_Body::C_Body (float x, float y)
 {
-    m_s.first = x;
-    m_s.second = y;
-    m_v.first = 0;
-    m_v.second = 0;
-    m_a.first = 0;
-    m_a.second = 0;
+   m_s.first = x;
+   m_s.second = y;
+   m_v.first = 0;
+   m_v.second = 0;
+   m_a.first = 0;
+   m_a.second = 0;
 }
 
 float
 C_Body::get_position_x ()
 {
-    return m_s.first;
+   return m_s.first;
 }
 
 float
 C_Body::get_position_y ()
 {
-    return m_s.second;
+   return m_s.second;
 }
 
 float
 C_Body::get_velocity_x ()
 {
-    return m_v.first;
+   return m_v.first;
 }
 
 float
 C_Body::get_velocity_y ()
 {
-    return m_v.second;
+   return m_v.second;
 }
 
 float
 C_Body::get_acceleration_x ()
 {
-    return m_a.first;
+   return m_a.first;
 }
 
 float
 C_Body::get_acceleration_y ()
 {
-    return m_a.second;
+   return m_a.second;
 }
 
 void
 C_Body::debug_print ()
 {
-    std::cout << "Body: Position " << m_s.first << " , " << m_s.second << std::endl
-              << "Velocity " << m_v.first << " , " << m_v.second << std::endl
-              << "Acceleration " << m_a.first << " , " << m_a.second << std::endl;
+   std::cout << "Body: Position " << m_s.first << " , " << m_s.second << std::endl
+           << "Velocity " << m_v.first << " , " << m_v.second << std::endl
+           << "Acceleration " << m_a.first << " , " << m_a.second << std::endl;
 }
 
 void
 C_Body::set_position (float x, float y)
 {
-    m_s.first = x;
-    m_s.second = y;
+   m_s.first = x;
+   m_s.second = y;
 }
 
 void
 C_Body::set_velocity (float x, float y)
 {
-    m_v.first = x;
-    m_v.second = y;
+   m_v.first = x;
+   m_v.second = y;
 }
 
+void
+C_Body::MoveTo (float x, float y, float time)
+{
+   m_IsMoving = true;
+   m_Time = 0.0;
+   m_TimeTotal += time;
+   m_MoveDest.first = x;
+   m_MoveDest.second = y;
+   float dist_x = x - m_s.first;
+   float dist_y = y - m_s.second;
+   if (dist_x == 0)
+   {
+      m_v.first = 0;
+      m_a.first = 0;
+   }
+   else
+   {
+      m_v.first = (2 * dist_x) / time;
+      m_a.first = -(m_v.first * m_v.first) / (2 * dist_x);
+   }
+   if (dist_y == 0)
+   {
+      m_v.second = 0;
+      m_a.second = 0;
+   }
+   else
+   {
+      m_v.second = (2 * dist_y) / time;
+      m_a.second = -(m_v.second * m_v.second) / (2 * dist_y);
+   }
+}
 
 void
 C_Body::set_acceleration (float x, float y)
 {
-    m_a.first = x;
-    m_a.second = y;
+   m_a.first = x;
+   m_a.second = y;
 }
 
 void
 C_Body::integrate (float dt)
 {
-    float dt_secs = dt / 1000;
-    m_s.first += m_v.first * dt_secs;
-    m_s.second += m_v.second * dt_secs;
-    m_v.first += m_a.first * dt_secs;
-    m_v.second += m_a.second * dt_secs;
-    if ((m_v.first > -10) && (m_v.first < 10)) {
-        m_v.first = 0;
-        m_a.first = 0;
-    }
-    if ((m_v.second > -10) && (m_v.second < 10)) {
-        m_v.second = 0;
-        m_a.second = 0;
-    }
+   float dt_secs = dt / 1000;
+   m_s.first += m_v.first * dt_secs;
+   m_s.second += m_v.second * dt_secs;
+   m_v.first += m_a.first * dt_secs;
+   m_v.second += m_a.second * dt_secs;
+   if ((m_v.first > -10) && (m_v.first < 10))
+   {
+      m_v.first = 0;
+      m_a.first = 0;
+   }
+   if ((m_v.second > -10) && (m_v.second < 10))
+   {
+      m_v.second = 0;
+      m_a.second = 0;
+   }
+   if (m_IsMoving)
+   {
+      m_Time += dt;
+      if (m_Time >= m_TimeTotal)
+      {
+         m_s = m_MoveDest;
+         m_IsMoving = false;
+         m_v.first = 0;
+         m_v.second = 0;
+         m_a.first = 0;
+         m_a.second = 0;
+      }
+   }
 }

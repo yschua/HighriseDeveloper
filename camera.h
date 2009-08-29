@@ -29,6 +29,7 @@ private:
    C_Camera ();
    float m_ZoomFactor;
    bool m_IgnoreCamera;
+   const sf::Input * m_Input;
 
 public:
    static C_Camera * get_instance ();
@@ -47,6 +48,7 @@ public:
    bool get_event (sf::Event & event);
    void Zoom (float Factor);
    void SetStatic (bool set);
+   std::pair <int, int> GetMouse ();
 };
 
 #endif

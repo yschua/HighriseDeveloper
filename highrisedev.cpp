@@ -116,6 +116,13 @@ main ()
             {
                cam->Zoom (event.MouseWheel.Delta);
             }
+            else if (event.Type == sf::Event::MouseButtonPressed)
+            { 
+               std::pair <int, int> coords = cam->GetMouse ();
+               std::cout << "Mouse click coords: " << coords.first << ", " << coords.second;
+               int click_level = (cam->get_world_y () / 36) - (coords.second / 36);
+               std::cout << " Click level: " << click_level << std::endl;
+            }
          }
          cam->clear ();
          cam->integrate (60);

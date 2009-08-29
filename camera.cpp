@@ -26,6 +26,17 @@ C_Camera::C_Camera ()
    m_StaticView = new sf::View ();
    m_ZoomFactor = 1;
    m_IgnoreCamera = false;
+   m_Input = &(m_window->GetInput ());
+}
+
+std::pair <int, int>
+C_Camera::GetMouse ()
+{
+   std::pair <int, int> ret;
+   sf::Vector2f temp = m_window->ConvertCoords (m_Input->GetMouseX (), m_Input->GetMouseY (), m_View);
+   ret.first = (int) temp.x + (int) m_s.first;
+   ret.second = (int) temp.y + (int) m_s.second;
+   return ret;
 }
 
 void

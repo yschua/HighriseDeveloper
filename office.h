@@ -32,9 +32,9 @@ private:
    int m_current_animation;
 
 public:
-   virtual void update (float dt);
-   virtual void draw ();
-   C_office::C_office (int x, int level, C_Tower * TowerParent);
+   void update (float dt);
+   void draw ();
+   C_office (int x, int level, C_Tower * TowerParent);
 };
 
 #endif

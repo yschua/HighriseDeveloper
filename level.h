@@ -34,7 +34,7 @@ protected:
    C_AnimationSingle * m_fire_escape_r;
 
 public:
-   C_level::C_level (int level, C_Tower * TowerParent);
+   C_level (int level, C_Tower * TowerParent);
    void add_floor (C_FloorBase * floor);
    virtual void update (float dt);
    virtual void draw ();

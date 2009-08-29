@@ -49,7 +49,7 @@ public:
    C_Person* NewPerson();
    void DestroyPerson( C_Person* person );
 
-   void C_Citizens::update (float dt);
+   void update (float dt);
    void Draw() {}; // nothing to draw unless we draw the people here
 };
 

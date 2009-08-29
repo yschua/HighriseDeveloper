@@ -25,7 +25,7 @@
 #include "image.h"
 
 #include "elevatorBase.h"
-#include "ElevatorShaft.h"
+#include "elevatorShaft.h"
 
 C_ElevatorShaft::C_ElevatorShaft ( int x, int topLevel, int bottomLevel, C_Elevator* pElevator )
 :  C_ElevatorBase( x, bottomLevel, pElevator )

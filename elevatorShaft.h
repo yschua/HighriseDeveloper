@@ -20,6 +20,7 @@
 class C_Elevator;
 class C_FloorBase;
 class C_Camera;
+class C_Tiler;
 
 class C_ElevatorShaft : public C_ElevatorBase
 {

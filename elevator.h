@@ -31,10 +31,11 @@ class C_AnimationSingle;
 class C_ElevatorMachine; // mover above
 class C_ElevatorShaft;   // holds the tiler to show the shaft
 class C_ElevatorPit;     // landing pit below
-class C_Body;
 class C_Camera;
 class C_Person;
 class C_Tower;
+
+#include "physics.h"
 
 // The UI should read the FloorStops array and the range of floors.
 // Then display all available floors and ticking those floors in the FloorStops array.

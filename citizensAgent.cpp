@@ -27,6 +27,7 @@
 #include <list>
 #include <vector>
 #include <iostream>
+#include <cstdlib>
 #include "person.h"
 #include "pathAgent.h"
 #include "routeVisitor.h"
@@ -35,7 +36,7 @@
 #include "tower.h"
 #include "citizens.h"
 #include "level.h"
-#include "HighriseException.h"
+#include "highriseException.h"
 
 #include "citizensAgent.h"
 

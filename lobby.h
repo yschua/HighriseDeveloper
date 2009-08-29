@@ -33,7 +33,7 @@ private:
 public:
    void update (float dt);
    void draw ();
-   C_Lobby::C_Lobby (int x, int x2, int level, C_Tower * TowerParent);
+   C_Lobby (int x, int x2, int level, C_Tower * TowerParent);
 };
 
 #endif

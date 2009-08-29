@@ -27,7 +27,7 @@ private:
 
 public:
    void draw ();
-   C_Background::C_Background ();
+   C_Background ();
    
 };
 

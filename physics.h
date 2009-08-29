@@ -17,6 +17,8 @@
 #ifndef _PHYSICS_H
 #define _PHYSICS_H
 
+#include <utility>
+
 typedef std::pair<float, float> vector2;
 
 class C_Body

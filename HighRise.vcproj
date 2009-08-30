@@ -194,6 +194,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\circularQueue.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\citizens.cpp"
 				>
 			</File>
@@ -305,6 +309,10 @@
 			</File>
 			<File
 				RelativePath=".\camera.h"
+				>
+			</File>
+			<File
+				RelativePath=".\circularQueue.h"
 				>
 			</File>
 			<File

@@ -14,8 +14,8 @@
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef _IMAGE_H
-#define _IMAGE_H
+#ifndef _IMAGEMANAGER_H
+#define _IMAGEMANAGER_H
 
 class C_ImageManager
 {
@@ -33,4 +33,4 @@ public:
    void set_path (const std::string & prefix);
 };
 
-#endif
+#endif // _IMAGEMANAGER_H

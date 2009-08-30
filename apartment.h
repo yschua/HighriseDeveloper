@@ -19,6 +19,8 @@
 #ifndef _APARTMENT_H
 #define _APARTMENT_H
 
+class C_FloorBase;
+
 enum apartment_state
 {
    apt_unoccupied_day,

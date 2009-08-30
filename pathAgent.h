@@ -27,6 +27,7 @@
 #define _PATHAGENT_H
 
 struct Location; // from person
+
 class C_Person;
 class C_Tower;
 

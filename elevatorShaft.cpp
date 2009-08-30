@@ -24,20 +24,19 @@
 #include "camera.h"
 #include "image.h"
 
-#include "elevatorBase.h"
 #include "elevatorShaft.h"
 
 C_ElevatorShaft::C_ElevatorShaft ( int x, int topLevel, int bottomLevel, C_Elevator* pElevator )
       :  C_ElevatorBase( x, bottomLevel, pElevator )
 {
-   m_X = x;
+   m_x = x;
    m_TopLevel = topLevel;
    m_BottomLevel = bottomLevel;
    C_ImageManager * images = C_ImageManager::GetInstance ();
    m_cam = C_Camera::GetInstance ();
    m_ShaftTiler = new C_Tiler (images->GetImg ("liftshaft.png"), C_Tiler::Vertical,
                                m_cam->GetWorldY () - (m_TopLevel * 36),
-                               m_cam->GetWorldY () - ((m_BottomLevel - 1) * 36), m_X );
+                               m_cam->GetWorldY () - ((m_BottomLevel - 1) * 36), m_x );
 }
 
 C_ElevatorShaft::~C_ElevatorShaft()

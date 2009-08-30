@@ -13,18 +13,19 @@
  *   You should have received a copy of the GNU General Public License
  *   along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
  */
-/*
+#ifdef WIN32
 #include <cstring>
 #include <cstdlib>
+#include <map> 
 #include <iostream>
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
 #include "physics.h"
+#include "image.h"
+#include "camera.h"
 #include "animation.h"
 #include "tiler.h"
-#include "camera.h"
-#include "image.h"
-*/
+
 #include "routeBase.h"  // Elevators route (levels).
 #include "routeVisitor.h"  // class that will Update the elevators route request queue
 #include "elevatorBase.h"
@@ -33,15 +34,17 @@
 #include "elevatorPit.h"
 #include "elevator.h"
 
-
+#else
 #include "highrisedev.h"
+#endif
+
 // this object is the elevator collection (Machines, Shaft, Pit) and the car.
 // At this time there is no LiftCar class.
 
-C_Elevator* C_Elevator::Create( Lift_Styles style, int x, short BottLevel, short TopLevel, C_Tower * TowerParent )
-{
-   return new C_Elevator( style, x, BottLevel, TopLevel, TowerParent );
-}
+//C_Elevator* C_Elevator::Create( Lift_Styles style, int x, short BottomLevel, short TopLevel, C_Tower * TowerParent )
+//{
+//   return new C_Elevator( style, x, BottomLevel, TopLevel, TowerParent );
+//}
 
 C_Elevator::C_Elevator ( Lift_Styles style, int x, short BottomLevel, short TopLevel, C_Tower * TowerParent)
       :  m_LiftStyle( style )
@@ -56,8 +59,10 @@ C_Elevator::C_Elevator ( Lift_Styles style, int x, short BottomLevel, short TopL
    m_End2 = -1;
    m_Offset = BottomLevel * -36;
 
+   m_FloorCount = TopLevel - BottomLevel;
    m_RidersOnBoard = 0;
    memset( m_Riders, 0, sizeof(m_Riders) );
+   ClearStops();
    memset( m_Stops, 0, sizeof(m_Stops) );
 
 
@@ -81,6 +86,12 @@ C_Elevator::~C_Elevator()
 {
    delete m_ElevatorImage;
 };
+
+void
+C_Elevator::ClearStops()
+{
+   memset( m_Stops, 0, sizeof(m_Stops) );
+}
 
 void
 C_Elevator::PosCalc ()
@@ -114,6 +125,42 @@ C_Elevator::SetRoute( C_RouteVisitor* visitor )
 }
 
 void
+C_Elevator::SetSetCallButton (int level, int dir)
+{
+   int reqLevel = level - m_BottomLevel;
+   if (reqLevel >= 0 && reqLevel < m_FloorCount )
+   {
+      if (level == m_Stops[reqLevel].m_Level)
+      {
+         if( dir < 0 )
+         {
+            m_Stops[reqLevel].m_ButtonFlag |= BUTTON_DOWN;
+            if( m_Direction == 0 )
+            {
+               m_Direction = -1;
+            }
+         }
+         else
+         {
+            m_Stops[reqLevel].m_ButtonFlag |= BUTTON_UP;
+            if( m_Direction == 0 )
+            {
+               m_Direction = 1;
+            }
+         }
+      }
+      else
+      {
+         std::cout << "Elevator Call Error for level: " << level << " computed index: " << reqLevel;
+      }
+   }
+   else
+   {
+      std::cout << "Elevator Call for wrong floor level: " << level << " computed index: " << reqLevel;
+   }
+}
+
+void
 C_Elevator::Update (float dt)
 {
    int max = m_TopLevel * 36;
@@ -123,78 +170,96 @@ C_Elevator::Update (float dt)
    if (dest < min ) dest = min;
 
    // test plug
-   switch ( m_Direction )
+   switch( m_Direction )
    {
-      case 0:
-         if ( m_IdleTime > 0 )
+   case 0:
+      if( m_IdleTime > 0 )
+      {
+         m_IdleTime--;
+      }
+      else
+      {
+         if( m_StartRoute == m_EndRoute )
          {
-            m_IdleTime--;
-         }
-         else
-         {
+            // if express down else start from m_FLoorCount down.
+            for (int idx = 0; idx < m_FloorCount; ++idx )
+            {
+               if (m_Stops[idx].m_ButtonFlag&BUTTON_UP > 0 || m_Stops[idx].m_ButtonFlag & BUTTON_DOWN > 0)
+               {
+                  if( idx < m_StartRoute )
+                  {
+                     m_Direction = -1;
+                  }
+                  else if( idx > m_StartRoute )
+                  {
+                     m_Direction = +1;
+                  }
+                  m_EndRoute = m_Stops[idx].m_Level;
+                  break;
+               }
+            }
+
             // BS CODE
-            if ( m_StartRoute == m_EndRoute )
-            {
-               int start = (rand() % (m_TopLevel - m_BottomLevel)) + m_BottomLevel; // this will work if start level is zero.
-               int end = (rand() % (m_TopLevel - m_BottomLevel)) + m_BottomLevel; // this will work if end level is zero.
-               if (end == start )
-               {
-                  m_IdleTime = 10;
-               }
-               else
-               {
-                  // this will be done by the path finder and rousing manager code
-                  //RoutingRequest req;
-                  //req.OriginLevel = start;
-                  //req.DestinLevel = end;
-                  //C_RouteVisitor visitor( &req );  // while this seems an extra load to create a class to pass a struct
-                  //                                 // the class will be managing the elevators operations (somewhat an agent).
-                  //                                 // for now, we hotwire this in.
-                  //setRoute( &visitor );
-                  m_IdleTime = 10; // pause at pickup floor;
-               }
-            }
-            else
-            {
-               m_Direction = (m_StartRoute > m_EndRoute) ? 1 : -1;
-               // in the real code we will pull this request when it ends
-            }
-            // End BS code
-            //if( m_Position > m_BottomLevel+9 )
+            //int start = (rand() % (m_TopLevel - m_BottomLevel)) + m_BottomLevel; // this will work if start level is zero.
+            //int end = (rand() % (m_TopLevel - m_BottomLevel)) + m_BottomLevel; // this will work if end level is zero.
+            //if (end == start )
             //{
-            //   m_Direction = -1;
+            //   m_IdleTime = 10;
             //}
             //else
             //{
-            //   m_Direction = 1;
+            //   // this will be done by the path finder and rousing manager code
+            //   //RoutingRequest req;
+            //   //req.OriginLevel = start;
+            //   //req.DestinLevel = end;
+            //   //C_RouteVisitor visitor( &req );  // while this seems an extra load to create a class to pass a struct
+            //   //                                 // the class will be managing the elevators operations (somewhat an agent).
+            //   //                                 // for now, we hotwire this in.
+            //   //setRoute( &visitor );
+            //   m_IdleTime = 10; // pause at pickup floor;
             //}
          }
-         break;
-      case 1:
-         if ( m_Position < dest )
-         {
-            m_Position++;
-            m_LiftMachine->Update( dt );
-         }
          else
          {
-            m_StartRoute = m_EndRoute; // this stops the elevator at the destination to wait for a request.
-            m_Direction = 0;
-            m_IdleTime = 90;
+            m_Direction = (m_StartRoute > m_EndRoute) ? 1 : -1;
+       // in the real code we will pull this request when it ends
          }
-         break;
-      case -1:
-         if ( m_Position > dest )
-         {
-            m_Position--;
-            m_LiftMachine->Update( dt );
-         }
-         else
-         {
-            m_StartRoute = m_EndRoute; // this stops the elevator at the destination to wait for a request.
-            m_Direction = 0;
-            m_IdleTime = 90;
-         }
+         // End BS code
+         //if( m_Position > m_BottomLevel+9 )
+         //{
+         //   m_Direction = -1;
+         //}
+         //else
+         //{
+         //   m_Direction = 1;
+         //}
+      }
+      break;
+   case 1:
+      if( m_Position < dest )
+      {
+         m_Position++;
+         m_LiftMachine->Update( dt );
+      }
+      else
+      {
+         m_StartRoute = m_EndRoute; // this stops the elevator at the destination to wait for a request.
+         m_Direction = 0;
+         m_IdleTime = 90;
+      }
+      break;
+   case -1:
+      if( m_Position > dest )
+      {
+         m_Position--;
+         m_LiftMachine->Update( dt );
+      }
+      else
+      {
+         m_StartRoute = m_EndRoute; // this stops the elevator at the destination to wait for a request.
+         m_Direction = 0;
+         m_IdleTime = 90;
+      }
    }
    PosCalc();
 }

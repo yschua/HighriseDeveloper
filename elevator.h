@@ -46,9 +46,9 @@ class C_Tower;
 // ButtonFlag is the direction a person wishes to travel to their destination.
 // BUTTON_UP and BUTTON_DOWN are the bit flags.
 
-#define BUTTON_UP 0x01;
-#define BUTTON_DOWN 0x02;
-#define DESINATION  0x04;  // this is a destination level.
+#define BUTTON_UP 0x01
+#define BUTTON_DOWN 0x02
+#define DESINATION  0x04  // this is a destination level.
 
 struct FloorStop
 {
@@ -115,6 +115,8 @@ protected:
    short m_EndRoute;
    short m_End2;
    short m_RidersOnBoard;
+   short m_FloorCount;
+
    LiftOps_State  m_LiftOperation;
    unsigned char  m_LiftStyle;
 
@@ -128,9 +130,12 @@ public:
    static C_Elevator* Create( Lift_Styles style, int x, short BottomLevel, short TopLevel, C_Tower * TowerParent );  // this is rejected for som reason
 
    // Implemantation
+   void ClearStops();
    void Move( int x, int y );
    void Resize( int x, int y );
+   void pos_calc ();
    void PosCalc ();
+   void C_Elevator::SetSetCallButton (int level, int dir);
    virtual void SetRoute( C_RouteVisitor* visitor );
    virtual void Update (float dt);
    virtual void Draw ();

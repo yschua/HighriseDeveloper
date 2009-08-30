@@ -17,6 +17,10 @@
 #ifndef _CAMERA_H
 #define _CAMERA_H
 
+class C_Animation;
+class C_AnimationSingle;
+class C_Tiler;
+
 class C_Camera : public C_Body
 {
 private:

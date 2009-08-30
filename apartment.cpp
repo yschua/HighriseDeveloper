@@ -13,10 +13,22 @@
  *   You should have received a copy of the GNU General Public License
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
-
+#ifdef WIN32
 #include <iostream>
-#include "highrisedev.h"
+#include <map>
+#include <vector>
+#include <SFML/System.hpp>
+#include <SFML/Graphics.hpp>
+#include "physics.h"
+#include "camera.h"
+#include "image.h"
+#include "animation.h"
+#include "floorBase.h"
+
 #include "apartment.h"
+#else
+#include "highrisedev.h"
+#endif
 
 //   apt_unoccupied_day,
 //   apt_occupied_day,
@@ -73,10 +85,10 @@ C_Apartment::Update (float dt)
    apartment_state new_state;
    switch (m_current_state)
    {
-      case s_unoccupied_day :
+      case apt_unoccupied_day :
          new_state = unoccupied_day (dt);
          break;
-      case s_occupied_day :
+      case apt_occupied_day :
          new_state = occupied_day (dt);
          break;
    }

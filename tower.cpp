@@ -14,7 +14,7 @@
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/*
+#ifdef WIN32
 #include <vector> // changed from list to vector so the collection can be scrolled in up and down
 
 
@@ -26,9 +26,10 @@
 #include "floorbase.h"
 #include "level.h"
 #include "lobby.h"
-#include "tower.h"*/
-
+#include "tower.h"
+#else
 #include "highrisedev.h"
+#endif
 
 C_Tower::C_Tower( int towerNo, int NoSubLevels )
       :  m_TowerNo( towerNo )

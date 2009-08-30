@@ -17,6 +17,7 @@
 #ifndef _ELEVATORSHAFT_H
 #define _ELEVATORSHAFT_H
 
+#include "elevatorbase.h"
 class C_Elevator;
 class C_FloorBase;
 class C_Camera;
@@ -26,7 +27,6 @@ class C_ElevatorShaft : public C_ElevatorBase
 {
 protected:
 
-   int m_X;
    short m_TopLevel;
    short m_BottomLevel; // if these are changed, update the tiler ShaftImages
 

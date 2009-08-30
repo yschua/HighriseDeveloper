@@ -24,6 +24,9 @@ struct RoutingRequest
    int DestinLevel;
 };
 
+// TODO: check into multimaps
+
+
 // lightweight vistor pattern that minimizes interface with elevators and other means of floor level transit.
 class C_RouteVisitor
 {

@@ -14,7 +14,22 @@
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifdef WIN32
+#include <iostream>
+#include <map>
+#include <vector>
+#include <SFML/System.hpp>
+#include <SFML/Graphics.hpp>
+#include "physics.h"
+#include "image.h"
+#include "animation.h"
+#include "tiler.h"
+#include "floorBase.h"
+
+#include "camera.h"
+#else
 #include "highrisedev.h"
+#endif
 
 C_Camera* C_Camera::m_instance = NULL;
 

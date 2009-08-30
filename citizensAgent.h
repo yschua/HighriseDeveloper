@@ -39,8 +39,8 @@ protected:
    C_Tower& m_Tower; // must have one or more
 
 public:
-   void update (float dt);
-   void draw ()   // just a pass through
+   void Update (float dt);
+   void Draw ()   // just a pass through
    {
       // nothing to draw unless we have set the follow this person flag in the menu. (Much later code).
    };

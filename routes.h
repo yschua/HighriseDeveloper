@@ -28,14 +28,14 @@ private:
 public:
    C_Routes(); // not part of Tower.
 
-//   static C_Routes* get_instance ();
-   std::vector<C_RouteBase *>& get_Routes()
+//   static C_Routes* GetInstance ();
+   std::vector<C_RouteBase *>& Get_Routes()
    {
       return m_Routes;
    }
-   void add_route(C_RouteBase * route);
-   void update (float dt);
-   void draw ();
+   void AddRoute(C_RouteBase * route);
+   void Update (float dt);
+   void Draw ();
 };
 
 #endif //_ROUTES_H

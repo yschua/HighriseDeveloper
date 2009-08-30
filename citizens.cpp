@@ -39,13 +39,13 @@ void C_Citizens::destroy() // clear out the city
 {
    try
    {
-      if(m_instance != NULL)
+      if (m_instance != NULL)
       {
          delete m_instance;
       }
       m_instance = NULL;
    }
-   catch( C_HighriseException* ex )
+   catch ( C_HighriseException* ex )
    {
       m_instance = NULL;
       throw ex;            // pass on app generated exception
@@ -79,7 +79,7 @@ C_Citizens::~C_Citizens()
    }
 }
 
-void C_Citizens::update (float dt)
+void C_Citizens::Update (float dt)
 {
 }
 

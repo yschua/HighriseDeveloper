@@ -14,7 +14,7 @@
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <cstdlib> 
+#include <cstdlib>
 #include <iostream>
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
@@ -29,21 +29,21 @@
 
 
 C_ElevatorMachine::C_ElevatorMachine (int x, int level, C_Elevator* pElevator )
-:  C_ElevatorBase( x, level, pElevator )
-,  m_State( LMS_Idle )
+      :  C_ElevatorBase( x, level, pElevator )
+      ,  m_State( LMS_Idle )
 {
-   C_ImageManager * image_man = C_ImageManager::get_instance ();
-   m_y = (C_Camera::get_instance()->get_world_y () ) - (level * 36);
+   C_ImageManager * image_man = C_ImageManager::GetInstance ();
+   m_y = (C_Camera::GetInstance()->GetWorldY () ) - (level * 36);
    std::cout << "New elevator machine at " << m_x << ", " << m_y << std::endl;
    m_LifterAnimation = new C_Animation ();
-   m_LifterAnimation->add_frame (image_man->get_image ("liftMachine_1.png"), 1000);
-   m_LifterAnimation->add_frame (image_man->get_image ("liftMachine_2.png"), 1000);
-   m_LifterAnimation->add_frame (image_man->get_image ("liftMachine_3.png"), 1000);
+   m_LifterAnimation->AddFrame (image_man->GetImg ("liftMachine_1.png"), 1000);
+   m_LifterAnimation->AddFrame (image_man->GetImg ("liftMachine_2.png"), 1000);
+   m_LifterAnimation->AddFrame (image_man->GetImg ("liftMachine_3.png"), 1000);
    m_ImageFrame = 0;
    m_FirstFrame = 0;
    m_LastFrame = 2;
-   m_cam = C_Camera::get_instance ();
-   m_y = ( m_cam->get_world_y ()) - (level * 36);
+   m_cam = C_Camera::GetInstance ();
+   m_y = ( m_cam->GetWorldY ()) - (level * 36);
    pos_calc();
 }
 
@@ -55,34 +55,34 @@ C_ElevatorMachine::~C_ElevatorMachine()
 void
 C_ElevatorMachine::pos_calc ()
 {
-   m_LifterAnimation->set_position ((float)m_x, (float)(m_y) ); // elevator sprite is only 32x32
+   m_LifterAnimation->SetPosition ((float)m_x, (float)(m_y) ); // elevator sprite is only 32x32
 }
 
 void
-C_ElevatorMachine::update (float dt)
+C_ElevatorMachine::Update (float dt)
 {
    switch (m_State)
    {
       case LMS_Down :
          m_Direction = -1;
-      break;
+         break;
       case LMS_Up :
          m_Direction = 1;
-      break;
+         break;
       case LMS_Idle :
          m_Direction = 0;
-      break;
+         break;
    }
    m_ImageFrame += m_Direction;
-   if( m_ImageFrame < 0 )
+   if ( m_ImageFrame < 0 )
       m_ImageFrame = m_LastFrame;
-   if( m_ImageFrame > m_LastFrame )
+   if ( m_ImageFrame > m_LastFrame )
       m_ImageFrame = m_FirstFrame;
-   m_LifterAnimation->update (dt);
+   m_LifterAnimation->Update (dt);
 }
 
 void
-C_ElevatorMachine::draw ()
+C_ElevatorMachine::Draw ()
 {
-   this->m_cam->draw( * m_LifterAnimation );
+   this->m_cam->Draw( * m_LifterAnimation );
 }

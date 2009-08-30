@@ -24,7 +24,7 @@ private:
    int m_X, m_X2, m_Y;
    int m_ImageSizeX, m_ImageSizeY;
    sf::Image * m_frame;
-   
+
 public:
    enum draw_direction
    {

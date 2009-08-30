@@ -19,49 +19,52 @@
 C_ImageManager * C_ImageManager::m_instance = NULL;
 
 C_ImageManager::C_ImageManager ()
-:   m_path_prefix ("data/")
+      :   m_path_prefix ("data/")
 {
 }
 
 C_ImageManager *
-C_ImageManager::get_instance ()
+C_ImageManager::GetInstance ()
 {
-    if (m_instance == NULL) {
-        m_instance = new C_ImageManager ();
-    }
-    return m_instance;
+   if (m_instance == NULL)
+   {
+      m_instance = new C_ImageManager ();
+   }
+   return m_instance;
 }
 
 void
 C_ImageManager::set_path (const std::string & prefix)
 {
-    m_path_prefix = prefix;
+   m_path_prefix = prefix;
 }
 
 sf::Image *
-C_ImageManager::get_image (const std::string & name)
+C_ImageManager::GetImg (const std::string & name)
 {
-    if (m_images[name] == NULL) {
-        sf::Image * temp;
-        temp = new sf::Image;
-        std::cout << "Loading file " << m_path_prefix + name << std::endl;
-        temp->LoadFromFile (m_path_prefix + name);
-        m_images[name] = temp;
-        return temp;
-    }
-    std::cout << "Using preloaded file " << name << std::endl;
-    return m_images[name];
+   if (m_images[name] == NULL)
+   {
+      sf::Image * temp;
+      temp = new sf::Image;
+      std::cout << "Loading file " << m_path_prefix + name << std::endl;
+      temp->LoadFromFile (m_path_prefix + name);
+      m_images[name] = temp;
+      return temp;
+   }
+   std::cout << "Using preloaded file " << name << std::endl;
+   return m_images[name];
 }
 
 int
 C_ImageManager::preload_image (const std::string & name)
 {
-    if (m_images[name] == NULL) {
-        sf::Image * temp;
-        temp = new sf::Image;
-        temp->LoadFromFile (m_path_prefix + name);
-        m_images[name] = temp;
-        return 1;
-    }
-    return 0;
+   if (m_images[name] == NULL)
+   {
+      sf::Image * temp;
+      temp = new sf::Image;
+      temp->LoadFromFile (m_path_prefix + name);
+      m_images[name] = temp;
+      return 1;
+   }
+   return 0;
 }

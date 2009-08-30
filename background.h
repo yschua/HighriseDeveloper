@@ -26,9 +26,9 @@ private:
    C_Camera * cam;
 
 public:
-   void draw ();
+   void Draw ();
    C_Background ();
-   
+
 };
 
 #endif //_BACKGROUND_H

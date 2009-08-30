@@ -14,7 +14,7 @@
  *   along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <cstdlib> 
+#include <cstdlib>
 #include <iostream>
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
@@ -28,16 +28,16 @@
 #include "elevatorShaft.h"
 
 C_ElevatorShaft::C_ElevatorShaft ( int x, int topLevel, int bottomLevel, C_Elevator* pElevator )
-:  C_ElevatorBase( x, bottomLevel, pElevator )
+      :  C_ElevatorBase( x, bottomLevel, pElevator )
 {
    m_X = x;
    m_TopLevel = topLevel;
    m_BottomLevel = bottomLevel;
-   C_ImageManager * images = C_ImageManager::get_instance ();
-   m_cam = C_Camera::get_instance ();
-   m_ShaftTiler = new C_Tiler (images->get_image ("liftshaft.png"), C_Tiler::Vertical, 
-                              m_cam->get_world_y () - (m_TopLevel * 36), 
-                              m_cam->get_world_y () - ((m_BottomLevel - 1) * 36), m_X );
+   C_ImageManager * images = C_ImageManager::GetInstance ();
+   m_cam = C_Camera::GetInstance ();
+   m_ShaftTiler = new C_Tiler (images->GetImg ("liftshaft.png"), C_Tiler::Vertical,
+                               m_cam->GetWorldY () - (m_TopLevel * 36),
+                               m_cam->GetWorldY () - ((m_BottomLevel - 1) * 36), m_X );
 }
 
 C_ElevatorShaft::~C_ElevatorShaft()
@@ -45,13 +45,13 @@ C_ElevatorShaft::~C_ElevatorShaft()
 }
 
 void
-C_ElevatorShaft::update (float dt)
+C_ElevatorShaft::Update (float dt)
 {
 
 }
 
 void
-C_ElevatorShaft::draw ()
+C_ElevatorShaft::Draw ()
 {
-   m_cam->draw (*m_ShaftTiler);
+   m_cam->Draw (*m_ShaftTiler);
 }

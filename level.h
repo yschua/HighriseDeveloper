@@ -26,7 +26,7 @@ class C_level
 private:
    std::vector<C_FloorBase *> m_floors;
    C_Tower * m_TowerParent;
-   
+
 protected:
    int m_level;
    int m_x, m_x2, m_y;
@@ -35,9 +35,9 @@ protected:
 
 public:
    C_level (int level, C_Tower * TowerParent);
-   void add_floor (C_FloorBase * floor);
-   virtual void update (float dt);
-   virtual void draw ();
+   void AddFloor (C_FloorBase * floor);
+   virtual void Update (float dt);
+   virtual void Draw ();
 };
 
 #endif

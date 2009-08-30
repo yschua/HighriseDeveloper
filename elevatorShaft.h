@@ -40,8 +40,8 @@ public:
    virtual ~C_ElevatorShaft( );
 
    // Implemantation
-   virtual void update (float dt);
-   virtual void draw ();
+   virtual void Update (float dt);
+   virtual void Draw ();
 };
 
 #endif //_ELEVATORSHAFT_H

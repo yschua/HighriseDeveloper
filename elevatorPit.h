@@ -34,8 +34,8 @@ public:
    virtual ~C_ElevatorPit();
 
    // Implemantation
-   virtual void update (float dt);
-   virtual void draw ();
+   virtual void Update (float dt);
+   virtual void Draw ();
 };
 
 #endif //_ELEVATORPIT_H

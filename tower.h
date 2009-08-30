@@ -14,9 +14,9 @@
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-   // root of the levels and sublevels, the building/ tower.
-   // create an instance of this. The lobby is created empty.
-   // call newLevel or newSubLevel to add floors or basement levels
+// root of the levels and sublevels, the building/ tower.
+// create an instance of this. The lobby is created empty.
+// call newLevel or newSubLevel to add floors or basement levels
 #ifndef _TOWER_H
 #define _TOWER_H
 
@@ -30,7 +30,7 @@ class C_Routes;
 class C_Tower
 {
    friend class C_TowerAgent;
-   
+
 private:
    int m_TowerNo;
    int m_No_SubLevels;
@@ -44,7 +44,7 @@ public:
    ~C_Tower();
 
    // properties
-   inline C_Routes & get_Routes()
+   inline C_Routes& GetRoutes()
    {
       return m_Routes;  // For routing citizens
    }
@@ -58,19 +58,19 @@ public:
    }
 
 protected:
-   inline std::vector<C_level *>& get_Levels()
+   inline std::vector<C_level *>& Get_Levels()
    {
       return m_Levels;
    }
 
    // implementation
 public:
-   C_level* newLevel( );  
-   C_level* getLevel( int level ); // positive gets you a level above, negative gets you a basement level
+   C_level* NewLevel( );
+   C_level* GetLevel( int level ); // positive gets you a level above, negative gets you a basement level
 
 
-   void update (float dt);
-   void draw ();
+   void Update (float dt);
+   void Draw ();
 };
 
 #endif //_TOWER_H

@@ -13,7 +13,7 @@
  *   You should have received a copy of the GNU General Public License
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include <cstdlib> 
+#include <cstdlib>
 #include <iostream>
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
@@ -32,7 +32,7 @@ C_ElevatorBase::C_ElevatorBase ( int x, int level, C_Elevator* pElevator )
    m_y = 0;
    m_Level = level;
    m_pParent = pElevator;
-   C_ImageManager * image_man = C_ImageManager::get_instance ();
+   C_ImageManager * image_man = C_ImageManager::GetInstance ();
 }
 
 C_ElevatorBase::~C_ElevatorBase()
@@ -40,13 +40,13 @@ C_ElevatorBase::~C_ElevatorBase()
 }
 
 void
-C_ElevatorBase::update (float dt)
+C_ElevatorBase::Update (float dt)
 {
 
 }
 
 void
-C_ElevatorBase::draw ()
+C_ElevatorBase::Draw ()
 {
-//    C_Camera::get_instance()->draw (*m_animations[m_current_state]);
+//    C_Camera::GetInstance()->Draw (*m_animations[m_current_state]);
 }

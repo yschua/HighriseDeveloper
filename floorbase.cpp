@@ -17,22 +17,22 @@
 #include "highrisedev.h"
 
 void
-C_FloorBase::update (float dt)
+C_FloorBase::Update (float dt)
 {
    std::cout << "Floor base class: update function called" << std::endl;
 }
 
 void
-C_FloorBase::draw ()
+C_FloorBase::Draw ()
 {
-   std::cout << "Floor base class: draw function called" << std::endl;
+   std::cout << "Floor base class: Draw function called" << std::endl;
 }
 
 C_FloorBase::C_FloorBase (int x, int x2, int level, C_Tower * TowerParent)
-:  m_x (x)
-,  m_x2 (x2)
-,  m_TowerParent (TowerParent)
+      :  m_x (x)
+      ,  m_x2 (x2)
+      ,  m_TowerParent (TowerParent)
 {
    m_level = level;
-   m_y = (C_Camera::get_instance()->get_world_y () ) - (m_level * 36);
+   m_y = (C_Camera::GetInstance()->GetWorldY () ) - (m_level * 36);
 }

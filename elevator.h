@@ -117,7 +117,7 @@ protected:
    short m_RidersOnBoard;
    LiftOps_State  m_LiftOperation;
    unsigned char  m_LiftStyle;
-   
+
    C_Tower * m_TowerParent;
 
 public:
@@ -130,10 +130,10 @@ public:
    // Implemantation
    void Move( int x, int y );
    void Resize( int x, int y );
-   void pos_calc ();
-   virtual void setRoute( C_RouteVisitor* visitor );
-   virtual void update (float dt);
-   virtual void draw ();
+   void PosCalc ();
+   virtual void SetRoute( C_RouteVisitor* visitor );
+   virtual void Update (float dt);
+   virtual void Draw ();
 };
 
 #endif

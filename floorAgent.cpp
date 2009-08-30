@@ -23,7 +23,7 @@
 #include "floorAgent.h"
 
 C_FloorAgent::C_FloorAgent ( C_level* level )
-:  m_Level( level )
+      :  m_Level( level )
 {
 
 }

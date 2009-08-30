@@ -26,9 +26,9 @@ C_Tiler::C_Tiler (sf::Image * image, draw_direction direction, int x, int x2, in
    m_ImageSizeX = m_frame->GetWidth();
    m_ImageSizeY = m_frame->GetHeight();
 
-   if( (m_ImageSizeY * m_ImageSizeX) == 0 )
+   if ( (m_ImageSizeY * m_ImageSizeX) == 0 )
       throw new C_HighriseException( "Missing image file" );
-      
+
    if (direction == Horizontal)
    {
       unsigned int tiled_num = (unsigned int) ((x2 - x) / m_ImageSizeX);
@@ -37,7 +37,7 @@ C_Tiler::C_Tiler (sf::Image * image, draw_direction direction, int x, int x2, in
       {
          C_AnimationSingle * new_tiler_part = new C_AnimationSingle (m_frame);
          m_Sprites.push_back (new_tiler_part);
-         new_tiler_part->set_position ((float)(m_X + (i * m_ImageSizeX)), (float)m_Y);
+         new_tiler_part->SetPosition ((float)(m_X + (i * m_ImageSizeX)), (float)m_Y);
       }
       if (m_ClipMode)
       {
@@ -53,7 +53,7 @@ C_Tiler::C_Tiler (sf::Image * image, draw_direction direction, int x, int x2, in
       {
          C_AnimationSingle * new_tiler_part = new C_AnimationSingle (m_frame);
          m_Sprites.push_back (new_tiler_part);
-         new_tiler_part->set_position ((float)m_Y, (float)(m_X + (i * m_ImageSizeY)));
+         new_tiler_part->SetPosition ((float)m_Y, (float)(m_X + (i * m_ImageSizeY)));
       }
       if (m_ClipMode)
       {

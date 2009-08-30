@@ -36,8 +36,8 @@ public:
 
    // Implemantation
    void pos_calc ();
-   virtual void update (float dt) = 0; // pure
-   virtual void draw () = 0;
+   virtual void Update (float dt) = 0; // pure
+   virtual void Draw () = 0;
 };
 
 #endif //_ELEVATORBASE_H

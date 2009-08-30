@@ -39,8 +39,8 @@ private:
    int m_current_animation;
 
 public:
-   virtual void update (float dt);
-   virtual void draw ();
+   virtual void Update (float dt);
+   virtual void Draw ();
    C_Apartment (int x, int level, C_Tower * TowerParent);
 };
 

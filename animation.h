@@ -20,23 +20,23 @@
 class C_Animation : public C_Body
 {
 private:
-    std::vector<std::pair<sf::Image *, float> > m_frames;
-    int m_current_frame;
-    float m_time;
-    
+   std::vector<std::pair<sf::Image *, float> > m_frames;
+   int m_current_frame;
+   float m_time;
+
 public:
-    C_Animation ();
-    void add_frame (sf::Image * image, float duration);
-    void update (float dt);
-    sf::Sprite * sprite;
+   C_Animation ();
+   void AddFrame (sf::Image * image, float duration);
+   void Update (float dt);
+   sf::Sprite * sprite;
 };
 
 class C_AnimationSingle : public C_Body
 {
 public:
-    sf::Sprite * sprite;
-    C_AnimationSingle (sf::Image * image);
-    void SetSubRect (int x1, int y1, int x2, int y2);
+   sf::Sprite * sprite;
+   C_AnimationSingle (sf::Image * image);
+   void SetSubRect (int x1, int y1, int x2, int y2);
 };
 
 #endif

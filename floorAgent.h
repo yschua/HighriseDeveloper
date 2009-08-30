@@ -25,7 +25,7 @@ class C_FloorAgent
 {
 protected:
    C_level* m_Level;
-    
+
 public:
    C_FloorAgent ( C_level* level );
    ~C_FloorAgent ( );

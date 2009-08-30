@@ -32,23 +32,24 @@ private:
    const sf::Input * m_Input;
 
 public:
-   static C_Camera * get_instance ();
-   void display ();
-   void clear ();
-   void draw (C_Animation & to_draw);
-   void draw (C_AnimationSingle & to_draw);
-   void draw (C_Tiler & to_draw);
-   void set_max_framerate (int rate);
-   void set_cam_size (int x, int y);
-   void set_world_size (int x, int y);
-   int get_world_y ();
-   int get_world_x ();
-   void create (const std::string & caption);
-   void center (int x, int y);
-   bool get_event (sf::Event & event);
+   static C_Camera* GetInstance();
+   static C_Camera* i();
+   void Display ();
+   void Clear ();
+   void Draw (C_Animation & to_draw);
+   void Draw (C_AnimationSingle & to_draw);
+   void Draw (C_Tiler & to_draw);
+   void SetMaxFramerate (int rate);
+   void SetCamSize (int x, int y);
+   void SetWorldSize (int x, int y);
+   int GetWorldX ();
+   int GetWorldY ();
+   void Create (const std::string & caption);
+   void Center (int x, int y);
+   bool GetEvent (sf::Event & event);
    void Zoom (float Factor);
    void SetStatic (bool set);
-   std::pair <int, int> GetMouse ();
+   Vector2i GetMouse ();
 };
 
 #endif

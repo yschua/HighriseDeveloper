@@ -17,28 +17,28 @@
 #include "highrisedev.h"
 
 C_Lobby::C_Lobby (int x, int x2, int level, C_Tower * TowerParent)
-:   C_level ( level, TowerParent )
+      :   C_level ( level, TowerParent )
 {
    m_x2 = x2;
    m_x = x;
-   C_ImageManager * images = C_ImageManager::get_instance ();
-   cam = C_Camera::get_instance ();
-   tile = new C_Tiler (images->get_image("lobby.png"), C_Tiler::Horizontal, x, x2, m_y);
-   m_fire_escape_l->set_position (m_x - 56, m_y);
-   m_fire_escape_r->set_position (m_x2, m_y);
+   C_ImageManager * images = C_ImageManager::GetInstance ();
+   cam = C_Camera::GetInstance ();
+   tile = new C_Tiler (images->GetImg("lobby.png"), C_Tiler::Horizontal, x, x2, m_y);
+   m_fire_escape_l->SetPosition (m_x - 56, m_y);
+   m_fire_escape_r->SetPosition (m_x2, m_y);
    std::cout << "New lobby at " << m_x << " to " << m_x2 << " Y level " << m_y << std::endl;
 }
 
 void
-C_Lobby::update (float dt)
+C_Lobby::Update (float dt)
 {
 
 }
 
 void
-C_Lobby::draw ()
+C_Lobby::Draw ()
 {
-   cam->draw (*tile);
-   cam->draw (*m_fire_escape_l);
-   cam->draw (*m_fire_escape_r);
+   cam->Draw (*tile);
+   cam->Draw (*m_fire_escape_l);
+   cam->Draw (*m_fire_escape_r);
 }

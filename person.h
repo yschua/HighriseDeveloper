@@ -49,7 +49,10 @@ struct Path // this could have been a list<T> but it would slow this high traffi
    short size;   // elements in play at this time
    short index;  // the current position of the person in the array.
    Location m_PathList[8]; // the max is 4 or so transistions a person cares to make.
-   Path() { clear(); }
+   Path()
+   {
+      clear();
+   }
    void clear()
    {
       for (int idx = 0; idx < 8; ++idx )
@@ -94,7 +97,7 @@ public:
       AS_BreakFast,
       AS_LunchBreak, // be sure the service personell take one
       AS_Dining,     // if you order take out, go home and eat it, was that dine in or eat out?
-      AS_RestRoom, 
+      AS_RestRoom,
       AS_OnVacation,  // we'll post pics in the lobby when we return
       AS_Evacuating,
       AS_WatchingMovie,
@@ -106,7 +109,8 @@ public:
    };
 
    enum Current_State   // had to add this to describe what a person is doing while heading to work, home or play.
-   {                    // may also cover other activities. A person heading to work may also be stuck in an elevator queue.
+   {
+      // may also cover other activities. A person heading to work may also be stuck in an elevator queue.
       CS_Idle = 0,      // Idle is defined as doing nothing
       CS_Busy,          // Waiting for a timed event to trigger their next move. At work, sleeping etc.
       CS_Walking,       // Ok good, going somewhere
@@ -118,15 +122,15 @@ public:
 private:
    Location       m_Location;
    Path           m_WorkPath;    // To and from work, stays permanant as long as working.
-                                 // Changes if they change jobs or the business goes bust.
+   // Changes if they change jobs or the business goes bust.
    Path           m_OtherPath;   // To and from other activities when they go shopping etc.
-                                 // Changes almost daily
+   // Changes almost daily
    Health_State   m_Health;
    Mood_State     m_Mood;
    Activity_State m_Activity;
    Current_State  m_CurrentState;// Covers busy, waiting, walking, riding.
    int            m_Occupation;  // school and retired are valid occupations
-                                 // not set on if this will be a class or enum
+   // not set on if this will be a class or enum
 
    int            m_Home;        // Where's the Crib
 public:
@@ -170,8 +174,8 @@ public:
    }
 
    // Implementation
-   virtual void update (float dt);
-   virtual void draw ();
+   virtual void Update (float dt);
+   virtual void Draw ();
 };
 
 #endif //_PERSON_H

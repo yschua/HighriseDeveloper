@@ -17,7 +17,8 @@
 #ifndef _OFFICE_H
 #define _OFFICE_H
 
-enum office_state {
+enum office_state
+{
    s_unoccupied_day,
    s_occupied_day
 };
@@ -32,8 +33,8 @@ private:
    int m_current_animation;
 
 public:
-   void update (float dt);
-   void draw ();
+   void Update (float dt);
+   void Draw ();
    C_office (int x, int level, C_Tower * TowerParent);
 };
 

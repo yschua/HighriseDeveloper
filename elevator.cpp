@@ -26,7 +26,7 @@
 #include "image.h"
 */
 #include "routeBase.h"  // Elevators route (levels).
-#include "routeVisitor.h"  // class that will update the elevators route request queue
+#include "routeVisitor.h"  // class that will Update the elevators route request queue
 #include "elevatorBase.h"
 #include "elevatorMachine.h"
 #include "elevatorShaft.h"
@@ -44,9 +44,9 @@ C_Elevator* C_Elevator::Create( Lift_Styles style, int x, short BottLevel, short
 }
 
 C_Elevator::C_Elevator ( Lift_Styles style, int x, short BottomLevel, short TopLevel, C_Tower * TowerParent)
-:  m_LiftStyle( style )
-,  m_LiftOperation( LOS_Waiting )
-,  m_TowerParent (TowerParent)
+      :  m_LiftStyle( style )
+      ,  m_LiftOperation( LOS_Waiting )
+      ,  m_TowerParent (TowerParent)
 {
    m_TopLevel = (TopLevel);
    m_BottomLevel = (BottomLevel);
@@ -59,21 +59,21 @@ C_Elevator::C_Elevator ( Lift_Styles style, int x, short BottomLevel, short TopL
    m_RidersOnBoard = 0;
    memset( m_Riders, 0, sizeof(m_Riders) );
    memset( m_Stops, 0, sizeof(m_Stops) );
-   
+
 
    // test code
    m_StartRoute = m_BottomLevel;
    m_EndRoute = m_TopLevel;
 
-   C_ImageManager * images = C_ImageManager::get_instance ();
-   m_ElevatorImage = new C_AnimationSingle (images->get_image ("elevator_u_s.png"));
-   m_LiftPit = new C_AnimationSingle (images->get_image ("liftpit_1.png"));
+   C_ImageManager * images = C_ImageManager::GetInstance ();
+   m_ElevatorImage = new C_AnimationSingle (images->GetImg ("elevator_u_s.png"));
+   m_LiftPit = new C_AnimationSingle (images->GetImg ("liftpit_1.png"));
 
-   m_cam = C_Camera::get_instance ();
+   m_cam = C_Camera::i();
    m_X = x;
-   m_Y = ( m_cam->get_world_y ()) - (m_BottomLevel * 36);
+   m_Y = ( m_cam->GetWorldY ()) - (m_BottomLevel * 36);
    m_LiftMachine = new C_ElevatorMachine( x, m_TopLevel+1, this );
-   m_LiftPit->set_position ((float)m_X, (float)(m_Y + 36) );
+   m_LiftPit->SetPosition ((float)m_X, (float)(m_Y + 36) );
    m_ElevatorShaft = new C_ElevatorShaft( m_X, m_TopLevel, m_BottomLevel, this );
 }
 
@@ -83,23 +83,23 @@ C_Elevator::~C_Elevator()
 };
 
 void
-C_Elevator::pos_calc ()
+C_Elevator::PosCalc ()
 {
-   m_ElevatorImage->set_position ((float)m_X, (float)(m_Y - (m_Offset + m_Position) + 4) ); // elevator sprite is only 32x32
+   m_ElevatorImage->SetPosition ((float)m_X, (float)(m_Y - (m_Offset + m_Position) + 4) ); // elevator sprite is only 32x32
 }
 
 void
-C_Elevator::setRoute( C_RouteVisitor* visitor )
+C_Elevator::SetRoute( C_RouteVisitor* visitor )
 {
-   if( m_StartRoute == m_EndRoute )
+   if ( m_StartRoute == m_EndRoute )
    {
-   // more plugging until the routing is done
+      // more plugging until the routing is done
       RoutingRequest* req = visitor->getRoute();
       m_StartRoute = req->OriginLevel;// + 11;
       m_EndRoute = req->DestinLevel;// + 11;
       int cur_level = m_Position/36;
       std::cout << "Route: origin: " << m_StartRoute << " end: " << m_EndRoute << " Current level " << cur_level << std::endl;
-      if( cur_level == m_StartRoute )
+      if ( cur_level == m_StartRoute )
       {
          m_Direction = (cur_level < m_EndRoute) ? 1 : -1;
          m_StartRoute = m_EndRoute; // this stops the elevator at the destination to wait for a request.
@@ -114,7 +114,7 @@ C_Elevator::setRoute( C_RouteVisitor* visitor )
 }
 
 void
-C_Elevator::update (float dt)
+C_Elevator::Update (float dt)
 {
    int max = m_TopLevel * 36;
    int min = m_BottomLevel * 36;
@@ -123,87 +123,87 @@ C_Elevator::update (float dt)
    if (dest < min ) dest = min;
 
    // test plug
-   switch( m_Direction )
+   switch ( m_Direction )
    {
-   case 0:
-      if( m_IdleTime > 0 )
-      {
-         m_IdleTime--;
-      }
-      else
-      {
-         // BS CODE
-         if( m_StartRoute == m_EndRoute )
+      case 0:
+         if ( m_IdleTime > 0 )
          {
-            int start = (rand() % (m_TopLevel - m_BottomLevel)) + m_BottomLevel; // this will work if start level is zero.
-            int end = (rand() % (m_TopLevel - m_BottomLevel)) + m_BottomLevel; // this will work if end level is zero.
-            if (end == start )
-            {
-               m_IdleTime = 10;
-            }
-            else
-            {
-               // this will be done by the path finder and rousing manager code
-               //RoutingRequest req;
-               //req.OriginLevel = start;
-               //req.DestinLevel = end;
-               //C_RouteVisitor visitor( &req );  // while this seems an extra load to create a class to pass a struct
-               //                                 // the class will be managing the elevators operations (somewhat an agent).
-               //                                 // for now, we hotwire this in.
-               //setRoute( &visitor );
-               m_IdleTime = 10; // pause at pickup floor;
-            }
+            m_IdleTime--;
          }
          else
          {
-            m_Direction = (m_StartRoute > m_EndRoute) ? 1 : -1;
-       // in the real code we will pull this request when it ends
+            // BS CODE
+            if ( m_StartRoute == m_EndRoute )
+            {
+               int start = (rand() % (m_TopLevel - m_BottomLevel)) + m_BottomLevel; // this will work if start level is zero.
+               int end = (rand() % (m_TopLevel - m_BottomLevel)) + m_BottomLevel; // this will work if end level is zero.
+               if (end == start )
+               {
+                  m_IdleTime = 10;
+               }
+               else
+               {
+                  // this will be done by the path finder and rousing manager code
+                  //RoutingRequest req;
+                  //req.OriginLevel = start;
+                  //req.DestinLevel = end;
+                  //C_RouteVisitor visitor( &req );  // while this seems an extra load to create a class to pass a struct
+                  //                                 // the class will be managing the elevators operations (somewhat an agent).
+                  //                                 // for now, we hotwire this in.
+                  //setRoute( &visitor );
+                  m_IdleTime = 10; // pause at pickup floor;
+               }
+            }
+            else
+            {
+               m_Direction = (m_StartRoute > m_EndRoute) ? 1 : -1;
+               // in the real code we will pull this request when it ends
+            }
+            // End BS code
+            //if( m_Position > m_BottomLevel+9 )
+            //{
+            //   m_Direction = -1;
+            //}
+            //else
+            //{
+            //   m_Direction = 1;
+            //}
          }
-         // End BS code
-         //if( m_Position > m_BottomLevel+9 )
-         //{
-         //   m_Direction = -1;
-         //}
-         //else
-         //{
-         //   m_Direction = 1;
-         //}
-      }
-      break;
-   case 1:
-      if( m_Position < dest )
-      {
-         m_Position++;
-         m_LiftMachine->update( dt );
-      }
-      else
-      {
-         m_StartRoute = m_EndRoute; // this stops the elevator at the destination to wait for a request.
-         m_Direction = 0;
-         m_IdleTime = 90;
-      }
-      break;
-   case -1:
-      if( m_Position > dest )
-      {
-         m_Position--;
-         m_LiftMachine->update( dt );
-      }
-      else
-      {
-         m_StartRoute = m_EndRoute; // this stops the elevator at the destination to wait for a request.
-         m_Direction = 0;
-         m_IdleTime = 90;
-      }
+         break;
+      case 1:
+         if ( m_Position < dest )
+         {
+            m_Position++;
+            m_LiftMachine->Update( dt );
+         }
+         else
+         {
+            m_StartRoute = m_EndRoute; // this stops the elevator at the destination to wait for a request.
+            m_Direction = 0;
+            m_IdleTime = 90;
+         }
+         break;
+      case -1:
+         if ( m_Position > dest )
+         {
+            m_Position--;
+            m_LiftMachine->Update( dt );
+         }
+         else
+         {
+            m_StartRoute = m_EndRoute; // this stops the elevator at the destination to wait for a request.
+            m_Direction = 0;
+            m_IdleTime = 90;
+         }
    }
-   pos_calc();
+   PosCalc();
 }
 
 void
-C_Elevator::draw ()
+C_Elevator::Draw ()
 {
-   m_ElevatorShaft->draw ();
-   m_LiftMachine->draw ();
-   m_cam->draw (*m_LiftPit );
-   m_cam->draw (*m_ElevatorImage);
+   m_ElevatorShaft->Draw ();
+   m_LiftMachine->Draw ();
+   m_cam->Draw (*m_LiftPit );
+   m_cam->Draw (*m_ElevatorImage);
 }

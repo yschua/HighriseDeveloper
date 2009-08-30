@@ -41,7 +41,7 @@
 #include "citizensAgent.h"
 
 C_CitizensAgent::C_CitizensAgent (C_Tower& tower) // use a tower agent for multiple towers
-:  m_Tower (tower)
+      :  m_Tower (tower)
 {
 
 }
@@ -50,10 +50,10 @@ C_CitizensAgent::~C_CitizensAgent ()
 {
 }
 
-void C_CitizensAgent::update (float dt)
+void C_CitizensAgent::Update (float dt)
 {
    C_Citizens* citizens = C_Citizens::get_Instance(); // the citizens object that holds the people collection
-   if( (rand() % 200) == 3 )   // TODO: need a better spawn mechanism, raised to 100
+   if ( (rand() % 200) == 3 )  // TODO: need a better spawn mechanism, raised to 100
    {
 
       //Location loc; // all zeros
@@ -68,121 +68,121 @@ void C_CitizensAgent::update (float dt)
    for (i = persons.begin (); i != persons.end (); i++)
    {
       C_Person* peep = (*i);
-      peep->update( dt );
+      peep->Update( dt );
       Path& workPath = peep->get_WorkPath(); // for now just doing work
       //  TODO: case statement from hell, on the refactor list
-      switch( peep->get_Activity() )
+      switch ( peep->get_Activity() )
       {
-      case C_Person::AS_Sleeping:
-         // check alarm;
-         break;
+         case C_Person::AS_Sleeping:
+            // check alarm;
+            break;
 
-      case C_Person::AS_JobHunting:
-         if( peep->get_CurrentState() == C_Person::CS_Idle )
-         {
-            Location dest;
-            dest.m_Building = 1;
-            dest.m_Level = 1 + (rand() % 3); // TODO:  get a real job finder
-            dest.m_Route = 0;              // plugged into first elevater until pathfinder does the job.
-            dest.m_X = 1;                  // TODO:  find the room number
-            std::cout << "A new person has entered your building looking for work on Level# " << dest.m_Level << std::endl;
-            peep->set_Activity( C_Person::AS_GoingToWork );
-            peep->set_Occupation( 1 );
-            C_PathAgent Path( peep );
-            Path.findPath( peep->get_Location(), dest, m_Tower );
-         }
-         break;
-
-      case C_Person::AS_CondoHunting:
-         // Phase 2 with 2 star building
-         break;
-
-      case C_Person::AS_ApartmentHunting:
-         // Set up cheap housing (not in the original tower game.
-         break;
-
-      case C_Person::AS_GoingToWork:
-         if( workPath.index < workPath.size )
-         {
-            int idx = workPath.index;
-            int curLevel = peep->get_Location().m_Level;
-            if( curLevel == workPath.m_PathList[idx].m_Level ) // or tower is not = curtower (on a bus, train, car or skycab ).
+         case C_Person::AS_JobHunting:
+            if ( peep->get_CurrentState() == C_Person::CS_Idle )
             {
-               // just moving on the same level
+               Location dest;
+               dest.m_Building = 1;
+               dest.m_Level = 1 + (rand() % 3); // TODO:  get a real job finder
+               dest.m_Route = 0;              // plugged into first elevater until pathfinder does the job.
+               dest.m_X = 1;                  // TODO:  find the room number
+               std::cout << "A new person has entered your building looking for work on Level# " << dest.m_Level << std::endl;
+               peep->set_Activity( C_Person::AS_GoingToWork );
+               peep->set_Occupation( 1 );
+               C_PathAgent Path( peep );
+               Path.findPath( peep->get_Location(), dest, m_Tower );
+            }
+            break;
+
+         case C_Person::AS_CondoHunting:
+            // Phase 2 with 2 star building
+            break;
+
+         case C_Person::AS_ApartmentHunting:
+            // Set up cheap housing (not in the original tower game.
+            break;
+
+         case C_Person::AS_GoingToWork:
+            if ( workPath.index < workPath.size )
+            {
+               int idx = workPath.index;
+               int curLevel = peep->get_Location().m_Level;
+               if ( curLevel == workPath.m_PathList[idx].m_Level ) // or tower is not = curtower (on a bus, train, car or skycab ).
+               {
+                  // just moving on the same level
+               }
+               else
+               {
+                  switch ( peep->get_CurrentState() )
+                  {
+                     case C_Person::CS_Waiting:
+                        // tally up wait states
+                        break;
+                     case C_Person::CS_Riding:
+                        // enroute
+                        break;
+                     case C_Person::CS_Disembarking:
+                        workPath.index++;
+                        peep->set_CurrentState( C_Person::CS_Walking );
+                        // fall through
+                     default:
+                        //C_Routes* routeList = C_Routes::GetInstance();
+                        C_Routes& routeList = m_Tower.GetRoutes();
+                        if (  routeList.Get_Routes().size() > 0 )
+                        {
+                           std::vector<C_RouteBase*>::iterator i;
+                           i = routeList.Get_Routes().begin ();
+                           C_RouteBase* route = (*i);
+                           RoutingRequest req;     // routing code needs to queue this person
+                           req.OriginLevel = curLevel;
+                           req.DestinLevel = workPath.m_PathList[idx].m_Level;
+                           C_RouteVisitor visitor(&req, 1);
+                           route->SetRoute( &visitor );
+                        }
+                  }
+                  workPath.index++; // TODO: wait for elevator, we are moving ahead before getting to the level
+               }
             }
             else
             {
-               switch( peep->get_CurrentState() )
+            }
+            break;
+
+         case C_Person::AS_GoingHome:
+            if ( workPath.index >= 0 )
+            {
+               int idx = workPath.index;
+               int curLevel = peep->get_Location().m_Level;
+               if ( curLevel == workPath.m_PathList[idx].m_Level )
                {
-               case C_Person::CS_Waiting:
-                  // tally up wait states
-                  break;
-               case C_Person::CS_Riding:
-                  // enroute
-                  break;
-               case C_Person::CS_Disembarking:
-                  workPath.index++;
-                  peep->set_CurrentState( C_Person::CS_Walking );
-                  // fall through
-               default:
-                  //C_Routes* routeList = C_Routes::get_instance();
-                  C_Routes& routeList = m_Tower.get_Routes();
-                  if(  routeList.get_Routes().size() > 0 )
+                  // just moving on the same level
+               }
+               else
+               {
+                  //C_Routes* routeList = C_Routes::GetInstance();
+                  C_Routes& routeList = m_Tower.GetRoutes();
+                  if (  routeList.Get_Routes().size() > 0 )
                   {
                      std::vector<C_RouteBase*>::iterator i;
-                     i = routeList.get_Routes().begin ();
+                     i = routeList.Get_Routes().begin ();
+                     i++;  // go home on the 2nd elevator
                      C_RouteBase* route = (*i);
-                     RoutingRequest req;     // routing code needs to queue this person
+                     RoutingRequest req;
                      req.OriginLevel = curLevel;
                      req.DestinLevel = workPath.m_PathList[idx].m_Level;
                      C_RouteVisitor visitor(&req, 1);
-                     route->setRoute( &visitor );
+                     route->SetRoute( &visitor );
                   }
+                  workPath.index--; // TODO: wait for elevator, we are moving ahead before getting to the level
                }
-               workPath.index++; // TODO: wait for elevator, we are moving ahead before getting to the level
-            }
-         }
-         else
-         {
-         }
-         break;
-
-      case C_Person::AS_GoingHome:
-         if( workPath.index >= 0 )
-         {
-            int idx = workPath.index;
-            int curLevel = peep->get_Location().m_Level;
-            if( curLevel == workPath.m_PathList[idx].m_Level )
-            {
-               // just moving on the same level
             }
             else
             {
-               //C_Routes* routeList = C_Routes::get_instance();
-               C_Routes& routeList = m_Tower.get_Routes();
-               if(  routeList.get_Routes().size() > 0 )
-               {
-                  std::vector<C_RouteBase*>::iterator i;
-                  i = routeList.get_Routes().begin ();
-                  i++;  // go home on the 2nd elevator
-                  C_RouteBase* route = (*i);
-                  RoutingRequest req;
-                  req.OriginLevel = curLevel;
-                  req.DestinLevel = workPath.m_PathList[idx].m_Level;
-                  C_RouteVisitor visitor(&req, 1);
-                  route->setRoute( &visitor );
-               }
-               workPath.index--; // TODO: wait for elevator, we are moving ahead before getting to the level
             }
-         }
-         else
-         {
-         }
-         break;
-      default:
-         // do something
-         break;   // microsoft requires this break
+            break;
+         default:
+            // do something
+            break;   // microsoft requires this break
       }
-   }   
+   }
 }
 

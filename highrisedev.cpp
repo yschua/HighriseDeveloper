@@ -21,11 +21,11 @@
 int
 main ()
 {
-   C_Camera * cam = C_Camera::get_instance ();
-   cam->set_cam_size (800, 600);
-   cam->set_world_size (1280, 720);
-   cam->set_max_framerate (60);
-   cam->create ("test");
+   C_Camera * cam = C_Camera::GetInstance ();
+   cam->SetCamSize (800, 600);
+   cam->SetWorldSize (1280, 720);
+   cam->SetMaxFramerate (60);
+   cam->Create ("test");
    sf::Event event;
    C_Elevator* pElevator;
    C_Background * pBackground;
@@ -53,63 +53,65 @@ main ()
 
       C_office* my_basement = new C_office (400, -1, &theTower);
 
-      C_level* sublevel = theTower.getLevel(-1);
-      C_level* level_1 = theTower.newLevel();
-      C_level* level_2 = theTower.newLevel();
-      C_level* level_3 = theTower.newLevel();
-      C_level* level_4 = theTower.newLevel();
-      C_level* level_5 = theTower.newLevel();
-      level_1->add_floor (my_office);
-      level_1->add_floor (my_office3);
-      level_1->add_floor (my_office5);
-      level_2->add_floor (my_office2);
-      level_2->add_floor (my_office4);
-      level_2->add_floor (my_office6);
-      level_3->add_floor (my_office7);
-      level_3->add_floor (my_office8);
-      level_3->add_floor (my_office9);
-      level_4->add_floor (my_apt1);
-      level_4->add_floor (my_apt2);
-      level_4->add_floor (my_apt3);
-      level_5->add_floor (my_apt4);
-      level_5->add_floor (my_apt5);
-      sublevel->add_floor (my_basement);
-      
+      C_level* sublevel = theTower.GetLevel(-1);
+      C_level* level_1 = theTower.NewLevel();
+      C_level* level_2 = theTower.NewLevel();
+      C_level* level_3 = theTower.NewLevel();
+      C_level* level_4 = theTower.NewLevel();
+      C_level* level_5 = theTower.NewLevel();
+      level_1->AddFloor (my_office);
+      level_1->AddFloor (my_office3);
+      level_1->AddFloor (my_office5);
+      level_2->AddFloor (my_office2);
+      level_2->AddFloor (my_office4);
+      level_2->AddFloor (my_office6);
+      level_3->AddFloor (my_office7);
+      level_3->AddFloor (my_office8);
+      level_3->AddFloor (my_office9);
+      level_4->AddFloor (my_apt1);
+      level_4->AddFloor (my_apt2);
+      level_4->AddFloor (my_apt3);
+      level_5->AddFloor (my_apt4);
+      level_5->AddFloor (my_apt5);
+      sublevel->AddFloor (my_basement);
+
       pElevator = new C_Elevator( C_Elevator::LS_Standard, 472, -1, 6, &theTower );
-      theTower.get_Routes().add_route( pElevator );
+      theTower.GetRoutes().AddRoute( pElevator );
       pElevator = new C_Elevator( C_Elevator::LS_Standard, 472 + 36 + 9, -1, 5, &theTower );
-      theTower.get_Routes().add_route( pElevator );
+      theTower.GetRoutes().AddRoute( pElevator );
       pBackground = new C_Background ();
 
-      while (1) {
-         while (cam->get_event (event)) {
+      while (1)
+      {
+         while (cam->GetEvent (event))
+         {
             if (event.Type == sf::Event::Closed)
                exit (0);
             else if (event.Type == sf::Event::KeyPressed)
             {
                if (event.Key.Code == sf::Key::A)
                {
-                  cam->m_v.first = -200;
-                  cam->m_a.first = 150;
+                  cam->m_v.x = -200;
+                  cam->m_a.x = 150;
                }
                if (event.Key.Code == sf::Key::S)
                {
-                  cam->m_v.second = 200;
-                  cam->m_a.second = -150;
+                  cam->m_v.y = 200;
+                  cam->m_a.y = -150;
                }
                if (event.Key.Code == sf::Key::D)
                {
-                  cam->m_v.first = 200;
-                  cam->m_a.first = -150;
+                  cam->m_v.x = 200;
+                  cam->m_a.x = -150;
                }
                if (event.Key.Code == sf::Key::W)
                {
-                  cam->m_v.second = -200;
-                  cam->m_a.second = 150;
+                  cam->m_v.y = -200;
+                  cam->m_a.y = 150;
                }
                if (event.Key.Code == sf::Key::E)
                {
-                  cam->set_velocity (0, 0);
+                  cam->SetVelocity (0, 0);
                }
             }
             else if (event.Type == sf::Event::MouseWheelMoved)
@@ -117,26 +119,26 @@ main ()
                cam->Zoom (event.MouseWheel.Delta);
             }
             else if (event.Type == sf::Event::MouseButtonPressed)
-            { 
-               std::pair <int, int> coords = cam->GetMouse ();
-               std::cout << "Mouse click coords: " << coords.first << ", " << coords.second;
-               int click_level = (cam->get_world_y () / 36) - (coords.second / 36);
+            {
+               Vector2i coords = cam->GetMouse ();
+               std::cout << "Mouse click coords: " << coords.x << ", " << coords.y;
+               int click_level = (cam->GetWorldY () / 36) - (coords.y / 36);
                std::cout << " Click level: " << click_level << std::endl;
             }
          }
-         cam->clear ();
-         cam->integrate (60);
-         pBackground->draw ();
-         theTower.update (60);
-//         routes.update (60); now in tower
-         theTower.draw ();
-//         routes.draw (); now in tower
-         cam->display ();
+         cam->Clear ();
+         cam->Integrate (60);
+         pBackground->Draw ();
+         theTower.Update (60);
+//         routes.Update (60); now in tower
+         theTower.Draw ();
+//         routes.Draw (); now in tower
+         cam->Display ();
 
-         People.update( 40 );
+         People.Update( 40 );
       }
    }
-   catch( C_HighriseException* ex )
+   catch ( C_HighriseException* ex )
    {
       std::cout << "Exception caught in main: " << ex->get_Message();
    }

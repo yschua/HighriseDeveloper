@@ -34,7 +34,7 @@
 #include "pathAgent.h"
 
 C_PathAgent::C_PathAgent (C_Person* person )
-:  m_Person( person )
+      :  m_Person( person )
 {
 
 }
@@ -42,7 +42,7 @@ C_PathAgent::C_PathAgent (C_Person* person )
 // functor level PathAgent
 // Instiate, get the person to his destination and done
 C_PathAgent::C_PathAgent (C_Person* person, int level)   // deposit person on this level;
-:  m_Person( person )
+      :  m_Person( person )
 {
    person->get_Location();
 }
@@ -57,8 +57,8 @@ bool C_PathAgent::findPath (Location& origin, Location& dest, C_Tower& tower )
    Path& path = m_Person->get_WorkPath(); // for now just doing work
    path.clear();
    // normally we would use the commented code but for now I've pluged direct to a single elevator
-   //C_Routes* routeList = C_Routes::get_instance();
-   C_Routes& routeList = tower.get_Routes();
+   //C_Routes* routeList = C_Routes::GetInstance();
+   C_Routes& routeList = tower.GetRoutes();
    C_CitizensAgent People( tower );
    std::vector<C_RouteBase*>::iterator i;
    //for (i = routeList.get_Routes().begin (); i != routeList.get_Routes().end (); i++)

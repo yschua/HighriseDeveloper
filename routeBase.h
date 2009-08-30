@@ -20,12 +20,12 @@ class C_RouteVisitor;
 
 class C_RouteBase // Abstract, does not even have a CPP file at this point.
 {
-    
+
 public:
    C_RouteBase() {};
-   virtual void setRoute( C_RouteVisitor* visitor ) = 0;
-   virtual void update (float dt) = 0;
-   virtual void draw () = 0;
+   virtual void SetRoute( C_RouteVisitor* visitor ) = 0;
+   virtual void Update (float dt) = 0;
+   virtual void Draw () = 0;
 };
 
 #endif //_ROUTEBASE_H

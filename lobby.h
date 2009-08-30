@@ -31,8 +31,8 @@ private:
    C_Camera * cam;
 
 public:
-   void update (float dt);
-   void draw ();
+   void Update (float dt);
+   void Draw ();
    C_Lobby (int x, int x2, int level, C_Tower * TowerParent);
 };
 

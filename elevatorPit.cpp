@@ -14,7 +14,7 @@
  *   along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <cstdlib> 
+#include <cstdlib>
 #include <iostream>
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
@@ -30,15 +30,15 @@
 class C_Elevator;
 
 C_ElevatorPit::C_ElevatorPit ( int x, int level, C_Elevator* pElevator )
-:  C_ElevatorBase( x, level, pElevator )
+      :  C_ElevatorBase( x, level, pElevator )
 {
    m_x = x;
    m_Level = level;
-   //C_ImageManager * image_man = C_ImageManager::get_instance ();
-   m_y = (C_Camera::get_instance()->get_world_y () ) - (level * 36);
+   //C_ImageManager * image_man = C_ImageManager::GetInstance ();
+   m_y = (C_Camera::GetInstance()->GetWorldY () ) - (level * 36);
    // std::cout << "New elevator pit at " << m_x << ", " << m_y << std::endl;
    // m_animations[s_occupied_day] = new C_AnimationSingle ();
-   // m_animations[s_occupied_day]->add_frame (image_man->get_image ("liftpit.png"), 1000);
+   // m_animations[s_occupied_day]->AddFrame (image_man->GetImg ("liftpit.png"), 1000);
 }
 
 C_ElevatorPit::~C_ElevatorPit()
@@ -46,13 +46,13 @@ C_ElevatorPit::~C_ElevatorPit()
 }
 
 void
-C_ElevatorPit::update (float dt)
+C_ElevatorPit::Update (float dt)
 {
 
 }
 
 void
-C_ElevatorPit::draw ()
+C_ElevatorPit::Draw ()
 {
-//    C_Camera::get_instance()->draw (*m_animations[m_current_state]);
+//    C_Camera::GetInstance()->Draw (*m_animations[m_current_state]);
 }

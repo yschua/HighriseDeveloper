@@ -52,38 +52,39 @@ C_Apartment::occupied_sleep (float dt)
 }
 
 C_Apartment::C_Apartment (int x, int level, C_Tower * TowerParent)
-:  m_current_state (apt_occupied_day)
-,  C_FloorBase (x, x + 72, level, TowerParent)
+      :  m_current_state (apt_occupied_day)
+      ,  C_FloorBase (x, x + 72, level, TowerParent)
 {
-   C_ImageManager * image_man = C_ImageManager::get_instance ();
+   C_ImageManager * image_man = C_ImageManager::GetInstance ();
    std::cout << "New apartment at " << m_x << ", " << m_y << " level " << m_level << std::endl;
    m_animations[apt_occupied_day] = new C_Animation ();
-   m_animations[apt_occupied_day]->add_frame (image_man->get_image ("apartment_r_d_1.png"), 1000);
-   m_animations[apt_occupied_day]->add_frame (image_man->get_image ("apartment_r_n_1.png"), 1000);
-   m_animations[apt_occupied_day]->set_position (m_x, m_y);
+   m_animations[apt_occupied_day]->AddFrame (image_man->GetImg ("apartment_r_d_1.png"), 1000);
+   m_animations[apt_occupied_day]->AddFrame (image_man->GetImg ("apartment_r_n_1.png"), 1000);
+   m_animations[apt_occupied_day]->SetPosition (m_x, m_y);
    m_animations[apt_unoccupied_day] = new C_Animation ();
-   m_animations[apt_unoccupied_day]->add_frame (image_man->get_image ("apartment_r_s_1.png"), 1000);
-   m_animations[apt_unoccupied_day]->set_position (m_x, m_y);
+   m_animations[apt_unoccupied_day]->AddFrame (image_man->GetImg ("apartment_r_s_1.png"), 1000);
+   m_animations[apt_unoccupied_day]->SetPosition (m_x, m_y);
 }
 
 void
-C_Apartment::update (float dt)
+C_Apartment::Update (float dt)
 {
-   m_animations[m_current_state]->update (dt);
+   m_animations[m_current_state]->Update (dt);
    apartment_state new_state;
-   switch (m_current_state) {
+   switch (m_current_state)
+   {
       case s_unoccupied_day :
          new_state = unoccupied_day (dt);
-      break;
+         break;
       case s_occupied_day :
          new_state = occupied_day (dt);
-      break;
+         break;
    }
    m_current_state = new_state;
 }
 
 void
-C_Apartment::draw ()
+C_Apartment::Draw ()
 {
-   C_Camera::get_instance()->draw (*m_animations[m_current_state]);
+   C_Camera::i()->Draw (*m_animations[m_current_state]);
 }

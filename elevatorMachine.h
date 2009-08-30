@@ -50,8 +50,8 @@ public:
 
    // Implemantation
    void pos_calc ();
-   virtual void update (float dt);
-   virtual void draw ();
+   virtual void Update (float dt);
+   virtual void Draw ();
 };
 
 #endif //_ELEVATORMACHINE_H

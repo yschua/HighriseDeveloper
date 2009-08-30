@@ -24,7 +24,7 @@
 // Now part of Tower
 //C_Routes* C_Routes::m_instance;
 //
-//C_Routes* C_Routes::get_instance ()
+//C_Routes* C_Routes::GetInstance ()
 //{
 //   if (m_instance == NULL)
 //   {
@@ -37,25 +37,25 @@ C_Routes::C_Routes()
 {
 }
 
-void C_Routes::add_route(C_RouteBase * route)
+void C_Routes::AddRoute(C_RouteBase* route)
 {
    m_Routes.push_back( route );
 }
 
-void C_Routes::update (float dt)
+void C_Routes::Update (float dt)
 {
-   std::vector<C_RouteBase *>::iterator i;
+   std::vector<C_RouteBase*>::iterator i;
    for (i = m_Routes.begin (); i != m_Routes.end (); i++)
    {
-      (*i)->update( dt );
+      (*i)->Update( dt );
    }
 }
 
-void C_Routes::draw ()
+void C_Routes::Draw ()
 {
-   std::vector<C_RouteBase *>::iterator i;
+   std::vector<C_RouteBase*>::iterator i;
    for (i = m_Routes.begin (); i != m_Routes.end (); i++)
    {
-      (*i)->draw( );
+      (*i)->Draw( );
    }
 }

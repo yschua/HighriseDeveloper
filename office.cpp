@@ -33,41 +33,42 @@ C_office::occupied_day (float dt)
 }
 
 C_office::C_office (int x, int level, C_Tower * TowerParent)
-:  m_current_state (s_unoccupied_day)
-,  C_FloorBase (x, x + 72, level, TowerParent)
+      :  m_current_state (s_unoccupied_day)
+      ,  C_FloorBase (x, x + 72, level, TowerParent)
 {
-   C_ImageManager * image_man = C_ImageManager::get_instance ();
+   C_ImageManager * image_man = C_ImageManager::GetInstance ();
    std::cout << "New office at " << m_x << ", " << m_y << " level " << m_level << std::endl;
    m_animations[s_occupied_day] = new C_Animation ();
-   m_animations[s_occupied_day]->add_frame (image_man->get_image ("office_o_d_1.png"), 1000);
-   m_animations[s_occupied_day]->add_frame (image_man->get_image ("office_o_d_2.png"), 1000);
-   m_animations[s_occupied_day]->add_frame (image_man->get_image ("office_o_d_3.png"), 1000);
-   m_animations[s_occupied_day]->add_frame (image_man->get_image ("office_o_d_4.png"), 1000);
-   m_animations[s_occupied_day]->add_frame (image_man->get_image ("office_o_d_5.png"), 1000);
-   m_animations[s_occupied_day]->set_position (m_x, m_y);
+   m_animations[s_occupied_day]->AddFrame (image_man->GetImg ("office_o_d_1.png"), 1000);
+   m_animations[s_occupied_day]->AddFrame (image_man->GetImg ("office_o_d_2.png"), 1000);
+   m_animations[s_occupied_day]->AddFrame (image_man->GetImg ("office_o_d_3.png"), 1000);
+   m_animations[s_occupied_day]->AddFrame (image_man->GetImg ("office_o_d_4.png"), 1000);
+   m_animations[s_occupied_day]->AddFrame (image_man->GetImg ("office_o_d_5.png"), 1000);
+   m_animations[s_occupied_day]->SetPosition (m_x, m_y);
    m_animations[s_unoccupied_day] = new C_Animation ();
-   m_animations[s_unoccupied_day]->add_frame (image_man->get_image ("office_u_d.png"), 1000);
-   m_animations[s_unoccupied_day]->set_position (m_x, m_y);
+   m_animations[s_unoccupied_day]->AddFrame (image_man->GetImg ("office_u_d.png"), 1000);
+   m_animations[s_unoccupied_day]->SetPosition (m_x, m_y);
 }
 
 void
-C_office::update (float dt)
+C_office::Update (float dt)
 {
-   m_animations[m_current_state]->update (dt);
+   m_animations[m_current_state]->Update (dt);
    office_state new_state;
-   switch (m_current_state) {
+   switch (m_current_state)
+   {
       case s_unoccupied_day :
          new_state = unoccupied_day (dt);
-      break;
+         break;
       case s_occupied_day :
          new_state = occupied_day (dt);
-      break;
+         break;
    }
    m_current_state = new_state;
 }
 
 void
-C_office::draw ()
+C_office::Draw ()
 {
-   C_Camera::get_instance()->draw (*m_animations[m_current_state]);
+   C_Camera::GetInstance()->Draw (*m_animations[m_current_state]);
 }

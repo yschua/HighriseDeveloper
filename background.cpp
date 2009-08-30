@@ -18,18 +18,18 @@
 
 C_Background::C_Background ()
 {
-   C_ImageManager * images = C_ImageManager::get_instance ();
-   cam = C_Camera::get_instance ();
-   m_BackImage = new C_AnimationSingle (images->get_image ("back.png"));
+   C_ImageManager * images = C_ImageManager::GetInstance ();
+   cam = C_Camera::i();
+   m_BackImage = new C_AnimationSingle (images->GetImg ("back.png"));
    // move the ground down 36 since lobby is at 0
-   m_BackBuildings = new C_Tiler (images->get_image ("buildings.png"), C_Tiler::Horizontal, 0, cam->get_world_x (), cam->get_world_y () + 36 - 64);
-   m_BackGround = new C_Tiler (images->get_image ("ground.png"), C_Tiler::Horizontal, 0, cam->get_world_x (), cam->get_world_y () + 36);
+   m_BackBuildings = new C_Tiler (images->GetImg ("buildings.png"), C_Tiler::Horizontal, 0, cam->GetWorldX (), cam->GetWorldY () + 36 - 64);
+   m_BackGround = new C_Tiler (images->GetImg ("ground.png"), C_Tiler::Horizontal, 0, cam->GetWorldX (), cam->GetWorldY () + 36);
 }
 
 void
-C_Background::draw ()
+C_Background::Draw ()
 {
-   cam->draw (*m_BackImage);
-   cam->draw (*m_BackBuildings);
-   cam->draw (*m_BackGround);
+   cam->Draw (*m_BackImage);
+   cam->Draw (*m_BackBuildings);
+   cam->Draw (*m_BackGround);
 }

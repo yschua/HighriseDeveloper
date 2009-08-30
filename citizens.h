@@ -38,7 +38,7 @@ protected:
 public:
    // instance
    static C_Citizens* get_Instance();
-   void destroy(); 
+   void destroy();
    // properties
    std::list <C_Person*>& get_Persons()
    {
@@ -49,7 +49,7 @@ public:
    C_Person* NewPerson();
    void DestroyPerson( C_Person* person );
 
-   void update (float dt);
+   void Update (float dt);
    void Draw() {}; // nothing to draw unless we draw the people here
 };
 

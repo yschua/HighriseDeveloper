@@ -5,7 +5,7 @@
 using namespace std;
 
 class C_HighriseException :
-   public std::exception
+         public std::exception
 {
    std::string m_Message;
 public:

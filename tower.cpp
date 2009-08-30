@@ -14,7 +14,7 @@
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
- /*
+/*
 #include <vector> // changed from list to vector so the collection can be scrolled in up and down
 
 
@@ -31,8 +31,8 @@
 #include "highrisedev.h"
 
 C_Tower::C_Tower( int towerNo, int NoSubLevels )
-:  m_TowerNo( towerNo )
-,  m_No_SubLevels( NoSubLevels )
+      :  m_TowerNo( towerNo )
+      ,  m_No_SubLevels( NoSubLevels )
 {
    //C_level* maint = new C_level (0);
    //m_SubLevels.push_back (maint);
@@ -51,10 +51,10 @@ C_Tower::~C_Tower( )
 
 }
 
-C_level * C_Tower::newLevel( )
+C_level * C_Tower::NewLevel( )
 {
    int level = m_Levels.size() - m_No_SubLevels;
-   C_level* floor = new C_level (level, this);   
+   C_level* floor = new C_level (level, this);
    m_Levels.push_back (floor);
    return floor;
 }
@@ -67,30 +67,29 @@ C_level * C_Tower::newLevel( )
 //   return floor;
 //}
 
-C_level* C_Tower::getLevel( int level ) // positive gets you a level above, negative gets you a basement level
+C_level* C_Tower::GetLevel( int level ) // positive gets you a level above, negative gets you a basement level
 {
-   C_level* floor = 0;
+   // What is the point of all this? Why not just store the levels in an std::map<int, CLevel>?
    int index = level + m_No_SubLevels;
-   floor = m_Levels[index];
-   return floor;
+   return m_Levels[index];
 }
 
-void C_Tower::update (float dt)
+void C_Tower::Update (float dt)
 {
    std::vector<C_level *>::iterator iLevel;
    for (iLevel = m_Levels.begin (); iLevel != m_Levels.end (); iLevel++)
    {
-      (*iLevel)->update( dt );
+      (*iLevel)->Update( dt );
    }
-   m_Routes.update( dt );
+   m_Routes.Update( dt );
 }
 
-void C_Tower::draw ()
+void C_Tower::Draw ()
 {
    std::vector<C_level *>::iterator iLevel;
    for (iLevel = m_Levels.begin (); iLevel != m_Levels.end (); iLevel++)
    {
-      (*iLevel)->draw( );
+      (*iLevel)->Draw( );
    }
-   m_Routes.draw();
+   m_Routes.Draw();
 }

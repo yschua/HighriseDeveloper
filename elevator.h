@@ -135,7 +135,7 @@ public:
    void Resize( int x, int y );
    void pos_calc ();
    void PosCalc ();
-   void C_Elevator::SetSetCallButton (int level, int dir);
+   void SetSetCallButton (int level, int dir);
    virtual void SetRoute( C_RouteVisitor* visitor );
    virtual void Update (float dt);
    virtual void Draw ();

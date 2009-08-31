@@ -41,6 +41,7 @@ namespace hr {
             delete this;
         }
         void Add(T* ToAdd) {
+           (*ToAdd).Contains(Vector2i(0,0));
             Ts.push_back(ToAdd);
         }
         void Insert(T* ToInsert, int Position) {
@@ -75,12 +76,13 @@ namespace hr {
         // Handling events... The most recently active item receives events.
         bool OnEvent(const sf::Event& Event) {
             if (Disabled) return false;
+            std::cout << "ActiveT: " << ActiveT << "  MousedT: " << MousedT << "\n";
             if (Event.Type == sf::Event::MouseMoved ||
                 Event.Type == sf::Event::MouseButtonPressed) {
                     /*if (ActiveT != NULL) {
                         Gfx::Cur.SetType("Default");
                     }*/
-                    std::cout << "ActiveT: " << ActiveT << "  MousedT: " << MousedT << "\n";
+
                     // Does the currently "active" window contain the mouse?
 
                     if (Event.Type == sf::Event::MouseButtonPressed) {

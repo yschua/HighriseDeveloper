@@ -102,6 +102,8 @@
 		<Unit filename="highrisedev.h" />
 		<Unit filename="image.cpp" />
 		<Unit filename="image.h" />
+		<Unit filename="interface.cpp" />
+		<Unit filename="interface.h" />
 		<Unit filename="level.cpp" />
 		<Unit filename="level.h" />
 		<Unit filename="lobby.cpp" />

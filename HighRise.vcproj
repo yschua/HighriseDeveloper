@@ -40,7 +40,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;F:\Dev\VC++\SFML-1.5\include&quot;"
+				AdditionalIncludeDirectories="&quot;C:\Dev\VC++\SFML-1.5\include&quot;;&quot;C:\Dev\VC++\loki-0.1.7\include&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -61,9 +61,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="sfml-Graphics-d.lib sfml-System-d.lib sfml-Window-d.lib"
+				AdditionalDependencies="sfml-Graphics-d.lib sfml-System-d.lib sfml-Window-d.lib loki_D.lib"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;F:\Dev\VC++\SFML-1.5\lib\vc2005&quot;"
+				AdditionalLibraryDirectories="&quot;C:\Dev\VC++\SFML-1.5\lib\vc2005&quot;;&quot;C:\Dev\VC++\loki-0.1.7\lib&quot;"
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				TargetMachine="1"
@@ -194,10 +194,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\circularQueue.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\citizens.cpp"
 				>
 			</File>
@@ -243,6 +239,10 @@
 			</File>
 			<File
 				RelativePath=".\image.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\interface.cpp"
 				>
 			</File>
 			<File
@@ -312,10 +312,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\circularQueue.h"
-				>
-			</File>
-			<File
 				RelativePath=".\citizens.h"
 				>
 			</File>
@@ -361,6 +357,10 @@
 			</File>
 			<File
 				RelativePath=".\image.h"
+				>
+			</File>
+			<File
+				RelativePath=".\interface.h"
 				>
 			</File>
 			<File
@@ -417,6 +417,74 @@
 			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
+		</Filter>
+		<Filter
+			Name="Window"
+			>
+			<File
+				RelativePath=".\Window\Button.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Window\Button.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Window\Element.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Window\Element.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Window\TextBox.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Window\TextBox.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Window\Window.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Window\Window.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Settings"
+			>
+			<File
+				RelativePath=".\Settings\Settings.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Settings\Settings.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Graphics"
+			>
+			<File
+				RelativePath=".\Graphics\ErrorImage.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Graphics\ErrorImage.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Graphics\Graphics.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Graphics\Graphics.h"
+				>
+			</File>
 		</Filter>
 		<File
 			RelativePath=".\ReadMe.txt"

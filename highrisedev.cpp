@@ -86,7 +86,8 @@ main ()
       pBackground = new C_Background ();
 
       hr::EventMgr<hr::Window> Windows;
-      for (int i = 0; i < 5; i++) {
+      for (int i = 0; i < 5; i++)
+      {
          Windows.Add(new hr::Window);
       }
       while (1)

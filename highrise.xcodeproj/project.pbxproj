@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		870A350B104C85860040F121 /* interface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 870A3509104C85860040F121 /* interface.cpp */; };
+		870A352A104C85C60040F121 /* ErrorImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 870A3528104C85C60040F121 /* ErrorImage.cpp */; };
+		870A3534104C85D80040F121 /* Button.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 870A352B104C85D80040F121 /* Button.cpp */; };
+		870A3535104C85D80040F121 /* Element.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 870A352D104C85D80040F121 /* Element.cpp */; };
+		870A3536104C85D80040F121 /* TextBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 870A352F104C85D80040F121 /* TextBox.cpp */; };
+		870A3537104C85D80040F121 /* TODO in Resources */ = {isa = PBXBuildFile; fileRef = 870A3531104C85D80040F121 /* TODO */; };
+		870A3538104C85D80040F121 /* Window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 870A3532104C85D80040F121 /* Window.cpp */; };
+		870A353D104C85E50040F121 /* Settings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 870A353B104C85E50040F121 /* Settings.cpp */; };
+		870A353F104C86050040F121 /* Settings.ini in Resources */ = {isa = PBXBuildFile; fileRef = 870A353E104C86050040F121 /* Settings.ini */; };
 		879A6D51104A27B8004F8DB7 /* animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 879A6D1A104A27B8004F8DB7 /* animation.cpp */; };
 		879A6D52104A27B8004F8DB7 /* apartment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 879A6D1C104A27B8004F8DB7 /* apartment.cpp */; };
 		879A6D53104A27B8004F8DB7 /* background.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 879A6D1E104A27B8004F8DB7 /* background.cpp */; };
@@ -63,6 +72,22 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		870A3509104C85860040F121 /* interface.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = interface.cpp; sourceTree = "<group>"; };
+		870A350A104C85860040F121 /* interface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = interface.h; sourceTree = "<group>"; };
+		870A3528104C85C60040F121 /* ErrorImage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ErrorImage.cpp; path = Graphics/ErrorImage.cpp; sourceTree = "<group>"; };
+		870A3529104C85C60040F121 /* ErrorImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ErrorImage.h; path = Graphics/ErrorImage.h; sourceTree = "<group>"; };
+		870A352B104C85D80040F121 /* Button.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Button.cpp; path = Window/Button.cpp; sourceTree = "<group>"; };
+		870A352C104C85D80040F121 /* Button.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Button.h; path = Window/Button.h; sourceTree = "<group>"; };
+		870A352D104C85D80040F121 /* Element.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Element.cpp; path = Window/Element.cpp; sourceTree = "<group>"; };
+		870A352E104C85D80040F121 /* Element.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Element.h; path = Window/Element.h; sourceTree = "<group>"; };
+		870A352F104C85D80040F121 /* TextBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TextBox.cpp; path = Window/TextBox.cpp; sourceTree = "<group>"; };
+		870A3530104C85D80040F121 /* TextBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextBox.h; path = Window/TextBox.h; sourceTree = "<group>"; };
+		870A3531104C85D80040F121 /* TODO */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = TODO; path = Window/TODO; sourceTree = "<group>"; };
+		870A3532104C85D80040F121 /* Window.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Window.cpp; path = Window/Window.cpp; sourceTree = "<group>"; };
+		870A3533104C85D80040F121 /* Window.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Window.h; path = Window/Window.h; sourceTree = "<group>"; };
+		870A353B104C85E50040F121 /* Settings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Settings.cpp; path = Settings/Settings.cpp; sourceTree = "<group>"; };
+		870A353C104C85E50040F121 /* Settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Settings.h; path = Settings/Settings.h; sourceTree = "<group>"; };
+		870A353E104C86050040F121 /* Settings.ini */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Settings.ini; sourceTree = "<group>"; };
 		879A6D1A104A27B8004F8DB7 /* animation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = animation.cpp; sourceTree = "<group>"; };
 		879A6D1B104A27B8004F8DB7 /* animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = animation.h; sourceTree = "<group>"; };
 		879A6D1C104A27B8004F8DB7 /* apartment.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = apartment.cpp; sourceTree = "<group>"; };
@@ -146,12 +171,10 @@
 		A01FB76B0F07D2BC000AAC7B = {
 			isa = PBXGroup;
 			children = (
-				879A6D93104A297E004F8DB7 /* data */,
 				A01FB7830F07D30C000AAC7B /* Sources */,
 				A01FB7820F07D309000AAC7B /* Resources */,
 				A01FB7810F07D304000AAC7B /* Frameworks */,
 				A01FB77B0F07D2C5000AAC7B /* Products */,
-				879A6D84104A28A3004F8DB7 /* sfml-graphics.framework */,
 			);
 			sourceTree = "<group>";
 		};
@@ -166,9 +189,28 @@
 		A01FB7810F07D304000AAC7B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				879A6D84104A28A3004F8DB7 /* sfml-graphics.framework */,
 				A01FB78A0F07D338000AAC7B /* SFML.framework */,
 				A01FB7880F07D338000AAC7B /* sfml-system.framework */,
 				A01FB7890F07D338000AAC7B /* sfml-window.framework */,
+				A01FB7F60F07D381000AAC7B /* OpenGL.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A01FB7820F07D309000AAC7B /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				870A353E104C86050040F121 /* Settings.ini */,
+				879A6D93104A297E004F8DB7 /* data */,
+				A01FB77D0F07D2C5000AAC7B /* Info.plist */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		A01FB7830F07D30C000AAC7B /* Sources */ = {
+			isa = PBXGroup;
+			children = (
 				879A6D1A104A27B8004F8DB7 /* animation.cpp */,
 				879A6D1B104A27B8004F8DB7 /* animation.h */,
 				879A6D1C104A27B8004F8DB7 /* apartment.cpp */,
@@ -177,14 +219,27 @@
 				879A6D1F104A27B8004F8DB7 /* background.h */,
 				879A6D20104A27B8004F8DB7 /* camera.cpp */,
 				879A6D21104A27B8004F8DB7 /* camera.h */,
+				870A353B104C85E50040F121 /* Settings.cpp */,
+				870A353C104C85E50040F121 /* Settings.h */,
 				879A6D22104A27B8004F8DB7 /* citizens.cpp */,
 				879A6D23104A27B8004F8DB7 /* citizens.h */,
 				879A6D24104A27B8004F8DB7 /* citizensAgent.cpp */,
 				879A6D25104A27B8004F8DB7 /* citizensAgent.h */,
+				870A3528104C85C60040F121 /* ErrorImage.cpp */,
+				870A3529104C85C60040F121 /* ErrorImage.h */,
 				879A6D26104A27B8004F8DB7 /* elevator.cpp */,
 				879A6D27104A27B8004F8DB7 /* elevator.h */,
 				879A6D28104A27B8004F8DB7 /* elevatorBase.cpp */,
 				879A6D29104A27B8004F8DB7 /* elevatorBase.h */,
+				870A352B104C85D80040F121 /* Button.cpp */,
+				870A352C104C85D80040F121 /* Button.h */,
+				870A352D104C85D80040F121 /* Element.cpp */,
+				870A352E104C85D80040F121 /* Element.h */,
+				870A352F104C85D80040F121 /* TextBox.cpp */,
+				870A3530104C85D80040F121 /* TextBox.h */,
+				870A3531104C85D80040F121 /* TODO */,
+				870A3532104C85D80040F121 /* Window.cpp */,
+				870A3533104C85D80040F121 /* Window.h */,
 				879A6D2A104A27B8004F8DB7 /* elevatorMachine.cpp */,
 				879A6D2B104A27B8004F8DB7 /* elevatorMachine.h */,
 				879A6D2C104A27B8004F8DB7 /* elevatorPit.cpp */,
@@ -202,6 +257,8 @@
 				879A6D38104A27B8004F8DB7 /* image.cpp */,
 				879A6D39104A27B8004F8DB7 /* image.h */,
 				879A6D3A104A27B8004F8DB7 /* level.cpp */,
+				870A3509104C85860040F121 /* interface.cpp */,
+				870A350A104C85860040F121 /* interface.h */,
 				879A6D3B104A27B8004F8DB7 /* level.h */,
 				879A6D3C104A27B8004F8DB7 /* lobby.cpp */,
 				879A6D3D104A27B8004F8DB7 /* lobby.h */,
@@ -224,22 +281,6 @@
 				879A6D4E104A27B8004F8DB7 /* tiler.h */,
 				879A6D4F104A27B8004F8DB7 /* tower.cpp */,
 				879A6D50104A27B8004F8DB7 /* tower.h */,
-				A01FB7F60F07D381000AAC7B /* OpenGL.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		A01FB7820F07D309000AAC7B /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				A01FB77D0F07D2C5000AAC7B /* Info.plist */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-		};
-		A01FB7830F07D30C000AAC7B /* Sources */ = {
-			isa = PBXGroup;
-			children = (
 			);
 			name = Sources;
 			sourceTree = "<group>";
@@ -289,6 +330,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				879A6DB7104A297E004F8DB7 /* data in Resources */,
+				870A3537104C85D80040F121 /* TODO in Resources */,
+				870A353F104C86050040F121 /* Settings.ini in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -326,6 +369,13 @@
 				879A6D69104A27B8004F8DB7 /* stdafx.cpp in Sources */,
 				879A6D6A104A27B8004F8DB7 /* tiler.cpp in Sources */,
 				879A6D6B104A27B8004F8DB7 /* tower.cpp in Sources */,
+				870A350B104C85860040F121 /* interface.cpp in Sources */,
+				870A352A104C85C60040F121 /* ErrorImage.cpp in Sources */,
+				870A3534104C85D80040F121 /* Button.cpp in Sources */,
+				870A3535104C85D80040F121 /* Element.cpp in Sources */,
+				870A3536104C85D80040F121 /* TextBox.cpp in Sources */,
+				870A3538104C85D80040F121 /* Window.cpp in Sources */,
+				870A353D104C85E50040F121 /* Settings.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -17,6 +17,7 @@
 #include "highrisedev.h"
 #include "citizensAgent.h"
 #include "pathAgent.h"
+#include "Window/Window.h"
 
 int
 main ()
@@ -84,10 +85,15 @@ main ()
       theTower.GetRoutes().AddRoute( pElevator );
       pBackground = new C_Background ();
 
+      hr::EventMgr<hr::Window> Windows;
+      for (int i = 0; i < 5; i++) {
+         Windows.Add(new hr::Window);
+      }
       while (1)
       {
          while (cam->GetEvent (event))
          {
+            Windows.OnEvent(event);
             if (event.Type == sf::Event::Closed)
                exit (0);
             else if (event.Type == sf::Event::KeyPressed)
@@ -128,12 +134,16 @@ main ()
                int click_level = (cam->GetWorldY () / 36) - (coords.y / 36);
                std::cout << " Click level: " << click_level << std::endl;
             }
+
          }
          cam->Clear ();
          cam->Integrate (60);
          pBackground->Draw ();
          theTower.Update (60);
          theTower.Draw ();
+         cam->SetStatic(true);
+         Windows.Draw();
+         cam->SetStatic(false);
          interface->Draw ();
          cam->Display ();
          People.Update( 40 );

@@ -1,0 +1,3 @@
+- Write our own GUI subset, or maybe use another one that is compatable with SFML
+- We need buttons, textboxes, editboxes, passwordboxes, lists, scrollbars, images, and probably more
+- The basic window managment and window code has been written, but should be tweaked. Take a look at the TODOs in Window.cpp

@@ -31,9 +31,26 @@ class Vector2
         x = xv; y = yv;
     }
     template <class U>
+    Vector2(const sf::Vector2<U>& Other)
+    {
+        x = Other.x; y = Other.y;
+    }
+    template <class U>
+    Vector2(const Vector2<U>& Other)
+    {
+        x = Other.x; y = Other.y;
+    }
+    template <class U>
     Vector2& operator+(const Vector2<U>& Other)
     {
-        return Vector2(x+Other.x, y+Other.y);
+        Vector2* temp = new Vector2(x+Other.x, y+Other.y);
+        return *temp;
+    }
+    template <class U>
+    Vector2& operator+(const sf::Vector2<U>& Other)
+    {
+        Vector2* temp = new Vector2(x+Other.x, y+Other.y);
+        return *temp;
     }
     template <class U>
     Vector2& operator=(const Vector2<U>& Other)
@@ -42,9 +59,19 @@ class Vector2
         y = Other.y;
         return *this;
     }
-    Vector2<T> operator+(const Vector2<T>& Other)
+    template <class U>
+    sf::Vector2<T>& operator=(const Vector2<U>& Other)
     {
-        return Vector2(x+Other.x, y+Other.y);
+        x = Other.x;
+        y = Other.y;
+        return *this;
+    }
+    template <class U>
+    Vector2<T>& operator=(const sf::Vector2<U>& Other)
+    {
+        x = Other.x;
+        y = Other.y;
+        return *this;
     }
     T x;
     T y;

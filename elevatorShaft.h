@@ -17,7 +17,7 @@
 #ifndef _ELEVATORSHAFT_H
 #define _ELEVATORSHAFT_H
 
-#include "elevatorbase.h"
+#include "elevatorBase.h"
 class C_Elevator;
 class C_FloorBase;
 class C_Camera;

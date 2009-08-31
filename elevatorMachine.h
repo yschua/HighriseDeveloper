@@ -17,7 +17,7 @@
 #ifndef _ELEVATORMACHINE_H
 #define _ELEVATORMACHINE_H
 
-#include "elevatorbase.h"
+#include "elevatorBase.h"
 
 class C_Elevator;
 class C_FloorBase;

@@ -47,11 +47,21 @@ C_Camera::C_Camera ()
 Vector2i
 C_Camera::GetMouse ()
 {
-   Vector2i ret;
-   sf::Vector2f temp = m_window->ConvertCoords (m_Input->GetMouseX (), m_Input->GetMouseY (), m_View);
-   ret.x = (int) temp.x + (int) m_s.x;
-   ret.y = (int) temp.y + (int) m_s.y;
-   return ret;
+   //Vector2i ret;
+   //sf::Vector2f temp =
+   return m_s + GetLocalMouse();
+   //return temp;
+   //std::cout << "sfvect: (" << temp.x << ", " << temp.y << ")\n";
+   //Vector2i temp2 = temp;
+   //std::cout << "vect: (" << temp2.x << ", " << temp2.y << ")\n";
+   //ret.x = (int) temp.x + (int) m_s.x;
+   //ret.y = (int) temp.y + (int) m_s.y;
+}
+
+Vector2i
+C_Camera::GetLocalMouse()
+{
+   return m_window->ConvertCoords (m_Input->GetMouseX (), m_Input->GetMouseY (), m_View);
 }
 
 void

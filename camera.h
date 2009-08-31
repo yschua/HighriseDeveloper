@@ -43,6 +43,9 @@ public:
    void Draw (C_Animation & to_draw);
    void Draw (C_AnimationSingle & to_draw);
    void Draw (C_Tiler & to_draw);
+   void Draw (const sf::Drawable& ToDraw) {
+      m_window->Draw(ToDraw);
+   }
    void SetMaxFramerate (int rate);
    void SetCamSize (int x, int y);
    void SetWorldSize (int x, int y);
@@ -56,6 +59,7 @@ public:
    void Zoom (float Factor);
    void SetStatic (bool set);
    Vector2i GetMouse ();
+   Vector2i GetLocalMouse();
 };
 
 #endif

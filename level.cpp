@@ -16,6 +16,8 @@
 
 #include "highrisedev.h"
 
+using namespace Graphics;
+
 C_level::C_level (int level, C_Tower * TowerParent)
 :  m_level (level)
 ,  m_TowerParent (TowerParent)

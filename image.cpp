@@ -15,8 +15,9 @@
  */
 
 #include "highrisedev.h"
+using namespace Graphics;
 
-C_ImageManager * C_ImageManager::m_instance = NULL;
+Graphics::C_ImageManager * C_ImageManager::m_instance = NULL;
 
 C_ImageManager::C_ImageManager ()
       :   m_path_prefix ("data/")

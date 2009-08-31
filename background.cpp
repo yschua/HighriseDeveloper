@@ -32,6 +32,8 @@
 #include "highrisedev.h"
 #endif
 
+using namespace Graphics;
+
 C_Background::C_Background ()
 {
    C_ImageManager * images = C_ImageManager::GetInstance ();

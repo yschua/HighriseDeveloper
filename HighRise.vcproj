@@ -238,10 +238,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\image.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\interface.cpp"
 				>
 			</File>
@@ -356,10 +352,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\image.h"
-				>
-			</File>
-			<File
 				RelativePath=".\interface.h"
 				>
 			</File>
@@ -470,19 +462,11 @@
 			Name="Graphics"
 			>
 			<File
-				RelativePath=".\Graphics\ErrorImage.cpp"
+				RelativePath=".\image.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Graphics\ErrorImage.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Graphics\Graphics.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\Graphics\Graphics.h"
+				RelativePath=".\image.h"
 				>
 			</File>
 		</Filter>

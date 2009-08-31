@@ -15,7 +15,8 @@
  */
 
 #include "highrisedev.h"
-#include "Graphics/Graphics.h"
+//#include "Graphics/Graphics.h"
+using namespace Graphics;
 
 Interface::Interface ()
 {

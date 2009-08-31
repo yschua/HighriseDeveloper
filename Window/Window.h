@@ -6,13 +6,13 @@
 #include <vector>
 #include <list>
 
-#include "../Graphics/Graphics.h"
+//#include "../Graphics/Graphics.h"
 //#include "../Input/Input.h"
 //#include "../Game/Cursor.h"
 #include "Element.h"
 #include "../highrisedev.h"
 
-namespace hr
+namespace UI
 {
    /// Code for window, and element management, as well as anything else you can think of.
    /// Asfar as i know, this all has to be in the header file because of compiler limitations

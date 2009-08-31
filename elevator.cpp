@@ -38,6 +38,8 @@
 #include "highrisedev.h"
 #endif
 
+using namespace Graphics;
+
 // this object is the elevator collection (Machines, Shaft, Pit) and the car.
 // At this time there is no LiftCar class.
 

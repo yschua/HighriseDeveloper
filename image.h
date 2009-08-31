@@ -17,20 +17,22 @@
 #ifndef _IMAGEMANAGER_H
 #define _IMAGEMANAGER_H
 
-class C_ImageManager
+namespace Graphics
 {
-private:
-   std::string m_path_prefix;
-   std::map<std::string, sf::Image *> m_images;
-   static C_ImageManager * m_instance;
-   C_ImageManager ();
+   class C_ImageManager
+   {
+   private:
+      std::string m_path_prefix;
+      std::map<std::string, sf::Image *> m_images;
+      static C_ImageManager * m_instance;
+      C_ImageManager ();
 
-public:
-   static C_ImageManager * GetInstance ();
-   static C_ImageManager* i() { return GetInstance(); };
-   sf::Image * GetImg (const std::string & name);
-   int preload_image (const std::string & name);
-   void set_path (const std::string & prefix);
-};
-
+   public:
+      static C_ImageManager * GetInstance ();
+      static C_ImageManager* i() { return GetInstance(); };
+      sf::Image * GetImg (const std::string & name);
+      int preload_image (const std::string & name);
+      void set_path (const std::string & prefix);
+   };
+}
 #endif // _IMAGEMANAGER_H

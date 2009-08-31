@@ -26,6 +26,8 @@
 #include "elevator.h"
 #include "elevatorBase.h"
 
+using namespace Graphics;
+
 C_ElevatorBase::C_ElevatorBase ( int x, int level, C_Elevator* pElevator )
 {
    m_x = x;

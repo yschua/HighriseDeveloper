@@ -85,10 +85,10 @@ main ()
       theTower.GetRoutes().AddRoute( pElevator );
       pBackground = new C_Background ();
 
-      hr::EventMgr<hr::Window> Windows;
+      UI::EventMgr<UI::Window> Windows;
       for (int i = 0; i < 5; i++)
       {
-         Windows.Add(new hr::Window);
+         Windows.Add(new UI::Window);
       }
       while (1)
       {

@@ -1,6 +1,6 @@
 #include "Window.h"
 
-namespace hr
+namespace UI
 {
    WindowStyle::WindowStyle()
    {

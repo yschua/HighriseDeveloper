@@ -17,6 +17,8 @@
 #ifndef _PHYSICS_H
 #define _PHYSICS_H
 
+#include <SFML/Graphics.hpp>
+
 //typedef std::pair<float, float> vector2;
 template <class T = float>
 class Vector2
@@ -60,13 +62,6 @@ class Vector2
         return *this;
     }
     template <class U>
-    sf::Vector2<T>& operator=(const Vector2<U>& Other)
-    {
-        x = Other.x;
-        y = Other.y;
-        return *this;
-    }
-    template <class U>
     Vector2<T>& operator=(const sf::Vector2<U>& Other)
     {
         x = Other.x;
@@ -77,7 +72,7 @@ class Vector2
     T y;
 };
 
-typedef Vector2 <float> Vector2f; // russ 
+typedef Vector2 <float> Vector2f; // russ
 typedef Vector2 <int> Vector2i;   // likes this
 
 class C_Body

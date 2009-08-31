@@ -19,7 +19,6 @@
 
 Interface::Interface ()
 {
-{
    C_ImageManager * images = C_ImageManager::GetInstance ();
    mpCam = C_Camera::GetInstance ();
    mClock = new C_AnimationSingle (images->GetImg ("clock.png"));
@@ -31,7 +30,7 @@ void
 Interface::PosCalc ()
 {
    //m_Clock->SetPosition ((cam->GetCamSizeX () / 2) - 50, 0);
-   mClock.SetPosition(100,200);
+   mClock->SetPosition(100,200);
 }
 
 void
@@ -44,6 +43,6 @@ void
 Interface::Draw ()
 {
    mpCam->SetStatic (true);
-   mpCam->Draw (mClock);
+   mpCam->Draw (*mClock);
    mpCam->SetStatic (false);
 }

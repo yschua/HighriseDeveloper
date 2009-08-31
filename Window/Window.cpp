@@ -293,6 +293,9 @@ namespace hr
          return false;
 
       bool ReturnValue = false;
+      Vector2i Mouse = mpCamera->GetLocalMouse();
+
+      std::cout << "window event called! Mouse at (" << Mouse.x << ", " << Mouse.y << ")\n";
       if (Event.Type == sf::Event::MouseButtonReleased)
       {
          if (Moving || Resizing)
@@ -306,7 +309,6 @@ namespace hr
       else if (Event.Type == sf::Event::MouseButtonPressed)
       {
 
-         Vector2i Mouse = mpCamera->GetLocalMouse();
 
          //for (unsigned int i = 0; i < Items.size(); i++) {
          //    if (Items.at(i)->GetRect().Contains(Mouse.x-Rect.Left, Mouse.y-Rect.Top)) {
@@ -347,7 +349,7 @@ namespace hr
                return false;
             }
          }
-         Vector2i Mouse = mpCamera->GetLocalMouse();
+            //Vector2i Mouse = mpCamera->GetLocalMouse();
          /*if (Style.Resizable) {
          if (Resizing) {
          Gfx::Cur.SetType("Resize-" + ResizingDir);

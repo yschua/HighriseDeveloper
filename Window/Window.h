@@ -33,7 +33,7 @@ namespace hr
       EventMgr()
       {
          ActiveT = NULL;
-         MousedT = NULL;
+            MousedT = NULL;
          Disabled = false;
          mpCamera = C_Camera::GetInstance();
       }

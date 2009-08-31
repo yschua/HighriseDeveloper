@@ -17,12 +17,14 @@
 #ifndef _INTERFACE_H
 #define _INTERFACE_H
 
+#include <SFML/Graphics.hpp>
+
 class Interface
 {
 private:
-   C_AnimationSingle * m_Clock;
-   C_Camera * cam;
-   
+   sf::Sprite mClock;
+   C_Camera* mpCam;
+
 public:
    void PosCalc ();
    void Update (float dt);

@@ -61,7 +61,7 @@ C_Camera::GetMouse ()
 Vector2i
 C_Camera::GetLocalMouse()
 {
-   return m_window->ConvertCoords (m_Input->GetMouseX (), m_Input->GetMouseY (), m_View);
+   return m_window->ConvertCoords (m_Input->GetMouseX (), m_Input->GetMouseY (), m_StaticView);
 }
 
 void

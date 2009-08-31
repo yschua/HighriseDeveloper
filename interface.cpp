@@ -15,31 +15,34 @@
  */
 
 #include "highrisedev.h"
+#include "Graphics/Graphics.h"
 
 Interface::Interface ()
 {
-   C_ImageManager * images = C_ImageManager::GetInstance ();
-   cam = C_Camera::GetInstance ();
-   m_Clock = new C_AnimationSingle (images->GetImg ("clock.png"));
+   //C_ImageManager * images = C_ImageManager::GetInstance ();
+   mpCam = C_Camera::GetInstance ();
+   //mClock = new sf::Sprite();
+   mClock.SetImage(*hr::Gfx::GetImage("clock.png"));
    PosCalc ();
 }
 
 void
 Interface::PosCalc ()
 {
-   m_Clock->SetPosition ((cam->GetCamSizeX () / 2) - 50, 0);
+   //m_Clock->SetPosition ((cam->GetCamSizeX () / 2) - 50, 0);
+   mClock.SetPosition(100,200);
 }
 
 void
 Interface::Update (float dt)
 {
-   
+
 }
 
 void
 Interface::Draw ()
 {
-   cam->SetStatic (true);
-   cam->Draw (*m_Clock);
-   cam->SetStatic (false);
+   mpCam->SetStatic (true);
+   mpCam->Draw (mClock);
+   mpCam->SetStatic (false);
 }

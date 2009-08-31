@@ -32,7 +32,7 @@ main ()
    C_Background * pBackground;
    C_Tower theTower (1, 10); // numero uno with 10 sub levels
    C_CitizensAgent People( theTower ); // known tower, later this will be a tower list for mutiple towers
-   Interface * interface;
+   Interface* interface = new Interface();
 
    try
    {
@@ -143,8 +143,10 @@ main ()
          theTower.Update (60);
          theTower.Draw ();
          cam->SetStatic(true);
+         Windows.Update();
          Windows.Draw();
          cam->SetStatic(false);
+         interface->Update(60);
          interface->Draw ();
          cam->Display ();
          People.Update( 40 );

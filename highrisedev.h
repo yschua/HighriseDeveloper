@@ -14,6 +14,7 @@
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <utility>
 #include <cstring>
 #include <iostream>
 #include <list>
@@ -51,3 +52,5 @@
 #include "elevatorShaft.h"
 #include "elevatorPit.h"
 #include "elevator.h"
+
+#include "interface.h"

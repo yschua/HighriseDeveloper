@@ -17,8 +17,8 @@
 #include "highrisedev.h"
 
 C_level::C_level (int level, C_Tower * TowerParent)
-      :  m_level (level)
-      ,  m_TowerParent (TowerParent)
+:  m_level (level)
+,  m_TowerParent (TowerParent)
 {
    m_y = (C_Camera::GetInstance()->GetWorldY () ) - (m_level * 36);
    m_x = C_Camera::GetInstance()->GetWorldX ();
@@ -74,6 +74,8 @@ C_level::Draw ()
    std::vector<C_FloorBase *>::iterator i;
    for (i = m_floors.begin (); i != m_floors.end (); i++)
       (*i)->Draw ();
+   C_Camera::GetInstance()->SetStatic (true);
    C_Camera::GetInstance()->Draw (*m_fire_escape_l);
+   C_Camera::GetInstance()->SetStatic (false);
    C_Camera::GetInstance()->Draw (*m_fire_escape_r);
 }

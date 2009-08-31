@@ -17,8 +17,6 @@
 #ifndef _PHYSICS_H
 #define _PHYSICS_H
 
-#include <utility>
-
 //typedef std::pair<float, float> vector2;
 template <class T = float>
 class Vector2
@@ -51,8 +49,9 @@ class Vector2
     T x;
     T y;
 };
-typedef Vector2<float> Vector2f;
-typedef Vector2<int> Vector2i;
+
+typedef Vector2 <float> Vector2f; // russ 
+typedef Vector2 <int> Vector2i;   // likes this
 
 class C_Body
 {

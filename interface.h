@@ -14,29 +14,20 @@
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef _ANIMATION_H
-#define _ANIMATION_H
+#ifndef _INTERFACE_H
+#define _INTERFACE_H
 
-class C_Animation : public C_Body
+class Interface
 {
 private:
-   std::vector <std::pair <sf::Image *, float> > m_frames;
-   int m_current_frame;
-   float m_time;
-
+   C_AnimationSingle * m_Clock;
+   C_Camera * cam;
+   
 public:
-   C_Animation ();
-   void AddFrame (sf::Image * image, float duration);
+   void PosCalc ();
    void Update (float dt);
-   sf::Sprite * sprite;
+   void Draw ();
+   Interface ();
 };
 
-class C_AnimationSingle : public C_Body
-{
-public:
-   sf::Sprite * sprite;
-   C_AnimationSingle (sf::Image * image);
-   void SetSubRect (int x1, int y1, int x2, int y2);
-};
-
-#endif
+#endif // _INTERFACE_H

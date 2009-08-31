@@ -48,6 +48,8 @@ public:
    void SetWorldSize (int x, int y);
    int GetWorldX ();
    int GetWorldY ();
+   int GetCamSizeX ();
+   int GetCamSizeY ();
    void Create (const std::string & caption);
    void Center (int x, int y);
    bool GetEvent (sf::Event & event);

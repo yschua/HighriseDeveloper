@@ -31,10 +31,10 @@
 #include "highrisedev.h"
 #endif
 
-C_Camera* C_Camera::m_instance = NULL;
+C_Camera * C_Camera::m_instance = NULL;
 
 C_Camera::C_Camera ()
-      :  m_back_color (0, 0, 0)
+:  m_back_color (0, 0, 0)
 {
    m_window = new sf::RenderWindow ();
    m_View = &(m_window->GetDefaultView ());
@@ -74,6 +74,18 @@ C_Camera::GetWorldX ()
    return m_world_x;
 }
 
+int
+C_Camera::GetCamSizeX ()
+{
+   return m_cam_x;
+}
+
+int
+C_Camera::GetCamSizeY ()
+{
+   return m_cam_y;
+}
+
 void
 C_Camera::SetMaxFramerate (int rate)
 {
@@ -85,7 +97,7 @@ C_Camera::SetCamSize (int x, int y)
 {
    m_cam_x = x;
    m_cam_y = y;
-   m_StaticView->SetHalfSize (x/2, y/2);
+   m_StaticView->SetHalfSize ((float)x/2, (float)y/2);
 }
 
 void
@@ -177,13 +189,8 @@ void
 C_Camera::SetStatic (bool set)
 {
    if (set)
-   {
       m_window->SetView (*m_StaticView);
-      m_IgnoreCamera = true;
-   }
    else
-   {
       m_window->SetView (*m_View);
-      m_IgnoreCamera = false;
-   }
+   m_IgnoreCamera = set;
 }

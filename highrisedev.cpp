@@ -31,7 +31,8 @@ main ()
    C_Background * pBackground;
    C_Tower theTower (1, 10); // numero uno with 10 sub levels
    C_CitizensAgent People( theTower ); // known tower, later this will be a tower list for mutiple towers
-
+   Interface * interface;
+   
    try
    {
       // stuffing the floors with test spaces
@@ -75,6 +76,8 @@ main ()
       level_5->AddFloor (my_apt5);
       sublevel->AddFloor (my_basement);
 
+      interface = new Interface ();
+      
       pElevator = new C_Elevator( C_Elevator::LS_Standard, 472, -1, 6, &theTower );
       theTower.GetRoutes().AddRoute( pElevator );
       pElevator = new C_Elevator( C_Elevator::LS_Standard, 472 + 36 + 9, -1, 5, &theTower );
@@ -130,11 +133,9 @@ main ()
          cam->Integrate (60);
          pBackground->Draw ();
          theTower.Update (60);
-//         routes.Update (60); now in tower
          theTower.Draw ();
-//         routes.Draw (); now in tower
+         interface->Draw ();
          cam->Display ();
-
          People.Update( 40 );
       }
    }

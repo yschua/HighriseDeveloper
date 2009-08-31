@@ -462,6 +462,14 @@
 			Name="Graphics"
 			>
 			<File
+				RelativePath=".\Graphics\ErrorImage.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Graphics\ErrorImage.h"
+				>
+			</File>
+			<File
 				RelativePath=".\image.cpp"
 				>
 			</File>

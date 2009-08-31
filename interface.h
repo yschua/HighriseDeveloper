@@ -22,7 +22,7 @@
 class Interface
 {
 private:
-   sf::Sprite mClock;
+   C_AnimationSingle * mClock;
    C_Camera* mpCam;
 
 public:

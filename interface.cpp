@@ -19,10 +19,11 @@
 
 Interface::Interface ()
 {
-   //C_ImageManager * images = C_ImageManager::GetInstance ();
+{
+   C_ImageManager * images = C_ImageManager::GetInstance ();
    mpCam = C_Camera::GetInstance ();
-   //mClock = new sf::Sprite();
-   mClock.SetImage(*hr::Gfx::GetImage("clock.png"));
+   mClock = new C_AnimationSingle (images->GetImg ("clock.png"));
+   //mClock.SetImage(*hr::Gfx::GetImage("clock.png"));
    PosCalc ();
 }
 

@@ -74,8 +74,6 @@ C_level::Draw ()
    std::vector<C_FloorBase *>::iterator i;
    for (i = m_floors.begin (); i != m_floors.end (); i++)
       (*i)->Draw ();
-   C_Camera::GetInstance()->SetStatic (true);
    C_Camera::GetInstance()->Draw (*m_fire_escape_l);
-   C_Camera::GetInstance()->SetStatic (false);
    C_Camera::GetInstance()->Draw (*m_fire_escape_r);
 }

@@ -38,16 +38,16 @@ C_office::C_office (int x, int level, C_Tower * TowerParent)
       :  m_current_state (s_unoccupied_day)
       ,  C_FloorBase (x, x + 72, level, TowerParent)
 {
-   C_ImageManager * image_man = C_ImageManager::GetInstance ();
+   ImageManager * image_man = ImageManager::GetInstance ();
    std::cout << "New office at " << m_x << ", " << m_y << " level " << m_level << std::endl;
-   m_animations[s_occupied_day] = new C_Animation ();
+   m_animations[s_occupied_day] = new Animation ();
    m_animations[s_occupied_day]->AddFrame (image_man->GetImg ("office_o_d_1.png"), 1000);
    m_animations[s_occupied_day]->AddFrame (image_man->GetImg ("office_o_d_2.png"), 1000);
    m_animations[s_occupied_day]->AddFrame (image_man->GetImg ("office_o_d_3.png"), 1000);
    m_animations[s_occupied_day]->AddFrame (image_man->GetImg ("office_o_d_4.png"), 1000);
    m_animations[s_occupied_day]->AddFrame (image_man->GetImg ("office_o_d_5.png"), 1000);
    m_animations[s_occupied_day]->SetPosition (m_x, m_y);
-   m_animations[s_unoccupied_day] = new C_Animation ();
+   m_animations[s_unoccupied_day] = new Animation ();
    m_animations[s_unoccupied_day]->AddFrame (image_man->GetImg ("office_u_d.png"), 1000);
    m_animations[s_unoccupied_day]->SetPosition (m_x, m_y);
 }
@@ -72,5 +72,5 @@ C_office::Update (float dt)
 void
 C_office::Draw ()
 {
-   C_Camera::GetInstance()->Draw (*m_animations[m_current_state]);
+   Camera::GetInstance()->Draw (*m_animations[m_current_state]);
 }

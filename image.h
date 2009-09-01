@@ -20,17 +20,17 @@
 namespace Gfx
 {
 
-   class C_ImageManager
+   class ImageManager
    {
    private:
       std::string m_path_prefix;
       std::map<std::string, sf::Image *> m_images;
-      static C_ImageManager * m_instance;
-      C_ImageManager ();
+      static ImageManager * m_instance;
+      ImageManager ();
 
    public:
-      static C_ImageManager * GetInstance ();
-      static C_ImageManager* i() { return GetInstance(); };
+      static ImageManager * GetInstance ();
+      static ImageManager* i() { return GetInstance(); };
       sf::Image * GetImg (const std::string & name);
       int preload_image (const std::string & name);
       void set_path (const std::string & prefix);

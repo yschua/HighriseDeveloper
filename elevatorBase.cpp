@@ -34,7 +34,7 @@ C_ElevatorBase::C_ElevatorBase ( int x, int level, C_Elevator* pElevator )
    m_y = 0;
    m_Level = level;
    m_pParent = pElevator;
-   C_ImageManager * image_man = C_ImageManager::GetInstance ();
+   ImageManager * image_man = ImageManager::GetInstance ();
 }
 
 C_ElevatorBase::~C_ElevatorBase()
@@ -50,5 +50,5 @@ C_ElevatorBase::Update (float dt)
 void
 C_ElevatorBase::Draw ()
 {
-//    C_Camera::GetInstance()->Draw (*m_animations[m_current_state]);
+//    Camera::GetInstance()->Draw (*m_animations[m_current_state]);
 }

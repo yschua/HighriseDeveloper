@@ -17,7 +17,7 @@
 #ifndef _LEVEL_H
 #define _LEVEL_H
 
-class C_AnimationSingle;
+class AnimationSingle;
 class C_FloorBase;
 class C_Tower;
 
@@ -30,8 +30,8 @@ private:
 protected:
    int m_level;
    int m_x, m_x2, m_y;
-   C_AnimationSingle * m_fire_escape_l;
-   C_AnimationSingle * m_fire_escape_r;
+   AnimationSingle * m_fire_escape_l;
+   AnimationSingle * m_fire_escape_r;
 
 public:
    C_level (int level, C_Tower * TowerParent);

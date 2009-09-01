@@ -19,31 +19,31 @@ using namespace Gfx;
 
 namespace Gfx {
 
-Gfx::C_ImageManager * C_ImageManager::m_instance = NULL;
+Gfx::ImageManager * ImageManager::m_instance = NULL;
 
-C_ImageManager::C_ImageManager ()
+ImageManager::ImageManager ()
       :   m_path_prefix ("data/")
 {
 }
 
-C_ImageManager *
-C_ImageManager::GetInstance ()
+ImageManager *
+ImageManager::GetInstance ()
 {
    if (m_instance == NULL)
    {
-      m_instance = new C_ImageManager ();
+      m_instance = new ImageManager ();
    }
    return m_instance;
 }
 
 void
-C_ImageManager::set_path (const std::string & prefix)
+ImageManager::set_path (const std::string & prefix)
 {
    m_path_prefix = prefix;
 }
 
 sf::Image *
-C_ImageManager::GetImg (const std::string & name)
+ImageManager::GetImg (const std::string & name)
 {
    if (m_images[name] == NULL)
    {
@@ -59,7 +59,7 @@ C_ImageManager::GetImg (const std::string & name)
 }
 
 int
-C_ImageManager::preload_image (const std::string & name)
+ImageManager::preload_image (const std::string & name)
 {
    if (m_images[name] == NULL)
    {
@@ -73,6 +73,6 @@ C_ImageManager::preload_image (const std::string & name)
 }
 
    sf::Image* GetImage(const std::string& Key) {
-      return C_ImageManager::GetInstance()->GetImg(Key);
+      return ImageManager::GetInstance()->GetImg(Key);
    }
 }

@@ -35,7 +35,7 @@ namespace UI
          ActiveT = NULL;
             MousedT = NULL;
          Disabled = false;
-         mpCamera = C_Camera::GetInstance();
+         mpCamera = Camera::GetInstance();
       }
       ~EventMgr()
       {
@@ -181,7 +181,7 @@ namespace UI
       T* MousedT;
       std::list<T*> Ts;
       bool Disabled;
-      C_Camera* mpCamera;
+      Camera* mpCamera;
    };
    class WindowStyle
    {
@@ -240,7 +240,7 @@ namespace UI
       std::vector<sf::Sprite> BGImgs;
       sf::Vector2<int> MouseStartPosition;
       std::string  ResizeDirection(Vector2i Mouse);
-      C_Camera* mpCamera;
+      Camera* mpCamera;
       //unsigned int ActiveElement;
    };
 

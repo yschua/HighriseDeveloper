@@ -17,17 +17,17 @@
 #ifndef _BACKGROUND_H
 #define _BACKGROUND_H
 
-class C_Background
+class Background
 {
 private:
-   C_AnimationSingle * m_BackImage;
-   C_Tiler * m_BackBuildings;
-   C_Tiler * m_BackGround;
-   C_Camera * cam;
+   AnimationSingle * m_BackImage;
+   Tiler * m_BackBuildings;
+   Tiler * m_BackGround;
+   Camera * cam;
 
 public:
    void Draw ();
-   C_Background ();
+   Background ();
 
 };
 

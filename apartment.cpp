@@ -38,7 +38,7 @@ using namespace Gfx;
 //   apt_sleep_night
 
 apartment_state
-C_Apartment::unoccupied_day (float dt)
+Apartment::unoccupied_day (float dt)
 {
    if (rand () % 50 == 3)
       return apt_occupied_day;
@@ -46,7 +46,7 @@ C_Apartment::unoccupied_day (float dt)
 }
 
 apartment_state
-C_Apartment::occupied_day (float dt)
+Apartment::occupied_day (float dt)
 {
    if (rand () % 50 == 3)
       return apt_unoccupied_day;
@@ -54,34 +54,34 @@ C_Apartment::occupied_day (float dt)
 }
 
 apartment_state
-C_Apartment::occupied_night (float dt)
+Apartment::occupied_night (float dt)
 {
    return apt_occupied_sleep;
 }
 
 apartment_state
-C_Apartment::occupied_sleep (float dt)
+Apartment::occupied_sleep (float dt)
 {
    return apt_occupied_day;
 }
 
-C_Apartment::C_Apartment (int x, int level, C_Tower * TowerParent)
+Apartment::Apartment (int x, int level, C_Tower * TowerParent)
       :  m_current_state (apt_occupied_day)
       ,  C_FloorBase (x, x + 72, level, TowerParent)
 {
-   C_ImageManager * image_man = C_ImageManager::GetInstance ();
+   ImageManager * image_man = ImageManager::GetInstance ();
    std::cout << "New apartment at " << m_x << ", " << m_y << " level " << m_level << std::endl;
-   m_animations[apt_occupied_day] = new C_Animation ();
+   m_animations[apt_occupied_day] = new Animation ();
    m_animations[apt_occupied_day]->AddFrame (image_man->GetImg ("apartment_r_d_1.png"), 1000);
    m_animations[apt_occupied_day]->AddFrame (image_man->GetImg ("apartment_r_n_1.png"), 1000);
    m_animations[apt_occupied_day]->SetPosition (m_x, m_y);
-   m_animations[apt_unoccupied_day] = new C_Animation ();
+   m_animations[apt_unoccupied_day] = new Animation ();
    m_animations[apt_unoccupied_day]->AddFrame (image_man->GetImg ("apartment_r_s_1.png"), 1000);
    m_animations[apt_unoccupied_day]->SetPosition (m_x, m_y);
 }
 
 void
-C_Apartment::Update (float dt)
+Apartment::Update (float dt)
 {
    m_animations[m_current_state]->Update (dt);
    apartment_state new_state;
@@ -98,7 +98,7 @@ C_Apartment::Update (float dt)
 }
 
 void
-C_Apartment::Draw ()
+Apartment::Draw ()
 {
-   C_Camera::i()->Draw (*m_animations[m_current_state]);
+   Camera::i()->Draw (*m_animations[m_current_state]);
 }

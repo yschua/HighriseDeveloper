@@ -27,11 +27,11 @@
 // these decls allow inclusion of this header without the need to load these class headers.
 class C_RouteBase;
 class C_RouteVisitor;
-class C_AnimationSingle;
+class AnimationSingle;
 class C_ElevatorMachine; // mover above
 class C_ElevatorShaft;   // holds the tiler to show the shaft
 class C_ElevatorPit;     // landing pit below
-class C_Camera;
+class Camera;
 class C_Person;
 class C_Tower;
 
@@ -89,16 +89,16 @@ public:
 
 protected:
 
-   C_AnimationSingle* m_ElevatorImage;
-   C_AnimationSingle* m_LiftPit;
+   AnimationSingle* m_ElevatorImage;
+   AnimationSingle* m_LiftPit;
    C_ElevatorMachine* m_LiftMachine;
    C_ElevatorShaft*   m_ElevatorShaft;
 
    Rider       m_Riders[16];
    FloorStop   m_Stops[32];
 
-   //C_Tiler * m_ElevatorShaft; // temporary to make a nice looking demo :] Moved into shaft object.
-   C_Camera* m_cam;
+   //Tiler * m_ElevatorShaft; // temporary to make a nice looking demo :] Moved into shaft object.
+   Camera* m_cam;
    // Controls this things motion
    int   m_X;
    int   m_Y;

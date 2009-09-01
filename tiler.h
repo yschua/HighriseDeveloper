@@ -17,7 +17,7 @@
 #ifndef _TILER_H
 #define _TILER_H
 
-class C_Tiler
+class Tiler
 {
 private:
    bool m_ClipMode;
@@ -32,12 +32,12 @@ public:
       Vertical
    };
    draw_direction m_direction;
-   C_Tiler (sf::Image * image, draw_direction direction, int x, int x2, int y);
+   Tiler (sf::Image * image, draw_direction direction, int x, int x2, int y);
    void CalcPos ();
    void Resize (int x, int x2);
    void SetY (int y);
    void SetImage (sf::Image * image);
-   std::vector <C_AnimationSingle *> m_Sprites;
+   std::vector <AnimationSingle *> m_Sprites;
    void SetClipping (bool clipping_mode);
 };
 

@@ -22,8 +22,8 @@
 class Interface
 {
 private:
-   C_AnimationSingle * mClock;
-   C_Camera* mpCam;
+   AnimationSingle * mClock;
+   Camera* mpCam;
 
 public:
    void PosCalc ();

@@ -72,11 +72,11 @@ C_Elevator::C_Elevator ( Lift_Styles style, int x, short BottomLevel, short TopL
    m_StartRoute = m_BottomLevel;
    m_EndRoute = m_TopLevel;
 
-   C_ImageManager * images = C_ImageManager::GetInstance ();
-   m_ElevatorImage = new C_AnimationSingle (images->GetImg ("elevator_u_s.png"));
-   m_LiftPit = new C_AnimationSingle (images->GetImg ("liftpit_1.png"));
+   ImageManager * images = ImageManager::GetInstance ();
+   m_ElevatorImage = new AnimationSingle (images->GetImg ("elevator_u_s.png"));
+   m_LiftPit = new AnimationSingle (images->GetImg ("liftpit_1.png"));
 
-   m_cam = C_Camera::i();
+   m_cam = Camera::i();
    m_X = x;
    m_Y = ( m_cam->GetWorldY ()) - (m_BottomLevel * 36);
    m_LiftMachine = new C_ElevatorMachine( x, m_TopLevel+1, this );

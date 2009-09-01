@@ -23,14 +23,14 @@
 int
 main ()
 {
-   C_Camera * cam = C_Camera::GetInstance ();
+   Camera * cam = Camera::GetInstance ();
    cam->SetCamSize (800, 600);
    cam->SetWorldSize (1280, 720);
    cam->SetMaxFramerate (60);
    cam->Create ("test");
    sf::Event event;
    C_Elevator* pElevator;
-   C_Background * pBackground;
+   Background * pBackground;
    C_Tower theTower (1, 10); // numero uno with 10 sub levels
    C_CitizensAgent People( theTower ); // known tower, later this will be a tower list for mutiple towers
    Interface* interface = new Interface();
@@ -48,11 +48,11 @@ main ()
       C_office* my_office8 = new C_office (472, 3, &theTower);
       C_office* my_office9 = new C_office (544, 3, &theTower);
 
-      C_Apartment* my_apt1 = new C_Apartment (400, 4, &theTower);
-      C_Apartment* my_apt2 = new C_Apartment (472, 4, &theTower);
-      C_Apartment* my_apt3 = new C_Apartment (544, 4, &theTower);
-      C_Apartment* my_apt4 = new C_Apartment (472, 5, &theTower);
-      C_Apartment* my_apt5 = new C_Apartment (544, 5, &theTower);
+      Apartment* my_apt1 = new Apartment (400, 4, &theTower);
+      Apartment* my_apt2 = new Apartment (472, 4, &theTower);
+      Apartment* my_apt3 = new Apartment (544, 4, &theTower);
+      Apartment* my_apt4 = new Apartment (472, 5, &theTower);
+      Apartment* my_apt5 = new Apartment (544, 5, &theTower);
 
       C_office* my_basement = new C_office (400, -1, &theTower);
 
@@ -84,7 +84,7 @@ main ()
       theTower.GetRoutes().AddRoute( pElevator );
       pElevator = new C_Elevator( C_Elevator::LS_Standard, 472 + 36 + 9, -1, 5, &theTower );
       theTower.GetRoutes().AddRoute( pElevator );
-      pBackground = new C_Background ();
+      pBackground = new Background ();
 
       UI::EventMgr<UI::Window> Windows;
       for (int i = 0; i < 5; i++)

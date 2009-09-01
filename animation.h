@@ -17,7 +17,7 @@
 #ifndef _ANIMATION_H
 #define _ANIMATION_H
 
-class C_Animation : public C_Body
+class Animation : public C_Body
 {
 private:
    std::vector <std::pair <sf::Image *, float> > m_frames;
@@ -25,17 +25,17 @@ private:
    float m_time;
 
 public:
-   C_Animation ();
+   Animation ();
    void AddFrame (sf::Image * image, float duration);
    void Update (float dt);
    sf::Sprite * sprite;
 };
 
-class C_AnimationSingle : public C_Body
+class AnimationSingle : public C_Body
 {
 public:
    sf::Sprite * sprite;
-   C_AnimationSingle (sf::Image * image);
+   AnimationSingle (sf::Image * image);
    void SetSubRect (int x1, int y1, int x2, int y2);
 };
 

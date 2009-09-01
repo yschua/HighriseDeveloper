@@ -22,23 +22,23 @@ C_level::C_level (int level, C_Tower * TowerParent)
 :  m_level (level)
 ,  m_TowerParent (TowerParent)
 {
-   m_y = (C_Camera::GetInstance()->GetWorldY () ) - (m_level * 36);
-   m_x = C_Camera::GetInstance()->GetWorldX ();
+   m_y = (Camera::GetInstance()->GetWorldY () ) - (m_level * 36);
+   m_x = Camera::GetInstance()->GetWorldX ();
    m_x2 = 0;
    if (level < 0)
    {
-      m_fire_escape_l = new C_AnimationSingle (C_ImageManager::GetInstance()->GetImg("foundation.png"));
-      m_fire_escape_r = new C_AnimationSingle (C_ImageManager::GetInstance()->GetImg("foundation.png"));
+      m_fire_escape_l = new AnimationSingle (ImageManager::GetInstance()->GetImg("foundation.png"));
+      m_fire_escape_r = new AnimationSingle (ImageManager::GetInstance()->GetImg("foundation.png"));
    }
    else if (level > 0)
    {
-      m_fire_escape_l = new C_AnimationSingle (C_ImageManager::GetInstance()->GetImg("fire_escape_l.png"));
-      m_fire_escape_r = new C_AnimationSingle (C_ImageManager::GetInstance()->GetImg("fire_escape_r.png"));
+      m_fire_escape_l = new AnimationSingle (ImageManager::GetInstance()->GetImg("fire_escape_l.png"));
+      m_fire_escape_r = new AnimationSingle (ImageManager::GetInstance()->GetImg("fire_escape_r.png"));
    }
    else
    {
-      m_fire_escape_l = new C_AnimationSingle (C_ImageManager::GetInstance()->GetImg("awn_left.png"));
-      m_fire_escape_r = new C_AnimationSingle (C_ImageManager::GetInstance()->GetImg("awn_right.png"));
+      m_fire_escape_l = new AnimationSingle (ImageManager::GetInstance()->GetImg("awn_left.png"));
+      m_fire_escape_r = new AnimationSingle (ImageManager::GetInstance()->GetImg("awn_right.png"));
    }
 }
 
@@ -76,6 +76,6 @@ C_level::Draw ()
    std::vector<C_FloorBase *>::iterator i;
    for (i = m_floors.begin (); i != m_floors.end (); i++)
       (*i)->Draw ();
-   C_Camera::GetInstance()->Draw (*m_fire_escape_l);
-   C_Camera::GetInstance()->Draw (*m_fire_escape_r);
+   Camera::GetInstance()->Draw (*m_fire_escape_l);
+   Camera::GetInstance()->Draw (*m_fire_escape_r);
 }

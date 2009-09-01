@@ -34,5 +34,5 @@ C_FloorBase::C_FloorBase (int x, int x2, int level, C_Tower * TowerParent)
       ,  m_TowerParent (TowerParent)
 {
    m_level = level;
-   m_y = (C_Camera::GetInstance()->GetWorldY () ) - (m_level * 36);
+   m_y = (Camera::GetInstance()->GetWorldY () ) - (m_level * 36);
 }

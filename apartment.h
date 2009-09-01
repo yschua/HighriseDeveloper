@@ -29,21 +29,21 @@ enum apartment_state
    apt_occupied_sleep
 };
 
-class C_Apartment : public C_FloorBase
+class Apartment : public C_FloorBase
 {
 private:
    apartment_state unoccupied_day (float dt);
    apartment_state occupied_day (float dt);
    apartment_state occupied_night (float dt);
    apartment_state occupied_sleep (float dt);       // running sandman functions
-   std::map<apartment_state, C_Animation *> m_animations;
+   std::map<apartment_state, Animation *> m_animations;
    apartment_state m_current_state;
    int m_current_animation;
 
 public:
    virtual void Update (float dt);
    virtual void Draw ();
-   C_Apartment (int x, int level, C_Tower * TowerParent);
+   Apartment (int x, int level, C_Tower * TowerParent);
 };
 
 #endif   // _APARTMENT_H

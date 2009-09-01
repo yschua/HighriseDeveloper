@@ -20,9 +20,9 @@ using namespace Gfx;
 
 Interface::Interface ()
 {
-   C_ImageManager * images = C_ImageManager::GetInstance ();
-   mpCam = C_Camera::GetInstance ();
-   mClock = new C_AnimationSingle (images->GetImg ("clock.png"));
+   ImageManager * images = ImageManager::GetInstance ();
+   mpCam = Camera::GetInstance ();
+   mClock = new AnimationSingle (images->GetImg ("clock.png"));
    //mClock.SetImage(*hr::Gfx::GetImage("clock.png"));
    PosCalc ();
 }

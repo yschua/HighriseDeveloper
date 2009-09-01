@@ -23,9 +23,9 @@ C_Lobby::C_Lobby (int x, int x2, int level, C_Tower * TowerParent)
 {
    m_x2 = x2;
    m_x = x;
-   C_ImageManager * images = C_ImageManager::GetInstance ();
-   cam = C_Camera::GetInstance ();
-   tile = new C_Tiler (images->GetImg("lobby.png"), C_Tiler::Horizontal, x, x2, m_y);
+   ImageManager * images = ImageManager::GetInstance ();
+   cam = Camera::GetInstance ();
+   tile = new Tiler (images->GetImg("lobby.png"), Tiler::Horizontal, x, x2, m_y);
    m_fire_escape_l->SetPosition (m_x - 56, m_y);
    m_fire_escape_r->SetPosition (m_x2, m_y);
    std::cout << "New lobby at " << m_x << " to " << m_x2 << " Y level " << m_y << std::endl;

@@ -33,17 +33,17 @@ C_ElevatorMachine::C_ElevatorMachine (int x, int level, C_Elevator* pElevator )
       :  C_ElevatorBase( x, level, pElevator )
       ,  m_State( LMS_Idle )
 {
-   C_ImageManager * image_man = C_ImageManager::GetInstance ();
-   m_y = (C_Camera::GetInstance()->GetWorldY () ) - (level * 36);
+   ImageManager * image_man = ImageManager::GetInstance ();
+   m_y = (Camera::GetInstance()->GetWorldY () ) - (level * 36);
    std::cout << "New elevator machine at " << m_x << ", " << m_y << std::endl;
-   m_LifterAnimation = new C_Animation ();
+   m_LifterAnimation = new Animation ();
    m_LifterAnimation->AddFrame (image_man->GetImg ("liftMachine_1.png"), 1000);
    m_LifterAnimation->AddFrame (image_man->GetImg ("liftMachine_2.png"), 1000);
    m_LifterAnimation->AddFrame (image_man->GetImg ("liftMachine_3.png"), 1000);
    m_ImageFrame = 0;
    m_FirstFrame = 0;
    m_LastFrame = 2;
-   m_cam = C_Camera::GetInstance ();
+   m_cam = Camera::GetInstance ();
    m_y = ( m_cam->GetWorldY ()) - (level * 36);
    pos_calc();
 }

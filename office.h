@@ -28,7 +28,7 @@ class C_office : public C_FloorBase
 private:
    office_state unoccupied_day (float dt);
    office_state occupied_day (float dt);
-   std::map<office_state, C_Animation *> m_animations;
+   std::map<office_state, Animation *> m_animations;
    office_state m_current_state;
    int m_current_animation;
 

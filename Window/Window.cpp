@@ -30,7 +30,7 @@ namespace UI
    }
    Window::Window()
    {
-      mpCamera = C_Camera::GetInstance();
+      mpCamera = Camera::GetInstance();
       BGImgs.resize(9);
       for (unsigned int i = 0; i < BGImgs.size(); i++)
       {

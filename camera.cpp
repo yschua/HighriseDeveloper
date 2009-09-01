@@ -31,9 +31,9 @@
 #include "highrisedev.h"
 #endif
 
-C_Camera * C_Camera::mpInstance = NULL;
+Camera * Camera::mpInstance = NULL;
 
-C_Camera::C_Camera ()
+Camera::Camera ()
 :  m_back_color (0, 0, 0)
 {
    mpWindow = new sf::RenderWindow ();
@@ -48,19 +48,19 @@ C_Camera::C_Camera ()
 }
 
 Vector2i
-C_Camera::GetMouse ()
+Camera::GetMouse ()
 {
    return m_s + GetLocalMouse();
 }
 
 Vector2i
-C_Camera::GetLocalMouse()
+Camera::GetLocalMouse()
 {
    return mpWindow->ConvertCoords (mpInput->GetMouseX (), mpInput->GetMouseY (), mpStaticView);
 }
 
 /*void
-C_Camera::Zoom (float Factor)
+Camera::Zoom (float Factor)
 {
  std::cout << "Zoom factor: " << Factor << std::endl;
  Factor *= 0.05;
@@ -68,37 +68,37 @@ C_Camera::Zoom (float Factor)
 }*/
 
 int
-C_Camera::GetWorldY ()
+Camera::GetWorldY ()
 {
    return m_world_y;
 }
 
 int
-C_Camera::GetWorldX ()
+Camera::GetWorldX ()
 {
    return m_world_x;
 }
 
 int
-C_Camera::GetCamSizeX ()
+Camera::GetCamSizeX ()
 {
    return m_cam_x;
 }
 
 int
-C_Camera::GetCamSizeY ()
+Camera::GetCamSizeY ()
 {
    return m_cam_y;
 }
 
 void
-C_Camera::SetMaxFramerate (int rate)
+Camera::SetMaxFramerate (int rate)
 {
    mpWindow->SetFramerateLimit (rate);
 }
 
 void
-C_Camera::SetCamSize (int x, int y)
+Camera::SetCamSize (int x, int y)
 {
    m_cam_x = x;
    m_cam_y = y;
@@ -107,7 +107,7 @@ C_Camera::SetCamSize (int x, int y)
 }
 
 void
-C_Camera::SetWorldSize (int x, int y)
+Camera::SetWorldSize (int x, int y)
 {
    m_world_x = x;
    m_world_y = y;
@@ -116,52 +116,52 @@ C_Camera::SetWorldSize (int x, int y)
 }
 
 void
-C_Camera::Create (const std::string & caption)
+Camera::Create (const std::string & caption)
 {
    mpWindow->Create (sf::VideoMode (m_cam_x, m_cam_y, 32), caption);
 }
 
-C_Camera*
-C_Camera::i()
+Camera*
+Camera::i()
 {
    if (mpInstance == NULL)
    {
-      mpInstance = new C_Camera ();
+      mpInstance = new Camera ();
    }
    return mpInstance;
 }
 
-C_Camera*
-C_Camera::GetInstance()
+Camera*
+Camera::GetInstance()
 {
    if (mpInstance == NULL)
    {
-      mpInstance = new C_Camera ();
+      mpInstance = new Camera ();
    }
    return mpInstance;
 }
 
 void
-C_Camera::Clear ()
+Camera::Clear ()
 {
    mpWindow->Clear (m_back_color);
 }
 
 void
-C_Camera::Display ()
+Camera::Display ()
 {
    mpWindow->Display ();
 }
 
 void
-C_Camera::Center (int x, int y)
+Camera::Center (int x, int y)
 {
    m_s.x = x - (m_cam_x / 2);
    m_s.y = y - (m_cam_y / 2);
 }
 
 void
-C_Camera::Draw (C_Animation & to_draw)
+Camera::Draw (Animation & to_draw)
 {
    if (!mIgnoreCamera)
       to_draw.sprite->SetPosition (to_draw.GetPositionX () - m_s.x, to_draw.GetPositionY () - m_s.y);
@@ -171,7 +171,7 @@ C_Camera::Draw (C_Animation & to_draw)
 }
 
 void
-C_Camera::Draw (C_AnimationSingle & to_draw)
+Camera::Draw (AnimationSingle & to_draw)
 {
    if (!mIgnoreCamera)
       to_draw.sprite->SetPosition (to_draw.GetPositionX () - m_s.x, to_draw.GetPositionY () - m_s.y);
@@ -181,20 +181,20 @@ C_Camera::Draw (C_AnimationSingle & to_draw)
 }
 
 void
-C_Camera::Draw (C_Tiler & to_draw)
+Camera::Draw (Tiler & to_draw)
 {
    for (unsigned int i = 0; i < to_draw.m_Sprites.size (); i++)
       Draw (*to_draw.m_Sprites[i]);
 }
 
 bool
-C_Camera::GetEvent (sf::Event & event)
+Camera::GetEvent (sf::Event & event)
 {
    return mpWindow->GetEvent (event);
 }
 
 void
-C_Camera::SetStatic (bool set)
+Camera::SetStatic (bool set)
 {
    if (set)
       mpWindow->SetView (*mpStaticView);
@@ -204,7 +204,7 @@ C_Camera::SetStatic (bool set)
 }
 
 bool
-C_Camera::OnEvent (const sf::Event& Event)
+Camera::OnEvent (const sf::Event& Event)
 {
    if (Event.Type == sf::Event::Resized)
    {
@@ -253,11 +253,11 @@ C_Camera::OnEvent (const sf::Event& Event)
 }
 
 void
-C_Camera::ZoomIn() {
+Camera::ZoomIn() {
    Zoom(1.05f);
 }
 void
-C_Camera::ZoomOut() {
+Camera::ZoomOut() {
    Zoom(0.95f);
 }
 /////////////////////////////////////////////////////////////////////
@@ -266,7 +266,7 @@ C_Camera::ZoomOut() {
 /// or ZoomOut() functions, as their zooms can be user-configured
 /////////////////////////////////////////////////////////////////////
 void
-C_Camera::Zoom(float Factor)
+Camera::Zoom(float Factor)
 {
    sf::Rect<float> ZoomedRect;
    sf::Vector2<float> Center;
@@ -309,7 +309,7 @@ C_Camera::Zoom(float Factor)
 /// Move the camera by the specified number of pixels
 /////////////////////////////////////////////////////////////////////
 void
-C_Camera::Movepx(Vector2f Movement)
+Camera::Movepx(Vector2f Movement)
 {
    sf::Rect<float> NewRect = mViewRect;
    NewRect.Offset(Movement.x, Movement.y);
@@ -324,7 +324,7 @@ C_Camera::Movepx(Vector2f Movement)
 /// Set the center of the camera in pixels
 /////////////////////////////////////////////////////////////////////
 void
-C_Camera::Setpx(Vector2f Center)
+Camera::Setpx(Vector2f Center)
 {
    /*sf::Vector2<int> Center;
    Center.x = (mWorldRect.Left+mWorldRect.Right)/2;
@@ -346,7 +346,7 @@ C_Camera::Setpx(Vector2f Center)
 /// Returns true if it is, false if it falls outside.
 /////////////////////////////////////////////////////////////////////
 bool
-C_Camera::CheckBounds(const sf::Rect<float>& RectToCheck)
+Camera::CheckBounds(const sf::Rect<float>& RectToCheck)
 {
    if (RectToCheck.Left < mWorldRect.Left)
       std::cout << "Outisde of Left bound\n";
@@ -365,7 +365,7 @@ C_Camera::CheckBounds(const sf::Rect<float>& RectToCheck)
 /// The rectangle passed as reference is changed.
 /////////////////////////////////////////////////////////////////////
 void
-C_Camera::AdjustBounds(sf::Rect<float>& RectToAdjust)
+Camera::AdjustBounds(sf::Rect<float>& RectToAdjust)
 {
    while (RectToAdjust.Left < mWorldRect.Left)
    {

@@ -27,7 +27,7 @@ class C_ElevatorBase;
 class C_ElevatorPit : public C_ElevatorBase
 {
 protected:
-//   C_AnimationSingle m_animations;
+//   AnimationSingle m_animations;
 
 
 public:

@@ -21,8 +21,8 @@
 
 class C_Elevator;
 class C_FloorBase;
-class C_Camera;
-class C_Animation;
+class Camera;
+class Animation;
 
 class C_ElevatorMachine : public C_ElevatorBase
 {
@@ -41,8 +41,8 @@ protected:
    short m_ImageFrame;
    short m_LastFrame;
    short m_FirstFrame;
-   C_Animation* m_LifterAnimation;
-   C_Camera* m_cam;;
+   Animation* m_LifterAnimation;
+   Camera* m_cam;;
 
 
 public:

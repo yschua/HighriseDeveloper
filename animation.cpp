@@ -24,7 +24,7 @@
 #include "highrisedev.h"
 #endif
 
-C_Animation::C_Animation ()
+Animation::Animation ()
 {
    m_current_frame = 0;
    m_time = 0;
@@ -32,13 +32,13 @@ C_Animation::C_Animation ()
 }
 
 void
-C_Animation::AddFrame (sf::Image * image, float duration)
+Animation::AddFrame (sf::Image * image, float duration)
 {
    m_frames.push_back (std::pair<sf::Image *, float> (image, duration));
 }
 
 void
-C_Animation::Update (float dt)
+Animation::Update (float dt)
 {
    m_time += dt;
    if (m_time > m_frames[m_current_frame].second)
@@ -51,14 +51,14 @@ C_Animation::Update (float dt)
    }
 }
 
-C_AnimationSingle::C_AnimationSingle (sf::Image * image)
+AnimationSingle::AnimationSingle (sf::Image * image)
 {
    sprite = new sf::Sprite ();
    sprite->SetImage (*image);
 }
 
 void
-C_AnimationSingle::SetSubRect (int x1, int y1, int x2, int y2)
+AnimationSingle::SetSubRect (int x1, int y1, int x2, int y2)
 {
    sf::IntRect * subrect = new sf::IntRect (x1, y1, x2, y2);
    sprite->SetSubRect (*subrect);

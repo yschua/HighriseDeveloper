@@ -17,11 +17,11 @@
 #ifndef _CAMERA_H
 #define _CAMERA_H
 
-class C_Animation;
-class C_AnimationSingle;
-class C_Tiler;
+class Animation;
+class AnimationSingle;
+class Tiler;
 
-class C_Camera : public C_Body
+class Camera : public C_Body
 {
 private:
    int m_world_x, m_world_y, m_cam_x, m_cam_y;
@@ -29,8 +29,8 @@ private:
    sf::View* mpView;
    sf::View* mpStaticView;
    sf::Color m_back_color;
-   static C_Camera * mpInstance;
-   C_Camera ();
+   static Camera * mpInstance;
+   Camera ();
    float mZoomFactor;
    bool mIgnoreCamera;
    const sf::Input* mpInput;
@@ -39,13 +39,13 @@ private:
    Vector2i mMouseStartPos;
    bool mMovingView;
 public:
-   static C_Camera* GetInstance();
-   static C_Camera* i();
+   static Camera* GetInstance();
+   static Camera* i();
    void Display ();
    void Clear ();
-   void Draw (C_Animation & to_draw);
-   void Draw (C_AnimationSingle & to_draw);
-   void Draw (C_Tiler & to_draw);
+   void Draw (Animation & to_draw);
+   void Draw (AnimationSingle & to_draw);
+   void Draw (Tiler & to_draw);
    void Draw (const sf::Drawable& ToDraw) {
       mpWindow->Draw(ToDraw);
    }

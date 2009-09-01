@@ -34,10 +34,10 @@ C_ElevatorPit::C_ElevatorPit ( int x, int level, C_Elevator* pElevator )
 {
    m_x = x;
    m_Level = level;
-   //C_ImageManager * image_man = C_ImageManager::GetInstance ();
-   m_y = (C_Camera::GetInstance()->GetWorldY () ) - (level * 36);
+   //ImageManager * image_man = ImageManager::GetInstance ();
+   m_y = (Camera::GetInstance()->GetWorldY () ) - (level * 36);
    // std::cout << "New elevator pit at " << m_x << ", " << m_y << std::endl;
-   // m_animations[s_occupied_day] = new C_AnimationSingle ();
+   // m_animations[s_occupied_day] = new AnimationSingle ();
    // m_animations[s_occupied_day]->AddFrame (image_man->GetImg ("liftpit.png"), 1000);
 }
 
@@ -54,5 +54,5 @@ C_ElevatorPit::Update (float dt)
 void
 C_ElevatorPit::Draw ()
 {
-//    C_Camera::GetInstance()->Draw (*m_animations[m_current_state]);
+//    Camera::GetInstance()->Draw (*m_animations[m_current_state]);
 }

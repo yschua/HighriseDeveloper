@@ -20,8 +20,8 @@
 #include "elevatorBase.h"
 class C_Elevator;
 class C_FloorBase;
-class C_Camera;
-class C_Tiler;
+class Camera;
+class Tiler;
 
 class C_ElevatorShaft : public C_ElevatorBase
 {
@@ -31,8 +31,8 @@ protected:
    short m_BottomLevel; // if these are changed, update the tiler ShaftImages
 
    // moved from elevator and changed name to ShaftTiler to show it is a tiler object
-   C_Tiler * m_ShaftTiler; // temporary to make a nice looking demo :]
-   C_Camera* m_cam;
+   Tiler * m_ShaftTiler; // temporary to make a nice looking demo :]
+   Camera* m_cam;
 
 public:
    // CTOR/DTOR

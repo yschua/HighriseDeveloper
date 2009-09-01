@@ -43,7 +43,7 @@ C_Camera::C_Camera ()
    mIgnoreCamera = false;
    mpInput = &(mpWindow->GetInput ());
    mViewRect = mpView->GetRect();
-   mWorldRect = sf::Rect<float>(0,0,1000,1000);
+   mWorldRect = sf::Rect<float>(-1000,-1000,2000,2000);
    mMovingView = false;
 }
 
@@ -300,7 +300,8 @@ C_Camera::Zoom(float Factor)
    }
    else
    {
-      std::cout << "DEBUG: mWorldView is (" << mViewRect.Top << ", " << mViewRect.Left << ", " << mViewRect.Right << ", " << mViewRect.Bottom << ")\n";
+      std::cout << "DEBUG: mViewRect is (" << mViewRect.Top << ", " << mViewRect.Left << ", " << mViewRect.Right << ", " << mViewRect.Bottom << ")\n";
+      std::cout << "DEBUG: mWorldRect is (" << mWorldRect.Top << ", " << mWorldRect.Left << ", " << mWorldRect.Right << ", " << mWorldRect.Bottom << ")\n";
    }
 }
 

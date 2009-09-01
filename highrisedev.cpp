@@ -152,8 +152,8 @@ main ()
          theTower.Update (60);
          theTower.Draw ();
          cam->SetStatic(true);
-         //Windows.Update();
-         //Windows.Draw();
+         Windows.Update();
+         Windows.Draw();
          cam->SetStatic(false);
          interface->Update(60);
          interface->Draw ();

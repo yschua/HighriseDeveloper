@@ -20,52 +20,52 @@
 #include <iostream>
 #include "person.h"
 
-C_Person::C_Person (Location& loc)
+Person::Person (Location& loc)
 {
-   m_Health = HS_Well;
-   m_Mood = MS_Content;
-   m_Activity = AS_JobHunting; // noob, starts out looking for home, job etc.
-   m_Occupation = 0;
-   m_Home = 1;          // have a home (Test code)
-   m_CurrentState = CS_Idle;
-   m_Location = loc;    // copy
+   mHealth = HS_Well;
+   mMood = MS_Content;
+   mActivity = AS_JobHunting; // noob, starts out looking for home, job etc.
+   mOccupation = 0;
+   mHome = 1;          // have a home (Test code)
+   mCurrentState = CS_Idle;
+   mLocation = loc;    // copy
 }
 
-C_Person::~C_Person (void)
+Person::~Person (void)
 {
 }
 
-void C_Person::Update (float dt)
+void Person::Update (float dt)
 {
    // check time of day, what activity should we be doing.
-   if (m_Occupation < 1) // && age > 16 )
+   if (mOccupation < 1) // && age > 16 )
    {
-      m_Activity = AS_JobHunting;
+      mActivity = AS_JobHunting;
    }
-   else if (m_Home < 1)
+   else if (mHome < 1)
    {
-      m_Activity = AS_CondoHunting; // if income < $n AS_ApartmentHunting.
+      mActivity = AS_CondoHunting; // if income < $n AS_ApartmentHunting.
    }
-   switch (m_Activity)
+   switch (mActivity)
    {
       case AS_GoingToWork:
-         if (m_WorkPath.index < m_WorkPath.size)
+         if (mWorkPath.index < mWorkPath.size)
          {
-            Location& cur = m_WorkPath.m_PathList[m_WorkPath.index];
+            Location& cur = mWorkPath.mPathList[mWorkPath.index];
             // TODO: check building first but for now we only have 1
-            if (cur.m_Level == m_Location.m_Level)
+            if (cur.mLevel == mLocation.mLevel)
             {
-               m_Location.m_X = cur.m_X; // TODO: Move peep in animator
-               m_WorkPath.index++;
+               mLocation.mX = cur.mX; // TODO: Move peep in animator
+               mWorkPath.index++;
             }
             else
             {
                // waiting or on an elevator
             }
          }
-         if (m_WorkPath.index >= m_WorkPath.size) // this can be handled better and also need to check times
+         if (mWorkPath.index >= mWorkPath.size) // this can be handled better and also need to check times
          {
-            m_Location.m_Level = m_WorkPath.m_PathList[m_WorkPath.index-1].m_Level; // this will bring the car to the office level at days end
+            mLocation.mLevel = mWorkPath.mPathList[mWorkPath.index-1].mLevel; // this will bring the car to the office level at days end
             set_Activity( AS_Working ); // offices and businesses show employees at work.
          }
          break;
@@ -74,21 +74,21 @@ void C_Person::Update (float dt)
          {
             set_Activity( AS_GoingHome );
             int home_level = (rand() % 1) + 4;   // test code, give them a home
-            Location& cur = m_WorkPath.m_PathList[0];
-            cur.m_Level = home_level;
-            cur.m_X = 2;
-            m_WorkPath.index--;  // this is the return trip home
+            Location& cur = mWorkPath.mPathList[0];
+            cur.mLevel = home_level;
+            cur.mX = 2;
+            mWorkPath.index--;  // this is the return trip home
          }
          break;
       case AS_GoingHome:
-         if (m_WorkPath.index > 0)
+         if (mWorkPath.index > 0)
          {
-            Location& cur = m_WorkPath.m_PathList[m_WorkPath.index];
+            Location& cur = mWorkPath.mPathList[mWorkPath.index];
             // TODO: check building first but for now we only have 1
-            if (cur.m_Level == m_Location.m_Level)
+            if (cur.mLevel == mLocation.mLevel)
             {
-               m_Location.m_X = cur.m_X; // TODO: Move peep in animator
-               m_WorkPath.index--;
+               mLocation.mX = cur.mX; // TODO: Move peep in animator
+               mWorkPath.index--;
             }
             else
             {
@@ -103,6 +103,6 @@ void C_Person::Update (float dt)
    }
 }
 
-void C_Person::Draw( )
+void Person::Draw( )
 {
 }

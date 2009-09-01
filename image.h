@@ -23,9 +23,9 @@ namespace Gfx
    class ImageManager
    {
    private:
-      std::string m_path_prefix;
-      std::map<std::string, sf::Image *> m_images;
-      static ImageManager * m_instance;
+      std::string mpath_prefix;
+      std::map<std::string, sf::Image *> mimages;
+      static ImageManager * minstance;
       ImageManager ();
 
    public:

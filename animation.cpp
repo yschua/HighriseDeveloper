@@ -26,28 +26,28 @@
 
 Animation::Animation ()
 {
-   m_current_frame = 0;
-   m_time = 0;
+   mcurrent_frame = 0;
+   mtime = 0;
    sprite = new sf::Sprite ();
 }
 
 void
 Animation::AddFrame (sf::Image * image, float duration)
 {
-   m_frames.push_back (std::pair<sf::Image *, float> (image, duration));
+   mframes.push_back (std::pair<sf::Image *, float> (image, duration));
 }
 
 void
 Animation::Update (float dt)
 {
-   m_time += dt;
-   if (m_time > m_frames[m_current_frame].second)
+   mtime += dt;
+   if (mtime > mframes[mcurrent_frame].second)
    {
-      m_time = 0;
-      m_current_frame++;
-      if (m_current_frame >= m_frames.size ())
-         m_current_frame = 0;
-      sprite->SetImage (*m_frames[m_current_frame].first);
+      mtime = 0;
+      mcurrent_frame++;
+      if (mcurrent_frame >= mframes.size ())
+         mcurrent_frame = 0;
+      sprite->SetImage (*mframes[mcurrent_frame].first);
    }
 }
 

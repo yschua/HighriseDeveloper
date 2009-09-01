@@ -21,14 +21,14 @@ class Animation;
 class AnimationSingle;
 class Tiler;
 
-class Camera : public C_Body
+class Camera : public Body
 {
 private:
-   int m_world_x, m_world_y, m_cam_x, m_cam_y;
+   int mworld_x, mworld_y, mcamx, mcamy;
    sf::RenderWindow* mpWindow;
    sf::View* mpView;
    sf::View* mpStaticView;
-   sf::Color m_back_color;
+   sf::Color mback_color;
    static Camera * mpInstance;
    Camera ();
    float mZoomFactor;

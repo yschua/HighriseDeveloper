@@ -33,46 +33,46 @@
 
 #include "pathAgent.h"
 
-C_PathAgent::C_PathAgent (C_Person* person )
-      :  m_Person( person )
+PathAgent::PathAgent (Person* person )
+      :  mPerson( person )
 {
 
 }
 
 // functor level PathAgent
 // Instiate, get the person to his destination and done
-C_PathAgent::C_PathAgent (C_Person* person, int level)   // deposit person on this level;
-      :  m_Person( person )
+PathAgent::PathAgent (Person* person, int level)   // deposit person on this level;
+      :  mPerson( person )
 {
    person->get_Location();
 }
 
-C_PathAgent::~C_PathAgent ()
+PathAgent::~PathAgent ()
 {
 
 }
 
-bool C_PathAgent::findPath (Location& origin, Location& dest, C_Tower& tower )
+bool PathAgent::findPath (Location& origin, Location& dest, Tower& tower )
 {
-   Path& path = m_Person->get_WorkPath(); // for now just doing work
+   Path& path = mPerson->get_WorkPath(); // for now just doing work
    path.clear();
    // normally we would use the commented code but for now I've pluged direct to a single elevator
-   //C_Routes* routeList = C_Routes::GetInstance();
-   C_Routes& routeList = tower.GetRoutes();
-   C_CitizensAgent People( tower );
-   std::vector<C_RouteBase*>::iterator i;
+   //Routes* routeList = Routes::GetInstance();
+   Routes& routeList = tower.GetRoutes();
+   CitizensAgent People( tower );
+   std::vector<RouteBase*>::iterator i;
    //for (i = routeList.get_Routes().begin (); i != routeList.get_Routes().end (); i++)
    //{
-   //   C_RouteBase* route = (*i);
+   //   RouteBase* route = (*i);
    //}
-   path.m_PathList[0].m_Building = dest.m_Building;
-   path.m_PathList[0].m_Level = 0;
-   path.m_PathList[0].m_Route = 0; // first option
-   path.m_PathList[0].m_X = 0;
-   path.m_PathList[1].m_Building = dest.m_Building;
-   path.m_PathList[1].m_Level = dest.m_Level;
-   path.m_PathList[1].m_Route = 0;
-   path.m_PathList[1].m_X = dest.m_X;
+   path.mPathList[0].mBuilding = dest.mBuilding;
+   path.mPathList[0].mLevel = 0;
+   path.mPathList[0].mRoute = 0; // first option
+   path.mPathList[0].mX = 0;
+   path.mPathList[1].mBuilding = dest.mBuilding;
+   path.mPathList[1].mLevel = dest.mLevel;
+   path.mPathList[1].mRoute = 0;
+   path.mPathList[1].mX = dest.mX;
    path.index = 0;
    path.size = 2;
    return true;

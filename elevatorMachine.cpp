@@ -29,61 +29,61 @@
 
 using namespace Gfx;
 
-C_ElevatorMachine::C_ElevatorMachine (int x, int level, C_Elevator* pElevator )
-      :  C_ElevatorBase( x, level, pElevator )
-      ,  m_State( LMS_Idle )
+ElevatorMachine::ElevatorMachine (int x, int level, Elevator* pElevator )
+      :  ElevatorBase( x, level, pElevator )
+      ,  mState( LMS_Idle )
 {
    ImageManager * image_man = ImageManager::GetInstance ();
-   m_y = (Camera::GetInstance()->GetWorldY () ) - (level * 36);
-   std::cout << "New elevator machine at " << m_x << ", " << m_y << std::endl;
-   m_LifterAnimation = new Animation ();
-   m_LifterAnimation->AddFrame (image_man->GetImg ("liftMachine_1.png"), 1000);
-   m_LifterAnimation->AddFrame (image_man->GetImg ("liftMachine_2.png"), 1000);
-   m_LifterAnimation->AddFrame (image_man->GetImg ("liftMachine_3.png"), 1000);
-   m_ImageFrame = 0;
-   m_FirstFrame = 0;
-   m_LastFrame = 2;
-   m_cam = Camera::GetInstance ();
-   m_y = ( m_cam->GetWorldY ()) - (level * 36);
+   my = (Camera::GetInstance()->GetWorldY () ) - (level * 36);
+   std::cout << "New elevator machine at " << mx << ", " << my << std::endl;
+   mLifterAnimation = new Animation ();
+   mLifterAnimation->AddFrame (image_man->GetImg ("liftMachine_1.png"), 1000);
+   mLifterAnimation->AddFrame (image_man->GetImg ("liftMachine_2.png"), 1000);
+   mLifterAnimation->AddFrame (image_man->GetImg ("liftMachine_3.png"), 1000);
+   mImageFrame = 0;
+   mFirstFrame = 0;
+   mLastFrame = 2;
+   mcam = Camera::GetInstance ();
+   my = ( mcam->GetWorldY ()) - (level * 36);
    pos_calc();
 }
 
-C_ElevatorMachine::~C_ElevatorMachine()
+ElevatorMachine::~ElevatorMachine()
 {
-   delete m_LifterAnimation;
+   delete mLifterAnimation;
 }
 
 void
-C_ElevatorMachine::pos_calc ()
+ElevatorMachine::pos_calc ()
 {
-   m_LifterAnimation->SetPosition ((float)m_x, (float)(m_y) ); // elevator sprite is only 32x32
+   mLifterAnimation->SetPosition ((float)mx, (float)(my) ); // elevator sprite is only 32x32
 }
 
 void
-C_ElevatorMachine::Update (float dt)
+ElevatorMachine::Update (float dt)
 {
-   switch (m_State)
+   switch (mState)
    {
       case LMS_Down :
-         m_Direction = -1;
+         mDirection = -1;
          break;
       case LMS_Up :
-         m_Direction = 1;
+         mDirection = 1;
          break;
       case LMS_Idle :
-         m_Direction = 0;
+         mDirection = 0;
          break;
    }
-   m_ImageFrame += m_Direction;
-   if ( m_ImageFrame < 0 )
-      m_ImageFrame = m_LastFrame;
-   if ( m_ImageFrame > m_LastFrame )
-      m_ImageFrame = m_FirstFrame;
-   m_LifterAnimation->Update (dt);
+   mImageFrame += mDirection;
+   if ( mImageFrame < 0 )
+      mImageFrame = mLastFrame;
+   if ( mImageFrame > mLastFrame )
+      mImageFrame = mFirstFrame;
+   mLifterAnimation->Update (dt);
 }
 
 void
-C_ElevatorMachine::Draw ()
+ElevatorMachine::Draw ()
 {
-   this->m_cam->Draw( * m_LifterAnimation );
+   this->mcam->Draw( * mLifterAnimation );
 }

@@ -75,18 +75,18 @@ class Vector2
 typedef Vector2 <float> Vector2f; // russ
 typedef Vector2 <int> Vector2i;   // likes this
 
-class C_Body
+class Body
 {
 private:
-   bool m_IsMoving;
-   float m_Time;
-   float m_TimeTotal;
-   Vector2f m_MoveDest;
+   bool mIsMoving;
+   float mTime;
+   float mTimeTotal;
+   Vector2f mMoveDest;
 
 public:
-   Vector2f m_s, m_v, m_a;
-   C_Body (float x, float y);
-   C_Body ();
+   Vector2f ms, mv, ma;
+   Body (float x, float y);
+   Body ();
    float GetPositionX ();
    float GetPositionY ();
    float GetVelocityX ();

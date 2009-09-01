@@ -28,27 +28,27 @@
 
 using namespace Gfx;
 
-C_ElevatorBase::C_ElevatorBase ( int x, int level, C_Elevator* pElevator )
+ElevatorBase::ElevatorBase ( int x, int level, Elevator* pElevator )
 {
-   m_x = x;
-   m_y = 0;
-   m_Level = level;
-   m_pParent = pElevator;
+   mx = x;
+   my = 0;
+   mLevel = level;
+   mpParent = pElevator;
    ImageManager * image_man = ImageManager::GetInstance ();
 }
 
-C_ElevatorBase::~C_ElevatorBase()
+ElevatorBase::~ElevatorBase()
 {
 }
 
 void
-C_ElevatorBase::Update (float dt)
+ElevatorBase::Update (float dt)
 {
 
 }
 
 void
-C_ElevatorBase::Draw ()
+ElevatorBase::Draw ()
 {
-//    Camera::GetInstance()->Draw (*m_animations[m_current_state]);
+//    Camera::GetInstance()->Draw (*manimations[mcurrent_state]);
 }

@@ -21,19 +21,19 @@
 
 #include "elevatorBase.h"
 
-class C_Elevator;
-class C_ElevatorBase;
+class Elevator;
+class ElevatorBase;
 
-class C_ElevatorPit : public C_ElevatorBase
+class ElevatorPit : public ElevatorBase
 {
 protected:
-//   AnimationSingle m_animations;
+//   AnimationSingle manimations;
 
 
 public:
    // CTOR/DTOR
-   C_ElevatorPit(int x, int level, C_Elevator* pElevator );
-   virtual ~C_ElevatorPit();
+   ElevatorPit(int x, int level, Elevator* pElevator );
+   virtual ~ElevatorPit();
 
    // Implemantation
    virtual void Update (float dt);

@@ -27,32 +27,32 @@
 #include "elevatorBase.h"
 #include "elevatorPit.h"
 
-class C_Elevator;
+class Elevator;
 
-C_ElevatorPit::C_ElevatorPit ( int x, int level, C_Elevator* pElevator )
-      :  C_ElevatorBase( x, level, pElevator )
+ElevatorPit::ElevatorPit ( int x, int level, Elevator* pElevator )
+      :  ElevatorBase( x, level, pElevator )
 {
-   m_x = x;
-   m_Level = level;
+   mx = x;
+   mLevel = level;
    //ImageManager * image_man = ImageManager::GetInstance ();
-   m_y = (Camera::GetInstance()->GetWorldY () ) - (level * 36);
-   // std::cout << "New elevator pit at " << m_x << ", " << m_y << std::endl;
-   // m_animations[s_occupied_day] = new AnimationSingle ();
-   // m_animations[s_occupied_day]->AddFrame (image_man->GetImg ("liftpit.png"), 1000);
+   my = (Camera::GetInstance()->GetWorldY () ) - (level * 36);
+   // std::cout << "New elevator pit at " << mx << ", " << my << std::endl;
+   // manimations[s_occupied_day] = new AnimationSingle ();
+   // manimations[s_occupied_day]->AddFrame (image_man->GetImg ("liftpit.png"), 1000);
 }
 
-C_ElevatorPit::~C_ElevatorPit()
+ElevatorPit::~ElevatorPit()
 {
 }
 
 void
-C_ElevatorPit::Update (float dt)
+ElevatorPit::Update (float dt)
 {
 
 }
 
 void
-C_ElevatorPit::Draw ()
+ElevatorPit::Draw ()
 {
-//    Camera::GetInstance()->Draw (*m_animations[m_current_state]);
+//    Camera::GetInstance()->Draw (*manimations[mcurrent_state]);
 }

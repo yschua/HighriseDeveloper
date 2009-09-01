@@ -25,17 +25,18 @@
 // This three parts build the shaft for the elevator/lift to run in.
 
 // these decls allow inclusion of this header without the need to load these class headers.
-class C_RouteBase;
-class C_RouteVisitor;
+//class RouteBase;
+class RouteVisitor;
 class AnimationSingle;
-class C_ElevatorMachine; // mover above
-class C_ElevatorShaft;   // holds the tiler to show the shaft
-class C_ElevatorPit;     // landing pit below
+class ElevatorMachine; // mover above
+class ElevatorShaft;   // holds the tiler to show the shaft
+class ElevatorPit;     // landing pit below
 class Camera;
-class C_Person;
-class C_Tower;
+class Person;
+class Tower;
 
 #include "physics.h"
+#include "routeBase.h"
 
 // The UI should read the FloorStops array and the range of floors.
 // Then display all available floors and ticking those floors in the FloorStops array.
@@ -52,17 +53,17 @@ class C_Tower;
 
 struct FloorStop
 {
-   short m_Level;
-   char  m_ButtonFlag;
+   short mLevel;
+   char  mButtonFlag;
 };
 
 struct Rider
 {
-   C_Person* m_Person;
-   short    m_DestLevel;
+   Person* mPerson;
+   short    mDestLevel;
 };
 
-class C_Elevator : public C_Body, public C_RouteBase
+class Elevator : public Body, public RouteBase
 {
 public:
 
@@ -89,45 +90,45 @@ public:
 
 protected:
 
-   AnimationSingle* m_ElevatorImage;
-   AnimationSingle* m_LiftPit;
-   C_ElevatorMachine* m_LiftMachine;
-   C_ElevatorShaft*   m_ElevatorShaft;
+   AnimationSingle* mElevatorImage;
+   AnimationSingle* mLiftPit;
+   ElevatorMachine* mLiftMachine;
+   ElevatorShaft*   mElevatorShaft;
 
-   Rider       m_Riders[16];
-   FloorStop   m_Stops[32];
+   Rider       mRiders[16];
+   FloorStop   mStops[32];
 
-   //Tiler * m_ElevatorShaft; // temporary to make a nice looking demo :] Moved into shaft object.
-   Camera* m_cam;
+   //Tiler * mElevatorShaft; // temporary to make a nice looking demo :] Moved into shaft object.
+   Camera* mcam;
    // Controls this things motion
-   int   m_X;
-   int   m_Y;
-   //short m_Level;
-   short m_CurrentLevel;
-   short m_Direction;
-   short m_TopLevel;
-   short m_BottomLevel;
-   short m_Position;
-   short m_IdleTime;
-   short m_Offset;   // adjust for starting floor.
+   int   mX;
+   int   mY;
+   //short mLevel;
+   short mCurrentLevel;
+   short mDirection;
+   short mTopLevel;
+   short mBottomLevel;
+   short mPosition;
+   short mIdleTime;
+   short mOffset;   // adjust for starting floor.
    // test code
-   short m_StartRoute;
-   short m_EndRoute;
-   short m_End2;
-   short m_RidersOnBoard;
-   short m_FloorCount;
+   short mStartRoute;
+   short mEndRoute;
+   short mEnd2;
+   short mRidersOnBoard;
+   short mFloorCount;
 
-   LiftOps_State  m_LiftOperation;
-   unsigned char  m_LiftStyle;
+   LiftOps_State  mLiftOperation;
+   unsigned char  mLiftStyle;
 
-   C_Tower * m_TowerParent;
+   Tower * mTowerParent;
 
 public:
    // CTOR/DTOR  Use create to make on
-   C_Elevator( Lift_Styles style, int x, short BottLevel, short TopLevel, C_Tower * TowerParent );
-   virtual ~C_Elevator();
+   Elevator( Lift_Styles style, int x, short BottLevel, short TopLevel, Tower * TowerParent );
+   virtual ~Elevator();
 
-   static C_Elevator* Create( Lift_Styles style, int x, short BottomLevel, short TopLevel, C_Tower * TowerParent );  // this is rejected for som reason
+   static Elevator* Create( Lift_Styles style, int x, short BottomLevel, short TopLevel, Tower * TowerParent );  // this is rejected for som reason
 
    // Implemantation
    void ClearStops();
@@ -136,7 +137,7 @@ public:
    void pos_calc ();
    void PosCalc ();
    void SetSetCallButton (int level, int dir);
-   virtual void SetRoute( C_RouteVisitor* visitor );
+   virtual void SetRoute( RouteVisitor* visitor );
    virtual void Update (float dt);
    virtual void Draw ();
 };

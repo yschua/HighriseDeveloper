@@ -28,20 +28,20 @@
 
 struct Location; // from person
 
-class C_Person;
-class C_Tower;
+class Person;
+class Tower;
 
-class C_PathAgent
+class PathAgent
 {
 private:
-   C_Person*   m_Person;
-   Path        m_CurrentPath; // local scratch
+   Person*   mPerson;
+   Path        mCurrentPath; // local scratch
 
 public:
-   bool findPath (Location& origin, Location& dest, C_Tower& tower);
-   C_PathAgent (C_Person* person);
-   C_PathAgent (C_Person* person, int level); // deposit person on this level;
-   virtual ~C_PathAgent (void);
+   bool findPath (Location& origin, Location& dest, Tower& tower);
+   PathAgent (Person* person);
+   PathAgent (Person* person, int level); // deposit person on this level;
+   virtual ~PathAgent (void);
 };
 
 #endif //_PATHAGENT_H

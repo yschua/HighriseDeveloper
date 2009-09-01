@@ -22,25 +22,25 @@
 #define _PERSON_H
 
 // temporary home for some structures
-// If Location is a destination and m_Building <=0 then this person is leaving.
-// If Location is a currentLocation and m_Building = 0 then this person is outside
+// If Location is a destination and mBuilding <=0 then this person is leaving.
+// If Location is a currentLocation and mBuilding = 0 then this person is outside
 // Above subject to change.
 struct Location
 {
-   short m_Route;   // changed from state to route meaning any elevator, stairs or other mode of traversal.
-   short m_Building;
-   short m_Level;   // 0 = lobby
-   short m_X;       // 0 = outide the building
+   short mRoute;   // changed from state to route meaning any elevator, stairs or other mode of traversal.
+   short mBuilding;
+   short mLevel;   // 0 = lobby
+   short mX;       // 0 = outide the building
    Location ()
    {
       clear ();   // any time this structure is instantiated, clear the inner data
    }
    void clear()
    {
-      m_Route = -1;
-      m_Building = 0;
-      m_Level = 0;
-      m_X = 0;
+      mRoute = -1;
+      mBuilding = 0;
+      mLevel = 0;
+      mX = 0;
    }
 };
 
@@ -48,7 +48,7 @@ struct Path // this could have been a list<T> but it would slow this high traffi
 {
    short size;   // elements in play at this time
    short index;  // the current position of the person in the array.
-   Location m_PathList[8]; // the max is 4 or so transistions a person cares to make.
+   Location mPathList[8]; // the max is 4 or so transistions a person cares to make.
    Path()
    {
       clear();
@@ -57,12 +57,12 @@ struct Path // this could have been a list<T> but it would slow this high traffi
    {
       for (int idx = 0; idx < 8; ++idx )
       {
-         m_PathList[idx].clear();
+         mPathList[idx].clear();
       }
    }
 };
 
-class C_Person
+class Person
 {
 public:
    // enumerations
@@ -120,57 +120,57 @@ public:
    };
 
 private:
-   Location       m_Location;
-   Path           m_WorkPath;    // To and from work, stays permanant as long as working.
+   Location       mLocation;
+   Path           mWorkPath;    // To and from work, stays permanant as long as working.
    // Changes if they change jobs or the business goes bust.
-   Path           m_OtherPath;   // To and from other activities when they go shopping etc.
+   Path           mOtherPath;   // To and from other activities when they go shopping etc.
    // Changes almost daily
-   Health_State   m_Health;
-   Mood_State     m_Mood;
-   Activity_State m_Activity;
-   Current_State  m_CurrentState;// Covers busy, waiting, walking, riding.
-   int            m_Occupation;  // school and retired are valid occupations
+   Health_State   mHealth;
+   Mood_State     mMood;
+   Activity_State mActivity;
+   Current_State  mCurrentState;// Covers busy, waiting, walking, riding.
+   int            mOccupation;  // school and retired are valid occupations
    // not set on if this will be a class or enum
 
-   int            m_Home;        // Where's the Crib
+   int            mHome;        // Where's the Crib
 public:
    // CTOR/DTOR
-   C_Person (Location& loc);    // x is their starting point, usually in the lobby.
-   virtual ~C_Person (void);
+   Person (Location& loc);    // x is their starting point, usually in the lobby.
+   virtual ~Person (void);
 
    // Properties
    Path& get_WorkPath()    // this gets called to fill and route to and from work.
    {
-      return m_WorkPath;
+      return mWorkPath;
    }
    Path& get_OtherPath()   // this gets called to fill, move the person and alternate checking paths.
    {
-      return m_OtherPath;
+      return mOtherPath;
    }
 
    Activity_State get_Activity () // inline for faster access, same isolation, just quicker code.
    {
-      return m_Activity;
+      return mActivity;
    }
    void set_Activity (Activity_State state )
    {
-      m_Activity = state;
+      mActivity = state;
    }
    Current_State get_CurrentState () // inline for faster access, same isolation, just quicker code.
    {
-      return m_CurrentState;
+      return mCurrentState;
    }
    void set_CurrentState (Current_State state )
    {
-      m_CurrentState = state;
+      mCurrentState = state;
    }
    void set_Occupation( int occ )
    {
-      m_Occupation = occ;
+      mOccupation = occ;
    }
    Location& get_Location()
    {
-      return m_Location;
+      return mLocation;
    }
 
    // Implementation

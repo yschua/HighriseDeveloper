@@ -4,17 +4,17 @@
 
 using namespace std;
 
-class C_HighriseException :
+class HighriseException :
          public std::exception
 {
-   std::string m_Message;
+   std::string mMessage;
 public:
-   C_HighriseException( const char* message );
-   ~C_HighriseException (void) throw ();
+   HighriseException( const char* message );
+   ~HighriseException (void) throw ();
 
    string& get_Message()
    {
-      return m_Message;
+      return mMessage;
    }
 };
 

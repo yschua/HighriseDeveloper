@@ -18,29 +18,29 @@
 
 using namespace Gfx;
 
-C_Lobby::C_Lobby (int x, int x2, int level, C_Tower * TowerParent)
-      :   C_level ( level, TowerParent )
+Lobby::Lobby (int x, int x2, int level, Tower * TowerParent)
+      :   Level ( level, TowerParent )
 {
-   m_x2 = x2;
-   m_x = x;
+   mx2 = x2;
+   mx = x;
    ImageManager * images = ImageManager::GetInstance ();
    cam = Camera::GetInstance ();
-   tile = new Tiler (images->GetImg("lobby.png"), Tiler::Horizontal, x, x2, m_y);
-   m_fire_escape_l->SetPosition (m_x - 56, m_y);
-   m_fire_escape_r->SetPosition (m_x2, m_y);
-   std::cout << "New lobby at " << m_x << " to " << m_x2 << " Y level " << m_y << std::endl;
+   tile = new Tiler (images->GetImg("lobby.png"), Tiler::Horizontal, x, x2, my);
+   mfire_escape_l->SetPosition (mx - 56, my);
+   mfire_escape_r->SetPosition (mx2, my);
+   std::cout << "New lobby at " << mx << " to " << mx2 << " Y level " << my << std::endl;
 }
 
 void
-C_Lobby::Update (float dt)
+Lobby::Update (float dt)
 {
 
 }
 
 void
-C_Lobby::Draw ()
+Lobby::Draw ()
 {
    cam->Draw (*tile);
-   cam->Draw (*m_fire_escape_l);
-   cam->Draw (*m_fire_escape_r);
+   cam->Draw (*mfire_escape_l);
+   cam->Draw (*mfire_escape_r);
 }

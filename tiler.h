@@ -20,10 +20,10 @@
 class Tiler
 {
 private:
-   bool m_ClipMode;
-   int m_X, m_X2, m_Y;
-   int m_ImageSizeX, m_ImageSizeY;
-   sf::Image * m_frame;
+   bool mClipMode;
+   int mX, mX2, mY;
+   int mImageSizeX, mImageSizeY;
+   sf::Image * mframe;
 
 public:
    enum draw_direction
@@ -31,13 +31,13 @@ public:
       Horizontal,
       Vertical
    };
-   draw_direction m_direction;
+   draw_direction mdirection;
    Tiler (sf::Image * image, draw_direction direction, int x, int x2, int y);
    void CalcPos ();
    void Resize (int x, int x2);
    void SetY (int y);
    void SetImage (sf::Image * image);
-   std::vector <AnimationSingle *> m_Sprites;
+   std::vector <AnimationSingle *> mSprites;
    void SetClipping (bool clipping_mode);
 };
 

@@ -20,45 +20,45 @@
 #ifndef _TOWER_H
 #define _TOWER_H
 
-class C_FloorBase; // aggregate of floor spaces for offices, condos and hotels
-class C_level;
-class C_Elevator;
-class C_TowerAgent;
-class C_Routes;
+class FloorBase; // aggregate of floor spaces for offices, condos and hotels
+class Level;
+class Elevator;
+class TowerAgent;
+class Routes;
 
 
-class C_Tower
+class Tower
 {
-   friend class C_TowerAgent;
+   friend class TowerAgent;
 
 private:
-   int m_TowerNo;
-   int m_No_SubLevels;
+   int mTowerNo;
+   int mNo_SubLevels;
 
-   std::vector<C_level *> m_Levels;     // Lobby is at m_No_SubLevels not zero
-   C_Routes m_Routes;
+   std::vector<Level *> mLevels;     // Lobby is at mNo_SubLevels not zero
+   Routes mRoutes;
 
 public:
    // ctor/dtor
-   C_Tower( int towerNo, int NoSubLevels );
-   ~C_Tower();
+   Tower( int towerNo, int NoSubLevels );
+   ~Tower();
 
    // properties
-   inline C_Routes& GetRoutes()
+   inline Routes& GetRoutes()
    {
-      return m_Routes;  // For routing citizens
+      return mRoutes;  // For routing citizens
    }
 
 protected:
-   inline std::vector<C_level *>& Get_Levels()
+   inline std::vector<Level *>& Get_Levels()
    {
-      return m_Levels;
+      return mLevels;
    }
 
    // implementation
 public:
-   C_level* NewLevel( );
-   C_level* GetLevel( int level ); // positive gets you a level above, negative gets you a basement level
+   Level* NewLevel( );
+   Level* GetLevel( int level ); // positive gets you a level above, negative gets you a basement level
 
 
    void Update (float dt);

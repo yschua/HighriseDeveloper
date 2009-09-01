@@ -16,152 +16,152 @@
 
 #include "highrisedev.h"
 
-C_Body::C_Body ()
+Body::Body ()
 {
-   m_s.x = 0;
-   m_s.y = 0;
-   m_v.x = 0;
-   m_v.y = 0;
-   m_a.x = 0;
-   m_a.y = 0;
+   ms.x = 0;
+   ms.y = 0;
+   mv.x = 0;
+   mv.y = 0;
+   ma.x = 0;
+   ma.y = 0;
 }
 
-C_Body::C_Body (float x, float y)
+Body::Body (float x, float y)
 {
-   m_s.x = x;
-   m_s.y = y;
-   m_v.x = 0;
-   m_v.y = 0;
-   m_a.x = 0;
-   m_a.y = 0;
-}
-
-float
-C_Body::GetPositionX ()
-{
-   return m_s.x;
+   ms.x = x;
+   ms.y = y;
+   mv.x = 0;
+   mv.y = 0;
+   ma.x = 0;
+   ma.y = 0;
 }
 
 float
-C_Body::GetPositionY ()
+Body::GetPositionX ()
 {
-   return m_s.y;
+   return ms.x;
 }
 
 float
-C_Body::GetVelocityX ()
+Body::GetPositionY ()
 {
-   return m_v.x;
+   return ms.y;
 }
 
 float
-C_Body::GetVelocityY ()
+Body::GetVelocityX ()
 {
-   return m_v.y;
+   return mv.x;
 }
 
 float
-C_Body::GetAccelerationX ()
+Body::GetVelocityY ()
 {
-   return m_a.x;
+   return mv.y;
 }
 
 float
-C_Body::GetAccelerationY ()
+Body::GetAccelerationX ()
 {
-   return m_a.y;
+   return ma.x;
+}
+
+float
+Body::GetAccelerationY ()
+{
+   return ma.y;
 }
 
 void
-C_Body::DebugPrint ()
+Body::DebugPrint ()
 {
-   std::cout << "Body: Position " << m_s.x << " , " << m_s.y << std::endl
-             << "Velocity " << m_v.x << " , " << m_v.y << std::endl
-             << "Acceleration " << m_a.x << " , " << m_a.y << std::endl;
+   std::cout << "Body: Position " << ms.x << " , " << ms.y << std::endl
+             << "Velocity " << mv.x << " , " << mv.y << std::endl
+             << "Acceleration " << ma.x << " , " << ma.y << std::endl;
 }
 
 void
-C_Body::SetPosition (float x, float y)
+Body::SetPosition (float x, float y)
 {
-   m_s.x = x;
-   m_s.y = y;
+   ms.x = x;
+   ms.y = y;
 }
 
 void
-C_Body::SetVelocity (float x, float y)
+Body::SetVelocity (float x, float y)
 {
-   m_v.x = x;
-   m_v.y = y;
+   mv.x = x;
+   mv.y = y;
 }
 
 void
-C_Body::MoveTo (float x, float y, float time)
+Body::MoveTo (float x, float y, float time)
 {
-   m_IsMoving = true;
-   m_Time = 0.0;
-   m_TimeTotal += time;
-   m_MoveDest.x = x;
-   m_MoveDest.y = y;
-   float dist_x = x - m_s.x;
-   float dist_y = y - m_s.y;
+   mIsMoving = true;
+   mTime = 0.0;
+   mTimeTotal += time;
+   mMoveDest.x = x;
+   mMoveDest.y = y;
+   float dist_x = x - ms.x;
+   float dist_y = y - ms.y;
    if (dist_x == 0)
    {
-      m_v.x = 0;
-      m_a.x = 0;
+      mv.x = 0;
+      ma.x = 0;
    }
    else
    {
-      m_v.x = (2 * dist_x) / time;
-      m_a.x = -(m_v.x * m_v.x) / (2 * dist_x);
+      mv.x = (2 * dist_x) / time;
+      ma.x = -(mv.x * mv.x) / (2 * dist_x);
    }
    if (dist_y == 0)
    {
-      m_v.y = 0;
-      m_a.y = 0;
+      mv.y = 0;
+      ma.y = 0;
    }
    else
    {
-      m_v.y = (2 * dist_y) / time;
-      m_a.y = -(m_v.y * m_v.y) / (2 * dist_y);
+      mv.y = (2 * dist_y) / time;
+      ma.y = -(mv.y * mv.y) / (2 * dist_y);
    }
 }
 
 void
-C_Body::SetAcceleration (float x, float y)
+Body::SetAcceleration (float x, float y)
 {
-   m_a.x = x;
-   m_a.y = y;
+   ma.x = x;
+   ma.y = y;
 }
 
 void
-C_Body::Integrate (float dt)
+Body::Integrate (float dt)
 {
    float dt_secs = dt / 1000;
-   m_s.x += m_v.x * dt_secs;
-   m_s.y += m_v.y * dt_secs;
-   m_v.x += m_a.x * dt_secs;
-   m_v.y += m_a.y * dt_secs;
-   if ((m_v.x > -10) && (m_v.x < 10))
+   ms.x += mv.x * dt_secs;
+   ms.y += mv.y * dt_secs;
+   mv.x += ma.x * dt_secs;
+   mv.y += ma.y * dt_secs;
+   if ((mv.x > -10) && (mv.x < 10))
    {
-      m_v.x = 0;
-      m_a.x = 0;
+      mv.x = 0;
+      ma.x = 0;
    }
-   if ((m_v.y > -10) && (m_v.y < 10))
+   if ((mv.y > -10) && (mv.y < 10))
    {
-      m_v.y = 0;
-      m_a.y = 0;
+      mv.y = 0;
+      ma.y = 0;
    }
-   if (m_IsMoving)
+   if (mIsMoving)
    {
-      m_Time += dt;
-      if (m_Time >= m_TimeTotal)
+      mTime += dt;
+      if (mTime >= mTimeTotal)
       {
-         m_s = m_MoveDest;
-         m_IsMoving = false;
-         m_v.x = 0;
-         m_v.y = 0;
-         m_a.x = 0;
-         m_a.y = 0;
+         ms = mMoveDest;
+         mIsMoving = false;
+         mv.x = 0;
+         mv.y = 0;
+         ma.x = 0;
+         ma.y = 0;
       }
    }
 }

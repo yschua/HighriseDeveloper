@@ -22,39 +22,39 @@
 
 // converted from a singleton to a tower based object
 // Now part of Tower
-//C_Routes* C_Routes::m_instance;
+//Routes* Routes::minstance;
 //
-//C_Routes* C_Routes::GetInstance ()
+//Routes* Routes::GetInstance ()
 //{
-//   if (m_instance == NULL)
+//   if (minstance == NULL)
 //   {
-//      m_instance = new C_Routes ();
+//      minstance = new Routes ();
 //   }
-//   return m_instance;
+//   return minstance;
 //}
 
-C_Routes::C_Routes()
+Routes::Routes()
 {
 }
 
-void C_Routes::AddRoute(C_RouteBase* route)
+void Routes::AddRoute(RouteBase* route)
 {
-   m_Routes.push_back( route );
+   mRoutes.push_back( route );
 }
 
-void C_Routes::Update (float dt)
+void Routes::Update (float dt)
 {
-   std::vector<C_RouteBase*>::iterator i;
-   for (i = m_Routes.begin (); i != m_Routes.end (); i++)
+   std::vector<RouteBase*>::iterator i;
+   for (i = mRoutes.begin (); i != mRoutes.end (); i++)
    {
       (*i)->Update( dt );
    }
 }
 
-void C_Routes::Draw ()
+void Routes::Draw ()
 {
-   std::vector<C_RouteBase*>::iterator i;
-   for (i = m_Routes.begin (); i != m_Routes.end (); i++)
+   std::vector<RouteBase*>::iterator i;
+   for (i = mRoutes.begin (); i != mRoutes.end (); i++)
    {
       (*i)->Draw( );
    }

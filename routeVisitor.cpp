@@ -1,9 +1,9 @@
 #include "routeVisitor.h"
 
-C_RouteVisitor::C_RouteVisitor (RoutingRequest* rq, int count) :   m_routingRequest (rq)
+RouteVisitor::RouteVisitor (RoutingRequest* rq, int count) :   mroutingRequest (rq)
 {
 }
 
-C_RouteVisitor::~C_RouteVisitor ()
+RouteVisitor::~RouteVisitor ()
 {
 }

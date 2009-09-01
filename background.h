@@ -20,9 +20,9 @@
 class Background
 {
 private:
-   AnimationSingle * m_BackImage;
-   Tiler * m_BackBuildings;
-   Tiler * m_BackGround;
+   AnimationSingle * mBackImage;
+   Tiler * mBackBuildings;
+   Tiler * mBackGround;
    Camera * cam;
 
 public:

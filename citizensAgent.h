@@ -27,16 +27,16 @@
 #define _CITIZENSAGENT_H
 
 struct Location; // from person
-class C_Person;
-class C_Tower;
+class Person;
+class Tower;
 
-class C_CitizensAgent
+class CitizensAgent
 {
 private:
-//   std::vector<C_Person*> m_People; now using the citizens collection
+//   std::vector<Person*> mPeople; now using the citizens collection
 
 protected:
-   C_Tower& m_Tower; // must have one or more
+   Tower& mTower; // must have one or more
 
 public:
    void Update (float dt);
@@ -44,8 +44,8 @@ public:
    {
       // nothing to draw unless we have set the follow this person flag in the menu. (Much later code).
    };
-   C_CitizensAgent (C_Tower& m_Tower); // use a tower agent for multiple towers
-   virtual ~C_CitizensAgent (void);
+   CitizensAgent (Tower& mTower); // use a tower agent for multiple towers
+   virtual ~CitizensAgent (void);
 };
 
 #endif //_CITIZENSAGENT_H

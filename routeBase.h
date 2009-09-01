@@ -16,14 +16,14 @@
 
 #ifndef _ROUTEBASE_H
 #define _ROUTEBASE_H
-class C_RouteVisitor;
+class RouteVisitor;
 
-class C_RouteBase // Abstract, does not even have a CPP file at this point.
+class RouteBase // Abstract, does not even have a CPP file at this point.
 {
 
 public:
-   C_RouteBase() {};
-   virtual void SetRoute( C_RouteVisitor* visitor ) = 0;
+   RouteBase() {};
+   virtual void SetRoute( RouteVisitor* visitor ) = 0;
    virtual void Update (float dt) = 0;
    virtual void Draw () = 0;
 };

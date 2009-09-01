@@ -18,64 +18,64 @@
 
 using namespace Gfx;
 
-C_level::C_level (int level, C_Tower * TowerParent)
-:  m_level (level)
-,  m_TowerParent (TowerParent)
+Level::Level (int level, Tower * TowerParent)
+:  mlevel (level)
+,  mTowerParent (TowerParent)
 {
-   m_y = (Camera::GetInstance()->GetWorldY () ) - (m_level * 36);
-   m_x = Camera::GetInstance()->GetWorldX ();
-   m_x2 = 0;
+   my = (Camera::GetInstance()->GetWorldY () ) - (mlevel * 36);
+   mx = Camera::GetInstance()->GetWorldX ();
+   mx2 = 0;
    if (level < 0)
    {
-      m_fire_escape_l = new AnimationSingle (ImageManager::GetInstance()->GetImg("foundation.png"));
-      m_fire_escape_r = new AnimationSingle (ImageManager::GetInstance()->GetImg("foundation.png"));
+      mfire_escape_l = new AnimationSingle (ImageManager::GetInstance()->GetImg("foundation.png"));
+      mfire_escape_r = new AnimationSingle (ImageManager::GetInstance()->GetImg("foundation.png"));
    }
    else if (level > 0)
    {
-      m_fire_escape_l = new AnimationSingle (ImageManager::GetInstance()->GetImg("fire_escape_l.png"));
-      m_fire_escape_r = new AnimationSingle (ImageManager::GetInstance()->GetImg("fire_escape_r.png"));
+      mfire_escape_l = new AnimationSingle (ImageManager::GetInstance()->GetImg("fire_escape_l.png"));
+      mfire_escape_r = new AnimationSingle (ImageManager::GetInstance()->GetImg("fire_escape_r.png"));
    }
    else
    {
-      m_fire_escape_l = new AnimationSingle (ImageManager::GetInstance()->GetImg("awn_left.png"));
-      m_fire_escape_r = new AnimationSingle (ImageManager::GetInstance()->GetImg("awn_right.png"));
+      mfire_escape_l = new AnimationSingle (ImageManager::GetInstance()->GetImg("awn_left.png"));
+      mfire_escape_r = new AnimationSingle (ImageManager::GetInstance()->GetImg("awn_right.png"));
    }
 }
 
 void
-C_level::AddFloor (C_FloorBase * floor)
+Level::AddFloor (FloorBase * floor)
 {
-   m_floors.push_back (floor);
-   if (floor->m_x < m_x)
-      m_x = floor->m_x;
-   if (floor->m_x2 > m_x2)
-      m_x2 = floor->m_x2;
-   if ( m_level < 0 )
+   mfloors.push_back (floor);
+   if (floor->mx < mx)
+      mx = floor->mx;
+   if (floor->mx2 > mx2)
+      mx2 = floor->mx2;
+   if ( mlevel < 0 )
    {
-      m_fire_escape_l->SetPosition (m_x - 9, m_y); // pour some concrete
-      m_fire_escape_r->SetPosition (m_x2, m_y);
+      mfire_escape_l->SetPosition (mx - 9, my); // pour some concrete
+      mfire_escape_r->SetPosition (mx2, my);
    }
    else
    {
-      m_fire_escape_l->SetPosition (m_x - 24, m_y);
-      m_fire_escape_r->SetPosition (m_x2, m_y);
+      mfire_escape_l->SetPosition (mx - 24, my);
+      mfire_escape_r->SetPosition (mx2, my);
    }
 }
 
 void
-C_level::Update (float dt)
+Level::Update (float dt)
 {
-   std::vector<C_FloorBase *>::iterator i;
-   for (i = m_floors.begin (); i != m_floors.end (); i++)
+   std::vector<FloorBase *>::iterator i;
+   for (i = mfloors.begin (); i != mfloors.end (); i++)
       (*i)->Update (dt);
 }
 
 void
-C_level::Draw ()
+Level::Draw ()
 {
-   std::vector<C_FloorBase *>::iterator i;
-   for (i = m_floors.begin (); i != m_floors.end (); i++)
+   std::vector<FloorBase *>::iterator i;
+   for (i = mfloors.begin (); i != mfloors.end (); i++)
       (*i)->Draw ();
-   Camera::GetInstance()->Draw (*m_fire_escape_l);
-   Camera::GetInstance()->Draw (*m_fire_escape_r);
+   Camera::GetInstance()->Draw (*mfire_escape_l);
+   Camera::GetInstance()->Draw (*mfire_escape_r);
 }

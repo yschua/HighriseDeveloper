@@ -22,18 +22,18 @@
 #include "floorBase.h"
 #include "floorAgent.h"
 
-C_FloorAgent::C_FloorAgent ( C_level* level )
-      :  m_Level( level )
+FloorAgent::FloorAgent ( Level* level )
+      :  mLevel( level )
 {
 
 }
 
-C_FloorAgent::~C_FloorAgent ()
+FloorAgent::~FloorAgent ()
 {
 
 }
 
-bool C_FloorAgent::findSpace (Location& origin)
+bool FloorAgent::findSpace (Location& origin)
 {
    return true;
 }

@@ -29,24 +29,24 @@ main ()
    cam->SetMaxFramerate (60);
    cam->Create ("test");
    sf::Event event;
-   C_Elevator* pElevator;
+   Elevator* pElevator;
    Background * pBackground;
-   C_Tower theTower (1, 10); // numero uno with 10 sub levels
-   C_CitizensAgent People( theTower ); // known tower, later this will be a tower list for mutiple towers
+   Tower theTower (1, 10); // numero uno with 10 sub levels
+   CitizensAgent People( theTower ); // known tower, later this will be a tower list for mutiple towers
    Interface* interface = new Interface();
 
    try
    {
       // stuffing the floors with test spaces
-      C_office* my_office = new C_office(400, 1, &theTower);
-      C_office* my_office2 = new C_office (400, 2, &theTower);
-      C_office* my_office3 = new C_office (472, 1, &theTower);
-      C_office* my_office4 = new C_office (472, 2, &theTower);
-      C_office* my_office5 = new C_office (544, 1, &theTower);
-      C_office* my_office6 = new C_office (544, 2, &theTower);
-      C_office* my_office7 = new C_office (400, 3, &theTower);
-      C_office* my_office8 = new C_office (472, 3, &theTower);
-      C_office* my_office9 = new C_office (544, 3, &theTower);
+      office* my_office = new office(400, 1, &theTower);
+      office* my_office2 = new office (400, 2, &theTower);
+      office* my_office3 = new office (472, 1, &theTower);
+      office* my_office4 = new office (472, 2, &theTower);
+      office* my_office5 = new office (544, 1, &theTower);
+      office* my_office6 = new office (544, 2, &theTower);
+      office* my_office7 = new office (400, 3, &theTower);
+      office* my_office8 = new office (472, 3, &theTower);
+      office* my_office9 = new office (544, 3, &theTower);
 
       Apartment* my_apt1 = new Apartment (400, 4, &theTower);
       Apartment* my_apt2 = new Apartment (472, 4, &theTower);
@@ -54,14 +54,14 @@ main ()
       Apartment* my_apt4 = new Apartment (472, 5, &theTower);
       Apartment* my_apt5 = new Apartment (544, 5, &theTower);
 
-      C_office* my_basement = new C_office (400, -1, &theTower);
+      office* my_basement = new office (400, -1, &theTower);
 
-      C_level* sublevel = theTower.GetLevel(-1);
-      C_level* level_1 = theTower.NewLevel();
-      C_level* level_2 = theTower.NewLevel();
-      C_level* level_3 = theTower.NewLevel();
-      C_level* level_4 = theTower.NewLevel();
-      C_level* level_5 = theTower.NewLevel();
+      Level* sublevel = theTower.GetLevel(-1);
+      Level* level_1 = theTower.NewLevel();
+      Level* level_2 = theTower.NewLevel();
+      Level* level_3 = theTower.NewLevel();
+      Level* level_4 = theTower.NewLevel();
+      Level* level_5 = theTower.NewLevel();
       level_1->AddFloor (my_office);
       level_1->AddFloor (my_office3);
       level_1->AddFloor (my_office5);
@@ -80,9 +80,9 @@ main ()
 
       interface = new Interface ();
 
-      pElevator = new C_Elevator( C_Elevator::LS_Standard, 472, -1, 6, &theTower );
+      pElevator = new Elevator( Elevator::LS_Standard, 472, -1, 6, &theTower );
       theTower.GetRoutes().AddRoute( pElevator );
-      pElevator = new C_Elevator( C_Elevator::LS_Standard, 472 + 36 + 9, -1, 5, &theTower );
+      pElevator = new Elevator( Elevator::LS_Standard, 472 + 36 + 9, -1, 5, &theTower );
       theTower.GetRoutes().AddRoute( pElevator );
       pBackground = new Background ();
 
@@ -110,23 +110,23 @@ main ()
             {
                if (event.Key.Code == sf::Key::A)
                {
-                  cam->m_v.x = -200;
-                  cam->m_a.x = 150;
+                  cam->mv.x = -200;
+                  cam->ma.x = 150;
                }
                if (event.Key.Code == sf::Key::S)
                {
-                  cam->m_v.y = 200;
-                  cam->m_a.y = -150;
+                  cam->mv.y = 200;
+                  cam->ma.y = -150;
                }
                if (event.Key.Code == sf::Key::D)
                {
-                  cam->m_v.x = 200;
-                  cam->m_a.x = -150;
+                  cam->mv.x = 200;
+                  cam->ma.x = -150;
                }
                if (event.Key.Code == sf::Key::W)
                {
-                  cam->m_v.y = -200;
-                  cam->m_a.y = 150;
+                  cam->mv.y = -200;
+                  cam->ma.y = 150;
                }
                if (event.Key.Code == sf::Key::E)
                {
@@ -161,7 +161,7 @@ main ()
          People.Update( 40 );
       }
    }
-   catch ( C_HighriseException* ex )
+   catch ( HighriseException* ex )
    {
       std::cout << "Exception caught in main: " << ex->get_Message();
    }

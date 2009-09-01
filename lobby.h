@@ -20,9 +20,9 @@
 class Tiler;
 class AnimationSingle;
 class Camera;
-class C_level;
+class level;
 
-class C_Lobby : public C_level // make lobby a level in itself
+class Lobby : public Level // make lobby a level in itself
 {
 private:
    Tiler * tile;
@@ -33,7 +33,7 @@ private:
 public:
    void Update (float dt);
    void Draw ();
-   C_Lobby (int x, int x2, int level, C_Tower * TowerParent);
+   Lobby (int x, int x2, int level, Tower * TowerParent);
 };
 
 #endif

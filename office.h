@@ -23,19 +23,19 @@ enum office_state
    s_occupied_day
 };
 
-class C_office : public C_FloorBase
+class office : public FloorBase
 {
 private:
    office_state unoccupied_day (float dt);
    office_state occupied_day (float dt);
-   std::map<office_state, Animation *> m_animations;
-   office_state m_current_state;
-   int m_current_animation;
+   std::map<office_state, Animation *> manimations;
+   office_state mcurrent_state;
+   int mcurrent_animation;
 
 public:
    void Update (float dt);
    void Draw ();
-   C_office (int x, int level, C_Tower * TowerParent);
+   office (int x, int level, Tower * TowerParent);
 };
 
 #endif

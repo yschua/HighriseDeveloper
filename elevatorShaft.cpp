@@ -28,31 +28,31 @@
 
 using namespace Gfx;
 
-C_ElevatorShaft::C_ElevatorShaft ( int x, int topLevel, int bottomLevel, C_Elevator* pElevator )
-      :  C_ElevatorBase( x, bottomLevel, pElevator )
+ElevatorShaft::ElevatorShaft ( int x, int topLevel, int bottomLevel, Elevator* pElevator )
+      :  ElevatorBase( x, bottomLevel, pElevator )
 {
-   m_x = x;
-   m_TopLevel = topLevel;
-   m_BottomLevel = bottomLevel;
+   mx = x;
+   mTopLevel = topLevel;
+   mBottomLevel = bottomLevel;
    ImageManager * images = ImageManager::GetInstance ();
-   m_cam = Camera::GetInstance ();
-   m_ShaftTiler = new Tiler (images->GetImg ("liftshaft.png"), Tiler::Vertical,
-                               m_cam->GetWorldY () - (m_TopLevel * 36),
-                               m_cam->GetWorldY () - ((m_BottomLevel - 1) * 36), m_x );
+   mcam = Camera::GetInstance ();
+   mShaftTiler = new Tiler (images->GetImg ("liftshaft.png"), Tiler::Vertical,
+                               mcam->GetWorldY () - (mTopLevel * 36),
+                               mcam->GetWorldY () - ((mBottomLevel - 1) * 36), mx );
 }
 
-C_ElevatorShaft::~C_ElevatorShaft()
+ElevatorShaft::~ElevatorShaft()
 {
 }
 
 void
-C_ElevatorShaft::Update (float dt)
+ElevatorShaft::Update (float dt)
 {
 
 }
 
 void
-C_ElevatorShaft::Draw ()
+ElevatorShaft::Draw ()
 {
-   m_cam->Draw (*m_ShaftTiler);
+   mcam->Draw (*mShaftTiler);
 }

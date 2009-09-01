@@ -21,33 +21,33 @@
 #define _CITIZENS_H
 
 struct Location; // from person
-class C_Person;
-class C_CitizensAgent;
+class Person;
+class CitizensAgent;
 
-class C_Citizens // : public C_Storage // add the serialization base
+class Citizens // : public Storage // add the serialization base
 {
-   friend class C_CitizensAgent;
+   friend class CitizensAgent;
 private:
-   std::list <C_Person*> m_People;  // reverted back to a list as we will only use a forward iterator
+   std::list <Person*> mPeople;  // reverted back to a list as we will only use a forward iterator
 protected:
-   static C_Citizens* m_instance;
+   static Citizens* minstance;
 
-   C_Citizens();
-   virtual ~C_Citizens(void);
+   Citizens();
+   virtual ~Citizens(void);
 
 public:
    // instance
-   static C_Citizens* get_Instance();
+   static Citizens* get_Instance();
    void destroy();
    // properties
-   std::list <C_Person*>& get_Persons()
+   std::list <Person*>& get_Persons()
    {
-      return m_People;
+      return mPeople;
    }
 
    // methods
-   C_Person* NewPerson();
-   void DestroyPerson( C_Person* person );
+   Person* NewPerson();
+   void DestroyPerson( Person* person );
 
    void Update (float dt);
    void Draw() {}; // nothing to draw unless we draw the people here

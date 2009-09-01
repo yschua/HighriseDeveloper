@@ -21,14 +21,14 @@
 
 struct Location;
 
-class C_FloorAgent
+class FloorAgent
 {
 protected:
-   C_level* m_Level;
+   Level* mLevel;
 
 public:
-   C_FloorAgent ( C_level* level );
-   ~C_FloorAgent ( );
+   FloorAgent ( Level* level );
+   ~FloorAgent ( );
    bool findSpace (Location& origin);
 };
 

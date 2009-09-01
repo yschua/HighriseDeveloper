@@ -19,12 +19,12 @@
 
 #include "elevatorBase.h"
 
-class C_Elevator;
-class C_FloorBase;
+class Elevator;
+class FloorBase;
 class Camera;
 class Animation;
 
-class C_ElevatorMachine : public C_ElevatorBase
+class ElevatorMachine : public ElevatorBase
 {
 public:
    enum ElevatorMachine_State
@@ -34,21 +34,21 @@ public:
       LMS_Up = 2
    };
 private:
-   ElevatorMachine_State m_State; // Controls this things motion
+   ElevatorMachine_State mState; // Controls this things motion
 
 protected:
-   short m_Direction;
-   short m_ImageFrame;
-   short m_LastFrame;
-   short m_FirstFrame;
-   Animation* m_LifterAnimation;
-   Camera* m_cam;;
+   short mDirection;
+   short mImageFrame;
+   short mLastFrame;
+   short mFirstFrame;
+   Animation* mLifterAnimation;
+   Camera* mcam;;
 
 
 public:
    // CTOR/DTOR
-   C_ElevatorMachine( int x, int level, C_Elevator* pElevator );
-   virtual ~C_ElevatorMachine();
+   ElevatorMachine( int x, int level, Elevator* pElevator );
+   virtual ~ElevatorMachine();
 
    // Implemantation
    void pos_calc ();

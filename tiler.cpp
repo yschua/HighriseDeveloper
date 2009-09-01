@@ -18,47 +18,47 @@
 
 Tiler::Tiler (sf::Image * image, draw_direction direction, int x, int x2, int y)
 {
-   m_ClipMode = true;
-   m_frame = image;
-   m_X = x;
-   m_X2 = x2;
-   m_Y = y;
-   m_ImageSizeX = m_frame->GetWidth();
-   m_ImageSizeY = m_frame->GetHeight();
+   mClipMode = true;
+   mframe = image;
+   mX = x;
+   mX2 = x2;
+   mY = y;
+   mImageSizeX = mframe->GetWidth();
+   mImageSizeY = mframe->GetHeight();
 
-   if ( (m_ImageSizeY * m_ImageSizeX) == 0 )
-      throw new C_HighriseException( "Missing image file" );
+   if ( (mImageSizeY * mImageSizeX) == 0 )
+      throw new HighriseException( "Missing image file" );
 
    if (direction == Horizontal)
    {
-      unsigned int tiled_num = (unsigned int) ((x2 - x) / m_ImageSizeX);
-      int part = (int) ((tiled_num * m_ImageSizeX) + x);
+      unsigned int tiled_num = (unsigned int) ((x2 - x) / mImageSizeX);
+      int part = (int) ((tiled_num * mImageSizeX) + x);
       for ( unsigned int i = 0; i <= tiled_num; i++)
       {
-         AnimationSingle * new_tiler_part = new AnimationSingle (m_frame);
-         m_Sprites.push_back (new_tiler_part);
-         new_tiler_part->SetPosition ((float)(m_X + (i * m_ImageSizeX)), (float)m_Y);
+         AnimationSingle * new_tiler_part = new AnimationSingle (mframe);
+         mSprites.push_back (new_tiler_part);
+         new_tiler_part->SetPosition ((float)(mX + (i * mImageSizeX)), (float)mY);
       }
-      if (m_ClipMode)
+      if (mClipMode)
       {
-         AnimationSingle * end = m_Sprites[m_Sprites.size()-1];
-         end->SetSubRect (0, 0, x2 - part, m_ImageSizeY);
+         AnimationSingle * end = mSprites[mSprites.size()-1];
+         end->SetSubRect (0, 0, x2 - part, mImageSizeY);
       }
    }
    else
    {
-      unsigned int tiled_num = (unsigned int) ((x2 - x) / m_ImageSizeY);
-      int part = (int) ((tiled_num * m_ImageSizeY) + x);
+      unsigned int tiled_num = (unsigned int) ((x2 - x) / mImageSizeY);
+      int part = (int) ((tiled_num * mImageSizeY) + x);
       for ( unsigned int i = 0; i <= tiled_num; i++)
       {
-         AnimationSingle * new_tiler_part = new AnimationSingle (m_frame);
-         m_Sprites.push_back (new_tiler_part);
-         new_tiler_part->SetPosition ((float)m_Y, (float)(m_X + (i * m_ImageSizeY)));
+         AnimationSingle * new_tiler_part = new AnimationSingle (mframe);
+         mSprites.push_back (new_tiler_part);
+         new_tiler_part->SetPosition ((float)mY, (float)(mX + (i * mImageSizeY)));
       }
-      if (m_ClipMode)
+      if (mClipMode)
       {
-         AnimationSingle * end = m_Sprites[m_Sprites.size()-1];
-         end->SetSubRect (0, 0, m_ImageSizeX, x2 - part);
+         AnimationSingle * end = mSprites[mSprites.size()-1];
+         end->SetSubRect (0, 0, mImageSizeX, x2 - part);
       }
    }
 }
@@ -66,5 +66,5 @@ Tiler::Tiler (sf::Image * image, draw_direction direction, int x, int x2, int y)
 void
 Tiler::SetClipping (bool clipping_mode)
 {
-   m_ClipMode = clipping_mode;
+   mClipMode = clipping_mode;
 }

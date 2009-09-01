@@ -18,24 +18,24 @@
 #define _LEVEL_H
 
 class AnimationSingle;
-class C_FloorBase;
-class C_Tower;
+class FloorBase;
+class Tower;
 
-class C_level
+class Level
 {
 private:
-   std::vector<C_FloorBase *> m_floors;
-   C_Tower * m_TowerParent;
+   std::vector<FloorBase *> mfloors;
+   Tower * mTowerParent;
 
 protected:
-   int m_level;
-   int m_x, m_x2, m_y;
-   AnimationSingle * m_fire_escape_l;
-   AnimationSingle * m_fire_escape_r;
+   int mlevel;
+   int mx, mx2, my;
+   AnimationSingle * mfire_escape_l;
+   AnimationSingle * mfire_escape_r;
 
 public:
-   C_level (int level, C_Tower * TowerParent);
-   void AddFloor (C_FloorBase * floor);
+   Level (int level, Tower * TowerParent);
+   void AddFloor (FloorBase * floor);
    virtual void Update (float dt);
    virtual void Draw ();
 };

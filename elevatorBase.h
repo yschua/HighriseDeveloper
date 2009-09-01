@@ -17,22 +17,22 @@
 #ifndef _ELEVATORBASE_H
 #define _ELEVATORBASE_H
 
-class C_Elevator;
+class Elevator;
 
-class C_ElevatorBase
+class ElevatorBase
 {
 protected:
 
-   int m_x;
-   int m_y;
-   short m_Level;
-   C_Elevator* m_pParent;
+   int mx;
+   int my;
+   short mLevel;
+   Elevator* mpParent;
 
 
 public:
    // CTOR/DTOR
-   C_ElevatorBase(  int x, int level, C_Elevator* pElevator );
-   virtual ~C_ElevatorBase( );
+   ElevatorBase(  int x, int level, Elevator* pElevator );
+   virtual ~ElevatorBase( );
 
    // Implemantation
    void pos_calc ();

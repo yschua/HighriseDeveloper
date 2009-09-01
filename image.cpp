@@ -19,54 +19,54 @@ using namespace Gfx;
 
 namespace Gfx {
 
-Gfx::ImageManager * ImageManager::m_instance = NULL;
+Gfx::ImageManager * ImageManager::minstance = NULL;
 
 ImageManager::ImageManager ()
-      :   m_path_prefix ("data/")
+      :   mpath_prefix ("data/")
 {
 }
 
 ImageManager *
 ImageManager::GetInstance ()
 {
-   if (m_instance == NULL)
+   if (minstance == NULL)
    {
-      m_instance = new ImageManager ();
+      minstance = new ImageManager ();
    }
-   return m_instance;
+   return minstance;
 }
 
 void
 ImageManager::set_path (const std::string & prefix)
 {
-   m_path_prefix = prefix;
+   mpath_prefix = prefix;
 }
 
 sf::Image *
 ImageManager::GetImg (const std::string & name)
 {
-   if (m_images[name] == NULL)
+   if (mimages[name] == NULL)
    {
       sf::Image * temp;
       temp = new sf::Image;
-      std::cout << "Loading file " << m_path_prefix + name << std::endl;
-      temp->LoadFromFile (m_path_prefix + name);
-      m_images[name] = temp;
+      std::cout << "Loading file " << mpath_prefix + name << std::endl;
+      temp->LoadFromFile (mpath_prefix + name);
+      mimages[name] = temp;
       return temp;
    }
    std::cout << "Using preloaded file " << name << std::endl;
-   return m_images[name];
+   return mimages[name];
 }
 
 int
 ImageManager::preload_image (const std::string & name)
 {
-   if (m_images[name] == NULL)
+   if (mimages[name] == NULL)
    {
       sf::Image * temp;
       temp = new sf::Image;
-      temp->LoadFromFile (m_path_prefix + name);
-      m_images[name] = temp;
+      temp->LoadFromFile (mpath_prefix + name);
+      mimages[name] = temp;
       return 1;
    }
    return 0;

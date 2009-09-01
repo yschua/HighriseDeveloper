@@ -25,81 +25,81 @@
 
 #include "citizens.h"
 
-C_Citizens* C_Citizens::m_instance = NULL;
+Citizens* Citizens::minstance = NULL;
 
-C_Citizens* C_Citizens::get_Instance()
+Citizens* Citizens::get_Instance()
 {
-   if (m_instance == NULL)
+   if (minstance == NULL)
    {
-      m_instance = new C_Citizens();
+      minstance = new Citizens();
    }
-   return m_instance;
+   return minstance;
 }
-void C_Citizens::destroy() // clear out the city
+void Citizens::destroy() // clear out the city
 {
    try
    {
-      if (m_instance != NULL)
+      if (minstance != NULL)
       {
-         delete m_instance;
+         delete minstance;
       }
-      m_instance = NULL;
+      minstance = NULL;
    }
-   catch ( C_HighriseException* ex )
+   catch ( HighriseException* ex )
    {
-      m_instance = NULL;
+      minstance = NULL;
       throw ex;            // pass on app generated exception
    }
    catch (...)
    {
-      throw new C_HighriseException( "Error in cleaning up the Citezens collection" );
+      throw new HighriseException( "Error in cleaning up the Citezens collection" );
    }
 }
 
-C_Citizens::C_Citizens()
+Citizens::Citizens()
 {
 
 }
 
-C_Citizens::~C_Citizens()
+Citizens::~Citizens()
 {
-   std::cout << "Cleaning up C_Citizens";
+   std::cout << "Cleaning up Citizens";
    try
    {
-      std::list<C_Person *>::iterator i;
-      for (i = m_People.begin (); i != m_People.end (); i++)
+      std::list<Person *>::iterator i;
+      for (i = mPeople.begin (); i != mPeople.end (); i++)
       {
-         C_Person* peep = (*i);
+         Person* peep = (*i);
          delete peep;
       }
    }
    catch (...)
    {
-      throw new C_HighriseException( "Error in Citezens destructor" );
+      throw new HighriseException( "Error in Citezens destructor" );
    }
 }
 
-void C_Citizens::Update (float dt)
+void Citizens::Update (float dt)
 {
 }
 
-C_Person* C_Citizens::NewPerson()
+Person* Citizens::NewPerson()
 {
    Location loc;
-   C_Person* person = new C_Person( loc );
-   m_People.push_back (person);
+   Person* person = new Person( loc );
+   mPeople.push_back (person);
    return person;
 }
 
-void C_Citizens::DestroyPerson( C_Person* person )
+void Citizens::DestroyPerson( Person* person )
 {
-   std::list<C_Person *>::iterator i;
-   for (i = m_People.begin (); i != m_People.end (); i++)
+   std::list<Person *>::iterator i;
+   for (i = mPeople.begin (); i != mPeople.end (); i++)
    {
-      C_Person* peep = (*i);
+      Person* peep = (*i);
       if (peep == person)
       {
-         m_People.remove(peep);
+         mPeople.remove(peep);
          delete peep;
       }
    }

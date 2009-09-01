@@ -19,7 +19,7 @@
 using namespace Gfx;
 
 office_state
-C_office::unoccupied_day (float dt)
+office::unoccupied_day (float dt)
 {
    if (rand () % 50 == 3)
       return s_occupied_day;
@@ -27,37 +27,37 @@ C_office::unoccupied_day (float dt)
 }
 
 office_state
-C_office::occupied_day (float dt)
+office::occupied_day (float dt)
 {
    if (rand () % 50 == 3)
       return s_unoccupied_day;
    return s_occupied_day;
 }
 
-C_office::C_office (int x, int level, C_Tower * TowerParent)
-      :  m_current_state (s_unoccupied_day)
-      ,  C_FloorBase (x, x + 72, level, TowerParent)
+office::office (int x, int level, Tower * TowerParent)
+      :  mcurrent_state (s_unoccupied_day)
+      ,  FloorBase (x, x + 72, level, TowerParent)
 {
    ImageManager * image_man = ImageManager::GetInstance ();
-   std::cout << "New office at " << m_x << ", " << m_y << " level " << m_level << std::endl;
-   m_animations[s_occupied_day] = new Animation ();
-   m_animations[s_occupied_day]->AddFrame (image_man->GetImg ("office_o_d_1.png"), 1000);
-   m_animations[s_occupied_day]->AddFrame (image_man->GetImg ("office_o_d_2.png"), 1000);
-   m_animations[s_occupied_day]->AddFrame (image_man->GetImg ("office_o_d_3.png"), 1000);
-   m_animations[s_occupied_day]->AddFrame (image_man->GetImg ("office_o_d_4.png"), 1000);
-   m_animations[s_occupied_day]->AddFrame (image_man->GetImg ("office_o_d_5.png"), 1000);
-   m_animations[s_occupied_day]->SetPosition (m_x, m_y);
-   m_animations[s_unoccupied_day] = new Animation ();
-   m_animations[s_unoccupied_day]->AddFrame (image_man->GetImg ("office_u_d.png"), 1000);
-   m_animations[s_unoccupied_day]->SetPosition (m_x, m_y);
+   std::cout << "New office at " << mx << ", " << my << " level " << mlevel << std::endl;
+   manimations[s_occupied_day] = new Animation ();
+   manimations[s_occupied_day]->AddFrame (image_man->GetImg ("office_o_d_1.png"), 1000);
+   manimations[s_occupied_day]->AddFrame (image_man->GetImg ("office_o_d_2.png"), 1000);
+   manimations[s_occupied_day]->AddFrame (image_man->GetImg ("office_o_d_3.png"), 1000);
+   manimations[s_occupied_day]->AddFrame (image_man->GetImg ("office_o_d_4.png"), 1000);
+   manimations[s_occupied_day]->AddFrame (image_man->GetImg ("office_o_d_5.png"), 1000);
+   manimations[s_occupied_day]->SetPosition (mx, my);
+   manimations[s_unoccupied_day] = new Animation ();
+   manimations[s_unoccupied_day]->AddFrame (image_man->GetImg ("office_u_d.png"), 1000);
+   manimations[s_unoccupied_day]->SetPosition (mx, my);
 }
 
 void
-C_office::Update (float dt)
+office::Update (float dt)
 {
-   m_animations[m_current_state]->Update (dt);
+   manimations[mcurrent_state]->Update (dt);
    office_state new_state;
-   switch (m_current_state)
+   switch (mcurrent_state)
    {
       case s_unoccupied_day :
          new_state = unoccupied_day (dt);
@@ -66,11 +66,11 @@ C_office::Update (float dt)
          new_state = occupied_day (dt);
          break;
    }
-   m_current_state = new_state;
+   mcurrent_state = new_state;
 }
 
 void
-C_office::Draw ()
+office::Draw ()
 {
-   Camera::GetInstance()->Draw (*m_animations[m_current_state]);
+   Camera::GetInstance()->Draw (*manimations[mcurrent_state]);
 }

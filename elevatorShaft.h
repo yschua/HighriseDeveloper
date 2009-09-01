@@ -18,26 +18,26 @@
 #define _ELEVATORSHAFT_H
 
 #include "elevatorBase.h"
-class C_Elevator;
-class C_FloorBase;
+class Elevator;
+class FloorBase;
 class Camera;
 class Tiler;
 
-class C_ElevatorShaft : public C_ElevatorBase
+class ElevatorShaft : public ElevatorBase
 {
 protected:
 
-   short m_TopLevel;
-   short m_BottomLevel; // if these are changed, update the tiler ShaftImages
+   short mTopLevel;
+   short mBottomLevel; // if these are changed, update the tiler ShaftImages
 
    // moved from elevator and changed name to ShaftTiler to show it is a tiler object
-   Tiler * m_ShaftTiler; // temporary to make a nice looking demo :]
-   Camera* m_cam;
+   Tiler * mShaftTiler; // temporary to make a nice looking demo :]
+   Camera* mcam;
 
 public:
    // CTOR/DTOR
-   C_ElevatorShaft( int x, int topLevel, int bottomLevel, C_Elevator* pElevator );
-   virtual ~C_ElevatorShaft( );
+   ElevatorShaft( int x, int topLevel, int bottomLevel, Elevator* pElevator );
+   virtual ~ElevatorShaft( );
 
    // Implemantation
    virtual void Update (float dt);

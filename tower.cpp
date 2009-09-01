@@ -31,66 +31,66 @@
 #include "highrisedev.h"
 #endif
 
-C_Tower::C_Tower( int towerNo, int NoSubLevels )
-      :  m_TowerNo( towerNo )
-      ,  m_No_SubLevels( NoSubLevels )
+Tower::Tower( int towerNo, int NoSubLevels )
+      :  mTowerNo( towerNo )
+      ,  mNo_SubLevels( NoSubLevels )
 {
-   //C_level* maint = new C_level (0);
-   //m_SubLevels.push_back (maint);
+   //level* maint = new level (0);
+   //mSubLevels.push_back (maint);
    int nsubs = -NoSubLevels;
    for (int sub = nsubs; sub < 0; ++sub)
    {
-      C_level* level = new C_level (sub, this);
-      m_Levels.push_back (level);
+      Level* level = new Level (sub, this);
+      mLevels.push_back (level);
    }
-   C_Lobby* lobby = new C_Lobby (370, 640, 0, this);
-   m_Levels.push_back (lobby);
+   Lobby* lobby = new Lobby (370, 640, 0, this);
+   mLevels.push_back (lobby);
 }
 
-C_Tower::~C_Tower( )
+Tower::~Tower( )
 {
 
 }
 
-C_level * C_Tower::NewLevel( )
+Level* Tower::NewLevel( )
 {
-   int level = m_Levels.size() - m_No_SubLevels;
-   C_level* floor = new C_level (level, this);
-   m_Levels.push_back (floor);
+   int level = mLevels.size() - mNo_SubLevels;
+   Level* floor = new Level (level, this);
+   mLevels.push_back (floor);
    return floor;
 }
 
-//C_level* C_Tower::newSubLevel( )
+//level* Tower::newSubLevel( )
 //{
-//   int level = m_Levels.size();
-//   C_level* floor = new C_level( -level);
-//   m_SubLevels.push_back (floor);
+//   int level = mLevels.size();
+//   level* floor = new level( -level);
+//   mSubLevels.push_back (floor);
 //   return floor;
 //}
 
-C_level* C_Tower::GetLevel( int level ) // positive gets you a level above, negative gets you a basement level
+Level* Tower::GetLevel( int level ) // positive gets you a level above, negative gets you a basement level
 {
    // What is the point of all this? Why not just store the levels in an std::map<int, CLevel>?
-   int index = level + m_No_SubLevels;
-   return m_Levels[index];
+   int index = level + mNo_SubLevels;
+   return mLevels[index];
 }
 
-void C_Tower::Update (float dt)
+void Tower::Update (float dt)
 {
-   std::vector<C_level *>::iterator iLevel;
-   for (iLevel = m_Levels.begin (); iLevel != m_Levels.end (); iLevel++)
+   std::vector<Level *>::iterator iLevel;
+   for (iLevel = mLevels.begin (); iLevel != mLevels.end (); iLevel++)
    {
       (*iLevel)->Update( dt );
    }
-   m_Routes.Update( dt );
+   mRoutes.Update( dt );
 }
 
-void C_Tower::Draw ()
+void Tower::Draw ()
 {
-   std::vector<C_level *>::iterator iLevel;
-   for (iLevel = m_Levels.begin (); iLevel != m_Levels.end (); iLevel++)
+   std::vector<Level *>::iterator iLevel;
+   for (iLevel = mLevels.begin (); iLevel != mLevels.end (); iLevel++)
    {
       (*iLevel)->Draw( );
    }
-   m_Routes.Draw();
+   mRoutes.Draw();
 }

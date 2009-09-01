@@ -17,23 +17,23 @@
 #ifndef _ROUTES_H
 #define _ROUTES_H
 
-class C_RouteBase; // aggregate of elevators and stairs
+class RouteBase; // aggregate of elevators and stairs
 
-class C_Routes
+class Routes
 {
 private:
-   std::vector<C_RouteBase *> m_Routes;
-//   static C_Routes* m_instance; no longer static as each tower has it's own routes
+   std::vector<RouteBase *> mRoutes;
+//   static Routes* minstance; no longer static as each tower has it's own routes
 
 public:
-   C_Routes(); // not part of Tower.
+   Routes(); // not part of Tower.
 
-//   static C_Routes* GetInstance ();
-   std::vector<C_RouteBase *>& Get_Routes()
+//   static Routes* GetInstance ();
+   std::vector<RouteBase *>& Get_Routes()
    {
-      return m_Routes;
+      return mRoutes;
    }
-   void AddRoute(C_RouteBase * route);
+   void AddRoute(RouteBase * route);
    void Update (float dt);
    void Draw ();
 };

@@ -34,7 +34,7 @@
 Camera * Camera::mpInstance = NULL;
 
 Camera::Camera ()
-:  m_back_color (0, 0, 0)
+:  mback_color (0, 0, 0)
 {
    mpWindow = new sf::RenderWindow ();
    mpStaticView = &mpWindow->GetDefaultView ();
@@ -50,7 +50,7 @@ Camera::Camera ()
 Vector2i
 Camera::GetMouse ()
 {
-   return m_s + GetLocalMouse();
+   return ms + GetLocalMouse();
 }
 
 Vector2i
@@ -70,25 +70,25 @@ Camera::Zoom (float Factor)
 int
 Camera::GetWorldY ()
 {
-   return m_world_y;
+   return mworld_y;
 }
 
 int
 Camera::GetWorldX ()
 {
-   return m_world_x;
+   return mworld_x;
 }
 
 int
 Camera::GetCamSizeX ()
 {
-   return m_cam_x;
+   return mcamx;
 }
 
 int
 Camera::GetCamSizeY ()
 {
-   return m_cam_y;
+   return mcamy;
 }
 
 void
@@ -100,8 +100,8 @@ Camera::SetMaxFramerate (int rate)
 void
 Camera::SetCamSize (int x, int y)
 {
-   m_cam_x = x;
-   m_cam_y = y;
+   mcamx = x;
+   mcamy = y;
    mpStaticView->SetHalfSize ((float)x/2, (float)y/2);
    mpView->SetHalfSize ((float)x/2, (float)y/2);
 }
@@ -109,8 +109,8 @@ Camera::SetCamSize (int x, int y)
 void
 Camera::SetWorldSize (int x, int y)
 {
-   m_world_x = x;
-   m_world_y = y;
+   mworld_x = x;
+   mworld_y = y;
    mWorldRect.Right = x;
    mWorldRect.Bottom = y;
 }
@@ -118,7 +118,7 @@ Camera::SetWorldSize (int x, int y)
 void
 Camera::Create (const std::string & caption)
 {
-   mpWindow->Create (sf::VideoMode (m_cam_x, m_cam_y, 32), caption);
+   mpWindow->Create (sf::VideoMode (mcamx, mcamy, 32), caption);
 }
 
 Camera*
@@ -144,7 +144,7 @@ Camera::GetInstance()
 void
 Camera::Clear ()
 {
-   mpWindow->Clear (m_back_color);
+   mpWindow->Clear (mback_color);
 }
 
 void
@@ -156,15 +156,15 @@ Camera::Display ()
 void
 Camera::Center (int x, int y)
 {
-   m_s.x = x - (m_cam_x / 2);
-   m_s.y = y - (m_cam_y / 2);
+   ms.x = x - (mcamx / 2);
+   ms.y = y - (mcamy / 2);
 }
 
 void
 Camera::Draw (Animation & to_draw)
 {
    if (!mIgnoreCamera)
-      to_draw.sprite->SetPosition (to_draw.GetPositionX () - m_s.x, to_draw.GetPositionY () - m_s.y);
+      to_draw.sprite->SetPosition (to_draw.GetPositionX () - ms.x, to_draw.GetPositionY () - ms.y);
    else
       to_draw.sprite->SetPosition (to_draw.GetPositionX (), to_draw.GetPositionY ());
    mpWindow->Draw (*to_draw.sprite);
@@ -174,7 +174,7 @@ void
 Camera::Draw (AnimationSingle & to_draw)
 {
    if (!mIgnoreCamera)
-      to_draw.sprite->SetPosition (to_draw.GetPositionX () - m_s.x, to_draw.GetPositionY () - m_s.y);
+      to_draw.sprite->SetPosition (to_draw.GetPositionX () - ms.x, to_draw.GetPositionY () - ms.y);
    else
       to_draw.sprite->SetPosition (to_draw.GetPositionX (), to_draw.GetPositionY ());
    mpWindow->Draw (*to_draw.sprite);
@@ -183,8 +183,8 @@ Camera::Draw (AnimationSingle & to_draw)
 void
 Camera::Draw (Tiler & to_draw)
 {
-   for (unsigned int i = 0; i < to_draw.m_Sprites.size (); i++)
-      Draw (*to_draw.m_Sprites[i]);
+   for (unsigned int i = 0; i < to_draw.mSprites.size (); i++)
+      Draw (*to_draw.mSprites[i]);
 }
 
 bool
@@ -208,9 +208,9 @@ Camera::OnEvent (const sf::Event& Event)
 {
    if (Event.Type == sf::Event::Resized)
    {
+      // Update the views so they are not streched!
       mpView->SetHalfSize(Event.Size.Width/(2*mZoomFactor),
       Event.Size.Height/(2*mZoomFactor));
-      //Gfx::Window.SetView(Gfx::View);
       mpStaticView->SetHalfSize(Event.Size.Width/2, (Event.Size.Height)/2);
       mpStaticView->SetCenter(Event.Size.Width/2, (Event.Size.Height)/2);
       mViewRect = mpView->GetRect();

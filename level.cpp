@@ -19,26 +19,27 @@
 using namespace Gfx;
 
 Level::Level (int level, Tower * TowerParent)
-:  mlevel (level)
-,  mTowerParent (TowerParent)
+:  mTowerParent (TowerParent)
 {
-   my = (Camera::GetInstance()->GetWorldY () ) - (mlevel * 36);
-   mx = Camera::GetInstance()->GetWorldX ();
-   mx2 = 0;
+   mLevel = level;
+   mY = (Camera::GetInstance()->GetWorldY () ) - (mLevel * 36);
+   mX = Camera::GetInstance()->GetWorldX ();
+   mX2 = 0;
+
    if (level < 0)
    {
-      mfire_escape_l = new AnimationSingle (ImageManager::GetInstance()->GetImg("foundation.png"));
-      mfire_escape_r = new AnimationSingle (ImageManager::GetInstance()->GetImg("foundation.png"));
+      nFireEscapeLeft = new AnimationSingle (ImageManager::GetInstance()->GetImg("foundation.png"));
+      nFireEscapeRight = new AnimationSingle (ImageManager::GetInstance()->GetImg("foundation.png"));
    }
    else if (level > 0)
    {
-      mfire_escape_l = new AnimationSingle (ImageManager::GetInstance()->GetImg("fire_escape_l.png"));
-      mfire_escape_r = new AnimationSingle (ImageManager::GetInstance()->GetImg("fire_escape_r.png"));
+      nFireEscapeLeft = new AnimationSingle (ImageManager::GetInstance()->GetImg("fire_escape_l.png"));
+      nFireEscapeRight = new AnimationSingle (ImageManager::GetInstance()->GetImg("fire_escape_r.png"));
    }
    else
    {
-      mfire_escape_l = new AnimationSingle (ImageManager::GetInstance()->GetImg("awn_left.png"));
-      mfire_escape_r = new AnimationSingle (ImageManager::GetInstance()->GetImg("awn_right.png"));
+      nFireEscapeLeft = new AnimationSingle (ImageManager::GetInstance()->GetImg("awn_left.png"));
+      nFireEscapeRight = new AnimationSingle (ImageManager::GetInstance()->GetImg("awn_right.png"));
    }
 }
 
@@ -46,19 +47,19 @@ void
 Level::AddFloor (FloorBase * floor)
 {
    mfloors.push_back (floor);
-   if (floor->mx < mx)
-      mx = floor->mx;
-   if (floor->mx2 > mx2)
-      mx2 = floor->mx2;
-   if ( mlevel < 0 )
+   if (floor->mX < mX)
+      mX = floor->mX;
+   if (floor->mX2 > mX2)
+      mX2 = floor->mX2;
+   if ( mLevel < 0 )
    {
-      mfire_escape_l->SetPosition (mx - 9, my); // pour some concrete
-      mfire_escape_r->SetPosition (mx2, my);
+      nFireEscapeLeft->SetPosition (mX - 9, mY); // pour some concrete
+      nFireEscapeRight->SetPosition (mX2, mY);
    }
    else
    {
-      mfire_escape_l->SetPosition (mx - 24, my);
-      mfire_escape_r->SetPosition (mx2, my);
+      nFireEscapeLeft->SetPosition (mX - 24, mY);
+      nFireEscapeRight->SetPosition (mX2, mY);
    }
 }
 
@@ -76,6 +77,6 @@ Level::Draw ()
    std::vector<FloorBase *>::iterator i;
    for (i = mfloors.begin (); i != mfloors.end (); i++)
       (*i)->Draw ();
-   Camera::GetInstance()->Draw (*mfire_escape_l);
-   Camera::GetInstance()->Draw (*mfire_escape_r);
+   Camera::GetInstance()->Draw (*nFireEscapeLeft);
+   Camera::GetInstance()->Draw (*nFireEscapeRight);
 }

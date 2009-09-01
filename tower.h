@@ -34,6 +34,7 @@ class Tower
 private:
    int mTowerNo;
    int mNo_SubLevels;
+   int mPopulation;  // People in the tower currently
 
    std::vector<Level *> mLevels;     // Lobby is at mNo_SubLevels not zero
    Routes mRoutes;
@@ -48,6 +49,10 @@ public:
    {
       return mRoutes;  // For routing citizens
    }
+   inline int GetPopulation()
+   {
+      return mPopulation;
+   }
 
 protected:
    inline std::vector<Level *>& Get_Levels()
@@ -60,9 +65,12 @@ public:
    Level* NewLevel( );
    Level* GetLevel( int level ); // positive gets you a level above, negative gets you a basement level
 
-
    void Update (float dt);
    void Draw ();
+
+   // AI interface
+   void EnterTower (Person* pPerson);
+   void LeaveTower (Person* pPerson);
 };
 
 #endif //_TOWER_H

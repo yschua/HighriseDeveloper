@@ -16,7 +16,8 @@
 
 #ifdef WIN32
 #include <vector> // changed from list to vector so the collection can be scrolled in up and down
-
+#include <SFML/System.hpp>
+#include <SFML/Graphics.hpp>
 
 #include "routeBase.h"
 #include "routes.h"
@@ -37,6 +38,7 @@ Tower::Tower( int towerNo, int NoSubLevels )
 {
    //level* maint = new level (0);
    //mSubLevels.push_back (maint);
+   mPopulation = 0;
    int nsubs = -NoSubLevels;
    for (int sub = nsubs; sub < 0; ++sub)
    {
@@ -54,7 +56,7 @@ Tower::~Tower( )
 
 Level* Tower::NewLevel( )
 {
-   int level = mLevels.size() - mNo_SubLevels;
+   int level = (int)mLevels.size() - mNo_SubLevels;
    Level* floor = new Level (level, this);
    mLevels.push_back (floor);
    return floor;
@@ -93,4 +95,20 @@ void Tower::Draw ()
       (*iLevel)->Draw( );
    }
    mRoutes.Draw();
+}
+
+// AI interface
+void Tower::EnterTower (Person* pPerson)
+{
+   //when implemented, this funcition will place people into a queue, for an elevator, at the checkin desk etc.
+   mPopulation++;
+}
+
+// AI interface
+void Tower::LeaveTower (Person* pPerson)
+{
+   // when implemented, this function will take people out of the building, walking, bus, train etc.
+   mPopulation--;
+   if (mPopulation < 0 )
+      mPopulation = 0;
 }

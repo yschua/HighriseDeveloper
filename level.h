@@ -28,10 +28,15 @@ private:
    Tower * mTowerParent;
 
 protected:
-   int mlevel;
-   int mx, mx2, my;
-   AnimationSingle * mfire_escape_l;
-   AnimationSingle * mfire_escape_r;
+   int mLevel;
+   int mX;    // lower left origin.x
+   int mX2;   // x vector = width
+   int mY;    // lower left origin.y
+               // y vector = height
+               // z vector = depth but not implement until 3D
+
+   AnimationSingle * nFireEscapeLeft;
+   AnimationSingle * nFireEscapeRight;
 
 public:
    Level (int level, Tower * TowerParent);

@@ -58,7 +58,6 @@ void Citizens::destroy() // clear out the city
 
 Citizens::Citizens()
 {
-
 }
 
 Citizens::~Citizens()
@@ -79,8 +78,18 @@ Citizens::~Citizens()
    }
 }
 
+// this update only needs to be called about once per second are so.
+// no need to call it on every frame
 void Citizens::Update (float dt)
 {
+   // TODO: implement life cycles
+/*   std::list<C_Person *>::iterator i;
+   for (i = m_People.begin (); i != m_People.end (); i++)
+   {
+      C_Person* peep = (*i);
+   // look for dead people and remove when we get aging in.
+   // look for lost people stuck in elevators etc.
+   }*/
 }
 
 Person* Citizens::NewPerson()
@@ -103,4 +112,18 @@ void Citizens::DestroyPerson( Person* person )
          delete peep;
       }
    }
+}
+
+size_t Citizens::GetPopulationForTower( int Tower )
+{
+   int pop = 0;
+   std::list<Person *>::iterator i;
+   for (i = mPeople.begin (); i != mPeople.end (); i++)
+   {
+      Person* peep = (*i);
+      // if(peep->get_Location().m_Tower == Tower )
+      if (peep->get_Location().mLevel != 0)
+         pop++;
+   }
+   return pop;
 }

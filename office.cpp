@@ -39,17 +39,17 @@ office::office (int x, int level, Tower * TowerParent)
       ,  FloorBase (x, x + 72, level, TowerParent)
 {
    ImageManager * image_man = ImageManager::GetInstance ();
-   std::cout << "New office at " << mx << ", " << my << " level " << mlevel << std::endl;
+   std::cout << "New office at " << mX << ", " << mY << " level " << mLevel << std::endl;
    manimations[s_occupied_day] = new Animation ();
    manimations[s_occupied_day]->AddFrame (image_man->GetImg ("office_o_d_1.png"), 1000);
    manimations[s_occupied_day]->AddFrame (image_man->GetImg ("office_o_d_2.png"), 1000);
    manimations[s_occupied_day]->AddFrame (image_man->GetImg ("office_o_d_3.png"), 1000);
    manimations[s_occupied_day]->AddFrame (image_man->GetImg ("office_o_d_4.png"), 1000);
    manimations[s_occupied_day]->AddFrame (image_man->GetImg ("office_o_d_5.png"), 1000);
-   manimations[s_occupied_day]->SetPosition (mx, my);
+   manimations[s_occupied_day]->SetPosition (mX, mY);
    manimations[s_unoccupied_day] = new Animation ();
    manimations[s_unoccupied_day]->AddFrame (image_man->GetImg ("office_u_d.png"), 1000);
-   manimations[s_unoccupied_day]->SetPosition (mx, my);
+   manimations[s_unoccupied_day]->SetPosition (mX, mY);
 }
 
 void

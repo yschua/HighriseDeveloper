@@ -70,14 +70,14 @@ Apartment::Apartment (int x, int level, Tower * TowerParent)
       ,  FloorBase (x, x + 72, level, TowerParent)
 {
    ImageManager * image_man = ImageManager::GetInstance ();
-   std::cout << "New apartment at " << mx << ", " << my << " level " << mlevel << std::endl;
+   std::cout << "New apartment at " << mX << ", " << mY << " level " << mLevel << std::endl;
    manimations[apt_occupied_day] = new Animation ();
    manimations[apt_occupied_day]->AddFrame (image_man->GetImg ("apartment_r_d_1.png"), 1000);
    manimations[apt_occupied_day]->AddFrame (image_man->GetImg ("apartment_r_n_1.png"), 1000);
-   manimations[apt_occupied_day]->SetPosition (mx, my);
+   manimations[apt_occupied_day]->SetPosition (mX, mY);
    manimations[apt_unoccupied_day] = new Animation ();
    manimations[apt_unoccupied_day]->AddFrame (image_man->GetImg ("apartment_r_s_1.png"), 1000);
-   manimations[apt_unoccupied_day]->SetPosition (mx, my);
+   manimations[apt_unoccupied_day]->SetPosition (mX, mY);
 }
 
 void

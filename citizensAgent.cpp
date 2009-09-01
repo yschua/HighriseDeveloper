@@ -60,10 +60,12 @@ void CitizensAgent::Update (float dt)
       Person* peep = citizens->NewPerson();
 //      Person* peep = new Person( loc );
 //      mPeople.push_back( peep );
-      std::cout << "A new person has entered your city" << std::endl;
+      citizens->Update( 1 );
+      std::cout << "Your city added 1 person" << " Population in city: " << citizens->GetPopulation() << std::endl;
    }
    std::list<Person *>::iterator i;
    std::list<Person *>& persons = citizens->get_Persons(); // get the persons collection.
+
    // TODO: Need to create a better interface that provides a clear persons iteration.
    for (i = persons.begin (); i != persons.end (); i++)
    {
@@ -78,7 +80,7 @@ void CitizensAgent::Update (float dt)
             break;
 
          case Person::AS_JobHunting:
-            if ( peep->get_CurrentState() == Person::CS_Idle )
+            if (peep->get_CurrentState() == Person::CS_Idle)
             {
                Location dest;
                dest.mBuilding = 1;
@@ -86,10 +88,12 @@ void CitizensAgent::Update (float dt)
                dest.mRoute = 0;              // plugged into first elevater until pathfinder does the job.
                dest.mX = 1;                  // TODO:  find the room number
                std::cout << "A new person has entered your building looking for work on Level# " << dest.mLevel << std::endl;
-               peep->set_Activity( Person::AS_GoingToWork );
-               peep->set_Occupation( 1 );
-               PathAgent Path( peep );
-               Path.findPath( peep->get_Location(), dest, mTower );
+               peep->set_Activity( Person::AS_GoingToWork);
+               peep->set_Occupation (1);
+               PathAgent Path (peep);
+               Path.findPath (peep->get_Location(), dest, mTower);
+
+               mTower.EnterTower (peep);
             }
             break;
 

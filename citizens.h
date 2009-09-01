@@ -44,6 +44,11 @@ public:
    {
       return mPeople;
    }
+   size_t GetPopulation()
+   {
+      return mPeople.size();
+   }
+   size_t GetPopulationForTower(int Tower);
 
    // methods
    Person* NewPerson();

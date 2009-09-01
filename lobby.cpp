@@ -19,16 +19,16 @@
 using namespace Gfx;
 
 Lobby::Lobby (int x, int x2, int level, Tower * TowerParent)
-      :   Level ( level, TowerParent )
+:   Level ( level, TowerParent )
 {
-   mx2 = x2;
-   mx = x;
+   mX2 = x2;
+   mX = x;
    ImageManager * images = ImageManager::GetInstance ();
    cam = Camera::GetInstance ();
-   tile = new Tiler (images->GetImg("lobby.png"), Tiler::Horizontal, x, x2, my);
-   mfire_escape_l->SetPosition (mx - 56, my);
-   mfire_escape_r->SetPosition (mx2, my);
-   std::cout << "New lobby at " << mx << " to " << mx2 << " Y level " << my << std::endl;
+   tile = new Tiler (images->GetImg("lobby.png"), Tiler::Horizontal, x, x2, mY);
+   nFireEscapeLeft->SetPosition (mX - 56, mY);
+   nFireEscapeRight->SetPosition (mX2, mY);
+   std::cout << "New lobby at " << mX << " to " << mX2 << " Y level " << mY << std::endl;
 }
 
 void
@@ -41,6 +41,6 @@ void
 Lobby::Draw ()
 {
    cam->Draw (*tile);
-   cam->Draw (*mfire_escape_l);
-   cam->Draw (*mfire_escape_r);
+   cam->Draw (*nFireEscapeLeft);
+   cam->Draw (*nFireEscapeRight);
 }

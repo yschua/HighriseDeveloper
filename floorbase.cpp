@@ -29,10 +29,10 @@ FloorBase::Draw ()
 }
 
 FloorBase::FloorBase (int x, int x2, int level, Tower * TowerParent)
-      :  mx (x)
-      ,  mx2 (x2)
+      :  mX (x)
+      ,  mX2 (x2)
       ,  mTowerParent (TowerParent)
 {
-   mlevel = level;
-   my = (Camera::GetInstance()->GetWorldY () ) - (mlevel * 36);
+   mLevel = level;
+   mY = (Camera::GetInstance()->GetWorldY () ) - (mLevel * 36);
 }

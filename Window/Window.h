@@ -91,7 +91,7 @@ namespace UI
       bool OnEvent(const sf::Event& Event)
       {
          if (Disabled) return false;
-         std::cout << "ActiveT: " << ActiveT << "  MousedT: " << MousedT << "\n";
+         //std::cout << "ActiveT: " << ActiveT << "  MousedT: " << MousedT << "\n";
          if (Event.Type == sf::Event::MouseMoved ||
             Event.Type == sf::Event::MouseButtonPressed)
          {

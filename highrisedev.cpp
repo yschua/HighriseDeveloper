@@ -133,10 +133,10 @@ main ()
                   cam->SetVelocity (0, 0);
                }
             }
-            else if (event.Type == sf::Event::MouseWheelMoved)
+            /*else if (event.Type == sf::Event::MouseWheelMoved)
             {
                if (event.MouseWheel.Delta == 1) {cam->ZoomIn();} else {cam->ZoomOut();}
-            }
+            }*/
             else if (event.Type == sf::Event::MouseButtonPressed)
             {
                Vector2i coords = cam->GetMouse ();

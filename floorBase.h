@@ -22,7 +22,7 @@ class Level;
 
 class FloorBase
 {
-   friend Level;  // allows level to own these spaces by being able to set protected variables.
+   friend class Level;  // allows level to own these spaces by being able to set protected variables.
 protected:
    int mLevel;
    Tower * mTowerParent;

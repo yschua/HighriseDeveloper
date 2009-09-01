@@ -22,7 +22,7 @@ namespace Gfx {
 Gfx::ImageManager * ImageManager::minstance = NULL;
 
 ImageManager::ImageManager ()
-      :   mpath_prefix ("data/")
+:   mpath_prefix ("data/")
 {
 }
 

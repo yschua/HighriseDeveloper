@@ -35,6 +35,7 @@ Citizens* Citizens::get_Instance()
    }
    return minstance;
 }
+
 void Citizens::destroy() // clear out the city
 {
    try

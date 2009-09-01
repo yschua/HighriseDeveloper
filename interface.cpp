@@ -30,8 +30,7 @@ Interface::Interface ()
 void
 Interface::PosCalc ()
 {
-   //m_Clock->SetPosition ((cam->GetCamSizeX () / 2) - 50, 0);
-   mClock->SetPosition(0,100);
+   mClock->SetPosition ((mpCam->GetCamSizeX () / 2) - 30, 0);
 }
 
 void

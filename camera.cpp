@@ -254,11 +254,11 @@ C_Camera::OnEvent (const sf::Event& Event)
 
 void
 C_Camera::ZoomIn() {
-   Zoom(1.25f);
+   Zoom(1.05f);
 }
 void
 C_Camera::ZoomOut() {
-   Zoom(0.8f);
+   Zoom(0.95f);
 }
 /////////////////////////////////////////////////////////////////////
 /// Zoom the camera by the specified factor towards the center of

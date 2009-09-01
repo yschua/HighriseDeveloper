@@ -103,6 +103,7 @@ C_Camera::SetCamSize (int x, int y)
    m_cam_x = x;
    m_cam_y = y;
    mpStaticView->SetHalfSize ((float)x/2, (float)y/2);
+   mpView->SetHalfSize ((float)x/2, (float)y/2);
 }
 
 void
@@ -110,6 +111,8 @@ C_Camera::SetWorldSize (int x, int y)
 {
    m_world_x = x;
    m_world_y = y;
+   mWorldRect.Right = x;
+   mWorldRect.Bottom = y;
 }
 
 void

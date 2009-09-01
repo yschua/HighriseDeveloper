@@ -32,14 +32,14 @@ namespace UI
    {
       mpCamera = C_Camera::GetInstance();
       BGImgs.resize(9);
-      //for (unsigned int i = 0; i < BGImgs.size(); i++)
-      //{
-      //    std::ostringstream Name;
-      //    Name << "window/BG" << i << ".png";
-      //    //sf::Sprite ToCopy;
-      //    std::cout << "size: " << BGImgs.size() << '\n';
-      //    BGImgs.at(i).SetImage(*Gfx::GetImage(Name.str()));
-      //}
+      for (unsigned int i = 0; i < BGImgs.size(); i++)
+      {
+          std::ostringstream Name;
+          Name << "window/BG" << i << ".png";
+          //sf::Sprite ToCopy;
+          std::cout << "size: " << BGImgs.size() << '\n';
+          BGImgs.at(i).SetImage(*Gfx::GetImage(Name.str()));
+      }
       std::cout << "Done loading images!\n";
       Rect.Top = 200;
       Rect.Left = 200;

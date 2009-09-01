@@ -1,6 +1,6 @@
 #include "ErrorImage.h"
 
-namespace Graphics
+namespace Gfx
 {
    /* GIMP RGBA C-Source image dump (Error.c) */
    unsigned char ErrorImagePixels [64*64*4+1]=

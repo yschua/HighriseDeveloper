@@ -30,7 +30,7 @@
 #include "highrisedev.h"
 #endif
 
-using namespace Graphics;
+using namespace Gfx;
 
 //   apt_unoccupied_day,
 //   apt_occupied_day,

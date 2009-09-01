@@ -26,7 +26,7 @@
 
 #include "elevatorShaft.h"
 
-using namespace Graphics;
+using namespace Gfx;
 
 C_ElevatorShaft::C_ElevatorShaft ( int x, int topLevel, int bottomLevel, C_Elevator* pElevator )
       :  C_ElevatorBase( x, bottomLevel, pElevator )

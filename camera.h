@@ -25,16 +25,19 @@ class C_Camera : public C_Body
 {
 private:
    int m_world_x, m_world_y, m_cam_x, m_cam_y;
-   sf::RenderWindow * m_window;
-   sf::View * m_View;
-   sf::View * m_StaticView;
+   sf::RenderWindow* mpWindow;
+   sf::View* mpView;
+   sf::View* mpStaticView;
    sf::Color m_back_color;
-   static C_Camera * m_instance;
+   static C_Camera * mpInstance;
    C_Camera ();
-   float m_ZoomFactor;
-   bool m_IgnoreCamera;
-   const sf::Input * m_Input;
-
+   float mZoomFactor;
+   bool mIgnoreCamera;
+   const sf::Input* mpInput;
+   sf::Rect<float> mWorldRect;
+   sf::Rect<float> mViewRect;
+   Vector2i mMouseStartPos;
+   bool mMovingView;
 public:
    static C_Camera* GetInstance();
    static C_Camera* i();
@@ -44,7 +47,7 @@ public:
    void Draw (C_AnimationSingle & to_draw);
    void Draw (C_Tiler & to_draw);
    void Draw (const sf::Drawable& ToDraw) {
-      m_window->Draw(ToDraw);
+      mpWindow->Draw(ToDraw);
    }
    void SetMaxFramerate (int rate);
    void SetCamSize (int x, int y);
@@ -60,6 +63,13 @@ public:
    void SetStatic (bool set);
    Vector2i GetMouse ();
    Vector2i GetLocalMouse();
+   bool OnEvent(const sf::Event& Event);
+   void ZoomIn();
+   void ZoomOut();
+   void Movepx(Vector2f Movement);
+   void Setpx(Vector2f Center);
+   bool CheckBounds(const sf::Rect<float>& RectToCheck);
+   void AdjustBounds(sf::Rect<float>& RectToAdjust);
 };
 
 #endif

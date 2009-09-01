@@ -18,6 +18,7 @@
 #include "citizensAgent.h"
 #include "pathAgent.h"
 #include "Window/Window.h"
+#include "Window/Button.h"
 
 int
 main ()
@@ -88,13 +89,21 @@ main ()
       UI::EventMgr<UI::Window> Windows;
       for (int i = 0; i < 5; i++)
       {
-         Windows.Add(new UI::Window);
+         UI::Window* pWind = new UI::Window;
+
+         for (int j = 0; j < 3; j++)
+         {
+             UI::Button* pButton = new UI::Button();
+             pButton->SetPosition(0, 20*j);
+             pWind->AddItem(pButton);
+         }
+         Windows.Add(pWind);
       }
       while (1)
       {
          while (cam->GetEvent (event))
          {
-            Windows.OnEvent(event);
+            if (!cam->OnEvent(event)) Windows.OnEvent(event);
             if (event.Type == sf::Event::Closed)
                exit (0);
             else if (event.Type == sf::Event::KeyPressed)
@@ -126,7 +135,7 @@ main ()
             }
             else if (event.Type == sf::Event::MouseWheelMoved)
             {
-               cam->Zoom (event.MouseWheel.Delta);
+               if (event.MouseWheel.Delta == 1) {cam->ZoomIn();} else {cam->ZoomOut();}
             }
             else if (event.Type == sf::Event::MouseButtonPressed)
             {

@@ -17,8 +17,9 @@
 #ifndef _IMAGEMANAGER_H
 #define _IMAGEMANAGER_H
 
-namespace Graphics
+namespace Gfx
 {
+
    class C_ImageManager
    {
    private:
@@ -34,5 +35,6 @@ namespace Graphics
       int preload_image (const std::string & name);
       void set_path (const std::string & prefix);
    };
+   sf::Image* GetImage(const std::string& Key);
 }
 #endif // _IMAGEMANAGER_H

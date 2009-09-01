@@ -16,7 +16,7 @@
 #ifdef WIN32
 #include <cstring>
 #include <cstdlib>
-#include <map> 
+#include <map>
 #include <iostream>
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
@@ -38,7 +38,7 @@
 #include "highrisedev.h"
 #endif
 
-using namespace Graphics;
+using namespace Gfx;
 
 // this object is the elevator collection (Machines, Shaft, Pit) and the car.
 // At this time there is no LiftCar class.

@@ -21,7 +21,7 @@ namespace UI
       void SetSize(int, int);
       sf::Vector2i GetSize();
       const sf::Rect<int>& GetRect();
-      bool Contains(int, int);
+      bool Contains(Vector2i Mouse);
       void MouseIn();
       void MouseOut();
    protected:

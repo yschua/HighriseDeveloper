@@ -1,6 +1,5 @@
 #include "Settings.h"
 
-namespace hr {
     namespace Settings {
         bool SettingsAreLoaded = false;
         std::map<std::string, std::string> UserSettings;
@@ -113,4 +112,3 @@ namespace hr {
 
         //std::string CurSettingsPath = "";
     }
-}

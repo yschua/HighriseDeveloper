@@ -32,7 +32,7 @@
 #include "highrisedev.h"
 #endif
 
-using namespace Graphics;
+using namespace Gfx;
 
 C_Background::C_Background ()
 {

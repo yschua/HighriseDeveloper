@@ -16,7 +16,7 @@
 
 #include "highrisedev.h"
 
-using namespace Graphics;
+using namespace Gfx;
 
 office_state
 C_office::unoccupied_day (float dt)

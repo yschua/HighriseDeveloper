@@ -16,7 +16,7 @@
 
 #include "highrisedev.h"
 
-using namespace Graphics;
+using namespace Gfx;
 
 C_Lobby::C_Lobby (int x, int x2, int level, C_Tower * TowerParent)
       :   C_level ( level, TowerParent )

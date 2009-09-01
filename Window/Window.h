@@ -117,7 +117,7 @@ namespace UI
                {
                   if (MousedT->Contains(mpCamera->GetLocalMouse()))
                   {
-                     return MousedT->OnEvent(Event);
+                     return true;
                   }
                }
             }
@@ -169,7 +169,7 @@ namespace UI
                }
             }
          }
-         else 
+         else
          {
             if (ActiveT) return ActiveT->OnEvent(Event);
          }
@@ -183,7 +183,7 @@ namespace UI
       bool Disabled;
       C_Camera* mpCamera;
    };
-   class WindowStyle 
+   class WindowStyle
    {
    public:
       WindowStyle();

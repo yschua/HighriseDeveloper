@@ -15,9 +15,11 @@
  */
 
 #include "highrisedev.h"
-using namespace Graphics;
+using namespace Gfx;
 
-Graphics::C_ImageManager * C_ImageManager::m_instance = NULL;
+namespace Gfx {
+
+Gfx::C_ImageManager * C_ImageManager::m_instance = NULL;
 
 C_ImageManager::C_ImageManager ()
       :   m_path_prefix ("data/")
@@ -68,4 +70,9 @@ C_ImageManager::preload_image (const std::string & name)
       return 1;
    }
    return 0;
+}
+
+   sf::Image* GetImage(const std::string& Key) {
+      return C_ImageManager::GetInstance()->GetImg(Key);
+   }
 }

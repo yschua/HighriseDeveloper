@@ -6,7 +6,6 @@
 #include <sstream>
 #include <fstream>
 
-namespace hr {
     namespace Settings {
 
         //extern std::map<std::string, std::string> UserSettings;
@@ -21,4 +20,3 @@ namespace hr {
         //extern bool DocumentLoaded;
         //extern std::string CurSettingsPath;
     }
-}

@@ -106,10 +106,8 @@ namespace UI
    {
       return Rect;
    }
-
-   bool Button::Contains(int XPos, int YPos)
-   {
-      return Rect.Contains(XPos-ParentWindow->GetRect().Left, YPos-ParentWindow->GetRect().Top);
+        bool Button::Contains(Vector2i Mouse) {
+            return Rect.Contains(Mouse.x-ParentWindow->GetRect().Left, Mouse.y-ParentWindow->GetRect().Top);
    }
 
    void Button::MouseIn()

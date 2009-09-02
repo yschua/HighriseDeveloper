@@ -69,6 +69,10 @@
 		<Unit filename="ReadMe.txt" />
 		<Unit filename="Settings/Settings.cpp" />
 		<Unit filename="Settings/Settings.h" />
+		<Unit filename="Types/Rect.cpp" />
+		<Unit filename="Types/Rect.h" />
+		<Unit filename="Types/Vector2.cpp" />
+		<Unit filename="Types/Vector2.h" />
 		<Unit filename="Window/Button.cpp" />
 		<Unit filename="Window/Button.h" />
 		<Unit filename="Window/Element.cpp" />

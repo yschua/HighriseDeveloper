@@ -20,6 +20,7 @@
 #define _FLOORAGENT_H
 
 struct Location;
+class  Level;
 
 class FloorAgent
 {

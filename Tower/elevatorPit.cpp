@@ -18,41 +18,41 @@
 #include <iostream>
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
-#include "physics.h"
-#include "animation.h"
-#include "tiler.h"
-#include "camera.h"
-#include "image.h"
+#include "../physics.h"
+#include "../animation.h"
+#include "../tiler.h"
+#include "../camera.h"
+#include "../image.h"
 
-#include "elevatorShaft.h"
+#include "elevatorBase.h"
+#include "elevatorPit.h"
 
-using namespace Gfx;
+class Elevator;
 
-ElevatorShaft::ElevatorShaft ( int x, int topLevel, int bottomLevel, Elevator* pElevator )
-      :  ElevatorBase( x, bottomLevel, pElevator )
+ElevatorPit::ElevatorPit ( int x, int level, Elevator* pElevator )
+      :  ElevatorBase( x, level, pElevator )
 {
    mx = x;
-   mTopLevel = topLevel;
-   mBottomLevel = bottomLevel;
-   ImageManager * images = ImageManager::GetInstance ();
-   mcam = Camera::GetInstance ();
-   mShaftTiler = new Tiler (images->GetImg ("liftshaft.png"), Tiler::Vertical,
-                               mcam->GetWorldRect ().Top - (mTopLevel * 36),
-                               mcam->GetWorldRect ().Top - ((mBottomLevel - 1) * 36), mx );
+   mLevel = level;
+   //ImageManager * image_man = ImageManager::GetInstance ();
+   my = (Camera::GetInstance()->GetWorldRect ().Top ) - (level * 36);
+   // std::cout << "New elevator pit at " << mx << ", " << my << std::endl;
+   // manimations[s_occupied_day] = new AnimationSingle ();
+   // manimations[s_occupied_day]->AddFrame (image_man->GetImg ("liftpit.png"), 1000);
 }
 
-ElevatorShaft::~ElevatorShaft()
+ElevatorPit::~ElevatorPit()
 {
 }
 
 void
-ElevatorShaft::Update (float dt)
+ElevatorPit::Update (float dt)
 {
 
 }
 
 void
-ElevatorShaft::Draw ()
+ElevatorPit::Draw ()
 {
-   mcam->Draw (*mShaftTiler);
+//    Camera::GetInstance()->Draw (*manimations[mcurrent_state]);
 }

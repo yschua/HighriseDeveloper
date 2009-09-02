@@ -17,10 +17,10 @@
 #include <iostream>
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
-#include "image.h"
-#include "physics.h"
-#include "animation.h"
-#include "tiler.h"
+#include "../image.h"
+#include "../physics.h"
+#include "../animation.h"
+#include "../tiler.h"
 
 #include "routeBase.h"
 #include "elevator.h"

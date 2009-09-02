@@ -14,11 +14,13 @@
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "highrisedev.h"
-#include "citizensAgent.h"
-#include "pathAgent.h"
 #include "Window/Window.h"
 #include "Window/Button.h"
+#include "highrisedev.h"
+
+#include "AI/citizensAgent.h"
+#include "AI/pathAgent.h"
+#include "AI/floorAgent.h"
 
 int
 main ()

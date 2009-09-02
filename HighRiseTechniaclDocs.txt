@@ -1,0 +1,67 @@
+[B]Highrise Objects Overview[/B]
+
+Vector2 - (template<class T=float>)    2D vectors
+C_Tiler - image tesselation.
+
+C_Body - physics (position, motion and velocity).
+[list]
+[*]C_Animation - image frame collection.
+[/list]
+
+C_FloorBase - base of objects that can be placed on levels.
+[list]
+[*]C_Apartment - state driven object supporting rented living space.
+[*]C_Office - state driven object supporting rented office space.
+[*]C_Lobby - polymorphic with C_Level, supports a whole floor of lobby space.
+[/list]
+
+C_Level -  base object and primary floor object hosting the floor space collection.
+[list]
+[*]C_Lobby - polymorphic with C_FloorBase, extension of level.
+[/list]
+
+[B]Transportation Systems[/B]
+C_RouteBase - base of objects that provide transition from level to level.
+[list]
+[*]C_Elevator - (Car) object of the elevator supporting the floor stops and animation.
+[*]C_Stairs - simple route betwen floors.
+[/list]
+
+C_ElevatorBase - base of elevator parts excluding the actual elevator (car)
+[list]
+[*]C_ElevatorMachine - animated winch room about the elevator.
+[*]C_ElevatorShaft - shaft object that covers floors of the elevators range.
+[*]C_ElevatorPit - crash landing pit and hydraulics of simple elevators.
+[/list]
+
+[B]Primary Entities[/B]
+C_Tower - sealed - building object hosting the levels and elevator collections. 
+This is the main building object. Future releases will have multiple towers.
+
+[B]People[/B]
+C_Person - any resident of the city, most are in the tower.
+C_Citizens - collection of all C_Persons in the game.
+
+[B]Graphics[/B]
+C_Image - image wrapper for SF image object.
+C_ImageManager - image collection management (singleton)
+C_Background - image object for the scene behind the tower and below ground.
+ErrorImage - image to display when an error orrcurs in the image system.
+FunkyT - template Functor. (delegate)
+
+[B]UI[/B]
+Window - window wrapper for SF window object.
+Element - base for UI widgets
+[list]
+[*]TextBox - text object displays text in graphical environment.
+[*]Button - control object accepts clicks, emits click event.
+[/list]
+
+[B]AI[/B]
+RoutingRequest - data structure of Origin level to Destination level.
+
+C_RouteVisitor - provides vistor pattern between CitizenAgent and the Tower.
+C_CitizensAgent - agent, carries out all the C_Person activities and interations.
+C_PathAgent - function object, resolves paths to destinations (transportation systems).
+
+

@@ -35,7 +35,7 @@ class Camera;
 class Person;
 class Tower;
 
-#include "physics.h"
+#include "../physics.h"
 #include "routeBase.h"
 
 // The UI should read the FloorStops array and the range of floors.

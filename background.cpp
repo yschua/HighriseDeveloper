@@ -25,7 +25,7 @@
 #include "camera.h"
 #include "animation.h"
 #include "tiler.h"
-#include "floorBase.h"
+//#include "floorBase.h"
 
 #include "background.h"
 #else

@@ -16,8 +16,8 @@
 
 #include <vector>
 
-#include "routeBase.h"
-#include "elevatorBase.h"
+#include "tower/routeBase.h"
+#include "tower/elevatorBase.h"
 #include "routes.h"
 
 // converted from a singleton to a tower based object

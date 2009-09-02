@@ -19,15 +19,16 @@
 #include <vector>
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
-#include "physics.h"
-#include "camera.h"
-#include "image.h"
-#include "animation.h"
+#include "../physics.h"
+#include "../camera.h"
+#include "../image.h"
+#include "../animation.h"
+
 #include "floorBase.h"
 
 #include "apartment.h"
 #else
-#include "highrisedev.h"
+#include "../highrisedev.h"
 #endif
 
 using namespace Gfx;

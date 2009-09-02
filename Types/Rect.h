@@ -64,6 +64,7 @@ class Rect
        Bottom += Offset.y;
        Right += Offset.x;
        Left += Offset.x;
+       return *this;
     }
     template <class U>
     operator sf::Rect<U>()

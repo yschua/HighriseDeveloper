@@ -20,8 +20,8 @@
 #include <SFML/Graphics.hpp>
 
 #include "routeBase.h"
-#include "routes.h"
-#include "physics.h"
+#include "../routes.h"
+#include "../physics.h"
 #include "elevatorBase.h"
 #include "elevator.h"
 #include "floorbase.h"
@@ -29,7 +29,7 @@
 #include "lobby.h"
 #include "tower.h"
 #else
-#include "highrisedev.h"
+#include "../highrisedev.h"
 #endif
 
 Tower::Tower( int towerNo, int NoSubLevels )

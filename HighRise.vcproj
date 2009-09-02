@@ -40,7 +40,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;F:\Dev\VC++\SFML-1.5\include&quot;"
+				AdditionalIncludeDirectories="&quot;\Dev\VC++\SFML-1.5\include&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -63,7 +63,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="sfml-Graphics-d.lib sfml-System-d.lib sfml-Window-d.lib"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;F:\Dev\VC++\SFML-1.5\lib\vc2005&quot;"
+				AdditionalLibraryDirectories="&quot;\Dev\VC++\SFML-1.5\lib\vc2005&quot;"
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				TargetMachine="1"
@@ -182,10 +182,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\apartment.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\background.cpp"
 				>
 			</File>
@@ -198,38 +194,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\citizensAgent.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\elevator.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\elevatorBase.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\elevatorMachine.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\elevatorPit.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\elevatorShaft.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\floorAgent.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\floorbase.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\highrisedev.cpp"
 				>
 			</File>
@@ -239,22 +203,6 @@
 			</File>
 			<File
 				RelativePath=".\interface.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\level.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\lobby.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\office.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\pathAgent.cpp"
 				>
 			</File>
 			<File
@@ -281,24 +229,12 @@
 				RelativePath=".\tiler.cpp"
 				>
 			</File>
-			<File
-				RelativePath=".\tower.cpp"
-				>
-			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
-			<File
-				RelativePath=".\animation.h"
-				>
-			</File>
-			<File
-				RelativePath=".\apartment.h"
-				>
-			</File>
 			<File
 				RelativePath=".\background.h"
 				>
@@ -309,38 +245,6 @@
 			</File>
 			<File
 				RelativePath=".\citizens.h"
-				>
-			</File>
-			<File
-				RelativePath=".\citizensAgent.h"
-				>
-			</File>
-			<File
-				RelativePath=".\elevator.h"
-				>
-			</File>
-			<File
-				RelativePath=".\elevatorBase.h"
-				>
-			</File>
-			<File
-				RelativePath=".\elevatorMachine.h"
-				>
-			</File>
-			<File
-				RelativePath=".\elevatorPit.h"
-				>
-			</File>
-			<File
-				RelativePath=".\elevatorShaft.h"
-				>
-			</File>
-			<File
-				RelativePath=".\floorAgent.h"
-				>
-			</File>
-			<File
-				RelativePath=".\floorbase.h"
 				>
 			</File>
 			<File
@@ -356,22 +260,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\level.h"
-				>
-			</File>
-			<File
-				RelativePath=".\lobby.h"
-				>
-			</File>
-			<File
-				RelativePath=".\office.h"
-				>
-			</File>
-			<File
-				RelativePath=".\pathAgent.h"
-				>
-			</File>
-			<File
 				RelativePath=".\person.h"
 				>
 			</File>
@@ -380,7 +268,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\routebase.h"
+				RelativePath=".\resources.h"
 				>
 			</File>
 			<File
@@ -397,10 +285,6 @@
 			</File>
 			<File
 				RelativePath=".\tiler.h"
-				>
-			</File>
-			<File
-				RelativePath=".\tower.h"
 				>
 			</File>
 		</Filter>
@@ -475,6 +359,336 @@
 			</File>
 			<File
 				RelativePath=".\image.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Types"
+			>
+			<File
+				RelativePath=".\Types\rect.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Types\Vector2.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="AI"
+			>
+			<File
+				RelativePath=".\AI\citizensAgent.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\AI\citizensAgent.h"
+				>
+			</File>
+			<File
+				RelativePath=".\AI\floorAgent.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\AI\floorAgent.h"
+				>
+			</File>
+			<File
+				RelativePath=".\AI\pathAgent.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\AI\pathAgent.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Tower"
+			>
+			<File
+				RelativePath=".\Tower\apartment.cpp"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\Tower\apartment.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Tower\elevator.cpp"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\Tower\elevator.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Tower\elevatorBase.cpp"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\Tower\elevatorBase.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Tower\elevatorMachine.cpp"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\Tower\elevatorMachine.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Tower\elevatorPit.cpp"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\Tower\elevatorPit.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Tower\elevatorShaft.cpp"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\Tower\elevatorShaft.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Tower\floorbase.cpp"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\Tower\floorBase.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Tower\level.cpp"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\Tower\level.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Tower\lobby.cpp"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\Tower\lobby.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Tower\office.cpp"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\Tower\office.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Tower\tower.cpp"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\Tower\tower.h"
 				>
 			</File>
 		</Filter>

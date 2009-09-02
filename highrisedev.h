@@ -14,8 +14,9 @@
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// #DEFINES
-#define HR_VERSION "0.0.1 ULTRABETA"
+// #DEFINES moved to resource.h until we get a platform ind resouce file.
+//#define HR_VERSION "0.0.1 ULTRABETA"
+#include "resources.h"
 
 // Include libraries first
 #include <utility>
@@ -37,28 +38,25 @@
 #include "tiler.h"
 #include "image.h"
 #include "camera.h"
-
-#include "floorBase.h"
-#include "routeBase.h"
-#include "office.h"
-#include "apartment.h"
-#include "level.h"
-#include "lobby.h"
-#include "elevator.h"
 #include "routes.h"
 #include "background.h"
-#include "person.h"
-#include "tower.h"
+
+#include "tower/floorBase.h"
+#include "tower/routeBase.h"  // Elevators route (levels).
+#include "tower/apartment.h"
+#include "tower/office.h"
+#include "tower/elevatorBase.h"
+#include "tower/elevatorMachine.h"
+#include "tower/elevatorShaft.h"
+#include "tower/elevatorPit.h"
+#include "tower/elevator.h"
+#include "tower/level.h"
+#include "tower/lobby.h"
+#include "tower/tower.h"
 
 #include "person.h"
+
 #include "citizens.h"
-
-#include "routeBase.h"  // Elevators route (levels).
 #include "routeVisitor.h"  // class that will Update the elevators route request queue
-#include "elevatorBase.h"
-#include "elevatorMachine.h"
-#include "elevatorShaft.h"
-#include "elevatorPit.h"
-#include "elevator.h"
 
 #include "interface.h"

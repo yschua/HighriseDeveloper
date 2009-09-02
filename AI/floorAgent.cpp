@@ -18,8 +18,8 @@
 // This code will also have to release spaces when tenants move out.
 
 #include <vector>
-#include "level.h"
-#include "floorBase.h"
+#include "../Tower/level.h"
+#include "../Tower/floorBase.h"
 #include "floorAgent.h"
 
 FloorAgent::FloorAgent ( Level* level )

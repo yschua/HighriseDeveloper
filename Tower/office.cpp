@@ -14,7 +14,22 @@
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "highrisedev.h"
+#ifdef WIN32
+#include <iostream>
+#include <map>
+#include <vector>
+#include <SFML/System.hpp>
+#include <SFML/Graphics.hpp>
+#include "../physics.h"
+#include "../camera.h"
+#include "../image.h"
+#include "../animation.h"
+#include "floorBase.h"
+
+#include "office.h"
+#else
+#include "../highrisedev.h"
+#endif
 
 using namespace Gfx;
 

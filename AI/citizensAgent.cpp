@@ -28,16 +28,16 @@
 #include <vector>
 #include <iostream>
 #include <cstdlib>
-#include "person.h"
-#include "pathAgent.h"
-#include "routeVisitor.h"
-#include "routeBase.h"
-#include "routes.h"
-#include "tower.h"
-#include "citizens.h"
-#include "level.h"
-#include "highriseException.h"
+#include "../person.h"
+#include "../routeVisitor.h"
+#include "../routes.h"
+#include "../Tower/routeBase.h"
+#include "../Tower/tower.h"
+#include "../Tower/level.h"
+#include "../highriseException.h"
+#include "../citizens.h"
 
+#include "pathAgent.h"
 #include "citizensAgent.h"
 
 CitizensAgent::CitizensAgent (Tower& tower) // use a tower agent for multiple towers

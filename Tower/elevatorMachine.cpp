@@ -18,11 +18,11 @@
 #include <iostream>
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
-#include "physics.h"
-#include "animation.h"
-#include "tiler.h"
-#include "camera.h"
-#include "image.h"
+#include "../physics.h"
+#include "../animation.h"
+#include "../tiler.h"
+#include "../camera.h"
+#include "../image.h"
 
 #include "elevatorBase.h"
 #include "elevatorMachine.h"

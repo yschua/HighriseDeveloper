@@ -15,6 +15,8 @@
  */
 
 #ifdef WIN32
+#include "resources.h"
+
 #include <iostream>
 #include <map>
 #include <vector>
@@ -24,7 +26,7 @@
 #include "image.h"
 #include "animation.h"
 #include "tiler.h"
-#include "floorBase.h"
+//#include "floorBase.h"
 
 #include "camera.h"
 #else

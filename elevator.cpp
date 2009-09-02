@@ -78,7 +78,7 @@ Elevator::Elevator ( Lift_Styles style, int x, short BottomLevel, short TopLevel
 
    mcam = Camera::i();
    mX = x;
-   mY = ( mcam->GetWorldY ()) - (mBottomLevel * 36);
+   mY = ( mcam->GetWorldRect ().Top) - (mBottomLevel * 36);
    mLiftMachine = new ElevatorMachine( x, mTopLevel+1, this );
    mLiftPit->SetPosition ((float)mX, (float)(mY + 36) );
    mElevatorShaft = new ElevatorShaft( mX, mTopLevel, mBottomLevel, this );

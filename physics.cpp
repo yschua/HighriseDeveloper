@@ -18,58 +18,23 @@
 
 Body::Body ()
 {
-   ms.x = 0;
-   ms.y = 0;
-   mv.x = 0;
-   mv.y = 0;
-   ma.x = 0;
-   ma.y = 0;
+   ms = Vector2f(0,0);
+   mv = Vector2f(0,0);
+   ma = Vector2f(0,0);
+}
+
+Body::Body (Vector2f Pos)
+{
+   ms = Pos;
+   mv = Vector2f(0,0);
+   ma = Vector2f(0,0);
 }
 
 Body::Body (float x, float y)
 {
-   ms.x = x;
-   ms.y = y;
-   mv.x = 0;
-   mv.y = 0;
-   ma.x = 0;
-   ma.y = 0;
-}
-
-float
-Body::GetPositionX ()
-{
-   return ms.x;
-}
-
-float
-Body::GetPositionY ()
-{
-   return ms.y;
-}
-
-float
-Body::GetVelocityX ()
-{
-   return mv.x;
-}
-
-float
-Body::GetVelocityY ()
-{
-   return mv.y;
-}
-
-float
-Body::GetAccelerationX ()
-{
-   return ma.x;
-}
-
-float
-Body::GetAccelerationY ()
-{
-   return ma.y;
+   ms = Vector2f(x,y);
+   mv = Vector2f(0,0);
+   ma = Vector2f(0,0);
 }
 
 void

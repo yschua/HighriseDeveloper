@@ -24,10 +24,11 @@ int
 main ()
 {
    Camera * cam = Camera::GetInstance ();
-   cam->SetCamSize (800, 600);
-   cam->SetWorldSize (1280, 720);
-   cam->SetMaxFramerate (60);
    cam->Create ("test");
+
+   //cam->SetCamSize (800, 600);
+   cam->SetWorldSize (Vector2f(1280, 720));
+   cam->SetMaxFramerate (60);
    sf::Event event;
    Elevator* pElevator;
    Background * pBackground;
@@ -141,7 +142,7 @@ main ()
             {
                Vector2i coords = cam->GetMouse ();
                std::cout << "Mouse click coords: " << coords.x << ", " << coords.y;
-               int click_level = (cam->GetWorldY () / 36) - (coords.y / 36);
+               int click_level = (cam->GetWorldRect ().Top / 36) - (coords.y / 36);
                std::cout << " Click level: " << click_level << std::endl;
             }
 

@@ -36,14 +36,16 @@ Camera * Camera::mpInstance = NULL;
 Camera::Camera ()
 :  mback_color (0, 0, 0)
 {
+
    mpWindow = new sf::RenderWindow ();
+   mpWindow->Create (sf::VideoMode (800, 600, 32), "Highrise Developer" HR_VERSION);
    mpStaticView = &mpWindow->GetDefaultView ();
    mpView = new sf::View(*mpStaticView);
    mZoomFactor = 1;
    mIgnoreCamera = false;
    mpInput = &(mpWindow->GetInput ());
    mViewRect = mpView->GetRect();
-   mWorldRect = sf::Rect<float>(-1000,-1000,2000,2000);
+   mWorldRect = sf::Rect<float>(0,0,1280,720);
    mMovingView = false;
 }
 
@@ -67,7 +69,7 @@ Camera::Zoom (float Factor)
  mpView->Zoom (1.0f + Factor);
 }*/
 
-int
+/*int
 Camera::GetWorldY ()
 {
    return mworld_y;
@@ -77,9 +79,9 @@ int
 Camera::GetWorldX ()
 {
    return mworld_x;
-}
+}*/
 
-int
+/*int
 Camera::GetCamSizeX ()
 {
    return mcamx;
@@ -89,7 +91,7 @@ int
 Camera::GetCamSizeY ()
 {
    return mcamy;
-}
+}*/
 
 void
 Camera::SetMaxFramerate (int rate)
@@ -97,28 +99,24 @@ Camera::SetMaxFramerate (int rate)
    mpWindow->SetFramerateLimit (rate);
 }
 
-void
+/*void
 Camera::SetCamSize (int x, int y)
 {
-   mcamx = x;
-   mcamy = y;
    mpStaticView->SetHalfSize ((float)x/2, (float)y/2);
    mpView->SetHalfSize ((float)x/2, (float)y/2);
-}
+}*/
 
 void
-Camera::SetWorldSize (int x, int y)
+Camera::SetWorldSize (Vector2f Size)
 {
-   mworld_x = x;
-   mworld_y = y;
-   mWorldRect.Right = x;
-   mWorldRect.Bottom = y;
+   mWorldRect.Right = Size.x+mWorldRect.Left;
+   mWorldRect.Bottom = Size.y+mWorldRect.Top;
 }
 
 void
 Camera::Create (const std::string & caption)
 {
-   mpWindow->Create (sf::VideoMode (mcamx, mcamy, 32), caption);
+
 }
 
 Camera*
@@ -156,8 +154,8 @@ Camera::Display ()
 void
 Camera::Center (int x, int y)
 {
-   ms.x = x - (mcamx / 2);
-   ms.y = y - (mcamy / 2);
+   ms.x = x - (mViewRect.Left / 2);
+   ms.y = y - (mViewRect.Top / 2);
 }
 
 void
@@ -174,10 +172,10 @@ void
 Camera::Draw (AnimationSingle & to_draw)
 {
    if (!mIgnoreCamera)
-      to_draw.sprite->SetPosition (to_draw.GetPositionX () - ms.x, to_draw.GetPositionY () - ms.y);
+      to_draw.mSprite->SetPosition (to_draw.GetPositionX () - ms.x, to_draw.GetPositionY () - ms.y);
    else
-      to_draw.sprite->SetPosition (to_draw.GetPositionX (), to_draw.GetPositionY ());
-   mpWindow->Draw (*to_draw.sprite);
+      to_draw.mSprite->SetPosition (to_draw.GetPositionX (), to_draw.GetPositionY ());
+   mpWindow->Draw (*to_draw.mSprite);
 }
 
 void
@@ -220,7 +218,7 @@ Camera::OnEvent (const sf::Event& Event)
    {
       if (mMovingView)
       {
-         Movepx(Vector2i(((mMouseStartPos.x-Event.MouseMove.X)/mZoomFactor), ((mMouseStartPos.y-Event.MouseMove.Y)/mZoomFactor)));
+         Movepx(Vector2f(((mMouseStartPos.x-Event.MouseMove.X)), ((mMouseStartPos.y-Event.MouseMove.Y))));
          mMouseStartPos.x = Event.MouseMove.X;
          mMouseStartPos.y = Event.MouseMove.Y;
          return true;
@@ -268,24 +266,33 @@ Camera::ZoomOut() {
 void
 Camera::Zoom(float Factor)
 {
-   sf::Rect<float> ZoomedRect;
-   sf::Vector2<float> Center;
+   Rectf ZoomedRect;
+   // Calcuate the center
+   Vector2f Center;
    Center.x = (mViewRect.Left+mViewRect.Right)/2;
    Center.y = (mViewRect.Top+mViewRect.Bottom)/2;
-   sf::Rect<float> DifRect;
-   DifRect.Top = (-Center.y)+mViewRect.Top;
+   // Divide the offset amount by the zoom factor
+   Rectf DifRect;
+   DifRect = mViewRect;
+   DifRect.Move(Vector2f(-Center.x, -Center.y));
+   //DifRect.Top = mViewRect.Top-Center.y;
    DifRect.Top /= Factor;
-   ZoomedRect.Top = DifRect.Top+Center.y;
-   std::cout << "Top: " << ZoomedRect.Top << " Center: (" << Center.x << ", " << Center.y << ") OrigTop: " << mWorldRect.Top << '\n';
-   DifRect.Bottom = (-Center.y)+mViewRect.Bottom;
    DifRect.Bottom /= Factor;
-   ZoomedRect.Bottom = DifRect.Bottom+Center.y;
-   DifRect.Left = (-Center.x)+mViewRect.Left;
    DifRect.Left /= Factor;
-   ZoomedRect.Left = DifRect.Left+Center.x;
-   DifRect.Right = (-Center.x)+mViewRect.Right;
    DifRect.Right /= Factor;
-   ZoomedRect.Right = DifRect.Right+Center.x;
+   DifRect.Move(Vector2f(Center.x, Center.y));
+   // Change the zoomed rect
+   //ZoomedRect.Top = DifRect.Top+Center.y;
+   //std::cout << "Top: " << ZoomedRect.Top << " Center: (" << Center.x << ", " << Center.y << ") OrigTop: " << mWorldRect.Top << '\n';
+   //DifRect.Bottom = (-Center.y)+mViewRect.Bottom;
+
+   //ZoomedRect.Bottom = DifRect.Bottom+Center.y;
+   //DifRect.Left = (-Center.x)+mViewRect.Left;
+
+   //ZoomedRect.Left = DifRect.Left+Center.x;
+   //DifRect.Right = (-Center.x)+mViewRect.Right;
+
+   //ZoomedRect.Right = DifRect.Right+Center.x;
 
    AdjustBounds(ZoomedRect);
    if (CheckBounds(ZoomedRect))
@@ -311,8 +318,11 @@ Camera::Zoom(float Factor)
 void
 Camera::Movepx(Vector2f Movement)
 {
-   sf::Rect<float> NewRect = mViewRect;
-   NewRect.Offset(Movement.x, Movement.y);
+   Rectf NewRect = mViewRect;
+   NewRect.Move(Movement);
+   std::cout << "Movement: " << Movement.x << ", " << Movement.y << "\n";
+   std::cout << "Orig rect: " << mViewRect.Top << ", " << mViewRect.Left << ", " << mViewRect.Right << ", " << mViewRect.Bottom << "\n";
+   std::cout << "After Movement: " << NewRect.Top << ", " << NewRect.Left << ", " << NewRect.Right << ", " << NewRect.Bottom << "\n";
    AdjustBounds(NewRect);
    if (CheckBounds(NewRect))
    {
@@ -329,16 +339,17 @@ Camera::Setpx(Vector2f Center)
    /*sf::Vector2<int> Center;
    Center.x = (mWorldRect.Left+mWorldRect.Right)/2;
    Center.y = (mWorldRect.Top+mWorldRect.Bottom)/2;*/
-   sf::Rect<float> NewRect;
-   NewRect.Top = mViewRect.Top-Center.y;
+   Rectf NewRect = mViewRect;
+   NewRect.Move(Vector2f(-Center.x, -Center.y));
+   /*NewRect.Top = mViewRect.Top-Center.y;
    NewRect.Left = mViewRect.Left-Center.x;
    NewRect.Right = mViewRect.Right-Center.x;
-   NewRect.Bottom = mViewRect.Bottom-Center.y;
+   NewRect.Bottom = mViewRect.Bottom-Center.y;*/
    AdjustBounds(NewRect);
    if (CheckBounds(NewRect))
    {
-      mViewRect = NewRect;
       mpView->SetFromRect(NewRect);
+      mViewRect = NewRect;
    }
 }
 /////////////////////////////////////////////////////////////////////
@@ -346,7 +357,7 @@ Camera::Setpx(Vector2f Center)
 /// Returns true if it is, false if it falls outside.
 /////////////////////////////////////////////////////////////////////
 bool
-Camera::CheckBounds(const sf::Rect<float>& RectToCheck)
+Camera::CheckBounds(const Rectf& RectToCheck)
 {
    if (RectToCheck.Left < mWorldRect.Left)
       std::cout << "Outisde of Left bound\n";
@@ -365,7 +376,7 @@ Camera::CheckBounds(const sf::Rect<float>& RectToCheck)
 /// The rectangle passed as reference is changed.
 /////////////////////////////////////////////////////////////////////
 void
-Camera::AdjustBounds(sf::Rect<float>& RectToAdjust)
+Camera::AdjustBounds(Rectf& RectToAdjust)
 {
    while (RectToAdjust.Left < mWorldRect.Left)
    {

@@ -34,7 +34,7 @@ ElevatorMachine::ElevatorMachine (int x, int level, Elevator* pElevator )
       ,  mState( LMS_Idle )
 {
    ImageManager * image_man = ImageManager::GetInstance ();
-   my = (Camera::GetInstance()->GetWorldY () ) - (level * 36);
+   my = (Camera::GetInstance()->GetWorldRect ().Top ) - (level * 36);
    std::cout << "New elevator machine at " << mx << ", " << my << std::endl;
    mLifterAnimation = new Animation ();
    mLifterAnimation->AddFrame (image_man->GetImg ("liftMachine_1.png"), 1000);
@@ -44,7 +44,7 @@ ElevatorMachine::ElevatorMachine (int x, int level, Elevator* pElevator )
    mFirstFrame = 0;
    mLastFrame = 2;
    mcam = Camera::GetInstance ();
-   my = ( mcam->GetWorldY ()) - (level * 36);
+   my = ( mcam->GetWorldRect ().Top) - (level * 36);
    pos_calc();
 }
 

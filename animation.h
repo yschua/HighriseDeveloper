@@ -34,8 +34,8 @@ public:
 class AnimationSingle : public Body
 {
 public:
-   sf::Sprite * sprite;
-   AnimationSingle (sf::Image * image);
+   sf::Sprite* mSprite;
+   AnimationSingle (sf::Image* image);
    void SetSubRect (int x1, int y1, int x2, int y2);
 };
 

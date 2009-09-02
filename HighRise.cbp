@@ -18,16 +18,16 @@
 					<Add option="-W" />
 					<Add option="-g" />
 					<Add option="-O0" />
-					<Add directory="F:\Dev\VC++\SFML-1.5\include" />
+					<Add directory="F:/Dev/VC++/SFML-1.5/include" />
 				</Compiler>
 				<ResourceCompiler>
-					<Add directory="F:\Dev\VC++\SFML-1.5\include" />
+					<Add directory="F:/Dev/VC++/SFML-1.5/include" />
 				</ResourceCompiler>
 				<Linker>
 					<Add library="sfml-Graphics-d" />
 					<Add library="sfml-System-d" />
 					<Add library="sfml-Window-d" />
-					<Add directory="F:\Dev\VC++\SFML-1.5\lib\vc2005" />
+					<Add directory="F:/Dev/VC++/SFML-1.5/lib/vc2005" />
 				</Linker>
 			</Target>
 			<Target title="Release Win32">
@@ -63,21 +63,21 @@
 				</Linker>
 			</Target>
 		</Build>
-		<Unit filename="Graphics\ErrorImage.cpp" />
-		<Unit filename="Graphics\ErrorImage.h" />
-		<Unit filename="Graphics\Graphics.h" />
+		<Unit filename="Graphics/ErrorImage.cpp" />
+		<Unit filename="Graphics/ErrorImage.h" />
+		<Unit filename="Graphics/Graphics.h" />
 		<Unit filename="ReadMe.txt" />
-		<Unit filename="Settings\Settings.cpp" />
-		<Unit filename="Settings\Settings.h" />
-		<Unit filename="Window\Button.cpp" />
-		<Unit filename="Window\Button.h" />
-		<Unit filename="Window\Element.cpp" />
-		<Unit filename="Window\Element.h" />
-		<Unit filename="Window\TODO" />
-		<Unit filename="Window\TextBox.cpp" />
-		<Unit filename="Window\TextBox.h" />
-		<Unit filename="Window\Window.cpp" />
-		<Unit filename="Window\Window.h" />
+		<Unit filename="Settings/Settings.cpp" />
+		<Unit filename="Settings/Settings.h" />
+		<Unit filename="Window/Button.cpp" />
+		<Unit filename="Window/Button.h" />
+		<Unit filename="Window/Element.cpp" />
+		<Unit filename="Window/Element.h" />
+		<Unit filename="Window/TODO" />
+		<Unit filename="Window/TextBox.cpp" />
+		<Unit filename="Window/TextBox.h" />
+		<Unit filename="Window/Window.cpp" />
+		<Unit filename="Window/Window.h" />
 		<Unit filename="animation.cpp" />
 		<Unit filename="animation.h" />
 		<Unit filename="apartment.cpp" />
@@ -124,9 +124,9 @@
 		<Unit filename="person.h" />
 		<Unit filename="physics.cpp" />
 		<Unit filename="physics.h" />
+		<Unit filename="routeBase.h" />
 		<Unit filename="routeVisitor.cpp" />
 		<Unit filename="routeVisitor.h" />
-		<Unit filename="routebase.h" />
 		<Unit filename="routes.cpp" />
 		<Unit filename="routes.h" />
 		<Unit filename="stdafx.cpp" />

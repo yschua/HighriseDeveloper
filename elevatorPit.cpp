@@ -35,7 +35,7 @@ ElevatorPit::ElevatorPit ( int x, int level, Elevator* pElevator )
    mx = x;
    mLevel = level;
    //ImageManager * image_man = ImageManager::GetInstance ();
-   my = (Camera::GetInstance()->GetWorldY () ) - (level * 36);
+   my = (Camera::GetInstance()->GetWorldRect ().Top ) - (level * 36);
    // std::cout << "New elevator pit at " << mx << ", " << my << std::endl;
    // manimations[s_occupied_day] = new AnimationSingle ();
    // manimations[s_occupied_day]->AddFrame (image_man->GetImg ("liftpit.png"), 1000);

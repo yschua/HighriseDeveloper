@@ -22,8 +22,8 @@ Level::Level (int level, Tower * TowerParent)
 :  mTowerParent (TowerParent)
 {
    mLevel = level;
-   mY = (Camera::GetInstance()->GetWorldY () ) - (mLevel * 36);
-   mX = Camera::GetInstance()->GetWorldX ();
+   mY = (Camera::GetInstance()->GetWorldRect ().Top ) - (mLevel * 36);
+   mX = Camera::GetInstance()->GetWorldRect ().Left;
    mX2 = 0;
 
    if (level < 0)

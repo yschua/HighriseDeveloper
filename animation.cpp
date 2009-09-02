@@ -51,15 +51,15 @@ Animation::Update (float dt)
    }
 }
 
-AnimationSingle::AnimationSingle (sf::Image * image)
+AnimationSingle::AnimationSingle (sf::Image* image)
 {
-   sprite = new sf::Sprite ();
-   sprite->SetImage (*image);
+   mSprite = new sf::Sprite ();
+   mSprite->SetImage (*image);
 }
 
 void
 AnimationSingle::SetSubRect (int x1, int y1, int x2, int y2)
 {
-   sf::IntRect * subrect = new sf::IntRect (x1, y1, x2, y2);
-   sprite->SetSubRect (*subrect);
+   sf::IntRect* subrect = new sf::IntRect (x1, y1, x2, y2);
+   mSprite->SetSubRect (*subrect);
 }

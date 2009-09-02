@@ -14,6 +14,10 @@
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+// #DEFINES
+#define HR_VERSION "0.0.1 ULTRABETA"
+
+// Include libraries first
 #include <utility>
 #include <cstring>
 #include <iostream>
@@ -21,6 +25,10 @@
 #include <vector>
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
+
+// Then user-defined types
+#include "Types/Rect.h"
+#include "Types/Vector2.h"
 
 #include "highriseException.h"
 

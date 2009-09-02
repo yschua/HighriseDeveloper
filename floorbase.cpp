@@ -34,5 +34,5 @@ FloorBase::FloorBase (int x, int x2, int level, Tower * TowerParent)
       ,  mTowerParent (TowerParent)
 {
    mLevel = level;
-   mY = (Camera::GetInstance()->GetWorldY () ) - (mLevel * 36);
+   mY = (Camera::GetInstance()->GetWorldRect ().Top ) - (mLevel * 36);
 }

@@ -18,59 +18,58 @@
 using namespace Gfx;
 
 namespace Gfx {
+   Gfx::ImageManager * ImageManager::minstance = NULL;
 
-Gfx::ImageManager * ImageManager::minstance = NULL;
-
-ImageManager::ImageManager ()
-:   mpath_prefix ("data/")
-{
-}
-
-ImageManager *
-ImageManager::GetInstance ()
-{
-   if (minstance == NULL)
+   ImageManager::ImageManager ()
+   :   mpath_prefix ("data/")
    {
-      minstance = new ImageManager ();
    }
-   return minstance;
-}
 
-void
-ImageManager::set_path (const std::string & prefix)
-{
-   mpath_prefix = prefix;
-}
-
-sf::Image *
-ImageManager::GetImg (const std::string & name)
-{
-   if (mimages[name] == NULL)
+   ImageManager *
+   ImageManager::GetInstance ()
    {
-      sf::Image * temp;
-      temp = new sf::Image;
-      std::cout << "Loading file " << mpath_prefix + name << std::endl;
-      temp->LoadFromFile (mpath_prefix + name);
-      mimages[name] = temp;
-      return temp;
+      if (minstance == NULL)
+      {
+         minstance = new ImageManager ();
+      }
+      return minstance;
    }
-   std::cout << "Using preloaded file " << name << std::endl;
-   return mimages[name];
-}
 
-int
-ImageManager::preload_image (const std::string & name)
-{
-   if (mimages[name] == NULL)
+   void
+   ImageManager::set_path (const std::string & prefix)
    {
-      sf::Image * temp;
-      temp = new sf::Image;
-      temp->LoadFromFile (mpath_prefix + name);
-      mimages[name] = temp;
-      return 1;
+      mpath_prefix = prefix;
    }
-   return 0;
-}
+
+   sf::Image *
+   ImageManager::GetImg (const std::string & name)
+   {
+      if (mimages[name] == NULL)
+      {
+         sf::Image * temp;
+         temp = new sf::Image;
+         std::cout << "Loading file " << mpath_prefix + name << std::endl;
+         temp->LoadFromFile (mpath_prefix + name);
+         mimages[name] = temp;
+         return temp;
+      }
+      std::cout << "Using preloaded file " << name << std::endl;
+      return mimages[name];
+   }
+
+   int
+   ImageManager::preload_image (const std::string & name)
+   {
+      if (mimages[name] == NULL)
+      {
+         sf::Image * temp;
+         temp = new sf::Image;
+         temp->LoadFromFile (mpath_prefix + name);
+         mimages[name] = temp;
+         return 1;
+      }
+      return 0;
+   }
 
    sf::Image* GetImage(const std::string& Key) {
       return ImageManager::GetInstance()->GetImg(Key);

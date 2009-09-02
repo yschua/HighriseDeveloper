@@ -17,6 +17,9 @@
 #ifndef _CAMERA_H
 #define _CAMERA_H
 
+#include "Types/Vector2.h"
+#include "Types/Rect.h"
+
 class Animation;
 class AnimationSingle;
 class Tiler;
@@ -24,18 +27,18 @@ class Tiler;
 class Camera : public Body
 {
 private:
-   int mworld_x, mworld_y, mcamx, mcamy;
+   //int mworld_x, mworld_y, mcamx, mcamy;
    sf::RenderWindow* mpWindow;
    sf::View* mpView;
    sf::View* mpStaticView;
    sf::Color mback_color;
-   static Camera * mpInstance;
+   static Camera* mpInstance;
    Camera ();
    float mZoomFactor;
    bool mIgnoreCamera;
    const sf::Input* mpInput;
-   sf::Rect<float> mWorldRect;
-   sf::Rect<float> mViewRect;
+   Rectf mWorldRect;
+   Rectf mViewRect;
    Vector2i mMouseStartPos;
    bool mMovingView;
 public:
@@ -50,12 +53,14 @@ public:
       mpWindow->Draw(ToDraw);
    }
    void SetMaxFramerate (int rate);
-   void SetCamSize (int x, int y);
-   void SetWorldSize (int x, int y);
-   int GetWorldX ();
-   int GetWorldY ();
-   int GetCamSizeX ();
-   int GetCamSizeY ();
+   //void SetCamSize (int x, int y);
+   void SetWorldSize (Vector2f);
+   Rectf GetWorldRect() { return mWorldRect; }
+   Rectf GetCamRect() { return mViewRect; }
+   //int GetWorldX ();
+   //int GetWorldY ();
+   //int GetCamSizeX ();
+   //int GetCamSizeY ();
    void Create (const std::string & caption);
    void Center (int x, int y);
    bool GetEvent (sf::Event & event);
@@ -68,8 +73,8 @@ public:
    void ZoomOut();
    void Movepx(Vector2f Movement);
    void Setpx(Vector2f Center);
-   bool CheckBounds(const sf::Rect<float>& RectToCheck);
-   void AdjustBounds(sf::Rect<float>& RectToAdjust);
+   bool CheckBounds(const Rectf& RectToCheck);
+   void AdjustBounds(Rectf& RectToAdjust);
 };
 
 #endif

@@ -17,63 +17,8 @@
 #ifndef _PHYSICS_H
 #define _PHYSICS_H
 
-#include <SFML/Graphics.hpp>
-
-//typedef std::pair<float, float> vector2;
-template <class T = float>
-class Vector2
-{
-    public:
-    Vector2()
-    {
-        x = 0; y = 0;
-    }
-    Vector2(T xv, T yv)
-    {
-        x = xv; y = yv;
-    }
-    template <class U>
-    Vector2(const sf::Vector2<U>& Other)
-    {
-        x = Other.x; y = Other.y;
-    }
-    template <class U>
-    Vector2(const Vector2<U>& Other)
-    {
-        x = Other.x; y = Other.y;
-    }
-    template <class U>
-    Vector2& operator+(const Vector2<U>& Other)
-    {
-        Vector2* temp = new Vector2(x+Other.x, y+Other.y);
-        return *temp;
-    }
-    template <class U>
-    Vector2& operator+(const sf::Vector2<U>& Other)
-    {
-        Vector2* temp = new Vector2(x+Other.x, y+Other.y);
-        return *temp;
-    }
-    template <class U>
-    Vector2& operator=(const Vector2<U>& Other)
-    {
-        x = Other.x;
-        y = Other.y;
-        return *this;
-    }
-    template <class U>
-    Vector2<T>& operator=(const sf::Vector2<U>& Other)
-    {
-        x = Other.x;
-        y = Other.y;
-        return *this;
-    }
-    T x;
-    T y;
-};
-
-typedef Vector2 <float> Vector2f; // russ
-typedef Vector2 <int> Vector2i;   // likes this
+// Is there a way to avoid this include?
+#include "Types/Vector2.h"
 
 class Body
 {
@@ -85,21 +30,28 @@ private:
 
 public:
    Vector2f ms, mv, ma;
-   Body (float x, float y);
    Body ();
-   float GetPositionX ();
-   float GetPositionY ();
-   float GetVelocityX ();
-   float GetVelocityY ();
-   float GetAccelerationX ();
-   float GetAccelerationY ();
-   Vector2f GetPosition ();
-   Vector2f GetVelocity ();
-   Vector2f GetAcceleration ();
+   Body (float x, float y);
+   Body (Vector2f Pos);
+   float GetPositionX () { return ms.x; }
+   float GetPositionY () { return ms.y; }
+   Vector2f GetPosition() { return ms; }
+   float GetVelocityX () { return mv.x; }
+   float GetVelocityY () { return mv.y; }
+   Vector2f GetVelocity() { return mv; }
+   float GetAccelerationX () { return ma.x; }
+   float GetAccelerationY () { return ma.y; }
+   Vector2f GetAcceleration() { return ma; }
    void DebugPrint ();
+   // Depreciated!
    void SetPosition (float x, float y);
    void SetVelocity (float x, float y);
    void SetAcceleration (float x, float y);
+
+   void SetPosition (const Vector2f& NewPos) { ms = NewPos; }
+   void SetVelocity (const Vector2f& NewV) { mv = NewV; }
+   void SetAcceleration (const Vector2f& NewA) { ma = NewA; }
+
    void Integrate (float dt);
    void MoveTo (float x, float y, float time);
 };

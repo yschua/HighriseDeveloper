@@ -37,8 +37,8 @@ ElevatorShaft::ElevatorShaft ( int x, int topLevel, int bottomLevel, Elevator* p
    ImageManager * images = ImageManager::GetInstance ();
    mcam = Camera::GetInstance ();
    mShaftTiler = new Tiler (images->GetImg ("liftshaft.png"), Tiler::Vertical,
-                               mcam->GetWorldY () - (mTopLevel * 36),
-                               mcam->GetWorldY () - ((mBottomLevel - 1) * 36), mx );
+                               mcam->GetWorldRect ().Top - (mTopLevel * 36),
+                               mcam->GetWorldRect ().Top - ((mBottomLevel - 1) * 36), mx );
 }
 
 ElevatorShaft::~ElevatorShaft()

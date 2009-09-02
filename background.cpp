@@ -38,16 +38,17 @@ Background::Background ()
 {
    ImageManager * images = ImageManager::GetInstance ();
    cam = Camera::i();
-   mBackImage = new AnimationSingle (images->GetImg ("back.png"));
+   //mBackImage = new AnimationSingle (images->GetImg ("back.png"));
+   //mBackImage->SetPosition(Vector2f(cam->GetWorldRect().Left, cam->GetWorldRect().Top-mBackImage.
    // move the ground down 36 since lobby is at 0
-   mBackBuildings = new Tiler (images->GetImg ("buildings.png"), Tiler::Horizontal, 0, cam->GetWorldX (), cam->GetWorldY () + 36 - 64);
-   mBackGround = new Tiler (images->GetImg ("ground.png"), Tiler::Horizontal, 0, cam->GetWorldX (), cam->GetWorldY () + 36);
+   mBackBuildings = new Tiler (images->GetImg ("buildings.png"), Tiler::Horizontal, cam->GetWorldRect().Left, cam->GetWorldRect().Right, cam->GetWorldRect().Top + 36 - 64);
+   mBackGround = new Tiler (images->GetImg ("ground.png"), Tiler::Horizontal, cam->GetWorldRect().Left, cam->GetWorldRect().Right, cam->GetWorldRect().Top + 36);
 }
 
 void
 Background::Draw ()
 {
-   cam->Draw (*mBackImage);
+   //cam->Draw (*mBackImage);
    cam->Draw (*mBackBuildings);
    cam->Draw (*mBackGround);
 }

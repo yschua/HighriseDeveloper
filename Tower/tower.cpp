@@ -16,6 +16,7 @@
 
 #ifdef WIN32
 #include <vector> // changed from list to vector so the collection can be scrolled in up and down
+#include <list>
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
 

@@ -47,6 +47,7 @@ using namespace Gfx;
 //{
 //   return new Elevator( style, x, BottomLevel, TopLevel, TowerParent );
 //}
+int Elevator::gElevatorsNumber = 1; // start with 1 to keep engineers happy
 
 Elevator::Elevator ( Lift_Styles style, int x, short BottomLevel, short TopLevel, Tower * TowerParent)
       :  mLiftStyle( style )
@@ -79,6 +80,10 @@ Elevator::Elevator ( Lift_Styles style, int x, short BottomLevel, short TopLevel
    mcam = Camera::i();
    mX = x;
    mY = ( mcam->GetWorldRect ().Top) - (mBottomLevel * 36);
+   mZ = -0.2; // slightly in front of the tower
+
+   mNumber = gElevatorsNumber++; // set number;
+
    mLiftMachine = new ElevatorMachine( x, mTopLevel+1, this );
    mLiftPit->SetPosition ((float)mX, (float)(mY + 36) );
    mElevatorShaft = new ElevatorShaft( mX, mTopLevel, mBottomLevel, this );

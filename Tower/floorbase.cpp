@@ -19,6 +19,7 @@
 #include <iostream>
 #include <map>
 #include <vector>
+#include <list>
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
 #include "../physics.h"

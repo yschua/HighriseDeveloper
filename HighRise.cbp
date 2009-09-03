@@ -130,6 +130,8 @@
 		<Unit filename="interface.h" />
 		<Unit filename="person.cpp" />
 		<Unit filename="person.h" />
+		<Unit filename="personQueue.cpp" />
+		<Unit filename="personQueue.h" />
 		<Unit filename="physics.cpp" />
 		<Unit filename="physics.h" />
 		<Unit filename="routeBase.h" />

@@ -13,26 +13,37 @@
  *   You should have received a copy of the GNU General Public License
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
-// look for vacancies and fill them.
-// Might be able to partner with the citizens agent to find jobs and places to live and play.
 
-#ifndef _FLOORAGENT_H
-#define _FLOORAGENT_H
+// head and tail queue. People in and out while waiting for elevators, trams, rail and buses.
 
-struct Location;
-class  Level;
-class  FloorSpace;
+#pragma once
+#ifndef _PERSONQUEUE_H
+#define _PERSONQUEUE_H
 
-class FloorAgent
+class Person;
+class CitizenAgent; // to move people
+class Elevator;
+
+class PersonQueue // Abstract, does not even have a CPP file at this point.
 {
 protected:
-   Level* mLevel;
+   short mHeadIndex;
+   short mTailIndex;
+   short mCapacity;
+   short mSweepIndex; // moves through the queue filling gaps
+   Elevator* mpElevator;
+   Person** mpQueue;
 
 public:
-   FloorAgent (Level* level);
-   ~FloorAgent ( );
+   PersonQueue();
+   void AssignElevator(Elevator* pElevator);
+   inline Elevator* GetElevator() { return mpElevator; }
+   inline int GetElevatorNumber();
 
-   bool AddFloorSpace (FloorBase* pFS, int x, int x2);
+   void AddPerson (Person* person);
+   Person* TakeNextPerson ();
+   void Update();
+//   virtual void draw () = 0;
 };
 
-#endif
+#endif //_PERSONQUEUE_H

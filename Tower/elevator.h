@@ -89,6 +89,7 @@ public:
    };
 
 protected:
+   static int gElevatorsNumber;
 
    AnimationSingle* mElevatorImage;
    AnimationSingle* mLiftPit;
@@ -103,6 +104,9 @@ protected:
    // Controls this things motion
    int   mX;
    int   mY;
+   int   mZ;
+
+   int   mNumber;    // number of this lift
    //short mLevel;
    short mCurrentLevel;
    short mDirection;
@@ -129,6 +133,9 @@ public:
    virtual ~Elevator();
 
    static Elevator* Create( Lift_Styles style, int x, short BottomLevel, short TopLevel, Tower * TowerParent );  // this is rejected for som reason
+
+   // Properties
+   inline int  GetNumber() { return mNumber; }
 
    // Implemantation
    void ClearStops();

@@ -20,11 +20,14 @@
 class AnimationSingle;
 class FloorBase;
 class Tower;
+class Elevator;
+class PersonQueue;
 
 class Level
 {
 private:
-   std::vector<FloorBase *> mfloors;
+   std::vector<FloorBase*> mFloorSpaces;
+   std::list<PersonQueue*> mElevatorQueues;  // person queue for elevators that stop on this level
    Tower * mTowerParent;
 
 protected:
@@ -33,16 +36,43 @@ protected:
    int mX2;   // x vector = width
    int mY;    // lower left origin.y
                // y vector = height
+   int mZ;     // face set to zero
                // z vector = depth but not implement until 3D
 
    AnimationSingle * nFireEscapeLeft;
    AnimationSingle * nFireEscapeRight;
 
 public:
+   // CTOR
    Level (int level, Tower * TowerParent);
-   void AddFloor (FloorBase * floor);
+
+   // decls
+   typedef std::vector<FloorBase*>::iterator FloorIterType;
+   typedef std::list<PersonQueue*>::iterator QueueIterType;
+
+   // Properties
+protected:
+   inline std::vector<FloorBase*>& GetFloorSpaces()
+   {
+      return mFloorSpaces;
+   }
+   inline std::list<PersonQueue*>& GetPersonQueues()
+   {
+      return mElevatorQueues;
+   }
+public:
+
+   // Methods
    virtual void Update (float dt);
    virtual void Draw ();
+
+   void AddFloor (FloorBase * floor);
+   FloorBase* FindSpace (int x);
+   PersonQueue* FindQueue (int elevator);
+   bool AddFloorSpace (FloorBase* pFS, int x, int x2 );
+   bool TestForEmptySpace (int x, int x2 );
+   void AddElevatorToQueue (Elevator* pElevator);  // set and remove the elevator stops
+   void RemoveElevatorFromQueue (Elevator* pElevator);
 };
 
 #endif

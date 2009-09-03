@@ -89,6 +89,7 @@ main ()
       theTower.GetRoutes().AddRoute( pElevator );
       pBackground = new Background ();
 
+
       UI::EventMgr<UI::Window> Windows;
       for (int i = 0; i < 5; i++)
       {
@@ -144,7 +145,7 @@ main ()
             {
                Vector2i coords = cam->GetMouse ();
                std::cout << "Mouse click coords: " << coords.x << ", " << coords.y;
-               int click_level = (cam->GetWorldRect ().Top / 36) - (coords.y / 36);
+               int click_level = (int)(cam->GetWorldRect ().Top / 36) - (coords.y / 36);
                std::cout << " Click level: " << click_level << std::endl;
             }
 

@@ -35,9 +35,21 @@ protected:
                // z vector = depth but not implement until 3D
 //   int mx, mx2, my;
 public:
+   // CTOR
+   FloorBase (int x, int x2, int level, Tower * TowerParent);
+
+   // Properties
+   inline int  GetX()  { return mX; }
+   inline int  GetX2() { return mX2; }
+   inline int  GetY() { return mY; }
+
+   inline void SetX(int x) { mX = x; }
+   inline void SetX2(int x) { mX2 = x; }
+   inline void SetY(int y) { mY = y; }
+
+   // Methods
    virtual void Update (float dt);
    virtual void Draw ();
-   FloorBase (int x, int x2, int level, Tower * TowerParent);
 };
 
 #endif

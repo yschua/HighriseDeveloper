@@ -18,12 +18,16 @@
 #include <iostream>
 #include <map>
 #include <vector>
+#include <list>
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
 #include "../physics.h"
 #include "../camera.h"
 #include "../image.h"
 #include "../animation.h"
+#include "../person.h"
+#include "../personQueue.h"
+
 #include "floorBase.h"
 #include "level.h"
 
@@ -37,9 +41,12 @@ Level::Level (int level, Tower * TowerParent)
 :  mTowerParent (TowerParent)
 {
    mLevel = level;
-   mY = (Camera::GetInstance()->GetWorldRect ().Top ) - (mLevel * 36);
-   mX = Camera::GetInstance()->GetWorldRect ().Left;
-   mX2 = 0;
+            // The levels origin and vectors (partial implementation for 3D)
+   mX = (int)Camera::GetInstance()->GetWorldRect ().Left;
+   mY = (int)(Camera::GetInstance()->GetWorldRect ().Top ) - (mLevel * 36);
+   mZ = 0;  // Face is always at zero for now
+   mX2 = 9; // simple xvector defaults to a minimum floor size
+            // missing are the Y (up) and Z (foward) vectors.
 
    if (level < 0)
    {
@@ -61,20 +68,20 @@ Level::Level (int level, Tower * TowerParent)
 void
 Level::AddFloor (FloorBase * floor)
 {
-   mfloors.push_back (floor);
+   mFloorSpaces.push_back (floor);
    if (floor->mX < mX)
       mX = floor->mX;
    if (floor->mX2 > mX2)
       mX2 = floor->mX2;
    if ( mLevel < 0 )
    {
-      nFireEscapeLeft->SetPosition (mX - 9, mY); // pour some concrete
-      nFireEscapeRight->SetPosition (mX2, mY);
+      nFireEscapeLeft->SetPosition ((float)mX - 9.0f, (float)mY); // pour some concrete, replaces stairs underground
+      nFireEscapeRight->SetPosition ((float)mX2, (float)mY);
    }
    else
    {
-      nFireEscapeLeft->SetPosition (mX - 24, mY);
-      nFireEscapeRight->SetPosition (mX2, mY);
+      nFireEscapeLeft->SetPosition ((float)mX - 24.0f, (float)mY);
+      nFireEscapeRight->SetPosition ((float)mX2, (float)mY);
    }
 }
 
@@ -82,7 +89,7 @@ void
 Level::Update (float dt)
 {
    std::vector<FloorBase *>::iterator i;
-   for (i = mfloors.begin (); i != mfloors.end (); i++)
+   for (i = mFloorSpaces.begin (); i != mFloorSpaces.end (); i++)
       (*i)->Update (dt);
 }
 
@@ -90,8 +97,75 @@ void
 Level::Draw ()
 {
    std::vector<FloorBase *>::iterator i;
-   for (i = mfloors.begin (); i != mfloors.end (); i++)
+   for (i = mFloorSpaces.begin (); i != mFloorSpaces.end (); i++)
       (*i)->Draw ();
    Camera::GetInstance()->Draw (*nFireEscapeLeft);
    Camera::GetInstance()->Draw (*nFireEscapeRight);
+}
+
+
+FloorBase* Level::FindSpace (int x)
+{
+   Level::FloorIterType it;
+   for (mFloorSpaces.begin(); it<mFloorSpaces.end(); ++it)
+   {
+      FloorBase* pFB = (*it);
+      if( x >= pFB->GetX() && x<= pFB->GetX2() )
+      {
+         return pFB;
+      }
+   }
+   return NULL;
+}
+
+bool Level::TestForEmptySpace (int x, int x2 )
+{
+   Level::FloorIterType it;
+   for (it=mFloorSpaces.begin(); it<mFloorSpaces.end(); ++it)
+   {
+      FloorBase* pFB = (*it);
+      if( (x >= pFB->GetX() && x<= pFB->GetX2()) || (x >= pFB->GetX() && x2<= pFB->GetX2()) )
+      {
+         return false;
+      }
+   }
+   return true;
+}
+
+void Level::AddElevatorToQueue (Elevator* pElevator)
+{
+   // may wand to check for dups
+   PersonQueue* pQ = new PersonQueue();
+   pQ->AssignElevator(pElevator);
+   mElevatorQueues.push_back (pQ);
+}
+
+void Level::RemoveElevatorFromQueue (Elevator* pElevator)
+{
+   // won't compile ARRG!
+
+   //Level::QueueIterType it;
+   //for (it=mElevatorQueues.begin(); it<mElevatorQueues.end(); ++it)
+   //{
+   //   PersonQueue* pQ = (*it);
+   //   if( pLift == pElevator )
+   //   {
+   //      mElevatorQueues.remove (pQ);
+   //      break;
+   //   }
+   //}
+}
+
+PersonQueue* Level::FindQueue (int elevator)
+{
+   //Level::QueueIterType it;
+   //for (it=mElevatorQueues.begin(); it<mElevatorQueues.end(); ++it)
+   //{
+   //   PersonQueue* pQ = (*it);
+   //   if( pQ->GetElevatorNumber() == elevator )
+   //   {
+   //      return pQ;
+   //   }
+   //}
+   return NULL;
 }

@@ -41,6 +41,8 @@
 #include "routes.h"
 #include "background.h"
 
+#include "personQueue.h"
+
 #include "tower/floorBase.h"
 #include "tower/routeBase.h"  // Elevators route (levels).
 #include "tower/apartment.h"

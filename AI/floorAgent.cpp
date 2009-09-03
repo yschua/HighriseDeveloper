@@ -18,6 +18,9 @@
 // This code will also have to release spaces when tenants move out.
 
 #include <vector>
+#include <list>
+#include <algorithm>
+
 #include "../Tower/level.h"
 #include "../Tower/floorBase.h"
 #include "floorAgent.h"
@@ -33,8 +36,13 @@ FloorAgent::~FloorAgent ()
 
 }
 
-bool FloorAgent::findSpace (Location& origin)
+bool FloorAgent::AddFloorSpace (FloorBase* pFS, int x, int x2 )
 {
+   if (mLevel->TestForEmptySpace (x, x2))
+   {
+      pFS->SetX (x);
+      pFS->SetX2 (x2);
+      mLevel->AddFloor (pFS);
+   }
    return true;
 }
-

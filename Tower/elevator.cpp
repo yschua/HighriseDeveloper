@@ -35,7 +35,7 @@
 #include "elevator.h"
 
 #else
-#include "highrisedev.h"
+#include "../highrisedev.h"
 #endif
 
 using namespace Gfx;

@@ -43,18 +43,18 @@
 
 #include "personQueue.h"
 
-#include "tower/floorBase.h"
-#include "tower/routeBase.h"  // Elevators route (levels).
-#include "tower/apartment.h"
-#include "tower/office.h"
-#include "tower/elevatorBase.h"
-#include "tower/elevatorMachine.h"
-#include "tower/elevatorShaft.h"
-#include "tower/elevatorPit.h"
-#include "tower/elevator.h"
-#include "tower/level.h"
-#include "tower/lobby.h"
-#include "tower/tower.h"
+#include "Tower/floorBase.h"
+#include "Tower/routeBase.h"  // Elevators route (levels).
+#include "Tower/apartment.h"
+#include "Tower/office.h"
+#include "Tower/elevatorBase.h"
+#include "Tower/elevatorMachine.h"
+#include "Tower/elevatorShaft.h"
+#include "Tower/elevatorPit.h"
+#include "Tower/elevator.h"
+#include "Tower/level.h"
+#include "Tower/lobby.h"
+#include "Tower/tower.h"
 
 #include "person.h"
 

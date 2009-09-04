@@ -18,7 +18,7 @@
 #include <iostream>
 #include <vector>
 #include "person.h"
-#include "Tower/Elevator.h"
+#include "Tower/elevator.h"
 #include "AI/citizensAgent.h"
 #include "AI/pathAgent.h"
 #include "personQueue.h"
@@ -63,7 +63,7 @@ void PersonQueue::AddPerson (Person* person)
    mHeadIndex++;
    if( mHeadIndex >= mCapacity )
    {
-      mHeadIndex = 0; 
+      mHeadIndex = 0;
    }
 }
 
@@ -91,7 +91,7 @@ Person* PersonQueue::TakeNextPerson ()
       mHeadIndex++;
       if( mHeadIndex >= mCapacity )
       {
-         mHeadIndex = 0; 
+         mHeadIndex = 0;
       }
       mSweepIndex = 0;
    }

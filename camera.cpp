@@ -268,7 +268,7 @@ Camera::ZoomOut() {
 void
 Camera::Zoom(float Factor)
 {
-   Rectf ZoomedRect;
+   //Rectf ZoomedRect;
    // Calcuate the center
    Vector2f Center;
    Center.x = (mViewRect.Left+mViewRect.Right)/2;
@@ -276,13 +276,16 @@ Camera::Zoom(float Factor)
    // Divide the offset amount by the zoom factor
    Rectf DifRect;
    DifRect = mViewRect;
+   // Move the rect so it is centered at (0,0)
    DifRect.Move(Vector2f(-Center.x, -Center.y));
    //DifRect.Top = mViewRect.Top-Center.y;
    DifRect.Top /= Factor;
    DifRect.Bottom /= Factor;
    DifRect.Left /= Factor;
    DifRect.Right /= Factor;
+   // Move it back to it's original offset
    DifRect.Move(Vector2f(Center.x, Center.y));
+   //ZoomedRect = DifRect;
    // Change the zoomed rect
    //ZoomedRect.Top = DifRect.Top+Center.y;
    //std::cout << "Top: " << ZoomedRect.Top << " Center: (" << Center.x << ", " << Center.y << ") OrigTop: " << mWorldRect.Top << '\n';
@@ -296,14 +299,14 @@ Camera::Zoom(float Factor)
 
    //ZoomedRect.Right = DifRect.Right+Center.x;
 
-   AdjustBounds(ZoomedRect);
-   if (CheckBounds(ZoomedRect))
+   AdjustBounds(DifRect);
+   if (CheckBounds(DifRect))
    {
-      mpView->SetFromRect(ZoomedRect);
+      mpView->SetFromRect(DifRect);
       mZoomFactor = mZoomFactor*Factor;
-      std::cout << "Zooming by a factor of: " << mZoomFactor << '\n';
-      std::cout << "Approx Top: " << ZoomedRect.Top << " Left: " << ZoomedRect.Left << " Right: " << ZoomedRect.Right << " Bottom: " << ZoomedRect.Bottom << '\n';
-      mViewRect = ZoomedRect;
+      //std::cout << "Zooming by a factor of: " << mZoomFactor << '\n';
+      //std::cout << "Approx Top: " << ZoomedRect.Top << " Left: " << ZoomedRect.Left << " Right: " << ZoomedRect.Right << " Bottom: " << ZoomedRect.Bottom << '\n';
+      mViewRect = DifRect;
       //std::cout << "Actual Top: " << Gfx::View.GetRect().Top << " Left: " << Gfx::View.GetRect().Left << " Right: " << Gfx::View.GetRect().Right << " Bottom: " << Gfx::View.GetRect().Bottom << '\n';
       //Gfx::Window.SetView(Gfx::View);
    }

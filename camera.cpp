@@ -311,6 +311,7 @@ Camera::Zoom(float Factor)
    DifRect.Bottom /= Factor;
    DifRect.Left /= Factor;
    DifRect.Right /= Factor;
+   std::cout << "Aspect: " << (double)DifRect.Height()/DifRect.Width() << "\n";
    // Move it back to it's original offset
    DifRect.Move(Vector2f(Center.x, Center.y));
    //ZoomedRect = DifRect;
@@ -353,17 +354,17 @@ Camera::Movepx(Vector2f Movement)
 {
    Rectf NewRect = mViewRect;
    NewRect.Move(Movement);
-   std::cout << "Movement: " << Movement.x << ", " << Movement.y << "\n";
-   std::cout << "Orig rect: " << mViewRect.Top << ", " << mViewRect.Left << ", " << mViewRect.Right << ", " << mViewRect.Bottom << "\n";
-   std::cout << "After Movement: " << NewRect.Top << ", " << NewRect.Left << ", " << NewRect.Right << ", " << NewRect.Bottom << "\n";
+   //std::cout << "Movement: " << Movement.x << ", " << Movement.y << "\n";
+   //std::cout << "Orig rect: " << mViewRect.Top << ", " << mViewRect.Left << ", " << mViewRect.Right << ", " << mViewRect.Bottom << "\n";
+   //std::cout << "After Movement: " << NewRect.Top << ", " << NewRect.Left << ", " << NewRect.Right << ", " << NewRect.Bottom << "\n";
    AdjustBounds(NewRect);
    if (CheckBounds(NewRect))
    {
       mpView->SetFromRect(NewRect);
       mViewRect = NewRect;
-      std::cout << "member rect: "; mViewRect.DebugPrint(); std::cout << "\n";// << mViewRect.Top << ", " << mViewRect.Left << ", " << mViewRect.Right << ", " << mViewRect.Bottom << "W: " << mViewRect.Width() << "H: " << mViewRect.Height() << "\n";
-      std::cout << "After Adjustment: "; NewRect.DebugPrint(); std::cout << "\n";
-      std::cout << "View rect: "; ((Rectf)mpView->GetRect()).DebugPrint(); std::cout << "\n";
+      //std::cout << "member rect: "; mViewRect.DebugPrint(); std::cout << "\n";// << mViewRect.Top << ", " << mViewRect.Left << ", " << mViewRect.Right << ", " << mViewRect.Bottom << "W: " << mViewRect.Width() << "H: " << mViewRect.Height() << "\n";
+      //std::cout << "After Adjustment: "; NewRect.DebugPrint(); std::cout << "\n";
+      //std::cout << "View rect: "; ((Rectf)mpView->GetRect()).DebugPrint(); std::cout << "\n";
    }
 }
 /////////////////////////////////////////////////////////////////////

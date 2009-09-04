@@ -69,7 +69,7 @@ class Rect
     template <class U>
     operator sf::Rect<U>()
     {
-       return sf::Rect<U>(Top, Left, Right, Bottom);
+       return sf::Rect<U>(Left, Top, Right, Bottom);
     }
     T Width()
     {

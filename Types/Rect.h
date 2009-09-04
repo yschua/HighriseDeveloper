@@ -79,6 +79,10 @@ class Rect
     {
        return Top-Bottom;
     }
+    void DebugPrint()
+    {
+       std::cout << "Top: " << Top << " Left: " << Left << " Right: " << Right << " Bottom: " << Bottom << " Width: " << Width() << " Height: " << Height();
+    }
     T Top;
     T Left;
     T Right;

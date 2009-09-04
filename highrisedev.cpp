@@ -110,33 +110,7 @@ main ()
             if (!cam->OnEvent(event)) Windows.OnEvent(event);
             if (event.Type == sf::Event::Closed)
                exit (0);
-            else if (event.Type == sf::Event::KeyPressed)
-            {
-               if (event.Key.Code == sf::Key::A)
-               {
-                  cam->mv.x = -200;
-                  cam->ma.x = 150;
-               }
-               if (event.Key.Code == sf::Key::S)
-               {
-                  cam->mv.y = 200;
-                  cam->ma.y = -150;
-               }
-               if (event.Key.Code == sf::Key::D)
-               {
-                  cam->mv.x = 200;
-                  cam->ma.x = -150;
-               }
-               if (event.Key.Code == sf::Key::W)
-               {
-                  cam->mv.y = -200;
-                  cam->ma.y = 150;
-               }
-               if (event.Key.Code == sf::Key::E)
-               {
-                  cam->SetVelocity (0, 0);
-               }
-            }
+            //else
             /*else if (event.Type == sf::Event::MouseWheelMoved)
             {
                if (event.MouseWheel.Delta == 1) {cam->ZoomIn();} else {cam->ZoomOut();}

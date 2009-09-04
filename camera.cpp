@@ -249,6 +249,34 @@ Camera::OnEvent (const sf::Event& Event)
       if (Event.Key.Code == sf::Key::LControl || Event.Key.Code == sf::Key::RControl)
          mMovingView = false;
    }
+   if (Event.Type == sf::Event::KeyPressed)
+   {
+      // TODO: Bounds checking here. Not familiar with the Body class...
+      if (Event.Key.Code == sf::Key::A)
+      {
+         mv.x = -200;
+         ma.x = 150;
+      }
+      if (Event.Key.Code == sf::Key::S)
+      {
+         mv.y = 200;
+         ma.y = -150;
+      }
+      if (Event.Key.Code == sf::Key::D)
+      {
+         mv.x = 200;
+         ma.x = -150;
+      }
+      if (Event.Key.Code == sf::Key::W)
+      {
+         mv.y = -200;
+         ma.y = 150;
+      }
+      if (Event.Key.Code == sf::Key::E)
+      {
+         SetVelocity (0, 0);
+      }
+   }
    return false;
 }
 
@@ -333,6 +361,9 @@ Camera::Movepx(Vector2f Movement)
    {
       mpView->SetFromRect(NewRect);
       mViewRect = NewRect;
+      std::cout << "member rect: "; mViewRect.DebugPrint(); std::cout << "\n";// << mViewRect.Top << ", " << mViewRect.Left << ", " << mViewRect.Right << ", " << mViewRect.Bottom << "W: " << mViewRect.Width() << "H: " << mViewRect.Height() << "\n";
+      std::cout << "After Adjustment: "; NewRect.DebugPrint(); std::cout << "\n";
+      std::cout << "View rect: "; ((Rectf)mpView->GetRect()).DebugPrint(); std::cout << "\n";
    }
 }
 /////////////////////////////////////////////////////////////////////

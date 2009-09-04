@@ -31,6 +31,7 @@
 #else
 #include "highrisedev.h"
 #endif
+#include "highriseException.h"
 
 using namespace Gfx;
 
@@ -38,8 +39,9 @@ Background::Background ()
 {
    ImageManager * images = ImageManager::GetInstance ();
    cam = Camera::i();
-   //mBackImage = new AnimationSingle (images->GetImg ("back.png"));
-   //mBackImage->SetPosition(Vector2f(cam->GetWorldRect().Left, cam->GetWorldRect().Top-mBackImage.
+   // sky this will be the sky dome in 3D
+   mBackImage = new AnimationSingle (images->GetImg ("back.png"));
+   mBackImage->SetPosition(Vector2f( cam->GetWorldRect().Left, cam->GetWorldRect().Top - mBackImage->mSprite->GetImage()->GetHeight()) );
    // move the ground down 36 since lobby is at 0
    mBackBuildings = new Tiler (images->GetImg ("buildings.png"), Tiler::Horizontal, cam->GetWorldRect().Left, cam->GetWorldRect().Right, cam->GetWorldRect().Top + 36 - 64);
    mBackGround = new Tiler (images->GetImg ("ground.png"), Tiler::Horizontal, cam->GetWorldRect().Left, cam->GetWorldRect().Right, cam->GetWorldRect().Top + 36);
@@ -48,7 +50,14 @@ Background::Background ()
 void
 Background::Draw ()
 {
-   //cam->Draw (*mBackImage);
-   cam->Draw (*mBackBuildings);
-   cam->Draw (*mBackGround);
+   try
+   {
+      cam->Draw (*mBackImage);
+      cam->Draw (*mBackBuildings);
+      cam->Draw (*mBackGround);
+   }
+   catch( ... )
+   {
+      throw new HighriseException( "Error in rendering the background" );
+   }
 }

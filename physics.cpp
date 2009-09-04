@@ -18,9 +18,15 @@
 
 Body::Body ()
 {
+   mIsMoving = false;
+   mTime = 0;
+   mTimeTotal = 0;
+   // mMoveDest self initializes in the CTOR
+
    ms = Vector2f(0,0);
    mv = Vector2f(0,0);
    ma = Vector2f(0,0);
+   
 }
 
 Body::Body (Vector2f Pos)

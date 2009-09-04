@@ -298,22 +298,24 @@ Camera::Zoom(float Factor)
 {
    //Rectf ZoomedRect;
    // Calcuate the center
-   Vector2f Center;
-   Center.x = (mViewRect.Left+mViewRect.Right)/2;
-   Center.y = (mViewRect.Top+mViewRect.Bottom)/2;
-   // Divide the offset amount by the zoom factor
-   Rectf DifRect;
-   DifRect = mViewRect;
-   // Move the rect so it is centered at (0,0)
-   DifRect.Move(Vector2f(-Center.x, -Center.y));
-   //DifRect.Top = mViewRect.Top-Center.y;
-   DifRect.Top /= Factor;
-   DifRect.Bottom /= Factor;
-   DifRect.Left /= Factor;
-   DifRect.Right /= Factor;
-   std::cout << "Aspect: " << (double)DifRect.Height()/DifRect.Width() << "\n";
-   // Move it back to it's original offset
-   DifRect.Move(Vector2f(Center.x, Center.y));
+   if( Factor < 1 && mZoomFactor > 0.5f || Factor > 1 && mZoomFactor < 1.5f )
+   {
+      Vector2f Center;
+      Center.x = (mViewRect.Left+mViewRect.Right)/2;
+      Center.y = (mViewRect.Top+mViewRect.Bottom)/2;
+      // Divide the offset amount by the zoom factor
+      Rectf DifRect;
+      DifRect = mViewRect;
+      // Move the rect so it is centered at (0,0)
+      DifRect.Move(Vector2f(-Center.x, -Center.y));
+      //DifRect.Top = mViewRect.Top-Center.y;
+      DifRect.Top /= Factor;
+      DifRect.Bottom /= Factor;
+      DifRect.Left /= Factor;
+      DifRect.Right /= Factor;
+      std::cout << "Aspect: " << (double)DifRect.Height()/DifRect.Width() << "\n";
+      // Move it back to it's original offset
+      DifRect.Move(Vector2f(Center.x, Center.y));
    //ZoomedRect = DifRect;
    // Change the zoomed rect
    //ZoomedRect.Top = DifRect.Top+Center.y;
@@ -328,16 +330,18 @@ Camera::Zoom(float Factor)
 
    //ZoomedRect.Right = DifRect.Right+Center.x;
 
-   AdjustBounds(DifRect);
-   if (CheckBounds(DifRect))
-   {
-      mpView->SetFromRect(DifRect);
-      mZoomFactor = mZoomFactor*Factor;
+      AdjustBounds(DifRect);
+
+//   if (CheckBounds(DifRect))
+      {
+         mpView->SetFromRect(DifRect);
+         mZoomFactor = mZoomFactor*Factor;
       //std::cout << "Zooming by a factor of: " << mZoomFactor << '\n';
       //std::cout << "Approx Top: " << ZoomedRect.Top << " Left: " << ZoomedRect.Left << " Right: " << ZoomedRect.Right << " Bottom: " << ZoomedRect.Bottom << '\n';
-      mViewRect = DifRect;
+         mViewRect = DifRect;
       //std::cout << "Actual Top: " << Gfx::View.GetRect().Top << " Left: " << Gfx::View.GetRect().Left << " Right: " << Gfx::View.GetRect().Right << " Bottom: " << Gfx::View.GetRect().Bottom << '\n';
       //Gfx::Window.SetView(Gfx::View);
+      }
    }
    else
    {
@@ -415,26 +419,53 @@ Camera::CheckBounds(const Rectf& RectToCheck)
 void
 Camera::AdjustBounds(Rectf& RectToAdjust)
 {
-   while (RectToAdjust.Left < mWorldRect.Left)
+   //while (RectToAdjust.Left < mWorldRect.Left)
+   //{
+   //   RectToAdjust.Left++;
+   //   RectToAdjust.Right++;
+   //}
+   //while (RectToAdjust.Right > mWorldRect.Right)
+   //{
+   //   RectToAdjust.Right--;
+   //   RectToAdjust.Left--;
+   //}
+   //while (RectToAdjust.Top < mWorldRect.Top)
+   //{
+   //   RectToAdjust.Top++;
+   //   RectToAdjust.Bottom++;
+   //}
+   //while (RectToAdjust.Bottom > mWorldRect.Bottom)
+   //{
+   //   RectToAdjust.Bottom--;
+   //   RectToAdjust.Top--;
+   //}
+   float diff = mWorldRect.Left - RectToAdjust.Left;
+   if (RectToAdjust.Left < mWorldRect.Left)
    {
-      RectToAdjust.Left++;
-      RectToAdjust.Right++;
+      RectToAdjust.Left = mWorldRect.Left;
+      RectToAdjust.Right += diff;
    }
-   while (RectToAdjust.Right > mWorldRect.Right)
+   else if (RectToAdjust.Right > mWorldRect.Right)
    {
-      RectToAdjust.Right--;
-      RectToAdjust.Left--;
+      float extra = RectToAdjust.Right - mWorldRect.Right;
+      if( diff < extra ) extra = diff; // don't rip the left from the wall
+      RectToAdjust.Right-=diff;
+      RectToAdjust.Left-=diff;
    }
-   while (RectToAdjust.Top < mWorldRect.Top)
+   diff = RectToAdjust.Top - mWorldRect.Top;
+   if (RectToAdjust.Top < mWorldRect.Top)
    {
-      RectToAdjust.Top++;
-      RectToAdjust.Bottom++;
+      RectToAdjust.Top=mWorldRect.Top;
+      RectToAdjust.Right+=diff;
    }
-   while (RectToAdjust.Bottom > mWorldRect.Bottom)
+   else if (RectToAdjust.Bottom > mWorldRect.Bottom)
    {
-      RectToAdjust.Bottom--;
-      RectToAdjust.Top--;
+      float extra = RectToAdjust.Bottom - mWorldRect.Bottom;
+      if( diff < extra ) extra = diff; // don't rip the left from the wall
+      RectToAdjust.Bottom-=diff;
+      RectToAdjust.Top-=diff;
    }
+
    if (!CheckBounds(RectToAdjust))
       std::cout << "Unable to adjust rect!";
 }

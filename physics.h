@@ -28,11 +28,18 @@ private:
    float mTimeTotal;
    Vector2f mMoveDest;
 
+public:  // protect these memvars and add gets
+   Vector2f ms;
+   Vector2f mv;
+   Vector2f ma;
+
 public:
-   Vector2f ms, mv, ma;
+   // CTOR
    Body ();
    Body (float x, float y);
    Body (Vector2f Pos);
+
+   //Properties
    float GetPositionX () { return ms.x; }
    float GetPositionY () { return ms.y; }
    Vector2f GetPosition() { return ms; }
@@ -42,6 +49,8 @@ public:
    float GetAccelerationX () { return ma.x; }
    float GetAccelerationY () { return ma.y; }
    Vector2f GetAcceleration() { return ma; }
+
+   // Mothods
    void DebugPrint ();
    // Depreciated!
    void SetPosition (float x, float y);

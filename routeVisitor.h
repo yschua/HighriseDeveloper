@@ -31,7 +31,8 @@ struct RoutingRequest
 class RouteVisitor
 {
 protected:
-   RoutingRequest* mroutingRequest; // for now a single request, later we may use a collection.
+   RoutingRequest* mroutingRequest;
+   bool m_Boarding;
 public:
    RouteVisitor (RoutingRequest* rq, int count);
    ~RouteVisitor (void);
@@ -39,6 +40,14 @@ public:
    virtual RoutingRequest* getRoute( )
    {
       return mroutingRequest;
+   }
+   void SetBoarding()
+   {
+      m_Boarding = true;
+   }
+   bool IsBoarding()
+   {
+      return m_Boarding;
    }
 };
 

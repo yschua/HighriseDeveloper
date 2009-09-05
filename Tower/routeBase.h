@@ -23,7 +23,8 @@ class RouteBase // Abstract, does not even have a CPP file at this point.
 
 public:
    RouteBase() {};
-   virtual void SetRoute( RouteVisitor* visitor ) = 0;
+   virtual void SetCallButton( RouteVisitor* visitor ) = 0; // call the elevator
+   virtual void SetFloorButton( RouteVisitor* visitor ) = 0;      // once inside, select a floor
    virtual void Update (float dt) = 0;
    virtual void Draw () = 0;
 };

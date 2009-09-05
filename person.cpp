@@ -73,6 +73,8 @@ void Person::Update (float dt)
          if (rand() % 100 == 50 )
          {
             set_Activity( AS_GoingHome );
+            set_CurrentState( Person::CS_Walking );
+
             int home_level = (rand() % 1) + 4;   // test code, give them a home
             Location& cur = mWorkPath.mPathList[0];
             cur.mLevel = home_level;

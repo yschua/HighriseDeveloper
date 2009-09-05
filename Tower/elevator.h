@@ -38,18 +38,23 @@ class Tower;
 #include "../physics.h"
 #include "routeBase.h"
 
+// Setting elevator levels serviced.
+//
 // The UI should read the FloorStops array and the range of floors.
 // Then display all available floors and ticking those floors in the FloorStops array.
 // The user will be able to untick levels to diable and tick levels to enable.
 // Then the FloorStops array is reloaded with only floors that are ticked.
+
+// Other
+//
 // This code and the routing agent can determine which elevators reach which levels
 //  to determine what paths are available virtically through the tower.
 // ButtonFlag is the direction a person wishes to travel to their destination.
 // BUTTON_UP and BUTTON_DOWN are the bit flags.
 
-#define BUTTON_UP 0x01
-#define BUTTON_DOWN 0x02
-#define DESINATION  0x04  // this is a destination level.
+#define BUTTON_UP 0x01     // this is a call to floor
+#define BUTTON_DOWN 0x02   // this is a call to floor
+#define DESINATION  0x04   // this is a level destination
 
 struct FloorStop
 {
@@ -104,7 +109,7 @@ protected:
    // Controls this things motion
    int   mX;
    int   mY;
-   int   mZ;
+   float mZ;
 
    int   mNumber;    // number of this lift
    //short mLevel;
@@ -141,10 +146,16 @@ public:
    void ClearStops();
    void Move( int x, int y );
    void Resize( int x, int y );
-   void pos_calc ();
+   //void pos_calc ();
+protected:
    void PosCalc ();
-   void SetSetCallButton (int level, int dir);
-   virtual void SetRoute( RouteVisitor* visitor );
+   virtual void SetCallButton (RouteVisitor* visitor);
+   virtual void SetFloorButton (RouteVisitor* visitor);
+   void NextCallButton ();
+   void Motion ();
+   void Elevator::SetDestination (int level);
+public:
+
    virtual void Update (float dt);
    virtual void Draw ();
 };

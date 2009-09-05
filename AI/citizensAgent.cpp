@@ -118,30 +118,38 @@ void CitizensAgent::Update (float dt)
                {
                   switch ( peep->get_CurrentState() )
                   {
-                     case Person::CS_Waiting:
-                        // tally up wait states
-                        break;
-                     case Person::CS_Riding:
-                        // enroute
-                        break;
-                     case Person::CS_Disembarking:
-                        workPath.index++;
-                        peep->set_CurrentState( Person::CS_Walking );
-                        // fall through
-                     default:
-                        //Routes* routeList = Routes::GetInstance();
-                        Routes& routeList = mTower.GetRoutes();
-                        if (  routeList.Get_Routes().size() > 0 )
+                  case Person::CS_Waiting:
+                     // tally up wait states
+                     break;
+                  case Person::CS_Riding:
+                     // enroute
+                     break;
+                  case Person::CS_Disembarking:
+                     workPath.index++;
+                     peep->set_CurrentState( Person::CS_Walking );
+                     // fall through
+                  default:
+                     //Routes* routeList = Routes::GetInstance();
+                     Routes& routeList = mTower.GetRoutes();
+                     if (  routeList.Get_Routes().size() > 0 )
+                     {
+                        std::vector<RouteBase*>::iterator i;
+                        i = routeList.Get_Routes().begin ();
+                        RouteBase* route = (*i);
+                        RoutingRequest req;     // routing code needs to queue this person
+                        req.OriginLevel = curLevel;
+                        req.DestinLevel = workPath.mPathList[idx].mLevel;
+                        RouteVisitor visitor(&req, 1);
+                        route->SetCallButton( &visitor );
+                        if( visitor.IsBoarding() )
                         {
-                           std::vector<RouteBase*>::iterator i;
-                           i = routeList.Get_Routes().begin ();
-                           RouteBase* route = (*i);
-                           RoutingRequest req;     // routing code needs to queue this person
-                           req.OriginLevel = curLevel;
-                           req.DestinLevel = workPath.mPathList[idx].mLevel;
-                           RouteVisitor visitor(&req, 1);
-                           route->SetRoute( &visitor );
+                           peep->set_CurrentState( Person::CS_Riding );
                         }
+                        else
+                        {
+                           peep->set_CurrentState( Person::CS_Waiting );
+                        }
+                     }
                   }
                   workPath.index++; // TODO: wait for elevator, we are moving ahead before getting to the level
                }
@@ -162,19 +170,41 @@ void CitizensAgent::Update (float dt)
                }
                else
                {
-                  //Routes* routeList = Routes::GetInstance();
-                  Routes& routeList = mTower.GetRoutes();
-                  if (  routeList.Get_Routes().size() > 0 )
+                  switch ( peep->get_CurrentState() )
                   {
-                     std::vector<RouteBase*>::iterator i;
-                     i = routeList.Get_Routes().begin ();
-                     i++;  // go home on the 2nd elevator
-                     RouteBase* route = (*i);
-                     RoutingRequest req;
-                     req.OriginLevel = curLevel;
-                     req.DestinLevel = workPath.mPathList[idx].mLevel;
-                     RouteVisitor visitor(&req, 1);
-                     route->SetRoute( &visitor );
+                  case Person::CS_Waiting:
+                     // tally up wait states
+                     break;
+                  case Person::CS_Riding:
+                     // enroute
+                     break;
+                  case Person::CS_Disembarking:
+                     workPath.index++;
+                     peep->set_CurrentState( Person::CS_Walking );
+                     // fall through
+                  default:
+                     //Routes* routeList = Routes::GetInstance();
+                     Routes& routeList = mTower.GetRoutes();
+                     if ( routeList.Get_Routes().size() > 0 )
+                     {
+                        std::vector<RouteBase*>::iterator i;
+                        i = routeList.Get_Routes().begin ();
+                        i++;  // go home on the 2nd elevator
+                        RouteBase* route = (*i);
+                        RoutingRequest req;
+                        req.OriginLevel = curLevel;
+                        req.DestinLevel = workPath.mPathList[idx].mLevel;
+                        RouteVisitor visitor(&req, 1);
+                        route->SetCallButton( &visitor );
+                        if( visitor.IsBoarding() )
+                        {
+                           peep->set_CurrentState( Person::CS_Riding );
+                        }
+                        else
+                        {
+                           peep->set_CurrentState( Person::CS_Waiting );
+                        }
+                     }
                   }
                   workPath.index--; // TODO: wait for elevator, we are moving ahead before getting to the level
                }

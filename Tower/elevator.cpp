@@ -37,6 +37,7 @@
 #else
 #include "../highrisedev.h"
 #endif
+#include "../highriseException.h"
 
 using namespace Gfx;
 
@@ -79,8 +80,8 @@ Elevator::Elevator ( Lift_Styles style, int x, short BottomLevel, short TopLevel
 
    mcam = Camera::i();
    mX = x;
-   mY = ( mcam->GetWorldRect ().Top) - (mBottomLevel * 36);
-   mZ = -0.2; // slightly in front of the tower
+   mY = (int)( mcam->GetWorldRect ().Top) - (mBottomLevel * 36);
+   mZ = -0.2f; // slightly in front of the tower
 
    mNumber = gElevatorsNumber++; // set number;
 
@@ -107,170 +108,184 @@ Elevator::PosCalc ()
 }
 
 void
-Elevator::SetRoute( RouteVisitor* visitor )
+Elevator::SetFloorButton (RouteVisitor* visitor)   // OK, take me there
 {
-   if ( mStartRoute == mEndRoute )
+   RoutingRequest* req = visitor->getRoute();
+   mStartRoute = req->OriginLevel;
+   mEndRoute = req->DestinLevel;
+   std::cout << "Route: origin: " << mStartRoute << " end: " << mEndRoute << std::endl;
+   if ( mEndRoute != mStartRoute )
    {
-      // more plugging until the routing is done
-      RoutingRequest* req = visitor->getRoute();
-      mStartRoute = req->OriginLevel;// + 11;
-      mEndRoute = req->DestinLevel;// + 11;
-      int cur_level = mPosition/36;
-      std::cout << "Route: origin: " << mStartRoute << " end: " << mEndRoute << " Current level " << cur_level << std::endl;
-      if ( cur_level == mStartRoute )
-      {
-         mDirection = (cur_level < mEndRoute) ? 1 : -1;
-         mStartRoute = mEndRoute; // this stops the elevator at the destination to wait for a request.
-         // in the real code we will pull this request when it ends
-         mIdleTime = 10; // pause at drop off floor;
-      }
-      else
-      {
-         mDirection = (cur_level < mStartRoute) ? 1 : -1;
-      }
-   }
-}
-
-void
-Elevator::SetSetCallButton (int level, int dir)
-{
-   int reqLevel = level - mBottomLevel;
-   if (reqLevel >= 0 && reqLevel < mFloorCount )
-   {
-      if (level == mStops[reqLevel].mLevel)
-      {
-         if( dir < 0 )
-         {
-            mStops[reqLevel].mButtonFlag |= BUTTON_DOWN;
-            if( mDirection == 0 )
-            {
-               mDirection = -1;
-            }
-         }
-         else
-         {
-            mStops[reqLevel].mButtonFlag |= BUTTON_UP;
-            if( mDirection == 0 )
-            {
-               mDirection = 1;
-            }
-         }
-      }
-      else
-      {
-         std::cout << "Elevator Call Error for level: " << level << " computed index: " << reqLevel;
-      }
+      mDirection = (mStartRoute < mEndRoute) ? 1 : -1;
+      mIdleTime = 10; // pause at drop off floor;
    }
    else
    {
-      std::cout << "Elevator Call for wrong floor level: " << level << " computed index: " << reqLevel;
+      mDirection = 0;
    }
 }
 
 void
-Elevator::Update (float dt)
+Elevator::SetCallButton (RouteVisitor* visitor)    // where is an elevator when you need one, I've pushed this button 5 times already
 {
-   int max = mTopLevel * 36;
-   int min = mBottomLevel * 36;
-   int dest = ((mStartRoute == mEndRoute) ? mEndRoute : mStartRoute) * 36;
-   if (dest > max ) dest = max;
-   if (dest < min ) dest = min;
+   RoutingRequest* req = visitor->getRoute();
+   int dirFlag = (req->DestinLevel > req->OriginLevel) ? BUTTON_UP : BUTTON_DOWN;
+   int reqLevel = req->OriginLevel - mBottomLevel;
+   int cur_level = mPosition / 36 - mBottomLevel;
+   int align = mPosition % 36;  // zero if we are aligned with a floor (safe stop)
 
-   // test plug
-   switch( mDirection )
+   if( cur_level == reqLevel && align == 0 )
    {
-   case 0:
-      if( mIdleTime > 0 )
+      SetFloorButton( visitor );
+      visitor->SetBoarding();
+   }
+   else
+   {
+      if (reqLevel >= 0 && reqLevel < mFloorCount )
       {
-         mIdleTime--;
+         mStops[reqLevel].mButtonFlag |= dirFlag;
       }
       else
       {
-         if( mStartRoute == mEndRoute )
+         std::cout << "Elevator Call for wrong floor level: " << req->OriginLevel << " computed index: " << reqLevel;
+      }
+   }
+}
+
+void
+Elevator::SetDestination (int level)
+{
+   mEndRoute = level;
+   mDirection = ( mStartRoute < mEndRoute ) ? 1 : -1;
+}
+
+void
+Elevator::NextCallButton ()
+{
+   int nPasses = 2; // only 2 directions
+   int curStop = mStartRoute - mBottomLevel;
+   bool bDown = (mDirection < 1);
+   while( nPasses > 0 )
+   {
+      if( bDown )   // search down
+      {
+         --nPasses;
+         for( int idx=curStop-1; idx>=0; --idx )
          {
-            // if express down else start from mFLoorCount down.
-            for (int idx = 0; idx < mFloorCount; ++idx )
+            if( mStops[idx].mButtonFlag )
             {
-               if (mStops[idx].mButtonFlag&BUTTON_UP > 0 || mStops[idx].mButtonFlag & BUTTON_DOWN > 0)
+               nPasses = 0; // found a button lit, done with main loop but we have to check precidence
+               // on the way down we stop on destination floors or floors with lit down buttons or proceed to the lowest floor with a lit up button.
+               // later on the way up we will stop on floors with lit up buttons.
+               if( mStops[idx].mButtonFlag&BUTTON_DOWN|DESINATION )
                {
-                  if( idx < mStartRoute )
-                  {
-                     mDirection = -1;
-                  }
-                  else if( idx > mStartRoute )
-                  {
-                     mDirection = +1;
-                  }
-                  mEndRoute = mStops[idx].mLevel;
-                  break;
+                  SetDestination( idx + mBottomLevel );
+                  break; 
                }
             }
-
-            // BS CODE
-            //int start = (rand() % (mTopLevel - mBottomLevel)) + mBottomLevel; // this will work if start level is zero.
-            //int end = (rand() % (mTopLevel - mBottomLevel)) + mBottomLevel; // this will work if end level is zero.
-            //if (end == start )
-            //{
-            //   mIdleTime = 10;
-            //}
-            //else
-            //{
-            //   // this will be done by the path finder and rousing manager code
-            //   //RoutingRequest req;
-            //   //req.OriginLevel = start;
-            //   //req.DestinLevel = end;
-            //   //RouteVisitor visitor( &req );  // while this seems an extra load to create a class to pass a struct
-            //   //                                 // the class will be managing the elevators operations (somewhat an agent).
-            //   //                                 // for now, we hotwire this in.
-            //   //setRoute( &visitor );
-            //   mIdleTime = 10; // pause at pickup floor;
-            //}
          }
-         else
-         {
-            mDirection = (mStartRoute > mEndRoute) ? 1 : -1;
-       // in the real code we will pull this request when it ends
-         }
-         // End BS code
-         //if( mPosition > mBottomLevel+9 )
-         //{
-         //   mDirection = -1;
-         //}
-         //else
-         //{
-         //   mDirection = 1;
-         //}
+         bDown = false; // search up if not found
       }
+      else
+      {
+         --nPasses;
+         for( int idx=curStop+1; idx < mFloorCount; ++idx )
+         {
+            if( mStops[idx].mButtonFlag )
+            {
+               nPasses = 0; // found a button lit, done with main loop but we have to check precidence
+               // on the way up we stop on destination floors or floors with lit up buttons or proceed to the highest floor with a lit down button.
+               // later on the way down we will stop on floors with lit down buttons.
+               if( mStops[idx].mButtonFlag&BUTTON_UP|DESINATION )
+               {
+                  SetDestination( idx + mBottomLevel );
+                  break; 
+               }
+            }
+         }
+         bDown = (nPasses> 0); // only true if we have not looked down yet
+      }
+   }
+}
+
+void
+Elevator::Motion ()
+{
+   int max = mTopLevel * 36;
+   int min = mBottomLevel * 36;
+   int align = mPosition % 36;  // zero if we are aligned with a floor (safe stop)
+   int cur_level = (mPosition -18) / 36;
+   int index = cur_level-mBottomLevel;
+   if( index < 0 || index >= mFloorCount )
+      throw new HighriseException( "Elevator: Error in current floor index" );
+
+   int dest = ((mStartRoute == mEndRoute) ? mStartRoute * 36 : mEndRoute * 36);
+   if (dest > max ) dest = max;
+   if (dest < min ) dest = min;
+   switch( mDirection )
+   {
+   case 0:
+      // now running on call button logic
+      if( align == 0 && mStops[index].mButtonFlag )
+      {
+         mStops[index].mButtonFlag = 0; // clear any condition
+      }
+      NextCallButton();
       break;
    case 1:
       if( mPosition < dest )
       {
          mPosition++;
-         mLiftMachine->Update( dt );
+         mLiftMachine->Update( 1 );
       }
       else
       {
+         if( align == 0 && mStops[index].mButtonFlag&BUTTON_UP|DESINATION )
+         {
+            mStops[index].mButtonFlag & BUTTON_DOWN; // clear all but down
+         }
+         NextCallButton();
          mStartRoute = mEndRoute; // this stops the elevator at the destination to wait for a request.
-         mDirection = 0;
-         mIdleTime = 90;
+         mIdleTime = 20;
       }
       break;
    case -1:
       if( mPosition > dest )
       {
          mPosition--;
-         mLiftMachine->Update( dt );
+         mLiftMachine->Update( -1 );
       }
       else
       {
+         if( align == 0 && mStops[index].mButtonFlag&BUTTON_DOWN|DESINATION )
+         {
+            mStops[index].mButtonFlag & BUTTON_UP; // clear all but up
+         }
+         NextCallButton();
          mStartRoute = mEndRoute; // this stops the elevator at the destination to wait for a request.
-         mDirection = 0;
-         mIdleTime = 90;
+         mIdleTime = 20;
       }
    }
    PosCalc();
 }
 
+
+// Elevator is either in motion or idle( doors open, loading, unloading, no calls )
+// When idle do nothing. Idle times are set when the elevator arrives at a floor
+// When idle cycle ends scan for destinations and calls.
+void
+Elevator::Update (float dt)
+{
+   if( mIdleTime > 0 )
+   {
+      mIdleTime--;
+   }
+   else
+   {
+      Motion();
+   }
+}
+ 
 void
 Elevator::Draw ()
 {

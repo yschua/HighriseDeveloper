@@ -38,7 +38,8 @@ namespace UI
           Name << "window/BG" << i << ".png";
           //sf::Sprite ToCopy;
           std::cout << "size: " << BGImgs.size() << '\n';
-          BGImgs.at(i).SetImage(*Gfx::GetImage(Name.str()));
+//          BGImgs.at(i).SetImage(*Gfx::GetImage(Name.str()));
+          // TODO crate the BG plane
       }
       std::cout << "Done loading images!\n";
       Rect.Top = 200;

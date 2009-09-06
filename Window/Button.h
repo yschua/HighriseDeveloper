@@ -10,12 +10,23 @@ namespace UI
 {
    class Button : public Element
    {
+   private:
+      sf::Shape mButtonBG;
+      sf::String* mpButtonText;
+      sf::Rect<int> mRect;
+
    public:
       Button();
+      virtual ~Button();
+
       void Draw();
       void Update();
       void SetPosition(int, int);
       void SetActualPosition(int, int);
+      void SetText( const char* pszText )
+      {
+         mpButtonText = new sf::String(pszText);
+      }
       sf::Vector2i GetPosition();
       bool OnEvent(const sf::Event&);
       void SetSize(int, int);
@@ -28,9 +39,5 @@ namespace UI
       void SetParent(Window* NewParent);
       void DeActivate();
       void Activate();
-   private:
-      sf::Shape ButtonBG;
-      sf::String ButtonText;
-      sf::Rect<int> Rect;
    };
 }

@@ -43,7 +43,7 @@ Lobby::Lobby (int x, int x2, int level, Tower * TowerParent)
    mX = x;
    ImageManager * images = ImageManager::GetInstance ();
    cam = Camera::GetInstance ();
-   tile = new Tiler (images->GetImg("lobby.png"), Tiler::Horizontal, x, x2, mY);
+   tile = new Tiler (images->GetTexture("lobby.png", GL_RGBA), Tiler::Horizontal, x, 0, 0, x2-x, 36);
    nFireEscapeLeft->SetPosition (mX - 56, mY);
    nFireEscapeRight->SetPosition (mX2, mY);
    std::cout << "New lobby at " << mX << " to " << mX2 << " Y level " << mY << std::endl;

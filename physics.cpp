@@ -16,31 +16,39 @@
 
 #include "highrisedev.h"
 
-Body::Body ()
+Body::Body (int width, int height)
 {
    mIsMoving = false;
    mTime = 0;
    mTimeTotal = 0;
    // mMoveDest self initializes in the CTOR
-
    ms = Vector2f(0,0);
    mv = Vector2f(0,0);
    ma = Vector2f(0,0);
+   mWidth = Vector3f (width, 0, 0);
+   mHeight = Vector3f (0, height, 0);
+   mDepth = Vector3f (0, 0, 1);
    
 }
 
-Body::Body (Vector2f Pos)
+Body::Body (Vector2f Pos, int width, int height)
 {
    ms = Pos;
    mv = Vector2f(0,0);
    ma = Vector2f(0,0);
+   mWidth = Vector3f (width, 0, 0);
+   mHeight = Vector3f (0, height, 0);
+   mDepth = Vector3f (0, 0, 1);
 }
 
-Body::Body (float x, float y)
+Body::Body (float x, float y, int width, int height)
 {
    ms = Vector2f(x,y);
    mv = Vector2f(0,0);
    ma = Vector2f(0,0);
+   mWidth = Vector3f (width, 0, 0);
+   mHeight = Vector3f (0, height, 0);
+   mDepth = Vector3f (0, 0, 1);
 }
 
 void

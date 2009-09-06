@@ -19,6 +19,7 @@
 
 // Is there a way to avoid this include?
 #include "Types/Vector2.h"
+#include "Types/Vector3.h"
 
 class Body
 {
@@ -28,6 +29,11 @@ private:
    float mTimeTotal;
    Vector2f mMoveDest;
 
+protected:  
+   Vector3f mWidth; // these vectors are zero based
+   Vector3f mHeight;
+   Vector3f mDepth;
+
 public:  // protect these memvars and add gets
    Vector2f ms;
    Vector2f mv;
@@ -35,9 +41,9 @@ public:  // protect these memvars and add gets
 
 public:
    // CTOR
-   Body ();
-   Body (float x, float y);
-   Body (Vector2f Pos);
+   Body (int width, int height);
+   Body (float x, float y, int width, int height);
+   Body (Vector2f Pos, int width, int height);
 
    //Properties
    float GetPositionX () { return ms.x; }
@@ -49,6 +55,13 @@ public:
    float GetAccelerationX () { return ma.x; }
    float GetAccelerationY () { return ma.y; }
    Vector2f GetAcceleration() { return ma; }
+
+   Vector3f GetWidthVector() { return mWidth; }
+   float GetWidth() { return mWidth.x; }
+   Vector3f GetHeightVector() { return mHeight; }
+   float GetHeight() { return mHeight.y; }
+   Vector3f GetDepthVector() { return mDepth; }
+   float GetDepth() { return mDepth.z; }
 
    // Mothods
    void DebugPrint ();

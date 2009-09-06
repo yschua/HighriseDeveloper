@@ -22,8 +22,8 @@ Interface::Interface ()
 {
    ImageManager * images = ImageManager::GetInstance ();
    mpCam = Camera::GetInstance ();
-   mClock = new AnimationSingle (images->GetImg ("clock.png"));
-   //mClock.SetImage(*hr::Gfx::GetImage("clock.png"));
+   Texture* pTex = images->GetTexture ("clock.png", GL_RGBA);
+   mClock = new AnimationSingle (pTex, 48, 48); //images->GetImg ("clock.png"));
    PosCalc ();
 }
 

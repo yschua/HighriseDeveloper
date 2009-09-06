@@ -14,30 +14,40 @@
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef _IMAGEMANAGER_H
-#define _IMAGEMANAGER_H
+#pragma once
+#ifndef _TEXTURE_H
+#define _TEXTURE_H
+
+// Is there a way to avoid this include?
+#include <string>
+
+using namespace std;
 
 namespace Gfx
 {
-   class Texture;
+   class ImageManager;
 
-   class ImageManager
+   class Texture
    {
-   private:
-      std::string mpath_prefix;
-      //std::map<std::string, sf::Image *> mimages;
-      std::map<std::string, Texture*> mImages;
-      static ImageManager * mInstance;
-      ImageManager ();
+      friend class ImageManager;
+
+      std::string mName;
+      unsigned int mID;
+      unsigned int mChannels;
+
+   protected:
+      // CTOR
+      Texture (const string& psName);
+      ~Texture () {};
 
    public:
-      static ImageManager * GetInstance ();
-      static ImageManager* i() { return GetInstance(); };
-//      sf::Image * GetImg (const std::string & name);
-      Texture* GetTexture( const std::string& name, int channels);
-//      int preload_image (const std::string& name);
-      void set_path (const std::string & prefix);
+      // properties
+      unsigned int GetID() { return mID; }
+      bool SupportsAlpha() { return mChannels==4; }
+
+      // methods
+      bool Load (const string& psName, int channels);
    };
-//   sf::Image* GetImage(const std::string& Key);
 }
-#endif // _IMAGEMANAGER_H
+
+#endif //_TEXTURE_H

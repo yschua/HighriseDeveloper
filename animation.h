@@ -16,27 +16,37 @@
 
 #ifndef _ANIMATION_H
 #define _ANIMATION_H
+#include "Graphics/texture.h"
+
+using namespace Gfx;
 
 class Animation : public Body
 {
 private:
-   std::vector <std::pair <sf::Image *, float> > mframes;
+//   std::vector <std::pair <sf::Image *, float> > mframes;
+   std::vector <std::pair <Texture*, float> > mframes;
    int mcurrent_frame;
    float mtime;
+//   sf::Sprite * sprite;
 
 public:
-   Animation ();
-   void AddFrame (sf::Image * image, float duration);
+   Animation (int width, int height);
+//   void AddFrame (sf::Image * image, float duration);
+   void AddFrame (Texture* pTex, float duration);
    void Update (float dt);
-   sf::Sprite * sprite;
+   unsigned int GetTextureID();
 };
 
 class AnimationSingle : public Body
 {
+   Texture* mpTexture;
 public:
-   sf::Sprite* mSprite;
-   AnimationSingle (sf::Image* image);
+   //sf::Sprite* mSprite;
+   //AnimationSingle (sf::Image* image);
+   AnimationSingle (Texture* pTex, int width, int height);
    void SetSubRect (int x1, int y1, int x2, int y2);
+   unsigned int GetTextureID();
+
 };
 
 #endif

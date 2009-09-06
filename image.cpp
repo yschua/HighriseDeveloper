@@ -14,11 +14,18 @@
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "highrisedev.h"
+//#include "highrisedev.h"
+#include <SFML/Graphics.hpp>
+#include <iostream>
+#include <string>
+#include <map>
+#include "graphics/texture.h"
+#include "image.h"
+
 using namespace Gfx;
 
 namespace Gfx {
-   Gfx::ImageManager * ImageManager::minstance = NULL;
+   Gfx::ImageManager * ImageManager::mInstance = NULL;
 
    ImageManager::ImageManager ()
    :   mpath_prefix ("data/")
@@ -28,11 +35,11 @@ namespace Gfx {
    ImageManager *
    ImageManager::GetInstance ()
    {
-      if (minstance == NULL)
+      if (mInstance == NULL)
       {
-         minstance = new ImageManager ();
+         mInstance = new ImageManager ();
       }
-      return minstance;
+      return mInstance;
    }
 
    void
@@ -41,37 +48,54 @@ namespace Gfx {
       mpath_prefix = prefix;
    }
 
-   sf::Image *
-   ImageManager::GetImg (const std::string & name)
+   //sf::Image *
+   //ImageManager::GetImg (const std::string & name)
+   //{
+   //   if (mimages[name] == NULL)
+   //   {
+   //      sf::Image * temp;
+   //      temp = new sf::Image;
+   //      std::cout << "Loading file " << mpath_prefix + name << std::endl;
+   //      temp->LoadFromFile (mpath_prefix + name);
+   //      mimages[name] = temp;
+   //      mTextureCount++;
+   //      return temp;
+   //   }
+   //   std::cout << "Using preloaded file " << name << std::endl;
+   //   return mimages[name];
+   //}
+
+   Texture*
+   ImageManager::GetTexture (const std::string & name, int channels) // we have to tell it how many channels until we change the loader
    {
-      if (mimages[name] == NULL)
+      if (mImages[name] == NULL)
       {
-         sf::Image * temp;
-         temp = new sf::Image;
+         Texture* pTexture = new Texture (name);
          std::cout << "Loading file " << mpath_prefix + name << std::endl;
-         temp->LoadFromFile (mpath_prefix + name);
-         mimages[name] = temp;
-         return temp;
+         pTexture->Load (mpath_prefix + name, channels);
+         mImages[name] = pTexture;
+         return pTexture;
       }
       std::cout << "Using preloaded file " << name << std::endl;
-      return mimages[name];
+      return mImages[name];
    }
 
-   int
-   ImageManager::preload_image (const std::string & name)
-   {
-      if (mimages[name] == NULL)
-      {
-         sf::Image * temp;
-         temp = new sf::Image;
-         temp->LoadFromFile (mpath_prefix + name);
-         mimages[name] = temp;
-         return 1;
-      }
-      return 0;
-   }
+   //int
+   //ImageManager::preload_image (const std::string & name)
+   //{
+   //   if (mimages[name] == NULL)
+   //   {
+   //      sf::Image * temp;
+   //      temp = new sf::Image;
+   //      temp->LoadFromFile (mpath_prefix + name);
+   //      mimages[name] = temp;
+   //      return 1;
+   //   }
+   //   return 0;
+   //}
 
-   sf::Image* GetImage(const std::string& Key) {
-      return ImageManager::GetInstance()->GetImg(Key);
-   }
+   //sf::Image* GetImage(const std::string& Key)
+   //{
+   //   return ImageManager::GetInstance()->GetImg(Key);
+   //}
 }

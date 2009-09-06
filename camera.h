@@ -46,6 +46,8 @@ public:
    static Camera* i();
    void Display ();
    void Clear ();
+   void InitGL();
+
    void Draw (Animation & to_draw);
    void Draw (AnimationSingle & to_draw);
    void Draw (Tiler & to_draw);

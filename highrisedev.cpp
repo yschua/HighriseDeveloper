@@ -16,6 +16,7 @@
 
 #include "Window/Window.h"
 #include "Window/Button.h"
+#include "Window/TextBox.h"
 #include "highrisedev.h"
 
 #include "AI/citizensAgent.h"
@@ -37,6 +38,8 @@ main ()
    Tower theTower (1, 10); // numero uno with 10 sub levels
    CitizensAgent People( theTower ); // known tower, later this will be a tower list for mutiple towers
    Interface* interface = new Interface();
+
+   cam->InitGL();
 
    try
    {
@@ -94,12 +97,25 @@ main ()
       for (int i = 0; i < 5; i++)
       {
          UI::Window* pWind = new UI::Window;
-
-         for (int j = 0; j < 3; j++)
+         if( i ==1 )
          {
-             UI::Button* pButton = new UI::Button();
-             pButton->SetPosition(0, 20*j);
-             pWind->AddItem(pButton);
+            UI::TextBox* pText = new UI::TextBox();
+            pText->SetPosition(0, -400);
+            pText->SetText( "Office" ); 
+            pWind->AddItem(pText);
+            UI::Button* pButton = new UI::Button();
+            pButton->SetPosition(0, 20);
+            pButton->SetText( "Button" );
+            pWind->AddItem(pButton);
+         }
+         else
+         {
+            for (int j = 0; j < 3; j++)
+            {
+               UI::Button* pButton = new UI::Button();
+               pButton->SetPosition(0, 20*j);
+               pWind->AddItem(pButton);
+            }
          }
          Windows.Add(pWind);
       }

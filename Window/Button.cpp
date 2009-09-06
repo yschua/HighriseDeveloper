@@ -6,15 +6,20 @@ namespace UI
    Button::Button()
    {
       //ButtonBG.SetImage(*Gfx::GetImage("UI/Star-Empty.png"));
-      ButtonText.SetText("testing!!!");
-      Rect.Top = 10;
-      Rect.Left = 0;
-      Rect.Right = 50;
-      Rect.Bottom = 30;
-      ButtonBG = sf::Shape::Rectangle(Rect.Left, Rect.Top, Rect.Right, Rect.Bottom, sf::Color(200,200,200,255), 1, sf::Color(0,0,0,255));
-      ButtonText.SetPosition(Rect.Left, Rect.Top);
-      ButtonText.SetSize(Rect.Bottom-Rect.Top-4);
+      mRect.Top = 10;
+      mRect.Left = 0;
+      mRect.Right = 50;
+      mRect.Bottom = 30;
+      mButtonBG = sf::Shape::Rectangle(mRect.Left, mRect.Top, mRect.Right, mRect.Bottom, sf::Color(200,200,200,255), 1, sf::Color(0,0,0,255));
+      mpButtonText = new sf::String("Le Bouton" );
+      mpButtonText->SetPosition(mRect.Left, mRect.Top);
+      mpButtonText->SetSize(mRect.Bottom-mRect.Top-4);
+      mpButtonText->SetText("testing!!!");
       //Update();
+   }
+   Button::~Button()
+   {
+      delete mpButtonText;
    }
 
    void Button::Draw()
@@ -26,8 +31,8 @@ namespace UI
    void Button::Update()
    {
       //std::cout << "(parent ADD:" << ParentWindow << ") Left: " << ParentWindow->GetRect().Left << "\tTop: " << ParentWindow->GetRect().Top << "\n";
-      ButtonBG.SetPosition(Rect.Left+ParentWindow->GetRect().Left, Rect.Top+ParentWindow->GetRect().Top-10);
-      ButtonText.SetPosition(Rect.Left+ParentWindow->GetRect().Left, Rect.Top+ParentWindow->GetRect().Top);
+      mButtonBG.SetPosition(mRect.Left+ParentWindow->GetRect().Left, mRect.Top+ParentWindow->GetRect().Top-10);
+      mpButtonText->SetPosition(mRect.Left+ParentWindow->GetRect().Left, mRect.Top+ParentWindow->GetRect().Top);
       //Button
    }
 
@@ -35,8 +40,8 @@ namespace UI
    {
       if (!Active)
       {
-         ButtonBG.SetColor(Style.ActiveColor);
-         ButtonText.SetColor(Style.ActiveColor);
+         mButtonBG.SetColor(Style.ActiveColor);
+         mpButtonText->SetColor(Style.ActiveColor);
          Active = true;
       }
    }
@@ -45,8 +50,8 @@ namespace UI
    {
       if (Active)
       {
-         ButtonBG.SetColor(Style.InActiveColor);
-         ButtonText.SetColor(Style.InActiveColor);
+         mButtonBG.SetColor(Style.InActiveColor);
+         mpButtonText->SetColor(Style.InActiveColor);
          Active = false;
       }
    }
@@ -56,9 +61,9 @@ namespace UI
       sf::Rect<int> NewRect;
       NewRect.Left = XPos;
       NewRect.Top = YPos;
-      NewRect.Right = Rect.GetWidth()+XPos;
-      NewRect.Bottom = Rect.GetHeight()+YPos;
-      Rect = NewRect;
+      NewRect.Right = mRect.GetWidth()+XPos;
+      NewRect.Bottom = mRect.GetHeight()+YPos;
+      mRect = NewRect;
    }
 
    void Button::SetActualPosition(int XPos, int YPos)
@@ -68,22 +73,22 @@ namespace UI
 
    sf::Vector2i Button::GetPosition()
    {
-      return sf::Vector2i(Rect.Left, Rect.Top);
+      return sf::Vector2i(mRect.Left, mRect.Top);
    }
 
    bool Button::OnEvent(const sf::Event& Event)
    {
       if (Event.Type == sf::Event::MouseButtonPressed)
       {
-         ButtonBG.SetColor(sf::Color(255,255,0,255));
-         ButtonText.SetColor(sf::Color(0,255,255,255));
+         mButtonBG.SetColor(sf::Color(255,255,0,255));
+         mpButtonText->SetColor(sf::Color(0,255,255,255));
          //Actions["pressed"](this);
          return true;
       }
       if (Event.Type == sf::Event::MouseButtonReleased)
       {
-         ButtonBG.SetColor(sf::Color(0,0,0,255));
-         ButtonText.SetColor(sf::Color(100,100,100,255));
+         mButtonBG.SetColor(sf::Color(0,0,0,255));
+         mpButtonText->SetColor(sf::Color(100,100,100,255));
          //Actions["released"](this);
          //Actions["clicked"](this);
          return true;
@@ -93,21 +98,22 @@ namespace UI
 
    void Button::SetSize(int XSize, int YSize)
    {
-      Rect.Right = Rect.Left+XSize;
-      Rect.Bottom = Rect.Top+YSize;
+      mRect.Right = mRect.Left+XSize;
+      mRect.Bottom = mRect.Top+YSize;
    }
 
    sf::Vector2i Button::GetSize()
    {
-      return sf::Vector2i(Rect.GetWidth(), Rect.GetHeight());
+      return sf::Vector2i(mRect.GetWidth(), mRect.GetHeight());
    }
 
    const sf::Rect<int>& Button::GetRect()
    {
-      return Rect;
+      return mRect;
    }
-        bool Button::Contains(Vector2i Mouse) {
-            return Rect.Contains(Mouse.x-ParentWindow->GetRect().Left, Mouse.y-ParentWindow->GetRect().Top);
+   bool Button::Contains(Vector2i Mouse)
+   {
+      return mRect.Contains(Mouse.x-ParentWindow->GetRect().Left, Mouse.y-ParentWindow->GetRect().Top);
    }
 
    void Button::MouseIn()

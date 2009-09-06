@@ -50,18 +50,18 @@ Level::Level (int level, Tower * TowerParent)
 
    if (level < 0)
    {
-      nFireEscapeLeft = new AnimationSingle (ImageManager::GetInstance()->GetImg("foundation.png"));
-      nFireEscapeRight = new AnimationSingle (ImageManager::GetInstance()->GetImg("foundation.png"));
+      nFireEscapeLeft = new AnimationSingle (ImageManager::GetInstance()->GetTexture("foundation.png", GL_RGBA), 9, 36);
+      nFireEscapeRight = new AnimationSingle (ImageManager::GetInstance()->GetTexture("foundation.png", GL_RGBA), 9, 36);
    }
    else if (level > 0)
    {
-      nFireEscapeLeft = new AnimationSingle (ImageManager::GetInstance()->GetImg("fire_escape_l.png"));
-      nFireEscapeRight = new AnimationSingle (ImageManager::GetInstance()->GetImg("fire_escape_r.png"));
+      nFireEscapeLeft = new AnimationSingle (ImageManager::GetInstance()->GetTexture("fire_escape_l.png", GL_RGBA), 28, 36);
+      nFireEscapeRight = new AnimationSingle (ImageManager::GetInstance()->GetTexture("fire_escape_r.png", GL_RGBA), 28, 36);
    }
    else
    {
-      nFireEscapeLeft = new AnimationSingle (ImageManager::GetInstance()->GetImg("awn_left.png"));
-      nFireEscapeRight = new AnimationSingle (ImageManager::GetInstance()->GetImg("awn_right.png"));
+      nFireEscapeLeft = new AnimationSingle (ImageManager::GetInstance()->GetTexture("awn_left.png", GL_RGBA), 64, 36);
+      nFireEscapeRight = new AnimationSingle (ImageManager::GetInstance()->GetTexture("awn_right.png", GL_RGBA), 64, 36);
    }
 }
 

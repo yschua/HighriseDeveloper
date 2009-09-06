@@ -24,17 +24,24 @@
 #include "highrisedev.h"
 #endif
 
-Animation::Animation ()
+Animation::Animation (int width, int height)
+:  Body (width, height)
 {
    mcurrent_frame = 0;
    mtime = 0;
-   sprite = new sf::Sprite ();
+//   sprite = new sf::Sprite ();
 }
 
 void
-Animation::AddFrame (sf::Image * image, float duration)
+Animation::AddFrame (Texture* pTex, float duration)
 {
-   mframes.push_back (std::pair<sf::Image *, float> (image, duration));
+   mframes.push_back (std::pair<Texture*, float> (pTex, duration));
+}
+
+unsigned int 
+Animation::GetTextureID()
+{
+   return mframes[mcurrent_frame].first->GetID();
 }
 
 void
@@ -47,19 +54,28 @@ Animation::Update (float dt)
       mcurrent_frame++;
       if (mcurrent_frame >= mframes.size ())
          mcurrent_frame = 0;
-      sprite->SetImage (*mframes[mcurrent_frame].first);
+//      sprite->SetImage (*mframes[mcurrent_frame].first);
    }
 }
 
-AnimationSingle::AnimationSingle (sf::Image* image)
+AnimationSingle::AnimationSingle (Texture* pTex, int width, int height)
+:  Body( width, height )
 {
-   mSprite = new sf::Sprite ();
-   mSprite->SetImage (*image);
+   mpTexture = pTex;
+//   mSprite = new sf::Sprite ();
+//   mSprite->SetImage (*image);
 }
 
 void
 AnimationSingle::SetSubRect (int x1, int y1, int x2, int y2)
 {
-   sf::IntRect* subrect = new sf::IntRect (x1, y1, x2, y2);
-   mSprite->SetSubRect (*subrect);
+//   sf::IntRect* subrect = new sf::IntRect (x1, y1, x2, y2);
+//   mSprite->SetSubRect (*subrect);
+}
+
+unsigned int 
+AnimationSingle::GetTextureID()
+{
+   return mpTexture->GetID();
+   //return 2;
 }

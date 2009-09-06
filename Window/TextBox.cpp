@@ -7,15 +7,21 @@ namespace UI
    TextBox::TextBox()
    {
       //ButtonBG.SetImage(*Gfx::GetImage("UI/Star-Empty.png"));
-      Text.SetText("testing!!!");
-      Rect.Top = 10;
-      Rect.Left = 0;
-      Rect.Right = 50;
-      Rect.Bottom = 30;
-      BG = sf::Shape::Rectangle(Rect.Left, Rect.Top, Rect.Right, Rect.Bottom, sf::Color(200,200,200,255), 1, sf::Color(0,0,0,255));
-      Text.SetPosition(Rect.Left, Rect.Top);
-      Text.SetSize(Rect.Bottom-Rect.Top-4);
+      mRect.Top = 10;
+      mRect.Left = 0;
+      mRect.Right = 50;
+      mRect.Bottom = 30;
+      BG = sf::Shape::Rectangle(mRect.Left, mRect.Top, mRect.Right, mRect.Bottom, sf::Color(200,200,200,255), 1, sf::Color(0,0,0,255));
+      mpText = new sf::String("Le Type");
+      mpText->SetPosition(mRect.Left, mRect.Top);
+      mpText->SetSize(mRect.Bottom-mRect.Top-4);
+      mpText->SetText("testing!!!");
       //Update();
+   }
+
+   TextBox::~TextBox()
+   {
+      delete mpText;
    }
 
    void TextBox::Draw()
@@ -36,7 +42,7 @@ namespace UI
       if (!Active)
       {
          BG.SetColor(Style.ActiveColor);
-         Text.SetColor(Style.ActiveColor);
+         mpText->SetColor(Style.ActiveColor);
          Active = true;
       }
    }
@@ -45,7 +51,7 @@ namespace UI
    {
       if (Active) {
          BG.SetColor(Style.InActiveColor);
-         Text.SetColor(Style.InActiveColor);
+         mpText->SetColor(Style.InActiveColor);
          Active = false;
       }
    }
@@ -55,14 +61,19 @@ namespace UI
       sf::Rect<int> NewRect;
       NewRect.Left = XPos;
       NewRect.Top = YPos;
-      NewRect.Right = Rect.GetWidth()+XPos;
-      NewRect.Bottom = Rect.GetHeight()+YPos;
-      Rect = NewRect;
+      NewRect.Right = mRect.GetWidth()+XPos;
+      NewRect.Bottom = mRect.GetHeight()+YPos;
+      mRect = NewRect;
+   }
+
+   void TextBox::SetActualPosition(int XPos, int YPos)
+   {
+
    }
 
    sf::Vector2i TextBox::GetPosition()
    {
-      return sf::Vector2i(Rect.Left, Rect.Top);
+      return sf::Vector2i(mRect.Left, mRect.Top);
    }
 
    bool TextBox::OnEvent(const sf::Event& Event)
@@ -78,7 +89,7 @@ namespace UI
       if (Event.Type == sf::Event::MouseButtonReleased)
       {
          BG.SetColor(sf::Color(0,0,0,255));
-         Text.SetColor(sf::Color(100,100,100,255));
+         mpText->SetColor(sf::Color(100,100,100,255));
          //Actions["released"](this);
          //Actions["clicked"](this);
          return true;
@@ -88,22 +99,31 @@ namespace UI
 
    void TextBox::SetSize(int XSize, int YSize)
    {
-      Rect.Right = Rect.Left+XSize;
-      Rect.Bottom = Rect.Top+YSize;
+      mRect.Right = mRect.Left+XSize;
+      mRect.Bottom = mRect.Top+YSize;
    }
 
    sf::Vector2i TextBox::GetSize()
    {
-      return sf::Vector2i(Rect.GetWidth(), Rect.GetHeight());
+      return sf::Vector2i(mRect.GetWidth(), mRect.GetHeight());
    }
 
    const sf::Rect<int>& TextBox::GetRect()
    {
-      return Rect;
+      return mRect;
    }
 
-   bool TextBox::Contains(int XPos, int YPos)
+   bool TextBox::Contains(Vector2i Mouse)
    {
-      return Rect.Contains(XPos-ParentWindow->GetRect().Left, YPos-ParentWindow->GetRect().Top);
+      return mRect.Contains(Mouse.x-ParentWindow->GetRect().Left, Mouse.y-ParentWindow->GetRect().Top);
+   }
+   void TextBox::MouseIn()
+   {
+
+   }
+
+   void TextBox::MouseOut()
+   {
+      std::cout << "Button: MouseOut()!\n";
    }
 }

@@ -37,6 +37,7 @@ Camera * Camera::mpInstance = NULL;
 
 Camera::Camera ()
 :  mback_color (0, 0, 0)
+,  Body (1280, 720)
 {
 
    mpWindow = new sf::RenderWindow ();
@@ -111,6 +112,8 @@ Camera::SetCamSize (int x, int y)
 void
 Camera::SetWorldSize (Vector2f Size)
 {
+   glClearDepth(1.f);
+
    mWorldRect.Right = Size.x+mWorldRect.Left;
    mWorldRect.Bottom = Size.y+mWorldRect.Top;
 }
@@ -160,31 +163,112 @@ Camera::Center (int x, int y)
    ms.y = y - (mViewRect.Top / 2);
 }
 
+void Camera::InitGL()
+{
+	glShadeModel(GL_SMOOTH);												// Enable Smooth Shading
+//	glEnable(GL_DEPTH_TEST);												// Enables Depth Testing
+//	glDepthFunc(GL_LEQUAL);													// The Type Of Depth Testing To Do
+	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);						// Really Nice Perspective Calculations
+}
+
 void
 Camera::Draw (Animation & to_draw)
 {
-   if (!mIgnoreCamera)
-      to_draw.sprite->SetPosition (to_draw.GetPositionX () - ms.x, to_draw.GetPositionY () - ms.y);
-   else
-      to_draw.sprite->SetPosition (to_draw.GetPositionX (), to_draw.GetPositionY ());
-   mpWindow->Draw (*to_draw.sprite);
+//   if (!mIgnoreCamera)
+//      to_draw.sprite->SetPosition (to_draw.GetPositionX () - ms.x, to_draw.GetPositionY () - ms.y);
+//   else
+//      to_draw.sprite->SetPosition (to_draw.GetPositionX (), to_draw.GetPositionY ());
+//   mpWindow->Draw (*to_draw.sprite);
+   int x = to_draw.GetPositionX()-ms.x;
+   int y = to_draw.GetPositionY()-ms.y;
+   int x2 = (int)x+ to_draw.GetWidth();
+   int y2 = (int)y+ to_draw.GetHeight();
+   glMatrixMode(GL_MODELVIEW);
+   glPushMatrix();
+//glLoadIdentity();
+//glTranslatef(0.f, 0.f, -100.f);
+   glEnable(GL_BLEND);
+   glBindTexture( GL_TEXTURE_2D, to_draw.GetTextureID() );//to_draw.GetTexture() ); // get the current texture
+   glBegin(GL_QUADS);
+   {
+      glTexCoord2f( 0.0, 1.0 );
+      glVertex3f( x, y2, 0 ); // simple extension arm
+      glTexCoord2f( 0.0, 0.0 );
+      glVertex3f( x, y, 0 ); // simple extension arm
+      glTexCoord2f( 1.0, 0.0 );
+      glVertex3f( x2, y, 0 ); // simple extension arm
+      glTexCoord2f( 1.0, 1.0 );
+      glVertex3f( x2, y2, 0 ); // simple extension arm
+   }
+   glEnd();
+   glDisable(GL_BLEND);
+   glPopMatrix();
 }
 
 void
 Camera::Draw (AnimationSingle & to_draw)
 {
-   if (!mIgnoreCamera)
-      to_draw.mSprite->SetPosition (to_draw.GetPositionX () - ms.x, to_draw.GetPositionY () - ms.y);
-   else
-      to_draw.mSprite->SetPosition (to_draw.GetPositionX (), to_draw.GetPositionY ());
-   mpWindow->Draw (*to_draw.mSprite);
+   //if (!mIgnoreCamera)
+   //   to_draw.mSprite->SetPosition (to_draw.GetPositionX () - ms.x, to_draw.GetPositionY () - ms.y);
+   //else
+   //   to_draw.mSprite->SetPosition (to_draw.GetPositionX (), to_draw.GetPositionY ());
+   //mpWindow->Draw (*to_draw.mSprite);
+   int x = to_draw.GetPositionX()-ms.x;
+   int y = to_draw.GetPositionY()-ms.y;
+   int x2 = (int)x+ to_draw.GetWidth();
+   int y2 = (int)y+ to_draw.GetHeight();
+   glMatrixMode(GL_MODELVIEW);
+   glPushMatrix();
+//glLoadIdentity();
+//glTranslatef(0.f, 0.f, -100.f);
+   glEnable(GL_BLEND);
+   glBindTexture( GL_TEXTURE_2D, to_draw.GetTextureID() );//to_draw.GetTexture() ); // get the current texture
+   glBegin(GL_QUADS);
+   {
+      glTexCoord2f( 0.0, 1.0 );
+      glVertex3f( x, y2, 0 ); // simple extension arm
+      glTexCoord2f( 0.0, 0.0 );
+      glVertex3f( x, y, 0 ); // simple extension arm
+      glTexCoord2f( 1.0, 0.0 );
+      glVertex3f( x2, y, 0 ); // simple extension arm
+      glTexCoord2f( 1.0, 1.0 );
+      glVertex3f( x2, y2, 0 ); // simple extension arm
+   }
+   glEnd();
+   glDisable(GL_BLEND);
+   glPopMatrix();
 }
 
 void
 Camera::Draw (Tiler & to_draw)
 {
-   for (unsigned int i = 0; i < to_draw.mSprites.size (); i++)
-      Draw (*to_draw.mSprites[i]);
+//   for (unsigned int i = 0; i < to_draw.mSprites.size (); i++)
+//      Draw (*to_draw.mSprites[i]);
+   //if (!mIgnoreCamera)
+   int x = to_draw.GetPositionX()-ms.x;
+   int y = to_draw.GetPositionY()-ms.y;
+   int x2 = (int)x+ to_draw.GetWidth();
+   int y2 = (int)y+ to_draw.GetHeight();
+   int xT = to_draw.GetTesselX();
+   int yT = to_draw.GetTesselY();
+   glMatrixMode(GL_MODELVIEW);
+   glPushMatrix();
+//glLoadIdentity();
+//glTranslatef(0.f, 0.f, -100.f);
+   glBindTexture( GL_TEXTURE_2D, to_draw.GetTextureID() );//to_draw.GetTexture() ); // get the current texture
+   glBegin(GL_QUADS);
+   {
+      glTexCoord2f( 0.0, yT );
+      glVertex3f( x, y2, 0 ); // simple extension arm
+      glTexCoord2f( 0.0, 0.0 );
+      glVertex3f( x, y, 0 ); // simple extension arm
+      glTexCoord2f( xT, 0.0 );
+      glVertex3f( x2, y, 0 ); // simple extension arm
+      glTexCoord2f( xT, yT );
+      glVertex3f( x2, y2, 0 ); // simple extension arm
+   }
+   glEnd();
+   glPopMatrix();
 }
 
 bool

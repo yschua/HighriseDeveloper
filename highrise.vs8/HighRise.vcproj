@@ -61,9 +61,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="sfml-Graphics-d.lib sfml-System-d.lib sfml-Window-d.lib"
+				AdditionalDependencies="sfml-Graphics-d.lib sfml-System-d.lib sfml-Window-d.lib OPENGL32.LIB glu32.lib"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;\Dev\VC++\SFML-1.5\lib\vc2005&quot;"
+				AdditionalLibraryDirectories="&quot;\Dev\VC++\SFML-1.5\lib\vc2005&quot;;&quot;C:\Program Files (x86)\Microsoft Visual Studio 8\VC\lib&quot;"
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				TargetMachine="1"
@@ -240,6 +240,10 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
+				RelativePath="..\animation.h"
+				>
+			</File>
+			<File
 				RelativePath="..\background.h"
 				>
 			</File>
@@ -369,6 +373,14 @@
 				RelativePath="..\image.h"
 				>
 			</File>
+			<File
+				RelativePath="..\Graphics\texture.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\Graphics\texture.h"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Types"
@@ -383,6 +395,10 @@
 			</File>
 			<File
 				RelativePath="..\Types\Vector2.h"
+				>
+			</File>
+			<File
+				RelativePath="..\Types\Vector3.h"
 				>
 			</File>
 		</Filter>

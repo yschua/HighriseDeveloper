@@ -16,7 +16,7 @@
 
 #include "highrisedev.h"
 
-Tiler::Tiler (Texture* pTex, draw_direction direction, int x, int y, int z, int width, int height)
+Tiler::Tiler (Texture* pTex, draw_direction direction, float x, float y, float z, float width, float height)
 {
    mpTexture = pTex;
    mClipMode = true;

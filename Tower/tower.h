@@ -20,6 +20,8 @@
 #ifndef _TOWER_H
 #define _TOWER_H
 
+#include "../Graphics/modelObject.h"
+
 class FloorBase; // aggregate of floor spaces for offices, condos and hotels
 class Level;
 class Elevator;
@@ -27,8 +29,9 @@ class TowerAgent;
 class Routes;
 class Person;
 
-
-class Tower
+// Tower is a ModelObject along with all the FloorSpace entities
+// This renderes the Tower in the ModelSpaces with perspective, pan and zoom.
+class Tower : public Gfx::ModelObject
 {
    friend class TowerAgent;
 
@@ -61,10 +64,10 @@ protected:
       return mLevels;
    }
 
-   // implementation
+   // methods
 public:
-   Level* NewLevel( );
-   Level* GetLevel( int level ); // positive gets you a level above, negative gets you a basement level
+   Level* NewLevel (int x, int y, int x2);
+   Level* GetLevel (int level); // positive gets you a level above, negative gets you a basement level
 
    void Update (float dt);
    void Draw ();

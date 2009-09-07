@@ -37,16 +37,16 @@
 
 using namespace Gfx;
 
-Level::Level (int level, Tower * TowerParent)
+Level::Level (int level, int x, int y, int x2, Tower * TowerParent)
 :  mTowerParent (TowerParent)
 {
    mLevel = level;
-            // The levels origin and vectors (partial implementation for 3D)
-   mX = (int)Camera::GetInstance()->GetWorldRect ().Left;
-   mY = (int)(Camera::GetInstance()->GetWorldRect ().Top ) - (mLevel * 36);
-   mZ = 0;  // Face is always at zero for now
-   mX2 = 9; // simple xvector defaults to a minimum floor size
-            // missing are the Y (up) and Z (foward) vectors.
+               // The levels origin and vectors (partial implementation for 3D)
+   mX = x;     //(int)Camera::GetInstance()->GetWorldRect ().Left;
+   mY = y*-36; //(int)(Camera::GetInstance()->GetWorldRect ().Top ) - (mLevel * 36);
+   mZ = -0.4f;     // Face is always at zero for now
+   mX2 = x2;   // simple xvector defaults to a minimum floor size
+               // missing are the Y (up) and Z (foward) vectors.
 
    if (level < 0)
    {
@@ -60,8 +60,8 @@ Level::Level (int level, Tower * TowerParent)
    }
    else
    {
-      nFireEscapeLeft = new AnimationSingle (ImageManager::GetInstance()->GetTexture("awn_left.png", GL_RGBA), 64, 36);
-      nFireEscapeRight = new AnimationSingle (ImageManager::GetInstance()->GetTexture("awn_right.png", GL_RGBA), 64, 36);
+      nFireEscapeLeft = new AnimationSingle (ImageManager::GetInstance()->GetTexture("awn_left.png", GL_RGBA), 56, 36);
+      nFireEscapeRight = new AnimationSingle (ImageManager::GetInstance()->GetTexture("awn_right.png", GL_RGBA), 56, 36);
    }
 }
 

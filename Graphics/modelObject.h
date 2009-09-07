@@ -31,8 +31,11 @@ namespace Gfx
    public:
       ModelObject ();
 
+      virtual void Draw() = 0;
+   protected:
       void Render(Body* pBody);  // draw method replacement, drawing now happens on the GPU side for us
       void Render(Tiler* pTiler);  // draw method replacement, drawing now happens on the GPU side for us
+
    };
 }
 #endif // _MODELOBJECT_H

@@ -63,11 +63,11 @@ main ()
       office* my_basement = new office (400, -1, &theTower);
 
       Level* sublevel = theTower.GetLevel(-1);
-      Level* level_1 = theTower.NewLevel();
-      Level* level_2 = theTower.NewLevel();
-      Level* level_3 = theTower.NewLevel();
-      Level* level_4 = theTower.NewLevel();
-      Level* level_5 = theTower.NewLevel();
+      Level* level_1 = theTower.NewLevel (400, 1, 544+74);
+      Level* level_2 = theTower.NewLevel (400, 2, 544+74);
+      Level* level_3 = theTower.NewLevel (400, 3, 544+74);
+      Level* level_4 = theTower.NewLevel (400, 4, 544+74);
+      Level* level_5 = theTower.NewLevel (472, 5, 544+74);
       level_1->AddFloor (my_office);
       level_1->AddFloor (my_office3);
       level_1->AddFloor (my_office5);
@@ -88,7 +88,7 @@ main ()
 
       pElevator = new Elevator( Elevator::LS_Standard, 472, -1, 6, &theTower );
       theTower.GetRoutes().AddRoute( pElevator );
-      pElevator = new Elevator( Elevator::LS_Standard, 472 + 36 + 9, -1, 5, &theTower );
+      pElevator = new Elevator( Elevator::LS_Standard, 472 + 36 + 9, 0, 5, &theTower );
       theTower.GetRoutes().AddRoute( pElevator );
       pBackground = new Background ();
 
@@ -143,10 +143,11 @@ main ()
          cam->Clear ();
          cam->Integrate (60);
          
-         pBackground->Draw ();
+
          theTower.Update (60);
-         //theTower.Draw ();
-         cam->DrawTower (&theTower);
+         cam->DrawModel(pBackground);
+         cam->DrawModel(&theTower);
+
          cam->SetStatic(true);
          //Windows.Update();
          Windows.Draw();

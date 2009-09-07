@@ -43,12 +43,13 @@ public:
    };
    draw_direction mdirection;
 //   Tiler (sf::Image * image, draw_direction direction, int x, int x2, int y);
-   Tiler (Texture* pTex, draw_direction direction, int x, int y, int z, int width, int height);
+   Tiler (Texture* pTex, draw_direction direction, float x, float y, float z, float width, float height);
    void SetY (int y);
    float GetTesselX() { return mTesselX; }
    float GetTesselY() { return mTesselY; }
    float GetPositionX() { return mX; }
    float GetPositionY() { return mY; }
+   float GetPositionZ() { return mZ; }
    float GetWidth() { return mWidth; }
    float GetHeight() { return mHeight; }
    unsigned int GetTextureID() { return mpTexture->GetID(); }

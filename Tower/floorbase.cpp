@@ -17,16 +17,7 @@
 
 #ifdef WIN32
 #include <iostream>
-//#include <map>
-//#include <vector>
-//#include <list>
-//#include <SFML/System.hpp>
-//#include <SFML/Graphics.hpp>
 #include "../physics.h"
-#include "../camera.h"
-//#include "../image.h"
-//#include "../animation.h"
-//#include "level.h"
 #include "floorBase.h"
 
 #else
@@ -53,5 +44,6 @@ FloorBase::FloorBase (int x, int x2, int level, Tower * TowerParent)
       ,  mTowerParent (TowerParent)
 {
    mLevel = level;
-   mY = (Camera::GetInstance()->GetWorldRect ().Top ) - (mLevel * 36);
+   mY = (mLevel * -36);
+   mZ = -0.5f;
 }

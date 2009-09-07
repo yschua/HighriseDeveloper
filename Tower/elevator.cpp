@@ -56,9 +56,9 @@ Elevator::Elevator ( Lift_Styles style, int x, short BottomLevel, short TopLevel
       ,  mTowerParent (TowerParent)
       ,  Body(32, 32)
 {
-   mTopLevel = (TopLevel);
-   mBottomLevel = (BottomLevel);
-   mPosition = (mBottomLevel + 1) * 36;
+   mTopLevel = TopLevel;
+   mBottomLevel = BottomLevel-1;
+   mPosition = (mBottomLevel) * 36;
    mDirection = 0;
    mIdleTime = 30;
    mEnd2 = -1;
@@ -82,12 +82,12 @@ Elevator::Elevator ( Lift_Styles style, int x, short BottomLevel, short TopLevel
 ///   mcam = Camera::GetInstance ();
    mX = x+4;
    mY = (int)(mBottomLevel * 36);
-   mZ = -0.2f; // slightly in front of the tower
+   mZ = -0.49f; // slightly in front of the tower
 
    mNumber = gElevatorsNumber++; // set number;
 
    mLiftMachine = new ElevatorMachine( x, mTopLevel+1, this );
-   mLiftPit->SetPosition ((float)mX, (float)(mY + 36) );
+   mLiftPit->SetPosition ((float)mX, (float)(mY + 72) );
    mElevatorShaft = new ElevatorShaft( mX, mTopLevel, mBottomLevel, this );
 }
 

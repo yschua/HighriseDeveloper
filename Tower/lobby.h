@@ -19,7 +19,6 @@
 
 class Tiler;
 class AnimationSingle;
-//class Camera;
 class Level;
 
 class Lobby : public Level // make lobby a level in itself
@@ -28,7 +27,6 @@ private:
    Tiler * tile;
    AnimationSingle * awn_left;
    AnimationSingle * awn_right;
-   //Camera * cam;
 
 public:
    void Update (float dt);

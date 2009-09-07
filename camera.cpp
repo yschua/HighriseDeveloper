@@ -47,12 +47,15 @@ Camera::Camera ()
    mpWindow->Create (sf::VideoMode (800, 600, 32), "Highrise Developer" HR_VERSION);
    mpStaticView = &mpWindow->GetDefaultView ();
    mpView = new sf::View(*mpStaticView);
-   mZoomFactor = 1;
+   mZoomFactor = -1; // 1 unit back away
+   mAspect = 600.0/800;
    mIgnoreCamera = false;
    mpInput = &(mpWindow->GetInput ());
    mViewRect = mpView->GetRect();
    mWorldRect = sf::Rect<float>(0,0,1280,720);
    mMovingView = false;
+   ms.x = -300;
+   ms.y = -400;
 }
 
 const sf::Input *
@@ -64,7 +67,8 @@ Camera::GetInput ()
 Vector2i
 Camera::GetMouse ()
 {
-   return ms + GetLocalMouse();
+   Vector2f ms2( ms.x, ms.y ); 
+   return ms2 + GetLocalMouse();
 }
 
 Vector2i
@@ -73,37 +77,6 @@ Camera::GetLocalMouse()
    return mpWindow->ConvertCoords (mpInput->GetMouseX (), mpInput->GetMouseY (), mpStaticView);
 }
 
-/*void
-Camera::Zoom (float Factor)
-{
- std::cout << "Zoom factor: " << Factor << std::endl;
- Factor *= 0.05;
- mpView->Zoom (1.0f + Factor);
-}*/
-
-/*int
-Camera::GetWorldY ()
-{
-   return mworld_y;
-}
-
-int
-Camera::GetWorldX ()
-{
-   return mworld_x;
-}*/
-
-/*int
-Camera::GetCamSizeX ()
-{
-   return mcamx;
-}
-
-int
-Camera::GetCamSizeY ()
-{
-   return mcamy;
-}*/
 
 void
 Camera::SetMaxFramerate (int rate)
@@ -121,7 +94,7 @@ Camera::SetCamSize (int x, int y)
 void
 Camera::SetWorldSize (Vector2f Size)
 {
-   glClearDepth(1.f);
+   glClearDepth(1.0f);
 
    mWorldRect.Right = Size.x+mWorldRect.Left;
    mWorldRect.Bottom = Size.y+mWorldRect.Top;
@@ -158,64 +131,80 @@ Camera::Display ()
 void
 Camera::Center (int x, int y)
 {
-   ms.x = x - (mViewRect.Left / 2);
-   ms.y = y - (mViewRect.Top / 2);
+   ms.x = -400; //x - (mViewRect.Left / 2);
+   ms.y = -400; //y - (mViewRect.Top / 2);
 }
 
 void Camera::InitGL()
 {
 	glShadeModel(GL_SMOOTH);												// Enable Smooth Shading
+	glClearDepth(1.0f);														// Depth Buffer Setup
 //	glEnable(GL_DEPTH_TEST);												// Enables Depth Testing
-//	glDepthFunc(GL_LEQUAL);													// The Type Of Depth Testing To Do
+	glDepthFunc(GL_LEQUAL);													// The Type Of Depth Testing To Do
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);						// Really Nice Perspective Calculations
+	gluPerspective (45.0f,mAspect ,0.1f,100.0f);		// Calculate The Aspect Ratio Of The Window
 }
 
-void Camera::DrawTower (Tower* pTower)
+void Camera::DrawModel (ModelObject* pModel)
 {
+   glMatrixMode(GL_PROJECTION);
+   glFrustum( -500, 500, -500, 500, 1000,0.5 );
    glMatrixMode(GL_MODELVIEW);
    glPushMatrix();
    {                       // brackets just keep the code in push and pop uniform
-      glTranslatef (GetPositionX(), -GetPositionY(), 0);//mZoomFactor*1.5);
+//   	glEnable(GL_DEPTH_TEST);												// Enables Depth Testing
+//		glRotatef(1, 1.0f, 0.0f, 0.0f);
+//		glRotatef(2, 0.0f, 1.0f, 0.0f);
+      glTranslatef (GetPositionX(), -(GetPositionY()), mZoomFactor-1.0f);
       glEnable(GL_BLEND);
-      pTower->Draw();
+      glColor3ub( 255,255,255 );
+      glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA  );
+//      glBlendFunc( GL_DST_ALPHA, GL_ONE_MINUS_SRC_ALPHA  );
+
+      pModel->Draw();
+
       glDisable(GL_BLEND);
+   	glDisable(GL_DEPTH_TEST);												// Enables Depth Testing
    }
    glPopMatrix();
 }
 
-void
-Camera::Draw (Animation & to_draw)
-{
+//void
+//Camera::Draw (Animation & to_draw)
+//{
+////   if (!mIgnoreCamera)
+////      to_draw.sprite->SetPosition (to_draw.GetPositionX () - ms.x, to_draw.GetPositionY () - ms.y);
+////   else
+////      to_draw.sprite->SetPosition (to_draw.GetPositionX (), to_draw.GetPositionY ());
+////   mpWindow->Draw (*to_draw.sprite);
+//   int x = to_draw.GetPositionX()-ms.x;
+//   int y = to_draw.GetPositionY()-ms.y;
+//   int x2 = (int)x+ to_draw.GetWidth();
+//   int y2 = (int)y+ to_draw.GetHeight();
 //   if (!mIgnoreCamera)
-//      to_draw.sprite->SetPosition (to_draw.GetPositionX () - ms.x, to_draw.GetPositionY () - ms.y);
+//      glMatrixMode(GL_MODELVIEW);
 //   else
-//      to_draw.sprite->SetPosition (to_draw.GetPositionX (), to_draw.GetPositionY ());
-//   mpWindow->Draw (*to_draw.sprite);
-   int x = to_draw.GetPositionX()-ms.x;
-   int y = to_draw.GetPositionY()-ms.y;
-   int x2 = (int)x+ to_draw.GetWidth();
-   int y2 = (int)y+ to_draw.GetHeight();
-   glMatrixMode(GL_MODELVIEW);
-   glPushMatrix();
-//glLoadIdentity();
-//glTranslatef(0.f, 0.f, -100.f);
-   glEnable(GL_BLEND);
-   glBindTexture( GL_TEXTURE_2D, to_draw.GetTextureID() );//to_draw.GetTexture() ); // get the current texture
-   glBegin(GL_QUADS);
-   {
-      glTexCoord2f( 0.0, 1.0 );
-      glVertex3f( x, y2, 0 ); // simple extension arm
-      glTexCoord2f( 0.0, 0.0 );
-      glVertex3f( x, y, 0 ); // simple extension arm
-      glTexCoord2f( 1.0, 0.0 );
-      glVertex3f( x2, y, 0 ); // simple extension arm
-      glTexCoord2f( 1.0, 1.0 );
-      glVertex3f( x2, y2, 0 ); // simple extension arm
-   }
-   glEnd();
-   glDisable(GL_BLEND);
-   glPopMatrix();
-}
+//      glMatrixMode(GL_PROJECTION);
+//   glPushMatrix();
+////glLoadIdentity();
+////glTranslatef(0.f, 0.f, -100.f);
+//   glEnable(GL_BLEND);
+//   glBindTexture( GL_TEXTURE_2D, to_draw.GetTextureID() );//to_draw.GetTexture() ); // get the current texture
+//   glBegin(GL_QUADS);
+//   {
+//      glTexCoord2f( 0.0, 1.0 );
+//      glVertex3f( x, y2, 0 ); // simple extension arm
+//      glTexCoord2f( 0.0, 0.0 );
+//      glVertex3f( x, y, 0 ); // simple extension arm
+//      glTexCoord2f( 1.0, 0.0 );
+//      glVertex3f( x2, y, 0 ); // simple extension arm
+//      glTexCoord2f( 1.0, 1.0 );
+//      glVertex3f( x2, y2, 0 ); // simple extension arm
+//   }
+//   glEnd();
+//   glDisable(GL_BLEND);
+//   glPopMatrix();
+//}
 
 void
 Camera::Draw (AnimationSingle & to_draw)
@@ -229,11 +218,14 @@ Camera::Draw (AnimationSingle & to_draw)
    int y = to_draw.GetPositionY()-ms.y;
    int x2 = (int)x+ to_draw.GetWidth();
    int y2 = (int)y+ to_draw.GetHeight();
-   glMatrixMode(GL_MODELVIEW);
+   if (!mIgnoreCamera)
+      glMatrixMode(GL_MODELVIEW);
+   else
+      glMatrixMode(GL_PROJECTION);
    glPushMatrix();
 //glLoadIdentity();
 //glTranslatef(0.f, 0.f, -100.f);
-   glTranslatef (GetPositionX(), GetPositionY(), mZoomFactor);
+   glTranslatef (GetPositionX(), GetPositionY(), 0);// mZoomFactor);
    glEnable(GL_BLEND);
    glBindTexture( GL_TEXTURE_2D, to_draw.GetTextureID() );//to_draw.GetTexture() ); // get the current texture
    glBegin(GL_QUADS);
@@ -249,38 +241,6 @@ Camera::Draw (AnimationSingle & to_draw)
    }
    glEnd();
    glDisable(GL_BLEND);
-   glPopMatrix();
-}
-
-void
-Camera::Draw (Tiler & to_draw)
-{
-//   for (unsigned int i = 0; i < to_draw.mSprites.size (); i++)
-//      Draw (*to_draw.mSprites[i]);
-   //if (!mIgnoreCamera)
-   int x = to_draw.GetPositionX()-ms.x;
-   int y = to_draw.GetPositionY()-ms.y;
-   int x2 = (int)x+ to_draw.GetWidth();
-   int y2 = (int)y+ to_draw.GetHeight();
-   int xT = to_draw.GetTesselX();
-   int yT = to_draw.GetTesselY();
-   glMatrixMode(GL_MODELVIEW);
-   glPushMatrix();
-//glLoadIdentity();
-   glTranslatef (0,0,0);
-   glBindTexture( GL_TEXTURE_2D, to_draw.GetTextureID() );//to_draw.GetTexture() ); // get the current texture
-   glBegin(GL_QUADS);
-   {
-      glTexCoord2f( 0.0, yT );
-      glVertex3f( x, y2, 0 );
-      glTexCoord2f( 0.0, 0.0 );
-      glVertex3f( x, y, 0 );
-      glTexCoord2f( xT, 0.0 );
-      glVertex3f( x2, y, 0 );
-      glTexCoord2f( xT, yT );
-      glVertex3f( x2, y2, 0 );
-   }
-   glEnd();
    glPopMatrix();
 }
 
@@ -378,12 +338,14 @@ Camera::OnEvent (const sf::Event& Event)
 }
 
 void
-Camera::ZoomIn() {
-   Zoom(1.05f);
+Camera::ZoomIn()
+{
+   Zoom(0.05);
 }
 void
-Camera::ZoomOut() {
-   Zoom(0.95f);
+Camera::ZoomOut()
+{
+   Zoom(-0.05);
 }
 /////////////////////////////////////////////////////////////////////
 /// Zoom the camera by the specified factor towards the center of
@@ -395,8 +357,12 @@ Camera::Zoom(float Factor)
 {
    //Rectf ZoomedRect;
    // Calcuate the center
-   if( Factor < 1 && mZoomFactor > 0.5f || Factor > 1 && mZoomFactor < 1.5f )
+   if( Factor < 0 && mZoomFactor > -5 || Factor > 0 && mZoomFactor < 0.45 )
    {
+      mZoomFactor += Factor;
+   }
+   std::cout << "ZF=" << mZoomFactor << "\n";
+/*
       Vector2f Center;
       Center.x = (mViewRect.Left+mViewRect.Right)/2;
       Center.y = (mViewRect.Top+mViewRect.Bottom)/2;
@@ -410,7 +376,7 @@ Camera::Zoom(float Factor)
       DifRect.Bottom /= Factor;
       DifRect.Left /= Factor;
       DifRect.Right /= Factor;
-      std::cout << "Aspect: " << (double)DifRect.Height()/DifRect.Width() << "\n";
+      std::cout << "Aspect: " << (double)DifRect.Height()/DifRect.Width() << " ZF=" << mZoomFactor << "\n";
       // Move it back to it's original offset
       DifRect.Move(Vector2f(Center.x, Center.y));
    //ZoomedRect = DifRect;
@@ -444,7 +410,7 @@ Camera::Zoom(float Factor)
    {
       std::cout << "DEBUG: mViewRect is (" << mViewRect.Top << ", " << mViewRect.Left << ", " << mViewRect.Right << ", " << mViewRect.Bottom << ")\n";
       std::cout << "DEBUG: mWorldRect is (" << mWorldRect.Top << ", " << mWorldRect.Left << ", " << mWorldRect.Right << ", " << mWorldRect.Bottom << ")\n";
-   }
+   }*/
 }
 
 /////////////////////////////////////////////////////////////////////

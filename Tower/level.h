@@ -46,7 +46,7 @@ protected:
 
 public:
    // CTOR
-   Level (int level, Tower * TowerParent);
+   Level (int level, int x, int y, int x2, Tower * TowerParent);
 
    // decls
    typedef std::vector<FloorBase*>::iterator FloorIterType;

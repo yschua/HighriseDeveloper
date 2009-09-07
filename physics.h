@@ -27,7 +27,7 @@ private:
    bool mIsMoving;
    float mTime;
    float mTimeTotal;
-   Vector2f mMoveDest;
+   Vector3f mMoveDest;
 
 protected:  
    Vector3f mWidth; // these vectors are zero based
@@ -35,7 +35,7 @@ protected:
    Vector3f mDepth;
 
 public:  // protect these memvars and add gets
-   Vector2f ms;
+   Vector3f ms;
    Vector2f mv;
    Vector2f ma;
 
@@ -43,12 +43,13 @@ public:
    // CTOR
    Body (int width, int height);
    Body (float x, float y, int width, int height);
-   Body (Vector2f Pos, int width, int height);
+   Body (Vector3f Pos, int width, int height);
 
    //Properties
    float GetPositionX () { return ms.x; }
    float GetPositionY () { return ms.y; }
-   Vector2f GetPosition() { return ms; }
+   float GetPositionZ () { return ms.z; }
+   Vector3f GetPosition() { return ms; }
    float GetVelocityX () { return mv.x; }
    float GetVelocityY () { return mv.y; }
    Vector2f GetVelocity() { return mv; }
@@ -71,7 +72,7 @@ public:
    void SetVelocity (float x, float y);
    void SetAcceleration (float x, float y);
 
-   void SetPosition (const Vector2f& NewPos) { ms = NewPos; }
+   void SetPosition (const Vector3f& NewPos) { ms = NewPos; }
    void SetVelocity (const Vector2f& NewV) { mv = NewV; }
    void SetAcceleration (const Vector2f& NewA) { ma = NewA; }
 

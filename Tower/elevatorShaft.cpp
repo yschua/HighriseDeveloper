@@ -41,7 +41,7 @@ ElevatorShaft::ElevatorShaft ( int x, int topLevel, int bottomLevel, Elevator* p
    //                            //mcam->GetWorldRect ().Top - ((mBottomLevel - 1) * 36), mx );
    //mShaftTiler->SetTessel( 1, mcam->GetWorldRect ().Top - (mBottomLevel - 1));
    mShaftTiler = new Tiler (images->GetTexture ("liftshaft.png", GL_RGBA), Tiler::Vertical, mx,
-                               (mTopLevel * 36), 0, 1, ((mBottomLevel - 1) * 36));
+                               (mTopLevel * -36), 0, 1, ((mBottomLevel - 1) * 36));
                                //mcam->GetWorldRect ().Top - ((mBottomLevel - 1) * 36), mx );
    mShaftTiler->SetTessel( 1, (mBottomLevel - 1));
 }

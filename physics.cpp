@@ -22,7 +22,7 @@ Body::Body (int width, int height)
    mTime = 0;
    mTimeTotal = 0;
    // mMoveDest self initializes in the CTOR
-   ms = Vector2f(0,0);
+   ms = Vector3f(0,0,0);
    mv = Vector2f(0,0);
    ma = Vector2f(0,0);
    mWidth = Vector3f (width, 0, 0);
@@ -31,7 +31,7 @@ Body::Body (int width, int height)
    
 }
 
-Body::Body (Vector2f Pos, int width, int height)
+Body::Body (Vector3f Pos, int width, int height)
 {
    ms = Pos;
    mv = Vector2f(0,0);
@@ -43,7 +43,7 @@ Body::Body (Vector2f Pos, int width, int height)
 
 Body::Body (float x, float y, int width, int height)
 {
-   ms = Vector2f(x,y);
+   ms = Vector3f(x,y,-0.49);
    mv = Vector2f(0,0);
    ma = Vector2f(0,0);
    mWidth = Vector3f (width, 0, 0);

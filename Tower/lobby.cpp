@@ -37,13 +37,13 @@
 using namespace Gfx;
 
 Lobby::Lobby (int x, int x2, int level, Tower * TowerParent)
-:   Level ( level, TowerParent )
+:   Level ( level, x, 0, x2, TowerParent )
 {
    mX2 = x2;
    mX = x;
    ImageManager * images = ImageManager::GetInstance ();
-//   cam = Camera::GetInstance ();
    tile = new Tiler (images->GetTexture("lobby.png", GL_RGBA), Tiler::Horizontal, x, 0, 0, x2-x, 36);
+   tile->SetTessel ((x2-x)/36, 1);
    nFireEscapeLeft->SetPosition (mX - 56, mY);
    nFireEscapeRight->SetPosition (mX2, mY);
    std::cout << "New lobby at " << mX << " to " << mX2 << " Y level " << mY << std::endl;
@@ -58,9 +58,6 @@ Lobby::Update (float dt)
 void
 Lobby::Draw ()
 {
-//   cam->Draw (*tile);
-//   cam->Draw (*nFireEscapeLeft);
-//   cam->Draw (*nFireEscapeRight);
    Render(tile);
    Render(nFireEscapeLeft);
    Render(nFireEscapeRight);

@@ -19,11 +19,11 @@
 
 #include "Types/Vector2.h"
 #include "Types/Rect.h"
+#include "Graphics/modelObject.h"
 
 class Animation;
 class AnimationSingle;
 class Tiler;
-class Tower;
 
 class Camera : public Body
 {
@@ -33,31 +33,28 @@ private:
    sf::View* mpView;
    sf::View* mpStaticView;
    sf::Color mback_color;
-   static Camera* mpInstance;
-   Camera ();
-   float mZoomFactor;
-   bool mIgnoreCamera;
    const sf::Input* mpInput;
+   static Camera* mpInstance;
+   float mZoomFactor;
+   float mAspect;
+   bool mIgnoreCamera;
    Rectf mWorldRect;
    Rectf mViewRect;
    Vector2i mMouseStartPos;
    bool mMovingView;
+
+   // CTOR/DTOR
+private:
+   Camera ();
+protected:
+   ~Camera() {};
+   // instance 
 public:
    static Camera* GetInstance();
    static Camera* i();
-   void Display ();
-   void Clear ();
-   void InitGL();
    const sf::Input * GetInput ();
 
-   void DrawTower (Tower* pTower);
-   // Four Draw methods to be depricated when we move the view objects
-   void Draw (Animation & to_draw);
-   void Draw (AnimationSingle & to_draw);
-   void Draw (Tiler & to_draw);
-   void Draw (const sf::Drawable& ToDraw) {
-      mpWindow->Draw(ToDraw);
-   }
+   // properties
    void SetMaxFramerate (int rate);
    //void SetCamSize (int x, int y);
    void SetWorldSize (Vector2f);
@@ -67,13 +64,28 @@ public:
    //int GetWorldY ();
    //int GetCamSizeX ();
    //int GetCamSizeY ();
+   Vector2i GetMouse ();
+   Vector2i GetLocalMouse();
+
+   // methods
+   void Display ();
+   void Clear ();
+   void InitGL();
+
+   void DrawModel (Gfx::ModelObject* pModel);
+   // Four Draw methods to be depricated when we move the view objects
+   //void Draw (Animation & to_draw);
+   void Draw (AnimationSingle & to_draw); // used by Interface for now
+   //void Draw (Tiler & to_draw);
+   void Draw (const sf::Drawable& ToDraw)
+   {
+      mpWindow->Draw(ToDraw);
+   }
    void Create (const std::string & caption);
    void Center (int x, int y);
    bool GetEvent (sf::Event & event);
    void Zoom (float Factor);
    void SetStatic (bool set);
-   Vector2i GetMouse ();
-   Vector2i GetLocalMouse();
    bool OnEvent(const sf::Event& Event);
    void ZoomIn();
    void ZoomOut();

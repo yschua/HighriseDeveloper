@@ -28,9 +28,10 @@ protected:
    Tower * mTowerParent;
 
 //public:
-   int mX;    // lower left origin.x
-   int mX2;   // x vector = width
-   int mY;    // lower left origin.y
+   float mX;    // lower left origin.x
+   float mX2;   // x vector = width
+   float mY;    // lower left origin.y
+   float mZ;
                // y vector = height
                // z vector = depth but not implement until 3D
 //   int mx, mx2, my;
@@ -39,9 +40,10 @@ public:
    FloorBase (int x, int x2, int level, Tower * TowerParent);
 
    // Properties
-   inline int  GetX()  { return mX; }
-   inline int  GetX2() { return mX2; }
-   inline int  GetY() { return mY; }
+   inline float GetX() { return mX; }
+   inline float GetX2() { return mX2; }
+   inline float GetY() { return mY; }
+   inline float GetZ() {return mZ; }
 
    inline void SetX(int x) { mX = x; }
    inline void SetX2(int x) { mX2 = x; }

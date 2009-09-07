@@ -35,7 +35,7 @@ template <class T = float> class Vector3
     template <class U>
     Vector3& operator+(const Vector3<U>& Other)
     {
-        Vector3* temp = new Vector3(x+Other.x, y+Other.y);
+        Vector3* temp = new Vector3(x+Other.x, y+Other.y, z+Other.z);
         return *temp;
     }
     template <class U>

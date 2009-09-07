@@ -33,9 +33,9 @@
 #include "../highrisedev.h"
 #endif
 
-Tower::Tower( int towerNo, int NoSubLevels )
-      :  mTowerNo( towerNo )
-      ,  mNo_SubLevels( NoSubLevels )
+Tower::Tower (int towerNo, int NoSubLevels)
+      :  mTowerNo (towerNo)
+      ,  mNo_SubLevels (NoSubLevels)
 {
    //level* maint = new level (0);
    //mSubLevels.push_back (maint);
@@ -43,7 +43,7 @@ Tower::Tower( int towerNo, int NoSubLevels )
    int nsubs = -NoSubLevels;
    for (int sub = nsubs; sub < 0; ++sub)
    {
-      Level* level = new Level (sub, this);
+      Level* level = new Level (sub, 400, sub, 472, this);
       mLevels.push_back (level);
    }
    Lobby* lobby = new Lobby (370, 640, 0, this);
@@ -55,10 +55,10 @@ Tower::~Tower( )
 
 }
 
-Level* Tower::NewLevel( )
+Level* Tower::NewLevel (int x, int y, int x2)
 {
    int level = (int)mLevels.size() - mNo_SubLevels;
-   Level* floor = new Level (level, this);
+   Level* floor = new Level (level, x, y, x2,this);
    mLevels.push_back (floor);
    return floor;
 }

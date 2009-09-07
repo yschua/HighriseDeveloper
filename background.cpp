@@ -39,16 +39,16 @@ Background::Background ()
 {
    ImageManager * images = ImageManager::GetInstance ();
    cam = Camera::GetInstance ();
-   int width = cam->GetWorldRect().Right - cam->GetWorldRect().Left;
-   int height = cam->GetWorldRect().Bottom - cam->GetWorldRect().Top;
+   float width = cam->GetWorldRect().Right - cam->GetWorldRect().Left;
+   float height = cam->GetWorldRect().Bottom - cam->GetWorldRect().Top;
    // sky this will be the sky dome in 3D
-   mBackImage = new AnimationSingle (images->GetTexture ("back.png", GL_RGBA), width, height);
-   mBackImage->SetPosition(Vector2f( 0, -680 )); //cam->GetWorldRect().Left, cam->GetWorldRect().Top - mBackImage->mSprite->GetImage()->GetHeight()) );
+   mBackImage = new AnimationSingle (images->GetTexture ("back.png", GL_RGBA), (int)width, (int)height);
+   mBackImage->SetPosition(Vector3f( 0, -680, -0.1f )); //cam->GetWorldRect().Left, cam->GetWorldRect().Top - mBackImage->mSprite->GetImage()->GetHeight()) );
    // move the ground down 36 since lobby is at 0
 
    // Z axis is 0 for now
-   mBackBuildings = new Tiler (images->GetTexture ("buildings.png", GL_RGBA), Tiler::Horizontal, cam->GetWorldRect().Left, -28, 0, width, 64 );
-   mBackGround = new Tiler (images->GetTexture ("ground.png", GL_RGBA), Tiler::Horizontal, cam->GetWorldRect().Left, cam->GetWorldRect().Top+36, 0, width, 320 );
+   mBackBuildings = new Tiler (images->GetTexture ("buildings.png", GL_RGBA), Tiler::Horizontal, cam->GetWorldRect().Left, -28, -0.09f, width, 64 );
+   mBackGround = new Tiler (images->GetTexture ("ground.png", GL_RGBA), Tiler::Horizontal, cam->GetWorldRect().Left, cam->GetWorldRect().Top+36, -0.09f, width, 320 );
 }
 
 void
@@ -56,15 +56,9 @@ Background::Draw ()
 {
    try
    {
-      glMatrixMode(GL_MODELVIEW);
-      glPushMatrix();
-      {                       // brackets just keep the code in push and pop uniform
-         glTranslatef (cam->GetPositionX(), -(cam->GetPositionY()), 0);
-         Render(mBackImage);
-         Render(mBackBuildings);
-         Render(mBackGround);
-      }
-   glPopMatrix();
+      Render(mBackImage);
+      Render(mBackBuildings);
+      Render(mBackGround);
    }
    catch( ... )
    {

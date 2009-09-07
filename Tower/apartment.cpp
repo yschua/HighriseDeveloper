@@ -79,6 +79,7 @@ Apartment::Apartment (int x, int level, Tower * TowerParent)
    manimations[apt_unoccupied_day] = new Animation (72, 36);
    manimations[apt_unoccupied_day]->AddFrame (image_man->GetTexture ("apartment_r_s_1.png", GL_RGBA), 1000);
    manimations[apt_unoccupied_day]->SetPosition (mX, mY);
+   mCam = Camera::GetInstance ();
 }
 
 void
@@ -101,5 +102,5 @@ Apartment::Update (float dt)
 void
 Apartment::Draw ()
 {
-   Camera::i()->Draw (*manimations[mcurrent_state]);
+   mCam->Draw (*manimations[mcurrent_state]);
 }

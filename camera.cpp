@@ -52,6 +52,12 @@ Camera::Camera ()
    mMovingView = false;
 }
 
+const sf::Input *
+Camera::GetInput ()
+{
+   return mpInput;
+}
+
 Vector2i
 Camera::GetMouse ()
 {
@@ -122,16 +128,6 @@ void
 Camera::Create (const std::string & caption)
 {
 
-}
-
-Camera*
-Camera::i()
-{
-   if (mpInstance == NULL)
-   {
-      mpInstance = new Camera ();
-   }
-   return mpInstance;
 }
 
 Camera*

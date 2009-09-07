@@ -79,7 +79,7 @@ Elevator::Elevator ( Lift_Styles style, int x, short BottomLevel, short TopLevel
    mElevatorImage = new AnimationSingle (images->GetTexture ("elevator_u_n.png", GL_RGBA), 32, 32);
    mLiftPit = new AnimationSingle (images->GetTexture ("liftpit_1.png", GL_RGBA), 36, 36);
 
-   mcam = Camera::i();
+   mcam = Camera::GetInstance ();
    mX = x+4;
    mY = (int)( mcam->GetWorldRect ().Top) - (mBottomLevel * 36);
    mZ = -0.2f; // slightly in front of the tower
@@ -181,7 +181,7 @@ Elevator::NextCallButton ()
                if( mStops[idx].mButtonFlag&BUTTON_DOWN|DESINATION )
                {
                   SetDestination( idx + mBottomLevel );
-                  break; 
+                  break;
                }
             }
          }
@@ -200,7 +200,7 @@ Elevator::NextCallButton ()
                if( mStops[idx].mButtonFlag&BUTTON_UP|DESINATION )
                {
                   SetDestination( idx + mBottomLevel );
-                  break; 
+                  break;
                }
             }
          }
@@ -286,7 +286,7 @@ Elevator::Update (float dt)
       Motion();
    }
 }
- 
+
 void
 Elevator::Draw ()
 {

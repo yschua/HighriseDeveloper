@@ -101,7 +101,7 @@ main ()
          {
             UI::TextBox* pText = new UI::TextBox();
             pText->SetPosition(0, -400);
-            pText->SetText( "Office" ); 
+            pText->SetText( "Office" );
             pWind->AddItem(pText);
             UI::Button* pButton = new UI::Button();
             pButton->SetPosition(0, 20);
@@ -123,7 +123,7 @@ main ()
       {
          while (cam->GetEvent (event))
          {
-            if (!cam->OnEvent(event)) Windows.OnEvent(event);
+            cam->OnEvent(event);
             if (event.Type == sf::Event::Closed)
                exit (0);
             //else
@@ -146,7 +146,7 @@ main ()
          theTower.Update (60);
          theTower.Draw ();
          cam->SetStatic(true);
-         Windows.Update();
+         //Windows.Update();
          Windows.Draw();
          cam->SetStatic(false);
          interface->Update(60);

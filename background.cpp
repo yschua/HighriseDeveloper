@@ -38,7 +38,7 @@ using namespace Gfx;
 Background::Background ()
 {
    ImageManager * images = ImageManager::GetInstance ();
-   cam = Camera::i();
+   cam = Camera::GetInstance ();
    int width = cam->GetWorldRect().Right - cam->GetWorldRect().Left;
    int height = cam->GetWorldRect().Bottom - cam->GetWorldRect().Top;
    // sky this will be the sky dome in 3D

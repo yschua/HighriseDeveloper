@@ -39,6 +39,7 @@ private:
    std::map<apartment_state, Animation *> manimations;
    apartment_state mcurrent_state;
    int mcurrent_animation;
+   Camera * mCam;
 
 public:
    virtual void Update (float dt);

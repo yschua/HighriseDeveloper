@@ -47,7 +47,7 @@ public:
    void Display ();
    void Clear ();
    void InitGL();
-
+   const sf::Input * Camera::GetInput ();
    void Draw (Animation & to_draw);
    void Draw (AnimationSingle & to_draw);
    void Draw (Tiler & to_draw);

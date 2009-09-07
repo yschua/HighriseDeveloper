@@ -17,23 +17,23 @@
 
 #ifdef WIN32
 #include <iostream>
-#include <map>
-#include <vector>
-#include <list>
-#include <SFML/System.hpp>
-#include <SFML/Graphics.hpp>
+//#include <map>
+//#include <vector>
+//#include <list>
+//#include <SFML/System.hpp>
+//#include <SFML/Graphics.hpp>
 #include "../physics.h"
 #include "../camera.h"
-#include "../image.h"
-#include "../animation.h"
+//#include "../image.h"
+//#include "../animation.h"
+//#include "level.h"
 #include "floorBase.h"
-#include "level.h"
 
 #else
 #include "../highrisedev.h"
 #endif
 
-using namespace Gfx;
+//using namespace Gfx;
 
 void
 FloorBase::Update (float dt)

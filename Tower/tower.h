@@ -25,6 +25,7 @@ class Level;
 class Elevator;
 class TowerAgent;
 class Routes;
+class Person;
 
 
 class Tower

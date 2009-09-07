@@ -87,5 +87,6 @@ office::Update (float dt)
 void
 office::Draw ()
 {
-   Camera::GetInstance()->Draw (*manimations[mcurrent_state]);
+//   Camera::GetInstance()->Draw (*manimations[mcurrent_state]);
+   Render (manimations[mcurrent_state]);
 }

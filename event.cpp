@@ -78,4 +78,5 @@ EventHandler::HandleEvents ()
                break;
       }
    }
+   return true;
 }

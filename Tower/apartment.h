@@ -18,6 +18,7 @@
 
 #ifndef _APARTMENT_H
 #define _APARTMENT_H
+#include "../Graphics/modelObject.h"
 
 class FloorBase;
 
@@ -29,7 +30,7 @@ enum apartment_state
    apt_occupied_sleep
 };
 
-class Apartment : public FloorBase
+class Apartment : public FloorBase, public Gfx::ModelObject
 {
 private:
    apartment_state unoccupied_day (float dt);
@@ -39,7 +40,7 @@ private:
    std::map<apartment_state, Animation *> manimations;
    apartment_state mcurrent_state;
    int mcurrent_animation;
-   Camera * mCam;
+//   Camera * mCam;
 
 public:
    virtual void Update (float dt);

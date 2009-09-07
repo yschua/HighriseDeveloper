@@ -17,13 +17,15 @@
 #ifndef _OFFICE_H
 #define _OFFICE_H
 
+#include "../Graphics/modelObject.h"
+
 enum office_state
 {
    s_unoccupied_day,
    s_occupied_day
 };
 
-class office : public FloorBase
+class office : public FloorBase, public Gfx::ModelObject
 {
 private:
    office_state unoccupied_day (float dt);

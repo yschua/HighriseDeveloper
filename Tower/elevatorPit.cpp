@@ -24,7 +24,6 @@
 #include "../camera.h"
 #include "../image.h"
 
-#include "elevatorBase.h"
 #include "elevatorPit.h"
 
 class Elevator;

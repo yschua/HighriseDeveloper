@@ -17,7 +17,9 @@
 #ifndef _BACKGROUND_H
 #define _BACKGROUND_H
 
-class Background
+#include "Graphics/modelObject.h"
+
+class Background : public ModelObject
 {
 private:
    AnimationSingle * mBackImage;

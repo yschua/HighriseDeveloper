@@ -17,6 +17,7 @@
 #ifndef _ELEVATORMACHINE_H
 #define _ELEVATORMACHINE_H
 
+#include "../Graphics/modelObject.h"
 #include "elevatorBase.h"
 
 class Elevator;
@@ -24,7 +25,7 @@ class FloorBase;
 class Camera;
 class Animation;
 
-class ElevatorMachine : public ElevatorBase
+class ElevatorMachine : public ElevatorBase, public ModelObject
 {
 public:
    enum ElevatorMachine_State

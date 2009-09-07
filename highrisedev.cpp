@@ -142,9 +142,11 @@ main ()
          }
          cam->Clear ();
          cam->Integrate (60);
+         
          pBackground->Draw ();
          theTower.Update (60);
-         theTower.Draw ();
+         //theTower.Draw ();
+         cam->DrawTower (&theTower);
          cam->SetStatic(true);
          //Windows.Update();
          Windows.Draw();

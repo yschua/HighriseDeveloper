@@ -194,6 +194,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\event.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\highrisedev.cpp"
 				>
 			</File>
@@ -253,6 +257,10 @@
 			</File>
 			<File
 				RelativePath="..\citizens.h"
+				>
+			</File>
+			<File
+				RelativePath="..\event.h"
 				>
 			</File>
 			<File
@@ -374,11 +382,23 @@
 				>
 			</File>
 			<File
+				RelativePath="..\Graphics\modelObject.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\Graphics\modelObject.h"
+				>
+			</File>
+			<File
 				RelativePath="..\Graphics\texture.cpp"
 				>
 			</File>
 			<File
 				RelativePath="..\Graphics\texture.h"
+				>
+			</File>
+			<File
+				RelativePath="..\Graphics\viewObject.h"
 				>
 			</File>
 		</Filter>

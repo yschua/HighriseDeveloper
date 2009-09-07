@@ -99,8 +99,11 @@ Level::Draw ()
    std::vector<FloorBase *>::iterator i;
    for (i = mFloorSpaces.begin (); i != mFloorSpaces.end (); i++)
       (*i)->Draw ();
-   Camera::GetInstance()->Draw (*nFireEscapeLeft);
-   Camera::GetInstance()->Draw (*nFireEscapeRight);
+   //Camera::GetInstance()->Draw (*nFireEscapeLeft);
+   //Camera::GetInstance()->Draw (*nFireEscapeRight);
+   Render (nFireEscapeLeft);
+   Render (nFireEscapeRight);
+
 }
 
 

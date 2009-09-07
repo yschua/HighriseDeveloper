@@ -26,7 +26,10 @@
 #include "image.h"
 #include "animation.h"
 #include "tiler.h"
-//#include "floorBase.h"
+#include "Tower/routeBase.h"
+#include "routes.h"
+#include "Tower/floorBase.h"
+#include "Tower/tower.h"
 
 #include "camera.h"
 #else
@@ -167,6 +170,19 @@ void Camera::InitGL()
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);						// Really Nice Perspective Calculations
 }
 
+void Camera::DrawTower (Tower* pTower)
+{
+   glMatrixMode(GL_MODELVIEW);
+   glPushMatrix();
+   {                       // brackets just keep the code in push and pop uniform
+      glTranslatef (GetPositionX(), -GetPositionY(), 0);//mZoomFactor*1.5);
+      glEnable(GL_BLEND);
+      pTower->Draw();
+      glDisable(GL_BLEND);
+   }
+   glPopMatrix();
+}
+
 void
 Camera::Draw (Animation & to_draw)
 {
@@ -217,6 +233,7 @@ Camera::Draw (AnimationSingle & to_draw)
    glPushMatrix();
 //glLoadIdentity();
 //glTranslatef(0.f, 0.f, -100.f);
+   glTranslatef (GetPositionX(), GetPositionY(), mZoomFactor);
    glEnable(GL_BLEND);
    glBindTexture( GL_TEXTURE_2D, to_draw.GetTextureID() );//to_draw.GetTexture() ); // get the current texture
    glBegin(GL_QUADS);
@@ -250,18 +267,18 @@ Camera::Draw (Tiler & to_draw)
    glMatrixMode(GL_MODELVIEW);
    glPushMatrix();
 //glLoadIdentity();
-//glTranslatef(0.f, 0.f, -100.f);
+   glTranslatef (0,0,0);
    glBindTexture( GL_TEXTURE_2D, to_draw.GetTextureID() );//to_draw.GetTexture() ); // get the current texture
    glBegin(GL_QUADS);
    {
       glTexCoord2f( 0.0, yT );
-      glVertex3f( x, y2, 0 ); // simple extension arm
+      glVertex3f( x, y2, 0 );
       glTexCoord2f( 0.0, 0.0 );
-      glVertex3f( x, y, 0 ); // simple extension arm
+      glVertex3f( x, y, 0 );
       glTexCoord2f( xT, 0.0 );
-      glVertex3f( x2, y, 0 ); // simple extension arm
+      glVertex3f( x2, y, 0 );
       glTexCoord2f( xT, yT );
-      glVertex3f( x2, y2, 0 ); // simple extension arm
+      glVertex3f( x2, y2, 0 );
    }
    glEnd();
    glPopMatrix();

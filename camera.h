@@ -23,6 +23,7 @@
 class Animation;
 class AnimationSingle;
 class Tiler;
+class Tower;
 
 class Camera : public Body
 {
@@ -48,6 +49,9 @@ public:
    void Clear ();
    void InitGL();
    const sf::Input * Camera::GetInput ();
+
+   void DrawTower (Tower* pTower);
+   // Four Draw methods to be depricated when we move the view objects
    void Draw (Animation & to_draw);
    void Draw (AnimationSingle & to_draw);
    void Draw (Tiler & to_draw);

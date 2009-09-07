@@ -17,13 +17,14 @@
 #ifndef _ELEVATORSHAFT_H
 #define _ELEVATORSHAFT_H
 
+#include "../Graphics/modelObject.h"
 #include "elevatorBase.h"
 class Elevator;
 class FloorBase;
-class Camera;
+//class Camera;
 class Tiler;
 
-class ElevatorShaft : public ElevatorBase
+class ElevatorShaft : public ElevatorBase, public ModelObject
 {
 protected:
 
@@ -32,7 +33,7 @@ protected:
 
    // moved from elevator and changed name to ShaftTiler to show it is a tiler object
    Tiler * mShaftTiler; // temporary to make a nice looking demo :]
-   Camera* mcam;
+   //Camera* mcam;
 
 public:
    // CTOR/DTOR

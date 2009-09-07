@@ -85,5 +85,6 @@ ElevatorMachine::Update (float dt)
 void
 ElevatorMachine::Draw ()
 {
-   this->mcam->Draw( * mLifterAnimation );
+//   this->mcam->Draw( * mLifterAnimation );
+   Render (mLifterAnimation);
 }

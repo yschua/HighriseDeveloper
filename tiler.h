@@ -24,13 +24,13 @@ class Tiler
 {
 private:
    bool mClipMode;
-   int mX;
-   int mY;
-   int mZ;
-   int mWidth;
-   int mHeight;
-   int mTesselX;
-   int mTesselY;
+   float mX;
+   float mY;
+   float mZ;
+   float mWidth;
+   float mHeight;
+   float mTesselX;
+   float mTesselY;
    //int mImageSizeX, mImageSizeY;
 //   sf::Image * mframe;
    Texture* mpTexture;
@@ -45,17 +45,17 @@ public:
 //   Tiler (sf::Image * image, draw_direction direction, int x, int x2, int y);
    Tiler (Texture* pTex, draw_direction direction, int x, int y, int z, int width, int height);
    void SetY (int y);
-   int GetTesselX() { return mTesselX; }
-   int GetTesselY() { return mTesselY; }
-   int GetPositionX() { return mX; }
-   int GetPositionY() { return mY; }
-   int GetWidth() { return mWidth; }
-   int GetHeight() { return mHeight; }
-   int GetTextureID() { return mpTexture->GetID(); }
+   float GetTesselX() { return mTesselX; }
+   float GetTesselY() { return mTesselY; }
+   float GetPositionX() { return mX; }
+   float GetPositionY() { return mY; }
+   float GetWidth() { return mWidth; }
+   float GetHeight() { return mHeight; }
+   unsigned int GetTextureID() { return mpTexture->GetID(); }
 
 //   void SetImage (sf::Image * image);
    void SetTexture (Texture* pTex) { mpTexture = pTex; }
-   void SetTessel (int x, int y) { mTesselX=x; mTesselY=y; }
+   void SetTessel (float x, float y) { mTesselX=x; mTesselY=y; }
 
    void CalcPos ();
    void Resize (int x, int x2, int tesx, int tessy);

@@ -17,13 +17,15 @@
 #ifndef _LEVEL_H
 #define _LEVEL_H
 
+#include "../Graphics/modelObject.h"
+
 class AnimationSingle;
 class FloorBase;
 class Tower;
 class Elevator;
 class PersonQueue;
 
-class Level
+class Level : public Gfx::ModelObject
 {
 private:
    std::vector<FloorBase*> mFloorSpaces;

@@ -31,12 +31,13 @@ class AnimationSingle;
 class ElevatorMachine; // mover above
 class ElevatorShaft;   // holds the tiler to show the shaft
 class ElevatorPit;     // landing pit below
-class Camera;
+//class Camera;
 class Person;
 class Tower;
 
 #include "../physics.h"
 #include "routeBase.h"
+#include "../Graphics/modelObject.h"
 
 // Setting elevator levels serviced.
 //
@@ -68,7 +69,7 @@ struct Rider
    short    mDestLevel;
 };
 
-class Elevator : public Body, public RouteBase
+class Elevator : public Body, public RouteBase, public Gfx::ModelObject // Quad morphic
 {
 public:
 
@@ -105,7 +106,7 @@ protected:
    FloorStop   mStops[32];
 
    //Tiler * mElevatorShaft; // temporary to make a nice looking demo :] Moved into shaft object.
-   Camera* mcam;
+   //Camera* mcam;
    // Controls this things motion
    int   mX;
    int   mY;

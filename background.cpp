@@ -56,9 +56,15 @@ Background::Draw ()
 {
    try
    {
-      cam->Draw (*mBackImage);
-      cam->Draw (*mBackBuildings);
-      cam->Draw (*mBackGround);
+      glMatrixMode(GL_MODELVIEW);
+      glPushMatrix();
+      {                       // brackets just keep the code in push and pop uniform
+         glTranslatef (cam->GetPositionX(), -(cam->GetPositionY()), 0);
+         Render(mBackImage);
+         Render(mBackBuildings);
+         Render(mBackGround);
+      }
+   glPopMatrix();
    }
    catch( ... )
    {

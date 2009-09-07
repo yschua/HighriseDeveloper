@@ -19,7 +19,7 @@
 #include <iostream>
 #include <string>
 #include <map>
-#include "graphics/texture.h"
+#include "Graphics/texture.h"
 #include "image.h"
 
 using namespace Gfx;

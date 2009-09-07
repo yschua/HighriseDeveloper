@@ -48,7 +48,7 @@ public:
    void Display ();
    void Clear ();
    void InitGL();
-   const sf::Input * Camera::GetInput ();
+   const sf::Input * GetInput ();
 
    void DrawTower (Tower* pTower);
    // Four Draw methods to be depricated when we move the view objects

@@ -154,7 +154,7 @@ protected:
    virtual void SetFloorButton (RouteVisitor* visitor);
    void NextCallButton ();
    void Motion ();
-   void Elevator::SetDestination (int level);
+   void SetDestination (int level);
 public:
 
    virtual void Update (float dt);

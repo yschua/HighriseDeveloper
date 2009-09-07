@@ -19,7 +19,7 @@
 #include <iostream>
 #include <string>
 #include "../physics.h"
-#include "../Tiler.h"
+#include "../tiler.h"
 #include "texture.h"
 #include "modelObject.h"
 

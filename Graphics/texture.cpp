@@ -16,7 +16,7 @@
 
 #include <iostream>
 #include "texture.h"
-#include "SFML/graphics.hpp"
+#include "SFML/Graphics.hpp"
 
 using namespace Gfx;
 

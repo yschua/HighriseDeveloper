@@ -18,18 +18,20 @@
 #define _BACKGROUND_H
 
 #include "Graphics/modelObject.h"
+class AnimationSingle;
+class Tiler;
 
-class Background : public ModelObject
+class Background : public Gfx::ModelObject
 {
 private:
-   AnimationSingle * mBackImage;
+   AnimationSingle* mBackImage;
    Tiler * mBackBuildings;
    Tiler * mBackGround;
-   Camera * cam;
+//   Camera * cam;
 
 public:
    void Draw ();
-   Background ();
+   Background (float width, float height);
 
 };
 

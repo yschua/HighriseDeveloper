@@ -17,64 +17,46 @@
 // root of the levels and sublevels, the building/ tower.
 // create an instance of this. The lobby is created empty.
 // call newLevel or newSubLevel to add floors or basement levels
-#ifndef _TOWER_H
-#define _TOWER_H
+#ifndef _WORLD_H
+#define _WORLD_H
 
-#include "../Graphics/modelObject.h"
+#include "Graphics/modelObject.h"
 
 class FloorBase; // aggregate of floor spaces for offices, condos and hotels
-class Level;
-class Elevator;
-class TowerAgent;
-class Routes;
-class Person;
+class Tower;
+class Background;
 
 // Tower is a ModelObject along with all the FloorSpace entities
 // This renderes the Tower in the ModelSpaces with perspective, pan and zoom.
-class Tower : public Gfx::ModelObject
+class World
 {
    friend class TowerAgent;
 
 private:
-   int mTowerNo;
-   int mNo_SubLevels;
-   int mPopulation;  // People in the tower currently
-
-   std::vector<Level *> mLevels;     // Lobby is at mNo_SubLevels not zero
+   std::vector<Tower*> mTowers;     // Lobby is at mNo_SubLevels not zero
    Routes mRoutes;
+   Background* mpBackground;
 
 public:
    // ctor/dtor
-   Tower( int towerNo, int NoSubLevels );
-   ~Tower();
-
-   // properties
-   inline Routes& GetRoutes()
-   {
-      return mRoutes;  // For routing citizens
-   }
-   inline int GetPopulation()
-   {
-      return mPopulation;
-   }
+   World();
+   ~World();
 
 protected:
-   inline std::vector<Level *>& Get_Levels()
+   inline std::vector<Tower*>& GetTowers()
    {
-      return mLevels;
+      return mTowers;
    }
 
    // methods
 public:
-   Level* NewLevel (int x, int y, int x2);
-   Level* GetLevel (int level); // positive gets you a level above, negative gets you a basement level
+   //Tower* NewTower (int x, int y, int z, int z2, int x2);
+   void AddTower (Tower* pTower);
+   Tower* GetTower (int no); // positive gets you a level above, negative gets you a basement level
+   void SetBG (Background* pBG);
 
    void Update (float dt);
    void Draw ();
-
-   // AI interface
-   void EnterTower (Person* pPerson);
-   void LeaveTower (Person* pPerson);
 };
 
-#endif //_TOWER_H
+#endif //_WORLD_H

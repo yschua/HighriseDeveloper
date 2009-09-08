@@ -14,7 +14,6 @@
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-//#include "highrisedev.h"
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <string>
@@ -48,23 +47,6 @@ namespace Gfx {
       mpath_prefix = prefix;
    }
 
-   //sf::Image *
-   //ImageManager::GetImg (const std::string & name)
-   //{
-   //   if (mimages[name] == NULL)
-   //   {
-   //      sf::Image * temp;
-   //      temp = new sf::Image;
-   //      std::cout << "Loading file " << mpath_prefix + name << std::endl;
-   //      temp->LoadFromFile (mpath_prefix + name);
-   //      mimages[name] = temp;
-   //      mTextureCount++;
-   //      return temp;
-   //   }
-   //   std::cout << "Using preloaded file " << name << std::endl;
-   //   return mimages[name];
-   //}
-
    Texture*
    ImageManager::GetTexture (const std::string & name, int channels) // we have to tell it how many channels until we change the loader
    {
@@ -79,23 +61,4 @@ namespace Gfx {
       std::cout << "Using preloaded file " << name << std::endl;
       return mImages[name];
    }
-
-   //int
-   //ImageManager::preload_image (const std::string & name)
-   //{
-   //   if (mimages[name] == NULL)
-   //   {
-   //      sf::Image * temp;
-   //      temp = new sf::Image;
-   //      temp->LoadFromFile (mpath_prefix + name);
-   //      mimages[name] = temp;
-   //      return 1;
-   //   }
-   //   return 0;
-   //}
-
-   //sf::Image* GetImage(const std::string& Key)
-   //{
-   //   return ImageManager::GetInstance()->GetImg(Key);
-   //}
 }

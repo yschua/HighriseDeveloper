@@ -45,9 +45,9 @@ public:
    inline float GetY() { return mY; }
    inline float GetZ() {return mZ; }
 
-   inline void SetX(int x) { mX = x; }
-   inline void SetX2(int x) { mX2 = x; }
-   inline void SetY(int y) { mY = y; }
+   inline void SetX(float x) { mX = x; }
+   inline void SetX2(float x) { mX2 = x; }
+   inline void SetY(float y) { mY = y; }
 
    // Methods
    virtual void Update (float dt);

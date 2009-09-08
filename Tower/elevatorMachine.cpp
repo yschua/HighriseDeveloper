@@ -44,7 +44,7 @@ ElevatorMachine::ElevatorMachine (int x, int level, Elevator* pElevator )
    mFirstFrame = 0;
    mLastFrame = 2;
    mcam = Camera::GetInstance ();
-   my = ( mcam->GetWorldRect ().Top) - (level * 36);
+   my = ( mcam->GetWorldRect ().Top) - (level * 36)+4;
    pos_calc();
 }
 

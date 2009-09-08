@@ -30,6 +30,7 @@
 #include "routes.h"
 #include "Tower/floorBase.h"
 #include "Tower/tower.h"
+#include "World.h"
 
 #include "camera.h"
 #else
@@ -145,87 +146,39 @@ void Camera::InitGL()
 	gluPerspective (45.0f,mAspect ,0.1f,100.0f);		// Calculate The Aspect Ratio Of The Window
 }
 
-void Camera::DrawModel (ModelObject* pModel)
+void Camera::DrawModel (World* pModel)
 {
    glMatrixMode(GL_PROJECTION);
    glFrustum( -500, 500, -500, 500, 1000,0.5 );
    glMatrixMode(GL_MODELVIEW);
    glPushMatrix();
    {                       // brackets just keep the code in push and pop uniform
-//   	glEnable(GL_DEPTH_TEST);												// Enables Depth Testing
-//		glRotatef(1, 1.0f, 0.0f, 0.0f);
-//		glRotatef(2, 0.0f, 1.0f, 0.0f);
-      glTranslatef (GetPositionX(), -(GetPositionY()), mZoomFactor-1.0f);
+      glTranslatef (GetPositionX()+300, -(GetPositionY()), mZoomFactor-1.0f);
       glEnable(GL_BLEND);
-      glColor3ub( 255,255,255 );
       glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA  );
 //      glBlendFunc( GL_DST_ALPHA, GL_ONE_MINUS_SRC_ALPHA  );
 
       pModel->Draw();
 
       glDisable(GL_BLEND);
-   	glDisable(GL_DEPTH_TEST);												// Enables Depth Testing
    }
    glPopMatrix();
 }
 
-//void
-//Camera::Draw (Animation & to_draw)
-//{
-////   if (!mIgnoreCamera)
-////      to_draw.sprite->SetPosition (to_draw.GetPositionX () - ms.x, to_draw.GetPositionY () - ms.y);
-////   else
-////      to_draw.sprite->SetPosition (to_draw.GetPositionX (), to_draw.GetPositionY ());
-////   mpWindow->Draw (*to_draw.sprite);
-//   int x = to_draw.GetPositionX()-ms.x;
-//   int y = to_draw.GetPositionY()-ms.y;
-//   int x2 = (int)x+ to_draw.GetWidth();
-//   int y2 = (int)y+ to_draw.GetHeight();
-//   if (!mIgnoreCamera)
-//      glMatrixMode(GL_MODELVIEW);
-//   else
-//      glMatrixMode(GL_PROJECTION);
-//   glPushMatrix();
-////glLoadIdentity();
-////glTranslatef(0.f, 0.f, -100.f);
-//   glEnable(GL_BLEND);
-//   glBindTexture( GL_TEXTURE_2D, to_draw.GetTextureID() );//to_draw.GetTexture() ); // get the current texture
-//   glBegin(GL_QUADS);
-//   {
-//      glTexCoord2f( 0.0, 1.0 );
-//      glVertex3f( x, y2, 0 ); // simple extension arm
-//      glTexCoord2f( 0.0, 0.0 );
-//      glVertex3f( x, y, 0 ); // simple extension arm
-//      glTexCoord2f( 1.0, 0.0 );
-//      glVertex3f( x2, y, 0 ); // simple extension arm
-//      glTexCoord2f( 1.0, 1.0 );
-//      glVertex3f( x2, y2, 0 ); // simple extension arm
-//   }
-//   glEnd();
-//   glDisable(GL_BLEND);
-//   glPopMatrix();
-//}
 
 void
 Camera::Draw (AnimationSingle & to_draw)
 {
-   //if (!mIgnoreCamera)
-   //   to_draw.mSprite->SetPosition (to_draw.GetPositionX () - ms.x, to_draw.GetPositionY () - ms.y);
-   //else
-   //   to_draw.mSprite->SetPosition (to_draw.GetPositionX (), to_draw.GetPositionY ());
-   //mpWindow->Draw (*to_draw.mSprite);
    int x = to_draw.GetPositionX()-ms.x;
    int y = to_draw.GetPositionY()-ms.y;
    int x2 = (int)x+ to_draw.GetWidth();
    int y2 = (int)y+ to_draw.GetHeight();
    if (!mIgnoreCamera)
-      glMatrixMode(GL_MODELVIEW);
+      glMatrixMode(GL_MODELVIEW);   // on the model plane but we should let the world render this
    else
-      glMatrixMode(GL_PROJECTION);
+      glMatrixMode(GL_PROJECTION);  // on the view face with the clock and bars
    glPushMatrix();
-//glLoadIdentity();
-//glTranslatef(0.f, 0.f, -100.f);
-   glTranslatef (GetPositionX(), GetPositionY(), 0);// mZoomFactor);
+   glTranslatef (GetPositionX(), GetPositionY(), 0);
    glEnable(GL_BLEND);
    glBindTexture( GL_TEXTURE_2D, to_draw.GetTextureID() );//to_draw.GetTexture() ); // get the current texture
    glBegin(GL_QUADS);
@@ -362,6 +315,8 @@ Camera::Zoom(float Factor)
       mZoomFactor += Factor;
    }
    std::cout << "ZF=" << mZoomFactor << "\n";
+
+   // 3D world, you have to consider the frustum to calc positioning
 /*
       Vector2f Center;
       Center.x = (mViewRect.Left+mViewRect.Right)/2;
@@ -434,6 +389,7 @@ Camera::Movepx(Vector2f Movement)
       //std::cout << "View rect: "; ((Rectf)mpView->GetRect()).DebugPrint(); std::cout << "\n";
    }
 }
+
 /////////////////////////////////////////////////////////////////////
 /// Set the center of the camera in pixels
 /////////////////////////////////////////////////////////////////////

@@ -23,7 +23,7 @@ Interface::Interface ()
    ImageManager * images = ImageManager::GetInstance ();
    mpCam = Camera::GetInstance ();
    Texture* pTex = images->GetTexture ("clock.png", GL_RGBA);
-   mClock = new AnimationSingle (pTex, 48, 48); //images->GetImg ("clock.png"));
+   mClock = new AnimationSingle (pTex, 60, 60); //images->GetImg ("clock.png"));
    PosCalc ();
 }
 

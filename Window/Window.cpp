@@ -42,10 +42,10 @@ namespace UI
           // TODO crate the BG plane
       }
       std::cout << "Done loading images!\n";
-      Rect.Top = 200;
-      Rect.Left = 200;
-      Rect.Bottom = 300;
-      Rect.Right = 300;
+      Rect.Top = 20;
+      Rect.Left = 20;
+      Rect.Bottom = 80;
+      Rect.Right = 100;
       InsideRect.Top = Rect.Top+Style.Padding[0];
       InsideRect.Left = Rect.Left+Style.Padding[2];
       InsideRect.Right = Rect.Right-Style.Padding[3];

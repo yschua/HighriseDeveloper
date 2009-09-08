@@ -18,6 +18,7 @@
 #include "Window/Button.h"
 #include "Window/TextBox.h"
 #include "highrisedev.h"
+#include "world.h"
 
 #include "AI/citizensAgent.h"
 #include "AI/pathAgent.h"
@@ -38,6 +39,11 @@ main ()
    Tower theTower (1, 10); // numero uno with 10 sub levels
    CitizensAgent People( theTower ); // known tower, later this will be a tower list for mutiple towers
    Interface* interface = new Interface();
+   World theWorld;
+   theWorld.AddTower (&theTower); // pointer for graphics
+//   cam = Camera::GetInstance ();
+   float width = cam->GetWorldRect().Right - cam->GetWorldRect().Left;
+   float height = cam->GetWorldRect().Bottom - cam->GetWorldRect().Top;
 
    cam->InitGL();
 
@@ -90,8 +96,8 @@ main ()
       theTower.GetRoutes().AddRoute( pElevator );
       pElevator = new Elevator( Elevator::LS_Standard, 472 + 36 + 9, 0, 5, &theTower );
       theTower.GetRoutes().AddRoute( pElevator );
-      pBackground = new Background ();
-
+      pBackground = new Background (width, height);
+      theWorld.SetBG (pBackground);
 
       UI::EventMgr<UI::Window> Windows;
       for (int i = 0; i < 5; i++)
@@ -100,7 +106,7 @@ main ()
          if( i ==1 )
          {
             UI::TextBox* pText = new UI::TextBox();
-            pText->SetPosition(0, -400);
+            pText->SetPosition(0, 0);
             pText->SetText( "Office" );
             pWind->AddItem(pText);
             UI::Button* pButton = new UI::Button();
@@ -113,7 +119,7 @@ main ()
             for (int j = 0; j < 3; j++)
             {
                UI::Button* pButton = new UI::Button();
-               pButton->SetPosition(0, 20*j);
+               pButton->SetPosition( 0, 20*j);
                pWind->AddItem(pButton);
             }
          }
@@ -143,10 +149,8 @@ main ()
          cam->Clear ();
          cam->Integrate (60);
          
-
          theTower.Update (60);
-         cam->DrawModel(pBackground);
-         cam->DrawModel(&theTower);
+         cam->DrawModel(&theWorld); // the background and tower(s).
 
          cam->SetStatic(true);
          //Windows.Update();

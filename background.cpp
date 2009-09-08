@@ -35,20 +35,17 @@
 
 using namespace Gfx;
 
-Background::Background ()
+Background::Background (float width, float height)
 {
    ImageManager * images = ImageManager::GetInstance ();
-   cam = Camera::GetInstance ();
-   float width = cam->GetWorldRect().Right - cam->GetWorldRect().Left;
-   float height = cam->GetWorldRect().Bottom - cam->GetWorldRect().Top;
    // sky this will be the sky dome in 3D
    mBackImage = new AnimationSingle (images->GetTexture ("back.png", GL_RGBA), (int)width, (int)height);
    mBackImage->SetPosition(Vector3f( 0, -680, -0.1f )); //cam->GetWorldRect().Left, cam->GetWorldRect().Top - mBackImage->mSprite->GetImage()->GetHeight()) );
    // move the ground down 36 since lobby is at 0
 
    // Z axis is 0 for now
-   mBackBuildings = new Tiler (images->GetTexture ("buildings.png", GL_RGBA), Tiler::Horizontal, cam->GetWorldRect().Left, -28, -0.09f, width, 64 );
-   mBackGround = new Tiler (images->GetTexture ("ground.png", GL_RGBA), Tiler::Horizontal, cam->GetWorldRect().Left, cam->GetWorldRect().Top+36, -0.09f, width, 320 );
+   mBackBuildings = new Tiler (images->GetTexture ("buildings.png", GL_RGBA), Tiler::Horizontal, 0, -28, -0.09f, width, 64 );
+   mBackGround = new Tiler (images->GetTexture ("ground.png", GL_RGBA), Tiler::Horizontal, 0, 0+36, -0.09f, width, 320 );
 }
 
 void

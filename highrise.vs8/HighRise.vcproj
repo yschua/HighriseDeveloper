@@ -237,6 +237,10 @@
 				RelativePath="..\tiler.cpp"
 				>
 			</File>
+			<File
+				RelativePath="..\world.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -305,6 +309,10 @@
 			</File>
 			<File
 				RelativePath="..\tiler.h"
+				>
+			</File>
+			<File
+				RelativePath="..\world.h"
 				>
 			</File>
 		</Filter>

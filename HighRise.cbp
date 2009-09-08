@@ -72,6 +72,8 @@
 		<Unit filename="Graphics/ErrorImage.cpp" />
 		<Unit filename="Graphics/ErrorImage.h" />
 		<Unit filename="Graphics/Graphics.h" />
+		<Unit filename="Graphics/modelObject.cpp" />
+		<Unit filename="Graphics/modelObject.h" />
 		<Unit filename="ReadMe.txt" />
 		<Unit filename="Settings/Settings.cpp" />
 		<Unit filename="Settings/Settings.h" />
@@ -141,6 +143,8 @@
 		<Unit filename="stdafx.h" />
 		<Unit filename="tiler.cpp" />
 		<Unit filename="tiler.h" />
+		<Unit filename="world.cpp" />
+		<Unit filename="world.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

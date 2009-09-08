@@ -38,15 +38,20 @@ bool Texture::Load (const string& pszName, int channels)
    temp->LoadFromFile (pszName);
    glGenTextures (1, &mID);
    glBindTexture (GL_TEXTURE_2D, mID);
+   if( channels > 3 )
+   {
+      glEnable (GL_BLEND);
+   }
    glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); // setup for the tiler or animation
    glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
    glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);   // near/far filters
    glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 
    mChannels = channels;
-   glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, temp->GetWidth(), temp->GetHeight(), 0, mChannels , GL_UNSIGNED_BYTE, temp->GetPixelsPtr() );
+   glTexImage2D(GL_TEXTURE_2D, 0, mChannels, temp->GetWidth(), temp->GetHeight(), 0, mChannels , GL_UNSIGNED_BYTE, temp->GetPixelsPtr() );
 
    glTexEnvi(GL_TEXTURE_2D, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+   glDisable (GL_BLEND);
    delete temp;
    return true;
 }

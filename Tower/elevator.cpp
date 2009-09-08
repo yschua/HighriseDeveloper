@@ -70,25 +70,22 @@ Elevator::Elevator ( Lift_Styles style, int x, short BottomLevel, short TopLevel
    ClearStops();
    memset( mStops, 0, sizeof(mStops) );
 
-
-   // test code
    mStartRoute = mBottomLevel;
-   mEndRoute = mTopLevel;
+   mEndRoute = mBottomLevel;
 
    ImageManager * images = ImageManager::GetInstance ();
    mElevatorImage = new AnimationSingle (images->GetTexture ("elevator_u_n.png", GL_RGBA), 32, 32);
    mLiftPit = new AnimationSingle (images->GetTexture ("liftpit_1.png", GL_RGBA), 36, 36);
 
-///   mcam = Camera::GetInstance ();
-   mX = x+4;
+   mX = x+2;
    mY = (int)(mBottomLevel * 36);
    mZ = -0.49f; // slightly in front of the tower
 
    mNumber = gElevatorsNumber++; // set number;
 
    mLiftMachine = new ElevatorMachine( x, mTopLevel+1, this );
-   mLiftPit->SetPosition ((float)mX, (float)(mY + 72) );
-   mElevatorShaft = new ElevatorShaft( mX, mTopLevel, mBottomLevel, this );
+   mLiftPit->SetPosition ((float)x, (float)(-mY) );
+   mElevatorShaft = new ElevatorShaft( x, mTopLevel, mBottomLevel, this );
 }
 
 Elevator::~Elevator()

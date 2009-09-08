@@ -24,6 +24,7 @@
 class Animation;
 class AnimationSingle;
 class Tiler;
+class World;
 
 class Camera : public Body
 {
@@ -72,7 +73,7 @@ public:
    void Clear ();
    void InitGL();
 
-   void DrawModel (Gfx::ModelObject* pModel);
+   void DrawModel (World* pModel);
    // Four Draw methods to be depricated when we move the view objects
    //void Draw (Animation & to_draw);
    void Draw (AnimationSingle & to_draw); // used by Interface for now

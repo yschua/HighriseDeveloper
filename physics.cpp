@@ -43,7 +43,7 @@ Body::Body (Vector3f Pos, int width, int height)
 
 Body::Body (float x, float y, int width, int height)
 {
-   ms = Vector3f(x,y,-0.49);
+   ms = Vector3f(x,y,0);
    mv = Vector2f(0,0);
    ma = Vector2f(0,0);
    mWidth = Vector3f (width, 0, 0);

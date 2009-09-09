@@ -19,6 +19,8 @@
 #include <cstdlib>
 #include <iostream>
 #include "person.h"
+#include "image.h"
+#include "animation.h"
 
 Person::Person (Location& loc)
 {
@@ -29,8 +31,19 @@ Person::Person (Location& loc)
    mHome = 1;          // have a home (Test code)
    mCurrentState = CS_Idle;
    mLocation = loc;    // copy
-}
+   ImageManager * pImageMam = ImageManager::GetInstance ();
+   Texture* ptexHappy =pImageMam->GetTexture ("person_h.png", GL_RGBA);
+   Texture* ptexAnnoied =pImageMam->GetTexture ("person_a.png", GL_RGBA);
+   Texture* ptexMad =pImageMam->GetTexture ("person_m.png", GL_RGBA);
 
+   manimations[MS_Furious] = new AnimationSingle (ptexMad, 8, 16);
+   manimations[MS_Mad] = new AnimationSingle (ptexMad, 8, 16);
+   manimations[MS_Annoyed] = new AnimationSingle (ptexAnnoied, 8, 16);
+   manimations[MS_Content] = new AnimationSingle (ptexHappy, 8, 16);
+   manimations[MS_Happy] = new AnimationSingle (ptexHappy, 8, 16);
+   manimations[MS_Excited] = new AnimationSingle (ptexHappy, 8, 16);
+
+}
 Person::~Person (void)
 {
 }
@@ -48,63 +61,64 @@ void Person::Update (float dt)
    }
    switch (mActivity)
    {
-      case AS_GoingToWork:
-         if (mWorkPath.index < mWorkPath.size)
+   case AS_GoingToWork:
+      if (mWorkPath.index < mWorkPath.size)
+      {
+         Location& cur = mWorkPath.mPathList[mWorkPath.index];
+         // TODO: check building first but for now we only have 1
+         if (cur.mLevel == mLocation.mLevel)
          {
-            Location& cur = mWorkPath.mPathList[mWorkPath.index];
-            // TODO: check building first but for now we only have 1
-            if (cur.mLevel == mLocation.mLevel)
-            {
-               mLocation.mX = cur.mX; // TODO: Move peep in animator
-               mWorkPath.index++;
-            }
-            else
-            {
-               // waiting or on an elevator
-            }
-         }
-         if (mWorkPath.index >= mWorkPath.size) // this can be handled better and also need to check times
-         {
-            mLocation.mLevel = mWorkPath.mPathList[mWorkPath.index-1].mLevel; // this will bring the car to the office level at days end
-            set_Activity( AS_Working ); // offices and businesses show employees at work.
-         }
-         break;
-      case AS_Working:
-         if (rand() % 100 == 50 )
-         {
-            set_Activity( AS_GoingHome );
-            set_CurrentState( Person::CS_Walking );
-
-            int home_level = (rand() % 1) + 4;   // test code, give them a home
-            Location& cur = mWorkPath.mPathList[0];
-            cur.mLevel = home_level;
-            cur.mX = 2;
-            mWorkPath.index--;  // this is the return trip home
-         }
-         break;
-      case AS_GoingHome:
-         if (mWorkPath.index > 0)
-         {
-            Location& cur = mWorkPath.mPathList[mWorkPath.index];
-            // TODO: check building first but for now we only have 1
-            if (cur.mLevel == mLocation.mLevel)
-            {
-               mLocation.mX = cur.mX; // TODO: Move peep in animator
-               mWorkPath.index--;
-            }
-            else
-            {
-               // waiting or on an elevator
-            }
+            mLocation.mX = cur.mX; // TODO: Move peep in animator
+            mWorkPath.index++;
          }
          else
          {
-            set_Activity( AS_Relaxing ); // offices and businesses show employees at work.
+            // waiting or on an elevator
          }
-         break;
+      }
+      if (mWorkPath.index >= mWorkPath.size) // this can be handled better and also need to check times
+      {
+         mLocation.mLevel = mWorkPath.mPathList[mWorkPath.index-1].mLevel; // this will bring the car to the office level at days end
+         set_Activity( AS_Working ); // offices and businesses show employees at work.
+      }
+      break;
+   case AS_Working:
+      if (rand() % 100 == 50 )
+      {
+         set_Activity( AS_GoingHome );
+         set_CurrentState( Person::CS_Walking );
+
+         int home_level = (rand() % 1) + 4;   // test code, give them a home
+         Location& cur = mWorkPath.mPathList[0];
+         cur.mLevel = home_level;
+         cur.mX = 2;
+         mWorkPath.index--;  // this is the return trip home
+      }
+      break;
+   case AS_GoingHome:
+      if (mWorkPath.index > 0)
+      {
+         Location& cur = mWorkPath.mPathList[mWorkPath.index];
+         // TODO: check building first but for now we only have 1
+         if (cur.mLevel == mLocation.mLevel)
+         {
+            mLocation.mX = cur.mX; // TODO: Move peep in animator
+            mWorkPath.index--;
+         }
+         else
+         {
+            // waiting or on an elevator
+         }
+      }
+      else
+      {
+         set_Activity( AS_Relaxing ); // offices and businesses show employees at work.
+      }
+      break;
    }
 }
 
 void Person::Draw( )
 {
+   Render (manimations[mMood]);
 }

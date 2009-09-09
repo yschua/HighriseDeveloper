@@ -21,11 +21,16 @@
 #ifndef _PERSON_H
 #define _PERSON_H
 
+#include <map>
+#include "Graphics/modelObject.h"
+class AnimationSingle;
+
 // temporary home for some structures
 // If Location is a destination and mBuilding <=0 then this person is leaving.
 // If Location is a currentLocation and mBuilding = 0 then this person is outside
 // Above subject to change.
-struct Location
+
+struct Location 
 {
    short mRoute;   // changed from state to route meaning any elevator, stairs or other mode of traversal.
    short mBuilding;
@@ -62,7 +67,7 @@ struct Path // this could have been a list<T> but it would slow this high traffi
    }
 };
 
-class Person
+class Person : public Gfx::ModelObject
 {
 public:
    // enumerations
@@ -130,6 +135,7 @@ private:
    Activity_State mActivity;
    Current_State  mCurrentState;// Covers busy, waiting, walking, riding.
    int            mOccupation;  // school and retired are valid occupations
+   std::map<Mood_State, AnimationSingle *> manimations;
    // not set on if this will be a class or enum
 
    int            mHome;        // Where's the Crib

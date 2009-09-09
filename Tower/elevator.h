@@ -95,6 +95,7 @@ public:
 
 protected:
    static int gElevatorsNumber;
+   static const int mStandingPositions[];
 
    AnimationSingle* mElevatorImage;
    AnimationSingle* mLiftPit;
@@ -123,6 +124,7 @@ protected:
    short mEnd2;
    short mRidersOnBoard;
    short mFloorCount;
+   short mMaxCap;
 
    LiftOps_State  mLiftOperation;
    unsigned char  mLiftStyle;
@@ -148,6 +150,7 @@ protected:
    void PosCalc ();
    virtual void SetCallButton (RouteVisitor* visitor);
    virtual void SetFloorButton (RouteVisitor* visitor);
+   int  LoadPerson(Person* person, int destLevel); // returns space remaining
    void NextCallButton ();
    void Motion ();
    void SetDestination (int level);

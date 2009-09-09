@@ -16,6 +16,7 @@
 
 #ifndef _ANIMATION_H
 #define _ANIMATION_H
+#include "physics.h"
 #include "Graphics/texture.h"
 
 using namespace Gfx;

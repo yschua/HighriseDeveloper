@@ -47,6 +47,11 @@ using namespace Gfx;
 //}
 int Elevator::gElevatorsNumber = 1; // start with 1 to keep engineers happy
 
+const int Elevator::mStandingPositions[16] =
+{
+   12,20,16,4,18,22,6,24,8,10,2,5,9,13,17,21
+};
+
 Elevator::Elevator ( Lift_Styles style, int x, short BottomLevel, short TopLevel, Tower * TowerParent)
       :  mLiftStyle( style )
       ,  mLiftOperation( LOS_Waiting )
@@ -63,6 +68,7 @@ Elevator::Elevator ( Lift_Styles style, int x, short BottomLevel, short TopLevel
 
    mFloorCount = TopLevel - BottomLevel;
    mRidersOnBoard = 0;
+   mMaxCap = 12;
    memset( mRiders, 0, sizeof(mRiders) );
    ClearStops();
    memset( mStops, 0, sizeof(mStops) );
@@ -145,6 +151,19 @@ Elevator::SetCallButton (RouteVisitor* visitor)    // where is an elevator when 
          std::cout << "Elevator Call for wrong floor level: " << req->OriginLevel << " computed index: " << reqLevel;
       }
    }
+}
+
+int
+Elevator::LoadPerson(Person* person, int destLevel) // returns space remaining
+{
+   if (mRidersOnBoard < mMaxCap)
+   {
+      mRiders[mRidersOnBoard].mDestLevel = destLevel;
+      mRiders[mRidersOnBoard].mPerson = person;
+      SetDestination (destLevel);
+      mRidersOnBoard++;
+   }
+   return mMaxCap - mRidersOnBoard;
 }
 
 void

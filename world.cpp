@@ -15,18 +15,18 @@
  */
 
 
-#ifdef WIN32
+//#ifdef WIN32
 #include <iostream>
 #include "physics.h"
 #include "routes.h"
 #include "Tower/floorBase.h"
-#include "Tower/Tower.h"
+#include "Tower/tower.h"
 #include "background.h"
 #include "world.h"
 
-#else
-#include "../highrisedev.h"
-#endif
+//#else
+//#include "../highrisedev.h"
+//#endif
 
 //using namespace Gfx;
 World::World ()

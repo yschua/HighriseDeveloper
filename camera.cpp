@@ -14,7 +14,7 @@
  *along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifdef WIN32
+//#ifdef WIN32
 #include "resources.h"
 
 #include <iostream>
@@ -30,12 +30,12 @@
 #include "routes.h"
 #include "Tower/floorBase.h"
 #include "Tower/tower.h"
-#include "World.h"
+#include "world.h"
 
 #include "camera.h"
-#else
-#include "highrisedev.h"
-#endif
+//#else
+//#include "highrisedev.h"
+//#endif
 
 Camera * Camera::mpInstance = NULL;
 
@@ -68,7 +68,7 @@ Camera::GetInput ()
 Vector2i
 Camera::GetMouse ()
 {
-   Vector2f ms2( ms.x, ms.y ); 
+   Vector2f ms2( ms.x, ms.y );
    return ms2 + GetLocalMouse();
 }
 
@@ -142,7 +142,7 @@ void Camera::InitGL()
 	glClearDepth(1.0f);														// Depth Buffer Setup
 //	glEnable(GL_DEPTH_TEST);												// Enables Depth Testing
 	glDepthFunc(GL_LEQUAL);													// The Type Of Depth Testing To Do
-	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);						// Really Nice Perspective Calculations
+	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_FASTEST);						// Really Nice Perspective Calculations
 	gluPerspective (45.0f,mAspect ,0.1f,100.0f);		// Calculate The Aspect Ratio Of The Window
 }
 

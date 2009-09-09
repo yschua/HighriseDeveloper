@@ -24,6 +24,11 @@
 #include "AI/pathAgent.h"
 #include "AI/floorAgent.h"
 
+#include <CEGUI/CEGUI.h>
+#include <CEGUI/RendererModules/OpenGLGUIRenderer/openglrenderer.h>
+#include <CEGUI/CEGUISystem.h>
+#include <CEGUI/CEGUIDefaultResourceProvider.h>
+
 int
 main ()
 {
@@ -98,6 +103,44 @@ main ()
       theTower.GetRoutes().AddRoute( pElevator );
       pBackground = new Background (width, height);
       theWorld.SetBG (pBackground);
+      CEGUI::OpenGLRenderer* pCERenderer = new CEGUI::OpenGLRenderer( 0 );
+
+      CEGUI::System* pCESystem = new CEGUI::System(pCERenderer);
+
+      // initialise the required dirs for the DefaultResourceProvider
+      CEGUI::DefaultResourceProvider* rp = static_cast<CEGUI::DefaultResourceProvider*>
+          (CEGUI::System::getSingleton().getResourceProvider());
+
+      rp->setResourceGroupDirectory("schemes", "datafiles/schemes/");
+      rp->setResourceGroupDirectory("imagesets", "datafiles/imagesets/");
+      rp->setResourceGroupDirectory("fonts", "datafiles/fonts/");
+      rp->setResourceGroupDirectory("layouts", "datafiles/layouts/");
+      rp->setResourceGroupDirectory("looknfeels", "datafiles/looknfeel/");
+      rp->setResourceGroupDirectory("lua_scripts", "datafiles/lua_scripts/");
+
+      // set the default resource groups to be used
+      CEGUI::Imageset::setDefaultResourceGroup("imagesets");
+      CEGUI::Font::setDefaultResourceGroup("fonts");
+      CEGUI::Scheme::setDefaultResourceGroup("schemes");
+      CEGUI::WidgetLookManager::setDefaultResourceGroup("looknfeels");
+      CEGUI::WindowManager::setDefaultResourceGroup("layouts");
+      CEGUI::ScriptModule::setDefaultResourceGroup("lua_scripts");
+
+      // load in the scheme file, which auto-loads the TaharezLook imageset
+      CEGUI::SchemeManager::getSingleton().loadScheme( "TaharezLook.scheme" );
+
+      // load in a font.  The first font loaded automatically becomes the default font.
+      if(! CEGUI::FontManager::getSingleton().isFontPresent( "Commonwealth-10" ) )
+         CEGUI::FontManager::getSingleton().createFont( "Commonwealth-10.font" );
+      using namespace CEGUI;
+      WindowManager& CEWM = WindowManager::getSingleton();
+      Window* myRoot = CEWM.createWindow( "DefaultWindow", "root" );
+      System::getSingleton().setGUISheet( myRoot );
+      FrameWindow* fWnd = (FrameWindow*)CEWM.createWindow( "TaharezLook/FrameWindow", "testWindow" );
+      myRoot->addChildWindow( fWnd );
+
+
+
 
       UI::EventMgr<UI::Window> Windows;
       for (int i = 0; i < 5; i++)
@@ -129,7 +172,7 @@ main ()
       {
          while (cam->GetEvent (event))
          {
-            cam->OnEvent(event);
+            if (!cam->OnEvent(event)) Windows.OnEvent(event);
             if (event.Type == sf::Event::Closed)
                exit (0);
             //else
@@ -148,7 +191,7 @@ main ()
          }
          cam->Clear ();
          cam->Integrate (60);
-         
+
          theTower.Update (60);
          cam->DrawModel(&theWorld); // the background and tower(s).
 
@@ -158,6 +201,7 @@ main ()
          cam->SetStatic(false);
          interface->Update(60);
          interface->Draw ();
+         CEGUI::System::getSingleton().renderGUI();
          cam->Display ();
          People.Update( 40 );
       }

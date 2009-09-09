@@ -15,8 +15,7 @@
  */
 #include <cstdlib>
 #include <iostream>
-#include <SFML/System.hpp>
-#include <SFML/Graphics.hpp>
+#include <map>
 #include "../image.h"
 #include "../physics.h"
 #include "../animation.h"

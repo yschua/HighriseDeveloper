@@ -16,12 +16,9 @@
 
 #include <cstdlib>
 #include <iostream>
-#include <SFML/System.hpp>
-#include <SFML/Graphics.hpp>
 #include "../physics.h"
 #include "../animation.h"
 #include "../tiler.h"
-#include "../camera.h"
 #include "../image.h"
 
 #include "elevatorBase.h"
@@ -34,7 +31,7 @@ ElevatorMachine::ElevatorMachine (int x, int level, Elevator* pElevator )
       ,  mState( LMS_Idle )
 {
    ImageManager * image_man = ImageManager::GetInstance ();
-   my = (Camera::GetInstance()->GetWorldRect ().Top ) - (level * 36);
+//   my = (Camera::GetInstance()->GetWorldRect ().Top ) - (level * 36);
    std::cout << "New elevator machine at " << mx << ", " << my << std::endl;
    mLifterAnimation = new Animation (36, 32);
    mLifterAnimation->AddFrame (image_man->GetTexture ("liftMachine_1.png", GL_RGBA), 1000);
@@ -43,8 +40,8 @@ ElevatorMachine::ElevatorMachine (int x, int level, Elevator* pElevator )
    mImageFrame = 0;
    mFirstFrame = 0;
    mLastFrame = 2;
-   mcam = Camera::GetInstance ();
-   my = ( mcam->GetWorldRect ().Top) - (level * 36)+4;
+//   mcam = Camera::GetInstance ();
+   my =  -(level * 36)+4;
    pos_calc();
 }
 

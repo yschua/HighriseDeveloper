@@ -22,7 +22,6 @@
 
 class Elevator;
 class FloorBase;
-class Camera;
 class Animation;
 
 class ElevatorMachine : public ElevatorBase, public ModelObject
@@ -43,7 +42,6 @@ protected:
    short mLastFrame;
    short mFirstFrame;
    Animation* mLifterAnimation;
-   Camera* mcam;;
 
 
 public:

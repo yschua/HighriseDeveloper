@@ -18,11 +18,8 @@
 #include <cstdlib>
 #include <map>
 #include <iostream>
-#include <SFML/System.hpp>
-#include <SFML/Graphics.hpp>
 #include "../physics.h"
 #include "../image.h"
-#include "../camera.h"
 #include "../animation.h"
 #include "../tiler.h"
 #include "../routeVisitor.h"  // class that will Update the elevators route request queue

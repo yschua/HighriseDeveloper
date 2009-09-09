@@ -31,7 +31,6 @@ class AnimationSingle;
 class ElevatorMachine; // mover above
 class ElevatorShaft;   // holds the tiler to show the shaft
 class ElevatorPit;     // landing pit below
-//class Camera;
 class Person;
 class Tower;
 
@@ -105,15 +104,12 @@ protected:
    Rider       mRiders[16];
    FloorStop   mStops[32];
 
-   //Tiler * mElevatorShaft; // temporary to make a nice looking demo :] Moved into shaft object.
-   //Camera* mcam;
    // Controls this things motion
    int   mX;
    int   mY;
    float mZ;
 
    int   mNumber;    // number of this lift
-   //short mLevel;
    short mCurrentLevel;
    short mDirection;
    short mTopLevel;
@@ -121,7 +117,7 @@ protected:
    short mPosition;
    short mIdleTime;
    short mOffset;   // adjust for starting floor.
-   // test code
+
    short mStartRoute;
    short mEndRoute;
    short mEnd2;
@@ -143,11 +139,11 @@ public:
    // Properties
    inline int  GetNumber() { return mNumber; }
 
-   // Implemantation
+   // Methods
    void ClearStops();
    void Move( int x, int y );
    void Resize( int x, int y );
-   //void pos_calc ();
+
 protected:
    void PosCalc ();
    virtual void SetCallButton (RouteVisitor* visitor);

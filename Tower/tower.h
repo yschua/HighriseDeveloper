@@ -75,6 +75,10 @@ public:
    // AI interface
    void EnterTower (Person* pPerson);
    void LeaveTower (Person* pPerson);
+
+
+   // Debug Methods
+   void DebugLoad (int x, int y, int x2); // this simply pumps floor objects and elevators into the tower.
 };
 
 #endif //_TOWER_H

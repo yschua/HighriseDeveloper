@@ -36,6 +36,15 @@ main ()
    Camera * cam = Camera::GetInstance ();
    cam->Create ("test");
 
+   list<string> ss;
+   ss.push_back ("First");
+   ss.push_back ("Second");
+   list<string>::iterator is;
+   for (is=ss.begin(); is!=ss.end(); is++)
+   {
+      std::cout << *(is) << std::endl;
+   }
+
    //cam->SetCamSize (800, 600);
    cam->SetWorldSize (Vector2f(1280, 720));
    cam->SetMaxFramerate (60);
@@ -106,57 +115,23 @@ main ()
       theWorld.SetBG (pBackground);
 
       EventHandler EventHandler;
-      /*CEGUI::OpenGLRenderer* pCERenderer = new CEGUI::OpenGLRenderer( 0 );
 
-      CEGUI::System* pCESystem = new CEGUI::System(pCERenderer);
-
-
-
-      // load in the scheme file, which auto-loads the TaharezLook imageset
-      CEGUI::SchemeManager::getSingleton().loadScheme( "TaharezLook.scheme" );
-
-      // load in a font.  The first font loaded automatically becomes the default font.
-      if(! CEGUI::FontManager::getSingleton().isFontPresent( "Commonwealth-10" ) )
-         CEGUI::FontManager::getSingleton().createFont( "Commonwealth-10.font" );
-      using namespace CEGUI;
-      WindowManager& CEWM = WindowManager::getSingleton();
-      Window* myRoot = CEWM.createWindow( "DefaultWindow", "root" );
-      System::getSingleton().setGUISheet( myRoot );
-      FrameWindow* fWnd = (FrameWindow*)CEWM.createWindow( "TaharezLook/FrameWindow", "testWindow" );
-      myRoot->addChildWindow( fWnd );*/
       GUIManager GUIMan;
       EventHandler.Add(&GUIMan);
-      //GUIMan.Initialize(cam->G
 
 
-
-
-      /*UI::EventMgr<UI::Window> Windows;
-      for (int i = 0; i < 5; i++)
+      // if we take this out the view will not draw, we need at least 1 until we figure out what is going on here
+      UI::EventMgr<UI::Window> Windows;
+      UI::Window* pWind = new UI::Window;
+      for (int j = 0; j < 3; j++)
       {
-         UI::Window* pWind = new UI::Window;
-         if( i ==1 )
-         {
-            UI::TextBox* pText = new UI::TextBox();
-            pText->SetPosition(0, 0);
-            pText->SetText( "Office" );
-            pWind->AddItem(pText);
-            UI::Button* pButton = new UI::Button();
-            pButton->SetPosition(0, 20);
-            pButton->SetText( "Button" );
-            pWind->AddItem(pButton);
-         }
-         else
-         {
-            for (int j = 0; j < 3; j++)
-            {
-               UI::Button* pButton = new UI::Button();
-               pButton->SetPosition( 0, 20*j);
-               pWind->AddItem(pButton);
-            }
-         }
-         Windows.Add(pWind);
-      }*/
+         UI::Button* pButton = new UI::Button();
+         pButton->SetPosition( 0, 20*j);
+         pWind->AddItem(pButton);
+      }
+      Windows.Add(pWind);
+      // end windows
+
       while (1)
       {
          while (cam->GetEvent (event))
@@ -189,10 +164,11 @@ main ()
          theTower.Update (60);
          cam->DrawModel(&theWorld); // the background and tower(s).
 
-         cam->SetStatic(true);
-         //Windows.Update();
-         //Windows.Draw();
+         cam->SetStatic(true);   // need these or SFML will not swap in the buffer
+         Windows.Update();
+         Windows.Draw();
          cam->SetStatic(false);
+
          interface->Update(60);
          interface->Draw ();
          GUIMan.Draw();
@@ -203,6 +179,9 @@ main ()
    catch ( HighriseException* ex )
    {
       std::cout << "Exception caught in main: " << ex->get_Message();
+      std::cout << "Hit a key to close!";
+      char t[4];
+      std::cin.get(t[0]);
    }
    return 0;
 }

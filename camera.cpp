@@ -163,6 +163,7 @@ void Camera::DrawModel (World* pModel)
       glDisable(GL_BLEND);
    }
    glPopMatrix();
+   glMatrixMode(GL_PROJECTION);
 }
 
 

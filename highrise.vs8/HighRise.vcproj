@@ -40,7 +40,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;\Dev\VC++\SFML-1.5\include&quot;"
+				AdditionalIncludeDirectories="&quot;\Dev\VC++\SFML-1.5\include&quot;;&quot;C:\Dev\VC++\CEGUI-SDK-0.6.2-vc8\include&quot;;&quot;C:\Dev\VC++\CEGUI-SDK-0.6.2-vc8\RendererModules&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -61,9 +61,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="sfml-Graphics-d.lib sfml-System-d.lib sfml-Window-d.lib OPENGL32.LIB glu32.lib"
+				AdditionalDependencies="sfml-Graphics-d.lib sfml-System-d.lib sfml-Window-d.lib OPENGL32.LIB glu32.lib CEGUIBase_d.lib OpenGLGUIRenderer_d.lib"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;\Dev\VC++\SFML-1.5\lib\vc2005&quot;;&quot;C:\Program Files (x86)\Microsoft Visual Studio 8\VC\lib&quot;"
+				AdditionalLibraryDirectories="&quot;\Dev\VC++\SFML-1.5\lib\vc2005&quot;;&quot;C:\Program Files (x86)\Microsoft Visual Studio 8\VC\lib&quot;;&quot;C:\Dev\VC++\CEGUI-SDK-0.6.2-vc8\lib&quot;"
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				TargetMachine="1"
@@ -194,10 +194,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\event.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\highrisedev.cpp"
 				>
 			</File>
@@ -261,10 +257,6 @@
 			</File>
 			<File
 				RelativePath="..\citizens.h"
-				>
-			</File>
-			<File
-				RelativePath="..\event.h"
 				>
 			</File>
 			<File
@@ -339,6 +331,22 @@
 			</File>
 			<File
 				RelativePath="..\Window\Element.h"
+				>
+			</File>
+			<File
+				RelativePath="..\Window\event.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\Window\event.h"
+				>
+			</File>
+			<File
+				RelativePath="..\Window\GUIManager.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\Window\guimanager.h"
 				>
 			</File>
 			<File
@@ -745,6 +753,10 @@
 			</File>
 			<File
 				RelativePath="..\Tower\tower.h"
+				>
+			</File>
+			<File
+				RelativePath="..\Tower\tower_debug.cpp"
 				>
 			</File>
 		</Filter>

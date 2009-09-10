@@ -234,10 +234,6 @@ Elevator::Motion ()
       throw new HighriseException( "Elevator: Error in current floor index" );
 
    int dest = ((mStartRoute == mEndRoute) ? (mStartRoute+mBottomLevel) * 36 : (mEndRoute+mBottomLevel) * 36);
-   if( mNumber == 1 )
-   {
-      cout << "Dest: " << dest << "Pos: " << mPosition << std::endl;
-   }
    if (dest > max ) dest = max;
    if (dest < min ) dest = min;
    switch( mDirection )

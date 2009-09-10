@@ -58,7 +58,7 @@ namespace Gfx {
          mImages[name] = pTexture;
          return pTexture;
       }
-      std::cout << "Using preloaded file " << name << std::endl;
+//      std::cout << "Using preloaded file " << name << std::endl;
       return mImages[name];
    }
 }

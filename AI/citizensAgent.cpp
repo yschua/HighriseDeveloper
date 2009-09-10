@@ -63,7 +63,7 @@ void CitizensAgent::Update (float dt)
 //      mPeople.push_back( peep );
       // Shouldn't this be Update(dt)?
       citizens->Update( 1 );
-      std::cout << "Your city added 1 person" << " Population in city: " << citizens->GetPopulation() << std::endl;
+//log      std::cout << "Your city added 1 person" << " Population in city: " << citizens->GetPopulation() << std::endl;
    }
    // std::list<Person*> Should be a member typedef!
    std::list<Person *>::iterator i;
@@ -90,7 +90,7 @@ void CitizensAgent::Update (float dt)
                dest.mLevel = 1 + (rand() % 3); // TODO:  get a real job finder
                dest.mRoute = 0;              // plugged into first elevater until pathfinder does the job.
                dest.mX = 1;                  // TODO:  find the room number
-               std::cout << "A new person has entered your building looking for work on Level# " << dest.mLevel << std::endl;
+//Log               std::cout << "A new person has entered your building looking for work on Level# " << dest.mLevel << std::endl;
                peep->set_Activity( Person::AS_GoingToWork);
                peep->set_Occupation (1);
                PathAgent Path (peep);

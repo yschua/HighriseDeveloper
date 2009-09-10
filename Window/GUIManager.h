@@ -1,10 +1,10 @@
 #ifndef GUIManager_H
 #define GUIManager_H
 
-#include <CEGUI/CEGUI.h>
-#include <CEGUI/RendererModules/OpenGLGUIRenderer/openglrenderer.h>
-#include <CEGUI/CEGUISystem.h>
-#include <CEGUI/CEGUIDefaultResourceProvider.h>
+#include <CEGUI.h>
+#include <OpenGLGUIRenderer/openglrenderer.h>
+#include <CEGUISystem.h>
+#include <CEGUIDefaultResourceProvider.h>
 #include "event.h"
 #include <iostream>
 

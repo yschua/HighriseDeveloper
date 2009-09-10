@@ -78,7 +78,7 @@ Level* Tower::GetLevel( int level ) // positive gets you a level above, negative
 void Tower::Update (float dt)
 {
    std::vector<Level *>::iterator iLevel;
-   for (iLevel = mLevels.begin (); iLevel != mLevels.end (); iLevel++)
+   for (iLevel = mLevels.begin (); iLevel != mLevels.end (); ++iLevel)
    {
       (*iLevel)->Update( dt );
    }
@@ -88,7 +88,7 @@ void Tower::Update (float dt)
 void Tower::Draw ()
 {
    std::vector<Level *>::iterator iLevel;
-   for (iLevel = mLevels.begin (); iLevel != mLevels.end (); iLevel++)
+   for (iLevel = mLevels.begin (); iLevel != mLevels.end (); ++iLevel)
    {
       (*iLevel)->Draw( );
    }

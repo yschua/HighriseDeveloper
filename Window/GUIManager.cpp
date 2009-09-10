@@ -1,3 +1,6 @@
+
+#include <string>
+#include "../HighriseException.h"
 #include "GUIManager.h"
 
 GUIManager::GUIManager() : mpRenderer(NULL),
@@ -46,7 +49,8 @@ GUIManager::GUIManager() : mpRenderer(NULL),
 	}
 	catch (CEGUI::Exception& e)
 	{
-		printf("CEGUI Error: %s\n", e.getMessage().c_str());
+//		printf("CEGUI Error: %s\n", e.getMessage().c_str());
+      throw new HighriseException(e.getMessage().c_str());
 		//return false;
 	}
 	//return true;

@@ -59,12 +59,12 @@ Elevator::Elevator ( Lift_Styles style, int x, short BottomLevel, short TopLevel
       ,  Body(32, 32)
 {
    mTopLevel = TopLevel;
-   mBottomLevel = BottomLevel-1;
+   mBottomLevel = BottomLevel;
    mPosition = (mBottomLevel) * 36;
    mDirection = 0;
    mIdleTime = 30;
    mEnd2 = -1;
-   mOffset = BottomLevel * -36;
+   mOffset = 0;//BottomLevel * -36;
 
    mFloorCount = TopLevel - BottomLevel;
    mRidersOnBoard = 0;
@@ -87,8 +87,8 @@ Elevator::Elevator ( Lift_Styles style, int x, short BottomLevel, short TopLevel
    mNumber = gElevatorsNumber++; // set number;
 
    mLiftMachine = new ElevatorMachine( x, mTopLevel+1, this );
-   mLiftPit->SetPosition ((float)x, (float)(-mY) );
-   mElevatorShaft = new ElevatorShaft( x, mTopLevel, mBottomLevel, this );
+   mLiftPit->SetPosition ((float)x, (float)(mBottomLevel-1) * -36 ); // neg 36 so it becomed positive for model view
+   mElevatorShaft = new ElevatorShaft( x, mTopLevel, mBottomLevel-1, this );
 }
 
 Elevator::~Elevator()
@@ -131,7 +131,7 @@ Elevator::SetCallButton (RouteVisitor* visitor)    // where is an elevator when 
 {
    RoutingRequest* req = visitor->getRoute();
    int dirFlag = (req->DestinLevel > req->OriginLevel) ? BUTTON_UP : BUTTON_DOWN;
-   int reqLevel = req->OriginLevel - mBottomLevel;
+   int reqLevel = req->OriginLevel;
    int cur_level = mPosition / 36 - mBottomLevel;
    int align = mPosition % 36;  // zero if we are aligned with a floor (safe stop)
 
@@ -233,7 +233,11 @@ Elevator::Motion ()
    if( index < 0 || index >= mFloorCount )
       throw new HighriseException( "Elevator: Error in current floor index" );
 
-   int dest = ((mStartRoute == mEndRoute) ? mStartRoute * 36 : mEndRoute * 36);
+   int dest = ((mStartRoute == mEndRoute) ? (mStartRoute+mBottomLevel) * 36 : (mEndRoute+mBottomLevel) * 36);
+   if( mNumber == 1 )
+   {
+      cout << "Dest: " << dest << "Pos: " << mPosition << std::endl;
+   }
    if (dest > max ) dest = max;
    if (dest < min ) dest = min;
    switch( mDirection )

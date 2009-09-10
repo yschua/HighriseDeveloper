@@ -20,6 +20,7 @@
 #include "Types/Vector2.h"
 #include "Types/Rect.h"
 #include "Graphics/modelObject.h"
+#include "physics.h"
 
 class Animation;
 class AnimationSingle;
@@ -49,7 +50,7 @@ private:
    Camera ();
 protected:
    ~Camera() {};
-   // instance 
+   // instance
 public:
    static Camera* GetInstance();
    static Camera* i();

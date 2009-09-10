@@ -52,6 +52,7 @@ CitizensAgent::~CitizensAgent ()
 
 void CitizensAgent::Update (float dt)
 {
+   // Shouldn't Citizens be a member within each Tower? Supposedly you would want this seperate.
    Citizens* citizens = Citizens::get_Instance(); // the citizens object that holds the people collection
    if ( (rand() % 200) == 3 )  // TODO: need a better spawn mechanism, raised to 100
    {
@@ -60,9 +61,11 @@ void CitizensAgent::Update (float dt)
       Person* peep = citizens->NewPerson();
 //      Person* peep = new Person( loc );
 //      mPeople.push_back( peep );
+      // Shouldn't this be Update(dt)?
       citizens->Update( 1 );
       std::cout << "Your city added 1 person" << " Population in city: " << citizens->GetPopulation() << std::endl;
    }
+   // std::list<Person*> Should be a member typedef!
    std::list<Person *>::iterator i;
    std::list<Person *>& persons = citizens->get_Persons(); // get the persons collection.
 

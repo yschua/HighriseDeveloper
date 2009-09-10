@@ -17,28 +17,32 @@
 #ifndef _EVENT_H
 #define _EVENT_H
 
+#include "../Types/Vector2.h"
+class Camera;
+
 class EventBase
 {
 public:
-   virtual bool Resize (int x, int y) { return false; }
-   virtual bool MouseDown (sf::Mouse::Button Button, int WorldX, int WorldY, int CamX, int CamY) { return false; }
-   virtual bool MouseUp (sf::Mouse::Button Button, int WorldX, int WorldY, int CamX, int CamY) { return false; }
+   virtual bool Resize (Vector2i) { return false; }
+   virtual bool MouseDown (sf::Mouse::Button Button, Vector2i World, Vector2i Cam) { return false; }
+   virtual bool MouseUp (sf::Mouse::Button Button, Vector2i World, Vector2i Cam) { return false; }
    virtual bool KeyDown (sf::Key::Code Key) { return false; }
    virtual bool KeyUp (sf::Key::Code Key) { return false; }
-   virtual bool MouseMove (int WorldX, int WorldY, int CamX, int CamY) { return false; }
+   virtual bool MouseMove (Vector2i World, Vector2i Cam) { return false; }
    virtual bool MouseWheel (int Delta) { return false; }
 };
 
 class EventHandler
 {
 private:
-   std::list <EventBase *> mHandlers;
-   Camera * Cam;
-   const sf::Input * mpInput;
+   typedef std::vector<EventBase*> ConType;
+   ConType mHandlers;
+   Camera* Cam;
+   const sf::Input* mpInput;
 
 public:
    EventHandler ();
-   void Add (EventBase * Handler);
+   void Add (EventBase* Handler);
    bool HandleEvents ();
 };
 

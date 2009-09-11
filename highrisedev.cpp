@@ -86,12 +86,7 @@ main ()
 
       UI::EventMgr<UI::Window> Windows;
       UI::Window* pWind = new UI::Window;
-      for (int j = 0; j < 3; j++)
-      {
-         UI::Button* pButton = new UI::Button();
-         pButton->SetPosition( 0, 20*j);
-         pWind->AddItem(pButton);
-      }
+
       Windows.Add(pWind);
       while (1)
       {

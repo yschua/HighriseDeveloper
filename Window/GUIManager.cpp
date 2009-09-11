@@ -6,55 +6,38 @@
 GUIManager::GUIManager()
 :  mpRenderer(NULL)
 ,  mpSystem(NULL)
-// mpWindow(NULL)
 {
 	InitMaps();
 	try
 	{
 		mpRenderer = new CEGUI::OpenGLRenderer(0);
 		mpSystem = new CEGUI::System(mpRenderer);
-
-      // initialise the required dirs for the DefaultResourceProvider
       CEGUI::DefaultResourceProvider* rp = static_cast<CEGUI::DefaultResourceProvider*>
-          (CEGUI::System::getSingleton().getResourceProvider());
+         (CEGUI::System::getSingleton().getResourceProvider());
 
-      rp->setResourceGroupDirectory("schemes", "datafiles/schemes/");
-      rp->setResourceGroupDirectory("imagesets", "datafiles/imagesets/");
-      rp->setResourceGroupDirectory("fonts", "datafiles/fonts/");
-      rp->setResourceGroupDirectory("layouts", "datafiles/layouts/");
-      rp->setResourceGroupDirectory("looknfeels", "datafiles/looknfeel/");
-      rp->setResourceGroupDirectory("lua_scripts", "datafiles/lua_scripts/");
+      rp->setResourceGroupDirectory("resource", "data/gui/");
+      CEGUI::Imageset::setDefaultResourceGroup("resource");
+      CEGUI::Font::setDefaultResourceGroup("resource");
+      CEGUI::Scheme::setDefaultResourceGroup("resource");
+      CEGUI::WidgetLookManager::setDefaultResourceGroup("resource");
+      CEGUI::WindowManager::setDefaultResourceGroup("resource");
 
-      // set the default resource groups to be used
-      CEGUI::Imageset::setDefaultResourceGroup("imagesets");
-      CEGUI::Font::setDefaultResourceGroup("fonts");
-      CEGUI::Scheme::setDefaultResourceGroup("schemes");
-      CEGUI::WidgetLookManager::setDefaultResourceGroup("looknfeels");
-      CEGUI::WindowManager::setDefaultResourceGroup("layouts");
-      CEGUI::ScriptModule::setDefaultResourceGroup("lua_scripts");
 		CEGUI::SchemeManager::getSingleton().loadScheme("WindowsLook.scheme");
 		CEGUI::FontManager::getSingleton().createFont("DejaVuSans-10.font");
 
-      // load in the scheme file, which auto-loads the TaharezLook imageset
-      CEGUI::SchemeManager::getSingleton().loadScheme( "TaharezLook.scheme" );
-
-		//mpSystem->setDefaultMouseCursor("WindowsLook", "MouseArrow");
 		mpWM = CEGUI::WindowManager::getSingletonPtr();
 
       CEGUI::Window* mpRootWind = mpWM->createWindow( "DefaultWindow", "root" );
       mpSystem->setGUISheet( mpRootWind );
-      //CEGUI::FrameWindow
-      CEGUI::FrameWindow* fWnd =
-         (CEGUI::FrameWindow*)mpWM->createWindow( "TaharezLook/FrameWindow", "testWindow" );
+      CEGUI::FrameWindow* fWnd = (CEGUI::FrameWindow*) mpWM->createWindow( "WindowsLook/FrameWindow", "testWindow" );
       mpRootWind->addChildWindow( fWnd );
+
+      mpSystem->setDefaultMouseCursor("WindowsLook", "MouseArrow");
 	}
 	catch (CEGUI::Exception& e)
 	{
-//		printf("CEGUI Error: %s\n", e.getMessage().c_str());
       throw new HighriseException(e.getMessage().c_str());
-		//return false;
 	}
-	//return true;
 }
 
 GUIManager::~GUIManager()
@@ -62,35 +45,6 @@ GUIManager::~GUIManager()
 	delete mpSystem;
 	delete mpRenderer;
 }
-
-//bool GUIManager::Initialize()
-//{
-	//mpWindow = Win;
-	//mpInput = &Win->GetInput();
-
-//}
-
-/*bool GUIManager::handleEvent(sf::Event& Event)
-{
-	switch (Event.Type)
-	{
-	case sf::Event::TextEntered:
-		return mSystem->injectChar(Event.Text.Unicode);
-	case sf::Event::KeyPressed:
-		return mSystem->injectKeyDown(toCEGUIKey(Event.Key.Code));
-	case sf::Event::KeyReleased:
-		return mSystem->injectKeyUp(toCEGUIKey(Event.Key.Code));
-	case sf::Event::MouseMoved:
-		return mSystem->injectMousePosition(static_cast<float>(mInput->GetMouseX()), static_cast<float>(mInput->GetMouseY()));
-	case sf::Event::MouseButtonPressed:
-		return mSystem->injectMouseButtonDown(toCEGUIMouseButton(Event.MouseButton.Button));
-	case sf::Event::MouseButtonReleased:
-		return mSystem->injectMouseButtonUp(toCEGUIMouseButton(Event.MouseButton.Button));
-	case sf::Event::MouseWheelMoved:
-		return mSystem->injectMouseWheelChange(static_cast<float>(Event.MouseWheel.Delta));
-	}
-	return false;
-}*/
 
 bool
 GUIManager::MouseDown (sf::Mouse::Button Button, Vector2i World, Vector2i Cam)

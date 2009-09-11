@@ -14,7 +14,6 @@
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifdef WIN32
 #include <iostream>
 #include <map>
 #include <vector>
@@ -27,10 +26,6 @@
 
 #include "floorBase.h"
 #include "level.h"
-
-#else
-#include "../highrisedev.h"
-#endif
 
 using namespace Gfx;
 

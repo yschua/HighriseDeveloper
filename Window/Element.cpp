@@ -1,3 +1,8 @@
+// Element 
+
+#include "../Types/Vector2.h"
+#include "../Camera.h"
+
 #include "Element.h"
 
 namespace UI

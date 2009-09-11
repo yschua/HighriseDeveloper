@@ -256,7 +256,7 @@ Elevator::Motion ()
       {
          if( align == 0 && mStops[index].mButtonFlag&BUTTON_UP|DESINATION )
          {
-            mStops[index].mButtonFlag & BUTTON_DOWN; // clear all but down
+            mStops[index].mButtonFlag &= BUTTON_DOWN; // clear all but down
          }
          NextCallButton();
          mStartRoute = mEndRoute; // this stops the elevator at the destination to wait for a request.
@@ -273,7 +273,7 @@ Elevator::Motion ()
       {
          if( align == 0 && mStops[index].mButtonFlag&BUTTON_DOWN|DESINATION )
          {
-            mStops[index].mButtonFlag & BUTTON_UP; // clear all but up
+            mStops[index].mButtonFlag &= BUTTON_UP; // clear all but up
          }
          NextCallButton();
          mStartRoute = mEndRoute; // this stops the elevator at the destination to wait for a request.

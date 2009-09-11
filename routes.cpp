@@ -20,19 +20,6 @@
 #include "Tower/elevatorBase.h"
 #include "routes.h"
 
-// converted from a singleton to a tower based object
-// Now part of Tower
-//Routes* Routes::minstance;
-//
-//Routes* Routes::GetInstance ()
-//{
-//   if (minstance == NULL)
-//   {
-//      minstance = new Routes ();
-//   }
-//   return minstance;
-//}
-
 Routes::Routes()
 {
 }

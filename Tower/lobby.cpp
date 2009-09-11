@@ -14,10 +14,7 @@
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifdef WIN32
 #include <iostream>
-#include <map>
-#include <vector>
 #include <list>
 #include "../physics.h"
 #include "../image.h"
@@ -27,9 +24,6 @@
 #include "floorBase.h"
 
 #include "lobby.h"
-#else
-#include "../highrisedev.h"
-#endif
 
 using namespace Gfx;
 
@@ -40,7 +34,7 @@ Lobby::Lobby (int x, int x2, int level, Tower * TowerParent)
    mX = x;
    ImageManager * images = ImageManager::GetInstance ();
    tile = new Tiler (images->GetTexture("lobby.png", GL_RGBA), Tiler::Horizontal, x, 0, 0, x2-x, 36);
-   tile->SetTessel ((x2-x)/36, 1);
+   tile->SetTessel ((x2-x)/36-1, 1);
    nFireEscapeLeft->SetPosition (mX - 56, mY);
    nFireEscapeRight->SetPosition (mX2, mY);
    std::cout << "New lobby at " << mX << " to " << mX2 << " Y level " << mY << std::endl;

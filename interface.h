@@ -14,22 +14,26 @@
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#pragma once
 #ifndef _INTERFACE_H
 #define _INTERFACE_H
 
-#include <SFML/Graphics.hpp>
+#include "Graphics/viewObject.h"
 
-class Interface
+class AnimationSingle;
+
+
+class Interface : public Gfx::ViewObject
 {
 private:
    AnimationSingle * mClock;
-   Camera* mpCam;
 
 public:
+   Interface ();
+
    void PosCalc ();
    void Update (float dt);
    void Draw ();
-   Interface ();
 };
 
 #endif // _INTERFACE_H

@@ -14,7 +14,8 @@
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "highrisedev.h"
+#include "tiler.h"
+#include "highriseException.h"
 
 Tiler::Tiler (Texture* pTex, draw_direction direction, float x, float y, float z, float width, float height)
 {

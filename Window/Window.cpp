@@ -1,3 +1,7 @@
+// Window
+
+#include "../Types/Vector2.h"
+#include "../Camera.h"
 #include "Window.h"
 
 namespace UI
@@ -42,10 +46,10 @@ namespace UI
           // TODO crate the BG plane
       }
       std::cout << "Done loading images!\n";
-      Rect.Top = 20;
-      Rect.Left = 20;
+      Rect.Top = 0;
+      Rect.Left = 80;
       Rect.Bottom = 80;
-      Rect.Right = 100;
+      Rect.Right = 160;
       InsideRect.Top = Rect.Top+Style.Padding[0];
       InsideRect.Left = Rect.Left+Style.Padding[2];
       InsideRect.Right = Rect.Right-Style.Padding[3];

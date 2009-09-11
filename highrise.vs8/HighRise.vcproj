@@ -40,7 +40,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;\Dev\VC++\SFML-1.5\include&quot;;&quot;C:\Dev\VC++\CEGUI-SDK-0.6.2-vc8\include&quot;;&quot;C:\Dev\VC++\CEGUI-SDK-0.6.2-vc8\RendererModules&quot;"
+				AdditionalIncludeDirectories="&quot;\Dev\VC++\SFML-1.5\include&quot;;&quot;\Dev\OpenSource\CEGUI-SDK-0.6.2-vc8\include&quot;;&quot;\Dev\OpenSource\CEGUI-SDK-0.6.2-vc8\RendererModules&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -63,7 +63,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="sfml-Graphics-d.lib sfml-System-d.lib sfml-Window-d.lib OPENGL32.LIB glu32.lib CEGUIBase_d.lib OpenGLGUIRenderer_d.lib"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;\Dev\VC++\SFML-1.5\lib\vc2005&quot;;&quot;C:\Program Files (x86)\Microsoft Visual Studio 8\VC\lib&quot;;&quot;C:\Dev\VC++\CEGUI-SDK-0.6.2-vc8\lib&quot;"
+				AdditionalLibraryDirectories="&quot;\Dev\VC++\SFML-1.5\lib\vc2005&quot;;&quot;C:\Program Files (x86)\Microsoft Visual Studio 8\VC\lib&quot;;&quot;\Dev\OpenSource\CEGUI-SDK-0.6.2-vc8\lib&quot;"
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				TargetMachine="1"
@@ -411,6 +411,10 @@
 			</File>
 			<File
 				RelativePath="..\Graphics\texture.h"
+				>
+			</File>
+			<File
+				RelativePath="..\Graphics\viewObject.cpp"
 				>
 			</File>
 			<File

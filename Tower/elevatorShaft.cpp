@@ -35,7 +35,7 @@ ElevatorShaft::ElevatorShaft ( int x, int topLevel, int bottomLevel, Elevator* p
    ImageManager * images = ImageManager::GetInstance ();
    mShaftTiler = new Tiler (images->GetTexture ("liftshaft.png", GL_RGBA), Tiler::Vertical, mx,
                                ((mBottomLevel) * -36), 0, 36, ((mTopLevel-mBottomLevel) * -36));
-   mShaftTiler->SetTessel( 1, (mTopLevel-mBottomLevel - 1));
+   mShaftTiler->SetTessel( 1, (mTopLevel-mBottomLevel ));
 }
 
 ElevatorShaft::~ElevatorShaft()

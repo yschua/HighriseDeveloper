@@ -16,7 +16,6 @@
 
 // People that make the tower thrive.
 
-#include <cstdlib>
 #include <iostream>
 #include "person.h"
 #include "image.h"

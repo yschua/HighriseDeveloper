@@ -20,6 +20,7 @@
 #ifndef _WORLD_H
 #define _WORLD_H
 
+#include "routes.h"
 #include "Graphics/modelObject.h"
 
 class FloorBase; // aggregate of floor spaces for offices, condos and hotels

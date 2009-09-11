@@ -13,16 +13,13 @@
  *   You should have received a copy of the GNU General Public License
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifdef WIN32
+
 #include <vector>
-#include <SFML/System.hpp>
-#include <SFML/Graphics.hpp>
+//#include <SFML/System.hpp>
+//#include <SFML/Graphics.hpp>
 
 #include "physics.h"
 #include "animation.h"
-#else
-#include "highrisedev.h"
-#endif
 
 Animation::Animation (int width, int height)
 :  Body (width, height)

@@ -10,7 +10,7 @@
 //#include "../Input/Input.h"
 //#include "../Game/Cursor.h"
 #include "Element.h"
-#include "../highrisedev.h"
+//#include "../highrisedev.h"
 
 namespace UI
 {

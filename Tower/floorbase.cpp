@@ -15,14 +15,9 @@
  */
 
 
-#ifdef WIN32
 #include <iostream>
 #include "../physics.h"
 #include "floorBase.h"
-
-#else
-#include "../highrisedev.h"
-#endif
 
 //using namespace Gfx;
 

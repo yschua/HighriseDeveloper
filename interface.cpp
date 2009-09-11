@@ -14,23 +14,30 @@
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "highrisedev.h"
-//#include "Graphics/Graphics.h"
+#include <SFML/Graphics.hpp>
+#include <string.h>
+#include <map>
+#include "physics.h"
+#include "image.h"
+#include "animation.h"
+#include "camera.h"
+#include "interface.h"
+
 using namespace Gfx;
 
 Interface::Interface ()
 {
    ImageManager * images = ImageManager::GetInstance ();
-   mpCam = Camera::GetInstance ();
    Texture* pTex = images->GetTexture ("clock.png", GL_RGBA);
-   mClock = new AnimationSingle (pTex, 60, 60); //images->GetImg ("clock.png"));
+   mClock = new AnimationSingle (pTex, 60, 60);
    PosCalc ();
 }
 
 void
 Interface::PosCalc ()
 {
-   mClock->SetPosition ((mpCam->GetCamRect ().Width() / 2) - 30, 0);
+   Camera::GetInstance ();
+   mClock->SetPosition ((Camera::GetInstance ()->GetCamRect ().Width() / 2) - 30, 0);
 }
 
 void
@@ -42,7 +49,5 @@ Interface::Update (float dt)
 void
 Interface::Draw ()
 {
-   mpCam->SetStatic (true);
-   mpCam->Draw (*mClock);
-   mpCam->SetStatic (false);
+   Render( mClock );
 }

@@ -19,7 +19,7 @@
 
 #include "Types/Vector2.h"
 #include "Types/Rect.h"
-#include "Graphics/modelObject.h"
+#include "Interface.h"
 #include "physics.h"
 
 class Animation;
@@ -75,9 +75,10 @@ public:
    void InitGL();
 
    void DrawModel (World* pModel);
+   void DrawInterface (Interface* pI); // temp until we build the rest of the view
    // Four Draw methods to be depricated when we move the view objects
    //void Draw (Animation & to_draw);
-   void Draw (AnimationSingle & to_draw); // used by Interface for now
+   //void Draw (AnimationSingle & to_draw); // used by Interface for now
    //void Draw (Tiler & to_draw);
    void Draw (const sf::Drawable& ToDraw)
    {

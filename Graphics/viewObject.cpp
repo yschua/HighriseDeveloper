@@ -14,18 +14,21 @@
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "../physics.h"
-#include "../tiler.h"
-#include "texture.h"
-#include "modelObject.h"
 
+#include <iostream>
+#include <string>
+#include "../physics.h"
+#include "texture.h"
+#include "viewObject.h"
+
+// all things not in 3D space. Used for interface
 using namespace Gfx;
 
-ModelObject::ModelObject ()
+ViewObject::ViewObject ()
 {
 }
 
-void ModelObject::Render(Body* pBody)
+void ViewObject::Render(Body* pBody)
 {
    float x = pBody->GetPositionX();//-ms.x; position needs to be a member of modelObject, let physics access it to move it.
    float y = pBody->GetPositionY();//-ms.y;
@@ -47,26 +50,3 @@ void ModelObject::Render(Body* pBody)
    glEnd();
 }
 
-void ModelObject::Render(Tiler* pTiler)
-{
-   float x = pTiler->GetPositionX();//-ms.x; position needs to be a member of modelObject, let physics access it to move it.
-   float y = pTiler->GetPositionY();//-ms.y;
-   float z = 0;//pTiler->GetPositionZ();
-   float x2 = x + pTiler->GetWidth();
-   float y2 = y + pTiler->GetHeight();
-   float xT = pTiler->GetTesselX();
-   float yT = pTiler->GetTesselY();
-   glBindTexture( GL_TEXTURE_2D, pTiler->GetTextureID() );//to_draw.GetTexture() ); // get the current texture
-   glBegin(GL_QUADS);
-   {
-      glTexCoord2f( 0.0, yT );
-      glVertex3f( x, y2, z );
-      glTexCoord2f( 0.0, 0.0 );
-      glVertex3f( x, y, z );
-      glTexCoord2f( xT, 0.0 );
-      glVertex3f( x2, y, z );
-      glTexCoord2f( xT, yT );
-      glVertex3f( x2, y2, z );
-   }
-   glEnd();
-}

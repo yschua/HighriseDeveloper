@@ -13,7 +13,7 @@
  *   You should have received a copy of the GNU General Public License
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifdef WIN32
+
 #include <iostream>
 #include <map>
 #include <vector>
@@ -24,9 +24,6 @@
 #include "floorBase.h"
 
 #include "apartment.h"
-#else
-#include "../highrisedev.h"
-#endif
 
 using namespace Gfx;
 

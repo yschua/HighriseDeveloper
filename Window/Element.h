@@ -3,7 +3,7 @@
 #include <SFML/Graphics.hpp>
 //#include <loki/Functor.h>  // AC pulled LOKI for now
 //#include "../Graphics/Graphics.h"
-#include "../highrisedev.h"
+//#include "../highrisedev.h"
 
 //#include "Window.h"
 

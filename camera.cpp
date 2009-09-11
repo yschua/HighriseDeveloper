@@ -18,24 +18,18 @@
 #include "resources.h"
 
 #include <iostream>
-#include <map>
-#include <vector>
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
 #include "physics.h"
 #include "image.h"
 #include "animation.h"
-#include "tiler.h"
-#include "Tower/routeBase.h"
-#include "routes.h"
-#include "Tower/floorBase.h"
-#include "Tower/tower.h"
 #include "world.h"
 
+#include "Graphics/modelObject.h"   // 3d abstract
+#include "Graphics/viewObject.h"    // 2d abstract
+
 #include "camera.h"
-//#else
-//#include "highrisedev.h"
-//#endif
+
 
 Camera * Camera::mpInstance = NULL;
 
@@ -136,17 +130,18 @@ Camera::Center (int x, int y)
    ms.y = -400; //y - (mViewRect.Top / 2);
 }
 
-void Camera::InitGL()
+void
+Camera::InitGL()
 {
 	glShadeModel(GL_SMOOTH);												// Enable Smooth Shading
 	glClearDepth(1.0f);														// Depth Buffer Setup
-//	glEnable(GL_DEPTH_TEST);												// Enables Depth Testing
 	glDepthFunc(GL_LEQUAL);													// The Type Of Depth Testing To Do
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_FASTEST);						// Really Nice Perspective Calculations
 	gluPerspective (45.0f,mAspect ,0.1f,100.0f);		// Calculate The Aspect Ratio Of The Window
 }
 
-void Camera::DrawModel (World* pModel)
+void
+Camera::DrawModel (World* pModel)   // 3d interface objects
 {
    glMatrixMode(GL_PROJECTION);
    glFrustum( -500, 500, -500, 500, 1000,0.5 );
@@ -156,45 +151,19 @@ void Camera::DrawModel (World* pModel)
       glTranslatef (GetPositionX()+300, -(GetPositionY()), mZoomFactor-1.0f);
       glEnable(GL_BLEND);
       glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA  );
-//      glBlendFunc( GL_DST_ALPHA, GL_ONE_MINUS_SRC_ALPHA  );
 
       pModel->Draw();
-
       glDisable(GL_BLEND);
    }
    glPopMatrix();
    glMatrixMode(GL_PROJECTION);
 }
 
-
 void
-Camera::Draw (AnimationSingle & to_draw)
+Camera::DrawInterface(Interface* pI)   // 2d interface objects
 {
-   int x = to_draw.GetPositionX()-ms.x;
-   int y = to_draw.GetPositionY()-ms.y;
-   int x2 = (int)x+ to_draw.GetWidth();
-   int y2 = (int)y+ to_draw.GetHeight();
-   if (!mIgnoreCamera)
-      glMatrixMode(GL_MODELVIEW);   // on the model plane but we should let the world render this
-   else
-      glMatrixMode(GL_PROJECTION);  // on the view face with the clock and bars
-   glPushMatrix();
-   glTranslatef (GetPositionX(), GetPositionY(), 0);
-   glEnable(GL_BLEND);
-   glBindTexture( GL_TEXTURE_2D, to_draw.GetTextureID() );//to_draw.GetTexture() ); // get the current texture
-   glBegin(GL_QUADS);
-   {
-      glTexCoord2f( 0.0, 1.0 );
-      glVertex3f( x, y2, 0 ); // simple extension arm
-      glTexCoord2f( 0.0, 0.0 );
-      glVertex3f( x, y, 0 ); // simple extension arm
-      glTexCoord2f( 1.0, 0.0 );
-      glVertex3f( x2, y, 0 ); // simple extension arm
-      glTexCoord2f( 1.0, 1.0 );
-      glVertex3f( x2, y2, 0 ); // simple extension arm
-   }
-   glEnd();
-   glDisable(GL_BLEND);
+   glMatrixMode(GL_PROJECTION);
+   pI->Draw();   
    glPopMatrix();
 }
 

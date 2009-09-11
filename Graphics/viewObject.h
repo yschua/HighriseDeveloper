@@ -14,21 +14,25 @@
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// #DEFINES moved to resource.h until we get a platform ind resouce file.
+// This class is a graphics implementation object that all modeled "Tower" objects are derived from.
 
-#include "resources.h"
+#pragma once
 
-// Include libraries first
-#include <utility>
-#include <cstring>
-#include <iostream>
-#include <list>
-#include <vector>
-#include <SFML/System.hpp>
-#include <SFML/Graphics.hpp>
+#ifndef _VIEWOBJECT_H
+#define _VIEWOBJECT_H
 
-// Then user-defined types
+class Body;    // Main body of physics component
 
-#include "highriseException.h"
+namespace Gfx
+{
 
-#include "interface.h"
+   class ViewObject
+   {
+   public:
+      ViewObject ();
+
+   protected:
+      void Render(Body* pBody);  // draw method replacement, drawing now happens on the GPU side for us
+   };
+}
+#endif // _VIEWOBJECT_H

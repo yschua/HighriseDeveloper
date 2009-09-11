@@ -14,21 +14,32 @@
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "Types/Rect.h"
+#include "Types/Vector2.h"
+
+#include "Camera.h"
 #include "Window/Window.h"
 #include "Window/Button.h"
 #include "Window/TextBox.h"
-#include "highrisedev.h"
+
+#include "person.h"
+#include "AI/citizensAgent.h"
+//#include "AI/pathAgent.h"
+//#include "AI/floorAgent.h"
+
+#include "routes.h"
+#include "background.h"
+#include "Tower/elevatorBase.h"
+#include "Tower/elevator.h"
+#include "Tower/Tower.h"
 #include "world.h"
 
-#include "AI/citizensAgent.h"
-#include "AI/pathAgent.h"
-#include "AI/floorAgent.h"
+#include <CEGUI.h>
+#include <OpenGLGUIRenderer/openglrenderer.h>
+#include <CEGUISystem.h>
+#include <CEGUIDefaultResourceProvider.h>
 
-/*#include <CEGUI/CEGUI.h>
-#include <CEGUI/RendererModules/OpenGLGUIRenderer/openglrenderer.h>
-#include <CEGUI/CEGUISystem.h>
-#include <CEGUI/CEGUIDefaultResourceProvider.h>*/
-#include "Window/GUIManager.h"
+#include "highrisedev.h"
 
 int
 main ()
@@ -36,16 +47,6 @@ main ()
    Camera * cam = Camera::GetInstance ();
    cam->Create ("test");
 
-   list<string> ss;
-   ss.push_back ("First");
-   ss.push_back ("Second");
-   list<string>::iterator is;
-   for (is=ss.begin(); is!=ss.end(); is++)
-   {
-      std::cout << *(is) << std::endl;
-   }
-
-   //cam->SetCamSize (800, 600);
    cam->SetWorldSize (Vector2f(1280, 720));
    cam->SetMaxFramerate (60);
    sf::Event event;
@@ -56,7 +57,6 @@ main ()
    Interface* interface = new Interface();
    World theWorld;
    theWorld.AddTower (&theTower); // pointer for graphics
-//   cam = Camera::GetInstance ();
    float width = cam->GetWorldRect().Right - cam->GetWorldRect().Left;
    float height = cam->GetWorldRect().Bottom - cam->GetWorldRect().Top;
 
@@ -65,45 +65,7 @@ main ()
    try
    {
       // stuffing the floors with test spaces
-      office* my_office = new office(400, 1, &theTower);
-      office* my_office2 = new office (400, 2, &theTower);
-      office* my_office3 = new office (472, 1, &theTower);
-      office* my_office4 = new office (472, 2, &theTower);
-      office* my_office5 = new office (544, 1, &theTower);
-      office* my_office6 = new office (544, 2, &theTower);
-      office* my_office7 = new office (400, 3, &theTower);
-      office* my_office8 = new office (472, 3, &theTower);
-      office* my_office9 = new office (544, 3, &theTower);
-
-      Apartment* my_apt1 = new Apartment (400, 4, &theTower);
-      Apartment* my_apt2 = new Apartment (472, 4, &theTower);
-      Apartment* my_apt3 = new Apartment (544, 4, &theTower);
-      Apartment* my_apt4 = new Apartment (472, 5, &theTower);
-      Apartment* my_apt5 = new Apartment (544, 5, &theTower);
-
-      office* my_basement = new office (400, -1, &theTower);
-
-      Level* sublevel = theTower.GetLevel(-1);
-      Level* level_1 = theTower.NewLevel (400, 1, 544+74);
-      Level* level_2 = theTower.NewLevel (400, 2, 544+74);
-      Level* level_3 = theTower.NewLevel (400, 3, 544+74);
-      Level* level_4 = theTower.NewLevel (400, 4, 544+74);
-      Level* level_5 = theTower.NewLevel (472, 5, 544+74);
-      level_1->AddFloor (my_office);
-      level_1->AddFloor (my_office3);
-      level_1->AddFloor (my_office5);
-      level_2->AddFloor (my_office2);
-      level_2->AddFloor (my_office4);
-      level_2->AddFloor (my_office6);
-      level_3->AddFloor (my_office7);
-      level_3->AddFloor (my_office8);
-      level_3->AddFloor (my_office9);
-      level_4->AddFloor (my_apt1);
-      level_4->AddFloor (my_apt2);
-      level_4->AddFloor (my_apt3);
-      level_5->AddFloor (my_apt4);
-      level_5->AddFloor (my_apt5);
-      sublevel->AddFloor (my_basement);
+      theTower.DebugLoad (0,0,0);
 
       interface = new Interface ();
 
@@ -113,14 +75,43 @@ main ()
       theTower.GetRoutes().AddRoute( pElevator );
       pBackground = new Background (width, height);
       theWorld.SetBG (pBackground);
+      CEGUI::OpenGLRenderer* pCERenderer = new CEGUI::OpenGLRenderer( 1000 );
 
-      EventHandler EventHandler;
+      CEGUI::System* pCESystem = new CEGUI::System(pCERenderer);
 
-      GUIManager GUIMan;
-      EventHandler.Add(&GUIMan);
+      // initialise the required dirs for the DefaultResourceProvider
+      CEGUI::DefaultResourceProvider* rp = static_cast<CEGUI::DefaultResourceProvider*>
+          (CEGUI::System::getSingleton().getResourceProvider());
+
+      rp->setResourceGroupDirectory("schemes", "datafiles/schemes/");
+      rp->setResourceGroupDirectory("imagesets", "datafiles/imagesets/");
+      rp->setResourceGroupDirectory("fonts", "datafiles/fonts/");
+      rp->setResourceGroupDirectory("layouts", "datafiles/layouts/");
+      rp->setResourceGroupDirectory("looknfeels", "datafiles/looknfeel/");
+      rp->setResourceGroupDirectory("lua_scripts", "datafiles/lua_scripts/");
+
+      // set the default resource groups to be used
+      CEGUI::Imageset::setDefaultResourceGroup("imagesets");
+      CEGUI::Font::setDefaultResourceGroup("fonts");
+      CEGUI::Scheme::setDefaultResourceGroup("schemes");
+      CEGUI::WidgetLookManager::setDefaultResourceGroup("looknfeels");
+      CEGUI::WindowManager::setDefaultResourceGroup("layouts");
+      CEGUI::ScriptModule::setDefaultResourceGroup("lua_scripts");
+
+      // load in the scheme file, which auto-loads the TaharezLook imageset
+      CEGUI::SchemeManager::getSingleton().loadScheme( "TaharezLook.scheme" );
+
+      // load in a font.  The first font loaded automatically becomes the default font.
+      if(! CEGUI::FontManager::getSingleton().isFontPresent( "Commonwealth-10" ) )
+         CEGUI::FontManager::getSingleton().createFont( "Commonwealth-10.font" );
+      using namespace CEGUI;
+      WindowManager& CEWM = WindowManager::getSingleton();
+      Window* myRoot = CEWM.createWindow( "DefaultWindow", "root" );
+      System::getSingleton().setGUISheet( myRoot );
+      FrameWindow* fWnd = (FrameWindow*)CEWM.createWindow( "TaharezLook/FrameWindow", "testWindow" );
+      myRoot->addChildWindow( fWnd );
 
 
-      // if we take this out the view will not draw, we need at least 1 until we figure out what is going on here
       UI::EventMgr<UI::Window> Windows;
       UI::Window* pWind = new UI::Window;
       for (int j = 0; j < 3; j++)
@@ -130,31 +121,24 @@ main ()
          pWind->AddItem(pButton);
       }
       Windows.Add(pWind);
-      // end windows
-
       while (1)
       {
          while (cam->GetEvent (event))
          {
-            // TODO: make all objects inheret from EventBase class and register them here.
+            if (!cam->OnEvent(event)) Windows.OnEvent(event);
             if (event.Type == sf::Event::Closed)
                exit (0);
-            if (!EventHandler.HandleEvents())
+            //else
+            /*else if (event.Type == sf::Event::MouseWheelMoved)
             {
-               cam->OnEvent(event); //Windows.OnEvent(event);
-
-               //else
-               /*else if (event.Type == sf::Event::MouseWheelMoved)
-               {
-                  if (event.MouseWheel.Delta == 1) {cam->ZoomIn();} else {cam->ZoomOut();}
-               }*/
-               if (event.Type == sf::Event::MouseButtonPressed)
-               {
-                  Vector2i coords = cam->GetMouse ();
-                  std::cout << "Mouse click coords: " << coords.x << ", " << coords.y;
-                  int click_level = (int)(cam->GetWorldRect ().Top / 36) - (coords.y / 36);
-                  std::cout << " Click level: " << click_level << std::endl;
-               }
+               if (event.MouseWheel.Delta == 1) {cam->ZoomIn();} else {cam->ZoomOut();}
+            }*/
+            else if (event.Type == sf::Event::MouseButtonPressed)
+            {
+               Vector2i coords = cam->GetMouse ();
+               std::cout << "Mouse click coords: " << coords.x << ", " << coords.y;
+               int click_level = (int)(cam->GetWorldRect ().Top / 36) - (coords.y / 36);
+               std::cout << " Click level: " << click_level << std::endl;
             }
 
          }
@@ -164,14 +148,14 @@ main ()
          theTower.Update (60);
          cam->DrawModel(&theWorld); // the background and tower(s).
 
-         cam->SetStatic(true);   // need these or SFML will not swap in the buffer
-         Windows.Update();
-         Windows.Draw();
-         cam->SetStatic(false);
-
          interface->Update(60);
          interface->Draw ();
-         GUIMan.Draw();
+
+         cam->SetStatic(true);
+         //Windows.Update();
+         Windows.Draw();
+         cam->SetStatic(false);
+         CEGUI::System::getSingleton().renderGUI();
          cam->Display ();
          People.Update( 40 );
       }
@@ -179,9 +163,6 @@ main ()
    catch ( HighriseException* ex )
    {
       std::cout << "Exception caught in main: " << ex->get_Message();
-      std::cout << "Hit a key to close!";
-      char t[4];
-      std::cin.get(t[0]);
    }
    return 0;
 }

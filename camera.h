@@ -21,13 +21,14 @@
 #include "Types/Rect.h"
 #include "Interface.h"
 #include "physics.h"
+#include "Window/event.h"
 
 class Animation;
 class AnimationSingle;
 class Tiler;
 class World;
 
-class Camera : public Body
+class Camera : public Body, public EventBase
 {
 private:
    //int mworld_x, mworld_y, mcamx, mcamy;
@@ -55,7 +56,7 @@ public:
    static Camera* GetInstance();
    static Camera* i();
    const sf::Input * GetInput ();
-
+   bool KeyDown (sf::Key::Code Key);
    // properties
    void SetMaxFramerate (int rate);
    //void SetCamSize (int x, int y);

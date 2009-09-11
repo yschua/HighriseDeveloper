@@ -14,6 +14,7 @@
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <iostream>
 #include <SFML/Graphics.hpp>
 #include <string.h>
 #include <map>

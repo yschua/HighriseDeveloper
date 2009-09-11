@@ -2,7 +2,7 @@
 #define GUIManager_H
 
 #include <CEGUI.h>
-#include <OpenGLGUIRenderer/openglrenderer.h>
+#include <RendererModules/OpenGLGUIRenderer/openglrenderer.h>
 #include <CEGUISystem.h>
 #include <CEGUIDefaultResourceProvider.h>
 #include "event.h"
@@ -16,12 +16,12 @@ public:
 
 	//bool Initialize(sf::RenderWindow* Win);
    bool Resize (Vector2i) { return false; }
-   bool MouseDown (sf::Mouse::Button Button, Vector2i World, Vector2i Cam) { std::cout << "Mousedown called!\n"; return mpSystem->injectMouseButtonDown(CEMouseButton(Button)); }
-   bool MouseUp (sf::Mouse::Button Button, Vector2i World, Vector2i Cam) { std::cout << "Mouseup called!\n"; return mpSystem->injectMouseButtonUp(CEMouseButton(Button)); }
-   bool KeyDown (sf::Key::Code Key) { std::cout << "keydown called!\n"; return mpSystem->injectKeyDown(CEKey(Key)); }
-   bool KeyUp (sf::Key::Code Key) { std::cout << "keyup called!\n"; return mpSystem->injectKeyUp(CEKey(Key)); }
-   bool MouseMove (Vector2i World, Vector2i Cam) { return mpSystem->injectMousePosition(Cam.x, Cam.y); }
-   bool MouseWheel (int Delta) { std::cout << "Mousewheel called!\n"; return mpSystem->injectMouseWheelChange(Delta); }
+   bool MouseDown (sf::Mouse::Button Button, Vector2i World, Vector2i Cam);
+   bool MouseUp (sf::Mouse::Button Button, Vector2i World, Vector2i Cam);
+   bool KeyDown (sf::Key::Code Key);
+   bool KeyUp (sf::Key::Code Key);
+   bool MouseMove (Vector2i World, Vector2i Cam);
+   bool MouseWheel (int Delta);
 	void Draw();
 
 	CEGUI::System* getSystem() {return mpSystem;}

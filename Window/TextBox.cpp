@@ -1,5 +1,7 @@
 // Text
 
+#include <iostream>
+
 #include "../Types/Vector2.h"
 #include "../Camera.h"
 #include "TextBox.h"

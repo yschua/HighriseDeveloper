@@ -1,11 +1,12 @@
-
+#include <SFML/System.hpp>
 #include <string>
 #include "../HighriseException.h"
 #include "GUIManager.h"
 
-GUIManager::GUIManager() : mpRenderer(NULL),
-						   mpSystem(NULL)
-						  // mpWindow(NULL)
+GUIManager::GUIManager()
+:  mpRenderer(NULL)
+,  mpSystem(NULL)
+// mpWindow(NULL)
 {
 	InitMaps();
 	try
@@ -91,6 +92,43 @@ GUIManager::~GUIManager()
 	return false;
 }*/
 
+bool
+GUIManager::MouseDown (sf::Mouse::Button Button, Vector2i World, Vector2i Cam)
+{
+   return mpSystem->injectMouseButtonDown(CEMouseButton(Button));
+}
+
+bool
+GUIManager::MouseUp (sf::Mouse::Button Button, Vector2i World, Vector2i Cam)
+{
+   return mpSystem->injectMouseButtonUp(CEMouseButton(Button));
+}
+
+bool
+GUIManager::KeyDown (sf::Key::Code Key)
+{
+   return mpSystem->injectKeyDown(CEKey(Key));
+}
+
+bool
+GUIManager::KeyUp (sf::Key::Code Key)
+{
+   return mpSystem->injectKeyUp(CEKey(Key));
+}
+
+bool
+GUIManager::MouseMove (Vector2i World, Vector2i Cam)
+{
+   return mpSystem->injectMousePosition(static_cast<float>(Cam.x), static_cast<float>(Cam.y));
+}
+
+bool
+GUIManager::MouseWheel (int Delta)
+{
+   return mpSystem->injectMouseWheelChange(static_cast<float>(Delta));
+}
+
+
 void GUIManager::Draw()
 {
 	mpSystem->renderGUI();
@@ -99,7 +137,9 @@ void GUIManager::Draw()
 /************************************************************************/
 /*                              Private                                 */
 /************************************************************************/
-CEGUI::Key::Scan GUIManager::CEKey(sf::Key::Code Code)
+
+CEGUI::Key::Scan
+GUIManager::CEKey (sf::Key::Code Code)
 {
 	if (mKeyMap.find(Code) == mKeyMap.end())
 		return (CEGUI::Key::Scan)0;
@@ -107,7 +147,8 @@ CEGUI::Key::Scan GUIManager::CEKey(sf::Key::Code Code)
 	return mKeyMap[Code];
 }
 
-CEGUI::MouseButton GUIManager::CEMouseButton(sf::Mouse::Button Button)
+CEGUI::MouseButton
+GUIManager::CEMouseButton (sf::Mouse::Button Button)
 {
 	if (mMouseButtonMap.find(Button) == mMouseButtonMap.end())
 		return (CEGUI::MouseButton)0;
@@ -116,7 +157,8 @@ CEGUI::MouseButton GUIManager::CEMouseButton(sf::Mouse::Button Button)
 }
 
 //Auto-generated (phew...), edited by hand
-void GUIManager::InitMaps()
+void
+GUIManager::InitMaps()
 {
 	mKeyMap[sf::Key::Escape]          = CEGUI::Key::Escape       ;
 	mKeyMap[sf::Key::Num1]            = CEGUI::Key::One          ;

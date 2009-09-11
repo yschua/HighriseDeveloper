@@ -163,7 +163,7 @@ void
 Camera::DrawInterface(Interface* pI)   // 2d interface objects
 {
    glMatrixMode(GL_PROJECTION);
-   pI->Draw();   
+   pI->Draw();
    glPopMatrix();
 }
 
@@ -183,6 +183,36 @@ Camera::SetStatic (bool set)
    mIgnoreCamera = set;
 }
 
+bool
+Camera::KeyDown (sf::Key::Code Key)
+{
+   if (Key == sf::Key::D)
+   {
+      mv.x = -200;
+      ma.x = 150;
+   }
+   if (Key == sf::Key::S)
+   {
+      mv.y = 200;
+      ma.y = -150;
+   }
+   if (Key == sf::Key::A)
+   {
+      mv.x = 200;
+      ma.x = -150;
+   }
+   if (Key == sf::Key::W)
+   {
+      mv.y = -200;
+      ma.y = 150;
+   }
+   if (Key == sf::Key::E)
+   {
+      SetVelocity (0, 0);
+   }
+}
+
+/*
 bool
 Camera::OnEvent (const sf::Event& Event)
 {
@@ -258,7 +288,7 @@ Camera::OnEvent (const sf::Event& Event)
       }
    }
    return false;
-}
+}*/
 
 void
 Camera::ZoomIn()

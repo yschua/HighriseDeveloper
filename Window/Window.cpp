@@ -1,5 +1,7 @@
 // Window
 
+#include <iostream>
+
 #include "../Types/Vector2.h"
 #include "../Camera.h"
 #include "Window.h"
@@ -60,7 +62,7 @@ namespace UI
       Moving = false;
       Activated = false;
       MouseOver = false;
-      Title.SetText("Untitled Window");
+      Title.SetText(" ");
       Title.SetSize(Style.FontSize);
       Update();
    }
@@ -176,7 +178,7 @@ namespace UI
    }
 
    void Window::Draw()
-   {
+   {/*
       for (unsigned int i = 0; i < BGImgs.size(); i++)
       {
          mpCamera->Draw(BGImgs.at(i));
@@ -186,7 +188,7 @@ namespace UI
       //std::cout << "Drawing item: " << i << '\n';
       //    Items.at(i)->Draw();
       //}
-      Items.Draw();
+      Items.Draw();*/
       mpCamera->Draw(Title);
    }
 

@@ -40,7 +40,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;\Dev\VC++\SFML-1.5\include&quot;;&quot;\Dev\OpenSource\CEGUI-SDK-0.6.2-vc8\include&quot;;&quot;\Dev\OpenSource\CEGUI-SDK-0.6.2-vc8\RendererModules&quot;"
+				AdditionalIncludeDirectories="&quot;\Dev\VC++\SFML-1.5\include&quot;;&quot;\Dev\OpenSource\CEGUI-SDK-0.6.2-vc8\include&quot;;&quot;\Dev\OpenSource\CEGUI-SDK-0.6.2-vc8&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -318,22 +318,6 @@
 			Name="Window"
 			>
 			<File
-				RelativePath="..\Window\Button.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\Window\Button.h"
-				>
-			</File>
-			<File
-				RelativePath="..\Window\Element.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\Window\Element.h"
-				>
-			</File>
-			<File
 				RelativePath="..\Window\event.cpp"
 				>
 			</File>
@@ -347,22 +331,6 @@
 			</File>
 			<File
 				RelativePath="..\Window\guimanager.h"
-				>
-			</File>
-			<File
-				RelativePath="..\Window\TextBox.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\Window\TextBox.h"
-				>
-			</File>
-			<File
-				RelativePath="..\Window\Window.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\Window\Window.h"
 				>
 			</File>
 		</Filter>

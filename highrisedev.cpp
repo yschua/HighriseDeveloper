@@ -19,9 +19,6 @@
 #include "Types/Vector2.h"
 
 #include "Camera.h"
-#include "Window/Window.h"
-#include "Window/Button.h"
-#include "Window/TextBox.h"
 
 #include "person.h"
 #include "AI/citizensAgent.h"
@@ -52,7 +49,7 @@ main ()
 
    cam->SetWorldSize (Vector2f(1280, 720));
    cam->SetMaxFramerate (60);
-   sf::Event event;
+//   sf::Event event;
    Elevator* pElevator;
    Background * pBackground;
    Tower theTower (1, 10); // numero uno with 10 sub levels
@@ -64,6 +61,7 @@ main ()
    float height = cam->GetWorldRect().Bottom - cam->GetWorldRect().Top;
 
    cam->InitGL();
+   sf::String Title( string("Alpha"));
 
    try
    {
@@ -84,10 +82,6 @@ main ()
       Events.Add (&Gui);
       Events.Add (cam);
 
-      UI::EventMgr<UI::Window> Windows;
-      UI::Window* pWind = new UI::Window;
-
-      Windows.Add(pWind);
       while (1)
       {
          sf::Event Event;
@@ -100,10 +94,11 @@ main ()
          cam->DrawModel(&theWorld); // the background and tower(s).
          interface->Update(60);
          interface->Draw ();
-         Windows.Draw(); // TODO: Figure out why this call is needed.
+         cam->Draw (Title);
+
          Gui.Draw ();
          cam->Display ();
-         People.Update( 40 );
+         //People.Update( 40 );
       }
    }
    catch ( HighriseException* ex )

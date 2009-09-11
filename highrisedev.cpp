@@ -54,7 +54,7 @@ main ()
    Background * pBackground;
    Tower theTower (1, 10); // numero uno with 10 sub levels
    CitizensAgent People( theTower ); // known tower, later this will be a tower list for mutiple towers
-   Interface* interface = new Interface();
+   Interface* pInterface = new Interface();
    World theWorld;
    theWorld.AddTower (&theTower); // pointer for graphics
    float width = cam->GetWorldRect().Right - cam->GetWorldRect().Left;
@@ -67,8 +67,6 @@ main ()
    {
       // stuffing the floors with test spaces
       theTower.DebugLoad (0,0,0);
-
-      interface = new Interface ();
 
       pElevator = new Elevator( Elevator::LS_Standard, 472, -1, 6, &theTower );
       theTower.GetRoutes().AddRoute( pElevator );
@@ -92,8 +90,8 @@ main ()
          cam->Integrate (60);
          theTower.Update (60);
          cam->DrawModel(&theWorld); // the background and tower(s).
-         interface->Update(60);
-         interface->Draw ();
+         pInterface->Update(60);
+         cam->DrawInterface( pInterface );
          cam->Draw (Title);
 
          Gui.Draw ();

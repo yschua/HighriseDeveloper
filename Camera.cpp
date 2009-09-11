@@ -158,7 +158,7 @@ Camera::DrawModel (World* pModel)   // 3d interface objects
    glPushMatrix();
    glFrustum( -500, 500, -500, 500, 1000,0.5 );
    glMatrixMode(GL_MODELVIEW);
-   glLoadIdentity();
+//   glLoadIdentity();
    glPushMatrix();
    {                       // brackets just keep the code in push and pop uniform
       glTranslatef (GetPositionX()+300, -(GetPositionY()), mZoomFactor-1.0f);
@@ -179,6 +179,7 @@ Camera::DrawInterface(Interface* pI)   // 2d interface objects
 {
    glMatrixMode(GL_PROJECTION);
    glPushMatrix();
+//      glLoadIdentity();
       glColor4ub (255,255,255,255);
       glEnable(GL_BLEND);
       glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA  );

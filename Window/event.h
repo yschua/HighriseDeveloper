@@ -23,13 +23,14 @@ class Camera;
 class EventBase
 {
 public:
-   virtual bool Resize (Vector2i) { return false; }
+   virtual bool Resize (Vector2i viewSize) { return false; }
    virtual bool MouseDown (sf::Mouse::Button Button, Vector2i World, Vector2i Cam) { return false; }
    virtual bool MouseUp (sf::Mouse::Button Button, Vector2i World, Vector2i Cam) { return false; }
    virtual bool KeyDown (sf::Key::Code Key) { return false; }
    virtual bool KeyUp (sf::Key::Code Key) { return false; }
    virtual bool MouseMove (Vector2i World, Vector2i Cam) { return false; }
    virtual bool MouseWheel (int Delta) { return false; }
+   virtual bool Close () { return false; }
 };
 
 class EventHandler

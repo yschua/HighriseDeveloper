@@ -28,7 +28,27 @@
 #include <SFML/Graphics.hpp>
 
 // Then user-defined types
+#include "Window/event.h"
 
 #include "highriseException.h"
 
 #include "interface.h"
+
+class MainEvent : public EventBase
+{
+   bool mbRunning;
+public:
+   MainEvent()
+   {
+      mbRunning = true;
+   }
+   bool IsRunning()
+   {
+      return mbRunning;
+   }
+   bool Close()
+   {
+      mbRunning = false;
+      return true;
+   }
+};

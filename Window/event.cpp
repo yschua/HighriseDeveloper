@@ -75,5 +75,11 @@ EventHandler::HandleEvents (const sf::Event& Event)
          if ((*i)->MouseMove (Vector2i(mpInput->GetMouseX (), mpInput->GetMouseY ()), Vector2i(mpInput->GetMouseX (), mpInput->GetMouseY ())))
             return true;
    }
+   else if (Event.Type == sf::Event::Closed)
+   {
+      for (ConType::iterator i = mHandlers.begin (); i != mHandlers.end (); i++)
+         if ((*i)->Close ())
+            return true;
+   }
    return false;
 }

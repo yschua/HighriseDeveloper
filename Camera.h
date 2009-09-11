@@ -88,6 +88,7 @@ public:
    }
    void Create (const std::string & caption);
    void Center (int x, int y);
+   bool Resize (Vector2i viewSize);
    bool GetEvent (sf::Event & event);
    void Zoom (float Factor);
    void SetStatic (bool set);

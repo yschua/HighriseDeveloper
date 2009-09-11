@@ -43,7 +43,7 @@ Camera::Camera ()
    mpStaticView = &mpWindow->GetDefaultView ();
    mpView = new sf::View(*mpStaticView);
    mZoomFactor = -1; // 1 unit back away
-   mAspect = 600.0/800;
+   mAspect = 800.0/600;
    mIgnoreCamera = false;
    mpInput = &(mpWindow->GetInput ());
    mViewRect = mpView->GetRect();
@@ -139,6 +139,14 @@ Camera::Center (int x, int y)
    ms.y = -400; //y - (mViewRect.Top / 2);
 }
 
+bool
+Camera::Resize (Vector2i vi)
+{
+   mAspect = (float)(vi.x) / vi.y;
+	gluPerspective (45.0f,mAspect ,0.1f,100.0f);		// Calculate The Aspect Ratio Of The Window
+   return true;
+}
+
 void
 Camera::InitGL()
 {
@@ -146,7 +154,7 @@ Camera::InitGL()
 	glClearDepth(1.0f);														// Depth Buffer Setup
 //	glClearDepth(1.0f);														// Depth Buffer Setup
 	glDepthFunc(GL_LEQUAL);													// The Type Of Depth Testing To Do
-	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_FASTEST);						// Really Nice Perspective Calculations
+	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);						// Really Nice Perspective Calculations
 	gluPerspective (45.0f,mAspect ,0.1f,100.0f);		// Calculate The Aspect Ratio Of The Window
 }
 
@@ -156,7 +164,7 @@ Camera::DrawModel (World* pModel)   // 3d interface objects
    glDisable (GL_LIGHTING);
    glMatrixMode(GL_PROJECTION);
    glPushMatrix();
-   glFrustum( -500, 500, -500, 500, 1000,0.5 );
+   glFrustum( -500, 500, -500, 500, 1000,1.0 );
    glMatrixMode(GL_MODELVIEW);
 //   glLoadIdentity();
    glPushMatrix();

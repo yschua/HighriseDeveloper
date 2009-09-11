@@ -79,8 +79,10 @@ main ()
       EventHandler Events;
       Events.Add (&Gui);
       Events.Add (cam);
+      MainEvent mev;
+      Events.Add (&mev);
 
-      while (1)
+      while (mev.IsRunning())
       {
          sf::Event Event;
          while (cam->GetEvent(Event)) {

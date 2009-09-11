@@ -32,7 +32,7 @@
 #include "background.h"
 #include "Tower/elevatorBase.h"
 #include "Tower/elevator.h"
-#include "Tower/Tower.h"
+#include "Tower/tower.h"
 #include "world.h"
 
 #include <CEGUI.h>
@@ -95,7 +95,10 @@ main ()
       Windows.Add(pWind);
       while (1)
       {
-         Events.HandleEvents ();
+         sf::Event Event;
+         while (cam->GetEvent(Event)) {
+            Events.HandleEvents (Event);
+         }
          cam->Clear ();
          cam->Integrate (60);
          theTower.Update (60);

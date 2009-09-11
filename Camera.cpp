@@ -28,7 +28,7 @@
 #include "Graphics/modelObject.h"   // 3d abstract
 #include "Graphics/viewObject.h"    // 2d abstract
 
-#include "camera.h"
+#include "Camera.h"
 
 
 Camera * Camera::mpInstance = NULL;

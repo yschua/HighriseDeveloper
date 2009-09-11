@@ -21,7 +21,7 @@
 #include "../physics.h"
 #include "elevatorBase.h"
 #include "elevator.h"
-#include "floorbase.h"
+#include "floorBase.h"
 #include "level.h"
 #include "lobby.h"
 #include "tower.h"
@@ -63,6 +63,9 @@ Level* Tower::NewLevel (int x, int y, int x2)
 //   mSubLevels.push_back (floor);
 //   return floor;
 //}
+void Tower::DebugLoad(int x, int y, int z) {
+   // Do something
+}
 
 Level* Tower::GetLevel( int level ) // positive gets you a level above, negative gets you a basement level
 {

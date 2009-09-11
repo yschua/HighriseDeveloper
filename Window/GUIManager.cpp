@@ -1,6 +1,6 @@
 #include <SFML/System.hpp>
 #include <string>
-#include "../HighriseException.h"
+#include "../highriseException.h"
 #include "GUIManager.h"
 
 GUIManager::GUIManager()

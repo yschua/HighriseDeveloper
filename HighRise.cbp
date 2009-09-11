@@ -73,6 +73,8 @@
 		<Unit filename="AI/floorAgent.h" />
 		<Unit filename="AI/pathAgent.cpp" />
 		<Unit filename="AI/pathAgent.h" />
+		<Unit filename="Camera.cpp" />
+		<Unit filename="Camera.h" />
 		<Unit filename="Graphics/ErrorImage.cpp" />
 		<Unit filename="Graphics/ErrorImage.h" />
 		<Unit filename="Graphics/Graphics.h" />
@@ -80,6 +82,8 @@
 		<Unit filename="Graphics/modelObject.h" />
 		<Unit filename="Graphics/texture.cpp" />
 		<Unit filename="Graphics/texture.h" />
+		<Unit filename="Graphics/viewObject.cpp" />
+		<Unit filename="Graphics/viewObject.h" />
 		<Unit filename="ReadMe.txt" />
 		<Unit filename="Settings/Settings.cpp" />
 		<Unit filename="Settings/Settings.h" />
@@ -128,8 +132,6 @@
 		<Unit filename="animation.h" />
 		<Unit filename="background.cpp" />
 		<Unit filename="background.h" />
-		<Unit filename="camera.cpp" />
-		<Unit filename="camera.h" />
 		<Unit filename="citizens.cpp" />
 		<Unit filename="citizens.h" />
 		<Unit filename="highRiseException.cpp" />

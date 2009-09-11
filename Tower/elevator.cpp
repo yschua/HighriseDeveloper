@@ -13,7 +13,7 @@
  *   You should have received a copy of the GNU General Public License
  *   along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifdef WIN32
+//#ifdef WIN32
 #include <cstring>
 #include <cstdlib>
 #include <map>
@@ -31,9 +31,9 @@
 #include "elevatorPit.h"
 #include "elevator.h"
 
-#else
-#include "../highrisedev.h"
-#endif
+//#else
+//#include "../highrisedev.h"
+//#endif
 #include "../highriseException.h"
 
 using namespace Gfx;

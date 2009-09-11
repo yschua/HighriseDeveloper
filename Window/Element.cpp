@@ -2,7 +2,7 @@
 
 #include <iostream>
 #include "../Types/Vector2.h"
-#include "../Camera.h"
+#include "../camera.h"
 
 #include "Element.h"
 

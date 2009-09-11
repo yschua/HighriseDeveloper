@@ -19,7 +19,7 @@
 
 #include "Types/Vector2.h"
 #include "Types/Rect.h"
-#include "Interface.h"
+#include "interface.h"
 #include "physics.h"
 #include "Window/event.h"
 

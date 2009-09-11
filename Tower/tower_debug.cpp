@@ -24,7 +24,7 @@
 #include "../physics.h"
 #include "elevatorBase.h"
 #include "elevator.h"
-#include "floorbase.h"
+#include "floorBase.h"
 #include "level.h"
 #include "lobby.h"
 #include "apartment.h"

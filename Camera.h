@@ -56,8 +56,7 @@ public:
    static Camera* GetInstance();
    static Camera* i();
    const sf::Input * GetInput ();
-   bool KeyDown (sf::Key::Code Key);
-   bool MouseWheel (int Delta);
+
    // properties
    void SetMaxFramerate (int rate);
    //void SetCamSize (int x, int y);
@@ -102,6 +101,9 @@ public:
    void AdjustBounds(Rectf& RectToAdjust);
 
    // Event hanlders
+   bool OnKeyDown (sf::Key::Code Key);
+   bool OnMouseWheel (int Delta);
+   bool OnResize(Vector2i);
 };
 
 #endif

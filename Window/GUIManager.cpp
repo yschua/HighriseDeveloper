@@ -34,8 +34,11 @@ GUIManager::GUIManager()
       // Just making test windows now
       CEGUI::FrameWindow* fWnd = (CEGUI::FrameWindow*) mpWM->createWindow( "WindowsLook/FrameWindow", "testWindow" );
       mpRootWind->addChildWindow( fWnd );
-      //CEGUI::PushButton* pTestBtn = (CEGUI::PushButton*) mpWM->createWindow("WindowsLook/PushButton", "TestButton" );
-      //fWnd->addChildWindow( pTestBtn );
+      CEGUI::Window* pTestBtn = mpWM->createWindow("WindowsLook/Button", "TestBtn" );
+      //pTestBtn->setMinSize(UVector2(UDim(0.0f, 100), UDim(0.0f, 20)));
+		pTestBtn->setSize(UVector2(UDim(0.5f, 0), UDim(0.5f, 0)));
+		pTestBtn->setPosition(UVector2(UDim(0.25f, 0), UDim(0.4f, 0)));
+      fWnd->addChildWindow( pTestBtn );
 
       mpSystem->setDefaultMouseCursor("WindowsLook", "MouseArrow");
 	}
@@ -52,37 +55,37 @@ GUIManager::~GUIManager()
 }
 
 bool
-GUIManager::MouseDown (sf::Mouse::Button Button, Vector2i World, Vector2i Cam)
+GUIManager::OnMouseDown (sf::Mouse::Button Button, Vector2i World, Vector2i Cam)
 {
    return mpSystem->injectMouseButtonDown(CEMouseButton(Button));
 }
 
 bool
-GUIManager::MouseUp (sf::Mouse::Button Button, Vector2i World, Vector2i Cam)
+GUIManager::OnMouseUp (sf::Mouse::Button Button, Vector2i World, Vector2i Cam)
 {
    return mpSystem->injectMouseButtonUp(CEMouseButton(Button));
 }
 
 bool
-GUIManager::KeyDown (sf::Key::Code Key)
+GUIManager::OnKeyDown (sf::Key::Code Key)
 {
    return mpSystem->injectKeyDown(CEKey(Key));
 }
 
 bool
-GUIManager::KeyUp (sf::Key::Code Key)
+GUIManager::OnKeyUp (sf::Key::Code Key)
 {
    return mpSystem->injectKeyUp(CEKey(Key));
 }
 
 bool
-GUIManager::MouseMove (Vector2i World, Vector2i Cam)
+GUIManager::OnMouseMove (Vector2i World, Vector2i Cam)
 {
    return mpSystem->injectMousePosition(static_cast<float>(Cam.x), static_cast<float>(Cam.y));
 }
 
 bool
-GUIManager::MouseWheel (int Delta)
+GUIManager::OnMouseWheel (int Delta)
 {
    if (mpSystem->injectMouseWheelChange(static_cast<float>(Delta))) {
       std::cout << "GUIManager ate MouseWheel" << std::endl;
@@ -92,6 +95,10 @@ GUIManager::MouseWheel (int Delta)
       return false;
 }
 
+bool GUIManager::OnResize(Vector2i NewSize)
+{
+
+}
 
 void GUIManager::Draw()
 {

@@ -26,14 +26,14 @@ public:
    // HELP! The Resize() event can not actually be captured by some classes, since they
    // already define a Resize() member funtion. Maybe we should call prefix theese with
    // "On"? (So OnResize(), OnMouseDown(), etc).
-   virtual bool Resize (Vector2i viewSize) { return false; }
-   virtual bool MouseDown (sf::Mouse::Button Button, Vector2i World, Vector2i Cam) { return false; }
-   virtual bool MouseUp (sf::Mouse::Button Button, Vector2i World, Vector2i Cam) { return false; }
-   virtual bool KeyDown (sf::Key::Code Key) { return false; }
-   virtual bool KeyUp (sf::Key::Code Key) { return false; }
-   virtual bool MouseMove (Vector2i World, Vector2i Cam) { return false; }
-   virtual bool MouseWheel (int Delta) { return false; }
-   virtual bool Close () { return false; }
+   virtual bool OnResize (Vector2i viewSize) { return false; }
+   virtual bool OnMouseDown (sf::Mouse::Button Button, Vector2i World, Vector2i Cam) { return false; }
+   virtual bool OnMouseUp (sf::Mouse::Button Button, Vector2i World, Vector2i Cam) { return false; }
+   virtual bool OnKeyDown (sf::Key::Code Key) { return false; }
+   virtual bool OnKeyUp (sf::Key::Code Key) { return false; }
+   virtual bool OnMouseMove (Vector2i World, Vector2i Cam) { return false; }
+   virtual bool OnMouseWheel (int Delta) { return false; }
+   virtual bool OnClose () { return false; }
 };
 
 class EventHandler

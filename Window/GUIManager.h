@@ -15,12 +15,13 @@ public:
 	~GUIManager();
 
 	//bool Initialize(sf::RenderWindow* Win);
-   bool MouseDown (sf::Mouse::Button Button, Vector2i World, Vector2i Cam);
-   bool MouseUp (sf::Mouse::Button Button, Vector2i World, Vector2i Cam);
-   bool KeyDown (sf::Key::Code Key);
-   bool KeyUp (sf::Key::Code Key);
-   bool MouseMove (Vector2i World, Vector2i Cam);
-   bool MouseWheel (int Delta);
+   bool OnMouseDown (sf::Mouse::Button Button, Vector2i World, Vector2i Cam);
+   bool OnMouseUp (sf::Mouse::Button Button, Vector2i World, Vector2i Cam);
+   bool OnKeyDown (sf::Key::Code Key);
+   bool OnKeyUp (sf::Key::Code Key);
+   bool OnMouseMove (Vector2i World, Vector2i Cam);
+   bool OnMouseWheel (int Delta);
+   bool OnResize (Vector2i NewSize);
 	void Draw();
 
 	CEGUI::System* getSystem() { return mpSystem; }

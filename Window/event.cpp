@@ -42,50 +42,51 @@ EventHandler::HandleEvents (const sf::Event& Event)
    {
       case sf::Event::KeyPressed:
          for (ConType::iterator i = mHandlers.begin (); i != mHandlers.end (); i++)
-            if ((*i)->KeyDown (Event.Key.Code))
+            if ((*i)->OnKeyDown (Event.Key.Code))
                return true;
                // return true if one of our handlers returned true; ie the event was eaten
       break;
 
       case sf::Event::Resized:
          for (ConType::iterator i = mHandlers.begin (); i != mHandlers.end (); i++)
-            if ((*i)->Resize (Vector2i(Event.Size.Width, Event.Size.Height)))
-               return true;
+            (*i)->OnResize (Vector2i(Event.Size.Width, Event.Size.Height));
+               // We want all event handlers to receive this one; we don't want it to be "eaten"
+               //return true;
       break;
 
       case sf::Event::KeyReleased:
          for (ConType::iterator i = mHandlers.begin (); i != mHandlers.end (); i++)
-            if ((*i)->KeyUp (Event.Key.Code))
+            if ((*i)->OnKeyUp (Event.Key.Code))
                return true;
       break;
 
       case sf::Event::MouseButtonPressed:
          for (ConType::iterator i = mHandlers.begin (); i != mHandlers.end (); i++)
-            if ((*i)->MouseDown (Event.MouseButton.Button, Vector2i(mpInput->GetMouseX (), mpInput->GetMouseY ()), Vector2i(mpInput->GetMouseX (), mpInput->GetMouseY ())))
+            if ((*i)->OnMouseDown (Event.MouseButton.Button, Vector2i(mpInput->GetMouseX (), mpInput->GetMouseY ()), Vector2i(mpInput->GetMouseX (), mpInput->GetMouseY ())))
                return true;
       break;
 
       case sf::Event::MouseButtonReleased:
          for (ConType::iterator i = mHandlers.begin (); i != mHandlers.end (); i++)
-            if ((*i)->MouseUp (Event.MouseButton.Button, Vector2i(mpInput->GetMouseX (), mpInput->GetMouseY ()), Vector2i(mpInput->GetMouseX (), mpInput->GetMouseY ())))
+            if ((*i)->OnMouseUp (Event.MouseButton.Button, Vector2i(mpInput->GetMouseX (), mpInput->GetMouseY ()), Vector2i(mpInput->GetMouseX (), mpInput->GetMouseY ())))
                return true;
       break;
 
       case sf::Event::MouseMoved:
          for (ConType::iterator i = mHandlers.begin (); i != mHandlers.end (); i++)
-            if ((*i)->MouseMove (Vector2i(mpInput->GetMouseX (), mpInput->GetMouseY ()), Vector2i(mpInput->GetMouseX (), mpInput->GetMouseY ())))
+            if ((*i)->OnMouseMove (Vector2i(mpInput->GetMouseX (), mpInput->GetMouseY ()), Vector2i(mpInput->GetMouseX (), mpInput->GetMouseY ())))
                return true;
       break;
 
       case sf::Event::Closed:
          for (ConType::iterator i = mHandlers.begin (); i != mHandlers.end (); i++)
-            if ((*i)->Close ())
+            if ((*i)->OnClose ())
                return true;
       break;
 
       case sf::Event::MouseWheelMoved:
          for (ConType::iterator i = mHandlers.begin (); i != mHandlers.end (); i++)
-            if ((*i)->MouseWheel (Event.MouseWheel.Delta))
+            if ((*i)->OnMouseWheel (Event.MouseWheel.Delta))
                return true;
       break;
 

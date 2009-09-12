@@ -214,7 +214,7 @@ Camera::SetStatic (bool set)
 }
 
 bool
-Camera::KeyDown (sf::Key::Code Key)
+Camera::OnKeyDown (sf::Key::Code Key)
 {
    if (Key == sf::Key::D)
    {
@@ -244,7 +244,7 @@ Camera::KeyDown (sf::Key::Code Key)
 }
 
 bool
-Camera::MouseWheel (int Delta)
+Camera::OnMouseWheel (int Delta)
 {
    if (Delta > 0)
       ZoomIn();
@@ -253,6 +253,17 @@ Camera::MouseWheel (int Delta)
    return true;
 }
 
+bool Camera::OnResize(Vector2i NewSize)
+{
+   //Resize(NewSize);
+      // Update the views so they are not streched!
+      mpView->SetHalfSize(NewSize.x/(2*mZoomFactor),
+      NewSize.y/(2*mZoomFactor));
+      mpStaticView->SetHalfSize(NewSize.x/2, (NewSize.y)/2);
+      mpStaticView->SetCenter(NewSize.x/2, (NewSize.y)/2);
+      mViewRect = mpView->GetRect();
+      return true;
+}
 /*
 bool
 Camera::OnEvent (const sf::Event& Event)

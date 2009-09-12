@@ -45,7 +45,6 @@ int
 main ()
 {
    Camera * cam = Camera::GetInstance ();
-   cam->Create ("test");
 
    cam->SetWorldSize (Vector2f(1280, 720));
    cam->SetMaxFramerate (60);
@@ -57,8 +56,8 @@ main ()
    Interface* pInterface = new Interface();
    World theWorld;
    theWorld.AddTower (&theTower); // pointer for graphics
-   float width = cam->GetWorldRect().Right - cam->GetWorldRect().Left;
-   float height = cam->GetWorldRect().Bottom - cam->GetWorldRect().Top;
+   float width = cam->GetWorldSize().x;
+   float height = cam->GetWorldSize().y;
 
    cam->SetActive();
    cam->InitGL();
@@ -81,13 +80,7 @@ main ()
 
       while (mev.IsRunning())
       {
-         // This is a better setup than having the EventHandler store the camera itself
-         // You can make bogus events this way. (to test)
-         sf::Event Event;
-         while (cam->GetEvent(Event))
-         {
-            Events.HandleEvents (Event);
-         }
+         Events.HandleEvents ();
          cam->Clear ();
          cam->SetActive();
          cam->Integrate (60);

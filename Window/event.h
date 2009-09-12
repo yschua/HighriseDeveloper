@@ -47,7 +47,7 @@ private:
 public:
    EventHandler ();
    void Add (EventBase* Handler);
-   bool HandleEvents (const sf::Event& Event);
+   bool HandleEvents ();
 };
 
 #endif // _EVENT_H

@@ -36,8 +36,10 @@ EventHandler::Add (EventBase* Handler)
 }
 
 bool
-EventHandler::HandleEvents (const sf::Event& Event)
+EventHandler::HandleEvents ()
 {
+   sf::Event Event;
+   Cam->GetEvent (Event);
    switch (Event.Type)
    {
       case sf::Event::KeyPressed:

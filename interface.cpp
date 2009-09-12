@@ -38,7 +38,7 @@ void
 Interface::PosCalc ()
 {
    Camera::GetInstance ();
-   mClock->SetPosition ((Camera::GetInstance ()->GetCamRect ().Width() / 2) - 30, 0);
+   mClock->SetPosition ((Camera::GetInstance ()->GetCamSize ().x / 2) - 30, 0);
 }
 
 void

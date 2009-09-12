@@ -33,23 +33,20 @@
 Camera * Camera::mpInstance = NULL;
 
 Camera::Camera ()
-:  mback_color (0, 0, 0)
-,  Body (1280, 720)
+:  Body (1280, 720)
 {
    sf::WindowSettings Settings;
    Settings.DepthBits         = 24; // Request a 24 bits depth buffer
    Settings.StencilBits       = 8;  // Request a 8 bits stencil buffer
    Settings.AntialiasingLevel = 2;  // Request 2 levels of antialiasing
-
    mpWindow = new sf::RenderWindow ();
-   mpWindow->Create (sf::VideoMode (800, 600, 32), "Highrise Developer" HR_VERSION, sf::Style::Close, Settings);
-   mZoomFactor = -400; // back away 200 feet 
+   mpWindow->Create (sf::VideoMode (800, 600, 32), "Highrise Developer " HR_VERSION, sf::Style::Close, Settings);
+   mZoomFactor = -400; // back away 200 feet
    mAspect = 800.0/600;
+   mCam.x = 800;
+   mCam.y = 600;
    mIgnoreCamera = false;
    mpInput = &(mpWindow->GetInput ());
-   mViewRect =  sf::Rect<float>(0,0, mpWindow->GetWidth(), mpWindow->GetHeight() );//mpView->GetRect();
-   mWorldRect = sf::Rect<float>(0,0,1280,720);
-   mMovingView = false;
    ms.x = -620;
    ms.y = -170;
    mpWindow->ShowMouseCursor (false);
@@ -81,26 +78,12 @@ Camera::SetMaxFramerate (int rate)
    mpWindow->SetFramerateLimit (rate);
 }
 
-/*void
-Camera::SetCamSize (int x, int y)
-{
-   mpStaticView->SetHalfSize ((float)x/2, (float)y/2);
-   mpView->SetHalfSize ((float)x/2, (float)y/2);
-}*/
-
 void
 Camera::SetWorldSize (Vector2f Size)
 {
    glClearDepth(1.0f);
-
-   mWorldRect.Right = Size.x+mWorldRect.Left;
-   mWorldRect.Bottom = Size.y+mWorldRect.Top;
-}
-
-void
-Camera::Create (const std::string & caption)
-{
-
+   mWorld.x = Size.x;
+   mWorld.y = Size.y;
 }
 
 Camera*
@@ -144,8 +127,7 @@ Camera::Center (int x, int y)
 bool
 Camera::OnResize (Vector2i vi)
 {
-  glViewport(0, 0, vi.x, vi.y);
-
+   glViewport(0, 0, vi.x, vi.y);
    mAspect = (float)(vi.x) / vi.y;
 	gluPerspective (90.0f,mAspect ,1.0f,1000.0f);		// Calculate The Aspect Ratio Of The Window
    return true;
@@ -214,16 +196,6 @@ Camera::GetEvent (sf::Event & event)
    return mpWindow->GetEvent (event);
 }
 
-void
-Camera::SetStatic (bool set)
-{
-   //if (set)
-   //   mpWindow->SetView (*mpStaticView);
-   //else
-   //   mpWindow->SetView (*mpView);
-   mIgnoreCamera = set;
-}
-
 bool
 Camera::OnKeyDown (sf::Key::Code Key)
 {
@@ -274,11 +246,7 @@ Camera::ZoomOut()
 {
    Zoom(-10);
 }
-/////////////////////////////////////////////////////////////////////
-/// Zoom the camera by the specified factor towards the center of
-/// the screen. If you just want to zoom in or out, use the ZoomIn()
-/// or ZoomOut() functions, as their zooms can be user-configured
-/////////////////////////////////////////////////////////////////////
+
 void
 Camera::Zoom(float Factor)
 {
@@ -289,105 +257,4 @@ Camera::Zoom(float Factor)
       mZoomFactor += Factor;
    }
    std::cout << "ZF=" << mZoomFactor << "\n";
-}
-
-/////////////////////////////////////////////////////////////////////
-/// Move the camera by the specified number of pixels
-/////////////////////////////////////////////////////////////////////
-void
-Camera::Movepx(Vector2f Movement)
-{
-   Rectf NewRect = mViewRect;
-   NewRect.Move(Movement);
-   //std::cout << "Movement: " << Movement.x << ", " << Movement.y << "\n";
-   //std::cout << "Orig rect: " << mViewRect.Top << ", " << mViewRect.Left << ", " << mViewRect.Right << ", " << mViewRect.Bottom << "\n";
-   //std::cout << "After Movement: " << NewRect.Top << ", " << NewRect.Left << ", " << NewRect.Right << ", " << NewRect.Bottom << "\n";
-   AdjustBounds(NewRect);
-   if (CheckBounds(NewRect))
-   {
-      mpView->SetFromRect(NewRect);
-      mViewRect = NewRect;
-      //std::cout << "member rect: "; mViewRect.DebugPrint(); std::cout << "\n";// << mViewRect.Top << ", " << mViewRect.Left << ", " << mViewRect.Right << ", " << mViewRect.Bottom << "W: " << mViewRect.Width() << "H: " << mViewRect.Height() << "\n";
-      //std::cout << "After Adjustment: "; NewRect.DebugPrint(); std::cout << "\n";
-      //std::cout << "View rect: "; ((Rectf)mpView->GetRect()).DebugPrint(); std::cout << "\n";
-   }
-}
-
-/////////////////////////////////////////////////////////////////////
-/// Set the center of the camera in pixels
-/////////////////////////////////////////////////////////////////////
-void
-Camera::Setpx(Vector2f Center)
-{
-   /*sf::Vector2<int> Center;
-   Center.x = (mWorldRect.Left+mWorldRect.Right)/2;
-   Center.y = (mWorldRect.Top+mWorldRect.Bottom)/2;*/
-   Rectf NewRect = mViewRect;
-   NewRect.Move(Vector2f(-Center.x, -Center.y));
-   /*NewRect.Top = mViewRect.Top-Center.y;
-   NewRect.Left = mViewRect.Left-Center.x;
-   NewRect.Right = mViewRect.Right-Center.x;
-   NewRect.Bottom = mViewRect.Bottom-Center.y;*/
-   AdjustBounds(NewRect);
-   if (CheckBounds(NewRect))
-   {
-      mpView->SetFromRect(NewRect);
-      mViewRect = NewRect;
-   }
-}
-/////////////////////////////////////////////////////////////////////
-/// Check if a rectangle is entirely within the bounds of the world
-/// Returns true if it is, false if it falls outside.
-/////////////////////////////////////////////////////////////////////
-bool
-Camera::CheckBounds(const Rectf& RectToCheck)
-{
-   if (RectToCheck.Left < mWorldRect.Left)
-      std::cout << "Outisde of Left bound\n";
-   else if (RectToCheck.Right > mWorldRect.Right)
-      std::cout << "Outside of Right bound\n";
-   else if (RectToCheck.Top < mWorldRect.Top)
-      std::cout << "Ouside of Top bound\n";
-   else if (RectToCheck.Bottom > mWorldRect.Bottom)
-      std::cout << "Outside of Bottom bound\n";
-   else
-      return true;
-   return false;
-}
-/////////////////////////////////////////////////////////////////////
-/// Adjusts a rectangle so that it is within the bounds of the world
-/// The rectangle passed as reference is changed.
-/////////////////////////////////////////////////////////////////////
-void
-Camera::AdjustBounds(Rectf& RectToAdjust)
-{
-   float diff = mWorldRect.Left - RectToAdjust.Left;
-   if (RectToAdjust.Left < mWorldRect.Left)
-   {
-      RectToAdjust.Left = mWorldRect.Left;
-      RectToAdjust.Right += diff;
-   }
-   else if (RectToAdjust.Right > mWorldRect.Right)
-   {
-      float extra = RectToAdjust.Right - mWorldRect.Right;
-      if( diff < extra ) extra = diff; // don't rip the left from the wall
-      RectToAdjust.Right-=diff;
-      RectToAdjust.Left-=diff;
-   }
-   diff = RectToAdjust.Top - mWorldRect.Top;
-   if (RectToAdjust.Top < mWorldRect.Top)
-   {
-      RectToAdjust.Top=mWorldRect.Top;
-      RectToAdjust.Right+=diff;
-   }
-   else if (RectToAdjust.Bottom > mWorldRect.Bottom)
-   {
-      float extra = RectToAdjust.Bottom - mWorldRect.Bottom;
-      if( diff < extra ) extra = diff; // don't rip the left from the wall
-      RectToAdjust.Bottom-=diff;
-      RectToAdjust.Top-=diff;
-   }
-
-   if (!CheckBounds(RectToAdjust))
-      std::cout << "Unable to adjust rect!";
 }

@@ -31,43 +31,32 @@ class World;
 class Camera : public Body, public EventBase
 {
 private:
-   //int mworld_x, mworld_y, mcamx, mcamy;
+   Vector2f mWorld, mCam;
    sf::Window* mpWindow;
-   sf::View* mpView;
-   sf::View* mpStaticView;
-   sf::Color mback_color;
-   sf::WindowSettings Settings;
    const sf::Input* mpInput;
    static Camera* mpInstance;
    float mZoomFactor;
    float mAspect;
    bool mIgnoreCamera;
-   Rectf mWorldRect;
-   Rectf mViewRect;
    Vector2i mMouseStartPos;
    bool mMovingView;
-
-   // CTOR/DTOR
-private:
    Camera ();
+
 protected:
    ~Camera() {};
+   void Zoom (float Factor);
+   void SetStatic (bool set);
    // instance
+
 public:
    static Camera* GetInstance();
-   static Camera* i();
    const sf::Input * GetInput ();
-
    // properties
    void SetMaxFramerate (int rate);
    //void SetCamSize (int x, int y);
    void SetWorldSize (Vector2f);
-   Rectf GetWorldRect() { return mWorldRect; }
-   Rectf GetCamRect() { return mViewRect; }
-   //int GetWorldX ();
-   //int GetWorldY ();
-   //int GetCamSizeX ();
-   //int GetCamSizeY ();
+   Vector2f GetWorldSize () { return mWorld; }
+   Vector2f GetCamSize () { return mCam; }
    Vector2i GetMouse ();
    Vector2i GetLocalMouse();
 
@@ -78,30 +67,12 @@ public:
    void InitGL();
 
    void DrawModel (World* pModel);
-   void DrawInterface (Interface* pI); // temp until we build the rest of the view
-   // Four Draw methods to be depricated when we move the view objects
-   //void Draw (Animation & to_draw);
-   //void Draw (AnimationSingle & to_draw); // used by Interface for now
-   //void Draw (Tiler & to_draw);
-   void Draw (const sf::Drawable& ToDraw)
-   {
-//      mpWindow->Draw(ToDraw);
-   }
+   void DrawInterface (Interface* pI);
    void Create (const std::string & caption);
    void Center (int x, int y);
-   //bool Resize (Vector2i viewSize);
    bool GetEvent (sf::Event & event);
-protected:
-   void Zoom (float Factor);
-   void SetStatic (bool set);
-public:
-   bool OnEvent(const sf::Event& Event);
    void ZoomIn();
    void ZoomOut();
-   void Movepx(Vector2f Movement);
-   void Setpx(Vector2f Center);
-   bool CheckBounds(const Rectf& RectToCheck);
-   void AdjustBounds(Rectf& RectToAdjust);
 
    // Event hanlders
    bool OnKeyDown (sf::Key::Code Key);

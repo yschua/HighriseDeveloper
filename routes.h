@@ -27,7 +27,7 @@ private:
 
 public:
    Routes(); // not part of Tower.
-
+   ~Routes();
 //   static Routes* GetInstance ();
    std::vector<RouteBase *>& Get_Routes()
    {

@@ -28,10 +28,10 @@ ModelObject::ModelObject ()
 void ModelObject::Render(Body* pBody)
 {
    float x = pBody->GetPositionX();//-ms.x; position needs to be a member of modelObject, let physics access it to move it.
-   float y = pBody->GetPositionY();//-ms.y;
+   float y = -pBody->GetPositionY();//-ms.y;
    float z = 0; //pBody->GetPositionZ();
    float x2 = x + pBody->GetWidth();
-   float y2 = y + pBody->GetHeight();
+   float y2 = y - pBody->GetHeight();
    glBindTexture( GL_TEXTURE_2D, pBody->GetTextureID() );//to_draw.GetTexture() ); // get the current texture
    glBegin(GL_QUADS);
    {
@@ -50,10 +50,10 @@ void ModelObject::Render(Body* pBody)
 void ModelObject::Render(Tiler* pTiler)
 {
    float x = pTiler->GetPositionX();//-ms.x; position needs to be a member of modelObject, let physics access it to move it.
-   float y = pTiler->GetPositionY();//-ms.y;
+   float y = -pTiler->GetPositionY();//-ms.y;
    float z = 0;//pTiler->GetPositionZ();
    float x2 = x + pTiler->GetWidth();
-   float y2 = y + pTiler->GetHeight();
+   float y2 = y - pTiler->GetHeight();
    float xT = pTiler->GetTesselX();
    float yT = pTiler->GetTesselY();
    glBindTexture( GL_TEXTURE_2D, pTiler->GetTextureID() );//to_draw.GetTexture() ); // get the current texture

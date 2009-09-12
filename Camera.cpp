@@ -14,7 +14,6 @@
  *along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-//#ifdef WIN32
 #include "resources.h"
 
 #include <iostream>
@@ -37,20 +36,22 @@ Camera::Camera ()
 :  mback_color (0, 0, 0)
 ,  Body (1280, 720)
 {
+   sf::WindowSettings Settings;
+   Settings.DepthBits         = 24; // Request a 24 bits depth buffer
+   Settings.StencilBits       = 8;  // Request a 8 bits stencil buffer
+   Settings.AntialiasingLevel = 2;  // Request 2 levels of antialiasing
 
    mpWindow = new sf::RenderWindow ();
-   mpWindow->Create (sf::VideoMode (800, 600, 32), "Highrise Developer" HR_VERSION);
-   mpStaticView = &mpWindow->GetDefaultView ();
-   mpView = new sf::View(*mpStaticView);
-   mZoomFactor = -1; // 1 unit back away
+   mpWindow->Create (sf::VideoMode (800, 600, 32), "Highrise Developer" HR_VERSION, sf::Style::Close, Settings);
+   mZoomFactor = -400; // back away 200 feet 
    mAspect = 800.0/600;
    mIgnoreCamera = false;
    mpInput = &(mpWindow->GetInput ());
-   mViewRect = mpView->GetRect();
+   mViewRect =  sf::Rect<float>(0,0, mpWindow->GetWidth(), mpWindow->GetHeight() );//mpView->GetRect();
    mWorldRect = sf::Rect<float>(0,0,1280,720);
    mMovingView = false;
-   ms.x = -300;
-   ms.y = -400;
+   ms.x = -620;
+   ms.y = -170;
    mpWindow->ShowMouseCursor (false);
 }
 
@@ -70,7 +71,7 @@ Camera::GetMouse ()
 Vector2i
 Camera::GetLocalMouse()
 {
-   return mpWindow->ConvertCoords (mpInput->GetMouseX (), mpInput->GetMouseY (), mpStaticView);
+   return Vector2i (mpInput->GetMouseX (), mpInput->GetMouseY ());
 }
 
 
@@ -117,7 +118,7 @@ void
 // modes functions
 Camera::Clear ()
 {
-   mpWindow->Clear (mback_color);
+   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 void
@@ -136,15 +137,17 @@ Camera::Display ()
 void
 Camera::Center (int x, int y)
 {
-   ms.x = -400; //x - (mViewRect.Left / 2);
-   ms.y = -400; //y - (mViewRect.Top / 2);
+   ms.x = -550; //x - (mViewRect.Left / 2);
+   ms.y = -200; //y - (mViewRect.Top / 2);
 }
 
 bool
-Camera::Resize (Vector2i vi)
+Camera::OnResize (Vector2i vi)
 {
+  glViewport(0, 0, vi.x, vi.y);
+
    mAspect = (float)(vi.x) / vi.y;
-	gluPerspective (45.0f,mAspect ,0.1f,100.0f);		// Calculate The Aspect Ratio Of The Window
+	gluPerspective (90.0f,mAspect ,1.0f,1000.0f);		// Calculate The Aspect Ratio Of The Window
    return true;
 }
 
@@ -153,24 +156,31 @@ Camera::InitGL()
 {
 	glShadeModel(GL_SMOOTH);												// Enable Smooth Shading
 	glClearDepth(1.0f);														// Depth Buffer Setup
-//	glClearDepth(1.0f);														// Depth Buffer Setup
+   glClearColor(0.f, 0.f, 0.f, 0.f);
 	glDepthFunc(GL_LEQUAL);													// The Type Of Depth Testing To Do
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);						// Really Nice Perspective Calculations
-	gluPerspective (45.0f,mAspect ,0.1f,100.0f);		// Calculate The Aspect Ratio Of The Window
+
+
+   // Enable Z-buffer read and write
+   glEnable(GL_DEPTH_TEST);
+   glDepthMask(GL_TRUE);
+
+   // Setup a perspective projection
+   glMatrixMode(GL_PROJECTION);
+   glLoadIdentity();
+   gluPerspective(90.0f, mAspect, 1.0f, 1000.f);
+   glEnable (GL_TEXTURE_2D);
 }
 
 void
 Camera::DrawModel (World* pModel)   // 3d interface objects
 {
-   glDisable (GL_LIGHTING);
-   glMatrixMode(GL_PROJECTION);
-   glPushMatrix();
-   glFrustum( -500, 500, -500, 500, 1000,1.0 );
+//   glDisable (GL_LIGHTING);
    glMatrixMode(GL_MODELVIEW);
-//   glLoadIdentity();
    glPushMatrix();
    {                       // brackets just keep the code in push and pop uniform
-      glTranslatef (GetPositionX()+300, -(GetPositionY()), mZoomFactor-1.0f);
+      glEnable (GL_TEXTURE_2D);
+      glTranslatef (GetPositionX(), GetPositionY(), mZoomFactor);
       glColor4ub (255,255,255,255);
       glEnable(GL_BLEND);
       glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA  );
@@ -179,16 +189,17 @@ Camera::DrawModel (World* pModel)   // 3d interface objects
       glDisable(GL_BLEND);
    }
    glPopMatrix();
-   glMatrixMode(GL_PROJECTION);
-   glPopMatrix();
 }
 
 void
 Camera::DrawInterface(Interface* pI)   // 2d interface objects
 {
-   glMatrixMode(GL_PROJECTION);
+   glMatrixMode(GL_MODELVIEW);
    glPushMatrix();
-//      glLoadIdentity();
+      glLoadIdentity();
+      glEnable (GL_TEXTURE_2D);
+      glTranslatef ( -0.3125*mWidth.x, mHeight.y/2-144, -380);
+//      glTranslatef (GetPositionX(), GetPositionY(), mZoomFactor);
       glColor4ub (255,255,255,255);
       glEnable(GL_BLEND);
       glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA  );
@@ -206,10 +217,10 @@ Camera::GetEvent (sf::Event & event)
 void
 Camera::SetStatic (bool set)
 {
-   if (set)
-      mpWindow->SetView (*mpStaticView);
-   else
-      mpWindow->SetView (*mpView);
+   //if (set)
+   //   mpWindow->SetView (*mpStaticView);
+   //else
+   //   mpWindow->SetView (*mpView);
    mIgnoreCamera = set;
 }
 
@@ -253,104 +264,15 @@ Camera::OnMouseWheel (int Delta)
    return true;
 }
 
-bool Camera::OnResize(Vector2i NewSize)
-{
-   //Resize(NewSize);
-      // Update the views so they are not streched!
-      mpView->SetHalfSize(NewSize.x/(2*mZoomFactor),
-      NewSize.y/(2*mZoomFactor));
-      mpStaticView->SetHalfSize(NewSize.x/2, (NewSize.y)/2);
-      mpStaticView->SetCenter(NewSize.x/2, (NewSize.y)/2);
-      mViewRect = mpView->GetRect();
-      return true;
-}
-/*
-bool
-Camera::OnEvent (const sf::Event& Event)
-{
-   if (Event.Type == sf::Event::Resized)
-   {
-      // Update the views so they are not streched!
-      mpView->SetHalfSize(Event.Size.Width/(2*mZoomFactor),
-      Event.Size.Height/(2*mZoomFactor));
-      mpStaticView->SetHalfSize(Event.Size.Width/2, (Event.Size.Height)/2);
-      mpStaticView->SetCenter(Event.Size.Width/2, (Event.Size.Height)/2);
-      mViewRect = mpView->GetRect();
-      return false;
-   }
-   if (Event.Type == sf::Event::MouseMoved)
-   {
-      if (mMovingView)
-      {
-         Movepx(Vector2f(((mMouseStartPos.x-Event.MouseMove.X)), ((mMouseStartPos.y-Event.MouseMove.Y))));
-         mMouseStartPos.x = Event.MouseMove.X;
-         mMouseStartPos.y = Event.MouseMove.Y;
-         return true;
-      }
-   }
-   if (Event.Type == sf::Event::MouseButtonPressed)
-   {
-      if (mpInput->IsKeyDown(sf::Key::LControl) || mpInput->IsKeyDown(sf::Key::RControl))
-      {
-         mMovingView = true;
-         mMouseStartPos.x = mpInput->GetMouseX();
-         mMouseStartPos.y = mpInput->GetMouseY();
-         return true;
-      }
-   }
-   if (Event.Type == sf::Event::MouseWheelMoved)
-   {
-      if (Event.MouseWheel.Delta > 0)
-         ZoomIn();
-      else
-         ZoomOut();
-      return true;
-   }
-   if (Event.Type == sf::Event::KeyReleased)
-   {
-      if (Event.Key.Code == sf::Key::LControl || Event.Key.Code == sf::Key::RControl)
-         mMovingView = false;
-   }
-   if (Event.Type == sf::Event::KeyPressed)
-   {
-      // TODO: Bounds checking here. Not familiar with the Body class...
-      if (Event.Key.Code == sf::Key::A)
-      {
-         mv.x = -200;
-         ma.x = 150;
-      }
-      if (Event.Key.Code == sf::Key::S)
-      {
-         mv.y = 200;
-         ma.y = -150;
-      }
-      if (Event.Key.Code == sf::Key::D)
-      {
-         mv.x = 200;
-         ma.x = -150;
-      }
-      if (Event.Key.Code == sf::Key::W)
-      {
-         mv.y = -200;
-         ma.y = 150;
-      }
-      if (Event.Key.Code == sf::Key::E)
-      {
-         SetVelocity (0, 0);
-      }
-   }
-   return false;
-}*/
-
 void
 Camera::ZoomIn()
 {
-   Zoom(0.05);
+   Zoom(10);
 }
 void
 Camera::ZoomOut()
 {
-   Zoom(-0.05);
+   Zoom(-10);
 }
 /////////////////////////////////////////////////////////////////////
 /// Zoom the camera by the specified factor towards the center of
@@ -362,62 +284,11 @@ Camera::Zoom(float Factor)
 {
    //Rectf ZoomedRect;
    // Calcuate the center
-   if( Factor < 0 && mZoomFactor > -5 || Factor > 0 && mZoomFactor < 0.45 )
+   if( Factor < 0 && mZoomFactor > -900 || Factor > 0 && mZoomFactor < -40 )
    {
       mZoomFactor += Factor;
    }
    std::cout << "ZF=" << mZoomFactor << "\n";
-
-   // 3D world, you have to consider the frustum to calc positioning
-/*
-      Vector2f Center;
-      Center.x = (mViewRect.Left+mViewRect.Right)/2;
-      Center.y = (mViewRect.Top+mViewRect.Bottom)/2;
-      // Divide the offset amount by the zoom factor
-      Rectf DifRect;
-      DifRect = mViewRect;
-      // Move the rect so it is centered at (0,0)
-      DifRect.Move(Vector2f(-Center.x, -Center.y));
-      //DifRect.Top = mViewRect.Top-Center.y;
-      DifRect.Top /= Factor;
-      DifRect.Bottom /= Factor;
-      DifRect.Left /= Factor;
-      DifRect.Right /= Factor;
-      std::cout << "Aspect: " << (double)DifRect.Height()/DifRect.Width() << " ZF=" << mZoomFactor << "\n";
-      // Move it back to it's original offset
-      DifRect.Move(Vector2f(Center.x, Center.y));
-   //ZoomedRect = DifRect;
-   // Change the zoomed rect
-   //ZoomedRect.Top = DifRect.Top+Center.y;
-   //std::cout << "Top: " << ZoomedRect.Top << " Center: (" << Center.x << ", " << Center.y << ") OrigTop: " << mWorldRect.Top << '\n';
-   //DifRect.Bottom = (-Center.y)+mViewRect.Bottom;
-
-   //ZoomedRect.Bottom = DifRect.Bottom+Center.y;
-   //DifRect.Left = (-Center.x)+mViewRect.Left;
-
-   //ZoomedRect.Left = DifRect.Left+Center.x;
-   //DifRect.Right = (-Center.x)+mViewRect.Right;
-
-   //ZoomedRect.Right = DifRect.Right+Center.x;
-
-      AdjustBounds(DifRect);
-
-//   if (CheckBounds(DifRect))
-      {
-         mpView->SetFromRect(DifRect);
-         mZoomFactor = mZoomFactor*Factor;
-      //std::cout << "Zooming by a factor of: " << mZoomFactor << '\n';
-      //std::cout << "Approx Top: " << ZoomedRect.Top << " Left: " << ZoomedRect.Left << " Right: " << ZoomedRect.Right << " Bottom: " << ZoomedRect.Bottom << '\n';
-         mViewRect = DifRect;
-      //std::cout << "Actual Top: " << Gfx::View.GetRect().Top << " Left: " << Gfx::View.GetRect().Left << " Right: " << Gfx::View.GetRect().Right << " Bottom: " << Gfx::View.GetRect().Bottom << '\n';
-      //Gfx::Window.SetView(Gfx::View);
-      }
-   }
-   else
-   {
-      std::cout << "DEBUG: mViewRect is (" << mViewRect.Top << ", " << mViewRect.Left << ", " << mViewRect.Right << ", " << mViewRect.Bottom << ")\n";
-      std::cout << "DEBUG: mWorldRect is (" << mWorldRect.Top << ", " << mWorldRect.Left << ", " << mWorldRect.Right << ", " << mWorldRect.Bottom << ")\n";
-   }*/
 }
 
 /////////////////////////////////////////////////////////////////////
@@ -490,26 +361,6 @@ Camera::CheckBounds(const Rectf& RectToCheck)
 void
 Camera::AdjustBounds(Rectf& RectToAdjust)
 {
-   //while (RectToAdjust.Left < mWorldRect.Left)
-   //{
-   //   RectToAdjust.Left++;
-   //   RectToAdjust.Right++;
-   //}
-   //while (RectToAdjust.Right > mWorldRect.Right)
-   //{
-   //   RectToAdjust.Right--;
-   //   RectToAdjust.Left--;
-   //}
-   //while (RectToAdjust.Top < mWorldRect.Top)
-   //{
-   //   RectToAdjust.Top++;
-   //   RectToAdjust.Bottom++;
-   //}
-   //while (RectToAdjust.Bottom > mWorldRect.Bottom)
-   //{
-   //   RectToAdjust.Bottom--;
-   //   RectToAdjust.Top--;
-   //}
    float diff = mWorldRect.Left - RectToAdjust.Left;
    if (RectToAdjust.Left < mWorldRect.Left)
    {

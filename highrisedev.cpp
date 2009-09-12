@@ -49,7 +49,7 @@ main ()
 
    cam->SetWorldSize (Vector2f(1280, 720));
    cam->SetMaxFramerate (60);
-//   sf::Event event;
+
    Elevator* pElevator;
    Background * pBackground;
    Tower theTower (1, 10); // numero uno with 10 sub levels
@@ -60,6 +60,7 @@ main ()
    float width = cam->GetWorldRect().Right - cam->GetWorldRect().Left;
    float height = cam->GetWorldRect().Bottom - cam->GetWorldRect().Top;
 
+   cam->SetActive();
    cam->InitGL();
    sf::String Title( string("Alpha"));
 
@@ -68,10 +69,6 @@ main ()
       // stuffing the floors with test spaces
       theTower.DebugLoad (0,0,0);
 
-      pElevator = new Elevator( Elevator::LS_Standard, 472, -1, 6, &theTower );
-      theTower.GetRoutes().AddRoute( pElevator );
-      pElevator = new Elevator( Elevator::LS_Standard, 472 + 36 + 9, 0, 5, &theTower );
-      theTower.GetRoutes().AddRoute( pElevator );
       pBackground = new Background (width, height);
       theWorld.SetBG (pBackground);
       GUIManager Gui;
@@ -87,20 +84,22 @@ main ()
          // This is a better setup than having the EventHandler store the camera itself
          // You can make bogus events this way. (to test)
          sf::Event Event;
-         while (cam->GetEvent(Event)) {
+         while (cam->GetEvent(Event))
+         {
             Events.HandleEvents (Event);
          }
          cam->Clear ();
+         cam->SetActive();
          cam->Integrate (60);
          theTower.Update (60);
          cam->DrawModel(&theWorld); // the background and tower(s).
          pInterface->Update(60);
          cam->DrawInterface( pInterface );
-         cam->Draw (Title);
 
          Gui.Draw ();
+
          cam->Display ();
-         //People.Update( 40 );
+         People.Update( 40 );
       }
    }
    catch ( HighriseException* ex )

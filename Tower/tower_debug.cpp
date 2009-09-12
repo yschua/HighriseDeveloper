@@ -36,6 +36,10 @@
 void
 Tower::DebugLoad (int x, int y, int x2)
 {
+      Elevator* pElevator = new Elevator( Elevator::LS_Standard, 472, -1, 6, this );
+      GetRoutes().AddRoute( pElevator );
+      pElevator = new Elevator( Elevator::LS_Standard, 472 + 36 + 9, 0, 5, this );
+      GetRoutes().AddRoute( pElevator );
       // stuffing the floors with test spaces
       office* my_office = new office(400, 1, this);
       office* my_office2 = new office (400, 2, this);

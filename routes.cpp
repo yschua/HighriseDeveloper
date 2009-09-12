@@ -24,6 +24,18 @@ Routes::Routes()
 {
 }
 
+Routes::~Routes()
+{
+   std::vector<RouteBase*>::iterator i;
+   for (i = mRoutes.begin (); i != mRoutes.end (); i++)
+   {
+      RouteBase*  pRoute = (*i);
+   // TODO: this needs to be done but there is a bug here
+   //   delete pRoute;
+   }
+   //mRoutes.clear();
+}
+
 void Routes::AddRoute(RouteBase* route)
 {
    mRoutes.push_back( route );

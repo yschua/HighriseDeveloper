@@ -46,7 +46,7 @@ public:
    {
       return mbRunning;
    }
-   bool Close()
+   bool OnClose()
    {
       mbRunning = false;
       return true;

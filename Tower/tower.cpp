@@ -45,7 +45,13 @@ Tower::Tower (int towerNo, int NoSubLevels)
 
 Tower::~Tower( )
 {
-
+   std::vector<Level *>::iterator iLevel;
+   for (iLevel = mLevels.begin (); iLevel != mLevels.end (); ++iLevel)
+   {
+      Level *pLevel = (*iLevel);
+      delete pLevel;
+   }
+   mLevels.clear();
 }
 
 Level* Tower::NewLevel (int x, int y, int x2)

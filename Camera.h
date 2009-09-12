@@ -32,10 +32,11 @@ class Camera : public Body, public EventBase
 {
 private:
    //int mworld_x, mworld_y, mcamx, mcamy;
-   sf::RenderWindow* mpWindow;
+   sf::Window* mpWindow;
    sf::View* mpView;
    sf::View* mpStaticView;
    sf::Color mback_color;
+   sf::WindowSettings Settings;
    const sf::Input* mpInput;
    static Camera* mpInstance;
    float mZoomFactor;
@@ -84,14 +85,16 @@ public:
    //void Draw (Tiler & to_draw);
    void Draw (const sf::Drawable& ToDraw)
    {
-      mpWindow->Draw(ToDraw);
+//      mpWindow->Draw(ToDraw);
    }
    void Create (const std::string & caption);
    void Center (int x, int y);
-   bool Resize (Vector2i viewSize);
+   //bool Resize (Vector2i viewSize);
    bool GetEvent (sf::Event & event);
+protected:
    void Zoom (float Factor);
    void SetStatic (bool set);
+public:
    bool OnEvent(const sf::Event& Event);
    void ZoomIn();
    void ZoomOut();

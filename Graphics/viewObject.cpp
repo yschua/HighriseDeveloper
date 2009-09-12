@@ -31,8 +31,8 @@ ViewObject::ViewObject ()
 void ViewObject::Render(Body* pBody)
 {
    float x = pBody->GetPositionX();//-ms.x; position needs to be a member of modelObject, let physics access it to move it.
-   float y = pBody->GetPositionY();//-ms.y;
-   float z = 0; //pBody->GetPositionZ();
+   float y = -pBody->GetPositionY();//-ms.y;
+   float z = 100; //pBody->GetPositionZ();
    float x2 = x + pBody->GetWidth();
    float y2 = y + pBody->GetHeight();
    glBindTexture( GL_TEXTURE_2D, pBody->GetTextureID() );//to_draw.GetTexture() ); // get the current texture

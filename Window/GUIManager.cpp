@@ -97,7 +97,7 @@ GUIManager::OnMouseWheel (int Delta)
 
 bool GUIManager::OnResize(Vector2i NewSize)
 {
-
+   return false;
 }
 
 void GUIManager::Draw()

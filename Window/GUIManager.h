@@ -15,7 +15,6 @@ public:
 	~GUIManager();
 
 	//bool Initialize(sf::RenderWindow* Win);
-   bool Resize (Vector2i) { return false; }
    bool MouseDown (sf::Mouse::Button Button, Vector2i World, Vector2i Cam);
    bool MouseUp (sf::Mouse::Button Button, Vector2i World, Vector2i Cam);
    bool KeyDown (sf::Key::Code Key);
@@ -24,8 +23,8 @@ public:
    bool MouseWheel (int Delta);
 	void Draw();
 
-	CEGUI::System* getSystem() {return mpSystem;}
-	CEGUI::WindowManager* getWindowManager() {return mpWM;}
+	CEGUI::System* getSystem() { return mpSystem; }
+	CEGUI::WindowManager* getWindowManager() { return mpWM; }
 	void setRootWindow(CEGUI::Window* Win) {mpSystem->setGUISheet(Win); mpRootWind = Win;}
 
 private:

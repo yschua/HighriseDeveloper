@@ -30,7 +30,7 @@ Interface::Interface ()
 {
    ImageManager * images = ImageManager::GetInstance ();
    Texture* pTex = images->GetTexture ("clock.png", GL_RGBA);
-   mClock = new AnimationSingle (pTex, 60, 60);
+   mClock = new AnimationSingle (pTex, 64, 64);
    PosCalc ();
 }
 

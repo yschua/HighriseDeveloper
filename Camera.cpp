@@ -243,6 +243,16 @@ Camera::KeyDown (sf::Key::Code Key)
    return true;
 }
 
+bool
+Camera::MouseWheel (int Delta)
+{
+   if (Delta > 0)
+      ZoomIn();
+   else
+      ZoomOut();
+   return true;
+}
+
 /*
 bool
 Camera::OnEvent (const sf::Event& Event)

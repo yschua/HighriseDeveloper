@@ -79,7 +79,12 @@ GUIManager::MouseMove (Vector2i World, Vector2i Cam)
 bool
 GUIManager::MouseWheel (int Delta)
 {
-   return mpSystem->injectMouseWheelChange(static_cast<float>(Delta));
+   if (mpSystem->injectMouseWheelChange(static_cast<float>(Delta))) {
+      std::cout << "GUIManager ate MouseWheel" << std::endl;
+      return true;
+   }
+   else
+      return false;
 }
 
 

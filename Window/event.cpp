@@ -38,48 +38,59 @@ EventHandler::Add (EventBase* Handler)
 bool
 EventHandler::HandleEvents (const sf::Event& Event)
 {
-   if (Event.Type == sf::Event::KeyPressed)
+   switch (Event.Type)
    {
-      for (ConType::iterator i = mHandlers.begin (); i != mHandlers.end (); i++)
-         if ((*i)->KeyDown (Event.Key.Code))
-            return true;
-            // return true if one of our handlers returned true; ie the event was eaten
+      case sf::Event::KeyPressed:
+         for (ConType::iterator i = mHandlers.begin (); i != mHandlers.end (); i++)
+            if ((*i)->KeyDown (Event.Key.Code))
+               return true;
+               // return true if one of our handlers returned true; ie the event was eaten
+      break;
+
+      case sf::Event::Resized:
+         for (ConType::iterator i = mHandlers.begin (); i != mHandlers.end (); i++)
+            if ((*i)->Resize (Vector2i(Event.Size.Width, Event.Size.Height)))
+               return true;
+      break;
+
+      case sf::Event::KeyReleased:
+         for (ConType::iterator i = mHandlers.begin (); i != mHandlers.end (); i++)
+            if ((*i)->KeyUp (Event.Key.Code))
+               return true;
+      break;
+
+      case sf::Event::MouseButtonPressed:
+         for (ConType::iterator i = mHandlers.begin (); i != mHandlers.end (); i++)
+            if ((*i)->MouseDown (Event.MouseButton.Button, Vector2i(mpInput->GetMouseX (), mpInput->GetMouseY ()), Vector2i(mpInput->GetMouseX (), mpInput->GetMouseY ())))
+               return true;
+      break;
+
+      case sf::Event::MouseButtonReleased:
+         for (ConType::iterator i = mHandlers.begin (); i != mHandlers.end (); i++)
+            if ((*i)->MouseUp (Event.MouseButton.Button, Vector2i(mpInput->GetMouseX (), mpInput->GetMouseY ()), Vector2i(mpInput->GetMouseX (), mpInput->GetMouseY ())))
+               return true;
+      break;
+
+      case sf::Event::MouseMoved:
+         for (ConType::iterator i = mHandlers.begin (); i != mHandlers.end (); i++)
+            if ((*i)->MouseMove (Vector2i(mpInput->GetMouseX (), mpInput->GetMouseY ()), Vector2i(mpInput->GetMouseX (), mpInput->GetMouseY ())))
+               return true;
+      break;
+
+      case sf::Event::Closed:
+         for (ConType::iterator i = mHandlers.begin (); i != mHandlers.end (); i++)
+            if ((*i)->Close ())
+               return true;
+      break;
+
+      case sf::Event::MouseWheelMoved:
+         for (ConType::iterator i = mHandlers.begin (); i != mHandlers.end (); i++)
+            if ((*i)->MouseWheel (Event.MouseWheel.Delta))
+               return true;
+      break;
+
+      default:
+         return false;
+      break;
    }
-   else if (Event.Type == sf::Event::Resized)
-   {
-      for (ConType::iterator i = mHandlers.begin (); i != mHandlers.end (); i++)
-         if ((*i)->Resize (Vector2i(Event.Size.Width, Event.Size.Height)))
-            return true;
-   }
-   else if (Event.Type == sf::Event::KeyReleased)
-   {
-      for (ConType::iterator i = mHandlers.begin (); i != mHandlers.end (); i++)
-         if ((*i)->KeyUp (Event.Key.Code))
-            return true;
-   }
-   else if (Event.Type == sf::Event::MouseButtonPressed)
-   {
-      for (ConType::iterator i = mHandlers.begin (); i != mHandlers.end (); i++)
-         if ((*i)->MouseDown (Event.MouseButton.Button, Vector2i(mpInput->GetMouseX (), mpInput->GetMouseY ()), Vector2i(mpInput->GetMouseX (), mpInput->GetMouseY ())))
-            return true;
-   }
-   else if (Event.Type == sf::Event::MouseButtonReleased)
-   {
-      for (ConType::iterator i = mHandlers.begin (); i != mHandlers.end (); i++)
-         if ((*i)->MouseUp (Event.MouseButton.Button, Vector2i(mpInput->GetMouseX (), mpInput->GetMouseY ()), Vector2i(mpInput->GetMouseX (), mpInput->GetMouseY ())))
-            return true;
-   }
-   else if (Event.Type == sf::Event::MouseMoved)
-   {
-      for (ConType::iterator i = mHandlers.begin (); i != mHandlers.end (); i++)
-         if ((*i)->MouseMove (Vector2i(mpInput->GetMouseX (), mpInput->GetMouseY ()), Vector2i(mpInput->GetMouseX (), mpInput->GetMouseY ())))
-            return true;
-   }
-   else if (Event.Type == sf::Event::Closed)
-   {
-      for (ConType::iterator i = mHandlers.begin (); i != mHandlers.end (); i++)
-         if ((*i)->Close ())
-            return true;
-   }
-   return false;
 }

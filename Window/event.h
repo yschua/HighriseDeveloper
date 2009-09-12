@@ -23,6 +23,9 @@ class Camera;
 class EventBase
 {
 public:
+   // HELP! The Resize() event can not actually be captured by some classes, since they
+   // already define a Resize() member funtion. Maybe we should call prefix theese with
+   // "On"? (So OnResize(), OnMouseDown(), etc).
    virtual bool Resize (Vector2i viewSize) { return false; }
    virtual bool MouseDown (sf::Mouse::Button Button, Vector2i World, Vector2i Cam) { return false; }
    virtual bool MouseUp (sf::Mouse::Button Button, Vector2i World, Vector2i Cam) { return false; }

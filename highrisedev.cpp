@@ -84,6 +84,8 @@ main ()
 
       while (mev.IsRunning())
       {
+         // This is a better setup than having the EventHandler store the camera itself
+         // You can make bogus events this way. (to test)
          sf::Event Event;
          while (cam->GetEvent(Event)) {
             Events.HandleEvents (Event);

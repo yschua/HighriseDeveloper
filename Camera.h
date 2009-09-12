@@ -100,6 +100,8 @@ public:
    void Setpx(Vector2f Center);
    bool CheckBounds(const Rectf& RectToCheck);
    void AdjustBounds(Rectf& RectToAdjust);
+
+   // Event hanlders
 };
 
 #endif

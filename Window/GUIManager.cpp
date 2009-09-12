@@ -10,6 +10,7 @@ GUIManager::GUIManager()
 	InitMaps();
 	try
 	{
+	   using namespace CEGUI;
 		mpRenderer = new CEGUI::OpenGLRenderer(0);
 		mpSystem = new CEGUI::System(mpRenderer);
       CEGUI::DefaultResourceProvider* rp = static_cast<CEGUI::DefaultResourceProvider*>
@@ -29,8 +30,12 @@ GUIManager::GUIManager()
 
       CEGUI::Window* mpRootWind = mpWM->createWindow( "DefaultWindow", "root" );
       mpSystem->setGUISheet( mpRootWind );
+
+      // Just making test windows now
       CEGUI::FrameWindow* fWnd = (CEGUI::FrameWindow*) mpWM->createWindow( "WindowsLook/FrameWindow", "testWindow" );
       mpRootWind->addChildWindow( fWnd );
+      //CEGUI::PushButton* pTestBtn = (CEGUI::PushButton*) mpWM->createWindow("WindowsLook/PushButton", "TestButton" );
+      //fWnd->addChildWindow( pTestBtn );
 
       mpSystem->setDefaultMouseCursor("WindowsLook", "MouseArrow");
 	}

@@ -51,6 +51,7 @@ Camera::Camera ()
    mMovingView = false;
    ms.x = -300;
    ms.y = -400;
+   mpWindow->ShowMouseCursor (false);
 }
 
 const sf::Input *
@@ -191,7 +192,7 @@ Camera::DrawInterface(Interface* pI)   // 2d interface objects
       glColor4ub (255,255,255,255);
       glEnable(GL_BLEND);
       glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA  );
-      pI->Draw();   
+      pI->Draw();
       glDisable(GL_BLEND);
    glPopMatrix();
 }

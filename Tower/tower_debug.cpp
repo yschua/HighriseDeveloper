@@ -60,11 +60,13 @@ Tower::DebugLoad (int x, int y, int x2)
       office* my_basement = new office (400, -1, this);
 
       Level* sublevel = GetLevel(-1);
-      Level* level_1 = NewLevel (400, 1, 544+74);
-      Level* level_2 = NewLevel (400, 2, 544+74);
-      Level* level_3 = NewLevel (400, 3, 544+74);
-      Level* level_4 = NewLevel (400, 4, 544+74);
-      Level* level_5 = NewLevel (472, 5, 544+74);
+      sublevel->SetFloorPositions(400, 544+72);
+      Level* level_1 = NewLevel (400, 1, 544+72);
+      Level* level_2 = NewLevel (400, 2, 544+72);
+      Level* level_3 = NewLevel (400, 3, 544+72);
+      Level* level_4 = NewLevel (400, 4, 544+72);
+      Level* level_5 = NewLevel (400, 5, 544+72);
+      Level* level_6 = NewLevel (400, 6, 544+72);
       level_1->AddFloor (my_office);
       level_1->AddFloor (my_office3);
       level_1->AddFloor (my_office5);
@@ -80,5 +82,13 @@ Tower::DebugLoad (int x, int y, int x2)
       level_5->AddFloor (my_apt4);
       level_5->AddFloor (my_apt5);
       sublevel->AddFloor (my_basement);
+
+      // Test Add floorspace
+      bool bAvail = level_6->IsSpaceEmpty(400, 472);
+      if (bAvail)
+      {
+         Apartment* new_apt = new Apartment (400, 6, this);
+         level_6->AddFloor (new_apt);
+      }
 }
 

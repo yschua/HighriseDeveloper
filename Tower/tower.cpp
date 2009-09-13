@@ -36,7 +36,7 @@ Tower::Tower (int towerNo, int NoSubLevels)
    int nsubs = -NoSubLevels;
    for (int sub = nsubs; sub < 0; ++sub)
    {
-      Level* level = new Level (sub, 400, sub, 472, this);
+      Level* level = new Level (sub, 400, sub, 400, this);
       mLevels.push_back (level);
    }
    Lobby* lobby = new Lobby (370, 640, 0, this);
@@ -59,6 +59,7 @@ Level* Tower::NewLevel (int x, int y, int x2)
    int level = (int)mLevels.size() - mNo_SubLevels;
    Level* floor = new Level (level, x, y, x2,this);
    mLevels.push_back (floor);
+   floor->ScanFloorSpace();   // get the floor space grid setup.
    return floor;
 }
 

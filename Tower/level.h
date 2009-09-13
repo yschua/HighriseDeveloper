@@ -32,22 +32,47 @@ private:
    std::list<PersonQueue*> mElevatorQueues;  // person queue for elevators that stop on this level
    Tower * mTowerParent;
 
-protected:
-   int mLevel;
-   int mX;    // lower left origin.x
-   int mX2;   // x vector = width
-   int mY;    // lower left origin.y
-               // y vector = height
-   int mZ;     // face set to zero
-               // z vector = depth but not implement until 3D
+public:
+   static const int mUnitSize;
 
+protected:
+   int   mLevel;
+   int   mX;    // lower left origin.x
+   int   mX2;   // x vector = width
+   int   mY;    // lower left origin.y
+               // y vector = height
+   float mZ;     // face set to zero
+               // z vector = depth but not implement until 3D
    AnimationSingle * nFireEscapeLeft;
    AnimationSingle * nFireEscapeRight;
+   AnimationSingle * mEmptyFLoor;
+
+protected:
+   // Level open Space tracking grid (proto type stuff
+   // Just using allocated simple byte array for easy debugging
+   unsigned char*  mpFloorSpaceGrid;
+   int   mFloorSpaceGridSize;
+   bool  mFloorIsFull;        // Can't place any more objects
+   bool  mNoEmptyFloorSpace;  // Skip the DrawEmptySpace function
+public:
+   bool  IsFloorFull()
+   {
+      return mFloorIsFull;
+   }
+
+   // Level tracking methods/functions
+   void  ResizeFloorSpaceGrid();
+   void  ScanFloorSpace(); // Marks the gird for what is in the space
+   bool  IsSpaceEmpty( int x, int x2 ); // TestForEmptySpace...
+   void  DrawEmptySpace();
+   // End prototype code
 
 public:
    // CTOR
    Level (int level, int x, int y, int x2, Tower * TowerParent);
+   virtual ~Level ();
 
+public:
    // decls
    typedef std::vector<FloorBase*>::iterator FloorIterType;
    typedef std::list<PersonQueue*>::iterator QueueIterType;
@@ -69,6 +94,7 @@ public:
    virtual void Draw ();
 
    void AddFloor (FloorBase * floor);
+   void SetFloorPositions( int x, int x2 );
    FloorBase* FindSpace (int x);
    PersonQueue* FindQueue (int elevator);
    bool AddFloorSpace (FloorBase* pFS, int x, int x2 );

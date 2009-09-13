@@ -33,10 +33,10 @@ Lobby::Lobby (int x, int x2, int level, Tower * TowerParent)
    mX2 = x2;
    mX = x;
    ImageManager * images = ImageManager::GetInstance ();
-   tile = new Tiler (images->GetTexture("lobby.png", GL_RGBA), Tiler::Horizontal, x, 0, 0, x2-x, 36);
-   tile->SetTessel ((x2-x)/36-1, 1);
-   nFireEscapeLeft->SetPosition (mX - 56, mY);
-   nFireEscapeRight->SetPosition (mX2, mY);
+   tile = new Tiler (images->GetTexture("lobby.png", GL_RGBA), Tiler::Horizontal, (float)x, 0, 0, (float)(x2-x), 36);
+   tile->SetTessel ((float)(x2-x)/36-1, 1.0f);
+   nFireEscapeLeft->SetPosition ((float)mX - 56, (float)mY);
+   nFireEscapeRight->SetPosition ((float)mX2, (float)mY);
    std::cout << "New lobby at " << mX << " to " << mX2 << " Y level " << mY << std::endl;
 }
 

@@ -33,8 +33,9 @@ namespace Gfx
 
       virtual void Draw() = 0;
    protected:
-      void Render(Body* pBody);  // draw method replacement, drawing now happens on the GPU side for us
-      void Render(Tiler* pTiler);  // draw method replacement, drawing now happens on the GPU side for us
+      void Render (Body* pBody);  // draw method replacement, drawing now happens on the GPU side for us
+      void Render (Body* pBody, float x, float x2 );  // overload with specified X and X2
+      void Render (Tiler* pTiler);  // draw method replacement, drawing now happens on the GPU side for us
 
    };
 }

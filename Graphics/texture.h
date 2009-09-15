@@ -34,7 +34,7 @@ namespace Gfx
       friend class ImageManager;
 
       std::string mName;
-      unsigned int mID;
+      //unsigned int mID;
       unsigned int mChannels;
 
    protected:
@@ -44,11 +44,11 @@ namespace Gfx
 
    public:
       // properties
-      unsigned int GetID() { return mID; }
-      bool SupportsAlpha() { return mChannels==4; }
+      //unsigned int GetID() { return mID; }
+      inline bool SupportsAlpha() { return mChannels==4; }
 
       // methods
-      bool Load (const string& psName, int channels);
+      bool Load (const string& psName);
    };
 }
 

@@ -42,7 +42,7 @@ Camera::Camera ()
    mpWindow = new sf::RenderWindow ();
    mpWindow->Create (sf::VideoMode (800, 600, 32), "Highrise Developer " HR_VERSION, sf::Style::Close, Settings);
    mZoomFactor = -400; // back away 200 feet
-   mAspect = 800.0/600;
+   mAspect = (float)(800.0 / 600);
    mCam.x = 800;
    mCam.y = 600;
    mIgnoreCamera = false;
@@ -107,8 +107,9 @@ Camera::Clear ()
 void
 Camera::SetActive()
 {
-   glViewport(0, 0, this->ms.x, ms.y);
-   mpWindow->SetActive (true);
+   glViewport(0, 0, (GLsizei)mCam.x, (GLsizei)mCam.y);//this->ms.x, ms.y); these were negative need to fixe this so the
+   glEnable(GL_TEXTURE_2D);
+//   mpWindow->SetActive (true);
 }
 
 void
@@ -128,6 +129,7 @@ bool
 Camera::OnResize (Vector2i vi)
 {
    glViewport(0, 0, vi.x, vi.y);
+   mCam = vi;
    mAspect = (float)(vi.x) / vi.y;
 	gluPerspective (90.0f,mAspect ,1.0f,1000.0f);		// Calculate The Aspect Ratio Of The Window
    return true;
@@ -141,7 +143,7 @@ Camera::InitGL()
    glClearColor(0.f, 0.f, 0.f, 0.f);
 	glDepthFunc(GL_LEQUAL);													// The Type Of Depth Testing To Do
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);						// Really Nice Perspective Calculations
-
+   glEnable (GL_TEXTURE_2D);
 
    // Enable Z-buffer read and write
    glEnable(GL_DEPTH_TEST);
@@ -180,7 +182,7 @@ Camera::DrawInterface(Interface* pI)   // 2d interface objects
    glPushMatrix();
       glLoadIdentity();
       glEnable (GL_TEXTURE_2D);
-      glTranslatef ( -0.3125*mWidth.x, mHeight.y/2-144, -380);
+      glTranslatef ( (GLfloat)(-0.3125*mWidth.x), (GLfloat)(mHeight.y/2-144), -380);
 //      glTranslatef (GetPositionX(), GetPositionY(), mZoomFactor);
       glColor4ub (255,255,255,255);
       glEnable(GL_BLEND);

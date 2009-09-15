@@ -19,6 +19,8 @@
 
 #include "../routes.h"
 #include "../physics.h"
+#include "../Graphics/texture.h"
+#include "../image.h"
 #include "elevatorBase.h"
 #include "elevator.h"
 #include "floorBase.h"
@@ -30,8 +32,6 @@ Tower::Tower (int towerNo, int NoSubLevels)
       :  mTowerNo (towerNo)
       ,  mNo_SubLevels (NoSubLevels)
 {
-   //level* maint = new level (0);
-   //mSubLevels.push_back (maint);
    mPopulation = 0;
    int nsubs = -NoSubLevels;
    for (int sub = nsubs; sub < 0; ++sub)

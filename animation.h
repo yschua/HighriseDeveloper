@@ -36,7 +36,7 @@ class Animation : public AnimationBase
 private:
 //   std::vector <std::pair <sf::Image *, float> > mframes;
    std::vector <std::pair <Texture*, float> > mframes;
-   int mcurrent_frame;
+   unsigned int mcurrent_frame;
    float mtime;
 //   sf::Sprite * sprite;
 

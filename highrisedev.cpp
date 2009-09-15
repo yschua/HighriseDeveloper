@@ -15,27 +15,19 @@
  */
 
 #include <iostream>
-#include "Types/Rect.h"
-#include "Types/Vector2.h"
 
 #include "Camera.h"
 
-#include "person.h"
 #include "AI/citizensAgent.h"
 //#include "AI/pathAgent.h"
 //#include "AI/floorAgent.h"
 
 #include "routes.h"
 #include "background.h"
-#include "Tower/elevatorBase.h"
-#include "Tower/elevator.h"
 #include "Tower/tower.h"
 #include "world.h"
 
 #include <CEGUI.h>
-#include <RendererModules/OpenGLGUIRenderer/openglrenderer.h>
-#include <CEGUISystem.h>
-#include <CEGUIDefaultResourceProvider.h>
 
 #include "Window/GUIManager.h"
 
@@ -48,19 +40,15 @@ main ()
 
    cam->SetWorldSize (Vector2f(1280, 720));
    cam->SetMaxFramerate (60);
-
-   Elevator* pElevator;
-   Background * pBackground;
-   Tower theTower (1, 10); // numero uno with 10 sub levels
-   CitizensAgent People( theTower ); // known tower, later this will be a tower list for mutiple towers
-   Interface* pInterface = new Interface();
-   World theWorld;
-   theWorld.AddTower (&theTower); // pointer for graphics
-   float width = cam->GetWorldSize().x;
-   float height = cam->GetWorldSize().y;
-
    cam->SetActive();
    cam->InitGL();
+
+   Interface* pInterface = new Interface();
+   World theWorld;
+   Tower theTower (1, 10); // numero uno with 10 sub levels
+   theWorld.AddTower (&theTower); // pointer for graphics
+   CitizensAgent People( theTower ); // known tower, later this will be a tower list for mutiple towers
+
    sf::String Title( string("Alpha"));
 
    try
@@ -68,8 +56,7 @@ main ()
       // stuffing the floors with test spaces
       theTower.DebugLoad (0,0,0);
 
-      pBackground = new Background (width, height);
-      theWorld.SetBG (pBackground);
+      theWorld.SetBG (new Background (cam->GetWorldSize().x, cam->GetWorldSize().y));
       GUIManager Gui;
 
       EventHandler Events;

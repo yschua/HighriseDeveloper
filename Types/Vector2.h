@@ -23,7 +23,8 @@ class Vector2
     template <class U>
     Vector2(const Vector2<U>& Other)
     {
-        x = Other.x; y = Other.y;
+        x = (int)Other.x;
+        y = (int)Other.y;
     }
     template <class U>
     Vector2& operator+(const Vector2<U>& Other)
@@ -40,8 +41,8 @@ class Vector2
     template <class U>
     Vector2& operator=(const Vector2<U>& Other)
     {
-        x = Other.x;
-        y = Other.y;
+        x = (float)Other.x;
+        y = (float)Other.y;
         return *this;
     }
     template <class U>

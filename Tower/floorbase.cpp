@@ -34,11 +34,11 @@ FloorBase::Draw ()
 }
 
 FloorBase::FloorBase (int x, int x2, int level, Tower * TowerParent)
-      :  mX (x)
-      ,  mX2 (x2)
+      :  mX ((float)x)
+      ,  mX2 ((float)x2)
       ,  mTowerParent (TowerParent)
 {
    mLevel = level;
-   mY = (mLevel * -36);
+   mY = (float)(mLevel * -36);
    mZ = -0.5f;
 }

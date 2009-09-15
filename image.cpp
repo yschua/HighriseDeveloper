@@ -54,7 +54,7 @@ namespace Gfx {
       {
          Texture* pTexture = new Texture (name);
          std::cout << "Loading file " << mpath_prefix + name << std::endl;
-         pTexture->Load (mpath_prefix + name, channels);
+         pTexture->Load (mpath_prefix + name);
          mImages[name] = pTexture;
          return pTexture;
       }

@@ -14,6 +14,7 @@
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#pragma once
 #ifndef _ANIMATION_H
 #define _ANIMATION_H
 #include "physics.h"
@@ -25,9 +26,8 @@ class AnimationBase : public Body
 {
    // we can add implementation to support lighting and material attributes here
 public:
-   AnimationBase( int w, int h )
-      : Body( w, h )
-   {};
+   AnimationBase( int w, int h );
+
    virtual void BindTexture() = 0;
 };
 

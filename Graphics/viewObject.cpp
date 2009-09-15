@@ -31,7 +31,7 @@ ViewObject::ViewObject ()
 void ViewObject::Render(AnimationBase* pBase)
 {
    float x = pBase->GetPositionX();//-ms.x; position needs to be a member of modelObject, let physics access it to move it.
-   float y = -(pBase->GetPositionY());//-ms.y;
+   float y = (pBase->GetPositionY());//-ms.y;
    float z = 100; //pBody->GetPositionZ();
    float x2 = x + pBase->GetWidth();
    float y2 = y + pBase->GetHeight();
@@ -49,5 +49,35 @@ void ViewObject::Render(AnimationBase* pBase)
       glVertex3f( x2, y2, z );
    }
    glEnd();
+}
+
+void ViewObject::Render(SimpleQuad* pQuad)
+{
+   float x = pQuad->Position.x;
+   float y = pQuad->Position.y;
+   float z = pQuad->Position.z;
+
+   glMatrixMode(GL_MODELVIEW);
+   glPushMatrix();
+//      glLoadIdentity();
+      glDisable (GL_TEXTURE_2D);
+      glEnable (GL_COLOR_MATERIAL);
+      glTranslatef (x, y, z);
+      glRotatef( -pQuad->Angle, 0, 0, 1 );
+      glBegin(GL_QUADS);
+      {
+         glColor4ubv (pQuad->Colors[0]);
+         glVertex3fv ((float*)&pQuad->Points[0].x);
+         glColor4ubv (pQuad->Colors[1]);
+         glVertex3fv ((float*)&pQuad->Points[1].x);
+         glColor4ubv (pQuad->Colors[2]);
+         glVertex3fv ((float*)&pQuad->Points[2].x);
+         glColor4ubv (pQuad->Colors[3]);
+         glVertex3fv ((float*)&pQuad->Points[3].x);
+      }
+      glEnd();
+      glDisable (GL_COLOR_MATERIAL);
+      glEnable (GL_TEXTURE_2D);
+   glPopMatrix();
 }
 

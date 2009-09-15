@@ -14,35 +14,16 @@
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// This class is a graphics implementation object that all modeled "Tower" objects are derived from.
 
-#pragma once
+#include <iostream>
+#include <string>
+#include "animation.h"
 
-#ifndef _VIEWOBJECT_H
-#define _VIEWOBJECT_H
-#include "../Types/Vector3.h"
+// all things not in 3D space. Used for interface
+using namespace Gfx;
 
-struct SimpleQuad
+AnimationBase::AnimationBase( int w, int h )
+   : Body( w, h )
 {
-   Vector3f Position;
-   unsigned char Colors[4][4];
-   Vector3f Points[4]; 
-   float    Angle;
-};
-
-class AnimationBase;    // Main body of physics component
-
-namespace Gfx
-{
-
-   class ViewObject
-   {
-   public:
-      ViewObject ();
-
-   protected:
-      void Render(AnimationBase* pBase);  // draw method replacement, drawing now happens on the GPU side for us
-      void Render(SimpleQuad* pQuad);  // Renders a quad from 4 vectors.
-   };
 }
-#endif // _VIEWOBJECT_H
+

@@ -183,6 +183,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\animationBase.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\background.cpp"
 				>
 			</File>
@@ -192,6 +196,10 @@
 			</File>
 			<File
 				RelativePath="..\citizens.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\clock.cpp"
 				>
 			</File>
 			<File
@@ -258,6 +266,10 @@
 			</File>
 			<File
 				RelativePath="..\citizens.h"
+				>
+			</File>
+			<File
+				RelativePath="..\clock.h"
 				>
 			</File>
 			<File

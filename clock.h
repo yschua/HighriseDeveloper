@@ -13,24 +13,37 @@
  *   You should have received a copy of the GNU General Public License
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
+// Tick Tock!
 
 #pragma once
-#ifndef _INTERFACE_H
-#define _INTERFACE_H
+#ifndef _CLOCK_H
+#define _CLOCK_H
 
-#include "clock.h"
+#include "Graphics/viewObject.h"
+#include "animation.h"
 
-class Interface
+class AnimationSingle;
+
+class Clock : public Gfx::ViewObject
 {
-private:
+   AnimationSingle * mClockFace;
+   int mTimeOfDay;
+   int mDayOfYear;
+   int mYear;
 
+   // These will pump directly into the transform for the hands
+   float mAngleHour;  // for the render
+   float mAngleMinute;
+
+   SimpleQuad mMinuteHand;
+   SimpleQuad mHourHand;
 public:
-   Interface ();
-   Clock mClock;
-
+   Clock ();
+   ~Clock ();
    void PosCalc ();
-   void Update (float dt);
+   void Update (int minutes);
    void Draw ();
+
 };
 
-#endif // _INTERFACE_H
+#endif // _CLOCK_H

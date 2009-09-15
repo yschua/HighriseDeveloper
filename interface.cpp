@@ -28,27 +28,21 @@ using namespace Gfx;
 
 Interface::Interface ()
 {
-   ImageManager * images = ImageManager::GetInstance ();
-   Texture* pTex = images->GetTexture ("clock.png", GL_RGBA);
-   mClock = new AnimationSingle (pTex, 64, 64);
-   PosCalc ();
 }
 
 void
 Interface::PosCalc ()
 {
-   Camera::GetInstance ();
-   mClock->SetPosition ((Camera::GetInstance ()->GetCamSize ().x / 2) - 30, 0);
 }
 
 void
 Interface::Update (float dt)
 {
-
+   mClock.Update(1); // 1 minute update
 }
 
 void
 Interface::Draw ()
 {
-   Render( mClock );
+   mClock.Draw ();
 }

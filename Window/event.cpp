@@ -96,4 +96,5 @@ EventHandler::HandleEvents ()
          return false;
       break;
    }
+   return false;
 }

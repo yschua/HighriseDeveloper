@@ -22,7 +22,7 @@
 #include "animation.h"
 
 Animation::Animation (int width, int height)
-:  Body (width, height)
+:  AnimationBase (width, height)
 {
    mcurrent_frame = 0;
    mtime = 0;
@@ -35,10 +35,10 @@ Animation::AddFrame (Texture* pTex, float duration)
    mframes.push_back (std::pair<Texture*, float> (pTex, duration));
 }
 
-unsigned int 
-Animation::GetTextureID()
+void
+Animation::BindTexture()
 {
-   return mframes[mcurrent_frame].first->GetID();
+   return mframes[mcurrent_frame].first->Bind();
 }
 
 void
@@ -56,7 +56,7 @@ Animation::Update (float dt)
 }
 
 AnimationSingle::AnimationSingle (Texture* pTex, int width, int height)
-:  Body( width, height )
+:  AnimationBase( width, height )
 {
    mpTexture = pTex;
 //   mSprite = new sf::Sprite ();
@@ -70,9 +70,9 @@ AnimationSingle::SetSubRect (int x1, int y1, int x2, int y2)
 //   mSprite->SetSubRect (*subrect);
 }
 
-unsigned int 
-AnimationSingle::GetTextureID()
+void
+AnimationSingle::BindTexture()
 {
-   return mpTexture->GetID();
+   return mpTexture->Bind();
    //return 2;
 }

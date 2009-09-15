@@ -14,7 +14,7 @@
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "../physics.h"
+#include "../animation.h"
 #include "../tiler.h"
 #include "texture.h"
 #include "modelObject.h"
@@ -26,14 +26,15 @@ ModelObject::ModelObject ()
 }
 
 void
-ModelObject::Render(Body* pBody)
+ModelObject::Render(AnimationBase* pBase)
 {
-   float x = pBody->GetPositionX();//-ms.x; position needs to be a member of modelObject, let physics access it to move it.
-   float y = -pBody->GetPositionY();//-ms.y;
-   float z = 0; //pBody->GetPositionZ();
-   float x2 = x + pBody->GetWidth();
-   float y2 = y - pBody->GetHeight();
-   glBindTexture( GL_TEXTURE_2D, pBody->GetTextureID() );//to_draw.GetTexture() ); // get the current texture
+   float x = pBase->GetPositionX();//-ms.x; position needs to be a member of modelObject, let physics access it to move it.
+   float y = -pBase->GetPositionY();//-ms.y;
+   float z = 0; //pBase->GetPositionZ();
+   float x2 = x + pBase->GetWidth();
+   float y2 = y - pBase->GetHeight();
+   //glBindTexture( GL_TEXTURE_2D, pBase->GetTextureID() );//to_draw.GetTexture() ); // get the current texture
+   pBase->BindTexture();
    glBegin(GL_QUADS);
    {
       glTexCoord2f( 0.0, 1.0 );
@@ -49,12 +50,13 @@ ModelObject::Render(Body* pBody)
 }
 
 void
-ModelObject::Render(Body* pBody, float x, float x2 )
+ModelObject::Render(AnimationBase* pBase, float x, float x2 )
 {
-   float y = -pBody->GetPositionY();//-ms.y;
-   float z = 0; //pBody->GetPositionZ();
-   float y2 = y - pBody->GetHeight();
-   glBindTexture( GL_TEXTURE_2D, pBody->GetTextureID() );//to_draw.GetTexture() ); // get the current texture
+   float y = -pBase->GetPositionY();//-ms.y;
+   float z = 0; //pBase->GetPositionZ();
+   float y2 = y - pBase->GetHeight();
+   //glBindTexture( GL_TEXTURE_2D, pBase->GetTextureID() );//to_draw.GetTexture() ); // get the current texture
+   pBase->BindTexture();
    glBegin(GL_QUADS);
    {
       glTexCoord2f( 0.0, 1.0 );
@@ -79,7 +81,7 @@ ModelObject::Render(Tiler* pTiler)
    float y2 = y - pTiler->GetHeight();
    float xT = pTiler->GetTesselX();
    float yT = pTiler->GetTesselY();
-   glBindTexture( GL_TEXTURE_2D, pTiler->GetTextureID() );//to_draw.GetTexture() ); // get the current texture
+   pTiler->BindTexture();//to_draw.GetTexture() ); // get the current texture
    glBegin(GL_QUADS);
    {
       glTexCoord2f( 0.0, yT );

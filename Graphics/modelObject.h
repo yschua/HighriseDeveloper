@@ -19,7 +19,7 @@
 #ifndef _MODELOBJECT_H
 #define _MODELOBJECT_H
 
-class Body;    // Main body of physics component
+class AnimationBase;    // Main body of physics component
 class Tiler;
 
 namespace Gfx
@@ -33,8 +33,8 @@ namespace Gfx
 
       virtual void Draw() = 0;
    protected:
-      void Render (Body* pBody);  // draw method replacement, drawing now happens on the GPU side for us
-      void Render (Body* pBody, float x, float x2 );  // overload with specified X and X2
+      void Render (AnimationBase* pBase);  // draw method replacement, drawing now happens on the GPU side for us
+      void Render (AnimationBase* pBase, float x, float x2 );  // overload with specified X and X2
       void Render (Tiler* pTiler);  // draw method replacement, drawing now happens on the GPU side for us
 
    };

@@ -16,7 +16,6 @@
 
 #include <iostream>
 #include "texture.h"
-#include "SFML/Graphics.hpp"
 
 using namespace Gfx;
 
@@ -32,21 +31,20 @@ bool Texture::Load (const string& pszName, int channels)
    {
       // UnloadTexture (mID);
    }
-   sf::Image * temp;
-   temp = new sf::Image;
-   std::cout << "Loading file " << pszName << std::endl;
-   temp->LoadFromFile (pszName);
-   glGenTextures (1, &mID);
-   glBindTexture (GL_TEXTURE_2D, mID);
+//   std::cout << "Loading file " << pszName << std::endl;
+   LoadFromFile (pszName);
+   Bind();
+   //glGenTextures (1, &mID);
+   //glBindTexture (GL_TEXTURE_2D, mID);
    glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); // setup for the tiler or animation
    glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
    glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);   // near/far filters
    glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 
-   mChannels = channels;
-   glTexImage2D(GL_TEXTURE_2D, 0, mChannels, temp->GetWidth(), temp->GetHeight(), 0, mChannels , GL_UNSIGNED_BYTE, temp->GetPixelsPtr() );
+   //mChannels = channels;
+   //glTexImage2D(GL_TEXTURE_2D, 0, mChannels, temp->GetWidth(), temp->GetHeight(), 0, mChannels , GL_UNSIGNED_BYTE, temp->GetPixelsPtr() );
 
    glTexEnvi(GL_TEXTURE_2D, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-   delete temp;
+   //delete temp;
    return true;
 }

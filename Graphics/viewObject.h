@@ -21,7 +21,7 @@
 #ifndef _VIEWOBJECT_H
 #define _VIEWOBJECT_H
 
-class Body;    // Main body of physics component
+class AnimationBase;    // Main body of physics component
 
 namespace Gfx
 {
@@ -32,7 +32,7 @@ namespace Gfx
       ViewObject ();
 
    protected:
-      void Render(Body* pBody);  // draw method replacement, drawing now happens on the GPU side for us
+      void Render(AnimationBase* pBase);  // draw method replacement, drawing now happens on the GPU side for us
    };
 }
 #endif // _VIEWOBJECT_H

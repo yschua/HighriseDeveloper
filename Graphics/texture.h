@@ -20,6 +20,8 @@
 
 // Is there a way to avoid this include?
 #include <string>
+#include "SFML/Graphics.hpp"
+
 
 using namespace std;
 
@@ -27,7 +29,7 @@ namespace Gfx
 {
    class ImageManager;
 
-   class Texture
+   class Texture : public sf::Image
    {
       friend class ImageManager;
 

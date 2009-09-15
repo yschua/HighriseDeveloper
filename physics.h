@@ -66,7 +66,6 @@ public:
 
    // Mothods
    void DebugPrint ();
-   virtual unsigned int GetTextureID() { return 0; }
    // Depreciated!
    void SetPosition (float x, float y);
    void SetVelocity (float x, float y);

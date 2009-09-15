@@ -17,7 +17,7 @@
 
 #include <iostream>
 #include <string>
-#include "../physics.h"
+#include "../animation.h"
 #include "texture.h"
 #include "viewObject.h"
 
@@ -28,14 +28,15 @@ ViewObject::ViewObject ()
 {
 }
 
-void ViewObject::Render(Body* pBody)
+void ViewObject::Render(AnimationBase* pBase)
 {
-   float x = pBody->GetPositionX();//-ms.x; position needs to be a member of modelObject, let physics access it to move it.
-   float y = -pBody->GetPositionY();//-ms.y;
+   float x = pBase->GetPositionX();//-ms.x; position needs to be a member of modelObject, let physics access it to move it.
+   float y = -(pBase->GetPositionY());//-ms.y;
    float z = 100; //pBody->GetPositionZ();
-   float x2 = x + pBody->GetWidth();
-   float y2 = y + pBody->GetHeight();
-   glBindTexture( GL_TEXTURE_2D, pBody->GetTextureID() );//to_draw.GetTexture() ); // get the current texture
+   float x2 = x + pBase->GetWidth();
+   float y2 = y + pBase->GetHeight();
+//   glBindTexture( GL_TEXTURE_2D, pBody->GetTextureID() );//to_draw.GetTexture() ); // get the current texture
+   pBase->BindTexture();
    glBegin(GL_QUADS);
    {
       glTexCoord2f( 0.0, 1.0 );

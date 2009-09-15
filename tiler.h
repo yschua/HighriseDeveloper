@@ -52,7 +52,10 @@ public:
    float GetPositionZ() { return mZ; }
    float GetWidth() { return mWidth; }
    float GetHeight() { return mHeight; }
-   unsigned int GetTextureID() { return mpTexture->GetID(); }
+   inline void BindTexture()
+   {
+      mpTexture->Bind();
+   }
 
 //   void SetImage (sf::Image * image);
    void SetTexture (Texture* pTex) { mpTexture = pTex; }

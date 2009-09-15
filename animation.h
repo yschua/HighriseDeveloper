@@ -21,7 +21,17 @@
 
 using namespace Gfx;
 
-class Animation : public Body
+class AnimationBase : public Body
+{
+   // we can add implementation to support lighting and material attributes here
+public:
+   AnimationBase( int w, int h )
+      : Body( w, h )
+   {};
+   virtual void BindTexture() = 0;
+};
+
+class Animation : public AnimationBase
 {
 private:
 //   std::vector <std::pair <sf::Image *, float> > mframes;
@@ -35,10 +45,10 @@ public:
 //   void AddFrame (sf::Image * image, float duration);
    void AddFrame (Texture* pTex, float duration);
    void Update (float dt);
-   unsigned int GetTextureID();
+   void BindTexture();
 };
 
-class AnimationSingle : public Body
+class AnimationSingle : public AnimationBase
 {
    Texture* mpTexture;
 public:
@@ -46,7 +56,7 @@ public:
    //AnimationSingle (sf::Image* image);
    AnimationSingle (Texture* pTex, int width, int height);
    void SetSubRect (int x1, int y1, int x2, int y2);
-   unsigned int GetTextureID();
+   void BindTexture();
 
 };
 

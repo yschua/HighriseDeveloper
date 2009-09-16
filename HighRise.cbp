@@ -93,6 +93,8 @@
 		<Unit filename="Settings/Settings.h" />
 		<Unit filename="Tower/apartment.cpp" />
 		<Unit filename="Tower/apartment.h" />
+		<Unit filename="Tower/damage.cpp" />
+		<Unit filename="Tower/damage.h" />
 		<Unit filename="Tower/elevator.cpp" />
 		<Unit filename="Tower/elevator.h" />
 		<Unit filename="Tower/elevatorBase.cpp" />
@@ -131,6 +133,8 @@
 		<Unit filename="citizens.h" />
 		<Unit filename="clock.cpp" />
 		<Unit filename="clock.h" />
+		<Unit filename="fireAnimation.cpp" />
+		<Unit filename="fireAnimation.h" />
 		<Unit filename="highRiseException.cpp" />
 		<Unit filename="highriseException.h" />
 		<Unit filename="highrisedev.cpp" />

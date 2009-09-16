@@ -203,6 +203,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\fireAnimation.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\highrisedev.cpp"
 				>
 			</File>
@@ -270,6 +274,10 @@
 			</File>
 			<File
 				RelativePath="..\clock.h"
+				>
+			</File>
+			<File
+				RelativePath="..\fireAnimation.h"
 				>
 			</File>
 			<File
@@ -478,6 +486,14 @@
 			</File>
 			<File
 				RelativePath="..\Tower\apartment.h"
+				>
+			</File>
+			<File
+				RelativePath="..\Tower\damage.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\Tower\damage.h"
 				>
 			</File>
 			<File

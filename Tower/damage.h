@@ -13,40 +13,24 @@
  *   You should have received a copy of the GNU General Public License
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include <cstdlib>
-#include <iostream>
-#include <map>
-#include "../image.h"
-#include "../physics.h"
-#include "../animation.h"
-#include "../tiler.h"
 
-#include "routeBase.h"
-#include "elevator.h"
-#include "elevatorBase.h"
+// burned out shell, nothing to see move along
+#pragma once
+#ifndef _DAMAGE_H
+#define _DAMAGE_H
 
-using namespace Gfx;
+#include "../Graphics/modelObject.h"
+#include "../fireAnimation.h"
 
-ElevatorBase::ElevatorBase ( int x, int level, Elevator* pElevator )
+class Damage : public FloorBase, public Gfx::ModelObject
 {
-   mx = x;
-   my = 0;
-   mLevel = level;
-   mpParent = pElevator;
-}
+protected:
+   AnimationSingle* mpFrame;
+   FireAnimation mFire;
+public:
+   void Update (float dt);
+   void Draw ();
+   Damage (int x, int x2, int level, Tower * TowerParent, AnimationSingle* pFrame);
+};
 
-ElevatorBase::~ElevatorBase()
-{
-}
-
-void
-ElevatorBase::Update (float dt)
-{
-
-}
-
-void
-ElevatorBase::Draw ()
-{
-//    Camera::GetInstance()->Draw (*manimations[mcurrent_state]);
-}
+#endif //_DAMAGE_H

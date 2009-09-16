@@ -13,40 +13,41 @@
  *   You should have received a copy of the GNU General Public License
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include <cstdlib>
-#include <iostream>
-#include <map>
-#include "../image.h"
-#include "../physics.h"
-#include "../animation.h"
-#include "../tiler.h"
 
-#include "routeBase.h"
-#include "elevator.h"
-#include "elevatorBase.h"
+#include <iostream>
+#include "../physics.h"
+#include "../image.h"
+#include "../animation.h"
+#include "floorBase.h"
+
+#include "damage.h"
 
 using namespace Gfx;
 
-ElevatorBase::ElevatorBase ( int x, int level, Elevator* pElevator )
-{
-   mx = x;
-   my = 0;
-   mLevel = level;
-   mpParent = pElevator;
-}
 
-ElevatorBase::~ElevatorBase()
+Damage::Damage (int x, int x2, int level, Tower * TowerParent, AnimationSingle* pFrame)
+:  FloorBase (x, x2, level, TowerParent)
+,  mFire (64, 32)
 {
-}
-
-void
-ElevatorBase::Update (float dt)
-{
-
+   mpFrame = pFrame;
+   mpFrame->SetPosition (mX, mY);
+   ImageManager * image_man = ImageManager::GetInstance ();
+   mFire.SetPosition( mX, (mLevel-1) * 36);
+   mFire.AddFrame( image_man->GetTexture ("explode.png", GL_RGBA), 220);
+   mFire.AddFrame( image_man->GetTexture ("particle1.png", GL_RGBA), 120);
+   mFire.AddFrame( image_man->GetTexture ("particle2.png", GL_RGBA), 120);
 }
 
 void
-ElevatorBase::Draw ()
+Damage::Update (float dt)
 {
-//    Camera::GetInstance()->Draw (*manimations[mcurrent_state]);
+   // nothing happening
+   mFire.Update (20);
+}
+
+void
+Damage::Draw ()
+{
+   Render (mpFrame);
+   RenderParallax (&mFire, 20);
 }

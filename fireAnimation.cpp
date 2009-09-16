@@ -1,0 +1,164 @@
+/*   This file is part of Highrise Developer.
+ *
+ *   Highrise Developer is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation, either version 3 of the License, or
+ *   (at your option) any later version.
+
+ *   Highrise Developer is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#include <vector>
+#include "Types/vector2.h"
+#include "fireAnimation.h"
+#include "highriseException.h"
+
+const unsigned char FireAnimation::kFlameColor[16][4] =
+{
+   { 255,240,49,255 }, //
+   { 245,230,48,255 }, //
+   { 234,222,47,245 }, //
+   { 223,212,46,245 }, //
+   { 212,200,45,235 }, //
+   { 202,185,44,235 }, //
+   { 188,176,43,225 }, //
+   { 158,162,42,225 }, //
+   { 128,124,41,215 }, //
+   { 108, 94,40,215 }, //
+   { 82,74,39,205 }, //
+   { 62,68,38,205 }, //
+   { 56,48,35,195 }, //
+   { 56,44,34,195 }, //
+   { 48,42,33,185 }, // dark flame
+   { 42,38,32,185 } // dark flame
+};
+const unsigned char FireAnimation::kSmokeColor[16][4] =
+{
+   { 205,205,205,255 }, //
+   { 195,195,195,245 }, //
+   { 185,185,185,235 }, //
+   { 172,172,172,225 }, //
+   { 160,160,160,215 }, //
+   { 149,149,149,205 }, //
+   { 138,138,138,195 }, //
+   { 122,122,122,185 }, //
+   { 108,108,108,175 }, //
+   {  92, 92, 92,165 }, //
+   {  82, 82, 82,155 }, //
+   {  76, 76, 76,145 }, //
+   {  66, 66, 66,135 }, //
+   {  52, 52, 52,125 }, // dark smoke
+   {  42, 42, 42,115 } // dark smoke
+};
+
+const float FireAnimation::kUVs[16][4][2] =
+{
+   {{0.75f, 1.00f}, {0.75f, 0.75f}, {1.00f, 0.75f}, {1.00f, 1.00f}},
+   {{0.50f, 1.00f}, {0.50f, 0.75f}, {0.75f, 0.75f}, {0.75f, 1.00f}},
+   {{0.25f, 1.00f}, {0.25f, 0.75f}, {0.50f, 0.75f}, {0.50f, 1.00f}},
+   {{0.00f, 1.00f}, {0.00f, 0.75f}, {0.25f, 0.75f}, {0.25f, 1.00f}},
+
+   {{0.75f, 0.75f}, {0.75f, 0.50f}, {1.00f, 0.50f}, {1.00f, 0.75f}},
+   {{0.50f, 0.75f}, {0.50f, 0.50f}, {0.75f, 0.50f}, {0.75f, 0.75f}},
+   {{0.25f, 0.75f}, {0.25f, 0.50f}, {0.50f, 0.50f}, {0.50f, 0.75f}},
+   {{0.00f, 0.75f}, {0.00f, 0.50f}, {0.25f, 0.50f}, {0.25f, 0.75f}},
+
+   {{0.75f, 0.50f}, {0.75f, 0.25f}, {1.00f, 0.25f}, {1.00f, 0.50f}},
+   {{0.50f, 0.50f}, {0.50f, 0.25f}, {0.75f, 0.25f}, {0.75f, 0.50f}},
+   {{0.25f, 0.50f}, {0.25f, 0.25f}, {0.50f, 0.25f}, {0.50f, 0.50f}},
+   {{0.00f, 0.50f}, {0.00f, 0.25f}, {0.25f, 0.25f}, {0.25f, 0.50f}},
+
+   {{0.75f, 0.25f}, {0.75f, 0.00f}, {1.00f, 0.00f}, {1.00f, 0.25f}},
+   {{0.50f, 0.25f}, {0.50f, 0.00f}, {0.75f, 0.00f}, {0.75f, 0.25f}},
+   {{0.25f, 0.25f}, {0.25f, 0.00f}, {0.50f, 0.00f}, {0.50f, 0.25f}},
+   {{0.00f, 0.25f}, {0.00f, 0.00f}, {0.25f, 0.00f}, {0.25f, 0.25f}}
+};
+
+const float FireAnimation::kVertecies[16][4][3] =
+{
+   {{-1.00f, 0.00f, 0.10f}, {-1.00f, 2.00f, 0.10f}, {1.00f, 2.00f, 0.10f}, {1.00f, 0.00f, 0.10f}},
+   {{-2.00f, 0.00f, 0.10f}, {-2.00f, 3.00f, 0.10f}, {2.00f, 3.00f, 0.10f}, {2.00f, 0.00f, 0.10f}},
+   {{-3.00f, 0.50f, 0.10f}, {-3.00f, 4.50f, 0.10f}, {3.00f, 4.50f, 0.10f}, {3.00f, 0.50f, 0.10f}},
+   {{-4.00f, 0.75f, 0.10f}, {-4.00f, 6.00f, 0.10f}, {4.00f, 6.00f, 0.10f}, {4.00f, 0.75f, 0.10f}},
+
+   {{-5.00f, 1.00f, 0.10f}, {-5.00f, 7.75f, 0.10f}, {5.00f, 7.75f, 0.10f}, {5.00f, 1.00f, 0.10f}},
+   {{-6.00f, 1.25f, 0.10f}, {-6.00f, 9.50f, 0.10f}, {6.00f, 9.50f, 0.10f}, {6.00f, 1.25f, 0.10f}},
+   {{-7.00f, 1.50f, 0.10f}, {-7.00f, 11.00f, 0.10f}, {7.00f, 11.00f, 0.10f}, {7.00f, 1.50f, 0.10f}},
+   {{-8.00f, 1.75f, 0.10f}, {-8.00f, 13.00f, 0.10f}, {8.00f, 13.00f, 0.10f}, {8.00f, 1.75f, 0.10f}},
+
+   {{-9.00f, 1.85f, 0.10f}, {-9.00f, 14.25f, 0.10f}, {9.00f, 14.25f, 0.10f}, {9.00f, 1.85f, 0.10f}},
+   {{-10.00f, 2.00f, 0.10f}, {-10.00f, 15.50f, 0.10f}, {10.00f, 15.50f, 0.10f}, {10.00f, 2.00f, 0.10f}},
+   {{-11.00f, 2.10f, 0.10f}, {-11.00f, 18.00f, 0.10f}, {11.00f, 18.00f, 0.10f}, {11.00f, 2.10f, 0.10f}},
+   {{-12.00f, 2.20f, 0.10f}, {-12.00f, 21.00f, 0.10f}, {12.00f, 21.00f, 0.10f}, {12.00f, 2.20f, 0.10f}},
+
+   {{-13.00f, 2.50f, 0.10f}, {-13.00f, 23.00f, 0.10f}, {13.00f, 23.00f, 0.10f}, {13.00f, 2.50f, 0.10f}},
+   {{-15.00f, 2.75f, 0.10f}, {-15.00f, 25.00f, 0.10f}, {15.00f, 25.00f, 0.10f}, {15.00f, 2.75f, 0.10f}},
+   {{-17.00f, 3.00f, 0.10f}, {-17.00f, 27.50f, 0.10f}, {17.00f, 27.50f, 0.10f}, {17.00f, 3.00f, 0.10f}},
+   {{-20.00f, 3.20f, 0.10f}, {-20.00f, 30.00f, 0.10f}, {20.00f, 30.00f, 0.10f}, {20.00f, 3.20f, 0.10f}}
+};
+
+FireAnimation::FireAnimation (int width, int height)
+:  AnimationBase (width, height)
+{
+   mcurrent_frame = 0;
+   mtime = 0;
+   mPrimaryClock = 0;
+   mPlates[0] = 0;
+   mPlates[1] = 0;
+   mPlates[2] = 0;
+   mPlates[3] = 0;
+}
+
+void
+FireAnimation::AddFrame (Texture* pTex, float duration)
+{
+   mframes.push_back (std::pair<Texture*, float> (pTex, duration));
+}
+
+void
+FireAnimation::BindTexture()
+{
+   return mframes[mcurrent_frame].first->Bind();
+}
+
+void
+FireAnimation::Update (float dt)
+{
+#ifdef _DEBUG
+   if( mframes.size() < 3 )
+   {
+      throw new HighriseException("FileAnimation object needs 3 frames see source Header file");
+   }
+#endif
+
+   mtime += dt;
+   if (mtime > mframes[mcurrent_frame].second)
+   {
+      mtime = 0;
+      //mcurrent_frame++;
+      //if (mcurrent_frame >= mframes.size ())
+      //   mcurrent_frame = 0;
+
+      mPrimaryClock++;
+      if( ++mPlates[0] > 15 ) mPlates[0] = 0;
+      if( mPrimaryClock > 3 ) // delay sequencer so plumes rise staggered
+      {
+         if( ++mPlates[1] > 15 ) mPlates[1] = 0;
+      }
+      if( mPrimaryClock > 7 )
+      {
+         if( ++mPlates[2] > 15 ) mPlates[2] = 0;
+      }
+      if( mPrimaryClock > 11 )
+      {
+         if( ++mPlates[3] > 15 ) mPlates[3] = 0;
+      }
+      // add burn out seq linked to PrimaryClock to fade smoke.
+   }
+}

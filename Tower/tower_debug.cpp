@@ -19,7 +19,7 @@
 
 #include "../animation.h"
 //#include "tiler.h"
-///#include "image.h"
+#include "../image.h"
 #include "../routes.h"
 #include "../physics.h"
 #include "elevatorBase.h"
@@ -29,13 +29,17 @@
 #include "lobby.h"
 #include "apartment.h"
 #include "office.h"
+#include "damage.h"
 #include "tower.h"
 
+#include "../highriseException.h"
 // This is a debug stub to load a building for early dev
 
 void
 Tower::DebugLoad (int x, int y, int x2)
 {
+   try
+   {
       Elevator* pElevator = new Elevator( Elevator::LS_Standard, 472, -1, 6, this );
       GetRoutes().AddRoute( pElevator );
       pElevator = new Elevator( Elevator::LS_Standard, 472 + 36 + 9, 0, 5, this );
@@ -90,5 +94,18 @@ Tower::DebugLoad (int x, int y, int x2)
          Apartment* new_apt = new Apartment (400, 6, this);
          level_6->AddFloor (new_apt);
       }
+      // Test Add floorspace
+      bAvail = level_5->IsSpaceEmpty(400, 472);
+      if (bAvail)
+      {
+         ImageManager * image_man = ImageManager::GetInstance ();
+         Damage* new_dmg = new Damage (400, 472, 5, this, new AnimationSingle (image_man->GetTexture ("office_damage.png", GL_RGBA), 72, 36 ));
+         level_5->AddFloor (new_dmg);
+      }
+   }
+   catch (...)
+   {
+      throw new HighriseException ("Debug Alpha Building failed to create");
+   }
 }
 

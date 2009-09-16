@@ -15,6 +15,7 @@
  */
 
 #include "../animation.h"
+#include "../fireAnimation.h"
 #include "../tiler.h"
 #include "texture.h"
 #include "modelObject.h"
@@ -94,4 +95,120 @@ ModelObject::Render(Tiler* pTiler)
       glVertex3f( x2, y2, z );
    }
    glEnd();
+}
+
+void
+ModelObject::RenderParallax (FireAnimation* pBase, float xOffset )  // overload with specified X and X2 for parallax animation
+{
+   float x = pBase->GetPositionX() + xOffset;
+   float y = pBase->GetPositionY();
+   float z = pBase->GetPositionZ();
+
+   glMatrixMode(GL_MODELVIEW);
+   glPushMatrix();
+      pBase->BindTexture();
+      glEnable (GL_BLEND);
+      glEnable (GL_COLOR_MATERIAL);
+      glTranslatef (x, y, z);
+      const unsigned char* pColors = pBase->GetSmokeColor(0);
+      const float* pUVs = pBase->GetUVs(0,0);
+      const float* pVerts = pBase->GetVertecies(0,0);
+      glColor4ubv (pColors);
+      glBegin(GL_QUADS);
+      {
+         glTexCoord2fv( pUVs );
+         glVertex3fv( pVerts );
+         pUVs+= 2; // pointer math
+         pVerts+= 3;
+         glTexCoord2fv( pUVs );
+         glVertex3fv( pVerts );
+         pUVs+= 2; // pointer math
+         pVerts+= 3;
+         glTexCoord2fv( pUVs );
+         glVertex3fv( pVerts );
+         pUVs+= 2; // pointer math
+         pVerts+= 3;
+         glTexCoord2fv( pUVs );
+         glVertex3fv( pVerts );
+         pUVs+= 2; // pointer math
+         pVerts+= 3;
+      }
+      glEnd();
+
+      pColors = pBase->GetSmokeColor(1);
+      pUVs = pBase->GetUVs(1,0);
+      pVerts = pBase->GetVertecies(1,0);
+      glColor4ubv (pColors);
+      glBegin(GL_QUADS);
+      {
+         glTexCoord2fv( pUVs );
+         glVertex3fv( pVerts );
+         pUVs+= 2; // pointer math
+         pVerts+= 3;
+         glTexCoord2fv( pUVs );
+         glVertex3fv( pVerts );
+         pUVs+= 2; // pointer math
+         pVerts+= 3;
+         glTexCoord2fv( pUVs );
+         glVertex3fv( pVerts );
+         pUVs+= 2; // pointer math
+         pVerts+= 3;
+         glTexCoord2fv( pUVs );
+         glVertex3fv( pVerts );
+         pUVs+= 2; // pointer math
+         pVerts+= 3;
+      }
+      glEnd();
+      pColors = pBase->GetSmokeColor(2);
+      pUVs = pBase->GetUVs(2,0);
+      pVerts = pBase->GetVertecies(2,0);
+      glColor4ubv (pColors);
+      glBegin(GL_QUADS);
+      {
+         glTexCoord2fv( pUVs );
+         glVertex3fv( pVerts );
+         pUVs+= 2; // pointer math
+         pVerts+= 3;
+         glTexCoord2fv( pUVs );
+         glVertex3fv( pVerts );
+         pUVs+= 2; // pointer math
+         pVerts+= 3;
+         glTexCoord2fv( pUVs );
+         glVertex3fv( pVerts );
+         pUVs+= 2; // pointer math
+         pVerts+= 3;
+         glTexCoord2fv( pUVs );
+         glVertex3fv( pVerts );
+         pUVs+= 2; // pointer math
+         pVerts+= 3;
+      }
+      glEnd();
+      pColors = pBase->GetSmokeColor(3);
+      pUVs = pBase->GetUVs(3,0);
+      pVerts = pBase->GetVertecies(3,0);
+      glColor4ubv (pColors);
+      glBegin(GL_QUADS);
+      {
+         glTexCoord2fv( pUVs );
+         glVertex3fv( pVerts );
+         pUVs+= 2; // pointer math
+         pVerts+= 3;
+         glTexCoord2fv( pUVs );
+         glVertex3fv( pVerts );
+         pUVs+= 2; // pointer math
+         pVerts+= 3;
+         glTexCoord2fv( pUVs );
+         glVertex3fv( pVerts );
+         pUVs+= 2; // pointer math
+         pVerts+= 3;
+         glTexCoord2fv( pUVs );
+         glVertex3fv( pVerts );
+         pUVs+= 2; // pointer math
+         pVerts+= 3;
+      }
+      glEnd();
+      glColor4ub (255,255,255,255);
+      glDisable (GL_COLOR_MATERIAL);
+      glDisable (GL_BLEND);
+   glPopMatrix();
 }

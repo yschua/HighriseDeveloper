@@ -100,6 +100,9 @@ main ()
    catch ( HighriseException* ex )
    {
       std::cout << "Exception caught in main: " << ex->get_Message();
+      std::cout << "Hit a key to close!";
+      char t[4];
+      std::cin.get(t[0]);
    }
    return 0;
 }

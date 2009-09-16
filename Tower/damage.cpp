@@ -33,7 +33,7 @@ Damage::Damage (int x, int x2, int level, Tower * TowerParent, AnimationSingle* 
    mpFrame->SetPosition (mX, mY);
    ImageManager * image_man = ImageManager::GetInstance ();
    mFire.SetPosition( mX, (mLevel-1) * 36);
-   mFire.AddFrame( image_man->GetTexture ("explode.png", GL_RGBA), 220);
+   mFire.AddFrame( image_man->GetTexture ("explode.png", GL_RGBA), 150);
    mFire.AddFrame( image_man->GetTexture ("particle1.png", GL_RGBA), 120);
    mFire.AddFrame( image_man->GetTexture ("particle2.png", GL_RGBA), 120);
 }
@@ -49,5 +49,5 @@ void
 Damage::Draw ()
 {
    Render (mpFrame);
-   RenderParallax (&mFire, 20);
+   RenderParallax (&mFire, 35);
 }

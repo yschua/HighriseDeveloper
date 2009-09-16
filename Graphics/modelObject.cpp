@@ -107,10 +107,10 @@ ModelObject::RenderParallax (FireAnimation* pBase, float xOffset )  // overload 
    glMatrixMode(GL_MODELVIEW);
    glPushMatrix();
       pBase->BindTexture();
-      glEnable (GL_BLEND);
+      //glEnable (GL_BLEND);
       glEnable (GL_COLOR_MATERIAL);
       glTranslatef (x, y, z);
-      const unsigned char* pColors = pBase->GetSmokeColor(0);
+      const unsigned char* pColors = pBase->GetFlameColor(0);
       const float* pUVs = pBase->GetUVs(0,0);
       const float* pVerts = pBase->GetVertecies(0,0);
       glColor4ubv (pColors);
@@ -130,12 +130,11 @@ ModelObject::RenderParallax (FireAnimation* pBase, float xOffset )  // overload 
          pVerts+= 3;
          glTexCoord2fv( pUVs );
          glVertex3fv( pVerts );
-         pUVs+= 2; // pointer math
-         pVerts+= 3;
       }
       glEnd();
 
-      pColors = pBase->GetSmokeColor(1);
+      glTranslatef (2, 0, 0);
+      pColors = pBase->GetFlameColor(1);
       pUVs = pBase->GetUVs(1,0);
       pVerts = pBase->GetVertecies(1,0);
       glColor4ubv (pColors);
@@ -155,13 +154,12 @@ ModelObject::RenderParallax (FireAnimation* pBase, float xOffset )  // overload 
          pVerts+= 3;
          glTexCoord2fv( pUVs );
          glVertex3fv( pVerts );
-         pUVs+= 2; // pointer math
-         pVerts+= 3;
       }
       glEnd();
-      pColors = pBase->GetSmokeColor(2);
+      pColors = pBase->GetFlameColor(2);
       pUVs = pBase->GetUVs(2,0);
       pVerts = pBase->GetVertecies(2,0);
+      glTranslatef (-3, 0, 0);
       glColor4ubv (pColors);
       glBegin(GL_QUADS);
       {
@@ -179,11 +177,10 @@ ModelObject::RenderParallax (FireAnimation* pBase, float xOffset )  // overload 
          pVerts+= 3;
          glTexCoord2fv( pUVs );
          glVertex3fv( pVerts );
-         pUVs+= 2; // pointer math
-         pVerts+= 3;
       }
       glEnd();
-      pColors = pBase->GetSmokeColor(3);
+      glTranslatef (4, 0, 0);
+      pColors = pBase->GetFlameColor(3);
       pUVs = pBase->GetUVs(3,0);
       pVerts = pBase->GetVertecies(3,0);
       glColor4ubv (pColors);
@@ -203,12 +200,10 @@ ModelObject::RenderParallax (FireAnimation* pBase, float xOffset )  // overload 
          pVerts+= 3;
          glTexCoord2fv( pUVs );
          glVertex3fv( pVerts );
-         pUVs+= 2; // pointer math
-         pVerts+= 3;
       }
       glEnd();
       glColor4ub (255,255,255,255);
       glDisable (GL_COLOR_MATERIAL);
-      glDisable (GL_BLEND);
+      //glDisable (GL_BLEND);
    glPopMatrix();
 }

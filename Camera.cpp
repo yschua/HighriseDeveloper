@@ -131,6 +131,8 @@ Camera::OnResize (Vector2i vi)
    glViewport(0, 0, vi.x, vi.y);
    mCam = vi;
    mAspect = (float)(vi.x) / vi.y;
+   glMatrixMode(GL_PROJECTION);
+   glLoadIdentity();
 	gluPerspective (90.0f,mAspect ,1.0f,1000.0f);		// Calculate The Aspect Ratio Of The Window
    return true;
 }

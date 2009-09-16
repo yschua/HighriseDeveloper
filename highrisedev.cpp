@@ -33,9 +33,15 @@
 
 #include "highrisedev.h"
 
+void debugprint()
+{
+   std::cout << "Program exited correctly. Creating trace...\n";
+}
+
 int
 main ()
 {
+   atexit(debugprint);
    Camera * cam = Camera::GetInstance ();
 
    cam->SetWorldSize (Vector2f(1280, 720));
@@ -51,6 +57,7 @@ main ()
 
    sf::String Title( string("Alpha"));
 
+   std::cout << "Basic loading finished....\n";
    try
    {
       // stuffing the floors with test spaces
@@ -65,9 +72,16 @@ main ()
       MainEvent mev;
       Events.Add (&mev);
 
+      std::cout << "Starting event loop...\n";
       while (mev.IsRunning())
       {
-         Events.HandleEvents ();
+         // This should be here so we can create custom events later,
+         // and also so we can create fake events for debugging.
+         sf::Event Event;
+         while (cam->GetEvent(Event))
+         {
+            Events.HandleEvents (Event);
+         }
          cam->Clear ();
          cam->SetActive();
          cam->Integrate (60);
@@ -81,6 +95,7 @@ main ()
          cam->Display ();
          People.Update( 40 );
       }
+      std::cout << mev.IsRunning() << "\n";
    }
    catch ( HighriseException* ex )
    {

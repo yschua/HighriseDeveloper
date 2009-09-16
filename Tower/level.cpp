@@ -14,6 +14,7 @@
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <cstring>
 #include <iostream>
 #include <map>
 #include <vector>
@@ -271,7 +272,7 @@ Level::ScanFloorSpace() // Marks the gird for what is in the space
                mpFloorSpaceGrid[i] = 1; // pFB->GetTypeCode(); // identify for the minimap
             }
          }
-      }      
+      }
       int iCount = 0;
       for (int i=0;i < mFloorSpaceGridSize;++i)
       {

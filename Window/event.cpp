@@ -35,11 +35,8 @@ EventHandler::Add (EventBase* Handler)
    mHandlers.push_back (Handler);
 }
 
-bool
-EventHandler::HandleEvents ()
+bool EventHandler::HandleEvents (const sf::Event& Event)
 {
-   sf::Event Event;
-   Cam->GetEvent (Event);
    switch (Event.Type)
    {
       case sf::Event::KeyPressed:
@@ -53,7 +50,6 @@ EventHandler::HandleEvents ()
          for (ConType::iterator i = mHandlers.begin (); i != mHandlers.end (); i++)
             (*i)->OnResize (Vector2i(Event.Size.Width, Event.Size.Height));
                // We want all event handlers to receive this one; we don't want it to be "eaten"
-               //return true;
       break;
 
       case sf::Event::KeyReleased:
@@ -80,11 +76,17 @@ EventHandler::HandleEvents ()
                return true;
       break;
 
-      case sf::Event::Closed:
+      case sf::Event::Closed: {
+         // Throw a segfault to get a stack trace.
+         /*std::cout << "Closing!\n";
+         int* blah;
+         blah = '\0';
+         int blahah = *blah;*/
          for (ConType::iterator i = mHandlers.begin (); i != mHandlers.end (); i++)
-            if ((*i)->OnClose ())
-               return true;
+            (*i)->OnClose ();
+               //return true;
       break;
+      }
 
       case sf::Event::MouseWheelMoved:
          for (ConType::iterator i = mHandlers.begin (); i != mHandlers.end (); i++)

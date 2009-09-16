@@ -124,10 +124,13 @@
 		<Unit filename="Window/event.h" />
 		<Unit filename="animation.cpp" />
 		<Unit filename="animation.h" />
+		<Unit filename="animationBase.cpp" />
 		<Unit filename="background.cpp" />
 		<Unit filename="background.h" />
 		<Unit filename="citizens.cpp" />
 		<Unit filename="citizens.h" />
+		<Unit filename="clock.cpp" />
+		<Unit filename="clock.h" />
 		<Unit filename="highRiseException.cpp" />
 		<Unit filename="highriseException.h" />
 		<Unit filename="highrisedev.cpp" />

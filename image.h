@@ -17,6 +17,8 @@
 #ifndef _IMAGEMANAGER_H
 #define _IMAGEMANAGER_H
 
+#include <string>
+
 namespace Gfx
 {
    class Texture;

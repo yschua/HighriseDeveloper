@@ -40,7 +40,7 @@ Camera::Camera ()
    Settings.StencilBits       = 8;  // Request a 8 bits stencil buffer
    Settings.AntialiasingLevel = 2;  // Request 2 levels of antialiasing
    mpWindow = new sf::RenderWindow ();
-   mpWindow->Create (sf::VideoMode (800, 600, 32), "Highrise Developer " HR_VERSION, sf::Style::Close, Settings);
+   mpWindow->Create (sf::VideoMode (800, 600, 32), "Highrise Developer (version " HR_VERSION ")", sf::Style::Close|sf::Style::Resize, Settings);
    mZoomFactor = -400; // back away 200 feet
    mAspect = (float)(800.0 / 600);
    mCam.x = 800;

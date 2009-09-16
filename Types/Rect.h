@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include <iostream>
 #include "Vector2.h"
 
 //typedef std::pair<float, float> vector2;

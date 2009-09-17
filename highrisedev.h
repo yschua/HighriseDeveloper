@@ -52,3 +52,11 @@ public:
       return true;
    }
 };
+
+class ToolEvent : public EventBase
+{
+public:
+   ToolEvent() {}
+
+
+};

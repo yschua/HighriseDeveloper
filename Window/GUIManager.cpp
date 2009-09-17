@@ -37,6 +37,8 @@ GUIManager::GUIManager()
       CEGUI::Window* pTestBtn = mpWM->createWindow("WindowsLook/Button", "TestBtn" );
 
       LoadLayout("Menu.layout");
+      mpWM->getWindow((CEGUI::utf8*)"Button1")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&GUIManager::OnOffice, this));
+
       //pTestBtn->setMinSize(UVector2(UDim(0.0f, 100), UDim(0.0f, 20)));
 		pTestBtn->setSize(UVector2(UDim(0.5f, 0), UDim(0.5f, 0)));
 		pTestBtn->setPosition(UVector2(UDim(0.25f, 0), UDim(0.4f, 0)));
@@ -72,6 +74,14 @@ void GUIManager::Draw()
 }
 
 /* Handling events... */
+
+bool
+GUIManager::OnOffice (const CEGUI::EventArgs& e)
+{
+   // set FloorPlacement to Office
+   // route mouse clicks that hit the main into the FloorPlacement manager.
+   return true;
+}
 
 bool
 GUIManager::OnMouseDown (sf::Mouse::Button Button, Vector2i World, Vector2i Cam)

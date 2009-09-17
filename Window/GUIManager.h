@@ -14,6 +14,8 @@ public:
 	GUIManager();
 	~GUIManager();
 
+   bool OnOffice (const CEGUI::EventArgs& e);
+
 	//bool Initialize(sf::RenderWindow* Win);
    bool OnMouseDown (sf::Mouse::Button Button, Vector2i World, Vector2i Cam);
    bool OnMouseUp (sf::Mouse::Button Button, Vector2i World, Vector2i Cam);

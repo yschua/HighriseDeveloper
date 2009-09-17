@@ -349,6 +349,14 @@
 			<File
 				RelativePath="..\Window\GUIManager.cpp"
 				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						BrowseInformation="1"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\Window\guimanager.h"

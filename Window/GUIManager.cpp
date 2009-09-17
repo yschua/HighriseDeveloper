@@ -35,6 +35,9 @@ GUIManager::GUIManager()
       CEGUI::FrameWindow* fWnd = (CEGUI::FrameWindow*) mpWM->createWindow( "WindowsLook/FrameWindow", "testWindow" );
       mpRootWind->addChildWindow( fWnd );
       CEGUI::Window* pTestBtn = mpWM->createWindow("WindowsLook/Button", "TestBtn" );
+
+      CEGUI::Window* pMenuLayout = mpWM->loadWindowLayout("Menu.layout");
+      mpRootWind->addChildWindow (pMenuLayout);
       //pTestBtn->setMinSize(UVector2(UDim(0.0f, 100), UDim(0.0f, 20)));
 		pTestBtn->setSize(UVector2(UDim(0.5f, 0), UDim(0.5f, 0)));
 		pTestBtn->setPosition(UVector2(UDim(0.25f, 0), UDim(0.4f, 0)));

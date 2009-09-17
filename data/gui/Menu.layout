@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<GUILayout >
+    <Window Type="WindowsLook/StaticImage" Name="MenuBackground" >
+        <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
+        <Property Name="UnifiedAreaRect" Value="{{0,0},{1,-20},{1,0},{1,0}}" />
+        <Window Type="WindowsLook/Button" Name="Button1" >
+            <Property Name="Text" Value="Office" />
+            <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
+            <Property Name="UnifiedAreaRect" Value="{{0,2},{0,2},{0,50},{1,0}}" />
+        </Window>
+        <Window Type="WindowsLook/Button" Name="MenuBackground/Button2" >
+            <Property Name="Text" Value="Condo" />
+            <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
+            <Property Name="UnifiedAreaRect" Value="{{0,54},{0,2},{0,104},{1,0}}" />
+        </Window>
+        <Window Type="WindowsLook/Button" Name="MenuBackground/Button21" >
+            <Property Name="Text" Value="Apartment" />
+            <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
+            <Property Name="UnifiedAreaRect" Value="{{0,108},{0,2},{0,208},{1,0}}" />
+        </Window>
+    </Window>
+</GUILayout>

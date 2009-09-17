@@ -15,7 +15,7 @@
  */
 
 #include <vector>
-#include "Types/vector2.h"
+#include "Types/Vector2.h"
 #include "fireAnimation.h"
 #include "highriseException.h"
 

@@ -17,8 +17,8 @@
 // root of the levels and sublevels, the building/ tower.
 // create an instance of this. The lobby is created empty.
 // call newLevel or newSubLevel to add floors or basement levels
-#ifndef _WORLD_H
-#define _WORLD_H
+#ifndef _SCENE_H
+#define _SCENE_H
 
 #include "routes.h"
 #include "Graphics/modelObject.h"
@@ -26,10 +26,11 @@
 class FloorBase; // aggregate of floor spaces for offices, condos and hotels
 class Tower;
 class Background;
+class BuildStategyBase;
 
 // Tower is a ModelObject along with all the FloorSpace entities
 // This renderes the Tower in the ModelSpaces with perspective, pan and zoom.
-class World
+class Scene
 {
    friend class TowerAgent;
 
@@ -37,11 +38,12 @@ private:
    std::vector<Tower*> mTowers;     // Lobby is at mNo_SubLevels not zero
    Routes mRoutes;
    Background* mpBackground;
+   BuildStategyBase* mpBuildStrategy;  // Place floor objects
 
 public:
    // ctor/dtor
-   World();
-   ~World();
+   Scene();
+   ~Scene();
 
 protected:
    inline std::vector<Tower*>& GetTowers()
@@ -56,8 +58,10 @@ public:
    Tower* GetTower (int no); // positive gets you a level above, negative gets you a basement level
    void SetBG (Background* pBG);
 
+   bool SelectTool( int ToolID );
+
    void Update (float dt);
    void Draw ();
 };
 
-#endif //_WORLD_H
+#endif //_SCENE_H

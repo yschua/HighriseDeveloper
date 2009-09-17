@@ -31,7 +31,7 @@ ElevatorMachine::ElevatorMachine (int x, int level, Elevator* pElevator )
       ,  mState( LMS_Idle )
 {
    ImageManager * image_man = ImageManager::GetInstance ();
-//   my = (Camera::GetInstance()->GetWorldRect ().Top ) - (level * 36);
+//   my = (Camera::GetInstance()->GetSceneRect ().Top ) - (level * 36);
    std::cout << "New elevator machine at " << mx << ", " << my << std::endl;
    mLifterAnimation = new Animation (36, 32);
    mLifterAnimation->AddFrame (image_man->GetTexture ("liftMachine_1.png", GL_RGBA), 1000);

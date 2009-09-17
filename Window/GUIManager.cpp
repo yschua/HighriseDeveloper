@@ -1,11 +1,14 @@
 #include <SFML/System.hpp>
 #include <string>
 #include "../highriseException.h"
+
+#include "../sceneEvent.h"
 #include "GUIManager.h"
 
-GUIManager::GUIManager()
+GUIManager::GUIManager(SceneEvent& rse)
 :  mpRenderer(NULL)
 ,  mpSystem(NULL)
+,  mSE(rse)
 {
 	InitMaps();
 	try
@@ -78,19 +81,21 @@ void GUIManager::Draw()
 bool
 GUIManager::OnOffice (const CEGUI::EventArgs& e)
 {
+   
    // set FloorPlacement to Office
    // route mouse clicks that hit the main into the FloorPlacement manager.
+   mSE.OnToolHit (HR_PlaceOffice);
    return true;
 }
 
 bool
-GUIManager::OnMouseDown (sf::Mouse::Button Button, Vector2i World, Vector2i Cam)
+GUIManager::OnMouseDown (sf::Mouse::Button Button, Vector2i Scene, Vector2i Cam)
 {
    return mpSystem->injectMouseButtonDown(CEMouseButton(Button));
 }
 
 bool
-GUIManager::OnMouseUp (sf::Mouse::Button Button, Vector2i World, Vector2i Cam)
+GUIManager::OnMouseUp (sf::Mouse::Button Button, Vector2i Scene, Vector2i Cam)
 {
    return mpSystem->injectMouseButtonUp(CEMouseButton(Button));
 }
@@ -108,7 +113,7 @@ GUIManager::OnKeyUp (sf::Key::Code Key)
 }
 
 bool
-GUIManager::OnMouseMove (Vector2i World, Vector2i Cam)
+GUIManager::OnMouseMove (Vector2i Scene, Vector2i Cam)
 {
    return mpSystem->injectMousePosition(static_cast<float>(Cam.x), static_cast<float>(Cam.y));
 }

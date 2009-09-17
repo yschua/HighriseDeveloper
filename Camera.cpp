@@ -22,7 +22,7 @@
 #include "physics.h"
 #include "image.h"
 #include "animation.h"
-#include "world.h"
+#include "scene.h"
 
 #include "Graphics/modelObject.h"   // 3d abstract
 #include "Graphics/viewObject.h"    // 2d abstract
@@ -79,11 +79,11 @@ Camera::SetMaxFramerate (int rate)
 }
 
 void
-Camera::SetWorldSize (Vector2f Size)
+Camera::SetSceneSize (Vector2f Size)
 {
    glClearDepth(1.0f);
-   mWorld.x = Size.x;
-   mWorld.y = Size.y;
+   mScene.x = Size.x;
+   mScene.y = Size.y;
 }
 
 Camera*
@@ -159,7 +159,7 @@ Camera::InitGL()
 }
 
 void
-Camera::DrawModel (World* pModel)   // 3d interface objects
+Camera::DrawModel (Scene* pModel)   // 3d interface objects
 {
 //   glDisable (GL_LIGHTING);
    glMatrixMode(GL_MODELVIEW);

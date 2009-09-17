@@ -8,20 +8,22 @@
 #include "event.h"
 #include <iostream>
 
+class SceneEvent;
+
 class GUIManager : public EventBase
 {
 public:
-	GUIManager();
+	GUIManager(SceneEvent& rse);
 	~GUIManager();
 
    bool OnOffice (const CEGUI::EventArgs& e);
 
 	//bool Initialize(sf::RenderWindow* Win);
-   bool OnMouseDown (sf::Mouse::Button Button, Vector2i World, Vector2i Cam);
-   bool OnMouseUp (sf::Mouse::Button Button, Vector2i World, Vector2i Cam);
+   bool OnMouseDown (sf::Mouse::Button Button, Vector2i Scene, Vector2i Cam);
+   bool OnMouseUp (sf::Mouse::Button Button, Vector2i Scene, Vector2i Cam);
    bool OnKeyDown (sf::Key::Code Key);
    bool OnKeyUp (sf::Key::Code Key);
-   bool OnMouseMove (Vector2i World, Vector2i Cam);
+   bool OnMouseMove (Vector2i Scene, Vector2i Cam);
    bool OnMouseWheel (int Delta);
    bool OnResize (Vector2i NewSize);
 	void Draw();
@@ -46,6 +48,7 @@ private:
 
 	KeyMap mKeyMap;
 	MouseButtonMap mMouseButtonMap;
+   SceneEvent& mSE;  // this does not belong here but needed until the event manager can hande it
 
 	void InitMaps();
 	CEGUI::Key::Scan CEKey(sf::Key::Code Code);

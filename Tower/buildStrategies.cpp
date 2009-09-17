@@ -14,31 +14,43 @@
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef _OFFICE_H
-#define _OFFICE_H
+#include <map>
+#include <vector>
+#include "../routes.h"
+#include "floorBase.h"
+#include "tower.h"
+#include "office.h"
+#include "apartment.h"
+#include "buildStrategies.h"
 
-#include "../Graphics/modelObject.h"
-class Animation;
-
-enum office_state
+// no tool active
+bool BuildStategyBase::BuildHere (Tower* pTowwer, int x, int y)
 {
-   s_unoccupied_day,
-   s_occupied_day
-};
+   return false;  // no tool selection
+}
 
-class office : public FloorBase, public Gfx::ModelObject
+// Offices
+bool BuildOfficeStategy::BuildHere (Tower* pTowwer, int x, int y)
 {
-private:
-   office_state unoccupied_day (float dt);
-   office_state occupied_day (float dt);
-   std::map<office_state, Animation *> manimations;
-   office_state mcurrent_state;
-   int mcurrent_animation;
+   return true;
+}
 
-public:
-   void Update (float dt);
-   void Draw ();
-   office (int x, int level, Tower * TowerParent);
-};
+// Apartments
+bool
+BuildApartmentStategy::BuildHere (Tower* pTowwer, int x, int y)
+{
+   return true;
+}
 
-#endif
+// Condos
+bool
+BuildCondoStategy::BuildHere (Tower* pTowwer, int x, int y)
+{
+   return true;
+}
+
+// select and drag
+// build lobby
+// build elevator
+// build stairs
+

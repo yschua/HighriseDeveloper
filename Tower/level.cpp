@@ -42,7 +42,7 @@ Level::Level (int level, int x, int y, int x2, Tower * TowerParent)
    mLevel = level;
                  // The levels origin and vectors (partial implementation for 3D)
    // mX, ,X2 are set in SetFloorPosiitons (x,x2)
-   mY = y*-36;   //(int)(Camera::GetInstance()->GetWorldRect ().Top ) - (mLevel * 36);
+   mY = y*-36;   //(int)(Camera::GetInstance()->GetSceneRect ().Top ) - (mLevel * 36);
    mZ = -0.4f;   // Face is always at zero for now
                  // missing are the Y (up) and Z (foward) vectors.
 
@@ -92,7 +92,7 @@ void
 Level::SetFloorPositions( int x, int x2 )
 {
                  // The levels origin and vectors (partial implementation for 3D)
-   mX = x;       //(int)Camera::GetInstance()->GetWorldRect ().Left;
+   mX = x;       //(int)Camera::GetInstance()->GetSceneRect ().Left;
    mX2 = x2;     // simple xvector defaults to a minimum floor size
    if ( mLevel < 0 )
    {

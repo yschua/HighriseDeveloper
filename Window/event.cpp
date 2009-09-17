@@ -85,7 +85,7 @@ bool EventHandler::HandleEvents (const sf::Event& Event)
          for (ConType::iterator i = mHandlers.begin (); i != mHandlers.end (); i++)
             (*i)->OnClose ();
                //return true;
-      break;
+         break;
       }
 
       case sf::Event::MouseWheelMoved:
@@ -93,6 +93,11 @@ bool EventHandler::HandleEvents (const sf::Event& Event)
             if ((*i)->OnMouseWheel (Event.MouseWheel.Delta))
                return true;
       break;
+
+      case sf::Event::JoyButtonPressed: // no event mutations
+         for (ConType::iterator i = mHandlers.begin (); i != mHandlers.end (); i++)
+            if ((*i)->OnToolHit(Event.JoyButton.Button)) // event does not support other events
+               return true;
 
       default:
          return false;

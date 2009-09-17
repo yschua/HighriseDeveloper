@@ -25,11 +25,12 @@
 #include "routes.h"
 #include "background.h"
 #include "Tower/tower.h"
-#include "world.h"
+#include "scene.h"
 
 #include <CEGUI.h>
 
 #include "Window/GUIManager.h"
+#include "sceneEvent.h"
 
 #include "highrisedev.h"
 
@@ -44,15 +45,15 @@ main ()
    atexit(debugprint);
    Camera * cam = Camera::GetInstance ();
 
-   cam->SetWorldSize (Vector2f(1280, 720));
+   cam->SetSceneSize (Vector2f(1280, 720));
    cam->SetMaxFramerate (60);
    cam->SetActive();
    cam->InitGL();
 
    Interface* pInterface = new Interface();
-   World theWorld;
+   Scene theScene;
    Tower theTower (1, 10); // numero uno with 10 sub levels
-   theWorld.AddTower (&theTower); // pointer for graphics
+   theScene.AddTower (&theTower); // pointer for graphics
    CitizensAgent People( theTower ); // known tower, later this will be a tower list for mutiple towers
 
    sf::String Title( string("Alpha"));
@@ -63,13 +64,17 @@ main ()
       // stuffing the floors with test spaces
       theTower.DebugLoad (0,0,0);
 
-      theWorld.SetBG (new Background (cam->GetWorldSize().x, cam->GetWorldSize().y));
-      GUIManager Gui;
+      theScene.SetBG (new Background (cam->GetSceneSize().x, cam->GetSceneSize().y));
+
+      SceneEvent SceneEV(&theScene);
+      GUIManager Gui (SceneEV);
 
       EventHandler Events;
       Events.Add (&Gui);
       Events.Add (cam);
+
       MainEvent mev;
+      Events.Add(&SceneEV);
       Events.Add (&mev);
 
       std::cout << "Starting event loop...\n";
@@ -86,7 +91,7 @@ main ()
          cam->SetActive();
          cam->Integrate (60);
          theTower.Update (60);
-         cam->DrawModel(&theWorld); // the background and tower(s).
+         cam->DrawModel(&theScene); // the background and tower(s).
          pInterface->Update(60);
          cam->DrawInterface( pInterface );
 

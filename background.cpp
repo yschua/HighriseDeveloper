@@ -32,7 +32,7 @@ Background::Background (float width, float height)
    ImageManager * images = ImageManager::GetInstance ();
    // sky this will be the sky dome in 3D
    mBackImage = new AnimationSingle (images->GetTexture ("back.png", GL_RGBA), (int)width, (int)height);
-   mBackImage->SetPosition(Vector3f( 0, -680, -0.1f )); //cam->GetWorldRect().Left, cam->GetWorldRect().Top - mBackImage->mSprite->GetImage()->GetHeight()) );
+   mBackImage->SetPosition(Vector3f( 0, -680, -0.1f )); //cam->GetSceneRect().Left, cam->GetWorldRect().Top - mBackImage->mSprite->GetImage()->GetHeight()) );
    // move the ground down 36 since lobby is at 0
 
    // Z axis is 0 for now

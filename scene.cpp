@@ -19,44 +19,67 @@
 #include <iostream>
 #include "physics.h"
 #include "routes.h"
+#include "Window/event.h"
 #include "Tower/floorBase.h"
 #include "Tower/tower.h"
+#include "Tower/buildStrategies.h"
 #include "background.h"
-#include "world.h"
+#include "scene.h"
 
 //#else
 //#include "../highrisedev.h"
 //#endif
 
 //using namespace Gfx;
-World::World ()
+Scene::Scene ()
 {
+   mpBackground = NULL;
+   mpBuildStrategy = NULL;
 }
 
-World::~World ()
+Scene::~Scene ()
 {
 }
 
 void
-World::AddTower (Tower* pTower)
+Scene::AddTower (Tower* pTower)
 {
    mTowers.push_back (pTower);   // only saved here for drawing
 }
 
+bool
+Scene::SelectTool (int toolID)
+{
+   bool bResult = false;
+   switch (toolID)
+   {
+   case HR_PlaceOffice:
+      mpBuildStrategy = new BuildOfficeStategy();
+      bResult = true;
+      break;
+
+   case HR_PlaceApartment:
+      mpBuildStrategy = new BuildApartmentStategy();
+      bResult = true;
+      break;
+   }
+   return bResult;
+}
+
 void
-World::SetBG (Background* pBG)
+Scene::SetBG (Background* pBG)
 {
    mpBackground = pBG;
 }
 
 void
-World::Update (float dt)
+Scene::Update (float dt)
 {
-   std::cout << "World Update method called but it was not implemented" << std::endl;
+   std::cout << "Scene Update method called but it was not implemented" << std::endl;
 }
 
 void
-World::Draw ()
+Scene::Draw ()
 {
    mpBackground->Draw();
    std::vector<Tower *>::iterator iTower;

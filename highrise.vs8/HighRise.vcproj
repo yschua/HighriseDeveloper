@@ -239,15 +239,19 @@
 				>
 			</File>
 			<File
+				RelativePath="..\scene.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\sceneEvent.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\stdafx.cpp"
 				>
 			</File>
 			<File
 				RelativePath="..\tiler.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\world.cpp"
 				>
 			</File>
 		</Filter>
@@ -317,15 +321,19 @@
 				>
 			</File>
 			<File
+				RelativePath="..\scene.h"
+				>
+			</File>
+			<File
+				RelativePath="..\sceneEvent.h"
+				>
+			</File>
+			<File
 				RelativePath="..\stdafx.h"
 				>
 			</File>
 			<File
 				RelativePath="..\tiler.h"
-				>
-			</File>
-			<File
-				RelativePath="..\world.h"
 				>
 			</File>
 		</Filter>
@@ -494,6 +502,10 @@
 			</File>
 			<File
 				RelativePath="..\Tower\apartment.h"
+				>
+			</File>
+			<File
+				RelativePath="..\Tower\buildStrategies.cpp"
 				>
 			</File>
 			<File

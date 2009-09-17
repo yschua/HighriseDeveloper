@@ -26,12 +26,12 @@
 class Animation;
 class AnimationSingle;
 class Tiler;
-class World;
+class Scene;
 
 class Camera : public Body, public EventBase
 {
 private:
-   Vector2f mWorld, mCam;
+   Vector2f mScene, mCam;
    sf::Window* mpWindow;
    const sf::Input* mpInput;
    static Camera* mpInstance;
@@ -54,8 +54,8 @@ public:
    // properties
    void SetMaxFramerate (int rate);
    //void SetCamSize (int x, int y);
-   void SetWorldSize (Vector2f);
-   Vector2f GetWorldSize () { return mWorld; }
+   void SetSceneSize (Vector2f);
+   Vector2f GetSceneSize () { return mScene; }
    Vector2f GetCamSize () { return mCam; }
    Vector2i GetMouse ();
    Vector2i GetLocalMouse();
@@ -66,7 +66,7 @@ public:
    void Clear ();
    void InitGL();
 
-   void DrawModel (World* pModel);
+   void DrawModel (Scene* pModel);
    void DrawInterface (Interface* pI);
    void Create (const std::string & caption);
    void Center (int x, int y);

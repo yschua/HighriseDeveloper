@@ -18,6 +18,22 @@
 #define _EVENT_H
 
 #include "../Types/Vector2.h"
+
+enum HR_EVENTs
+{
+   HR_MouseInScene = 0,       // Generic
+   HR_ClickInScene,           // Left Click
+   HR_MenuInScene,            // Right Click
+   HR_SelectBuildCursor,      // From tools if BuildOption returns true, set cursor and/or status bar to show active tool.
+   HR_SelectBuildOption,      // From tools, include Office, Elevater, Condo etc as option param
+   HR_PlaceOffice,
+   HR_PlaceApartment,
+   HR_PlaceCondo,
+   HR_PlaceElevator,
+   HR_PlaceNone,
+   HR_Close
+};
+
 class Camera;
 
 class EventBase
@@ -27,13 +43,14 @@ public:
    // already define a Resize() member funtion. Maybe we should call prefix theese with
    // "On"? (So OnResize(), OnMouseDown(), etc).
    virtual bool OnResize (Vector2i viewSize) { return false; }
-   virtual bool OnMouseDown (sf::Mouse::Button Button, Vector2i World, Vector2i Cam) { return false; }
-   virtual bool OnMouseUp (sf::Mouse::Button Button, Vector2i World, Vector2i Cam) { return false; }
+   virtual bool OnMouseDown (sf::Mouse::Button Button, Vector2i Scene, Vector2i Cam) { return false; }
+   virtual bool OnMouseUp (sf::Mouse::Button Button, Vector2i Scene, Vector2i Cam) { return false; }
    virtual bool OnKeyDown (sf::Key::Code Key) { return false; }
    virtual bool OnKeyUp (sf::Key::Code Key) { return false; }
-   virtual bool OnMouseMove (Vector2i World, Vector2i Cam) { return false; }
+   virtual bool OnMouseMove (Vector2i Scene, Vector2i Cam) { return false; }
    virtual bool OnMouseWheel (int Delta) { return false; }
    virtual bool OnClose () { return false; }
+   virtual bool OnToolHit (const int tool) {return false; }
 };
 
 class EventHandler

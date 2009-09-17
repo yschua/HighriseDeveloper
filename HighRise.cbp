@@ -93,6 +93,8 @@
 		<Unit filename="Settings/Settings.h" />
 		<Unit filename="Tower/apartment.cpp" />
 		<Unit filename="Tower/apartment.h" />
+		<Unit filename="Tower/buildStrategies.cpp" />
+		<Unit filename="Tower/buildStrategies.h" />
 		<Unit filename="Tower/damage.cpp" />
 		<Unit filename="Tower/damage.h" />
 		<Unit filename="Tower/elevator.cpp" />
@@ -154,12 +156,14 @@
 		<Unit filename="routeVisitor.h" />
 		<Unit filename="routes.cpp" />
 		<Unit filename="routes.h" />
+		<Unit filename="scene.cpp" />
+		<Unit filename="scene.h" />
+		<Unit filename="sceneEvent.cpp" />
+		<Unit filename="sceneEvent.h" />
 		<Unit filename="stdafx.cpp" />
 		<Unit filename="stdafx.h" />
 		<Unit filename="tiler.cpp" />
 		<Unit filename="tiler.h" />
-		<Unit filename="world.cpp" />
-		<Unit filename="world.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

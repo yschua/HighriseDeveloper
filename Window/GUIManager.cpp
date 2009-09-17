@@ -28,7 +28,7 @@ GUIManager::GUIManager()
 
 		mpWM = CEGUI::WindowManager::getSingletonPtr();
 
-      CEGUI::Window* mpRootWind = mpWM->createWindow( "DefaultWindow", "root" );
+      mpRootWind = mpWM->createWindow( "DefaultWindow", "root" );
       mpSystem->setGUISheet( mpRootWind );
 
       // Just making test windows now
@@ -36,8 +36,7 @@ GUIManager::GUIManager()
       mpRootWind->addChildWindow( fWnd );
       CEGUI::Window* pTestBtn = mpWM->createWindow("WindowsLook/Button", "TestBtn" );
 
-      CEGUI::Window* pMenuLayout = mpWM->loadWindowLayout("Menu.layout");
-      mpRootWind->addChildWindow (pMenuLayout);
+      LoadLayout("Menu.layout");
       //pTestBtn->setMinSize(UVector2(UDim(0.0f, 100), UDim(0.0f, 20)));
 		pTestBtn->setSize(UVector2(UDim(0.5f, 0), UDim(0.5f, 0)));
 		pTestBtn->setPosition(UVector2(UDim(0.25f, 0), UDim(0.4f, 0)));
@@ -56,6 +55,23 @@ GUIManager::~GUIManager()
 	delete mpSystem;
 	delete mpRenderer;
 }
+
+CEGUI::Window* GUIManager::LoadLayout(const std::string& Name) {
+   return LoadLayout(Name, mpRootWind);
+}
+
+CEGUI::Window* GUIManager::LoadLayout(const std::string& Name, CEGUI::Window* Parent) {
+   CEGUI::Window* pLayout = mpWM->loadWindowLayout(Name);
+   Parent->addChildWindow(pLayout);
+   return pLayout;
+}
+
+void GUIManager::Draw()
+{
+	mpSystem->renderGUI();
+}
+
+/* Handling events... */
 
 bool
 GUIManager::OnMouseDown (sf::Mouse::Button Button, Vector2i World, Vector2i Cam)
@@ -103,10 +119,7 @@ bool GUIManager::OnResize(Vector2i NewSize)
    return false;
 }
 
-void GUIManager::Draw()
-{
-	mpSystem->renderGUI();
-}
+
 
 /************************************************************************/
 /*                              Private                                 */

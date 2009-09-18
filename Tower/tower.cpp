@@ -21,6 +21,7 @@
 #include "../physics.h"
 #include "../Graphics/texture.h"
 #include "../image.h"
+#include "../Scene.h"
 #include "elevatorBase.h"
 #include "elevator.h"
 #include "floorBase.h"
@@ -28,9 +29,10 @@
 #include "lobby.h"
 #include "tower.h"
 
-Tower::Tower (int towerNo, int NoSubLevels)
-      :  mTowerNo (towerNo)
-      ,  mNo_SubLevels (NoSubLevels)
+Tower::Tower (int towerNo, int NoSubLevels, Scene& rScene )
+:  mTowerNo (towerNo)
+,  mNo_SubLevels (NoSubLevels)
+,  mScene(rScene)
 {
    mPopulation = 0;
    int nsubs = -NoSubLevels;

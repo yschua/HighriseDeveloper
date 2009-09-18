@@ -28,6 +28,7 @@ class Elevator;
 class TowerAgent;
 class Routes;
 class Person;
+class Scene;
 
 // Tower is a ModelObject along with all the FloorSpace entities
 // This renderes the Tower in the ModelSpaces with perspective, pan and zoom.
@@ -42,21 +43,17 @@ private:
 
    std::vector<Level *> mLevels;     // Lobby is at mNo_SubLevels not zero
    Routes mRoutes;
+   Scene& mScene; // this is where all the towers are modeled in OpenGL.
 
 public:
    // ctor/dtor
-   Tower( int towerNo, int NoSubLevels );
+   Tower( int towerNo, int NoSubLevels, Scene& rScene );
    ~Tower();
 
    // properties
-   inline Routes& GetRoutes()
-   {
-      return mRoutes;  // For routing citizens
-   }
-   inline int GetPopulation()
-   {
-      return mPopulation;
-   }
+   inline Routes& GetRoutes() { return mRoutes; } // For routing citizens
+   inline int GetPopulation() { return mPopulation; }
+   inline Scene& GetScene() { return mScene; }
 
 protected:
    inline std::vector<Level *>& Get_Levels()

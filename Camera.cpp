@@ -194,25 +194,72 @@ Camera::DrawInterface(Interface* pI)   // 2d interface objects
    glPopMatrix();
 }
 
-void
-Camera::RenderFramework(Scene* pModel)
+#define BUFFER_LENGTH 64   // max click hits we expect but we might get 2
+
+int Camera::RenderFramework(Scene* pModel, Vector2f mouse)
 {
-   glMatrixMode(GL_MODELVIEW);
-   glPushMatrix();															// Push Matrix Onto Stack (Copy The Current Matrix)
-//		glLoadIdentity();													// Reset The Current Modelview Matrix
+   int iResult = 0;
 
-      glTranslatef (GetPositionX(), GetPositionY(), mZoomFactor);
+   glPushAttrib(GL_ALL_ATTRIB_BITS);
 
-		//glRotatef(m_xrot,1.0f,0.0f,0.0f); 2D no rotation
-		//glRotatef(m_yrot,0.0f,1.0f,0.0f);
-		//glRotatef(m_zrot,0.0f,0.0f,1.0f);
+   glDisable (GL_LIGHTING);
+   // Space for selection buffer
+   GLuint selectBuff[BUFFER_LENGTH];
+   
+   // Hit counter and viewport storeage
+   GLint hits, viewport[4];
+   
+   // Setup selection buffer
+   glSelectBuffer(BUFFER_LENGTH, selectBuff);
+   
+   // Get the viewport
+   glGetIntegerv(GL_VIEWPORT, viewport);
+   
+   // Switch to projection and save the matrix
+   glMatrixMode(GL_PROJECTION);
+   glPushMatrix();
+   
+   // Change render mode
+   glRenderMode(GL_SELECT);
+   
+   // Establish new clipping volume to be unit cube around
+   // mouse cursor point (xPos, yPos) and extending two pixels
+   // in the vertical and horzontal direction
+   glLoadIdentity();
+   glInitNames();
+   glPushName(0);
 
-	   glInitNames();
-	   glPushName(0);
-
-      pModel->RenderFramework();
-
+   gluPickMatrix(mouse.x, mouse.y, 2, 2, viewport);
+   
+   // Apply perspective matrix 
+   gluPerspective(90.0f, mAspect, 1.0f, 1000.f);		// Calculate The Aspect Ratio Of The Window
+   glTranslatef (GetPositionX(), GetPositionY(), mZoomFactor);
+   
+   // Draw the scene
+   pModel->RenderFramework();
+   
+   // Collect the hits
+   hits = glRenderMode(GL_RENDER);
+   
+   // Restore the projection matrix
+   glMatrixMode(GL_PROJECTION);
    glPopMatrix();
+   
+   // Go back to modelview for normal rendering
+   glMatrixMode(GL_MODELVIEW);
+   
+   // If a single hit occured, display the info.
+   GLuint nHit = -1;
+   if(hits == 1)
+   {
+//      MakeSelection(selectBuff[3]);
+      if(nHit != selectBuff[3])
+      {
+         iResult = selectBuff[3]; // ok what did we hit
+      }
+   }
+   glPopAttrib();
+   return iResult; // the object id
 }
 
 bool

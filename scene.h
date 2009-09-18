@@ -36,6 +36,8 @@ class Scene
 
 private:
    std::vector<Tower*> mTowers;     // Lobby is at mNo_SubLevels not zero
+   typedef std::pair<int,FloorBase*> TypeFloorSpaceMap;
+   std::map<int,FloorBase*> mFloorSpaces;
    Routes mRoutes;
    Background* mpBackground;
    BuildStategyBase* mpBuildStrategy;  // Place floor objects
@@ -59,11 +61,14 @@ public:
    void SetBG (Background* pBG);
 
    bool SelectTool( int ToolID );
+   void RegisterFloorSpace (int id, FloorBase* pFS);
+   void UnregisterFloorSpace (int id, FloorBase* pFS);
+   FloorBase* FindFloorSpace (int id);
 
    void Update (float dt);
    void Draw ();
    void RenderFramework(); // hit test run
-   void Hit( int xPos, int yPos, float fAspect );  // mouse x and y, send it through geometry to see what we hit
+   void Hit( int hit );  // mouse x and y, send it through geometry to see what we hit
 
 };
 

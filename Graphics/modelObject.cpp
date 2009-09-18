@@ -14,6 +14,7 @@
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <iostream>
 #include "../animation.h"
 #include "../fireAnimation.h"
 #include "../tiler.h"
@@ -56,7 +57,7 @@ ModelObject::Render(AnimationBase* pBase, float x, float x2 )
    float y = -pBase->GetPositionY();//-ms.y;
    float z = 0; //pBase->GetPositionZ();
    float y2 = y - pBase->GetHeight();
-   //glBindTexture( GL_TEXTURE_2D, pBase->GetTextureID() );//to_draw.GetTexture() ); // get the current texture
+
    pBase->BindTexture();
    glBegin(GL_QUADS);
    {
@@ -217,7 +218,7 @@ ModelObject::RenderFramework (AnimationBase* pBase, int id ) // milk and cookies
    float fx2 = fx + pBase->GetWidth();
    float fy2 = fy - pBase->GetHeight();
    
-   glPassThrough((GLfloat)id );
+   //glPassThrough((GLfloat)id );
    glLoadName( id );
    glBegin(GL_QUADS);
    glVertex3f( fx, fy2, fz );  // needs to be a cube
@@ -225,4 +226,9 @@ ModelObject::RenderFramework (AnimationBase* pBase, int id ) // milk and cookies
    glVertex3f( fx2, fy, fz );
    glVertex3f( fx2, fy2, fz );
    glEnd();
+#ifdef _TESTGLSELECT
+   int ix = glGetError();
+   if( ix )
+      cout << "Glerror 3:" << ix << std::endl;
+#endif
 }

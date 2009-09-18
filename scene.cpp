@@ -15,7 +15,6 @@
  */
 
 
-//#ifdef WIN32
 #include <iostream>
 #include "physics.h"
 #include "routes.h"
@@ -25,10 +24,6 @@
 #include "Tower/buildStrategies.h"
 #include "background.h"
 #include "scene.h"
-
-//#else
-//#include "../highrisedev.h"
-//#endif
 
 //using namespace Gfx;
 Scene::Scene ()
@@ -99,61 +94,33 @@ void Scene::RenderFramework()
    }
 }
 
-#define BUFFER_LENGTH 64   // max click hits we expect but we might get 2
-
-void Scene::Hit( int xPos, int yPos, float fAspect )  // taking a mouse hit, send it through geometry to see what we hit
+void Scene::Hit( int hit )  // taking a mouse hit, send it through geometry to see what we hit
 {
-   // Space for selection buffer
-   GLuint selectBuff[BUFFER_LENGTH];
-   
-   // Hit counter and viewport storeage
-   GLint hits, viewport[4];
-   
-   // Setup selection buffer
-   glSelectBuffer(BUFFER_LENGTH, selectBuff);
-   
-   // Get the viewport
-   glGetIntegerv(GL_VIEWPORT, viewport);
-   
-   // Switch to projection and save the matrix
-   glMatrixMode(GL_PROJECTION);
-   glPushMatrix();
-   
-   // Change render mode
-   glRenderMode(GL_SELECT);
-   
-   // Establish new clipping volume to be unit cube around
-   // mouse cursor point (xPos, yPos) and extending two pixels
-   // in the vertical and horzontal direction
-   glLoadIdentity();
-   gluPickMatrix(xPos, viewport[3] - yPos, 1, 1, viewport);
-   
-   // Apply perspective matrix 
-   gluPerspective(90.0f, fAspect, 1.0f, 1000.f);		// Calculate The Aspect Ratio Of The Window
-   
-   // Draw the scene
-   RenderFramework();
-   
-   // Collect the hits
-   hits = glRenderMode(GL_RENDER);
-   
-   // Restore the projection matrix
-   glMatrixMode(GL_PROJECTION);
-   glPopMatrix();
-   
-   // Go back to modelview for normal rendering
-   glMatrixMode(GL_MODELVIEW);
-   
-   // If a single hit occured, display the info.
-   GLuint nHit = -1;
-   if(hits == 1)
+   FloorBase* pFS = FindFloorSpace(hit);
+   if( pFS )
    {
-//      MakeSelection(selectBuff[3]);
-      if(nHit != selectBuff[3])
-      {
-         nHit = selectBuff[3]; // ok what did we hit
-      }
+      std::cout << "Mouse on Level: " << pFS->GetLevel() << " FloorSpace ID: " << hit << std::endl;
    }
-   
-//   glutPostRedisplay();
+   else
+   {
+      std::cout << "Mouse landed on an unresgister object (BUG)" << std::endl;
+   }
+}
+
+void Scene::RegisterFloorSpace (int id, FloorBase* pFS)
+{
+   mFloorSpaces.insert (mFloorSpaces.end(),TypeFloorSpaceMap(id, pFS));
+}
+
+void Scene::UnregisterFloorSpace (int id, FloorBase* pFS)
+{
+   mFloorSpaces.erase (id);
+}
+
+FloorBase* Scene::FindFloorSpace (int id)
+{
+   FloorBase* pFS = NULL;
+   TypeFloorSpaceMap& FSM = (TypeFloorSpaceMap&)*(mFloorSpaces.find(id));
+   pFS = FSM.second;
+   return pFS;
 }

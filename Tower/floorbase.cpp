@@ -17,6 +17,9 @@
 
 #include <iostream>
 #include "../physics.h"
+#include "../routes.h"
+#include "tower.h"
+#include "../scene.h"
 #include "floorBase.h"
 
 //using namespace Gfx;
@@ -35,13 +38,14 @@ FloorBase::Draw ()
    std::cout << "Floor base class: Draw function called" << std::endl;
 }
 
-FloorBase::FloorBase (int x, int x2, int level, Tower * TowerParent)
+FloorBase::FloorBase (int x, int x2, int level, Tower* pTowerParent)
       :  mX ((float)x)
       ,  mX2 ((float)x2)
-      ,  mTowerParent (TowerParent)
+      ,  mTowerParent (pTowerParent)
 {
    mLevel = level;
    mY = (float)(mLevel * -36);
    mZ = -0.5f;
    mID = NextID++;
+   pTowerParent->GetScene().RegisterFloorSpace (mID, this);
 }

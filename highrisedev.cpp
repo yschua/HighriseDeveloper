@@ -52,7 +52,7 @@ main ()
 
    Interface* pInterface = new Interface();
    Scene theScene;
-   Tower theTower (1, 10); // numero uno with 10 sub levels
+   Tower theTower (1, 10, theScene); // numero uno with 10 sub levels
    theScene.AddTower (&theTower); // pointer for graphics
    CitizensAgent People( theTower ); // known tower, later this will be a tower list for mutiple towers
 

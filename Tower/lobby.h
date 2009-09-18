@@ -31,6 +31,7 @@ private:
 public:
    void Update (float dt);
    void Draw ();
+   void DrawFramework ();
    Lobby (int x, int x2, int level, Tower * TowerParent);
 };
 

@@ -182,6 +182,8 @@ public:
    // Implementation
    virtual void Update (float dt);
    virtual void Draw ();
+   virtual int  DrawFramework (int id) { return 0; }
+
 };
 
 #endif //_PERSON_H

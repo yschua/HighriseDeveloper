@@ -32,17 +32,17 @@ Damage::Damage (int x, int x2, int level, Tower * TowerParent, AnimationSingle* 
    mpFrame = pFrame;
    mpFrame->SetPosition (mX, mY);
    ImageManager * image_man = ImageManager::GetInstance ();
-   mFire.SetPosition( mX, (mLevel-1) * 36);
-   mFire.AddFrame( image_man->GetTexture ("explode.png", GL_RGBA), 150);
-   mFire.AddFrame( image_man->GetTexture ("particle1.png", GL_RGBA), 120);
-   mFire.AddFrame( image_man->GetTexture ("particle2.png", GL_RGBA), 120);
+   mFire.SetPosition( mX, (float)((mLevel-1) * 36));
+   mFire.AddFrame( image_man->GetTexture ("explode.png", GL_RGBA), 150.0f);
+   mFire.AddFrame( image_man->GetTexture ("particle1.png", GL_RGBA), 120.0f);
+   mFire.AddFrame( image_man->GetTexture ("particle2.png", GL_RGBA), 120.0f);
 }
 
 void
 Damage::Update (float dt)
 {
    // nothing happening
-   mFire.Update (20);
+   mFire.Update (20.0f);
 }
 
 void
@@ -50,4 +50,10 @@ Damage::Draw ()
 {
    Render (mpFrame);
    RenderParallax (&mFire, 35);
+}
+
+void
+Damage::DrawFramework ()
+{
+   //RenderFramework( mpFrame, id);
 }

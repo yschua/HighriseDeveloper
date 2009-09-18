@@ -28,9 +28,11 @@ protected:
    AnimationSingle* mpFrame;
    FireAnimation mFire;
 public:
+   Damage (int x, int x2, int level, Tower * TowerParent, AnimationSingle* pFrame);
+
    void Update (float dt);
    void Draw ();
-   Damage (int x, int x2, int level, Tower * TowerParent, AnimationSingle* pFrame);
+   void DrawFramework ();
 };
 
 #endif //_DAMAGE_H

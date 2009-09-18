@@ -45,6 +45,7 @@ private:
 public:
    virtual void Update (float dt);
    virtual void Draw ();
+   virtual void DrawFramework ();
    Apartment (int x, int level, Tower * TowerParent);
 };
 

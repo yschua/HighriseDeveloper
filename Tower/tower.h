@@ -71,6 +71,7 @@ public:
 
    void Update (float dt);
    void Draw ();
+   void DrawFramework ();
 
    // AI interface
    void EnterTower (Person* pPerson);

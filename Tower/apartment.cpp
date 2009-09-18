@@ -99,3 +99,9 @@ Apartment::Draw ()
 //   mCam->Draw (*manimations[mcurrent_state]);
    Render (manimations[mcurrent_state]);
 }
+
+void
+Apartment::DrawFramework ()
+{
+   RenderFramework( manimations[mcurrent_state], mID);
+}

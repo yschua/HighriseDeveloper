@@ -84,3 +84,10 @@ office::Draw ()
 //   Camera::GetInstance()->Draw (*manimations[mcurrent_state]);
    Render (manimations[mcurrent_state]);
 }
+
+
+void
+office::DrawFramework ()
+{
+   RenderFramework( manimations[mcurrent_state], mID);
+}

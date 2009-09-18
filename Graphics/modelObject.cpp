@@ -207,3 +207,22 @@ ModelObject::RenderParallax (FireAnimation* pBase, float xOffset )  // overload 
       //glDisable (GL_BLEND);
    glPopMatrix();
 }
+
+void 
+ModelObject::RenderFramework (AnimationBase* pBase, int id ) // milk and cookies run just for the basics to test for a hit
+{
+   float fx = pBase->GetPositionX();
+   float fy = -pBase->GetPositionY();//-ms.y;
+   float fz = 0; //pBase->GetPositionZ();
+   float fx2 = fx + pBase->GetWidth();
+   float fy2 = fy - pBase->GetHeight();
+   
+   glPassThrough((GLfloat)id );
+   glLoadName( id );
+   glBegin(GL_QUADS);
+   glVertex3f( fx, fy2, fz );  // needs to be a cube
+   glVertex3f( fx, fy, fz );
+   glVertex3f( fx2, fy, fz );
+   glVertex3f( fx2, fy2, fz );
+   glEnd();
+}

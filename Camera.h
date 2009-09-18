@@ -53,6 +53,7 @@ public:
    const sf::Input * GetInput ();
    // properties
    void SetMaxFramerate (int rate);
+   float GetAspect () { return mAspect; }
    //void SetCamSize (int x, int y);
    void SetSceneSize (Vector2f);
    Vector2f GetSceneSize () { return mScene; }
@@ -68,6 +69,7 @@ public:
 
    void DrawModel (Scene* pModel);
    void DrawInterface (Interface* pI);
+   void RenderFramework(Scene* pModel);
    void Create (const std::string & caption);
    void Center (int x, int y);
    bool GetEvent (sf::Event & event);

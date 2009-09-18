@@ -62,6 +62,9 @@ public:
 
    void Update (float dt);
    void Draw ();
+   void RenderFramework(); // hit test run
+   void Hit( int xPos, int yPos, float fAspect );  // mouse x and y, send it through geometry to see what we hit
+
 };
 
 #endif //_SCENE_H

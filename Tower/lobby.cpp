@@ -53,3 +53,9 @@ Lobby::Draw ()
    Render(nFireEscapeLeft);
    Render(nFireEscapeRight);
 }
+
+void
+Lobby::DrawFramework ()
+{
+   //RenderFramework( mpFrame, id);
+}

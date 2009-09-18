@@ -88,3 +88,72 @@ Scene::Draw ()
       (*iTower)->Draw( );
    }
 }
+
+void Scene::RenderFramework()
+{
+   int lastNo = 1;
+   std::vector<Tower *>::iterator iTower;
+   for (iTower = mTowers.begin (); iTower != mTowers.end (); iTower++)
+   {
+      (*iTower)->DrawFramework ();
+   }
+}
+
+#define BUFFER_LENGTH 64   // max click hits we expect but we might get 2
+
+void Scene::Hit( int xPos, int yPos, float fAspect )  // taking a mouse hit, send it through geometry to see what we hit
+{
+   // Space for selection buffer
+   GLuint selectBuff[BUFFER_LENGTH];
+   
+   // Hit counter and viewport storeage
+   GLint hits, viewport[4];
+   
+   // Setup selection buffer
+   glSelectBuffer(BUFFER_LENGTH, selectBuff);
+   
+   // Get the viewport
+   glGetIntegerv(GL_VIEWPORT, viewport);
+   
+   // Switch to projection and save the matrix
+   glMatrixMode(GL_PROJECTION);
+   glPushMatrix();
+   
+   // Change render mode
+   glRenderMode(GL_SELECT);
+   
+   // Establish new clipping volume to be unit cube around
+   // mouse cursor point (xPos, yPos) and extending two pixels
+   // in the vertical and horzontal direction
+   glLoadIdentity();
+   gluPickMatrix(xPos, viewport[3] - yPos, 1, 1, viewport);
+   
+   // Apply perspective matrix 
+   gluPerspective(90.0f, fAspect, 1.0f, 1000.f);		// Calculate The Aspect Ratio Of The Window
+   
+   // Draw the scene
+   RenderFramework();
+   
+   // Collect the hits
+   hits = glRenderMode(GL_RENDER);
+   
+   // Restore the projection matrix
+   glMatrixMode(GL_PROJECTION);
+   glPopMatrix();
+   
+   // Go back to modelview for normal rendering
+   glMatrixMode(GL_MODELVIEW);
+   
+   // If a single hit occured, display the info.
+   GLuint nHit = -1;
+   if(hits == 1)
+   {
+//      MakeSelection(selectBuff[3]);
+      if(nHit != selectBuff[3])
+      {
+         nHit = selectBuff[3]; // ok what did we hit
+      }
+   }
+   
+//   glutPostRedisplay();
+}

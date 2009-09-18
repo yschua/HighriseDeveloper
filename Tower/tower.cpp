@@ -101,6 +101,17 @@ void Tower::Draw ()
    mRoutes.Draw();
 }
 
+void Tower::DrawFramework( )
+
+{
+   std::vector<Level *>::iterator iLevel;
+   for (iLevel = mLevels.begin (); iLevel != mLevels.end (); ++iLevel)
+   {
+      (*iLevel)->DrawFramework( );
+   }
+//   mRoutes.RenderFramework(); do these later
+}
+
 // AI interface
 void Tower::EnterTower (Person* pPerson)
 {

@@ -194,6 +194,27 @@ Camera::DrawInterface(Interface* pI)   // 2d interface objects
    glPopMatrix();
 }
 
+void
+Camera::RenderFramework(Scene* pModel)
+{
+   glMatrixMode(GL_MODELVIEW);
+   glPushMatrix();															// Push Matrix Onto Stack (Copy The Current Matrix)
+//		glLoadIdentity();													// Reset The Current Modelview Matrix
+
+      glTranslatef (GetPositionX(), GetPositionY(), mZoomFactor);
+
+		//glRotatef(m_xrot,1.0f,0.0f,0.0f); 2D no rotation
+		//glRotatef(m_yrot,0.0f,1.0f,0.0f);
+		//glRotatef(m_zrot,0.0f,0.0f,1.0f);
+
+	   glInitNames();
+	   glPushName(0);
+
+      pModel->RenderFramework();
+
+   glPopMatrix();
+}
+
 bool
 Camera::GetEvent (sf::Event & event)
 {

@@ -133,6 +133,19 @@ Level::Draw ()
    }
 }
 
+void
+Level::DrawFramework ()
+{
+   std::vector<FloorBase *>::iterator i;
+   for (i = mFloorSpaces.begin (); i != mFloorSpaces.end (); i++)
+   {
+      (*i)->DrawFramework ();
+   }
+   //Camera::GetInstance()->Draw (*nFireEscapeLeft); these three need framework draw too
+   //Camera::GetInstance()->Draw (*nFireEscapeRight);
+   //DrawEmptySpace();
+}
+
 // Possible Deprecation
 FloorBase*
 Level::FindSpace (int x)

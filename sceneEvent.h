@@ -39,6 +39,7 @@ public:
    ~SceneEvent ();
 
    bool OnToolHit (const int tool);
+   virtual bool OnMouseDown (sf::Mouse::Button Button, Vector2i Scene, Vector2i Cam);
 };
 
 #endif //_SCENE_EVENT

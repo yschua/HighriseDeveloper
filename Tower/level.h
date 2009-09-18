@@ -92,6 +92,8 @@ public:
    // Methods
    virtual void Update (float dt);
    virtual void Draw ();
+   virtual void DrawFramework ();
+;
 
    void AddFloor (FloorBase * floor);
    void SetFloorPositions( int x, int x2 );

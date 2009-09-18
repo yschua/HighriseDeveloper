@@ -25,6 +25,7 @@ class FloorBase
    friend class Level;  // allows level to own these spaces by being able to set protected variables.
 protected:
    int mLevel;
+   int mID;
    Tower * mTowerParent;
 
 //public:
@@ -35,6 +36,7 @@ protected:
                // y vector = height
                // z vector = depth but not implement until 3D
 //   int mx, mx2, my;
+   static unsigned int NextID;   // all model objects will get one
 public:
    // CTOR
    FloorBase (int x, int x2, int level, Tower * TowerParent);
@@ -52,6 +54,7 @@ public:
    // Methods
    virtual void Update (float dt);
    virtual void Draw ();
+   virtual void DrawFramework () { }
 };
 
 #endif

@@ -20,6 +20,8 @@
 #include "floorBase.h"
 
 //using namespace Gfx;
+unsigned int FloorBase::NextID = 1;
+
 
 void
 FloorBase::Update (float dt)
@@ -41,4 +43,5 @@ FloorBase::FloorBase (int x, int x2, int level, Tower * TowerParent)
    mLevel = level;
    mY = (float)(mLevel * -36);
    mZ = -0.5f;
+   mID = NextID++;
 }

@@ -158,6 +158,8 @@ public:
 
    virtual void Update (float dt);
    virtual void Draw ();
+   virtual void DrawFramework () { } // later we do lifts to
+
 };
 
 #endif

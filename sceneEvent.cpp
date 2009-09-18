@@ -21,6 +21,8 @@
 
 // Then user-defined types
 #include "scene.h"
+
+#include "camera.h"
 #include "Window/event.h"
 
 SceneEvent::SceneEvent(Scene* pScene)
@@ -41,3 +43,11 @@ SceneEvent::OnToolHit (int tool)
 
    return false;
 }
+
+bool SceneEvent::OnMouseDown (sf::Mouse::Button Button, Vector2i Scene, Vector2i Cam)
+{
+   Camera* pCam = Camera::GetInstance();
+   mpScene->Hit( Scene.x, Scene.y, pCam->GetAspect() );
+   return true;
+}
+

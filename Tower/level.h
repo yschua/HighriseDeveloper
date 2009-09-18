@@ -18,8 +18,10 @@
 #define _LEVEL_H
 
 #include "../Graphics/modelObject.h"
+#include "FloorBase.h"
 
 class AnimationSingle;
+class AnimationEmpty;
 class FloorBase;
 class Tower;
 class Elevator;
@@ -31,6 +33,7 @@ private:
    std::vector<FloorBase*> mFloorSpaces;
    std::list<PersonQueue*> mElevatorQueues;  // person queue for elevators that stop on this level
    Tower * mTowerParent;
+   int  mID;
 
 public:
    static const int mUnitSize;
@@ -46,6 +49,7 @@ protected:
    AnimationSingle * nFireEscapeLeft;
    AnimationSingle * nFireEscapeRight;
    AnimationSingle * mEmptyFLoor;
+   AnimationEmpty* mTheLevel;
 
 protected:
    // Level open Space tracking grid (proto type stuff
@@ -88,12 +92,13 @@ protected:
       return mElevatorQueues;
    }
 public:
+   inline int GetLevel () { return mLevel; }
+   inline int GetID () { return mID; }
 
    // Methods
    virtual void Update (float dt);
    virtual void Draw ();
-   virtual void DrawFramework ();
-;
+   virtual void DrawFramework (bool LevelOnly);
 
    void AddFloor (FloorBase * floor);
    void SetFloorPositions( int x, int x2 );

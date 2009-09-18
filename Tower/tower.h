@@ -68,12 +68,12 @@ public:
 
    void Update (float dt);
    void Draw ();
-   void DrawFramework ();
+   void DrawFramework (bool bLevelsOnly);
 
    // AI interface
    void EnterTower (Person* pPerson);
    void LeaveTower (Person* pPerson);
-
+   Level* FindLevel(int id);
 
    // Debug Methods
    void DebugLoad (int x, int y, int x2); // this simply pumps floor objects and elevators into the tower.

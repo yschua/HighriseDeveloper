@@ -76,3 +76,9 @@ AnimationSingle::BindTexture()
    return mpTexture->Bind();
    //return 2;
 }
+
+AnimationEmpty::AnimationEmpty ( int width, int height)
+:  AnimationBase (width, height)
+{
+}
+

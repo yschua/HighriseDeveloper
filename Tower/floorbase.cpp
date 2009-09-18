@@ -46,6 +46,11 @@ FloorBase::FloorBase (int x, int x2, int level, Tower* pTowerParent)
    mLevel = level;
    mY = (float)(mLevel * -36);
    mZ = -0.5f;
-   mID = NextID++;
+   mID = FloorBase::GetNextID();
    pTowerParent->GetScene().RegisterFloorSpace (mID, this);
+}
+
+int FloorBase::GetNextID() // static
+{
+   return NextID++;
 }

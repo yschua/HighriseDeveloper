@@ -16,10 +16,12 @@
 
 
 #include <iostream>
+#include <list>
 #include "physics.h"
 #include "routes.h"
 #include "Window/event.h"
 #include "Tower/floorBase.h"
+#include "Tower/level.h"
 #include "Tower/tower.h"
 #include "Tower/buildStrategies.h"
 #include "background.h"
@@ -84,26 +86,48 @@ Scene::Draw ()
    }
 }
 
-void Scene::RenderFramework()
+void Scene::RenderFramework ()
 {
+   bool bLevelsOnly = (this->mpBuildStrategy==NULL) ? false : true;
    int lastNo = 1;
    std::vector<Tower *>::iterator iTower;
    for (iTower = mTowers.begin (); iTower != mTowers.end (); iTower++)
    {
-      (*iTower)->DrawFramework ();
+      (*iTower)->DrawFramework (bLevelsOnly);
    }
 }
 
 void Scene::Hit( int hit )  // taking a mouse hit, send it through geometry to see what we hit
 {
-   FloorBase* pFS = FindFloorSpace(hit);
-   if( pFS )
+   if( this->mpBuildStrategy )
    {
-      std::cout << "Mouse on Level: " << pFS->GetLevel() << " FloorSpace ID: " << hit << std::endl;
+      std::vector<Tower *>::iterator iTower;
+      for (iTower = mTowers.begin (); iTower != mTowers.end (); iTower++)
+      {
+         Tower* pTower = (*iTower);
+         Level* pLevel = pTower->FindLevel (hit);
+         if( pLevel )
+         {
+            std::cout << "Mouse on Level: " << pLevel->GetLevel() << " Level ID: " << hit << std::endl;
+            break;
+         }
+         else
+         {
+            std::cout << "Mouse on unknown level, Level ID: " << hit << std::endl;
+         }
+      }
    }
    else
    {
-      std::cout << "Mouse landed on an unresgister object (BUG)" << std::endl;
+      FloorBase* pFS = FindFloorSpace(hit);
+      if( pFS )
+      {
+         std::cout << "Mouse on Level: " << pFS->GetLevel() << " FloorSpace ID: " << hit << std::endl;
+      }
+      else
+      {
+         std::cout << "Mouse landed on an unresgister object (BUG)" << " Level ID: " << hit  << std::endl;
+      }
    }
 }
 
@@ -120,7 +144,19 @@ void Scene::UnregisterFloorSpace (int id, FloorBase* pFS)
 FloorBase* Scene::FindFloorSpace (int id)
 {
    FloorBase* pFS = NULL;
-   TypeFloorSpaceMap& FSM = (TypeFloorSpaceMap&)*(mFloorSpaces.find(id));
-   pFS = FSM.second;
+   try
+   {
+      TypeFloorSpaceIterator& it = mFloorSpaces.find(id);
+      if( !(it == mFloorSpaces.end()))
+      {
+         TypeFloorSpaceMap& FSM = (TypeFloorSpaceMap&)(*it);
+         pFS = FSM.second;
+      }
+   }
+   catch(...)
+   {
+      // find failed
+   }
+
    return pFS;
 }

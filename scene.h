@@ -38,6 +38,7 @@ private:
    std::vector<Tower*> mTowers;     // Lobby is at mNo_SubLevels not zero
    typedef std::pair<int,FloorBase*> TypeFloorSpaceMap;
    std::map<int,FloorBase*> mFloorSpaces;
+   typedef std::map<int,FloorBase*>::iterator TypeFloorSpaceIterator;
    Routes mRoutes;
    Background* mpBackground;
    BuildStategyBase* mpBuildStrategy;  // Place floor objects
@@ -67,7 +68,7 @@ public:
 
    void Update (float dt);
    void Draw ();
-   void RenderFramework(); // hit test run
+   void RenderFramework (); // hit test run
    void Hit( int hit );  // mouse x and y, send it through geometry to see what we hit
 
 };

@@ -60,4 +60,10 @@ public:
 
 };
 
+class AnimationEmpty : public AnimationBase
+{
+public:
+   AnimationEmpty (int width, int height);
+   void BindTexture() { };
+};
 #endif

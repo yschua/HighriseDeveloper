@@ -47,7 +47,7 @@ SceneEvent::OnToolHit (int tool)
 bool SceneEvent::OnMouseDown (sf::Mouse::Button Button, Vector2i Scene, Vector2i Cam)
 {
    Camera* pCam = Camera::GetInstance();
-   int hit = pCam->RenderFramework( mpScene, Scene );
+   int hit = pCam->RenderFramework (mpScene, Scene);
    if( hit )
    {
       mpScene->Hit( hit );

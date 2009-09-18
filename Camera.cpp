@@ -29,7 +29,7 @@
 
 #include "Camera.h"
 
-
+#define FIELD_OF_VIEW 90.0f  // this controls how long the focal view of the camera is in OpenGL
 Camera * Camera::mpInstance = NULL;
 
 Camera::Camera ()
@@ -133,7 +133,7 @@ Camera::OnResize (Vector2i vi)
    mAspect = (float)(vi.x) / vi.y;
    glMatrixMode(GL_PROJECTION);
    glLoadIdentity();
-	gluPerspective (90.0f,mAspect ,1.0f,1000.0f);		// Calculate The Aspect Ratio Of The Window
+	gluPerspective (FIELD_OF_VIEW, mAspect ,1.0f,1000.0f);		// Calculate The Aspect Ratio Of The Window
    return true;
 }
 
@@ -154,7 +154,7 @@ Camera::InitGL()
    // Setup a perspective projection
    glMatrixMode(GL_PROJECTION);
    glLoadIdentity();
-   gluPerspective(90.0f, mAspect, 1.0f, 1000.f);
+   gluPerspective (FIELD_OF_VIEW, mAspect, 1.0f, 1000.f);
    glEnable (GL_TEXTURE_2D);
 }
 
@@ -196,7 +196,7 @@ Camera::DrawInterface(Interface* pI)   // 2d interface objects
 
 #define BUFFER_LENGTH 64   // max click hits we expect but we might get 2
 
-int Camera::RenderFramework(Scene* pModel, Vector2f mouse)
+int Camera::RenderFramework (Scene* pModel, Vector2f mouse)
 {
    int iResult = 0;
 
@@ -229,14 +229,14 @@ int Camera::RenderFramework(Scene* pModel, Vector2f mouse)
    glInitNames();
    glPushName(0);
 
-   gluPickMatrix(mouse.x, mouse.y, 2, 2, viewport);
+   gluPickMatrix(mouse.x, viewport[3]-mouse.y, 2, 2, viewport); // mouse y is inverted
    
    // Apply perspective matrix 
-   gluPerspective(90.0f, mAspect, 1.0f, 1000.f);		// Calculate The Aspect Ratio Of The Window
+   gluPerspective (FIELD_OF_VIEW, mAspect, 1.0f, 1000.f);		// Calculate The Aspect Ratio Of The Window
    glTranslatef (GetPositionX(), GetPositionY(), mZoomFactor);
    
    // Draw the scene
-   pModel->RenderFramework();
+   pModel->RenderFramework ();
    
    // Collect the hits
    hits = glRenderMode(GL_RENDER);

@@ -69,7 +69,7 @@ public:
 
    void DrawModel (Scene* pModel);
    void DrawInterface (Interface* pI);
-   int  RenderFramework(Scene* pModel, Vector2f mouse);
+   int  RenderFramework (Scene* pModel, Vector2f mouse);
    void Create (const std::string & caption);
    void Center (int x, int y);
    bool GetEvent (sf::Event & event);

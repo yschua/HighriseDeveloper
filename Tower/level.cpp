@@ -40,6 +40,7 @@ Level::Level (int level, int x, int y, int x2, Tower * TowerParent)
 :  mTowerParent (TowerParent)
 {
    mLevel = level;
+   mID = FloorBase::GetNextID();
                  // The levels origin and vectors (partial implementation for 3D)
    // mX, ,X2 are set in SetFloorPosiitons (x,x2)
    mY = y*-36;   //(int)(Camera::GetInstance()->GetSceneRect ().Top ) - (mLevel * 36);
@@ -63,7 +64,7 @@ Level::Level (int level, int x, int y, int x2, Tower * TowerParent)
    }
    mEmptyFLoor = new AnimationSingle (ImageManager::GetInstance()->GetTexture("emptyfloor_d_1.png", GL_RGBA), 56, 36);
    // proto code
-
+   mTheLevel = new AnimationEmpty (x2-x, 36);
    mpFloorSpaceGrid = NULL;
    mFloorSpaceGridSize = 0;
    SetFloorPositions( x, x2 );
@@ -106,6 +107,7 @@ Level::SetFloorPositions( int x, int x2 )
    }
    mEmptyFLoor->SetPosition ((float)mX, (float)mY);  // x is irrelivant
    ResizeFloorSpaceGrid();
+   mTheLevel->SetPosition((float)mX,(float)mY);
 }
 
 void
@@ -134,16 +136,22 @@ Level::Draw ()
 }
 
 void
-Level::DrawFramework ()
+Level::DrawFramework (bool LevelOnly)
 {
-   std::vector<FloorBase *>::iterator i;
-   for (i = mFloorSpaces.begin (); i != mFloorSpaces.end (); i++)
+   if (LevelOnly)
    {
-      (*i)->DrawFramework ();
+      RenderFramework(mTheLevel, mID);
    }
-   //Camera::GetInstance()->Draw (*nFireEscapeLeft); these three need framework draw too
-   //Camera::GetInstance()->Draw (*nFireEscapeRight);
-   //DrawEmptySpace();
+   else
+   {
+      std::vector<FloorBase *>::iterator i;
+      for (i = mFloorSpaces.begin (); i != mFloorSpaces.end (); ++i)
+      {
+         (*i)->DrawFramework ();
+      }
+      //RenderFramework (*nFireEscapeLeft); these three need framework draw too
+      //RenderFramework (*nFireEscapeRight);
+   }
 }
 
 // Possible Deprecation

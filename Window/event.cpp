@@ -81,7 +81,8 @@ bool EventHandler::HandleEvents (const sf::Event& Event)
          /*std::cout << "Closing!\n";
          int* blah;
          blah = '\0';
-         int blahah = *blah;*/
+         int blahah = *blah;*/ // try this instead          throw 3;
+
          for (ConType::iterator i = mHandlers.begin (); i != mHandlers.end (); i++)
             (*i)->OnClose ();
                //return true;

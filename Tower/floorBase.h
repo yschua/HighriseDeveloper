@@ -56,6 +56,8 @@ public:
    virtual void Update (float dt);
    virtual void Draw ();
    virtual void DrawFramework () { }
+
+   static int GetNextID();
 };
 
 #endif

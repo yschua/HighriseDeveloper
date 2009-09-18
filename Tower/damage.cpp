@@ -55,5 +55,5 @@ Damage::Draw ()
 void
 Damage::DrawFramework ()
 {
-   //RenderFramework( mpFrame, id);
+   RenderFramework (mpFrame, mID);
 }

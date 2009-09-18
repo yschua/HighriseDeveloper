@@ -83,6 +83,22 @@ Level* Tower::GetLevel( int level ) // positive gets you a level above, negative
    return mLevels[index];
 }
 
+Level* Tower::FindLevel(int id)
+{
+   Level* pLevel = NULL;
+   std::vector<Level *>::iterator iLevel;
+   for (iLevel = mLevels.begin (); iLevel != mLevels.end (); ++iLevel)
+   {
+      if ((*iLevel)->GetID() == id )
+      {
+         Level *pLevel = (*iLevel);
+         break;
+      }
+   }
+   return pLevel;
+}
+
+
 void Tower::Update (float dt)
 {
    std::vector<Level *>::iterator iLevel;
@@ -103,13 +119,13 @@ void Tower::Draw ()
    mRoutes.Draw();
 }
 
-void Tower::DrawFramework( )
+void Tower::DrawFramework (bool bLevelsOnly)
 
 {
    std::vector<Level *>::iterator iLevel;
    for (iLevel = mLevels.begin (); iLevel != mLevels.end (); ++iLevel)
    {
-      (*iLevel)->DrawFramework( );
+      (*iLevel)->DrawFramework (bLevelsOnly);
    }
 //   mRoutes.RenderFramework(); do these later
 }

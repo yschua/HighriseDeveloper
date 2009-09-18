@@ -78,6 +78,7 @@ main ()
       Events.Add (&mev);
 
       std::cout << "Starting event loop...\n";
+      int cycle = 0;
       while (mev.IsRunning())
       {
          // This should be here so we can create custom events later,
@@ -87,18 +88,31 @@ main ()
          {
             Events.HandleEvents (Event);
          }
+         // drawing scope
          cam->Clear ();
          cam->SetActive();
          cam->Integrate (60);
-         theTower.Update (60);
          cam->DrawModel(&theScene); // the background and tower(s).
-         pInterface->Update(60);
          cam->DrawInterface( pInterface );
-
          Gui.Draw ();
-
          cam->Display ();
-         People.Update( 40 );
+         // end drawing scope
+
+         // update scope, thread candidates
+         switch( cycle++ )
+         {
+         case 0:
+            theTower.Update (60);
+            break;
+         case 1:
+            pInterface->Update(60);
+            break;
+         default:
+            People.Update( 40 );
+            cycle = 0;
+            break;
+         }
+         // end update scope
       }
       std::cout << mev.IsRunning() << "\n";
    }

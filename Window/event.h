@@ -50,7 +50,7 @@ public:
    virtual bool OnMouseMove (Vector2i Scene, Vector2i Cam) { return false; }
    virtual bool OnMouseWheel (int Delta) { return false; }
    virtual bool OnClose () { return false; }
-   virtual bool OnToolHit (const int tool) {return false; }
+   virtual bool OnToolHit (const std::string& Name) {return false; }
 };
 
 class EventHandler

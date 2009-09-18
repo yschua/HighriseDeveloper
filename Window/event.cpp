@@ -94,9 +94,10 @@ bool EventHandler::HandleEvents (const sf::Event& Event)
                return true;
       break;
 
+      // EXTREMELY HACKISH, we need a new way to do this. CUSTOM EVENTS!!!
       case sf::Event::JoyButtonPressed: // no event mutations
          for (ConType::iterator i = mHandlers.begin (); i != mHandlers.end (); i++)
-            if ((*i)->OnToolHit(Event.JoyButton.Button)) // event does not support other events
+            if ((*i)->OnToolHit("DOESNT WORK YET DUH!!!!")) // event does not support other events
                return true;
 
       default:

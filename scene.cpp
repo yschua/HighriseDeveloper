@@ -146,7 +146,7 @@ FloorBase* Scene::FindFloorSpace (int id)
    FloorBase* pFS = NULL;
    try
    {
-      TypeFloorSpaceIterator& it = mFloorSpaces.find(id);
+      TypeFloorSpaceIterator it = mFloorSpaces.find(id);
       if( !(it == mFloorSpaces.end()))
       {
          TypeFloorSpaceMap& FSM = (TypeFloorSpaceMap&)(*it);

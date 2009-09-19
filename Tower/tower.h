@@ -21,6 +21,7 @@
 #define _TOWER_H
 
 #include "../Graphics/modelObject.h"
+#include "../routes.h"
 
 class FloorBase; // aggregate of floor spaces for offices, condos and hotels
 class Level;

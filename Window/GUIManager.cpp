@@ -4,15 +4,20 @@
 
 #include "../sceneEvent.h"
 #include "GUIManager.h"
+#include "../Tower/office.h"
+#include "../Tower/tower.h"
+#include "../Tower/level.h"
 
-GUIManager::GUIManager(SceneEvent& rse)
+GUIManager::GUIManager(SceneEvent& rse, Tower* Tower)
 :  mpRenderer(NULL)
 ,  mpSystem(NULL)
-,  mSE(rse)
 {
 	InitMaps();
 	try
 	{
+	   mTower = Tower;
+	   mPlacingRoom = false;
+	   mRoom = NULL;
 	   using namespace CEGUI;
 		mpRenderer = new CEGUI::OpenGLRenderer(0);
 		mpSystem = new CEGUI::System(mpRenderer);
@@ -81,17 +86,30 @@ void GUIManager::Draw()
 bool
 GUIManager::OnOffice (const CEGUI::EventArgs& e)
 {
-   
+
    // set FloorPlacement to Office
    // route mouse clicks that hit the main into the FloorPlacement manager.
-   mSE.OnToolHit (HR_PlaceOffice);
+   mPlacingRoom = true;
+   mRoom = new office(0,0,mTower);
+   //mSE.OnToolHit (HR_PlaceOffice);
    return true;
 }
 
 bool
 GUIManager::OnMouseDown (sf::Mouse::Button Button, Vector2i Scene, Vector2i Cam)
 {
-   return mpSystem->injectMouseButtonDown(CEMouseButton(Button));
+   // SUPERULTRABUGGYFANTASTIC atm.
+   if (mPlacingRoom || mRoom) {
+      std::cout << "This part should place the room!\n";
+      mRoom->SetX(Scene.x);
+      mRoom->SetY(1);
+      mTower->GetLevel(1)->AddFloor(mRoom);
+      //mTower.AddRoom(mRoom);
+      mPlacingRoom = false;
+      mRoom = NULL;
+   } else {
+      return mpSystem->injectMouseButtonDown(CEMouseButton(Button));
+   }
 }
 
 bool

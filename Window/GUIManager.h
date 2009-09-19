@@ -9,11 +9,14 @@
 #include <iostream>
 
 class SceneEvent;
+class FloorBase;
+class Tower;
+
 
 class GUIManager : public EventBase
 {
 public:
-	GUIManager(SceneEvent& rse);
+	GUIManager(SceneEvent& rse, Tower* Tower);
 	~GUIManager();
 
    bool OnOffice (const CEGUI::EventArgs& e);
@@ -48,7 +51,11 @@ private:
 
 	KeyMap mKeyMap;
 	MouseButtonMap mMouseButtonMap;
-   SceneEvent& mSE;  // this does not belong here but needed until the event manager can hande it
+	bool mPlacingRoom;
+	FloorBase* mRoom;
+	Tower* mTower;
+
+   //SceneEvent& mSE;  // this does not belong here but needed until the event manager can hande it
 
 	void InitMaps();
 	CEGUI::Key::Scan CEKey(sf::Key::Code Code);

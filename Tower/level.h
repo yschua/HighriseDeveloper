@@ -18,7 +18,7 @@
 #define _LEVEL_H
 
 #include "../Graphics/modelObject.h"
-#include "FloorBase.h"
+#include "floorBase.h"
 
 class AnimationSingle;
 class AnimationEmpty;

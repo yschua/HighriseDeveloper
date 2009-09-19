@@ -22,7 +22,7 @@
 // Then user-defined types
 #include "scene.h"
 
-#include "camera.h"
+#include "Camera.h"
 #include "Window/event.h"
 
 SceneEvent::SceneEvent(Scene* pScene)

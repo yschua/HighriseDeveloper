@@ -18,6 +18,8 @@
 #define _OFFICE_H
 
 #include "../Graphics/modelObject.h"
+#include "floorBase.h"
+
 class Animation;
 
 enum office_state

@@ -21,7 +21,7 @@
 #include "../physics.h"
 #include "../Graphics/texture.h"
 #include "../image.h"
-#include "../Scene.h"
+#include "../scene.h"
 #include "elevatorBase.h"
 #include "elevator.h"
 #include "floorBase.h"

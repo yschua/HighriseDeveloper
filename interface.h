@@ -19,6 +19,7 @@
 #define _INTERFACE_H
 
 #include "clock.h"
+#include "stats.h"
 
 class Interface
 {
@@ -27,6 +28,7 @@ private:
 public:
    Interface ();
    Clock mClock;
+   Stats mStats;
 
    void PosCalc ();
    void Update (float dt);

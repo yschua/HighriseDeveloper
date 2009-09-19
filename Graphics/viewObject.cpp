@@ -51,6 +51,59 @@ void ViewObject::Render(AnimationBase* pBase)
    glEnd();
 }
 
+void ViewObject::Render(AnimationBase* pBase, const float uvs[4][2])
+{
+   float x = pBase->GetPositionX();//-ms.x; position needs to be a member of modelObject, let physics access it to move it.
+   float y = (pBase->GetPositionY());//-ms.y;
+   float z = 100; //pBody->GetPositionZ();
+   float x2 = x + pBase->GetWidth();
+   float y2 = y + pBase->GetHeight();
+//   glBindTexture( GL_TEXTURE_2D, pBody->GetTextureID() );//to_draw.GetTexture() ); // get the current texture
+   pBase->BindTexture();
+   glBegin(GL_QUADS);
+   {
+      glTexCoord2fv (uvs[0]);
+      glVertex3f( x, y2, z );
+      glTexCoord2fv (uvs[1]);
+      glVertex3f( x, y, z );
+      glTexCoord2fv (uvs[2]);
+      glVertex3f( x2, y, z );
+      glTexCoord2fv (uvs[3]);
+      glVertex3f( x2, y2, z );
+   }
+   glEnd();
+}
+
+void ViewObject::RenderText(AnimationBase* pBase, float x, float y, string str)
+{
+   const float cu = 0.035f;
+   float z = 100; //pBody->GetPositionZ();
+   float x2 = x + 9;
+   float y2 = y + 12;
+//   glBindTexture( GL_TEXTURE_2D, pBody->GetTextureID() );//to_draw.GetTexture() ); // get the current texture
+   pBase->BindTexture();
+   glBegin(GL_QUADS);
+   {
+      for( unsigned int ic = 0; ic < str.length(); ++ic)
+      {
+         char t=str[ic]-'0';
+         float u = t * cu;
+         float v = 0.9f;
+         glTexCoord2f (u, v-0.32f);
+         glVertex3f( x, y2, z );
+         glTexCoord2f (u, v);
+         glVertex3f( x, y, z );
+         glTexCoord2f (u+cu, v);
+         glVertex3f( x2, y, z );
+         glTexCoord2f (u+cu, v-0.32f);
+         glVertex3f( x2, y2, z );
+         x+=8;
+         x2+=8;
+      }
+   }
+   glEnd();
+}
+
 void ViewObject::Render(SimpleQuad* pQuad)
 {
    float x = pQuad->Position.x;
@@ -78,6 +131,7 @@ void ViewObject::Render(SimpleQuad* pQuad)
       glEnd();
       glDisable (GL_COLOR_MATERIAL);
       glEnable (GL_TEXTURE_2D);
+      glColor4ub (255,255,255,255);
    glPopMatrix();
 }
 

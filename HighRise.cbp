@@ -160,6 +160,8 @@
 		<Unit filename="scene.h" />
 		<Unit filename="sceneEvent.cpp" />
 		<Unit filename="sceneEvent.h" />
+		<Unit filename="stats.cpp" />
+		<Unit filename="stats.h" />
 		<Unit filename="stdafx.cpp" />
 		<Unit filename="stdafx.h" />
 		<Unit filename="tiler.cpp" />

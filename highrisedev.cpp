@@ -102,16 +102,17 @@ main ()
          switch( cycle++ )
          {
          case 0:
-            theTower.Update (60);
             break;
          case 1:
-            pInterface->Update(60);
+            pInterface->mStats.SetPopulation( theTower.GetPopulation() );
+            pInterface->Update(10);
             break;
          default:
             People.Update( 40 );
             cycle = 0;
             break;
          }
+         theTower.Update (60);
          // end update scope
       }
       std::cout << mev.IsRunning() << "\n";

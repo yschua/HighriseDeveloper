@@ -247,6 +247,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\stats.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\stdafx.cpp"
 				>
 			</File>
@@ -326,6 +330,10 @@
 			</File>
 			<File
 				RelativePath="..\sceneEvent.h"
+				>
+			</File>
+			<File
+				RelativePath="..\stats.h"
 				>
 			</File>
 			<File

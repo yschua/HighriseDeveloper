@@ -62,6 +62,10 @@ Clock::Clock ()
    memcpy( mHourHand.Colors[3], kszColor2, 4 );
 }
 
+Clock::~Clock ()
+{
+}
+
 void
 Clock::PosCalc ()
 {

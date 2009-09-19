@@ -41,7 +41,7 @@ Tower::Tower (int towerNo, int NoSubLevels, Scene& rScene )
       Level* level = new Level (sub, 400, sub, 400, this);
       mLevels.push_back (level);
    }
-   Lobby* lobby = new Lobby (370, 640, 0, this);
+   Lobby* lobby = new Lobby (370, 796+72, 0, this);
    mLevels.push_back (lobby);
 }
 

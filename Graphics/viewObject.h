@@ -42,6 +42,8 @@ namespace Gfx
 
    protected:
       void Render(AnimationBase* pBase);  // draw method replacement, drawing now happens on the GPU side for us
+      void Render(AnimationBase* pBase, const float uvs[4][2]);  // draw method replacement, drawing now happens on the GPU side for us
+      void RenderText(AnimationBase* pBase, float x, float y, std::string str); // includes font w&h, string
       void Render(SimpleQuad* pQuad);  // Renders a quad from 4 vectors.
    };
 }

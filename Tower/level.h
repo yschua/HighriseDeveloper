@@ -69,6 +69,8 @@ public:
    void  ScanFloorSpace(); // Marks the gird for what is in the space
    bool  IsSpaceEmpty( int x, int x2 ); // TestForEmptySpace...
    void  DrawEmptySpace();
+   void  DrawFramework (bool LevelOnly);
+   void  DrawEmptyFramework();
    // End prototype code
 
 public:
@@ -99,7 +101,6 @@ public:
    // Methods
    virtual void Update (float dt);
    virtual void Draw ();
-   virtual void DrawFramework (bool LevelOnly);
 
    bool AddFloorSpace (FloorBase * floor);
    void SetFloorPositions( int x, int x2 );

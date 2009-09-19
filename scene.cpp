@@ -19,6 +19,7 @@
 #include <list>
 #include "physics.h"
 #include "routes.h"
+#include "camera.h"
 #include "Window/event.h"
 #include "Tower/floorBase.h"
 #include "Tower/level.h"
@@ -86,18 +87,26 @@ Scene::Draw ()
    }
 }
 
-void Scene::RenderFramework ()
+void Scene::RenderFramework (int level)
 {
    bool bLevelsOnly = (this->mpBuildStrategy==NULL) ? false : true;
-   int lastNo = 1;
    std::vector<Tower *>::iterator iTower;
    for (iTower = mTowers.begin (); iTower != mTowers.end (); iTower++)
    {
-      (*iTower)->DrawFramework (bLevelsOnly);
+      if (level==0)
+      {
+         (*iTower)->DrawFramework (bLevelsOnly);
+      }
+      else
+      {
+         Tower* pTower = (*iTower);
+         Level* pLevel = pTower->GetLevel(level);
+         pLevel->DrawEmptyFramework(); // only draw empty space slection zones
+      }
    }
 }
 
-void Scene::Hit( int hit, int x )  // taking a mouse hit, send it through geometry to see what we hit
+void Scene::Hit( int hit, Vector2i Scene )  // taking a mouse hit, send it through geometry to see what we hit
 {
    if( this->mpBuildStrategy )
    {
@@ -108,6 +117,8 @@ void Scene::Hit( int hit, int x )  // taking a mouse hit, send it through geomet
          Level* pLevel = pTower->FindLevel (hit);
          if( pLevel )
          {
+            Camera* pCam = Camera::GetInstance();
+            int x = pCam->RenderFramework( this, Scene, pLevel->GetLevel());
             std::cout << "Mouse on Level: " << pLevel->GetLevel() << " Level ID: " << hit << std::endl;
             mpBuildStrategy->BuildHere(pTower, x, pLevel->GetLevel());
             break;

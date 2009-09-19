@@ -232,3 +232,22 @@ ModelObject::RenderFramework (AnimationBase* pBase, int id ) // milk and cookies
       cout << "Glerror 3:" << ix << std::endl;
 #endif
 }
+
+void
+ModelObject::RenderFramework (AnimationBase* pBase, float x, float x2, int id )  // overload with specified X and X2 and id
+{
+   float fx = x;
+   float fy = -pBase->GetPositionY();//-ms.y;
+   float fz = 0; //pBase->GetPositionZ();
+   float fx2 = x2;
+   float fy2 = fy - pBase->GetHeight();
+   
+   //glPassThrough((GLfloat)id );
+   glLoadName( id );
+   glBegin(GL_QUADS);
+   glVertex3f( fx, fy2, fz );  // needs to be a cube
+   glVertex3f( fx, fy, fz );
+   glVertex3f( fx2, fy, fz );
+   glVertex3f( fx2, fy2, fz );
+   glEnd();
+}

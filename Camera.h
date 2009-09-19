@@ -27,6 +27,7 @@ class Animation;
 class AnimationSingle;
 class Tiler;
 class Scene;
+class Level;
 
 class Camera : public Body, public EventBase
 {
@@ -69,7 +70,7 @@ public:
 
    void DrawModel (Scene* pModel);
    void DrawInterface (Interface* pI);
-   int  RenderFramework (Scene* pModel, Vector2f mouse);
+   int  RenderFramework (Scene* pModel, Vector2f mouse, int level); // level == 0, render the whole tower.
    void Create (const std::string & caption);
    void Center (int x, int y);
    bool GetEvent (sf::Event & event);

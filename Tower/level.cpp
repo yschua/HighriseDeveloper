@@ -155,6 +155,27 @@ Level::DrawFramework (bool LevelOnly)
    }
 }
 
+void
+Level::DrawEmptyFramework ()
+{
+   try
+   {
+      for (int i=0;i < mFloorSpaceGridSize; ++i)
+      {
+         if (mpFloorSpaceGrid[i] == 0)
+         {
+            int x = i * 9;
+            RenderFramework (mEmptyFLoor, mX + x, mX + x + 9, i+1);
+         }
+      }
+   }
+   catch (...)
+   {
+      mFloorSpaceGridSize = 0; // stop this from recurring
+      throw new HighriseException ("Error rendering empty Floor Space");
+   }
+}
+
 // Possible Deprecation
 FloorBase*
 Level::FindSpace (int x)

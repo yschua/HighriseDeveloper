@@ -39,6 +39,8 @@ namespace Gfx
       void Render (Tiler* pTiler);  // draw method replacement, drawing now happens on the GPU side for us
       void RenderParallax (FireAnimation* pBase, float xOffset );  // overload with specified X and X2 for parallax animation
       void RenderFramework (AnimationBase* pBase, int id); // milk and cookies run just for the basics to test for a hit
+      void RenderFramework (AnimationBase* pBase, float x, float x2, int id );  // overload with specified X and X2 and id
+                                                                                 // for empty spaces
 
    };
 }

@@ -68,8 +68,8 @@ public:
 
    void Update (float dt);
    void Draw ();
-   void RenderFramework (); // hit test run
-   void Hit( int hit, int x );  // mouse x and y, send it through geometry to see what we hit
+   void RenderFramework (int level); // hit test run
+   void Hit (int hit, Vector2i Scene);  // mouse x and y, send it through geometry to see what we hit
 
 };
 

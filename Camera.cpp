@@ -196,7 +196,7 @@ Camera::DrawInterface(Interface* pI)   // 2d interface objects
 
 #define BUFFER_LENGTH 64   // max click hits we expect but we might get 2
 
-int Camera::RenderFramework (Scene* pModel, Vector2f mouse)
+int Camera::RenderFramework (Scene* pModel, Vector2f mouse, int level)
 {
    int iResult = 0;
 
@@ -236,7 +236,7 @@ int Camera::RenderFramework (Scene* pModel, Vector2f mouse)
    glTranslatef (GetPositionX(), GetPositionY(), mZoomFactor);
    
    // Draw the scene
-   pModel->RenderFramework ();
+   pModel->RenderFramework (level); // is level is not Zero then we run a render check on that level else we do the whole tower
    
    // Collect the hits
    hits = glRenderMode(GL_RENDER);

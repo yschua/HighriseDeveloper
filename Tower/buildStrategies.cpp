@@ -38,15 +38,14 @@ bool BuildOfficeStategy::BuildHere (Tower* pTower, int x, int level)
    Level* pLevel = pTower->GetLevel(level);
 
    // test code until the snap to grid alligns the rooms
-   int rx = x/9;
    int lx = pLevel->GetX();
-   for (int lx = -3; lx < 4; ++lx )
+   for (int ix = -3; ix < 4; ++ix )
    {
-      int ix = (rx + lx) * 9;
-      bool bAvail = pLevel->IsSpaceEmpty (ix, ix + mWidth * 9);
+      int xx = lx + (ix + x) * 9;
+      bool bAvail = pLevel->IsSpaceEmpty (xx, xx + mWidth * 9);
       if (bAvail)
       {
-         FloorBase* pRoom = new office(ix, level, pTower); //OnToolHit is going to set this up, when we hit the floor
+         FloorBase* pRoom = new office(xx, level, pTower); //OnToolHit is going to set this up, when we hit the floor
          //pRoom->SetX (x + (lx * 9));
          //pRoom->SetX2 (x + (lx + mWidth * 9));
          pLevel->AddFloorSpace (pRoom);

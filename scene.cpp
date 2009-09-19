@@ -97,7 +97,7 @@ void Scene::RenderFramework ()
    }
 }
 
-void Scene::Hit( int hit )  // taking a mouse hit, send it through geometry to see what we hit
+void Scene::Hit( int hit, int x )  // taking a mouse hit, send it through geometry to see what we hit
 {
    if( this->mpBuildStrategy )
    {
@@ -109,6 +109,7 @@ void Scene::Hit( int hit )  // taking a mouse hit, send it through geometry to s
          if( pLevel )
          {
             std::cout << "Mouse on Level: " << pLevel->GetLevel() << " Level ID: " << hit << std::endl;
+            mpBuildStrategy->BuildHere(pTower, x, pLevel->GetLevel());
             break;
          }
          else

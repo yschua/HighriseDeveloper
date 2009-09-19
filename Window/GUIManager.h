@@ -16,10 +16,12 @@ class Tower;
 class GUIManager : public EventBase
 {
 public:
-	GUIManager(SceneEvent& rse, Tower* Tower);
+	GUIManager(SceneEvent& rse); //, Tower* Tower);
 	~GUIManager();
 
-   bool OnOffice (const CEGUI::EventArgs& e);
+   bool OnOffice (const CEGUI::EventArgs& e);   // concrete until we setup registering the rooms
+   // OnApartment
+   // OnSelect  use this to set the option select rooms for info and to expand the lobby and elevators
 
 	//bool Initialize(sf::RenderWindow* Win);
    bool OnMouseDown (sf::Mouse::Button Button, Vector2i Scene, Vector2i Cam);
@@ -54,6 +56,7 @@ private:
 	bool mPlacingRoom;
 	FloorBase* mRoom;
 	Tower* mTower;
+   SceneEvent& mSE;
 
    //SceneEvent& mSE;  // this does not belong here but needed until the event manager can hande it
 

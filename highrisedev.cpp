@@ -67,7 +67,7 @@ main ()
       theScene.SetBG (new Background (cam->GetSceneSize().x, cam->GetSceneSize().y));
 
       SceneEvent SceneEV(&theScene);
-      GUIManager Gui (SceneEV, &theTower);
+      GUIManager Gui (SceneEV); //, &theTower);
 
       EventHandler Events;
       Events.Add (&Gui);

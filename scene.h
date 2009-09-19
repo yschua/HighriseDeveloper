@@ -69,7 +69,7 @@ public:
    void Update (float dt);
    void Draw ();
    void RenderFramework (); // hit test run
-   void Hit( int hit );  // mouse x and y, send it through geometry to see what we hit
+   void Hit( int hit, int x );  // mouse x and y, send it through geometry to see what we hit
 
 };
 

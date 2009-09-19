@@ -15,30 +15,52 @@
  */
 
 #include <map>
+#include <list>
 #include <vector>
 #include "../routes.h"
 #include "floorBase.h"
+#include "level.h"
 #include "tower.h"
 #include "office.h"
 #include "apartment.h"
 #include "buildStrategies.h"
 
 // no tool active
-bool BuildStategyBase::BuildHere (Tower* pTowwer, int x, int y)
+bool BuildStategyBase::BuildHere (Tower* pTower, int x, int level)
 {
    return false;  // no tool selection
 }
 
 // Offices
-bool BuildOfficeStategy::BuildHere (Tower* pTowwer, int x, int y)
+bool BuildOfficeStategy::BuildHere (Tower* pTower, int x, int level)
 {
+   // we don't have multi tower support yet but this will eventually deal with that
+   Level* pLevel = pTower->GetLevel(level);
+
+   // test code until the snap to grid alligns the rooms
+   int rx = x/9;
+   int lx = pLevel->GetX();
+   for (int lx = -3; lx < 4; ++lx )
+   {
+      int ix = (rx + lx) * 9;
+      bool bAvail = pLevel->IsSpaceEmpty (ix, ix + mWidth * 9);
+      if (bAvail)
+      {
+         FloorBase* pRoom = new office(ix, level, pTower); //OnToolHit is going to set this up, when we hit the floor
+         //pRoom->SetX (x + (lx * 9));
+         //pRoom->SetX2 (x + (lx + mWidth * 9));
+         pLevel->AddFloorSpace (pRoom);
+         break;
+      }
+   }
    return true;
 }
 
 // Apartments
 bool
-BuildApartmentStategy::BuildHere (Tower* pTowwer, int x, int y)
+BuildApartmentStategy::BuildHere (Tower* pTower, int x, int level)
 {
+//         Apartment* new_apt = new Apartment (x, level, this);
    return true;
 }
 

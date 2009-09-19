@@ -42,7 +42,7 @@ bool FloorAgent::AddFloorSpace (FloorBase* pFS, int x, int x2 )
    {
       pFS->SetX ((float)x);
       pFS->SetX2 ((float)x2);
-      mLevel->AddFloor (pFS);
+      mLevel->AddFloorSpace (pFS);
    }
    return true;
 }

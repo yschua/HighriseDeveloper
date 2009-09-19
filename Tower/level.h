@@ -94,17 +94,18 @@ protected:
 public:
    inline int GetLevel () { return mLevel; }
    inline int GetID () { return mID; }
+   inline int GetX () { return mX; }
 
    // Methods
    virtual void Update (float dt);
    virtual void Draw ();
    virtual void DrawFramework (bool LevelOnly);
 
-   void AddFloor (FloorBase * floor);
+   bool AddFloorSpace (FloorBase * floor);
    void SetFloorPositions( int x, int x2 );
    FloorBase* FindSpace (int x);
    PersonQueue* FindQueue (int elevator);
-   bool AddFloorSpace (FloorBase* pFS, int x, int x2 );
+//   bool AddFloorSpace (FloorBase* pFS, int x, int x2 );
    bool TestForEmptySpace (int x, int x2 );
    void AddElevatorToQueue (Elevator* pElevator);  // set and remove the elevator stops
    void RemoveElevatorFromQueue (Elevator* pElevator);

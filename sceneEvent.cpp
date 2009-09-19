@@ -50,7 +50,7 @@ bool SceneEvent::OnMouseDown (sf::Mouse::Button Button, Vector2i Scene, Vector2i
    int hit = pCam->RenderFramework (mpScene, Scene);
    if( hit )
    {
-      mpScene->Hit( hit );
+      mpScene->Hit( hit, 440 );// I need more data
    }
    return true;
 }

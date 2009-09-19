@@ -78,15 +78,16 @@ Level::~Level()
       }
 }
 
-void
-Level::AddFloor (FloorBase * floor)
+bool
+Level::AddFloorSpace (FloorBase * floor)
 {
    mFloorSpaces.push_back (floor);
-   if (floor->mX < mX)
-      mX = (int)floor->mX;
-   if (floor->mX2 > mX2)
-      mX2 = (int)floor->mX2;
+//   if (floor->mX < mX)
+//      mX = (int)floor->mX;
+//   if (floor->mX2 > mX2)
+//      mX2 = (int)floor->mX2;
    ScanFloorSpace();
+   return true;
 }
 
 void

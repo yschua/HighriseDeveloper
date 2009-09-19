@@ -8,16 +8,17 @@
 #include "../Tower/tower.h"
 #include "../Tower/level.h"
 
-GUIManager::GUIManager(SceneEvent& rse, Tower* Tower)
+GUIManager::GUIManager(SceneEvent& rse) //, Tower* Tower) can't pass a tower as there will be more than one. Think events
 :  mpRenderer(NULL)
 ,  mpSystem(NULL)
+,  mSE(rse)
 {
 	InitMaps();
 	try
 	{
-	   mTower = Tower;
-	   mPlacingRoom = false;
-	   mRoom = NULL;
+	   //mTower = Tower;
+	   //mPlacingRoom = false;
+	   //mRoom = NULL;
 	   using namespace CEGUI;
 		mpRenderer = new CEGUI::OpenGLRenderer(0);
 		mpSystem = new CEGUI::System(mpRenderer);
@@ -89,27 +90,29 @@ GUIManager::OnOffice (const CEGUI::EventArgs& e)
 
    // set FloorPlacement to Office
    // route mouse clicks that hit the main into the FloorPlacement manager.
-   mPlacingRoom = true;
-   mRoom = new office(0,0,mTower);
-   //mSE.OnToolHit (HR_PlaceOffice);
+   //mPlacingRoom = true;
+   //mRoom = new office(0,0,mTower); OnToolHit is going to set this up, when we hit the floor
+   //                                in the on click for the 3D system, it will pass control to a strategy
+   mSE.OnToolHit (HR_PlaceOffice);  // this only sets the strategy.
    return true;
 }
 
 bool
 GUIManager::OnMouseDown (sf::Mouse::Button Button, Vector2i Scene, Vector2i Cam)
 {
-   // SUPERULTRABUGGYFANTASTIC atm.
-   if (mPlacingRoom || mRoom) {
-      std::cout << "This part should place the room!\n";
-      mRoom->SetX(Scene.x);
-      mRoom->SetY(1);
-      mTower->GetLevel(1)->AddFloor(mRoom);
-      //mTower.AddRoom(mRoom);
-      mPlacingRoom = false;
-      mRoom = NULL;
-   } else {
+   // remember, this is just the GUI code, mouse downs for the tower are passed through to the 3D system
+   //// SUPERULTRABUGGYFANTASTIC atm.
+   //if (mPlacingRoom || mRoom) {
+   //   std::cout << "This part should place the room!\n";
+   //   mRoom->SetX(Scene.x);
+   //   mRoom->SetY(1);
+   //   mTower->GetLevel(1)->AddFloor(mRoom);
+   //   //mTower.AddRoom(mRoom);
+   //   mPlacingRoom = false;
+   //   mRoom = NULL;
+   //} else {
       return mpSystem->injectMouseButtonDown(CEMouseButton(Button));
-   }
+   //}
 }
 
 bool

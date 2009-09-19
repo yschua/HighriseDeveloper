@@ -71,28 +71,29 @@ Tower::DebugLoad (int x, int y, int x2)
       Level* level_4 = NewLevel (400, 4, 544+72);
       Level* level_5 = NewLevel (400, 5, 544+72);
       Level* level_6 = NewLevel (400, 6, 544+72);
-      level_1->AddFloor (my_office);
-      level_1->AddFloor (my_office3);
-      level_1->AddFloor (my_office5);
-      level_2->AddFloor (my_office2);
-      level_2->AddFloor (my_office4);
-      level_2->AddFloor (my_office6);
-      level_3->AddFloor (my_office7);
-      level_3->AddFloor (my_office8);
-      level_3->AddFloor (my_office9);
-      level_4->AddFloor (my_apt1);
-      level_4->AddFloor (my_apt2);
-      level_4->AddFloor (my_apt3);
-      level_5->AddFloor (my_apt4);
-      level_5->AddFloor (my_apt5);
-      sublevel->AddFloor (my_basement);
+      Level* level_7 = NewLevel (400, 7, 544+72);
+      level_1->AddFloorSpace (my_office);
+      level_1->AddFloorSpace (my_office3);
+      level_1->AddFloorSpace (my_office5);
+      level_2->AddFloorSpace (my_office2);
+      level_2->AddFloorSpace (my_office4);
+      level_2->AddFloorSpace (my_office6);
+      level_3->AddFloorSpace (my_office7);
+      level_3->AddFloorSpace (my_office8);
+      level_3->AddFloorSpace (my_office9);
+      level_4->AddFloorSpace (my_apt1);
+      level_4->AddFloorSpace (my_apt2);
+      level_4->AddFloorSpace (my_apt3);
+      level_5->AddFloorSpace (my_apt4);
+      level_5->AddFloorSpace (my_apt5);
+      sublevel->AddFloorSpace (my_basement);
 
       // Test Add floorspace
       bool bAvail = level_6->IsSpaceEmpty(400, 472);
       if (bAvail)
       {
          Apartment* new_apt = new Apartment (400, 6, this);
-         level_6->AddFloor (new_apt);
+         level_6->AddFloorSpace (new_apt);
       }
       // Test Add floorspace
       bAvail = level_5->IsSpaceEmpty(400, 472);
@@ -100,7 +101,7 @@ Tower::DebugLoad (int x, int y, int x2)
       {
          ImageManager * image_man = ImageManager::GetInstance ();
          Damage* new_dmg = new Damage (400, 472, 5, this, new AnimationSingle (image_man->GetTexture ("office_damage.png", GL_RGBA), 72, 36 ));
-         level_5->AddFloor (new_dmg);
+         level_5->AddFloorSpace (new_dmg);
       }
    }
    catch (...)

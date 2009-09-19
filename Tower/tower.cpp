@@ -91,7 +91,7 @@ Level* Tower::FindLevel(int id)
    {
       if ((*iLevel)->GetID() == id )
       {
-         Level *pLevel = (*iLevel);
+         pLevel = (*iLevel);
          break;
       }
    }

@@ -33,11 +33,12 @@ public:
 
    inline void SetLightingColor( float lc[4] )
    {
-      LightingColor[0] = lc[0];  // todays cpus optimize this faster than a call to mem copy.
-      LightingColor[1] = lc[1];
-      LightingColor[2] = lc[2];
-      LightingColor[3] = lc[3];
+      LightingColor[0] = lc[0]/256;  // todays cpus optimize this faster than a call to mem copy.
+      LightingColor[1] = lc[1]/256;
+      LightingColor[2] = lc[2]/256;
+      LightingColor[3] = lc[3]/256;
    }
+   inline float* GetLightingColor() { return LightingColor; }
    virtual void BindTexture() = 0;
 };
 

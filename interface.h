@@ -30,6 +30,8 @@ public:
    Clock mClock;
    Stats mStats;
 
+   int GetTimeOfDay() { return mClock.GetTimeOfDay();  }
+
    void PosCalc ();
    void Update (float dt);
    void Draw ();

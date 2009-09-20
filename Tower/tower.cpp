@@ -102,7 +102,7 @@ Level* Tower::FindLevel(int id)
 }
 
 
-void Tower::Update (float dt)
+void Tower::Update (float dt, int timeOfDay)
 {
    std::vector<Level *>::iterator iLevel;
    for (iLevel = mLevels.begin (); iLevel != mLevels.end (); ++iLevel)
@@ -110,6 +110,7 @@ void Tower::Update (float dt)
       (*iLevel)->Update( dt );
    }
    mRoutes.Update( dt );
+   
 }
 
 void Tower::Draw ()

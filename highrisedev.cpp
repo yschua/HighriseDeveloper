@@ -102,6 +102,7 @@ main ()
          switch( cycle++ )
          {
          case 0:
+            theScene.Update (0, pInterface->GetTimeOfDay());
             break;
          case 1:
             pInterface->mStats.SetPopulation( theTower.GetPopulation() );
@@ -112,7 +113,7 @@ main ()
             cycle = 0;
             break;
          }
-         theTower.Update (60);
+         theTower.Update (60, pInterface->GetTimeOfDay());
          // end update scope
       }
       std::cout << mev.IsRunning() << "\n";

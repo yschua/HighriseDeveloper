@@ -37,9 +37,14 @@ class Clock : public Gfx::ViewObject
 
    SimpleQuad mMinuteHand;
    SimpleQuad mHourHand;
+
 public:
    Clock ();
    ~Clock ();
+
+public:
+   int GetTimeOfDay() { return mTimeOfDay; }
+
    void PosCalc ();
    void Update (int minutes);
    void Draw ();

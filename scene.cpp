@@ -71,9 +71,9 @@ Scene::SetBG (Background* pBG)
 }
 
 void
-Scene::Update (float dt)
+Scene::Update (float dt, int timeOfDay)
 {
-   std::cout << "Scene Update method called but it was not implemented" << std::endl;
+   mpBackground->Update(timeOfDay);
 }
 
 void

@@ -68,7 +68,7 @@ public:
    Level* NewLevel (int x, int y, int x2);
    Level* GetLevel (int level); // positive gets you a level above, negative gets you a basement level
 
-   void Update (float dt);
+   void Update (float dt, int timeOfDay);
    void Draw ();
    void DrawFramework (bool bLevelsOnly);
 

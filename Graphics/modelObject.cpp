@@ -28,7 +28,7 @@ ModelObject::ModelObject ()
 }
 
 void
-ModelObject::Render(AnimationBase* pBase)
+ModelObject::Render(AnimationBase* pBase, bool bLight)
 {
    float x = pBase->GetPositionX();//-ms.x; position needs to be a member of modelObject, let physics access it to move it.
    float y = -pBase->GetPositionY();//-ms.y;
@@ -37,6 +37,10 @@ ModelObject::Render(AnimationBase* pBase)
    float y2 = y - pBase->GetHeight();
    //glBindTexture( GL_TEXTURE_2D, pBase->GetTextureID() );//to_draw.GetTexture() ); // get the current texture
    pBase->BindTexture();
+   if (bLight)
+   {
+      glColor4fv (pBase->GetLightingColor());
+   }
    glBegin(GL_QUADS);
    {
       glTexCoord2f( 0.0, 1.0 );
@@ -48,6 +52,7 @@ ModelObject::Render(AnimationBase* pBase)
       glTexCoord2f( 1.0, 1.0 );
       glVertex3f( x2, y2, z );
    }
+   glColor4ub (250,250,250,255);
    glEnd();
 }
 

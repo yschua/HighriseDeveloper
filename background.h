@@ -40,7 +40,8 @@ private:
    BackLight_State mLightState;
    float mRGBALight[4];
    float mRGBATransition[4];
-   bool  mInTransition;
+   int   mStepsToTansion;     // countdown to zero 
+   int   mNextTimeEvent;
 
 public:
    void Update (int TimeOfDay);

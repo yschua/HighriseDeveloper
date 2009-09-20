@@ -3,8 +3,9 @@
 #include <SFML/Graphics.hpp>
 
 #include "tinyxml/tinyxml.h"
-#include "../Graphics/Graphics.h"
-#include "../Game/String.h"
+#include <string>
+//#include "../Graphics/Graphics.h"
+//#include "../Game/String.h"
 
 namespace OT {
     namespace xml {

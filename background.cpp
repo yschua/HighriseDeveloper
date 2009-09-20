@@ -27,6 +27,24 @@
 
 using namespace Gfx;
 
+namespace Model
+{
+   const float dawn[4] = { 128,65,128, 240 };      // a color birds might sing to
+   const float full[4] = { 250,250,250,255 };      // just short of sunburn
+   const float dusk[4] = { 120,85,75, 220 };       // Sailors delight
+   const float twilight[4] = { 25,8,40, 220 };     // longwave light
+   const float night[4] = { 10,15,18, 20 };        // glow from lights
+
+   int state_times[]=
+   {
+      60*5+40,    // 5:40am dawn
+      60*8+30,    // 9:30am sun up
+      60*16+30,   // 4:30pm start the fade
+      60*19+20,   // 7:20pm go twilight (afterglow)
+      60*21+10    // 9:10pm go dark
+   };
+}
+
 Background::Background (float width, float height)
 {
    ImageManager * images = ImageManager::GetInstance ();
@@ -38,6 +56,17 @@ Background::Background (float width, float height)
    // Z axis is 0 for now
    mBackBuildings = new Tiler (images->GetTexture ("buildings.png", GL_RGBA), Tiler::Horizontal, 0, -28, -0.09f, width, 64 );
    mBackGround = new Tiler (images->GetTexture ("ground.png", GL_RGBA), Tiler::Horizontal, 0, 0+36, -0.09f, width, 320 );
+
+   mLightState = BLS_Night;
+   memset (mRGBALight,0,sizeof(mRGBALight));
+   memcpy (mRGBATransition, Model::night, 4); 
+   mInTransition = false;
+}
+
+void
+Background::Update (int TimeOfDay)
+{
+   mBackImage->SetLightingColor (mRGBALight);
 }
 
 void

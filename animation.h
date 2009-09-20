@@ -25,24 +25,33 @@ using namespace Gfx;
 class AnimationBase : public Body
 {
    // we can add implementation to support lighting and material attributes here
+protected:
+   float LightingColor[4];
+
 public:
    AnimationBase( int w, int h );
 
+   inline void SetLightingColor( float lc[4] )
+   {
+      LightingColor[0] = lc[0];  // todays cpus optimize this faster than a call to mem copy.
+      LightingColor[1] = lc[1];
+      LightingColor[2] = lc[2];
+      LightingColor[3] = lc[3];
+   }
    virtual void BindTexture() = 0;
 };
 
 class Animation : public AnimationBase
 {
 private:
-//   std::vector <std::pair <sf::Image *, float> > mframes;
+
    std::vector <std::pair <Texture*, float> > mframes;
    unsigned int mcurrent_frame;
    float mtime;
-//   sf::Sprite * sprite;
 
 public:
    Animation (int width, int height);
-//   void AddFrame (sf::Image * image, float duration);
+
    void AddFrame (Texture* pTex, float duration);
    void Update (float dt);
    void BindTexture();
@@ -52,8 +61,7 @@ class AnimationSingle : public AnimationBase
 {
    Texture* mpTexture;
 public:
-   //sf::Sprite* mSprite;
-   //AnimationSingle (sf::Image* image);
+
    AnimationSingle (Texture* pTex, int width, int height);
    void SetSubRect (int x1, int y1, int x2, int y2);
    void BindTexture();

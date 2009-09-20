@@ -46,7 +46,7 @@ bool BuildOfficeStategy::BuildHere (Tower* pTower, int x, int level)
       bool bAvail = pLevel->IsSpaceEmpty (xx, xx + mWidth * 9);
       if (bAvail)
       {
-         FloorBase* pRoom = new office(xx, level, pTower); //OnToolHit is going to set this up, when we hit the floor
+         FloorBase* pRoom = new Office(xx, level, pTower); //OnToolHit is going to set this up, when we hit the floor
          //pRoom->SetX (x + (lx * 9));
          //pRoom->SetX2 (x + (lx + mWidth * 9));
          pLevel->AddFloorSpace (pRoom);

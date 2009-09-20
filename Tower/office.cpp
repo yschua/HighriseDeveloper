@@ -28,7 +28,7 @@
 using namespace Gfx;
 
 office_state
-office::unoccupied_day (float dt)
+Office::unoccupied_day (float dt)
 {
    if (rand () % 50 == 3)
       return s_occupied_day;
@@ -36,14 +36,14 @@ office::unoccupied_day (float dt)
 }
 
 office_state
-office::occupied_day (float dt)
+Office::occupied_day (float dt)
 {
    if (rand () % 50 == 3)
       return s_unoccupied_day;
    return s_occupied_day;
 }
 
-office::office (int x, int level, Tower * TowerParent)
+Office::Office (int x, int level, Tower * TowerParent)
       :  mcurrent_state (s_unoccupied_day)
       ,  FloorBase (x, x + 72, level, TowerParent)
 {
@@ -62,7 +62,7 @@ office::office (int x, int level, Tower * TowerParent)
 }
 
 void
-office::Update (float dt)
+Office::Update (float dt)
 {
    manimations[mcurrent_state]->Update (dt);
    office_state new_state;
@@ -79,7 +79,7 @@ office::Update (float dt)
 }
 
 void
-office::Draw ()
+Office::Draw ()
 {
 //   Camera::GetInstance()->Draw (*manimations[mcurrent_state]);
    Render (manimations[mcurrent_state]);
@@ -87,7 +87,7 @@ office::Draw ()
 
 
 void
-office::DrawFramework ()
+Office::DrawFramework ()
 {
    RenderFramework( manimations[mcurrent_state], mID);
 }

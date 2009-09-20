@@ -1,47 +1,77 @@
-#include "../xml/tinyxml/tinyxml.h"
-#include "tower.h"
-#include "level.h"
-#include "../Types/String.h"
-#include "office.h"
 #include <iostream>
+#include <vector>
+#include <list>
+#include <map>
+#include "../xml/tinyxml/tinyxml.h"
+#include "../Types/String.h"
+#include "level.h"
+#include "office.h"
+#include "apartment.h"
+#include "tower.h"
 
 bool Tower::Load(TiXmlNode* nTower)
 {
-   int level = 1;
-
+   // TODO: move the XML code outside the tower and create an attribute system (class serializer) to move the data
+   //       possibly a brige system or visitor patterm
    // Iterate through the levels
-   for (TiXmlNode* nLevel = nTower->FirstChild("level"); nLevel != 0; nLevel = nLevel->NextSibling("level"))
+   for (TiXmlNode* pnLevel = nTower->FirstChild("level"); pnLevel != 0; pnLevel = pnLevel->NextSibling("level"))
    {
-      std::cout << "Loading level " << level << '\n';
-      TiXmlNode* nStart = nLevel->FirstChild("xstart");
-      TiXmlNode* nEnd = nLevel->FirstChild("xend");
-      if (nStart || nEnd) {
-         int XStart = ToInt(nStart->FirstChild()->ValueStr());
-         int XEnd = ToInt(nEnd->FirstChild()->ValueStr());
-         NewLevel(XStart, level, XEnd);
+      TiXmlNode* pnLevelType = pnLevel->FirstChild("type");
+      TiXmlNode* pnStart = pnLevel->FirstChild("xstart");
+      TiXmlNode* pnEnd = pnLevel->FirstChild("xend");
+      TiXmlNode* pnLevelNo = pnLevel->FirstChild("number");
+      int levelno = FromString<int>(pnLevelNo->FirstChild()->Value());;
+      if (pnStart || pnEnd)
+      {
+         std::string LevelType = pnLevelType->FirstChild()->Value();
+         int XStart = FromString<int>(pnStart->FirstChild()->Value());
+         int XEnd = FromString<int>(pnEnd->FirstChild()->Value());
+         Level* pLevel = NULL;
+         if( levelno < 1 )
+         {
+            pLevel = this->GetLevel(levelno);
+         }
+         else
+         {
+            // use leveltype here to pick up sky levels etc
+            pLevel = NewLevel(XStart, levelno, XEnd);
+         }
 
-         for (TiXmlNode* nRoom = nLevel->FirstChild("room"); nRoom != 0; nRoom = nRoom->NextSibling("room")) {
-            TiXmlNode* nType = nRoom->FirstChild("type");
-            TiXmlNode* nXPos = nRoom->FirstChild("xpos");
-            if (nType || nXPos) {
-               std::string Type = nType->FirstChild()->ValueStr();
-               int XPos = ToInt(nXPos->FirstChild()->ValueStr());
+         for (TiXmlNode* pnRoom = pnLevel->FirstChild("room"); pnRoom != 0; pnRoom = pnRoom->NextSibling("room"))
+         {
+            TiXmlNode* pnType = pnRoom->FirstChild("type");
+            TiXmlNode* pnXPos = pnRoom->FirstChild("xpos");
+            TiXmlNode* pnState = pnRoom->FirstChild("state");
+            int State = (pnState) ? FromString<int>(pnState->FirstChild()->Value()) : 0;
+            if (pnType || pnXPos)
+            {
+               std::string Type = pnType->FirstChild()->Value();
+               int XPos = FromString<int>(pnXPos->FirstChild()->Value());
                // Need a better way to do this...
                FloorBase* pRoom;
-               if (Type == "office") {
-                  pRoom = new office(XPos, level, this);
-                  GetLevel(level)->AddFloorSpace(pRoom);
-               } else {
+               if (Type == "office")
+               {
+                  pRoom = new Office(XPos, levelno, this);
+                  //pRoom->SetState(State);
+               } 
+               else if (Type == "apartment")
+               {
+                  pRoom = new Apartment(XPos, levelno, this);
+                  //pRoom->SetState(State);
+               } 
+               else
+               {
                   std::cout << "WARNING: " << Type << " is an invalid room type!\n";
                }
-               std::cout << "DEBUG: New " << Type << " on floor " << level << " (position " << XPos << ")\n";
-
+               std::cout << "DEBUG: New " << Type << " on floor " << levelno << " (position " << XPos << ")\n";
+               GetLevel(levelno)->AddFloorSpace(pRoom);
             }
          }
-      } else {
-         std::cout << "WARNING: Failed to load level " << level << ", could not find xstart or xend node.\n";
       }
-      std::cout << "Loaded level " << level << '\n';
-      level++;
+      else
+      {
+         std::cout << "WARNING: Failed to load level " << levelno << ", could not find xstart or xend node.\n";
+      }
    }
+   return true;
 }

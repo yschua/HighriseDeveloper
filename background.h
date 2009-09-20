@@ -21,15 +21,29 @@
 class AnimationSingle;
 class Tiler;
 
+enum BackLight_State
+{
+   BLS_Night = 0, // just dark
+   BLS_Dawn,      // incresing light to dawn
+   BLS_Day,       // incresing light to daylight
+   BLS_Dusk,      // fading light to red glow dusk
+   BLS_Twilight,  // intermediate fade to twilight
+   BLS_Reset      // set back to night and go dark
+};
+
 class Background : public Gfx::ModelObject
 {
 private:
    AnimationSingle* mBackImage;
    Tiler * mBackBuildings;
    Tiler * mBackGround;
-//   Camera * cam;
+   BackLight_State mLightState;
+   float mRGBALight[4];
+   float mRGBATransition[4];
+   bool  mInTransition;
 
 public:
+   void Background::Update (int TimeOfDay);
    void Draw ();
    Background (float width, float height);
    int  RenderFramework (int id) { return id; }; // don't click this, yet

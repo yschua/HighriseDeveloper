@@ -30,7 +30,7 @@ enum office_state
    s_occupied_day
 };
 
-class office : public FloorBase, public Gfx::ModelObject
+class Office : public FloorBase, public Gfx::ModelObject
 {
 private:
    office_state unoccupied_day (float dt);
@@ -40,11 +40,11 @@ private:
    int mcurrent_animation;
 
 public:
+   Office (int x, int level, Tower * TowerParent);
+
    void Update (float dt);
    void Draw ();
    void DrawFramework ();
-
-   office (int x, int level, Tower * TowerParent);
 };
 
 #endif

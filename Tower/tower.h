@@ -77,9 +77,10 @@ public:
    void LeaveTower (Person* pPerson);
    Level* FindLevel(int id);
 
+   bool Load(TiXmlNode* nTower);
+
    // Debug Methods
    void DebugLoad (int x, int y, int x2); // this simply pumps floor objects and elevators into the tower.
-   bool Load(TiXmlNode*);
 };
 
 #endif //_TOWER_H

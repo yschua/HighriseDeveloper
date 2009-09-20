@@ -16,6 +16,7 @@
 
 #ifndef _BUILDSTRATEGIES_H
 #define _BUILDSTRATEGIES_H
+#include <string>
 
 class Tower;
 

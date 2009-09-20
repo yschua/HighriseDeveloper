@@ -59,6 +59,7 @@
 				<Compiler>
 					<Add option="-Wall" />
 					<Add option="-g" />
+					<Add option="-DTIXML_USE_STL" />
 				</Compiler>
 				<Linker>
 					<Add library="sfml-graphics" />
@@ -91,6 +92,8 @@
 		<Unit filename="ReadMe.txt" />
 		<Unit filename="Settings/Settings.cpp" />
 		<Unit filename="Settings/Settings.h" />
+		<Unit filename="Tower/TowerLoad.cpp" />
+		<Unit filename="Tower/TowerLoad.h" />
 		<Unit filename="Tower/apartment.cpp" />
 		<Unit filename="Tower/apartment.h" />
 		<Unit filename="Tower/buildStrategies.cpp" />
@@ -119,6 +122,8 @@
 		<Unit filename="Tower/tower.h" />
 		<Unit filename="Tower/tower_debug.cpp" />
 		<Unit filename="Types/Rect.h" />
+		<Unit filename="Types/String.cpp" />
+		<Unit filename="Types/String.h" />
 		<Unit filename="Types/Vector2.h" />
 		<Unit filename="Window/CEGUI.h" />
 		<Unit filename="Window/GUIManager.cpp" />
@@ -166,6 +171,13 @@
 		<Unit filename="stdafx.h" />
 		<Unit filename="tiler.cpp" />
 		<Unit filename="tiler.h" />
+		<Unit filename="xml/tinyxml/tinystr.cpp" />
+		<Unit filename="xml/tinyxml/tinystr.h" />
+		<Unit filename="xml/tinyxml/tinyxml.cpp" />
+		<Unit filename="xml/tinyxml/tinyxml.h" />
+		<Unit filename="xml/tinyxml/tinyxmlerror.cpp" />
+		<Unit filename="xml/tinyxml/tinyxmlparser.cpp" />
+		<Unit filename="xml/tinyxml/xmltest.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />

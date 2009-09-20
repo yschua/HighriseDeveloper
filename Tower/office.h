@@ -17,6 +17,8 @@
 #ifndef _OFFICE_H
 #define _OFFICE_H
 
+#include <map>
+
 #include "../Graphics/modelObject.h"
 #include "floorBase.h"
 

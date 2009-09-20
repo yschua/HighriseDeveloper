@@ -19,7 +19,7 @@
 #include <list>
 #include "physics.h"
 #include "routes.h"
-#include "camera.h"
+#include "Camera.h"
 #include "Window/event.h"
 #include "Tower/floorBase.h"
 #include "Tower/level.h"

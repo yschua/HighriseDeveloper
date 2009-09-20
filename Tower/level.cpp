@@ -70,6 +70,11 @@ Level::Level (int level, int x, int y, int x2, Tower * TowerParent)
    SetFloorPositions( x, x2 );
 }
 
+Level::Level(TiXmlNode* pnLevel) {
+   TiXmlNode* pnNum = pnLevel->FirstChild("number");
+
+}
+
 Level::~Level()
 {
       if (mpFloorSpaceGrid!=NULL)

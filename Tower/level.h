@@ -17,8 +17,11 @@
 #ifndef _LEVEL_H
 #define _LEVEL_H
 
+#include <list>
+
 #include "../Graphics/modelObject.h"
 #include "floorBase.h"
+#include "../xml/tinyxml/tinyxml.h"
 
 class AnimationSingle;
 class AnimationEmpty;
@@ -76,6 +79,8 @@ public:
 public:
    // CTOR
    Level (int level, int x, int y, int x2, Tower * TowerParent);
+   // Initialize from an xml node
+   Level (TiXmlNode*);
    virtual ~Level ();
 
 public:

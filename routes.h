@@ -16,6 +16,7 @@
 
 #ifndef _ROUTES_H
 #define _ROUTES_H
+#include <vector>
 
 class RouteBase; // aggregate of elevators and stairs
 

@@ -30,6 +30,7 @@ class TowerAgent;
 class Routes;
 class Person;
 class Scene;
+class TiXmlNode;
 
 // Tower is a ModelObject along with all the FloorSpace entities
 // This renderes the Tower in the ModelSpaces with perspective, pan and zoom.
@@ -78,6 +79,7 @@ public:
 
    // Debug Methods
    void DebugLoad (int x, int y, int x2); // this simply pumps floor objects and elevators into the tower.
+   bool Load(TiXmlNode*);
 };
 
 #endif //_TOWER_H

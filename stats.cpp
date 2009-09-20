@@ -16,10 +16,19 @@
 
 #include <map>
 #include <cstring>
+#include <sstream>
+#include <cstdio>
 #include "image.h"
 #include "animation.h"
 #include "Camera.h"
 #include "stats.h"
+
+std::string itoa( int n )
+{
+   std::ostringstream s;
+   s << n;
+   return s.str();
+}
 
 using namespace Gfx;
 
@@ -28,7 +37,7 @@ Stats::Stats ()
    mNet = 100000;
    mPopulation = 0;
    mStars = 1;
-   
+
 
    ImageManager * images = ImageManager::GetInstance ();
    Texture* pTex = images->GetTexture ("stats.png", GL_RGBA);
@@ -51,11 +60,8 @@ Stats::PosCalc ()
 void
 Stats::Update ()
 {
-   char buf[32];
-   itoa( mNet, buf, 10 );
-   mstrNet = std::string (buf);
-   itoa( mPopulation, buf, 10 );
-   mstrPopulation = std::string (buf);
+   mstrNet = itoa( mNet );
+   mstrPopulation = itoa( mPopulation );
 }
 
 namespace UI

@@ -17,6 +17,7 @@
 #include <map>
 #include <list>
 #include <vector>
+#include <iostream>
 #include "../routes.h"
 #include "floorBase.h"
 #include "level.h"
@@ -49,6 +50,9 @@ bool BuildOfficeStategy::BuildHere (Tower* pTower, int x, int level)
          //pRoom->SetX (x + (lx * 9));
          //pRoom->SetX2 (x + (lx + mWidth * 9));
          pLevel->AddFloorSpace (pRoom);
+         //int* blah = NULL;
+         //int some = *blah;
+         //std::cout << "stshfkjdhflkfjhsdlkfs\n";
          break;
       }
    }

@@ -16,6 +16,7 @@
 
 #include <iostream>
 #include <map>
+#include <cstring>
 #include <vector>
 #include "physics.h"
 #include "image.h"
@@ -59,7 +60,7 @@ Background::Background (float width, float height)
 
    mLightState = BLS_Night;
    memset (mRGBALight,0,sizeof(mRGBALight));
-   memcpy (mRGBATransition, Model::night, 4); 
+   memcpy (mRGBATransition, Model::night, 4);
    mInTransition = false;
 }
 

@@ -47,10 +47,13 @@ Tower::DebugLoad (int x, int y, int x2)
       pElevator = new Elevator( Elevator::LS_Standard, 472 + 36 + 9, 0, 5, this );
       GetRoutes().AddRoute( pElevator );
       // stuffing the floors with test spaces
-      TiXmlDocument xml("data/xml/Tower.xml");
-      xml.LoadFile();
+      TiXmlDocument* xml = new TiXmlDocument();
+      xml->LoadFile("data/xml/Tower.xml");
+      std::cout << "DEBUG: " << xml->Value() << " output: \n";
+      //xml->Print();
       //if (xml.Error()) std::cout << "WARNING: XML ERROR! " << xml.ErrorDesc() << std::endl;
-      TiXmlNode* nTower = xml.FirstChild();
+      TiXmlNode* nTower = xml->FirstChild();
+      //std::cout << "DEBUG: Root node: " << nTower->Value() << '\n';
       if (nTower)
       {
          // get the money and time stuff but we need to move this outside the Tower code first
@@ -60,12 +63,14 @@ Tower::DebugLoad (int x, int y, int x2)
       }
       else
       {
-         std::cout << "WARNING: Failed to load demo tower: " << xml.ErrorDesc() << std::endl
-                   << " row: " << xml.ErrorRow() << " col: " << xml.ErrorCol()
-                   << " id: " << xml.ErrorId() << '\n';
-         std::cout << "DEBUG: File contents (if any): " << std::endl;
-         xml.Print();
+         std::cout << "WARNING: Failed to load demo tower: " << xml->ErrorDesc() << std::endl
+                   << " row: " << xml->ErrorRow() << " col: " << xml->ErrorCol()
+                   << " id: " << xml->ErrorId() << " file: " << xml->Value() << '\n'
+                   << "DEBUG: File contents (if any): \n";
+
+         xml->Print();
       }
+      delete xml;
 
  /*     office* my_office = new office(400, 1, this);
       office* my_office2 = new office (400, 2, this);

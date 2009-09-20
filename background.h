@@ -43,7 +43,7 @@ private:
    bool  mInTransition;
 
 public:
-   void Background::Update (int TimeOfDay);
+   void Update (int TimeOfDay);
    void Draw ();
    Background (float width, float height);
    int  RenderFramework (int id) { return id; }; // don't click this, yet

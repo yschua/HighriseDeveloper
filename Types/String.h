@@ -11,13 +11,7 @@ std::string ToString(T Other)
    return s.str();
 }
 
-int ToInt(std::string Other)
-{
-   std::istringstream s(Other);
-   int To;
-   s >> To;
-   return To;
-}
+int ToInt(std::string Other);
 
 template <class T>
 T FromString(std::string Other)

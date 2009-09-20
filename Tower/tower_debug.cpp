@@ -50,11 +50,11 @@ Tower::DebugLoad (int x, int y, int x2)
       TiXmlDocument* xml = new TiXmlDocument();
       xml->LoadFile("data/xml/Tower.xml");
       std::cout << "DEBUG: " << xml->Value() << " output: \n";
-      //xml->Print();
+      xml->Print();
       //if (xml.Error()) std::cout << "WARNING: XML ERROR! " << xml.ErrorDesc() << std::endl;
       TiXmlNode* nTower = xml->FirstChild();
       //std::cout << "DEBUG: Root node: " << nTower->Value() << '\n';
-      if (nTower)
+      if (!xml->Error())
       {
          // get the money and time stuff but we need to move this outside the Tower code first
          // Data needs to be push/pulled through a class attribute

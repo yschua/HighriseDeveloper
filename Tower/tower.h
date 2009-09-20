@@ -30,6 +30,7 @@ class TowerAgent;
 class Routes;
 class Person;
 class Scene;
+class TiXmlElement;
 class TiXmlNode;
 
 // Tower is a ModelObject along with all the FloorSpace entities
@@ -43,7 +44,7 @@ private:
    int mNo_SubLevels;
    int mPopulation;  // People in the tower currently
 
-   std::vector<Level *> mLevels;     // Lobby is at mNo_SubLevels not zero
+   std::vector<Level*> mLevels;     // Lobby is at mNo_SubLevels not zero
    Routes mRoutes;
    Scene& mScene; // this is where all the towers are modeled in OpenGL.
 
@@ -78,6 +79,7 @@ public:
    Level* FindLevel(int id);
 
    bool Load(TiXmlNode* nTower);
+   bool Save(TiXmlElement* pnParent);
 
    // Debug Methods
    void DebugLoad (int x, int y, int x2); // this simply pumps floor objects and elevators into the tower.

@@ -115,6 +115,8 @@ public:
    bool TestForEmptySpace (int x, int x2 );
    void AddElevatorToQueue (Elevator* pElevator);  // set and remove the elevator stops
    void RemoveElevatorFromQueue (Elevator* pElevator);
+
+   bool Save(TiXmlElement*);
 };
 
 #endif

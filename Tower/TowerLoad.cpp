@@ -14,7 +14,7 @@ bool Tower::Load(TiXmlNode* nTower)
    // TODO: move the XML code outside the tower and create an attribute system (class serializer) to move the data
    //       possibly a brige system or visitor patterm
    // Iterate through the levels
-   std::cout << "DEBUG: Loading tower...\n";
+   std::cout << "DEBUG: Loading tower...\n" << nTower->Value() << "  " << nTower << '\n';
    //TiXmlDocument* nDoc = nTower->Parent()->ToDocument();
    //std::cout << "DEBUG: xml output:\n";
    //nTower->P->Print();
@@ -81,4 +81,12 @@ bool Tower::Load(TiXmlNode* nTower)
    }
    std::cout << "DEBUG: finished loading tower...\n";
    return true;
+}
+
+bool Tower::Save(TiXmlElement* Parent) {
+   for (unsigned int i = 0; i < mLevels.size(); i++) {
+      TiXmlElement* pnLevel = new TiXmlElement("level");
+      mLevels[i]->Save(pnLevel);
+      Parent->LinkEndChild(pnLevel);
+   }
 }

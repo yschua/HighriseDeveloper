@@ -19,6 +19,7 @@
 
 class Tower;
 class Level;
+class TiXmlElement;
 
 class FloorBase
 {
@@ -56,6 +57,8 @@ public:
    virtual void Update (float dt);
    virtual void Draw ();
    virtual void DrawFramework () { }
+
+   virtual bool Save(TiXmlElement*);
 
    static int GetNextID();
 };

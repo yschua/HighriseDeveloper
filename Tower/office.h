@@ -45,6 +45,8 @@ public:
    void Update (float dt);
    void Draw ();
    void DrawFramework ();
+
+   bool Save(TiXmlElement*);
 };
 
 #endif

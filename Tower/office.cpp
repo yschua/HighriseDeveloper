@@ -22,6 +22,7 @@
 #include "../image.h"
 #include "../animation.h"
 #include "floorBase.h"
+#include "../xml/tinyxml/tinyxml.h"
 
 #include "office.h"
 
@@ -90,4 +91,12 @@ void
 Office::DrawFramework ()
 {
    RenderFramework( manimations[mcurrent_state], mID);
+}
+
+bool Office::Save(TiXmlElement* pnParent) {
+   FloorBase::Save(pnParent);
+   TiXmlElement* pnType = new TiXmlElement("type");
+   TiXmlText* ptType = new TiXmlText("office");
+   pnType->LinkEndChild(ptType);
+   pnParent->LinkEndChild(pnType);
 }

@@ -421,3 +421,11 @@ Level::DrawEmptySpace()
       throw new HighriseException ("Error rendering empty Floor Space");
    }
 }
+
+bool Level::Save(TiXmlElement* pnParent) {
+   for (unsigned int i = 0; i < mFloorSpaces.size(); i++) {
+      TiXmlElement* pnSpace = new TiXmlElement("room");
+      mFloorSpaces[i]->Save(pnSpace);
+      pnParent->LinkEndChild(pnSpace);
+   }
+}

@@ -59,7 +59,7 @@
 				<Compiler>
 					<Add option="-Wall" />
 					<Add option="-g" />
-					<Add option="-DTIXML_USE_STL" />
+					<Add option="-DTIXML_USE_STL_ASDHSADLK" />
 				</Compiler>
 				<Linker>
 					<Add library="sfml-graphics" />

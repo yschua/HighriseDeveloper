@@ -21,6 +21,8 @@
 #include "tower.h"
 #include "../scene.h"
 #include "floorBase.h"
+#include "../xml/tinyxml/tinyxml.h"
+#include "../Types/String.h"
 
 //using namespace Gfx;
 unsigned int FloorBase::NextID = 1;
@@ -48,6 +50,14 @@ FloorBase::FloorBase (int x, int x2, int level, Tower* pTowerParent)
    mZ = -0.5f;
    mID = FloorBase::GetNextID();
    pTowerParent->GetScene().RegisterFloorSpace (mID, this);
+}
+
+bool FloorBase::Save(TiXmlElement* pnParent) {
+   TiXmlElement* pnXPos = new TiXmlElement("xpos");
+   std::cout << "DEBUG: mX(tostring): " << ToString(mX) << "mX(normal): " << mX << std::endl;
+   TiXmlText* pnXPosText = new TiXmlText(ToString(mX).c_str());
+   pnXPos->LinkEndChild(pnXPosText);
+   pnParent->LinkEndChild(pnXPos);
 }
 
 int FloorBase::GetNextID() // static

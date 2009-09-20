@@ -47,6 +47,7 @@ GUIManager::GUIManager(SceneEvent& rse) //, Tower* Tower) can't pass a tower as 
 
       LoadLayout("Menu.layout");
       mpWM->getWindow((CEGUI::utf8*)"Button1")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&GUIManager::OnOffice, this));
+      mpWM->getWindow((CEGUI::utf8*)"MenuBackground/Save")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&GUIManager::OnSave, this));
 
       //pTestBtn->setMinSize(UVector2(UDim(0.0f, 100), UDim(0.0f, 20)));
 		pTestBtn->setSize(UVector2(UDim(0.5f, 0), UDim(0.5f, 0)));
@@ -95,6 +96,15 @@ GUIManager::OnOffice (const CEGUI::EventArgs& e)
    //                                in the on click for the 3D system, it will pass control to a strategy
    mSE.OnToolHit (HR_PlaceOffice);  // this only sets the strategy.
    return true;
+}
+
+bool GUIManager::OnSave(const CEGUI::EventArgs& e) {
+   TiXmlDocument* pDoc = new TiXmlDocument("data/xml/Tower.xml");
+   TiXmlElement* pRoot = new TiXmlElement("highrisetower");
+   mTower->Save(pRoot);
+   pDoc->LinkEndChild(pRoot);
+   std::cout << "DEBUG: Output of save attempt: \n";
+   pDoc->Print();
 }
 
 bool

@@ -68,6 +68,7 @@ main ()
 
       SceneEvent SceneEV(&theScene);
       GUIManager Gui (SceneEV); //, &theTower);
+      Gui.SetTower(&theTower);
 
       EventHandler Events;
       Events.Add (&Gui);

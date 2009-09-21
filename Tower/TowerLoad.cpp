@@ -18,19 +18,25 @@ bool Tower::Load(TiXmlNode* nTower)
    //TiXmlDocument* nDoc = nTower->Parent()->ToDocument();
    //std::cout << "DEBUG: xml output:\n";
    //nTower->P->Print();
-   for (TiXmlNode* pnLevel = nTower->FirstChild("level"); pnLevel != 0; pnLevel = pnLevel->NextSibling("level"))
+   TiXmlNode* pnLevel = nTower->FirstChild("level");
+   std::cout << "DEBUG: Level node is " << pnLevel << std::endl;
+   if (!pnLevel) return false;
+
+   for (; pnLevel; pnLevel = pnLevel->NextSibling("level"))
    {
-      std::cout << "DEBUG: Loading level...\n";
+      std::cout << "DEBUG: Loading level... (" << pnLevel << ")\n";
       TiXmlNode* pnLevelType = pnLevel->FirstChild("type");
       TiXmlNode* pnStart = pnLevel->FirstChild("xstart");
       TiXmlNode* pnEnd = pnLevel->FirstChild("xend");
-      TiXmlNode* pnLevelNo = pnLevel->FirstChild("number");
-      int levelno = FromString<int>(pnLevelNo->FirstChild()->Value());
-      if (pnStart || pnEnd)
+      TiXmlNode* pnLevelNo = pnLevel->FirstChild("level");
+      std::cout << "DEBUG: Loaded basic nodes..." << std::endl;
+      int levelno;
+      if (pnStart && pnEnd && pnLevelNo && pnLevelType)
       {
          std::string LevelType = pnLevelType->FirstChild()->Value();
          int XStart = FromString<int>(pnStart->FirstChild()->Value());
          int XEnd = FromString<int>(pnEnd->FirstChild()->Value());
+         levelno = FromString<int>(pnLevelNo->FirstChild()->Value());
          Level* pLevel = NULL;
          if( levelno < 1 )
          {
@@ -47,9 +53,11 @@ bool Tower::Load(TiXmlNode* nTower)
             TiXmlNode* pnType = pnRoom->FirstChild("type");
             TiXmlNode* pnXPos = pnRoom->FirstChild("xpos");
             TiXmlNode* pnState = pnRoom->FirstChild("state");
-            int State = (pnState) ? FromString<int>(pnState->FirstChild()->Value()) : 0;
-            if (pnType || pnXPos)
+
+            std::cout << "Loading room. " << pnType << " " << pnXPos << " " << pnState << std::endl;
+            if (pnType && pnXPos && pnState)
             {
+               int State = (pnState) ? FromString<int>(pnState->FirstChild()->Value()) : 0;
                std::string Type = pnType->FirstChild()->Value();
                int XPos = FromString<int>(pnXPos->FirstChild()->Value());
                // Need a better way to do this...

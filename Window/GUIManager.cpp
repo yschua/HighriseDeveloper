@@ -99,12 +99,14 @@ GUIManager::OnOffice (const CEGUI::EventArgs& e)
 }
 
 bool GUIManager::OnSave(const CEGUI::EventArgs& e) {
+   // Should this be moved elsewhere?
    TiXmlDocument* pDoc = new TiXmlDocument("data/xml/Tower.xml");
    TiXmlElement* pRoot = new TiXmlElement("highrisetower");
    mTower->Save(pRoot);
    pDoc->LinkEndChild(pRoot);
    std::cout << "DEBUG: Output of save attempt: \n";
    pDoc->Print();
+   pDoc->SaveFile();
 }
 
 bool

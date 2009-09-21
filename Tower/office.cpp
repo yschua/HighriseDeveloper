@@ -23,6 +23,7 @@
 #include "../animation.h"
 #include "floorBase.h"
 #include "../xml/tinyxml/tinyxml.h"
+#include "../Types/String.h"
 
 #include "office.h"
 
@@ -99,4 +100,8 @@ bool Office::Save(TiXmlElement* pnParent) {
    TiXmlText* ptType = new TiXmlText("office");
    pnType->LinkEndChild(ptType);
    pnParent->LinkEndChild(pnType);
+   TiXmlElement* pnState = new TiXmlElement("state");
+   TiXmlText* ptState = new TiXmlText(ToString((mcurrent_state == s_occupied_day)?1:0).c_str());
+   pnState->LinkEndChild(ptState);
+   pnParent->LinkEndChild(pnState);
 }

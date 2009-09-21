@@ -30,6 +30,8 @@
 
 #include "../highriseException.h"
 
+#include "../Types/String.h"
+
 using namespace Gfx;
 
 
@@ -423,6 +425,23 @@ Level::DrawEmptySpace()
 }
 
 bool Level::Save(TiXmlElement* pnParent) {
+   TiXmlElement* pnType = new TiXmlElement("type");
+   TiXmlText* ptType = new TiXmlText((mLevel==0)?"Floor":"Lobby");
+   pnType->LinkEndChild(ptType);
+   TiXmlElement* pnLevel = new TiXmlElement("level");
+   TiXmlText* ptLevel = new TiXmlText(ToString(mLevel).c_str());
+   pnLevel->LinkEndChild(ptLevel);
+   TiXmlElement* pnXStart = new TiXmlElement("xstart");
+   TiXmlText* ptXStart = new TiXmlText(ToString(mX).c_str());
+   pnXStart->LinkEndChild(ptXStart);
+   TiXmlElement* pnXEnd = new TiXmlElement("xend");
+   TiXmlText* ptXEnd = new TiXmlText(ToString(mX2).c_str());
+   pnXEnd->LinkEndChild(ptXEnd);
+
+   pnParent->LinkEndChild(pnType);
+   pnParent->LinkEndChild(pnLevel);
+   pnParent->LinkEndChild(pnXStart);
+   pnParent->LinkEndChild(pnXEnd);
    for (unsigned int i = 0; i < mFloorSpaces.size(); i++) {
       TiXmlElement* pnSpace = new TiXmlElement("room");
       mFloorSpaces[i]->Save(pnSpace);

@@ -447,4 +447,5 @@ bool Level::Save(TiXmlElement* pnParent) {
       mFloorSpaces[i]->Save(pnSpace);
       pnParent->LinkEndChild(pnSpace);
    }
+   return true;
 }

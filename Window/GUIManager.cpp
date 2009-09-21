@@ -107,6 +107,7 @@ bool GUIManager::OnSave(const CEGUI::EventArgs& e) {
    std::cout << "DEBUG: Output of save attempt: \n";
    pDoc->Print();
    pDoc->SaveFile();
+   return true;
 }
 
 bool

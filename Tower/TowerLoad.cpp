@@ -97,4 +97,5 @@ bool Tower::Save(TiXmlElement* Parent) {
       mLevels[i]->Save(pnLevel);
       Parent->LinkEndChild(pnLevel);
    }
+   return true;
 }

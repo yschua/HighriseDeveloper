@@ -58,6 +58,7 @@ bool FloorBase::Save(TiXmlElement* pnParent) {
    TiXmlText* pnXPosText = new TiXmlText(ToString(mX).c_str());
    pnXPos->LinkEndChild(pnXPosText);
    pnParent->LinkEndChild(pnXPos);
+   return true;
 }
 
 int FloorBase::GetNextID() // static

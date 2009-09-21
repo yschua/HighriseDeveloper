@@ -104,4 +104,5 @@ bool Office::Save(TiXmlElement* pnParent) {
    TiXmlText* ptState = new TiXmlText(ToString((mcurrent_state == s_occupied_day)?1:0).c_str());
    pnState->LinkEndChild(ptState);
    pnParent->LinkEndChild(pnState);
+   return true;
 }

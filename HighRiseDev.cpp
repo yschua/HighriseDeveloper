@@ -61,14 +61,11 @@ main ()
    std::cout << "Basic loading finished....\n";
    try
    {
-      // stuffing the floors with test spaces
-      theTower.DebugLoad (0,0,0);
 
       theScene.SetBG (new Background (cam->GetSceneSize().x, cam->GetSceneSize().y));
 
       SceneEvent SceneEV(&theScene);
       GUIManager Gui (SceneEV); //, &theTower);
-      Gui.SetTower(&theTower);
 
       EventHandler Events;
       Events.Add (&Gui);
@@ -77,6 +74,12 @@ main ()
       MainEvent mev;
       Events.Add(&SceneEV);
       Events.Add (&mev);
+
+      // Load the test tower
+      SceneEV.OnOpen("data/xml/Tower.xml");
+      // stuffing the floors with test spaces
+      theTower.DebugLoad (0,0,0);   // just updating elevators
+      //
 
       std::cout << "Starting event loop...\n";
       int cycle = 0;
@@ -95,6 +98,7 @@ main ()
          cam->Integrate (60);
          cam->DrawModel(&theScene); // the background and tower(s).
          cam->DrawInterface( pInterface );
+         cam->DrawPeople(&People);
          Gui.Draw ();
          cam->Display ();
          // end drawing scope

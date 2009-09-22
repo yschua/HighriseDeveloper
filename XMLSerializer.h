@@ -13,36 +13,28 @@
  *   You should have received a copy of the GNU General Public License
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-// head and tail queue. People in and out while waiting for elevators, trams, rail and buses.
+// Tick Tock!
 
 #pragma once
-#ifndef _PERSONQUEUE_H
-#define _PERSONQUEUE_H
+#ifndef _XMLSERIALIZER_H
+#define _XMLSERIALIZER_H
 
-class Person;
-class CitizenAgent; // to move people
-class RouteBase;
+#include "SerializerBase.h"
 
-class PersonQueue // Abstract, does not even have a CPP file at this point.
+class TiXmlElement;
+// NO CPP
+
+class XMLSerializer : public SerializerBase
 {
 protected:
-   short mHeadIndex;
-   short mTailIndex;
-   short mCapacity;
-   short mSweepIndex; // moves through the queue filling gaps
-   RouteBase* mpRoute;
-   Person** mpQueue;
-
+   TiXmlElement* mpnParent;
 public:
-   PersonQueue();
-   void AssignElevator(RouteBase* pRouee);
-   inline RouteBase* GetRoute() { return mpRoute; }
-
-   void AddPerson (Person* person);
-   Person* TakeNextPerson ();
-   void Update();
-   void Draw();
+   XMLSerializer (TiXmlElement* pnParent);
+   virtual ~XMLSerializer ();
+   virtual SerializerBase& AddChild( const char*pName );
+   void Add( const char* tag, int val );
+   void Add( const char* tag, float val );
+   void Add( const char* tag, const char* str );
 };
 
-#endif //_PERSONQUEUE_H
+#endif // _XMLSERIALIZER_H

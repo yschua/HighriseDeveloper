@@ -27,18 +27,25 @@ class FloorBase; // aggregate of floor spaces for offices, condos and hotels
 class Tower;
 class Background;
 class BuildStategyBase;
+class GameManager;
 
 // Tower is a ModelObject along with all the FloorSpace entities
 // This renderes the Tower in the ModelSpaces with perspective, pan and zoom.
 class Scene
 {
    friend class TowerAgent;
+   friend class GameManager;
+public:
+   typedef std::vector<Tower*>::iterator TypeTowerIterator;
+   typedef std::vector<Tower*> TypeTowerVector;
 
 private:
    std::vector<Tower*> mTowers;     // Lobby is at mNo_SubLevels not zero
+
+   typedef std::map<int,FloorBase*>::iterator TypeFloorSpaceIterator;
    typedef std::pair<int,FloorBase*> TypeFloorSpaceMap;
    std::map<int,FloorBase*> mFloorSpaces;
-   typedef std::map<int,FloorBase*>::iterator TypeFloorSpaceIterator;
+
    Routes mRoutes;
    Background* mpBackground;
    BuildStategyBase* mpBuildStrategy;  // Place floor objects
@@ -58,7 +65,7 @@ protected:
 public:
    //Tower* NewTower (int x, int y, int z, int z2, int x2);
    void AddTower (Tower* pTower);
-   Tower* GetTower (int no); // positive gets you a level above, negative gets you a basement level
+   //Tower* GetTower (int no); // positive gets you a level above, negative gets you a basement level
    void SetBG (Background* pBG);
 
    bool SelectTool( int ToolID );

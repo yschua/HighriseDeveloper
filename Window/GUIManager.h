@@ -20,8 +20,9 @@ public:
 	~GUIManager();
 
    bool OnOffice (const CEGUI::EventArgs& e);   // concrete until we setup registering the rooms
+   bool OnApartment (const CEGUI::EventArgs& e);
+   bool OnOpen (const CEGUI::EventArgs& e);
    bool OnSave (const CEGUI::EventArgs& e);
-   // OnApartment
    // OnSelect  use this to set the option select rooms for info and to expand the lobby and elevators
 
 	//bool Initialize(sf::RenderWindow* Win);
@@ -40,12 +41,7 @@ public:
 	CEGUI::Window* LoadLayout(const std::string& Name);
 	CEGUI::Window* LoadLayout(const std::string& Name, CEGUI::Window* Parent);
 
-	// Just for debugging, will be removed
-	void SetTower(Tower* pTower) { mTower = pTower; }
-
 private:
-	//sf::RenderWindow* mpWindow;
-	//const sf::Input* mpInput;
 
 	CEGUI::System* mpSystem;
 	CEGUI::OpenGLRenderer* mpRenderer;
@@ -60,13 +56,7 @@ private:
 	bool mPlacingRoom;
 	FloorBase* mRoom;
 
-
-	Tower* mTower;
-
-
-   SceneEvent& mSE;
-
-   //SceneEvent& mSE;  // this does not belong here but needed until the event manager can hande it
+   SceneEvent& mSE;  // this does not belong here but needed until the event manager can hande it
 
 	void InitMaps();
 	CEGUI::Key::Scan CEKey(sf::Key::Code Code);

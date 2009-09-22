@@ -40,10 +40,8 @@ protected:
 
 public:
    void Update (float dt);
-   void Draw ()   // just a pass through
-   {
-      // nothing to draw unless we have set the follow this person flag in the menu. (Much later code).
-   };
+   void Draw ();   // People
+
    CitizensAgent (Tower& mTower); // use a tower agent for multiple towers
    virtual ~CitizensAgent (void);
 };

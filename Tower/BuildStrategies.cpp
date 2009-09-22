@@ -64,6 +64,23 @@ bool
 BuildApartmentStategy::BuildHere (Tower* pTower, int x, int level)
 {
 //         Apartment* new_apt = new Apartment (x, level, this);
+   Level* pLevel = pTower->GetLevel(level);
+
+   // test code until the snap to grid alligns the rooms
+   int lx = pLevel->GetX();
+   for (int ix = -3; ix < 4; ++ix )
+   {
+      int xx = lx + (ix + x) * 9;
+      bool bAvail = pLevel->IsSpaceEmpty (xx, xx + mWidth * 9);
+      if (bAvail)
+      {
+         FloorBase* pRoom = new Apartment(xx, level, pTower); //OnToolHit is going to set this up, when we hit the floor
+         //pRoom->SetX (x + (lx * 9));
+         //pRoom->SetX2 (x + (lx + mWidth * 9));
+         pLevel->AddFloorSpace (pRoom);
+         break;
+      }
+   }
    return true;
 }
 

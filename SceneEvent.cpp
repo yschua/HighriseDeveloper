@@ -21,6 +21,7 @@
 
 // Then user-defined types
 #include "Scene.h"
+#include "GameManager.h" // xml saver
 
 #include "Camera.h"
 #include "Window/Event.h"
@@ -55,3 +56,14 @@ bool SceneEvent::OnMouseDown (sf::Mouse::Button Button, Vector2i Scene, Vector2i
    return true;
 }
 
+bool SceneEvent::OnOpen (const char* pPath)
+{
+   GameManager tm( *mpScene );
+   return tm.LoadGame( pPath );
+}
+
+bool SceneEvent::OnSave (const char* pPath)
+{
+   GameManager tm( *mpScene );
+   return tm.SaveGame( pPath );
+}

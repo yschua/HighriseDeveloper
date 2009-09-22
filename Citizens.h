@@ -55,7 +55,7 @@ public:
    void DestroyPerson( Person* person );
 
    void Update (float dt);
-   void Draw() {}; // nothing to draw unless we draw the people here
+   void Draw(); // draw the people here
 };
 
 #endif //_CITIZENS_H

@@ -4,22 +4,27 @@
     <Window Type="WindowsLook/StaticImage" Name="MenuBackground" >
         <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
         <Property Name="UnifiedAreaRect" Value="{{0.0025,0},{1,-20},{1.0025,0},{1,0}}" />
-        <Window Type="WindowsLook/Button" Name="Button1" >
+        <Window Type="WindowsLook/Button" Name="BnOffice" >
             <Property Name="Text" Value="Office" />
             <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
-            <Property Name="UnifiedAreaRect" Value="{{0,2},{0,2},{0,50},{1,0}}" />
+            <Property Name="UnifiedAreaRect" Value="{{0,2},{0,2},{0,80},{1,0}}" />
         </Window>
-        <Window Type="WindowsLook/Button" Name="MenuBackground/Button2" >
-            <Property Name="Text" Value="Condo" />
-            <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
-            <Property Name="UnifiedAreaRect" Value="{{0,54},{0,2},{0,104},{1,0}}" />
-        </Window>
-        <Window Type="WindowsLook/Button" Name="MenuBackground/Button21" >
+        <Window Type="WindowsLook/Button" Name="BnApartment" >
             <Property Name="Text" Value="Apartment" />
             <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
-            <Property Name="UnifiedAreaRect" Value="{{0,108},{0,2},{0,208},{1,0}}" />
+            <Property Name="UnifiedAreaRect" Value="{{0,82},{0,2},{0,162},{1,0}}" />
         </Window>
-        <Window Type="WindowsLook/Button" Name="MenuBackground/Save" >
+        <Window Type="WindowsLook/Button" Name="BnElevator" >
+            <Property Name="Text" Value="Elevator" />
+            <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
+            <Property Name="UnifiedAreaRect" Value="{{0,166},{0,2},{0,246},{1,0}}" />
+        </Window>
+       <Window Type="WindowsLook/Button" Name="MenuBackground/Open" >
+          <Property Name="Text" Value="Open" />
+          <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
+          <Property Name="UnifiedAreaRect" Value="{{1,-200},{0,2},{1,-102},{1,0}}" />
+       </Window>
+       <Window Type="WindowsLook/Button" Name="MenuBackground/Save" >
             <Property Name="Text" Value="Save" />
             <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
             <Property Name="UnifiedAreaRect" Value="{{1,-100},{0,2},{1,-2},{1,0}}" />

@@ -142,6 +142,8 @@
 		<Unit filename="Clock.h" />
 		<Unit filename="FireAnimation.cpp" />
 		<Unit filename="FireAnimation.h" />
+		<Unit filename="GameManager.h" />
+		<Unit filename="GameManager.h" />
 		<Unit filename="HighRiseException.cpp" />
 		<Unit filename="HighRiseException.h" />
 		<Unit filename="HighRiseDev.cpp" />
@@ -165,12 +167,16 @@
 		<Unit filename="Scene.h" />
 		<Unit filename="SceneEvent.cpp" />
 		<Unit filename="SceneEvent.h" />
+		<Unit filename="SerializerBase.cpp" />
+		<Unit filename="SerializerBase.h" />
 		<Unit filename="Stats.cpp" />
 		<Unit filename="Stats.h" />
 		<Unit filename="stdafx.cpp" />
 		<Unit filename="stdafx.h" />
 		<Unit filename="Tiler.cpp" />
 		<Unit filename="Tiler.h" />
+		<Unit filename="XMLSerializer.cpp" />
+		<Unit filename="XMLSerializer.h" />
 		<Unit filename="xml/tinyxml/tinystr.cpp" />
 		<Unit filename="xml/tinyxml/tinystr.h" />
 		<Unit filename="xml/tinyxml/tinyxml.cpp" />

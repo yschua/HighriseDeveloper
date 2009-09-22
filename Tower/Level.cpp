@@ -19,16 +19,17 @@
 #include <map>
 #include <vector>
 #include <list>
-#include "../Physics.h"
-#include "../Image.h"
-#include "../Animation.h"
-#include "../Person.h"
-#include "../PersonQueue.h"
+#include "../physics.h"
+#include "../image.h"
+#include "../animation.h"
+#include "../routes.h"
+#include "../person.h"
+#include "../personQueue.h"
 
-#include "FloorBase.h"
-#include "Level.h"
+#include "floorBase.h"
+#include "level.h"
 
-#include "../HighRiseException.h"
+#include "../highriseException.h"
 
 #include "../Types/String.h"
 
@@ -141,6 +142,12 @@ Level::Draw ()
       Render (nFireEscapeLeft);
       Render (nFireEscapeRight);
    }
+   Level::QueueIterType it;
+   for (it=mRouteQueues.begin(); it!=mRouteQueues.end(); ++it)
+   {
+      PersonQueue* pQ = (*it);
+      pQ->Draw();
+   }
 }
 
 void
@@ -216,56 +223,43 @@ Level::TestForEmptySpace (int x, int x2 )
 }
 
 void
-Level::AddElevatorToQueue (Elevator* pElevator)
+Level::AddRouteToQueue (RouteBase* pRoute)
 {
    // may wand to check for dups
    PersonQueue* pQ = new PersonQueue();
-   pQ->AssignElevator(pElevator);
-   mElevatorQueues.push_back (pQ);
+   pQ->AssignElevator(pRoute);
+   mRouteQueues.push_back (pQ);
 }
 
 void
-Level::RemoveElevatorFromQueue (Elevator* pElevator)
+Level::RemoveRouteFromQueue (RouteBase* pRoute)
 {
-   // won't compile ARRG!
-
-   //Level::QueueIterType it;
-   //for (it=mElevatorQueues.begin(); it<mElevatorQueues.end(); ++it)
-   //{
-   //   PersonQueue* pQ = (*it);
-   //   if( pLift == pElevator )
-   //   {
-   //      mElevatorQueues.remove (pQ);
-   //      break;
-   //   }
-   //}
+   Level::QueueIterType it;
+   for (it=mRouteQueues.begin(); it!=mRouteQueues.end(); ++it)
+   {
+      PersonQueue* pQ = (*it);
+      if( pQ->GetRoute() == pRoute )
+      {
+         mRouteQueues.remove (pQ);
+         break;
+      }
+   }
 }
 
-PersonQueue* Level::FindQueue (int elevator)
+PersonQueue*
+Level::FindQueue (RouteBase* pRoute)
 {
-   //Level::QueueIterType it;
-   //for (it=mElevatorQueues.begin(); it<mElevatorQueues.end(); ++it)
-   //{
-   //   PersonQueue* pQ = (*it);
-   //   if( pQ->GetElevatorNumber() == elevator )
-   //   {
-   //      return pQ;
-   //   }
-   //}
+   Level::QueueIterType it;
+   for (it=mRouteQueues.begin(); it!=mRouteQueues.end(); ++it)
+   {
+      PersonQueue* pQ = (*it);
+      if( pQ->GetRoute() == pRoute )
+      {
+         return pQ;
+      }
+   }
    return NULL;
 }
-
-
-// prototype test code
-//
-// member vars
-//
-//   unsigned char*  mpSpaceGrid;   // the allocated grid
-//   int   mSpaceGridSize;          // size of the floor space in units
-//   bool  mFloorIsFull;        // Can't place any more objects
-//   bool  mNoEmptyFloorSpace;  // Skip the DrawEmptySpace function
-
-// Level tracking methods/functions
 
 void
 Level::ResizeFloorSpaceGrid()
@@ -424,9 +418,10 @@ Level::DrawEmptySpace()
    }
 }
 
-bool Level::Save(TiXmlElement* pnParent) {
+bool Level::Save(TiXmlElement* pnParent)
+{
    TiXmlElement* pnType = new TiXmlElement("type");
-   TiXmlText* ptType = new TiXmlText((mLevel==0)?"Floor":"Lobby");
+   TiXmlText* ptType = new TiXmlText((mLevel==0)?"Lobby":"Floor");
    pnType->LinkEndChild(ptType);
    TiXmlElement* pnLevel = new TiXmlElement("level");
    TiXmlText* ptLevel = new TiXmlText(ToString(mLevel).c_str());

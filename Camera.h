@@ -28,6 +28,7 @@ class AnimationSingle;
 class Tiler;
 class Scene;
 class Level;
+class CitizensAgent;
 
 class Camera : public Body, public EventBase
 {
@@ -69,6 +70,7 @@ public:
    void InitGL();
 
    void DrawModel (Scene* pModel);
+   void DrawPeople (CitizensAgent* peeps);
    void DrawInterface (Interface* pI);
    int  RenderFramework (Scene* pModel, Vector2f mouse, int level); // level == 0, render the whole tower.
    void Create (const std::string & caption);

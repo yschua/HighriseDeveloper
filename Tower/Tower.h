@@ -27,6 +27,7 @@ class FloorBase; // aggregate of floor spaces for offices, condos and hotels
 class Level;
 class Elevator;
 class TowerAgent;
+class GameManager;
 class Routes;
 class Person;
 class Scene;
@@ -38,8 +39,8 @@ class TiXmlNode;
 class Tower : public Gfx::ModelObject
 {
    friend class TowerAgent;
+   friend class GameManager;
 
-private:
    int mTowerNo;
    int mNo_SubLevels;
    int mPopulation;  // People in the tower currently
@@ -49,6 +50,9 @@ private:
    Scene& mScene; // this is where all the towers are modeled in OpenGL.
 
 public:
+   typedef std::vector<Level*>::iterator LevelIterator;
+   typedef std::vector<Level*> LevelVector;
+
    // ctor/dtor
    Tower( int towerNo, int NoSubLevels, Scene& rScene );
    ~Tower();
@@ -78,8 +82,8 @@ public:
    void LeaveTower (Person* pPerson);
    Level* FindLevel(int id);
 
-   bool Load(TiXmlNode* nTower);
-   bool Save(TiXmlElement* pnParent);
+   //bool Load(TiXmlNode* nTower);
+   //bool Save(TiXmlElement* pnParent);
 
    // Debug Methods
    void DebugLoad (int x, int y, int x2); // this simply pumps floor objects and elevators into the tower.

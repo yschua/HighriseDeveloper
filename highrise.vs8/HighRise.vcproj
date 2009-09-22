@@ -247,6 +247,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\SerializerBase.h"
+				>
+			</File>
+			<File
 				RelativePath="..\stats.h"
 				>
 			</File>
@@ -256,6 +260,10 @@
 			</File>
 			<File
 				RelativePath="..\tiler.h"
+				>
+			</File>
+			<File
+				RelativePath="..\XMLSerializer.h"
 				>
 			</File>
 		</Filter>
@@ -695,11 +703,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\Tower\tower_debug.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\Tower\towerLoad.cpp"
+				RelativePath="..\Tower\TowerDebug.cpp"
 				>
 			</File>
 		</Filter>
@@ -765,6 +769,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\GameManager.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\GameManager.h"
+				>
+			</File>
+			<File
 				RelativePath="..\highrisedev.cpp"
 				>
 			</File>
@@ -814,6 +826,10 @@
 			</File>
 			<File
 				RelativePath="..\tiler.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\XMLSerializer.cpp"
 				>
 			</File>
 		</Filter>

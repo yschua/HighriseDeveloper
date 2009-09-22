@@ -19,22 +19,22 @@
 
 #include <list>
 
-#include "../Graphics/ModelObject.h"
-#include "FloorBase.h"
+#include "../Graphics/modelObject.h"
 #include "../xml/tinyxml/tinyxml.h"
+#include "FloorBase.h"
 
 class AnimationSingle;
 class AnimationEmpty;
 class FloorBase;
 class Tower;
-class Elevator;
+class RouteBase;
 class PersonQueue;
 
 class Level : public Gfx::ModelObject
 {
 private:
    std::vector<FloorBase*> mFloorSpaces;
-   std::list<PersonQueue*> mElevatorQueues;  // person queue for elevators that stop on this level
+   std::list<PersonQueue*> mRouteQueues;  // person queue for elevators that stop on this level
    Tower * mTowerParent;
    int  mID;
 
@@ -96,7 +96,7 @@ protected:
    }
    inline std::list<PersonQueue*>& GetPersonQueues()
    {
-      return mElevatorQueues;
+      return mRouteQueues;
    }
 public:
    inline int GetLevel () { return mLevel; }
@@ -110,11 +110,11 @@ public:
    bool AddFloorSpace (FloorBase * floor);
    void SetFloorPositions( int x, int x2 );
    FloorBase* FindSpace (int x);
-   PersonQueue* FindQueue (int elevator);
-//   bool AddFloorSpace (FloorBase* pFS, int x, int x2 );
+   PersonQueue* FindQueue (RouteBase* pRoute);
+
    bool TestForEmptySpace (int x, int x2 );
-   void AddElevatorToQueue (Elevator* pElevator);  // set and remove the elevator stops
-   void RemoveElevatorFromQueue (Elevator* pElevator);
+   void AddRouteToQueue (RouteBase* pElevator);  // set and remove the elevator stops
+   void RemoveRouteFromQueue (RouteBase* pElevator);
 
    bool Save(TiXmlElement*);
 };

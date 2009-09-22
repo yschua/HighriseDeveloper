@@ -67,20 +67,10 @@ void PersonQueue::AddPerson (Person* person)
    }
 }
 
-void PersonQueue::AssignElevator (Elevator* pElevator)
+void PersonQueue::AssignElevator (RouteBase* pRoute)
 {
-   mpElevator = pElevator;
+   mpRoute = pRoute;
 }
-
-int PersonQueue::GetElevatorNumber ()
-{
-   if (mpElevator)
-   {
-      return mpElevator->GetNumber ();
-   }
-   return 0;
-}
-
 
 Person* PersonQueue::TakeNextPerson ()
 {
@@ -114,6 +104,17 @@ void PersonQueue::Update()
             mpQueue[mSweepIndex] = mpQueue[mSweepIndex+1];
          }
          mSweepIndex++;
+      }
+   }
+}
+
+void PersonQueue::Draw()
+{
+   for( int x = 0; x < mTailIndex; ++x )
+   {
+      if(mpQueue[mSweepIndex])
+      {
+         mpQueue[mSweepIndex]->Draw();
       }
    }
 }

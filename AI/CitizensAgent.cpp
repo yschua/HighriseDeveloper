@@ -30,15 +30,16 @@
 #include <cstdlib>
 #include "../Person.h"
 #include "../RouteVisitor.h"
-#include "../Routes.h"
-#include "../Tower/RouteBase.h"
-#include "../Tower/Tower.h"
-#include "../Tower/Level.h"
-#include "../HighRiseException.h"
-#include "../Citizens.h"
+#include "../routes.h"
+#include "../personQueue.h"
+#include "../Tower/routeBase.h"
+#include "../Tower/tower.h"
+#include "../Tower/level.h"
+#include "../highriseException.h"
+#include "../citizens.h"
 
-#include "PathAgent.h"
-#include "CitizensAgent.h"
+#include "pathAgent.h"
+#include "citizensAgent.h"
 
 CitizensAgent::CitizensAgent (Tower& tower) // use a tower agent for multiple towers
       :  mTower (tower)
@@ -147,6 +148,12 @@ void CitizensAgent::Update (float dt)
                         if( visitor.IsBoarding() )
                         {
                            peep->set_CurrentState( Person::CS_Riding );
+                           Level* pLevel = mTower.GetLevel(curLevel);
+                           PersonQueue* pQ = pLevel->FindQueue(route);
+                           if( pQ )
+                           {
+                              pQ->AddPerson(peep);
+                           }
                         }
                         else
                         {
@@ -223,3 +230,19 @@ void CitizensAgent::Update (float dt)
    }
 }
 
+void CitizensAgent::Draw()
+{
+   Citizens* citizens = Citizens::get_Instance(); // the citizens object that holds the people collection
+   std::list<Person *>::iterator i;
+   std::list<Person *>& persons = citizens->get_Persons(); // get the persons collection.
+
+   // TODO: Need to create a better interface that provides a clear persons iteration.
+   for (i = persons.begin (); i != persons.end (); i++)
+   {
+      Person* peep = (*i);
+      if( peep && peep->get_Activity() == Person::CS_Waiting )
+      {
+         peep->Draw();
+      }
+   }
+}

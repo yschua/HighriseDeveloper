@@ -1,12 +1,9 @@
 #include <SFML/System.hpp>
 #include <string>
-#include "../HighRiseException.h"
+#include "../highriseException.h"
 
-#include "../SceneEvent.h"
+#include "../sceneEvent.h"
 #include "GUIManager.h"
-#include "../Tower/Office.h"
-#include "../Tower/Tower.h"
-#include "../Tower/Level.h"
 
 GUIManager::GUIManager(SceneEvent& rse) //, Tower* Tower) can't pass a tower as there will be more than one. Think events
 :  mpRenderer(NULL)
@@ -46,7 +43,10 @@ GUIManager::GUIManager(SceneEvent& rse) //, Tower* Tower) can't pass a tower as 
       CEGUI::Window* pTestBtn = mpWM->createWindow("WindowsLook/Button", "TestBtn" );
 
       LoadLayout("Menu.layout");
-      mpWM->getWindow((CEGUI::utf8*)"Button1")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&GUIManager::OnOffice, this));
+      mpWM->getWindow((CEGUI::utf8*)"BnOffice")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&GUIManager::OnOffice, this));
+      mpWM->getWindow((CEGUI::utf8*)"BnApartment")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&GUIManager::OnApartment, this));
+      // elevator
+      mpWM->getWindow((CEGUI::utf8*)"MenuBackground/Open")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&GUIManager::OnOpen, this));
       mpWM->getWindow((CEGUI::utf8*)"MenuBackground/Save")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&GUIManager::OnSave, this));
 
       //pTestBtn->setMinSize(UVector2(UDim(0.0f, 100), UDim(0.0f, 20)));
@@ -88,25 +88,39 @@ void GUIManager::Draw()
 bool
 GUIManager::OnOffice (const CEGUI::EventArgs& e)
 {
-
    // set FloorPlacement to Office
    // route mouse clicks that hit the main into the FloorPlacement manager.
-   //mPlacingRoom = true;
-   //mRoom = new office(0,0,mTower); OnToolHit is going to set this up, when we hit the floor
-   //                                in the on click for the 3D system, it will pass control to a strategy
    mSE.OnToolHit (HR_PlaceOffice);  // this only sets the strategy.
    return true;
 }
 
-bool GUIManager::OnSave(const CEGUI::EventArgs& e) {
+bool
+GUIManager::OnApartment (const CEGUI::EventArgs& e)
+{
+
+   // set FloorPlacement to Office
+   // route mouse clicks that hit the main into the FloorPlacement manager.
+   mSE.OnToolHit (HR_PlaceApartment);  // this only sets the strategy.
+   return true;
+}
+
+bool GUIManager::OnOpen(const CEGUI::EventArgs& e)
+{
+   mSE.OnOpen("data/xml/Tower.xml");
+   return true;
+}
+
+bool GUIManager::OnSave(const CEGUI::EventArgs& e)
+{
    // Should this be moved elsewhere?
-   TiXmlDocument* pDoc = new TiXmlDocument("data/xml/Tower.xml");
-   TiXmlElement* pRoot = new TiXmlElement("highrisetower");
-   mTower->Save(pRoot);
-   pDoc->LinkEndChild(pRoot);
-   std::cout << "DEBUG: Output of save attempt: \n";
-   pDoc->Print();
-   pDoc->SaveFile();
+   mSE.OnSave("data/xml/Tower2.xml");
+//   TiXmlDocument* pDoc = new TiXmlDocument("data/xml/Tower.xml");
+//   TiXmlElement* pRoot = new TiXmlElement("highrisetower");
+////   mTower->Save(pRoot);
+//   pDoc->LinkEndChild(pRoot);
+//   std::cout << "DEBUG: Output of save attempt: \n";
+//   pDoc->Print();
+//   pDoc->SaveFile();
    return true;
 }
 

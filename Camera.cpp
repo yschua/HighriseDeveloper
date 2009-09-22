@@ -23,6 +23,7 @@
 #include "Image.h"
 #include "Animation.h"
 #include "Scene.h"
+#include "AI/CitizensAgent.h"
 
 #include "Graphics/ModelObject.h"   // 3d abstract
 #include "Graphics/ViewObject.h"    // 2d abstract
@@ -172,6 +173,25 @@ Camera::DrawModel (Scene* pModel)   // 3d interface objects
       glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA  );
 
       pModel->Draw();
+      glDisable(GL_BLEND);
+   }
+   glPopMatrix();
+}
+
+void
+Camera::DrawPeople (CitizensAgent* pPeople)   // 3d interface objects
+{
+//   glDisable (GL_LIGHTING);
+   glMatrixMode(GL_MODELVIEW);
+   glPushMatrix();
+   {                       // brackets just keep the code in push and pop uniform
+      glEnable (GL_TEXTURE_2D);
+      glTranslatef (GetPositionX(), GetPositionY()-18, mZoomFactor);
+      glColor4ub (255,255,255,255);
+      glEnable(GL_BLEND);
+      glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA  );
+
+      pPeople->Draw();
       glDisable(GL_BLEND);
    }
    glPopMatrix();

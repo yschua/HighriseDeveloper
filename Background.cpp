@@ -20,7 +20,7 @@
 #include <vector>
 #include "physics.h"
 #include "image.h"
-#include "animation.h"
+#include "Animation.h"
 #include "tiler.h"
 
 #include "background.h"

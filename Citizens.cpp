@@ -20,7 +20,7 @@
 
 #include <list>
 #include <iostream>
-#include "person.h"
+#include "Person.h"
 #include "highriseException.h"
 
 #include "citizens.h"

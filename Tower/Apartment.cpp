@@ -19,7 +19,7 @@
 #include <vector>
 #include "../physics.h"
 #include "../image.h"
-#include "../animation.h"
+#include "../Animation.h"
 
 #include "floorBase.h"
 

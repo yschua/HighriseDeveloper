@@ -20,7 +20,7 @@
 #include "../physics.h"
 //#include "../camera.h"
 #include "../image.h"
-#include "../animation.h"
+#include "../Animation.h"
 #include "floorBase.h"
 #include "../xml/tinyxml/tinyxml.h"
 #include "../Types/String.h"

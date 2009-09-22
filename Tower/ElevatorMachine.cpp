@@ -17,7 +17,7 @@
 #include <cstdlib>
 #include <iostream>
 #include "../physics.h"
-#include "../animation.h"
+#include "../Animation.h"
 #include "../tiler.h"
 #include "../image.h"
 

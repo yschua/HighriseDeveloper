@@ -15,7 +15,7 @@
  */
 
 #include <iostream>
-#include "../animation.h"
+#include "../Animation.h"
 #include "../fireAnimation.h"
 #include "../tiler.h"
 #include "texture.h"
@@ -214,7 +214,7 @@ ModelObject::RenderParallax (FireAnimation* pBase, float xOffset )  // overload 
    glPopMatrix();
 }
 
-void 
+void
 ModelObject::RenderFramework (AnimationBase* pBase, int id ) // milk and cookies run just for the basics to test for a hit
 {
    float fx = pBase->GetPositionX();
@@ -222,7 +222,7 @@ ModelObject::RenderFramework (AnimationBase* pBase, int id ) // milk and cookies
    float fz = 0; //pBase->GetPositionZ();
    float fx2 = fx + pBase->GetWidth();
    float fy2 = fy - pBase->GetHeight();
-   
+
    //glPassThrough((GLfloat)id );
    glLoadName( id );
    glBegin(GL_QUADS);
@@ -246,7 +246,7 @@ ModelObject::RenderFramework (AnimationBase* pBase, float x, float x2, int id ) 
    float fz = 0; //pBase->GetPositionZ();
    float fx2 = x2;
    float fy2 = fy - pBase->GetHeight();
-   
+
    //glPassThrough((GLfloat)id );
    glLoadName( id );
    glBegin(GL_QUADS);

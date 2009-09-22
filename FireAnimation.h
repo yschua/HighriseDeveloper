@@ -17,7 +17,7 @@
 #pragma once
 #ifndef _FIREANIMATION_H
 #define _FIREANIMATION_H
-#include "animation.h"
+#include "Animation.h"
 
 using namespace Gfx;
 

@@ -19,7 +19,7 @@
 #include "../physics.h"
 #include "../image.h"
 #include "../tiler.h"
-#include "../animation.h"
+#include "../Animation.h"
 #include "level.h"
 #include "floorBase.h"
 

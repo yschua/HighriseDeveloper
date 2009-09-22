@@ -21,8 +21,8 @@
 #include <list>
 #include "../physics.h"
 #include "../image.h"
-#include "../animation.h"
-#include "../person.h"
+#include "../Animation.h"
+#include "../Person.h"
 #include "../personQueue.h"
 
 #include "floorBase.h"

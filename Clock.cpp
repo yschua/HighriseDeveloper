@@ -17,7 +17,7 @@
 #include <map>
 #include <cstring>
 #include "image.h"
-#include "animation.h"
+#include "Animation.h"
 #include "Camera.h"
 #include "clock.h"
 

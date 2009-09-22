@@ -20,9 +20,9 @@
 #include <iostream>
 #include "../physics.h"
 #include "../image.h"
-#include "../animation.h"
+#include "../Animation.h"
 #include "../tiler.h"
-#include "../routeVisitor.h"  // class that will Update the elevators route request queue
+#include "../RouteVisitor.h"  // class that will Update the elevators route request queue
 
 #include "routeBase.h"  // Elevators route (levels).
 #include "elevatorBase.h"

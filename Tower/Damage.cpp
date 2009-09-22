@@ -17,7 +17,7 @@
 #include <iostream>
 #include "../physics.h"
 #include "../image.h"
-#include "../animation.h"
+#include "../Animation.h"
 #include "floorBase.h"
 
 #include "damage.h"

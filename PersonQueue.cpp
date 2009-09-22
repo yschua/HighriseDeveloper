@@ -17,7 +17,7 @@
 // head and tail queue. People in and out while waiting for elevators, trams, rail and buses.
 #include <iostream>
 #include <vector>
-#include "person.h"
+#include "Person.h"
 #include "Tower/elevator.h"
 #include "AI/citizensAgent.h"
 #include "AI/pathAgent.h"

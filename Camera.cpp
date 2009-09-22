@@ -21,7 +21,7 @@
 #include <SFML/Graphics.hpp>
 #include "physics.h"
 #include "image.h"
-#include "animation.h"
+#include "Animation.h"
 #include "scene.h"
 
 #include "Graphics/modelObject.h"   // 3d abstract
@@ -205,23 +205,23 @@ int Camera::RenderFramework (Scene* pModel, Vector2f mouse, int level)
    glDisable (GL_LIGHTING);
    // Space for selection buffer
    GLuint selectBuff[BUFFER_LENGTH];
-   
+
    // Hit counter and viewport storeage
    GLint hits, viewport[4];
-   
+
    // Setup selection buffer
    glSelectBuffer(BUFFER_LENGTH, selectBuff);
-   
+
    // Get the viewport
    glGetIntegerv(GL_VIEWPORT, viewport);
-   
+
    // Switch to projection and save the matrix
    glMatrixMode(GL_PROJECTION);
    glPushMatrix();
-   
+
    // Change render mode
    glRenderMode(GL_SELECT);
-   
+
    // Establish new clipping volume to be unit cube around
    // mouse cursor point (xPos, yPos) and extending two pixels
    // in the vertical and horzontal direction
@@ -230,24 +230,24 @@ int Camera::RenderFramework (Scene* pModel, Vector2f mouse, int level)
    glPushName(0);
 
    gluPickMatrix(mouse.x, viewport[3]-mouse.y, 2, 2, viewport); // mouse y is inverted
-   
-   // Apply perspective matrix 
+
+   // Apply perspective matrix
    gluPerspective (FIELD_OF_VIEW, mAspect, 1.0f, 1000.f);		// Calculate The Aspect Ratio Of The Window
    glTranslatef (GetPositionX(), GetPositionY(), mZoomFactor);
-   
+
    // Draw the scene
    pModel->RenderFramework (level); // is level is not Zero then we run a render check on that level else we do the whole tower
-   
+
    // Collect the hits
    hits = glRenderMode(GL_RENDER);
-   
+
    // Restore the projection matrix
    glMatrixMode(GL_PROJECTION);
    glPopMatrix();
-   
+
    // Go back to modelview for normal rendering
    glMatrixMode(GL_MODELVIEW);
-   
+
    // If a single hit occured, display the info.
    GLuint nHit = -1;
    if(hits == 1)

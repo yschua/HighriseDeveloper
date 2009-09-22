@@ -13,40 +13,42 @@
  *   You should have received a copy of the GNU General Public License
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include <cstdlib>
-#include <iostream>
-#include <map>
-#include "../image.h"
-#include "../physics.h"
-#include "../animation.h"
-#include "../tiler.h"
+// Tick Tock!
 
-#include "routeBase.h"
-#include "elevator.h"
-#include "elevatorBase.h"
+#pragma once
+#ifndef _CLOCK_H
+#define _CLOCK_H
 
-using namespace Gfx;
+#include "Graphics/viewObject.h"
+#include "Animation.h"
 
-ElevatorBase::ElevatorBase ( int x, int level, Elevator* pElevator )
+class AnimationSingle;
+
+class Clock : public Gfx::ViewObject
 {
-   mx = x;
-   my = 0;
-   mLevel = level;
-   mpParent = pElevator;
-}
+   AnimationSingle * mClockFace;
+   int mTimeOfDay;
+   int mDayOfYear;
+   int mYear;
 
-ElevatorBase::~ElevatorBase()
-{
-}
+   // These will pump directly into the transform for the hands
+   float mAngleHour;  // for the render
+   float mAngleMinute;
 
-void
-ElevatorBase::Update (float dt)
-{
+   SimpleQuad mMinuteHand;
+   SimpleQuad mHourHand;
 
-}
+public:
+   Clock ();
+   ~Clock ();
 
-void
-ElevatorBase::Draw ()
-{
-//    Camera::GetInstance()->Draw (*manimations[mcurrent_state]);
-}
+public:
+   int GetTimeOfDay() { return mTimeOfDay; }
+
+   void PosCalc ();
+   void Update (int minutes);
+   void Draw ();
+
+};
+
+#endif // _CLOCK_H

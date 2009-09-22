@@ -17,7 +17,7 @@
 
 #include <iostream>
 #include <string>
-#include "../animation.h"
+#include "../Animation.h"
 #include "texture.h"
 #include "viewObject.h"
 

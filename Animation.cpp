@@ -19,7 +19,7 @@
 //#include <SFML/Graphics.hpp>
 
 #include "physics.h"
-#include "animation.h"
+#include "Animation.h"
 
 Animation::Animation (int width, int height)
 :  AnimationBase (width, height)

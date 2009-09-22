@@ -16,39 +16,36 @@
 // Tick Tock!
 
 #pragma once
-#ifndef _CLOCK_H
-#define _CLOCK_H
+#ifndef _STATS_H
+#define _STATS_H
 
 #include "Graphics/viewObject.h"
-#include "animation.h"
+#include "Animation.h"
 
 class AnimationSingle;
 
-class Clock : public Gfx::ViewObject
+class Stats : public Gfx::ViewObject
 {
-   AnimationSingle * mClockFace;
-   int mTimeOfDay;
-   int mDayOfYear;
-   int mYear;
-
-   // These will pump directly into the transform for the hands
-   float mAngleHour;  // for the render
-   float mAngleMinute;
-
-   SimpleQuad mMinuteHand;
-   SimpleQuad mHourHand;
+protected:
+   AnimationSingle * mStatsFace;
+   int mNet;
+   int mPopulation;
+   int mStars;
+   string mstrNet;
+   string mstrPopulation;
 
 public:
-   Clock ();
-   ~Clock ();
-
+   // properties
+   void SetNet (int amt) { mNet = amt; }
+   void SetPopulation (int pop) { mPopulation = pop; }
+   void SetStars (int stars) { mStars = stars; }
 public:
-   int GetTimeOfDay() { return mTimeOfDay; }
-
+   Stats ();
+   ~Stats ();
    void PosCalc ();
-   void Update (int minutes);
+   void Update ();
    void Draw ();
 
 };
 
-#endif // _CLOCK_H
+#endif // _STATS_H

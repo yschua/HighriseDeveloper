@@ -19,7 +19,7 @@
 #include <sstream>
 #include <cstdio>
 #include "image.h"
-#include "animation.h"
+#include "Animation.h"
 #include "Camera.h"
 #include "stats.h"
 

@@ -13,39 +13,43 @@
  *   You should have received a copy of the GNU General Public License
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
-// Tick Tock!
 
-#pragma once
-#ifndef _STATS_H
-#define _STATS_H
+#include <iostream>
+#include <SFML/Graphics.hpp>
+#include <string.h>
+#include <map>
+#include "physics.h"
+#include "image.h"
+#include "Animation.h"
+#include "Camera.h"
+#include "interface.h"
 
-#include "Graphics/viewObject.h"
-#include "animation.h"
+using namespace Gfx;
 
-class AnimationSingle;
-
-class Stats : public Gfx::ViewObject
+Interface::Interface ()
 {
-protected:
-   AnimationSingle * mStatsFace;
-   int mNet;
-   int mPopulation;
-   int mStars;
-   string mstrNet;
-   string mstrPopulation;
+}
 
-public:
-   // properties
-   void SetNet (int amt) { mNet = amt; }
-   void SetPopulation (int pop) { mPopulation = pop; }
-   void SetStars (int stars) { mStars = stars; }
-public:
-   Stats ();
-   ~Stats ();
-   void PosCalc ();
-   void Update ();
-   void Draw ();
+void
+Interface::PosCalc ()
+{
+}
 
-};
+void
+Interface::Update (float dt)
+{
+   static float count = 0;
+   mClock.Update(1); // 1 minute update
+   if( ++count > dt )
+   {
+      count = 0;
+      mStats.Update();
+   }
+}
 
-#endif // _STATS_H
+void
+Interface::Draw ()
+{
+   mClock.Draw ();
+   mStats.Draw ();
+}

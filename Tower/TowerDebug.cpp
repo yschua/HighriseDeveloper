@@ -19,7 +19,7 @@
 #include <list>
 
 #include "../xml/tinyxml/tinyxml.h"
-#include "../animation.h"
+#include "../Animation.h"
 //#include "tiler.h"
 #include "../image.h"
 #include "../routes.h"

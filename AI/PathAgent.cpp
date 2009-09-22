@@ -25,7 +25,7 @@
 // for limit C but forther. If still no satifaction, enter drastic mode( leave, move etc).
 
 #include <vector>
-#include "../person.h"
+#include "../Person.h"
 #include "../routes.h"
 #include "../Tower/routeBase.h"
 #include "../Tower/tower.h"

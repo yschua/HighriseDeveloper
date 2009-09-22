@@ -17,7 +17,7 @@
 
 #include <iostream>
 #include <string>
-#include "animation.h"
+#include "Animation.h"
 
 // all things not in 3D space. Used for interface
 using namespace Gfx;

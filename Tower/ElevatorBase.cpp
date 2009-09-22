@@ -13,43 +13,40 @@
  *   You should have received a copy of the GNU General Public License
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
-
+#include <cstdlib>
 #include <iostream>
-#include <SFML/Graphics.hpp>
-#include <string.h>
 #include <map>
-#include "physics.h"
-#include "image.h"
-#include "animation.h"
-#include "Camera.h"
-#include "interface.h"
+#include "../image.h"
+#include "../physics.h"
+#include "../Animation.h"
+#include "../tiler.h"
+
+#include "routeBase.h"
+#include "elevator.h"
+#include "elevatorBase.h"
 
 using namespace Gfx;
 
-Interface::Interface ()
+ElevatorBase::ElevatorBase ( int x, int level, Elevator* pElevator )
+{
+   mx = x;
+   my = 0;
+   mLevel = level;
+   mpParent = pElevator;
+}
+
+ElevatorBase::~ElevatorBase()
 {
 }
 
 void
-Interface::PosCalc ()
+ElevatorBase::Update (float dt)
 {
+
 }
 
 void
-Interface::Update (float dt)
+ElevatorBase::Draw ()
 {
-   static float count = 0;
-   mClock.Update(1); // 1 minute update
-   if( ++count > dt )
-   {
-      count = 0;
-      mStats.Update();
-   }
-}
-
-void
-Interface::Draw ()
-{
-   mClock.Draw ();
-   mStats.Draw ();
+//    Camera::GetInstance()->Draw (*manimations[mcurrent_state]);
 }

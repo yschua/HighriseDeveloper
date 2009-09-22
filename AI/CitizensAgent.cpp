@@ -28,8 +28,8 @@
 #include <vector>
 #include <iostream>
 #include <cstdlib>
-#include "../person.h"
-#include "../routeVisitor.h"
+#include "../Person.h"
+#include "../RouteVisitor.h"
 #include "../routes.h"
 #include "../Tower/routeBase.h"
 #include "../Tower/tower.h"

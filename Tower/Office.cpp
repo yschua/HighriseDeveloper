@@ -17,15 +17,15 @@
 #include <iostream>
 #include <map>
 #include <vector>
-#include "../physics.h"
+#include "../Physics.h"
 //#include "../camera.h"
-#include "../image.h"
+#include "../Image.h"
 #include "../Animation.h"
-#include "floorBase.h"
+#include "FloorBase.h"
 #include "../xml/tinyxml/tinyxml.h"
 #include "../Types/String.h"
 
-#include "office.h"
+#include "Office.h"
 
 using namespace Gfx;
 

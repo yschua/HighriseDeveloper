@@ -15,7 +15,7 @@
  */
 
 #include <iostream>
-#include "physics.h"
+#include "Physics.h"
 
 Body::Body (int width, int height)
 {

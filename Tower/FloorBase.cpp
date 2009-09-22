@@ -16,11 +16,11 @@
 
 
 #include <iostream>
-#include "../physics.h"
-#include "../routes.h"
-#include "tower.h"
-#include "../scene.h"
-#include "floorBase.h"
+#include "../Physics.h"
+#include "../Routes.h"
+#include "Tower.h"
+#include "../Scene.h"
+#include "FloorBase.h"
 #include "../xml/tinyxml/tinyxml.h"
 #include "../Types/String.h"
 

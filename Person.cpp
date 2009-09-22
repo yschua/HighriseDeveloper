@@ -18,7 +18,7 @@
 
 #include <iostream>
 #include "Person.h"
-#include "image.h"
+#include "Image.h"
 #include "Animation.h"
 
 Person::Person (Location& loc)

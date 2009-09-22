@@ -4,10 +4,10 @@
 #include <map>
 #include "../xml/tinyxml/tinyxml.h"
 #include "../Types/String.h"
-#include "level.h"
-#include "office.h"
-#include "apartment.h"
-#include "tower.h"
+#include "Level.h"
+#include "Office.h"
+#include "Apartment.h"
+#include "Tower.h"
 
 bool Tower::Load(TiXmlNode* nTower)
 {

@@ -16,10 +16,10 @@
 
 #include <map>
 #include <cstring>
-#include "image.h"
+#include "Image.h"
 #include "Animation.h"
 #include "Camera.h"
-#include "clock.h"
+#include "Clock.h"
 
 using namespace Gfx;
 

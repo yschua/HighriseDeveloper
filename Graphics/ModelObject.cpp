@@ -16,10 +16,10 @@
 
 #include <iostream>
 #include "../Animation.h"
-#include "../fireAnimation.h"
-#include "../tiler.h"
-#include "texture.h"
-#include "modelObject.h"
+#include "../FireAnimation.h"
+#include "../Tiler.h"
+#include "Texture.h"
+#include "ModelObject.h"
 
 using namespace Gfx;
 

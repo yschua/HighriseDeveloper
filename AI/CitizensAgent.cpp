@@ -30,15 +30,15 @@
 #include <cstdlib>
 #include "../Person.h"
 #include "../RouteVisitor.h"
-#include "../routes.h"
-#include "../Tower/routeBase.h"
-#include "../Tower/tower.h"
-#include "../Tower/level.h"
-#include "../highriseException.h"
-#include "../citizens.h"
+#include "../Routes.h"
+#include "../Tower/RouteBase.h"
+#include "../Tower/Tower.h"
+#include "../Tower/Level.h"
+#include "../HighRiseException.h"
+#include "../Citizens.h"
 
-#include "pathAgent.h"
-#include "citizensAgent.h"
+#include "PathAgent.h"
+#include "CitizensAgent.h"
 
 CitizensAgent::CitizensAgent (Tower& tower) // use a tower agent for multiple towers
       :  mTower (tower)

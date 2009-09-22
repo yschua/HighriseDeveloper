@@ -16,7 +16,7 @@
 
 // #DEFINES moved to resource.h until we get a platform ind resouce file.
 
-#include "resources.h"
+#include "Resources.h"
 
 // Include libraries first
 #include <utility>
@@ -28,11 +28,11 @@
 #include <SFML/Graphics.hpp>
 
 // Then user-defined types
-#include "Window/event.h"
+#include "Window/Event.h"
 
-#include "highriseException.h"
+#include "HighRiseException.h"
 
-#include "interface.h"
+#include "Interface.h"
 
 class MainEvent : public EventBase
 {

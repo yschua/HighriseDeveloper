@@ -19,8 +19,8 @@
 
 #include <list>
 
-#include "../Graphics/modelObject.h"
-#include "floorBase.h"
+#include "../Graphics/ModelObject.h"
+#include "FloorBase.h"
 #include "../xml/tinyxml/tinyxml.h"
 
 class AnimationSingle;

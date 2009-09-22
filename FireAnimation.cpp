@@ -16,8 +16,8 @@
 
 #include <vector>
 #include "Types/Vector2.h"
-#include "fireAnimation.h"
-#include "highriseException.h"
+#include "FireAnimation.h"
+#include "HighRiseException.h"
 
 const unsigned char FireAnimation::kFlameColor[16][4] =
 {

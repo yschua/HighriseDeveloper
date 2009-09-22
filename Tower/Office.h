@@ -19,8 +19,8 @@
 
 #include <map>
 
-#include "../Graphics/modelObject.h"
-#include "floorBase.h"
+#include "../Graphics/ModelObject.h"
+#include "FloorBase.h"
 
 class Animation;
 

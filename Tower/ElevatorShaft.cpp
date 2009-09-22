@@ -16,12 +16,12 @@
 
 #include <cstdlib>
 #include <iostream>
-#include "../physics.h"
+#include "../Physics.h"
 #include "../Animation.h"
-#include "../tiler.h"
-#include "../image.h"
+#include "../Tiler.h"
+#include "../Image.h"
 
-#include "elevatorShaft.h"
+#include "ElevatorShaft.h"
 
 using namespace Gfx;
 

@@ -18,11 +18,11 @@
 #include <SFML/Graphics.hpp>
 #include <string.h>
 #include <map>
-#include "physics.h"
-#include "image.h"
+#include "Physics.h"
+#include "Image.h"
 #include "Animation.h"
 #include "Camera.h"
-#include "interface.h"
+#include "Interface.h"
 
 using namespace Gfx;
 

@@ -21,9 +21,9 @@
 #include <list>
 #include <algorithm>
 
-#include "../Tower/level.h"
-#include "../Tower/floorBase.h"
-#include "floorAgent.h"
+#include "../Tower/Level.h"
+#include "../Tower/FloorBase.h"
+#include "FloorAgent.h"
 
 FloorAgent::FloorAgent ( Level* level )
       :  mLevel( level )

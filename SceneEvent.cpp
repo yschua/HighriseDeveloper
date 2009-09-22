@@ -17,13 +17,13 @@
 
 //#ifdef WIN32
 #include <iostream>
-#include "sceneEvent.h"
+#include "SceneEvent.h"
 
 // Then user-defined types
-#include "scene.h"
+#include "Scene.h"
 
 #include "Camera.h"
-#include "Window/event.h"
+#include "Window/Event.h"
 
 SceneEvent::SceneEvent(Scene* pScene)
 {

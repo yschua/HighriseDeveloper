@@ -34,9 +34,9 @@ class ElevatorPit;     // landing pit below
 class Person;
 class Tower;
 
-#include "../physics.h"
-#include "routeBase.h"
-#include "../Graphics/modelObject.h"
+#include "../Physics.h"
+#include "RouteBase.h"
+#include "../Graphics/ModelObject.h"
 
 // Setting elevator levels serviced.
 //

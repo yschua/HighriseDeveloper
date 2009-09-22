@@ -18,10 +18,10 @@
 #include <cstring>
 #include <sstream>
 #include <cstdio>
-#include "image.h"
+#include "Image.h"
 #include "Animation.h"
 #include "Camera.h"
-#include "stats.h"
+#include "Stats.h"
 
 std::string itoa( int n )
 {

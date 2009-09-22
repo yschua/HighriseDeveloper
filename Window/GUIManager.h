@@ -5,7 +5,7 @@
 #include <RendererModules/OpenGLGUIRenderer/openglrenderer.h>
 #include <CEGUISystem.h>
 #include <CEGUIDefaultResourceProvider.h>
-#include "event.h"
+#include "Event.h"
 #include <iostream>
 
 class SceneEvent;

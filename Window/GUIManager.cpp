@@ -1,12 +1,12 @@
 #include <SFML/System.hpp>
 #include <string>
-#include "../highriseException.h"
+#include "../HighRiseException.h"
 
-#include "../sceneEvent.h"
+#include "../SceneEvent.h"
 #include "GUIManager.h"
-#include "../Tower/office.h"
-#include "../Tower/tower.h"
-#include "../Tower/level.h"
+#include "../Tower/Office.h"
+#include "../Tower/Tower.h"
+#include "../Tower/Level.h"
 
 GUIManager::GUIManager(SceneEvent& rse) //, Tower* Tower) can't pass a tower as there will be more than one. Think events
 :  mpRenderer(NULL)

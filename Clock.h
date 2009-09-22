@@ -19,7 +19,7 @@
 #ifndef _CLOCK_H
 #define _CLOCK_H
 
-#include "Graphics/viewObject.h"
+#include "Graphics/ViewObject.h"
 #include "Animation.h"
 
 class AnimationSingle;

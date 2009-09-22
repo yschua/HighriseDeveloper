@@ -19,7 +19,7 @@
 #ifndef _STATS_H
 #define _STATS_H
 
-#include "Graphics/viewObject.h"
+#include "Graphics/ViewObject.h"
 #include "Animation.h"
 
 class AnimationSingle;

@@ -17,17 +17,17 @@
 #include <vector> // changed from list to vector so the collection can be scrolled in up and down
 #include <list>
 
-#include "../routes.h"
-#include "../physics.h"
-#include "../Graphics/texture.h"
-#include "../image.h"
-#include "../scene.h"
-#include "elevatorBase.h"
-#include "elevator.h"
-#include "floorBase.h"
-#include "level.h"
-#include "lobby.h"
-#include "tower.h"
+#include "../Routes.h"
+#include "../Physics.h"
+#include "../Graphics/Texture.h"
+#include "../Image.h"
+#include "../Scene.h"
+#include "ElevatorBase.h"
+#include "Elevator.h"
+#include "FloorBase.h"
+#include "Level.h"
+#include "Lobby.h"
+#include "Tower.h"
 
 Tower::Tower (int towerNo, int NoSubLevels, Scene& rScene )
 :  mTowerNo (towerNo)

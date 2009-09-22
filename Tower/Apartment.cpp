@@ -17,13 +17,13 @@
 #include <iostream>
 #include <map>
 #include <vector>
-#include "../physics.h"
-#include "../image.h"
+#include "../Physics.h"
+#include "../Image.h"
 #include "../Animation.h"
 
-#include "floorBase.h"
+#include "FloorBase.h"
 
-#include "apartment.h"
+#include "Apartment.h"
 
 using namespace Gfx;
 

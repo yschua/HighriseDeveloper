@@ -18,7 +18,7 @@
 
 #ifndef _APARTMENT_H
 #define _APARTMENT_H
-#include "../Graphics/modelObject.h"
+#include "../Graphics/ModelObject.h"
 
 class FloorBase;
 

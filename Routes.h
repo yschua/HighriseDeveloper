@@ -24,7 +24,7 @@ class Routes
 {
 private:
    std::vector<RouteBase *> mRoutes;
-//   static Routes* minstance; no longer static as each tower has it's own routes
+//   static Routes* minstance; no longer static as each Tower.has it's own routes
 
 public:
    Routes(); // not part of Tower.

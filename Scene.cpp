@@ -17,16 +17,16 @@
 
 #include <iostream>
 #include <list>
-#include "physics.h"
-#include "routes.h"
+#include "Physics.h"
+#include "Routes.h"
 #include "Camera.h"
-#include "Window/event.h"
-#include "Tower/floorBase.h"
-#include "Tower/level.h"
-#include "Tower/tower.h"
-#include "Tower/buildStrategies.h"
-#include "background.h"
-#include "scene.h"
+#include "Window/Event.h"
+#include "Tower/FloorBase.h"
+#include "Tower/Level.h"
+#include "Tower/Tower.h"
+#include "Tower/BuildStrategies.h"
+#include "Background.h"
+#include "Scene.h"
 
 //using namespace Gfx;
 Scene::Scene ()

@@ -20,8 +20,8 @@
 #ifndef _SCENE_H
 #define _SCENE_H
 
-#include "routes.h"
-#include "Graphics/modelObject.h"
+#include "Routes.h"
+#include "Graphics/ModelObject.h"
 
 class FloorBase; // aggregate of floor spaces for offices, condos and hotels
 class Tower;

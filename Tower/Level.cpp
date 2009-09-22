@@ -19,16 +19,16 @@
 #include <map>
 #include <vector>
 #include <list>
-#include "../physics.h"
-#include "../image.h"
+#include "../Physics.h"
+#include "../Image.h"
 #include "../Animation.h"
 #include "../Person.h"
-#include "../personQueue.h"
+#include "../PersonQueue.h"
 
-#include "floorBase.h"
-#include "level.h"
+#include "FloorBase.h"
+#include "Level.h"
 
-#include "../highriseException.h"
+#include "../HighRiseException.h"
 
 #include "../Types/String.h"
 

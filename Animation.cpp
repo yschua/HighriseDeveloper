@@ -18,7 +18,7 @@
 //#include <SFML/System.hpp>
 //#include <SFML/Graphics.hpp>
 
-#include "physics.h"
+#include "Physics.h"
 #include "Animation.h"
 
 Animation::Animation (int width, int height)

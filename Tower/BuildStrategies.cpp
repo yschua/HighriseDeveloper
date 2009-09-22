@@ -18,13 +18,13 @@
 #include <list>
 #include <vector>
 #include <iostream>
-#include "../routes.h"
-#include "floorBase.h"
-#include "level.h"
-#include "tower.h"
-#include "office.h"
-#include "apartment.h"
-#include "buildStrategies.h"
+#include "../Routes.h"
+#include "FloorBase.h"
+#include "Level.h"
+#include "Tower.h"
+#include "Office.h"
+#include "Apartment.h"
+#include "BuildStrategies.h"
 
 // no tool active
 bool BuildStategyBase::BuildHere (Tower* pTower, int x, int level)

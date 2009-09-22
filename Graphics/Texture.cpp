@@ -15,7 +15,7 @@
  */
 
 #include <iostream>
-#include "texture.h"
+#include "Texture.h"
 
 using namespace Gfx;
 

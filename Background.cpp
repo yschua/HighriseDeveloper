@@ -18,13 +18,13 @@
 #include <map>
 #include <cstring>
 #include <vector>
-#include "physics.h"
-#include "image.h"
+#include "Physics.h"
+#include "Image.h"
 #include "Animation.h"
-#include "tiler.h"
+#include "Tiler.h"
 
-#include "background.h"
-#include "highriseException.h"
+#include "Background.h"
+#include "HighRiseException.h"
 
 using namespace Gfx;
 

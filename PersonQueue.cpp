@@ -18,10 +18,10 @@
 #include <iostream>
 #include <vector>
 #include "Person.h"
-#include "Tower/elevator.h"
-#include "AI/citizensAgent.h"
-#include "AI/pathAgent.h"
-#include "personQueue.h"
+#include "Tower/Elevator.h"
+#include "AI/CitizensAgent.h"
+#include "AI/PathAgent.h"
+#include "PersonQueue.h"
 
 PersonQueue::PersonQueue()
 {

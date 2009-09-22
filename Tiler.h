@@ -16,7 +16,7 @@
 
 #ifndef _TILER_H
 #define _TILER_H
-#include "Graphics/texture.h"
+#include "Graphics/Texture.h"
 
 using namespace Gfx;
 

@@ -16,14 +16,14 @@
 
 #include <iostream>
 #include <list>
-#include "../physics.h"
-#include "../image.h"
-#include "../tiler.h"
+#include "../Physics.h"
+#include "../Image.h"
+#include "../Tiler.h"
 #include "../Animation.h"
-#include "level.h"
-#include "floorBase.h"
+#include "Level.h"
+#include "FloorBase.h"
 
-#include "lobby.h"
+#include "Lobby.h"
 
 using namespace Gfx;
 

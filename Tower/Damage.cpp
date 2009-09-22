@@ -15,12 +15,12 @@
  */
 
 #include <iostream>
-#include "../physics.h"
-#include "../image.h"
+#include "../Physics.h"
+#include "../Image.h"
 #include "../Animation.h"
-#include "floorBase.h"
+#include "FloorBase.h"
 
-#include "damage.h"
+#include "Damage.h"
 
 using namespace Gfx;
 

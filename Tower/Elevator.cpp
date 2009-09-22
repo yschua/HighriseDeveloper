@@ -18,23 +18,23 @@
 #include <cstdlib>
 #include <map>
 #include <iostream>
-#include "../physics.h"
-#include "../image.h"
+#include "../Physics.h"
+#include "../Image.h"
 #include "../Animation.h"
-#include "../tiler.h"
+#include "../Tiler.h"
 #include "../RouteVisitor.h"  // class that will Update the elevators route request queue
 
-#include "routeBase.h"  // Elevators route (levels).
-#include "elevatorBase.h"
-#include "elevatorMachine.h"
-#include "elevatorShaft.h"
-#include "elevatorPit.h"
-#include "elevator.h"
+#include "RouteBase.h"  // Elevators route (levels).
+#include "ElevatorBase.h"
+#include "ElevatorMachine.h"
+#include "ElevatorShaft.h"
+#include "ElevatorPit.h"
+#include "Elevator.h"
 
 //#else
-//#include "../highrisedev.h"
+//#include "../HighRiseDev.h"
 //#endif
-#include "../highriseException.h"
+#include "../HighRiseException.h"
 
 using namespace Gfx;
 

@@ -14,18 +14,18 @@
  *along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "resources.h"
+#include "Resources.h"
 
 #include <iostream>
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
-#include "physics.h"
-#include "image.h"
+#include "Physics.h"
+#include "Image.h"
 #include "Animation.h"
-#include "scene.h"
+#include "Scene.h"
 
-#include "Graphics/modelObject.h"   // 3d abstract
-#include "Graphics/viewObject.h"    // 2d abstract
+#include "Graphics/ModelObject.h"   // 3d abstract
+#include "Graphics/ViewObject.h"    // 2d abstract
 
 #include "Camera.h"
 

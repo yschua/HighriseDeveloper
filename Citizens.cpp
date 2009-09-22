@@ -21,9 +21,9 @@
 #include <list>
 #include <iostream>
 #include "Person.h"
-#include "highriseException.h"
+#include "HighRiseException.h"
 
-#include "citizens.h"
+#include "Citizens.h"
 
 Citizens* Citizens::minstance = NULL;
 

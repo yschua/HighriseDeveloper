@@ -26,12 +26,12 @@
 
 #include <vector>
 #include "../Person.h"
-#include "../routes.h"
-#include "../Tower/routeBase.h"
-#include "../Tower/tower.h"
-#include "../AI/citizensAgent.h"
+#include "../Routes.h"
+#include "../Tower/RouteBase.h"
+#include "../Tower/Tower.h"
+#include "../AI/CitizensAgent.h"
 
-#include "pathAgent.h"
+#include "PathAgent.h"
 
 PathAgent::PathAgent (Person* person )
       :  mPerson( person )

@@ -19,7 +19,7 @@
 #ifndef _ELEVATORPIT_H
 #define _ELEVATORPIT_H
 
-#include "elevatorBase.h"
+#include "ElevatorBase.h"
 
 class Elevator;
 class ElevatorBase;

@@ -16,14 +16,14 @@
 #include <cstdlib>
 #include <iostream>
 #include <map>
-#include "../image.h"
-#include "../physics.h"
+#include "../Image.h"
+#include "../Physics.h"
 #include "../Animation.h"
-#include "../tiler.h"
+#include "../Tiler.h"
 
-#include "routeBase.h"
-#include "elevator.h"
-#include "elevatorBase.h"
+#include "RouteBase.h"
+#include "Elevator.h"
+#include "ElevatorBase.h"
 
 using namespace Gfx;
 

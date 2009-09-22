@@ -19,9 +19,9 @@
 
 #include "Types/Vector2.h"
 #include "Types/Rect.h"
-#include "interface.h"
-#include "physics.h"
-#include "Window/event.h"
+#include "Interface.h"
+#include "Physics.h"
+#include "Window/Event.h"
 
 class Animation;
 class AnimationSingle;

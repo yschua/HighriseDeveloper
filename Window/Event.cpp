@@ -21,7 +21,7 @@
 
 #include "../Types/Vector2.h"
 #include "../Camera.h"
-#include "event.h"
+#include "Event.h"
 
 EventHandler::EventHandler ()
 {
@@ -49,7 +49,7 @@ bool EventHandler::HandleEvents (const sf::Event& Event)
       case sf::Event::Resized:
          for (ConType::iterator i = mHandlers.begin (); i != mHandlers.end (); i++)
             (*i)->OnResize (Vector2i(Event.Size.Width, Event.Size.Height));
-               // We want all event handlers to receive this one; we don't want it to be "eaten"
+               // We want all Event.handlers to receive this one; we don't want it to be "eaten"
       break;
 
       case sf::Event::KeyReleased:

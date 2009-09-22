@@ -18,8 +18,8 @@
 #ifndef _INTERFACE_H
 #define _INTERFACE_H
 
-#include "clock.h"
-#include "stats.h"
+#include "Clock.h"
+#include "Stats.h"
 
 class Interface
 {

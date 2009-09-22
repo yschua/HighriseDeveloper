@@ -18,8 +18,8 @@
 #include <iostream>
 #include <string>
 #include "../Animation.h"
-#include "texture.h"
-#include "viewObject.h"
+#include "Texture.h"
+#include "ViewObject.h"
 
 // all things not in 3D space. Used for interface
 using namespace Gfx;

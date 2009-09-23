@@ -18,21 +18,21 @@
 
 #include "Camera.h"
 
-#include "AI/CitizensAgent.h"
-//#include "AI/PathAgent.h"
-//#include "AI/FloorAgent.h"
+#include "AI/citizensAgent.h"
+//#include "AI/pathAgent.h"
+//#include "AI/floorAgent.h"
 
-#include "Routes.h"
-#include "Background.h"
-#include "Tower/Tower.h"
-#include "Scene.h"
+#include "routes.h"
+#include "background.h"
+#include "Tower/tower.h"
+#include "scene.h"
 
 #include <CEGUI.h>
 
 #include "Window/GUIManager.h"
-#include "SceneEvent.h"
+#include "sceneEvent.h"
 
-#include "HighRiseDev.h"
+#include "highrisedev.h"
 
 void debugprint()
 {
@@ -61,7 +61,6 @@ main ()
    std::cout << "Basic loading finished....\n";
    try
    {
-
       theScene.SetBG (new Background (cam->GetSceneSize().x, cam->GetSceneSize().y));
 
       SceneEvent SceneEV(&theScene);
@@ -70,7 +69,7 @@ main ()
       EventHandler Events;
       Events.Add (&Gui);
       Events.Add (cam);
-
+      
       MainEvent mev;
       Events.Add(&SceneEV);
       Events.Add (&mev);

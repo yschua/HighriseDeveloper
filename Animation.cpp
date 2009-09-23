@@ -24,33 +24,33 @@
 Animation::Animation (int width, int height)
 :  AnimationBase (width, height)
 {
-   mcurrent_frame = 0;
-   mtime = 0;
+   mCurrentFrame = 0;
+   mTime = 0;
 //   sprite = new sf::Sprite ();
 }
 
 void
 Animation::AddFrame (Texture* pTex, float duration)
 {
-   mframes.push_back (std::pair<Texture*, float> (pTex, duration));
+   mFrames.push_back (std::pair<Texture*, float> (pTex, duration));
 }
 
 void
 Animation::BindTexture()
 {
-   return mframes[mcurrent_frame].first->Bind();
+   return mFrames[mCurrentFrame].first->Bind();
 }
 
 void
 Animation::Update (float dt)
 {
-   mtime += dt;
-   if (mtime > mframes[mcurrent_frame].second)
+   mTime += dt;
+   if (mTime > mFrames[mCurrentFrame].second)
    {
-      mtime = 0;
-      mcurrent_frame++;
-      if (mcurrent_frame >= mframes.size ())
-         mcurrent_frame = 0;
+      mTime = 0;
+      mCurrentFrame++;
+      if (mCurrentFrame >= mFrames.size ())
+         mCurrentFrame = 0;
 //      sprite->SetImage (*mframes[mcurrent_frame].first);
    }
 }

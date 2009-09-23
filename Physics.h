@@ -23,7 +23,7 @@
 
 class Body
 {
-private:
+protected:
    bool mIsMoving;
    float mTime;
    float mTimeTotal;

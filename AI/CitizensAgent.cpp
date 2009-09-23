@@ -240,7 +240,7 @@ void CitizensAgent::Draw()
    for (i = persons.begin (); i != persons.end (); i++)
    {
       Person* peep = (*i);
-      if( peep && peep->get_Activity() == Person::CS_Waiting )
+      if( peep && peep->get_CurrentState() == Person::CS_Waiting )
       {
          peep->Draw();
       }

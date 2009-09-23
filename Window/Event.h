@@ -19,7 +19,7 @@
 
 #include "../Types/Vector2.h"
 
-enum HR_EVENTs
+enum HR_Events
 {
    HR_MouseInScene = 0,       // Generic
    HR_ClickInScene,           // Left Click
@@ -51,6 +51,8 @@ public:
    virtual bool OnMouseWheel (int Delta) { return false; }
    virtual bool OnClose () { return false; }
    virtual bool OnToolHit (const std::string& Name) {return false; }
+   virtual bool OnOpen (const char* pPath) { return false; }
+   virtual bool OnSave (const char* pPath) { return false; }
 };
 
 class EventHandler

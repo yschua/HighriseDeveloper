@@ -17,9 +17,9 @@
 // People that make the tower thrive.
 
 #include <iostream>
-#include "Person.h"
-#include "Image.h"
-#include "Animation.h"
+#include "person.h"
+#include "image.h"
+#include "animation.h"
 
 Person::Person (Location& loc)
 {
@@ -45,6 +45,7 @@ Person::Person (Location& loc)
    manimations[MS_Happy]->SetPosition(590,0);
    manimations[MS_Excited] = new AnimationSingle (ptexHappy, 8, 16);
    manimations[MS_Excited]->SetPosition(590,0);
+
 }
 Person::~Person (void)
 {

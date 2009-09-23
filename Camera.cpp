@@ -24,6 +24,7 @@
 #include "Animation.h"
 #include "Scene.h"
 #include "AI/CitizensAgent.h"
+#include "AI/CitizensAgent.h"
 
 #include "Graphics/ModelObject.h"   // 3d abstract
 #include "Graphics/ViewObject.h"    // 2d abstract

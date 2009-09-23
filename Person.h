@@ -22,7 +22,7 @@
 #define _PERSON_H
 
 #include <map>
-#include "Graphics/ModelObject.h"
+#include "Graphics/modelObject.h"
 class AnimationSingle;
 
 // temporary home for some structures
@@ -45,7 +45,7 @@ struct Location
       mRoute = -1;
       mBuilding = 0;
       mLevel = 0;
-      mX = 0;
+      mX = 490;
    }
 };
 

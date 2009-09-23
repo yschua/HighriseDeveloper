@@ -46,9 +46,8 @@ class Animation : public AnimationBase
 {
 private:
 
-   std::vector <std::pair <Texture*, float> > mframes;
-   unsigned int mcurrent_frame;
-   float mtime;
+   std::vector <std::pair <Texture*, float> > mFrames;
+   unsigned int mCurrentFrame;
 
 public:
    Animation (int width, int height);

@@ -20,6 +20,7 @@
 class Tower;
 class Level;
 class TiXmlElement;
+class SerializerBase;
 
 class FloorBase
 {
@@ -58,7 +59,8 @@ public:
    virtual void Draw ();
    virtual void DrawFramework () { }
 
-   virtual bool Save(TiXmlElement*);
+   //virtual bool Save(TiXmlElement*);
+   virtual void Save(SerializerBase& ser);// iXmlElement* pnParent)
 
    static int GetNextID();
 };

@@ -23,6 +23,7 @@
 #include "floorBase.h"
 
 class Animation;
+class SerializerBase;
 
 enum office_state
 {
@@ -46,7 +47,7 @@ public:
    void Draw ();
    void DrawFramework ();
 
-   bool Save(TiXmlElement*);
+   void Save(SerializerBase& ser);
 };
 
 #endif

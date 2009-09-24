@@ -25,6 +25,12 @@ XMLSerializer::XMLSerializer (TiXmlElement* pnParent)
 {
 }
 
+XMLSerializer::XMLSerializer( const char* tag )
+{
+   TiXmlElement* pnSpace = new TiXmlElement(tag);
+   mpnParent->LinkEndChild(pnSpace);
+}
+
 XMLSerializer::~XMLSerializer ()
 {
 }
@@ -53,9 +59,8 @@ void XMLSerializer::Add( const char* tag, const char* str )
    mpnParent->LinkEndChild(pnElement);
 }
 
-SerializerBase* XMLSerializer::AddChild( const char* tag )
+void XMLSerializer::AddChild( const char* tag )
 {
    TiXmlElement* pnSpace = new TiXmlElement(tag);
    mpnParent->LinkEndChild(pnSpace);
-   return new XMLSerializer(pnSpace);
 }

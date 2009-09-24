@@ -30,8 +30,9 @@ protected:
    TiXmlElement* mpnParent;
 public:
    XMLSerializer (TiXmlElement* pnParent);
+   XMLSerializer( const char* tag );
    virtual ~XMLSerializer ();
-   virtual SerializerBase* AddChild( const char*pName );
+   virtual void AddChild( const char*pName );
    void Add( const char* tag, int val );
    void Add( const char* tag, float val );
    void Add( const char* tag, const char* str );

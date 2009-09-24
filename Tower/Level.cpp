@@ -19,12 +19,13 @@
 #include <map>
 #include <vector>
 #include <list>
-#include "../physics.h"
-#include "../image.h"
-#include "../animation.h"
-#include "../routes.h"
-#include "../person.h"
-#include "../personQueue.h"
+#include "../Physics.h"
+#include "../Image.h"
+#include "../Animation.h"
+#include "../Routes.h"
+#include "../Person.h"
+#include "../PersonQueue.h"
+#include "../SerializerBase.h"
 
 #include "floorBase.h"
 #include "level.h"
@@ -418,29 +419,41 @@ Level::DrawEmptySpace()
    }
 }
 
-bool Level::Save(TiXmlElement* pnParent)
-{
-   TiXmlElement* pnType = new TiXmlElement("type");
-   TiXmlText* ptType = new TiXmlText((mLevel==0)?"Lobby":"Floor");
-   pnType->LinkEndChild(ptType);
-   TiXmlElement* pnLevel = new TiXmlElement("level");
-   TiXmlText* ptLevel = new TiXmlText(ToString(mLevel).c_str());
-   pnLevel->LinkEndChild(ptLevel);
-   TiXmlElement* pnXStart = new TiXmlElement("xstart");
-   TiXmlText* ptXStart = new TiXmlText(ToString(mX).c_str());
-   pnXStart->LinkEndChild(ptXStart);
-   TiXmlElement* pnXEnd = new TiXmlElement("xend");
-   TiXmlText* ptXEnd = new TiXmlText(ToString(mX2).c_str());
-   pnXEnd->LinkEndChild(ptXEnd);
+//bool Level::Save(TiXmlElement* pnParent)
+//{
+//   TiXmlElement* pnType = new TiXmlElement("type");
+//   TiXmlText* ptType = new TiXmlText((mLevel==0)?"Lobby":"Floor");
+//   pnType->LinkEndChild(ptType);
+//   TiXmlElement* pnLevel = new TiXmlElement("level");
+//   TiXmlText* ptLevel = new TiXmlText(ToString(mLevel).c_str());
+//   pnLevel->LinkEndChild(ptLevel);
+//   TiXmlElement* pnXStart = new TiXmlElement("xstart");
+//   TiXmlText* ptXStart = new TiXmlText(ToString(mX).c_str());
+//   pnXStart->LinkEndChild(ptXStart);
+//   TiXmlElement* pnXEnd = new TiXmlElement("xend");
+//   TiXmlText* ptXEnd = new TiXmlText(ToString(mX2).c_str());
+//   pnXEnd->LinkEndChild(ptXEnd);
+//
+//   pnParent->LinkEndChild(pnType);
+//   pnParent->LinkEndChild(pnLevel);
+//   pnParent->LinkEndChild(pnXStart);
+//   pnParent->LinkEndChild(pnXEnd);
+//   for (unsigned int i = 0; i < mFloorSpaces.size(); i++) {
+//      TiXmlElement* pnSpace = new TiXmlElement("room");
+//      mFloorSpaces[i]->Save(XMLSerializer(pnSpace));
+//      pnParent->LinkEndChild(pnSpace);
+//   }
+//   return true;
+//}
 
-   pnParent->LinkEndChild(pnType);
-   pnParent->LinkEndChild(pnLevel);
-   pnParent->LinkEndChild(pnXStart);
-   pnParent->LinkEndChild(pnXEnd);
-   for (unsigned int i = 0; i < mFloorSpaces.size(); i++) {
-      TiXmlElement* pnSpace = new TiXmlElement("room");
-      mFloorSpaces[i]->Save(pnSpace);
-      pnParent->LinkEndChild(pnSpace);
-   }
-   return true;
+void Level::Save(SerializerBase& ser)
+{
+   ser.Add("type", "Floor");   // first tag
+   ser.Add("level", mLevel);   // first tag
+   ser.Add("xstart", mX);   // first tag
+   ser.Add("xend", mX2);   // first tag
+   ser.Add("ystart", mY);   // first tag
+   ser.Add("zstart", mZ);   // first tag
+//   ser.Add("state", ToString((mcurrent_state == floor_occupied_day)?1:0).c_str()); // use the state engine get this property
+   // if something goes bump, either deal with it or throw it
 }

@@ -40,13 +40,14 @@ private:
    std::map<apartment_state, Animation *> manimations;
    apartment_state mcurrent_state;
    int mcurrent_animation;
-//   Camera * mCam;
 
 public:
+   Apartment (int x, int level, Tower * TowerParent);
+
    virtual void Update (float dt);
    virtual void Draw ();
    virtual void DrawFramework ();
-   Apartment (int x, int level, Tower * TowerParent);
+   virtual void Save(SerializerBase& ser);
 };
 
 #endif   // _APARTMENT_H

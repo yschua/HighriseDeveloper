@@ -20,6 +20,7 @@
 class Tiler;
 class AnimationSingle;
 class Level;
+class SerializerBase;
 
 class Lobby : public Level // make lobby a level in itself
 {
@@ -29,10 +30,12 @@ private:
    AnimationSingle * awn_right;
 
 public:
+   Lobby (int x, int x2, int level, Tower * TowerParent);
+
    void Update (float dt);
    void Draw ();
    void DrawFramework ();
-   Lobby (int x, int x2, int level, Tower * TowerParent);
+   void Save(SerializerBase& ser);
 };
 
 #endif

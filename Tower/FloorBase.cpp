@@ -21,6 +21,7 @@
 #include "Tower.h"
 #include "../Scene.h"
 #include "FloorBase.h"
+#include "../SerializerBase.h"
 #include "../xml/tinyxml/tinyxml.h"
 #include "../Types/String.h"
 
@@ -52,14 +53,13 @@ FloorBase::FloorBase (int x, int x2, int level, Tower* pTowerParent)
    pTowerParent->GetScene().RegisterFloorSpace (mID, this);
 }
 
-bool FloorBase::Save(TiXmlElement* pnParent) {
-   TiXmlElement* pnXPos = new TiXmlElement("xpos");
-   std::cout << "DEBUG: mX(tostring): " << ToString(mX) << "mX(normal): " << mX << std::endl;
-   TiXmlText* pnXPosText = new TiXmlText(ToString(mX).c_str());
-   pnXPos->LinkEndChild(pnXPosText);
-   pnParent->LinkEndChild(pnXPos);
-   return true;
+void FloorBase::Save(SerializerBase& ser)
+{
+   ser.Add("xpos", ToString(mX).c_str());
+   ser.Add("ypos", ToString(mY).c_str());
+   ser.Add("zpos", ToString(mZ).c_str());
 }
+
 
 int FloorBase::GetNextID() // static
 {

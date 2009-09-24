@@ -20,6 +20,7 @@
 #include "../Image.h"
 #include "../Tiler.h"
 #include "../Animation.h"
+#include "../SerializerBase.h"
 #include "Level.h"
 #include "FloorBase.h"
 
@@ -46,16 +47,26 @@ Lobby::Update (float dt)
 
 }
 
-void
-Lobby::Draw ()
+void Lobby::Draw ()
 {
    Render(tile);
    Render(nFireEscapeLeft);
    Render(nFireEscapeRight);
 }
 
-void
-Lobby::DrawFramework ()
+void Lobby::DrawFramework ()
 {
    //RenderFramework( mpFrame, id);
+}
+
+void Lobby::Save(SerializerBase& ser)
+{
+   ser.Add("type", "Lobby");   // first tag
+   ser.Add("level", mLevel);   // first tag
+   ser.Add("xstart", mX);   // first tag
+   ser.Add("xend", mX2);   // first tag
+   ser.Add("ystart", mY);   // first tag
+   ser.Add("zstart", mZ);   // first tag
+//   ser.Add("state", ToString((mcurrent_state == lobby_occupied_day)?1:0).c_str()); // use the state engine get this property
+   // if something goes bump, either deal with it or throw it
 }

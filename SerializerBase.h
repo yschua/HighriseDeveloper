@@ -26,7 +26,7 @@ class SerializerBase
 public:
    SerializerBase () {};
    virtual ~SerializerBase () {};
-   virtual SerializerBase* AddChild( const char*pName ) = 0;
+   virtual void AddChild( const char*pName ) = 0;
    virtual void Add( const char* tag, int val ) = 0;
    virtual void Add( const char* tag, float val ) = 0;
    virtual void Add( const char* tag, const char* tr ) = 0;

@@ -20,8 +20,10 @@
 #include "../Physics.h"
 #include "../Image.h"
 #include "../Animation.h"
+#include "../SerializerBase.h"
 
 #include "FloorBase.h"
+#include "../Types/String.h"
 
 #include "Apartment.h"
 
@@ -73,7 +75,6 @@ Apartment::Apartment (int x, int level, Tower * TowerParent)
    manimations[apt_unoccupied_day] = new Animation (72, 36);
    manimations[apt_unoccupied_day]->AddFrame (image_man->GetTexture ("apartment_r_s_1.png", GL_RGBA), 1000);
    manimations[apt_unoccupied_day]->SetPosition (mX, mY);
-//   mCam = Camera::GetInstance ();
 }
 
 void
@@ -93,15 +94,20 @@ Apartment::Update (float dt)
    mcurrent_state = new_state;
 }
 
-void
-Apartment::Draw ()
+void Apartment::Draw ()
 {
-//   mCam->Draw (*manimations[mcurrent_state]);
    Render (manimations[mcurrent_state]);
 }
 
-void
-Apartment::DrawFramework ()
+void Apartment::DrawFramework ()
 {
    RenderFramework( manimations[mcurrent_state], mID);
+}
+
+void Apartment::Save(SerializerBase& ser)
+{
+   ser.Add("type", "apartment");   // first tag
+   FloorBase::Save(ser);
+   ser.Add("state", ToString((mcurrent_state == apt_occupied_day)?1:0).c_str()); // use the state engine get this property
+   // if something goes bump, either deal with it or throw it
 }

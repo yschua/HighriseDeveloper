@@ -18,11 +18,10 @@
 #include <map>
 #include <vector>
 #include "../physics.h"
-//#include "../camera.h"
 #include "../image.h"
 #include "../animation.h"
 #include "floorBase.h"
-#include "../xml/tinyxml/tinyxml.h"
+#include "../SerializerBase.h"
 #include "../Types/String.h"
 
 #include "office.h"
@@ -80,29 +79,20 @@ Office::Update (float dt)
    mcurrent_state = new_state;
 }
 
-void
-Office::Draw ()
+void Office::Draw ()
 {
-//   Camera::GetInstance()->Draw (*manimations[mcurrent_state]);
    Render (manimations[mcurrent_state]);
 }
 
-
-void
-Office::DrawFramework ()
+void Office::DrawFramework ()
 {
    RenderFramework( manimations[mcurrent_state], mID);
 }
 
-bool Office::Save(TiXmlElement* pnParent) {
-   FloorBase::Save(pnParent);
-   TiXmlElement* pnType = new TiXmlElement("type");
-   TiXmlText* ptType = new TiXmlText("office");
-   pnType->LinkEndChild(ptType);
-   pnParent->LinkEndChild(pnType);
-   TiXmlElement* pnState = new TiXmlElement("state");
-   TiXmlText* ptState = new TiXmlText(ToString((mcurrent_state == s_occupied_day)?1:0).c_str());
-   pnState->LinkEndChild(ptState);
-   pnParent->LinkEndChild(pnState);
-   return true;
+void Office::Save(SerializerBase& ser)
+{
+   ser.Add("type", "office");   // first tag
+   FloorBase::Save(ser);
+   ser.Add("state", ToString((mcurrent_state == s_occupied_day)?1:0).c_str());
+   // if something goes bump, either deal with it or throw it
 }

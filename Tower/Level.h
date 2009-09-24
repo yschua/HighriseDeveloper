@@ -29,9 +29,11 @@ class FloorBase;
 class Tower;
 class RouteBase;
 class PersonQueue;
+class GameManager;
 
 class Level : public Gfx::ModelObject
 {
+   friend class GameManager;
 private:
    std::vector<FloorBase*> mFloorSpaces;
    std::list<PersonQueue*> mRouteQueues;  // person queue for elevators that stop on this level
@@ -49,9 +51,9 @@ protected:
                // y vector = height
    float mZ;     // face set to zero
                // z vector = depth but not implement until 3D
-   AnimationSingle * nFireEscapeLeft;
-   AnimationSingle * nFireEscapeRight;
-   AnimationSingle * mEmptyFLoor;
+   AnimationSingle* nFireEscapeLeft;
+   AnimationSingle* nFireEscapeRight;
+   AnimationSingle* mEmptyFLoor;
    AnimationEmpty* mTheLevel;
 
 protected:
@@ -116,7 +118,8 @@ public:
    void AddRouteToQueue (RouteBase* pElevator);  // set and remove the elevator stops
    void RemoveRouteFromQueue (RouteBase* pElevator);
 
-   bool Save(TiXmlElement*);
+//   bool Save(TiXmlElement*);
+   void Level::Save(SerializerBase& ser);
 };
 
 #endif

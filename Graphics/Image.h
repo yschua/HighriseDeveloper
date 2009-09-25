@@ -17,6 +17,7 @@
 #ifndef _IMAGEMANAGER_H
 #define _IMAGEMANAGER_H
 
+#include <map>
 #include <string>
 
 namespace Gfx

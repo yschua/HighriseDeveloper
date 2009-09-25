@@ -16,10 +16,10 @@
 #include <cstdlib>
 #include <iostream>
 #include <map>
-#include "../Image.h"
-#include "../Physics.h"
-#include "../Animation.h"
-#include "../Tiler.h"
+#include "../Root/Physics.h"
+#include "../Graphics/Image.h"
+#include "../Graphics/Animation.h"
+#include "../Graphics/Tiler.h"
 
 #include "RouteBase.h"
 #include "Elevator.h"

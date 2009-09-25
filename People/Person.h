@@ -22,7 +22,7 @@
 #define _PERSON_H
 
 #include <map>
-#include "Graphics/ModelObject.h"
+#include "../Graphics/ModelObject.h"
 class AnimationSingle;
 
 // temporary home for some structures

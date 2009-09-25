@@ -17,8 +17,8 @@
 #pragma once
 #ifndef _ANIMATION_H
 #define _ANIMATION_H
-#include "Physics.h"
-#include "Graphics/Texture.h"
+#include "../Root/Physics.h"
+#include "Texture.h"
 
 using namespace Gfx;
 

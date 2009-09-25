@@ -16,8 +16,8 @@
 
 #include <vector>
 
-#include "Tower/RouteBase.h"
-#include "Tower/ElevatorBase.h"
+#include "RouteBase.h"
+#include "ElevatorBase.h"
 #include "Routes.h"
 
 Routes::Routes()

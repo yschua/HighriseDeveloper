@@ -13,17 +13,17 @@
  *   You should have received a copy of the GNU General Public License
  *   along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
  */
-//#ifdef WIN32
+
 #include <cstring>
 #include <cstdlib>
 #include <map>
 #include <iostream>
-#include "../Physics.h"
-#include "../Image.h"
-#include "../Animation.h"
-#include "../Tiler.h"
-#include "../RouteVisitor.h"  // class that will Update the elevators route request queue
-#include "../SerializerBase.h"
+#include "../Root/Physics.h"
+#include "../Graphics/Image.h"
+#include "../Graphics/Animation.h"
+#include "../Graphics/Tiler.h"
+#include "../Root/RouteVisitor.h"  // class that will Update the elevators route request queue
+#include "../Root/SerializerBase.h"
 
 #include "RouteBase.h"  // Elevators route (levels).
 #include "ElevatorBase.h"
@@ -32,10 +32,7 @@
 #include "ElevatorPit.h"
 #include "Elevator.h"
 
-//#else
-//#include "../HighRiseDev.h"
-//#endif
-#include "../HighRiseException.h"
+#include "../Root/HighRiseException.h"
 
 using namespace Gfx;
 

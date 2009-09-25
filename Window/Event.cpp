@@ -20,7 +20,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "../Types/Vector2.h"
-#include "../Camera.h"
+#include "../Graphics/Camera.h"
 #include "Event.h"
 
 EventHandler::EventHandler ()

@@ -19,18 +19,18 @@
 #include <map>
 #include <vector>
 #include <list>
-#include "../Physics.h"
-#include "../Image.h"
-#include "../Animation.h"
-#include "../Routes.h"
-#include "../Person.h"
-#include "../PersonQueue.h"
-#include "../SerializerBase.h"
+#include "../Root/Physics.h"
+#include "../Graphics/Image.h"
+#include "../Graphics/Animation.h"
+#include "../People/Person.h"
+#include "../Root/SerializerBase.h"
 
+#include "PersonQueue.h"
+#include "Routes.h"
 #include "FloorBase.h"
 #include "Level.h"
 
-#include "../HighRiseException.h"
+#include "../Root/HighRiseException.h"
 
 #include "../Types/String.h"
 

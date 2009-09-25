@@ -17,14 +17,14 @@
 
 #include <iostream>
 #include <list>
-#include "Physics.h"
-#include "Routes.h"
-#include "Camera.h"
-#include "Window/Event.h"
-#include "Tower/FloorBase.h"
-#include "Tower/Level.h"
-#include "Tower/Tower.h"
-#include "Tower/BuildStrategies.h"
+#include "../Root/Physics.h"
+#include "../Tower/Routes.h"
+#include "../Graphics/Camera.h"
+#include "../Window/Event.h"
+#include "../Tower/FloorBase.h"
+#include "../Tower/Level.h"
+#include "../Tower/Tower.h"
+#include "../Tower/BuildStrategies.h"
 #include "Background.h"
 #include "Scene.h"
 

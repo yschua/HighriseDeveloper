@@ -21,7 +21,7 @@
 #include <list>
 #include <iostream>
 #include "Person.h"
-#include "HighRiseException.h"
+#include "../Root/HighRiseException.h"
 
 #include "Citizens.h"
 

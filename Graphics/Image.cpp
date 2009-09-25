@@ -18,7 +18,8 @@
 #include <iostream>
 #include <string>
 #include <map>
-#include "Graphics/Texture.h"
+
+#include "Texture.h"
 #include "Image.h"
 
 using namespace Gfx;

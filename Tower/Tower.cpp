@@ -17,11 +17,11 @@
 #include <vector> // changed from list to vector so the collection can be scrolled in up and down
 #include <list>
 
-#include "../Routes.h"
-#include "../Physics.h"
+#include "../Root/Physics.h"
 #include "../Graphics/Texture.h"
-#include "../Image.h"
-#include "../Scene.h"
+#include "../Graphics/Image.h"
+#include "../Scene/Scene.h"
+#include "Routes.h"
 #include "ElevatorBase.h"
 #include "Elevator.h"
 #include "FloorBase.h"

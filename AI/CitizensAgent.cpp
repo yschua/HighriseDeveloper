@@ -28,15 +28,15 @@
 #include <vector>
 #include <iostream>
 #include <cstdlib>
-#include "../Person.h"
-#include "../RouteVisitor.h"
-#include "../Routes.h"
-#include "../PersonQueue.h"
+#include "../People/Person.h"
+#include "../Root/RouteVisitor.h"
+#include "../Tower/Routes.h"
+#include "../Tower/PersonQueue.h"
 #include "../Tower/RouteBase.h"
 #include "../Tower/Tower.h"
 #include "../Tower/Level.h"
-#include "../HighRiseException.h"
-#include "../Citizens.h"
+#include "../Root/HighRiseException.h"
+#include "../People/Citizens.h"
 
 #include "PathAgent.h"
 #include "CitizensAgent.h"

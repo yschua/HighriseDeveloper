@@ -15,7 +15,7 @@
  */
 
 #include "Tiler.h"
-#include "HighRiseException.h"
+#include "../Root/HighRiseException.h"
 
 Tiler::Tiler (Texture* pTex, draw_direction direction, float x, float y, float z, float width, float height)
 {

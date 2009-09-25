@@ -18,8 +18,8 @@
 #define _PHYSICS_H
 
 // Is there a way to avoid this include?
-#include "Types/Vector2.h"
-#include "Types/Vector3.h"
+#include "../Types/Vector2.h"
+#include "../Types/Vector3.h"
 
 class Body
 {

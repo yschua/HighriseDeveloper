@@ -16,12 +16,12 @@
 
 
 #include <iostream>
-#include "../Physics.h"
-#include "../Routes.h"
+#include "../Root/Physics.h"
+#include "Routes.h"
 #include "Tower.h"
-#include "../Scene.h"
+#include "../Scene/Scene.h" // registation into the scene
 #include "FloorBase.h"
-#include "../SerializerBase.h"
+#include "../Root/SerializerBase.h"
 #include "../xml/tinyxml/tinyxml.h"
 #include "../Types/String.h"
 

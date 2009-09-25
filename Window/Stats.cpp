@@ -18,9 +18,9 @@
 #include <cstring>
 #include <sstream>
 #include <cstdio>
-#include "Image.h"
-#include "Animation.h"
-#include "Camera.h"
+#include "../Graphics/Image.h"
+#include "../Graphics/Animation.h"
+#include "../Graphics/Camera.h"
 #include "Stats.h"
 
 std::string itoa( int n )

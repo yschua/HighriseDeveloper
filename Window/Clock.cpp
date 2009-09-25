@@ -16,9 +16,9 @@
 
 #include <map>
 #include <cstring>
-#include "Image.h"
-#include "Animation.h"
-#include "Camera.h"
+#include "../Graphics/Image.h"
+#include "../Graphics/Animation.h"
+#include "../Graphics/Camera.h"
 #include "Clock.h"
 
 using namespace Gfx;

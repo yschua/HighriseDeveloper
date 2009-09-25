@@ -28,11 +28,11 @@
 #include <SFML/Graphics.hpp>
 
 // Then user-defined types
+#include "Window/Interface.h"
 #include "Window/Event.h"
 
-#include "HighRiseException.h"
+#include "Root/HighRiseException.h"
 
-#include "Interface.h"
 
 class MainEvent : public EventBase
 {

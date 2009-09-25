@@ -20,8 +20,10 @@
 #ifndef _SCENE_H
 #define _SCENE_H
 
-#include "Routes.h"
-#include "Graphics/ModelObject.h"
+#include <map>
+#include "../Types/Vector2.h"
+#include "../Tower/Routes.h"
+#include "../Graphics/ModelObject.h"
 
 class FloorBase; // aggregate of floor spaces for offices, condos and hotels
 class Tower;
@@ -46,7 +48,7 @@ private:
    typedef std::pair<int,FloorBase*> TypeFloorSpaceMap;
    std::map<int,FloorBase*> mFloorSpaces;
 
-   Routes mRoutes;
+   //Routes mRoutes;
    Background* mpBackground;
    BuildStategyBase* mpBuildStrategy;  // Place floor objects
 

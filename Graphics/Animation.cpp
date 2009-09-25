@@ -15,10 +15,8 @@
  */
 
 #include <vector>
-//#include <SFML/System.hpp>
-//#include <SFML/Graphics.hpp>
 
-#include "Physics.h"
+#include "../Root/Physics.h"
 #include "Animation.h"
 
 Animation::Animation (int width, int height)

@@ -16,11 +16,11 @@
 
 #include <iostream>
 #include <list>
-#include "../Physics.h"
-#include "../Image.h"
-#include "../Tiler.h"
-#include "../Animation.h"
-#include "../SerializerBase.h"
+#include "../Root/Physics.h"
+#include "../Root/SerializerBase.h"
+#include "../Graphics/Image.h"
+#include "../Graphics/Tiler.h"
+#include "../Graphics/Animation.h"
 #include "Level.h"
 #include "FloorBase.h"
 

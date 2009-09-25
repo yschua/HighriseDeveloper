@@ -17,7 +17,7 @@
 #ifndef _BACKGROUND_H
 #define _BACKGROUND_H
 
-#include "Graphics/ModelObject.h"
+#include "../Graphics/ModelObject.h"
 class AnimationSingle;
 class Tiler;
 

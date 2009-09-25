@@ -15,9 +15,9 @@
  */
 
 #include <iostream>
-#include "../Animation.h"
-#include "../FireAnimation.h"
-#include "../Tiler.h"
+#include "Animation.h"
+#include "FireAnimation.h"
+#include "Tiler.h"
 #include "Texture.h"
 #include "ModelObject.h"
 

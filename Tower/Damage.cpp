@@ -15,9 +15,9 @@
  */
 
 #include <iostream>
-#include "../Physics.h"
-#include "../Image.h"
-#include "../Animation.h"
+#include "../Root/Physics.h"
+#include "../Graphics/Image.h"
+#include "../Graphics/Animation.h"
 #include "FloorBase.h"
 
 #include "Damage.h"

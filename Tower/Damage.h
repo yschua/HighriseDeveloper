@@ -20,7 +20,7 @@
 #define _DAMAGE_H
 
 #include "../Graphics/ModelObject.h"
-#include "../FireAnimation.h"
+#include "../Graphics/FireAnimation.h"
 
 class Damage : public FloorBase, public Gfx::ModelObject
 {

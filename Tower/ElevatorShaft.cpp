@@ -16,10 +16,10 @@
 
 #include <cstdlib>
 #include <iostream>
-#include "../Physics.h"
-#include "../Animation.h"
-#include "../Tiler.h"
-#include "../Image.h"
+#include "../Root/Physics.h"
+#include "../Graphics/Animation.h"
+#include "../Graphics/Tiler.h"
+#include "../Graphics/Image.h"
 
 #include "ElevatorShaft.h"
 

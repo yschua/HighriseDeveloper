@@ -174,100 +174,6 @@
 	</References>
 	<Files>
 		<Filter
-			Name="Header Files"
-			Filter="h;hpp;hxx;hm;inl;inc;xsd"
-			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
-			>
-			<File
-				RelativePath="..\animation.h"
-				>
-			</File>
-			<File
-				RelativePath="..\background.h"
-				>
-			</File>
-			<File
-				RelativePath="..\camera.h"
-				>
-			</File>
-			<File
-				RelativePath="..\citizens.h"
-				>
-			</File>
-			<File
-				RelativePath="..\clock.h"
-				>
-			</File>
-			<File
-				RelativePath="..\fireAnimation.h"
-				>
-			</File>
-			<File
-				RelativePath="..\highrisedev.h"
-				>
-			</File>
-			<File
-				RelativePath="..\highriseException.h"
-				>
-			</File>
-			<File
-				RelativePath="..\interface.h"
-				>
-			</File>
-			<File
-				RelativePath="..\person.h"
-				>
-			</File>
-			<File
-				RelativePath="..\personQueue.h"
-				>
-			</File>
-			<File
-				RelativePath="..\physics.h"
-				>
-			</File>
-			<File
-				RelativePath="..\resources.h"
-				>
-			</File>
-			<File
-				RelativePath="..\routes.h"
-				>
-			</File>
-			<File
-				RelativePath="..\routeVisitor.h"
-				>
-			</File>
-			<File
-				RelativePath="..\scene.h"
-				>
-			</File>
-			<File
-				RelativePath="..\sceneEvent.h"
-				>
-			</File>
-			<File
-				RelativePath="..\SerializerBase.h"
-				>
-			</File>
-			<File
-				RelativePath="..\stats.h"
-				>
-			</File>
-			<File
-				RelativePath="..\stdafx.h"
-				>
-			</File>
-			<File
-				RelativePath="..\tiler.h"
-				>
-			</File>
-			<File
-				RelativePath="..\XMLSerializer.h"
-				>
-			</File>
-		</Filter>
-		<Filter
 			Name="Resource Files"
 			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
@@ -277,11 +183,19 @@
 			Name="Window"
 			>
 			<File
-				RelativePath="..\Window\event.cpp"
+				RelativePath="..\Window\Clock.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\Window\event.h"
+				RelativePath="..\Window\Clock.h"
+				>
+			</File>
+			<File
+				RelativePath="..\Window\Event.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\Window\Event.h"
 				>
 			</File>
 			<File
@@ -297,7 +211,23 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\Window\guimanager.h"
+				RelativePath="..\Window\GUIManager.h"
+				>
+			</File>
+			<File
+				RelativePath="..\Window\Interface.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\Window\Interface.h"
+				>
+			</File>
+			<File
+				RelativePath="..\Window\Stats.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\Window\Stats.h"
 				>
 			</File>
 		</Filter>
@@ -317,6 +247,26 @@
 			Name="Graphics"
 			>
 			<File
+				RelativePath="..\Graphics\Animation.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\Graphics\Animation.h"
+				>
+			</File>
+			<File
+				RelativePath="..\Graphics\AnimationBase.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\Graphics\Camera.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\Graphics\Camera.h"
+				>
+			</File>
+			<File
 				RelativePath="..\Graphics\ErrorImage.cpp"
 				>
 			</File>
@@ -325,35 +275,51 @@
 				>
 			</File>
 			<File
-				RelativePath="..\image.cpp"
+				RelativePath="..\Graphics\FireAnimation.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\image.h"
+				RelativePath="..\Graphics\FireAnimation.h"
 				>
 			</File>
 			<File
-				RelativePath="..\Graphics\modelObject.cpp"
+				RelativePath="..\Graphics\Image.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\Graphics\modelObject.h"
+				RelativePath="..\Graphics\Image.h"
 				>
 			</File>
 			<File
-				RelativePath="..\Graphics\texture.cpp"
+				RelativePath="..\Graphics\ModelObject.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\Graphics\texture.h"
+				RelativePath="..\Graphics\ModelObject.h"
 				>
 			</File>
 			<File
-				RelativePath="..\Graphics\viewObject.cpp"
+				RelativePath="..\Graphics\Texture.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\Graphics\viewObject.h"
+				RelativePath="..\Graphics\Texture.h"
+				>
+			</File>
+			<File
+				RelativePath="..\Graphics\Tiler.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\Graphics\Tiler.h"
+				>
+			</File>
+			<File
+				RelativePath="..\Graphics\ViewObject.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\Graphics\ViewObject.h"
 				>
 			</File>
 		</Filter>
@@ -377,27 +343,27 @@
 			Name="AI"
 			>
 			<File
-				RelativePath="..\AI\citizensAgent.cpp"
+				RelativePath="..\AI\CitizensAgent.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\AI\citizensAgent.h"
+				RelativePath="..\AI\CitizensAgent.h"
 				>
 			</File>
 			<File
-				RelativePath="..\AI\floorAgent.cpp"
+				RelativePath="..\AI\FloorAgent.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\AI\floorAgent.h"
+				RelativePath="..\AI\FloorAgent.h"
 				>
 			</File>
 			<File
-				RelativePath="..\AI\pathAgent.cpp"
+				RelativePath="..\AI\PathAgent.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\AI\pathAgent.h"
+				RelativePath="..\AI\PathAgent.h"
 				>
 			</File>
 		</Filter>
@@ -405,305 +371,139 @@
 			Name="Tower"
 			>
 			<File
-				RelativePath="..\Tower\apartment.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)\$(InputName)1.obj"
-						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)\$(InputName)1.obj"
-						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\Tower\apartment.h"
+				RelativePath="..\Tower\Apartment.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\Tower\buildStrategies.cpp"
+				RelativePath="..\Tower\Apartment.h"
 				>
 			</File>
 			<File
-				RelativePath="..\Tower\damage.cpp"
+				RelativePath="..\Tower\BuildStrategies.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\Tower\damage.h"
+				RelativePath="..\Tower\BuildStrategies.h"
 				>
 			</File>
 			<File
-				RelativePath="..\Tower\elevator.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)\$(InputName)1.obj"
-						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)\$(InputName)1.obj"
-						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\Tower\elevator.h"
+				RelativePath="..\Tower\Damage.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\Tower\elevatorBase.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)\$(InputName)1.obj"
-						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)\$(InputName)1.obj"
-						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\Tower\elevatorBase.h"
+				RelativePath="..\Tower\Damage.h"
 				>
 			</File>
 			<File
-				RelativePath="..\Tower\elevatorMachine.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)\$(InputName)1.obj"
-						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)\$(InputName)1.obj"
-						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\Tower\elevatorMachine.h"
+				RelativePath="..\Tower\Elevator.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\Tower\elevatorPit.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)\$(InputName)1.obj"
-						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)\$(InputName)1.obj"
-						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\Tower\elevatorPit.h"
+				RelativePath="..\Tower\Elevator.h"
 				>
 			</File>
 			<File
-				RelativePath="..\Tower\elevatorShaft.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)\$(InputName)1.obj"
-						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)\$(InputName)1.obj"
-						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\Tower\elevatorShaft.h"
+				RelativePath="..\Tower\ElevatorBase.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\Tower\floorbase.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)\$(InputName)1.obj"
-						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)\$(InputName)1.obj"
-						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\Tower\floorBase.h"
+				RelativePath="..\Tower\ElevatorBase.h"
 				>
 			</File>
 			<File
-				RelativePath="..\Tower\level.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)\$(InputName)1.obj"
-						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)\$(InputName)1.obj"
-						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\Tower\level.h"
+				RelativePath="..\Tower\ElevatorMachine.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\Tower\lobby.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)\$(InputName)1.obj"
-						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)\$(InputName)1.obj"
-						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\Tower\lobby.h"
+				RelativePath="..\Tower\ElevatorMachine.h"
 				>
 			</File>
 			<File
-				RelativePath="..\Tower\office.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)\$(InputName)1.obj"
-						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)\$(InputName)1.obj"
-						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\Tower\office.h"
+				RelativePath="..\Tower\ElevatorPit.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\Tower\tower.cpp"
+				RelativePath="..\Tower\ElevatorPit.h"
 				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)\$(InputName)1.obj"
-						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)\$(InputName)1.obj"
-						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\Tower\tower.h"
+				RelativePath="..\Tower\ElevatorShaft.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\Tower\ElevatorShaft.h"
+				>
+			</File>
+			<File
+				RelativePath="..\Tower\FloorBase.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\Tower\FloorBase.h"
+				>
+			</File>
+			<File
+				RelativePath="..\Tower\Level.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\Tower\Level.h"
+				>
+			</File>
+			<File
+				RelativePath="..\Tower\Lobby.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\Tower\Lobby.h"
+				>
+			</File>
+			<File
+				RelativePath="..\Tower\Office.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\Tower\Office.h"
+				>
+			</File>
+			<File
+				RelativePath="..\Tower\PersonQueue.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\Tower\PersonQueue.h"
+				>
+			</File>
+			<File
+				RelativePath="..\Tower\RouteBase.h"
+				>
+			</File>
+			<File
+				RelativePath="..\Tower\Routes.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\Tower\Routes.h"
+				>
+			</File>
+			<File
+				RelativePath="..\Tower\Tower.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\Tower\Tower.h"
 				>
 			</File>
 			<File
 				RelativePath="..\Tower\TowerDebug.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\Tower\TowerLoad.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\Tower\TowerLoad.h"
 				>
 			</File>
 		</Filter>
@@ -736,103 +536,109 @@
 			</File>
 		</Filter>
 		<Filter
-			Name="Source Files"
-			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
-			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
+			Name="Root"
 			>
 			<File
-				RelativePath="..\animation.cpp"
+				RelativePath="..\Root\GameManager.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\animationBase.cpp"
+				RelativePath="..\Root\GameManager.h"
 				>
 			</File>
 			<File
-				RelativePath="..\background.cpp"
+				RelativePath="..\Root\HighRiseException.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\camera.cpp"
+				RelativePath="..\Root\HighRiseException.h"
 				>
 			</File>
 			<File
-				RelativePath="..\citizens.cpp"
+				RelativePath="..\Root\Physics.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\clock.cpp"
+				RelativePath="..\Root\Physics.h"
 				>
 			</File>
 			<File
-				RelativePath="..\fireAnimation.cpp"
+				RelativePath="..\Root\RouteVisitor.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\GameManager.cpp"
+				RelativePath="..\Root\RouteVisitor.h"
 				>
 			</File>
 			<File
-				RelativePath="..\GameManager.h"
+				RelativePath="..\Root\SceneEvent.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\highrisedev.cpp"
+				RelativePath="..\Root\SceneEvent.h"
 				>
 			</File>
 			<File
-				RelativePath="..\highRiseException.cpp"
+				RelativePath="..\Root\SerializerBase.h"
 				>
 			</File>
 			<File
-				RelativePath="..\interface.cpp"
+				RelativePath="..\Root\XMLSerializer.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\person.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\personQueue.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\physics.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\routes.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\routeVisitor.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\scene.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\sceneEvent.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\stats.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\stdafx.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\tiler.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\XMLSerializer.cpp"
+				RelativePath="..\Root\XMLSerializer.h"
 				>
 			</File>
 		</Filter>
+		<Filter
+			Name="Scene"
+			>
+			<File
+				RelativePath="..\Scene\Background.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\Scene\Background.h"
+				>
+			</File>
+			<File
+				RelativePath="..\Scene\Scene.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\Scene\Scene.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="People"
+			>
+			<File
+				RelativePath="..\People\Citizens.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\People\Citizens.h"
+				>
+			</File>
+			<File
+				RelativePath="..\People\Person.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\People\Person.h"
+				>
+			</File>
+		</Filter>
+		<File
+			RelativePath="..\HighRiseDev.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\HighRiseDev.h"
+			>
+		</File>
 		<File
 			RelativePath=".\ReadMe.txt"
 			>

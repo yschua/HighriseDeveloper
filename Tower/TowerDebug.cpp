@@ -18,12 +18,10 @@
 #include <vector> // changed from list to vector so the collection can be scrolled in up and down
 #include <list>
 
-#include "../xml/tinyxml/tinyxml.h"
-#include "../Animation.h"
-//#include "Tiler.h"
-#include "../Image.h"
-#include "../Routes.h"
-#include "../Physics.h"
+#include "../Root/Physics.h"
+#include "../Graphics/Animation.h"
+#include "../Graphics/Image.h"
+#include "Routes.h"
 #include "ElevatorBase.h"
 #include "Elevator.h"
 #include "FloorBase.h"
@@ -34,7 +32,7 @@
 #include "Damage.h"
 #include "Tower.h"
 
-#include "../HighRiseException.h"
+#include "../Root/HighRiseException.h"
 // This is a debug stub to load a building for early dev
 
 void

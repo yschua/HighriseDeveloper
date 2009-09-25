@@ -14,20 +14,20 @@
  *along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "Resources.h"
+#include "../Resources.h"
 
 #include <iostream>
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
-#include "Physics.h"
+#include "../Root/Physics.h"
+#include "../Scene/Scene.h"
+#include "../AI/CitizensAgent.h"
+#include "../AI/CitizensAgent.h"
+
 #include "Image.h"
 #include "Animation.h"
-#include "Scene.h"
-#include "AI/CitizensAgent.h"
-#include "AI/CitizensAgent.h"
-
-#include "Graphics/ModelObject.h"   // 3d abstract
-#include "Graphics/ViewObject.h"    // 2d abstract
+#include "ModelObject.h"   // 3d abstract
+#include "ViewObject.h"    // 2d abstract
 
 #include "Camera.h"
 

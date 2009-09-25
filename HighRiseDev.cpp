@@ -15,22 +15,22 @@
  */
 
 #include <iostream>
+#include <CEGUI.h>
 
-#include "Camera.h"
+#include "Graphics/Camera.h"
 
 #include "AI/CitizensAgent.h"
 //#include "AI/PathAgent.h"
 //#include "AI/FloorAgent.h"
 
-#include "Routes.h"
-#include "Background.h"
+#include "Tower/Routes.h"
 #include "Tower/Tower.h"
-#include "Scene.h"
+#include "Scene/Background.h"
+#include "Scene/Scene.h"
 
-#include <CEGUI.h>
 
 #include "Window/GUIManager.h"
-#include "SceneEvent.h"
+#include "Root/SceneEvent.h"
 
 #include "HighRiseDev.h"
 

@@ -17,10 +17,10 @@
 #include <iostream>
 #include <map>
 #include <vector>
-#include "../Physics.h"
-#include "../Image.h"
-#include "../Animation.h"
-#include "../SerializerBase.h"
+#include "../Root/Physics.h"
+#include "../Graphics/Image.h"
+#include "../Graphics/Animation.h"
+#include "../Root/SerializerBase.h"
 
 #include "FloorBase.h"
 #include "../Types/String.h"

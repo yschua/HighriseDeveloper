@@ -2,24 +2,25 @@
 #include <vector>
 #include <list>
 #include <map>
-#include "Routes.h"
-#include "Physics.h"
-#include "Graphics/Texture.h"
-#include "xml/tinyxml/tinyxml.h"
-#include "XMLSerializer.h"
+#include "../Types/String.h"
 
-#include "Types/String.h"
-#include "Tower/FloorBase.h"
-#include "Tower/Level.h"
-#include "Tower/Office.h"
-#include "Tower/Apartment.h"
-#include "Tower/Lobby.h"
-#include "Tower/Tower.h"
-#include "Tower/RouteBase.h"  // Elevators route (levels).
-#include "Tower/ElevatorBase.h"
-#include "Tower/Elevator.h"
-#include "Routes.h"
-#include "Scene.h"
+#include "../xml/tinyxml/tinyxml.h"
+#include "Physics.h"
+#include "XMLSerializer.h"
+#include "../Graphics/Texture.h"
+
+#include "../Tower/Routes.h"
+#include "../Tower/Routes.h"
+#include "../Tower/FloorBase.h"
+#include "../Tower/Level.h"
+#include "../Tower/Office.h"
+#include "../Tower/Apartment.h"
+#include "../Tower/Lobby.h"
+#include "../Tower/Tower.h"
+#include "../Tower/RouteBase.h"  // Elevators route (levels).
+#include "../Tower/ElevatorBase.h"
+#include "../Tower/Elevator.h"
+#include "../Scene/Scene.h"
 
 #include "GameManager.h"
 

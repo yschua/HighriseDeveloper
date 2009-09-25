@@ -20,13 +20,13 @@
 #ifndef _SCENE_EVENT
 #define _SCENE_EVENT
 
-#include "Resources.h"
+#include "../Resources.h"
 
 // Include libraries first
 #include <utility>
 #include <cstring>
 
-#include "Window/Event.h"  // event base
+#include "../Window/Event.h"  // event base
 
 class Scene;
 

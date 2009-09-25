@@ -14,17 +14,15 @@
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
-//#ifdef WIN32
 #include <iostream>
-#include "SceneEvent.h"
 
 // Then user-defined types
-#include "Scene.h"
-#include "GameManager.h" // xml saver
+#include "../Scene/Scene.h"
+#include "../Graphics/Camera.h"
+#include "../Window/Event.h"
 
-#include "Camera.h"
-#include "Window/Event.h"
+#include "GameManager.h" // xml saver
+#include "SceneEvent.h"
 
 SceneEvent::SceneEvent(Scene* pScene)
 {

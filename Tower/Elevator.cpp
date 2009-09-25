@@ -23,6 +23,7 @@
 #include "../Animation.h"
 #include "../Tiler.h"
 #include "../RouteVisitor.h"  // class that will Update the elevators route request queue
+#include "../SerializerBase.h"
 
 #include "RouteBase.h"  // Elevators route (levels).
 #include "ElevatorBase.h"
@@ -89,6 +90,26 @@ Elevator::Elevator ( Lift_Styles style, int x, short BottomLevel, short TopLevel
    mLiftMachine = new ElevatorMachine( x, mTopLevel+1, this );
    mLiftPit->SetPosition ((float)x, (float)(mBottomLevel-1) * -36 ); // neg 36 so it becomed positive for model view
    mElevatorShaft = new ElevatorShaft( x, mTopLevel, mBottomLevel-1, this );
+}
+
+Elevator::Elevator( SerializerBase& ser, short TopLevel, Tower * TowerParent )
+:  Body(32, 32)
+,  mTowerParent( TowerParent )
+{
+   //"type", "standard elevator"
+   mNumber = ser.GetInt( "number" );
+   mX = ser.GetInt( "startx" );
+   mY = ser.GetInt( "starty" );
+   mZ = ser.GetFloat( "startz" );
+   mTopLevel = (short)ser.GetInt( "toplevel" );
+   mBottomLevel = (short)ser.GetInt( "bottomlevel" );
+   mPosition = (short)ser.GetInt( "position" );
+   mDirection = (short)ser.GetInt( "direction" );
+   mIdleTime = (short)ser.GetInt( "idletime" );
+   mEnd2 = (short)ser.GetInt( "end2" );
+   mOffset = (short)ser.GetInt( "offset" );
+   mRidersOnBoard = (short)ser.GetInt( "ridersonboard" );
+   mMaxCap = (short)ser.GetInt( "maxcap" );
 }
 
 Elevator::~Elevator()
@@ -309,4 +330,24 @@ Elevator::Draw ()
 //   mcam->Draw (*mElevatorImage);
    Render (mLiftPit);
    Render (mElevatorImage);
+}
+
+void Elevator::Save( SerializerBase& ser )
+{
+   ser.Add( "type", "standard elevator" );
+   ser.Add( "number", mNumber );
+   ser.Add( "startx", mX );
+   ser.Add( "starty", mY );
+   ser.Add( "startz", mZ );
+   ser.Add( "toplevel", mTopLevel );
+   ser.Add( "bottomlevel", mBottomLevel );
+   ser.Add( "position", mPosition );
+   ser.Add( "direction", mDirection );
+   ser.Add( "idletime", mIdleTime );
+   ser.Add( "end2", mEnd2 );
+   ser.Add( "offset", mOffset );
+   ser.Add( "ridersonboard", mRidersOnBoard );
+   ser.Add( "maxcap", mMaxCap );
+//   ser.Add( "riders", mRiders, sizeof(mRiders) );
+//   ser.Add( "stops", mStops, sizeof(mStops) );
 }

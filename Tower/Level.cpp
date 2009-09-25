@@ -74,10 +74,10 @@ Level::Level (int level, int x, int y, int x2, Tower * TowerParent)
    SetFloorPositions( x, x2 );
 }
 
-Level::Level(TiXmlNode* pnLevel) {
-   TiXmlNode* pnNum = pnLevel->FirstChild("number");
-
-}
+//Level::Level(TiXmlNode* pnLevel)
+//{
+//   TiXmlNode* pnNum = pnLevel->FirstChild("number");
+//}
 
 Level::~Level()
 {
@@ -180,7 +180,7 @@ Level::DrawEmptyFramework ()
          if (mpFloorSpaceGrid[i] == 0)
          {
             int x = i * 9;
-            RenderFramework (mEmptyFLoor, mX + x, mX + x + 9, i+1);
+            RenderFramework (mEmptyFLoor, (float)(mX + x), (float)(mX + x + 9), i+1);
          }
       }
    }

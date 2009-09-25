@@ -63,11 +63,14 @@ public:
    inline Scene& GetScene() { return mScene; }
 
 protected:
-   inline std::vector<Level *>& Get_Levels()
+   inline LevelVector& GetLevels()
    {
       return mLevels;
    }
-
+   inline Routes::RoutesVector& GetRouteList()
+   {
+      return mRoutes.GetRoutes();
+   }
    // methods
 public:
    Level* NewLevel (int x, int y, int x2);

@@ -17,6 +17,7 @@
 #ifndef _ROUTEBASE_H
 #define _ROUTEBASE_H
 class RouteVisitor;
+class SerializerBase; // visitor;
 
 class RouteBase // Abstract, does not even have a CPP file at this point.
 {
@@ -27,6 +28,7 @@ public:
    virtual void SetFloorButton( RouteVisitor* visitor ) = 0;      // once inside, select a floor
    virtual void Update (float dt) = 0;
    virtual void Draw () = 0;
+   virtual void Save( SerializerBase& ser ) = 0;
 };
 
 #endif //_ROUTEBASE_H

@@ -135,10 +135,10 @@ void CitizensAgent::Update (float dt)
                   default:
                      //Routes* routeList = Routes::GetInstance();
                      Routes& routeList = mTower.GetRoutes();
-                     if (  routeList.Get_Routes().size() > 0 )
+                     if (  routeList.GetRoutes().size() > 0 )
                      {
                         std::vector<RouteBase*>::iterator i;
-                        i = routeList.Get_Routes().begin ();
+                        i = routeList.GetRoutes().begin ();
                         RouteBase* route = (*i);
                         RoutingRequest req;     // routing code needs to queue this person
                         req.OriginLevel = curLevel;
@@ -195,10 +195,10 @@ void CitizensAgent::Update (float dt)
                   default:
                      //Routes* routeList = Routes::GetInstance();
                      Routes& routeList = mTower.GetRoutes();
-                     if ( routeList.Get_Routes().size() > 0 )
+                     if ( routeList.GetRoutes().size() > 0 )
                      {
                         std::vector<RouteBase*>::iterator i;
-                        i = routeList.Get_Routes().begin ();
+                        i = routeList.GetRoutes().begin ();
                         i++;  // go home on the 2nd elevator
                         RouteBase* route = (*i);
                         RoutingRequest req;

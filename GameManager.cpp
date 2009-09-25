@@ -15,6 +15,10 @@
 #include "Tower/Apartment.h"
 #include "Tower/Lobby.h"
 #include "Tower/Tower.h"
+#include "Tower/RouteBase.h"  // Elevators route (levels).
+#include "Tower/ElevatorBase.h"
+#include "Tower/Elevator.h"
+#include "Routes.h"
 #include "Scene.h"
 
 #include "GameManager.h"
@@ -190,21 +194,33 @@ bool GameManager::LoadTower(TiXmlNode* pnTower, Tower* pTower)
 bool GameManager::SaveTower(TiXmlElement* pnTower, Tower* pTower)
 {
    Tower::LevelIterator it;
-   Tower::LevelVector& theLevels = pTower->Get_Levels();     // Lobby is at mNo_SubLevels not zero
+   Tower::LevelVector& theLevels = pTower->GetLevels();     // Lobby is at mNo_SubLevels not zero
 
    for (it=theLevels.begin(); it!=theLevels.end(); it++)
    {
       Level* pLevel = (*it);
       TiXmlElement* pnLevel = new TiXmlElement("level");
-//      pLevel->Save(XMLSerializer(pnLevel));
+      XMLSerializer xmlLevel( pnLevel );
+      pLevel->Save( xmlLevel );
       pnTower->LinkEndChild(pnLevel);
       std::vector<FloorBase*>& fps = pLevel->GetFloorSpaces();
       for (unsigned int i = 0; i < fps.size(); i++)
       {
          TiXmlElement* pnSpace = new TiXmlElement("room");
-//         fps[i]->Save(XMLSerializer(pnSpace));
+         XMLSerializer xmlRoom(pnSpace);
+         fps[i]->Save( xmlRoom );
          pnLevel->LinkEndChild(pnSpace);
       }
+   }
+   Routes::RoutesVector& routes = pTower->GetRouteList();
+   Routes::RouteIterator iR;
+   for (iR=routes.begin(); iR!=routes.end(); iR++)
+   {
+      TiXmlElement* pnEle = new TiXmlElement("elevator");
+      RouteBase* pR = *(iR);
+      XMLSerializer xmlEle( pnEle );
+      pR->Save( xmlEle );
+      pnTower->LinkEndChild(pnEle);
    }
    return true;
 }

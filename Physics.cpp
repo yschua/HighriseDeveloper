@@ -26,8 +26,8 @@ Body::Body (int width, int height)
    ms = Vector3f(0,0,0);
    mv = Vector2f(0,0);
    ma = Vector2f(0,0);
-   mWidth = Vector3f (width, 0, 0);
-   mHeight = Vector3f (0, height, 0);
+   mWidth = Vector3f ((float)width, 0, 0);
+   mHeight = Vector3f (0, (float)height, 0);
    mDepth = Vector3f (0, 0, 1);
    
 }
@@ -37,8 +37,8 @@ Body::Body (Vector3f Pos, int width, int height)
    ms = Pos;
    mv = Vector2f(0,0);
    ma = Vector2f(0,0);
-   mWidth = Vector3f (width, 0, 0);
-   mHeight = Vector3f (0, height, 0);
+   mWidth = Vector3f ((float)width, 0, 0);
+   mHeight = Vector3f (0, (float)height, 0);
    mDepth = Vector3f (0, 0, 1);
 }
 
@@ -47,8 +47,8 @@ Body::Body (float x, float y, int width, int height)
    ms = Vector3f(x,y,0);
    mv = Vector2f(0,0);
    ma = Vector2f(0,0);
-   mWidth = Vector3f (width, 0, 0);
-   mHeight = Vector3f (0, height, 0);
+   mWidth = Vector3f ((float)width, 0, 0);
+   mHeight = Vector3f (0, (float)height, 0);
    mDepth = Vector3f (0, 0, 1);
 }
 

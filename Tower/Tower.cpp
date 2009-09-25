@@ -65,40 +65,26 @@ Level* Tower::NewLevel (int x, int y, int x2)
    return floor;
 }
 
-//level* Tower::newSubLevel( )
-//{
-//   int level = mLevels.size();
-//   level* floor = new level( -level);
-//   mSubLevels.push_back (floor);
-//   return floor;
-//}
-//void Tower::DebugLoad(int x, int y, int z) {
-//   // Do something//
-//}
-
 Level* Tower::GetLevel( int level ) // positive gets you a level above, negative gets you a basement level
 {
    // What is the point of all this? Why not just store the levels in an std::map<int, CLevel>?
-   int index = level + mNo_SubLevels;
+   std::vector<Level*>::size_type index = level + mNo_SubLevels;
    while (index > mLevels.size())
-      NewLevel(400,mLevels.size(),724);
+      NewLevel(400,(int)mLevels.size(),724);
    return mLevels[index];
 }
 
 Level* Tower::FindLevel(int id)
 {
-   //Level* pLevel = NULL;
    std::vector<Level *>::iterator iLevel;
    for (iLevel = mLevels.begin (); iLevel != mLevels.end (); ++iLevel)
    {
       if ((*iLevel)->GetID() == id )
       {
          return *iLevel;// = (*iLevel);
-         //break;
       }
    }
    return NULL;
-   //return pLevel;
 }
 
 

@@ -33,6 +33,7 @@ class ElevatorShaft;   // holds the tiler to show the shaft
 class ElevatorPit;     // landing pit below
 class Person;
 class Tower;
+class SerializerBase;
 
 #include "../Physics.h"
 #include "RouteBase.h"
@@ -134,6 +135,7 @@ protected:
 public:
    // CTOR/DTOR  Use create to make on
    Elevator( Lift_Styles style, int x, short BottLevel, short TopLevel, Tower * TowerParent );
+   Elevator( SerializerBase& ser, short TopLevel, Tower * TowerParent );
    virtual ~Elevator();
 
    static Elevator* Create( Lift_Styles style, int x, short BottomLevel, short TopLevel, Tower * TowerParent );  // this is rejected for som reason
@@ -159,7 +161,8 @@ public:
    virtual void Update (float dt);
    virtual void Draw ();
    virtual void DrawFramework () { } // later we do lifts to
-
+   
+   void Save( SerializerBase& ser );
 };
 
 #endif

@@ -23,8 +23,8 @@ class Vector2
     template <class U>
     Vector2(const Vector2<U>& Other)
     {
-        x = (U)Other.x;
-        y = (U)Other.y;
+        x = (T)Other.x;
+        y = (T)Other.y;
     }
     template <class U>
     Vector2& operator+(const Vector2<U>& Other)

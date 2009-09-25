@@ -82,7 +82,7 @@ public:
    // CTOR
    Level (int level, int x, int y, int x2, Tower * TowerParent);
    // Initialize from an xml node
-   Level (TiXmlNode*);
+//   Level (TiXmlNode*);
    virtual ~Level ();
 
 public:
@@ -118,7 +118,6 @@ public:
    void AddRouteToQueue (RouteBase* pElevator);  // set and remove the elevator stops
    void RemoveRouteFromQueue (RouteBase* pElevator);
 
-//   bool Save(TiXmlElement*);
    void Save(SerializerBase& ser);
 };
 

@@ -64,3 +64,14 @@ void XMLSerializer::AddChild( const char* tag )
    TiXmlElement* pnSpace = new TiXmlElement(tag);
    mpnParent->LinkEndChild(pnSpace);
 }
+
+float XMLSerializer::GetFloat( const char* tag )
+{
+   return 0.0;
+}
+
+int XMLSerializer::GetInt( const char* tag )
+{
+   return 0;
+}
+

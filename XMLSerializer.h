@@ -36,6 +36,8 @@ public:
    void Add( const char* tag, int val );
    void Add( const char* tag, float val );
    void Add( const char* tag, const char* str );
+   float GetFloat( const char* tag );
+   int   GetInt( const char* tag );
 };
 
 #endif // _XMLSERIALIZER_H

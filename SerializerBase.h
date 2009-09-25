@@ -21,7 +21,7 @@
 
 // NO CPP
 
-class SerializerBase
+class SerializerBase // abstract
 {
 public:
    SerializerBase () {};
@@ -30,6 +30,8 @@ public:
    virtual void Add( const char* tag, int val ) = 0;
    virtual void Add( const char* tag, float val ) = 0;
    virtual void Add( const char* tag, const char* tr ) = 0;
+   virtual float GetFloat( const char* tag ) = 0;
+   virtual int GetInt( const char* tag ) = 0;
 };
 
 #endif // _SERIALIZERBASE_H

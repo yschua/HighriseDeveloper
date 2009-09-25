@@ -34,7 +34,7 @@ private:
    Scene& mScene;
 
 public:
-   GameManager::GameManager( Scene& scene);
+   GameManager( Scene& scene);
    ~GameManager() {}
    bool LoadGame(const char* fileName);
    bool SaveGame(const char* fileName);

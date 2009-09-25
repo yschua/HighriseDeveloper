@@ -17,14 +17,14 @@
 #include <iostream>
 #include <map>
 #include <vector>
-#include "../physics.h"
-#include "../image.h"
-#include "../animation.h"
-#include "floorBase.h"
+#include "../Physics.h"
+#include "../Image.h"
+#include "../Animation.h"
+#include "FloorBase.h"
 #include "../SerializerBase.h"
 #include "../Types/String.h"
 
-#include "office.h"
+#include "Office.h"
 
 using namespace Gfx;
 

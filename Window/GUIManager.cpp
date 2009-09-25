@@ -1,8 +1,8 @@
 #include <SFML/System.hpp>
 #include <string>
-#include "../highriseException.h"
+#include "../HighRiseException.h"
 
-#include "../sceneEvent.h"
+#include "../SceneEvent.h"
 #include "GUIManager.h"
 
 GUIManager::GUIManager(SceneEvent& rse) //, Tower* Tower) can't pass a tower as there will be more than one. Think events

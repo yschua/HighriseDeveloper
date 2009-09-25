@@ -18,21 +18,21 @@
 
 #include "Camera.h"
 
-#include "AI/citizensAgent.h"
-//#include "AI/pathAgent.h"
-//#include "AI/floorAgent.h"
+#include "AI/CitizensAgent.h"
+//#include "AI/PathAgent.h"
+//#include "AI/FloorAgent.h"
 
-#include "routes.h"
-#include "background.h"
-#include "Tower/tower.h"
-#include "scene.h"
+#include "Routes.h"
+#include "Background.h"
+#include "Tower/Tower.h"
+#include "Scene.h"
 
 #include <CEGUI.h>
 
 #include "Window/GUIManager.h"
-#include "sceneEvent.h"
+#include "SceneEvent.h"
 
-#include "highrisedev.h"
+#include "HighRiseDev.h"
 
 void debugprint()
 {

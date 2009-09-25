@@ -27,10 +27,10 @@
 #include "../PersonQueue.h"
 #include "../SerializerBase.h"
 
-#include "floorBase.h"
-#include "level.h"
+#include "FloorBase.h"
+#include "Level.h"
 
-#include "../highriseException.h"
+#include "../HighRiseException.h"
 
 #include "../Types/String.h"
 

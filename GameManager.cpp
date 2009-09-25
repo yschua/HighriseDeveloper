@@ -4,7 +4,7 @@
 #include <map>
 #include "Routes.h"
 #include "Physics.h"
-#include "Graphics/texture.h"
+#include "Graphics/Texture.h"
 #include "xml/tinyxml/tinyxml.h"
 #include "XMLSerializer.h"
 
@@ -196,13 +196,13 @@ bool GameManager::SaveTower(TiXmlElement* pnTower, Tower* pTower)
    {
       Level* pLevel = (*it);
       TiXmlElement* pnLevel = new TiXmlElement("level");
-      pLevel->Save(XMLSerializer(pnLevel));
+//      pLevel->Save(XMLSerializer(pnLevel));
       pnTower->LinkEndChild(pnLevel);
       std::vector<FloorBase*>& fps = pLevel->GetFloorSpaces();
       for (unsigned int i = 0; i < fps.size(); i++)
       {
          TiXmlElement* pnSpace = new TiXmlElement("room");
-         fps[i]->Save(XMLSerializer(pnSpace));
+//         fps[i]->Save(XMLSerializer(pnSpace));
          pnLevel->LinkEndChild(pnSpace);
       }
    }

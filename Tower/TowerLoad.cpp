@@ -9,7 +9,7 @@
 #include "Apartment.h"
 #include "Tower.h"
 
-bool Tower::Load(TiXmlNode* nTower)
+/*bool Tower::Load(TiXmlNode* nTower)
 {
    // TODO: move the XML code outside the tower and create an attribute system (class serializer) to move the data
    //       possibly a brige system or visitor patterm
@@ -98,4 +98,4 @@ bool Tower::Save(TiXmlElement* Parent) {
       Parent->LinkEndChild(pnLevel);
    }
    return true;
-}
+}*/

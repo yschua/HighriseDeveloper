@@ -17,9 +17,9 @@
 // People that make the tower thrive.
 
 #include <iostream>
-#include "person.h"
-#include "image.h"
-#include "animation.h"
+#include "Person.h"
+#include "Image.h"
+#include "Animation.h"
 
 Person::Person (Location& loc)
 {
@@ -31,7 +31,7 @@ Person::Person (Location& loc)
    mCurrentState = CS_Idle;
    mLocation = loc;    // copy
    ImageManager * pImageMam = ImageManager::GetInstance ();
-   Texture* ptexHappy =pImageMam->GetTexture ("person_h.png", GL_RGBA);
+   Texture* ptexHappy =pImageMam->GetTexture ("Person.h.png", GL_RGBA);
    Texture* ptexAnnoied =pImageMam->GetTexture ("person_a.png", GL_RGBA);
    Texture* ptexMad =pImageMam->GetTexture ("person_m.png", GL_RGBA);
 

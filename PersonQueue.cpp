@@ -17,11 +17,11 @@
 // head and tail queue. People in and out while waiting for elevators, trams, rail and buses.
 #include <iostream>
 #include <vector>
-#include "person.h"
-#include "Tower/elevator.h"
-#include "AI/citizensAgent.h"
-#include "AI/pathAgent.h"
-#include "personQueue.h"
+#include "Person.h"
+#include "Tower/Elevator.h"
+#include "AI/CitizensAgent.h"
+#include "AI/PathAgent.h"
+#include "PersonQueue.h"
 
 PersonQueue::PersonQueue()
 {

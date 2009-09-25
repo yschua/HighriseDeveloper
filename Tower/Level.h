@@ -19,7 +19,7 @@
 
 #include <list>
 
-#include "../Graphics/modelObject.h"
+#include "../Graphics/ModelObject.h"
 #include "../xml/tinyxml/tinyxml.h"
 #include "FloorBase.h"
 
@@ -119,7 +119,7 @@ public:
    void RemoveRouteFromQueue (RouteBase* pElevator);
 
 //   bool Save(TiXmlElement*);
-   void Level::Save(SerializerBase& ser);
+   void Save(SerializerBase& ser);
 };
 
 #endif

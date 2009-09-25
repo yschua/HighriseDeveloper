@@ -22,7 +22,7 @@
 #define _PERSON_H
 
 #include <map>
-#include "Graphics/modelObject.h"
+#include "Graphics/ModelObject.h"
 class AnimationSingle;
 
 // temporary home for some structures
@@ -115,7 +115,7 @@ public:
 
    enum Current_State   // had to add this to describe what a person is doing while heading to work, home or play.
    {
-      // may also cover other activities. A person heading to work may also be stuck in an elevator queue.
+      // may also cover other activities. A Person.heading to work may also be stuck in an elevator queue.
       CS_Idle = 0,      // Idle is defined as doing nothing
       CS_Busy,          // Waiting for a timed event to trigger their next move. At work, sleeping etc.
       CS_Walking,       // Ok good, going somewhere

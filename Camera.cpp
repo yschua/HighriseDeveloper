@@ -345,7 +345,7 @@ Camera::Zoom(float Factor)
 {
    //Rectf ZoomedRect;
    // Calcuate the center
-   if( Factor < 0 && mZoomFactor > -900 || Factor > 0 && mZoomFactor < -40 )
+   if(( Factor < 0 && mZoomFactor > -900 )||( Factor > 0 && mZoomFactor < -40 ))
    {
       mZoomFactor += Factor;
    }

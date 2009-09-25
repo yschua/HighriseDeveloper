@@ -103,7 +103,6 @@
 		<Unit filename="People/Citizens.h" />
 		<Unit filename="People/Person.cpp" />
 		<Unit filename="People/Person.h" />
-		<Unit filename="ReadMe.txt" />
 		<Unit filename="Root/GameManager.cpp" />
 		<Unit filename="Root/GameManager.h" />
 		<Unit filename="Root/HighRiseException.cpp" />
@@ -123,8 +122,6 @@
 		<Unit filename="Scene/Scene.h" />
 		<Unit filename="Settings/Settings.cpp" />
 		<Unit filename="Settings/Settings.h" />
-		<Unit filename="Stats.cpp" />
-		<Unit filename="Stats.h" />
 		<Unit filename="Tower/Apartment.cpp" />
 		<Unit filename="Tower/Apartment.h" />
 		<Unit filename="Tower/BuildStrategies.cpp" />
@@ -154,6 +151,8 @@
 		<Unit filename="Tower/RouteBase.h" />
 		<Unit filename="Tower/Routes.cpp" />
 		<Unit filename="Tower/Routes.h" />
+		<Unit filename="Tower/SingleStair.cpp" />
+		<Unit filename="Tower/SingleStair" />
 		<Unit filename="Tower/Tower.cpp" />
 		<Unit filename="Tower/Tower.h" />
 		<Unit filename="Tower/TowerDebug.cpp" />
@@ -173,9 +172,9 @@
 		<Unit filename="Window/GUIManager.h" />
 		<Unit filename="Window/Interface.cpp" />
 		<Unit filename="Window/Interface.h" />
+		<Unit filename="Window/Stats.cpp" />
+		<Unit filename="Window/Stats.h" />
 		<Unit filename="Window/TODO" />
-		<Unit filename="stdafx.cpp" />
-		<Unit filename="stdafx.h" />
 		<Unit filename="xml/tinyxml/tinystr.cpp" />
 		<Unit filename="xml/tinyxml/tinystr.h" />
 		<Unit filename="xml/tinyxml/tinyxml.cpp" />

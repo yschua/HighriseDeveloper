@@ -31,8 +31,9 @@ class GameManager;
 class Routes;
 class Person;
 class Scene;
-class TiXmlElement;
-class TiXmlNode;
+//class TiXmlElement;
+//class TiXmlNode;
+class BuildStairStategy;
 
 // Tower is a ModelObject along with all the FloorSpace entities
 // This renderes the Tower in the ModelSpaces with perspective, pan and zoom.
@@ -40,6 +41,7 @@ class Tower : public Gfx::ModelObject
 {
    friend class TowerAgent;
    friend class GameManager;
+   friend class BuildStairStategy;
 
    int mTowerNo;
    int mNo_SubLevels;

@@ -45,6 +45,7 @@ GUIManager::GUIManager(SceneEvent& rse) //, Tower* Tower) can't pass a tower as 
       LoadLayout("Menu.layout");
       mpWM->getWindow((CEGUI::utf8*)"BnOffice")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&GUIManager::OnOffice, this));
       mpWM->getWindow((CEGUI::utf8*)"BnApartment")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&GUIManager::OnApartment, this));
+      mpWM->getWindow((CEGUI::utf8*)"BnStairs")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&GUIManager::OnStairs, this));
       // elevator
       mpWM->getWindow((CEGUI::utf8*)"MenuBackground/Open")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&GUIManager::OnOpen, this));
       mpWM->getWindow((CEGUI::utf8*)"MenuBackground/Save")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&GUIManager::OnSave, this));
@@ -85,8 +86,7 @@ void GUIManager::Draw()
 
 /* Handling events... */
 
-bool
-GUIManager::OnOffice (const CEGUI::EventArgs& e)
+bool GUIManager::OnOffice (const CEGUI::EventArgs& e)
 {
    // set FloorPlacement to Office
    // route mouse clicks that hit the main into the FloorPlacement manager.
@@ -94,13 +94,21 @@ GUIManager::OnOffice (const CEGUI::EventArgs& e)
    return true;
 }
 
-bool
-GUIManager::OnApartment (const CEGUI::EventArgs& e)
+bool GUIManager::OnApartment (const CEGUI::EventArgs& e)
 {
 
-   // set FloorPlacement to Office
+   // set FloorPlacement to Apartment
    // route mouse clicks that hit the main into the FloorPlacement manager.
    mSE.OnToolHit (HR_PlaceApartment);  // this only sets the strategy.
+   return true;
+}
+
+bool GUIManager::OnStairs (const CEGUI::EventArgs& e)
+{
+
+   // set FloorPlacement to Stairs
+   // route mouse clicks that hit the main into the FloorPlacement manager.
+   mSE.OnToolHit (HR_PlaceStairs);  // this only sets the strategy.
    return true;
 }
 

@@ -21,6 +21,7 @@ public:
 
    bool OnOffice (const CEGUI::EventArgs& e);   // concrete until we setup registering the rooms
    bool OnApartment (const CEGUI::EventArgs& e);
+   bool OnStairs (const CEGUI::EventArgs& e);
    bool OnOpen (const CEGUI::EventArgs& e);
    bool OnSave (const CEGUI::EventArgs& e);
    // OnSelect  use this to set the option select rooms for info and to expand the lobby and elevators

@@ -487,6 +487,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\Tower\SingleStair.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\Tower\SingleStair.h"
+				>
+			</File>
+			<File
 				RelativePath="..\Tower\Tower.cpp"
 				>
 			</File>

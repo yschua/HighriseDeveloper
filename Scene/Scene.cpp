@@ -60,6 +60,11 @@ Scene::SelectTool (int toolID)
       mpBuildStrategy = new BuildApartmentStategy();
       bResult = true;
       break;
+
+   case HR_PlaceStairs:
+      mpBuildStrategy = new BuildStairStategy();
+      bResult = true;
+      break;
    }
    return bResult;
 }
@@ -108,7 +113,7 @@ void Scene::RenderFramework (int level)
 
 void Scene::Hit( int hit, Vector2i Scene )  // taking a mouse hit, send it through geometry to see what we hit
 {
-   if( this->mpBuildStrategy )
+   if( mpBuildStrategy && mpBuildStrategy->PlacingRoom() )
    {
       std::vector<Tower *>::iterator iTower;
       for (iTower = mTowers.begin (); iTower != mTowers.end (); iTower++)
@@ -132,13 +137,24 @@ void Scene::Hit( int hit, Vector2i Scene )  // taking a mouse hit, send it throu
    else
    {
       FloorBase* pFS = FindFloorSpace(hit);
-      if( pFS )
+      std::vector<Tower *>::iterator iTower;
+      for (iTower = mTowers.begin (); iTower != mTowers.end (); iTower++)
       {
-         std::cout << "Mouse on Level: " << pFS->GetLevel() << " FloorSpace ID: " << hit << std::endl;
-      }
-      else
-      {
-         std::cout << "Mouse landed on an unresgister object (BUG)" << " Level ID: " << hit  << std::endl;
+         Tower* pTower = (*iTower);
+         Level* pLevel = pTower->FindLevel (hit);
+         if( pLevel )
+         {
+            Camera* pCam = Camera::GetInstance();
+            int x = pCam->RenderFramework( this, Scene, pLevel->GetLevel());
+            int xPos = pCam->TranslateX( this, Scene );
+            std::cout << "Mouse on Level: " << pLevel->GetLevel() << " Level ID: " << hit << std::endl;
+            mpBuildStrategy->BuildHere(pTower, xPos, pLevel->GetLevel());
+            break;
+         }
+         else
+         {
+            std::cout << "Mouse landed on an unresgister object (BUG)" << " Level ID: " << hit  << std::endl;
+         }
       }
    }
 }

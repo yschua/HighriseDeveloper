@@ -19,6 +19,11 @@
             <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
             <Property Name="UnifiedAreaRect" Value="{{0,166},{0,2},{0,246},{1,0}}" />
         </Window>
+       <Window Type="WindowsLook/Button" Name="BnStairs" >
+          <Property Name="Text" Value="Stairs" />
+          <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
+          <Property Name="UnifiedAreaRect" Value="{{0,248},{0,2},{0,328},{1,0}}" />
+       </Window>
        <Window Type="WindowsLook/Button" Name="MenuBackground/Open" >
           <Property Name="Text" Value="Open" />
           <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />

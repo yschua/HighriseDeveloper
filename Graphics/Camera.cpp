@@ -216,6 +216,11 @@ Camera::DrawInterface(Interface* pI)   // 2d interface objects
 }
 
 #define BUFFER_LENGTH 64   // max click hits we expect but we might get 2
+int  Camera::TranslateX (Scene* pModel, Vector2f mouse)
+{
+   return (int)(mouse.x * mAspect / 9)-34; // still has an error
+}
+
 
 int Camera::RenderFramework (Scene* pModel, Vector2f mouse, int level)
 {

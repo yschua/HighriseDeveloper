@@ -24,7 +24,10 @@
 #include "Tower.h"
 #include "Office.h"
 #include "Apartment.h"
+#include "SingleStair.h"
 #include "BuildStrategies.h"
+
+using namespace TowerObjects;
 
 // no tool active
 bool BuildStategyBase::BuildHere (Tower* pTower, int x, int level)
@@ -84,9 +87,21 @@ BuildApartmentStategy::BuildHere (Tower* pTower, int x, int level)
    return true;
 }
 
+bool BuildStairStategy::BuildHere (Tower* pTower, int x, int level)
+{
+   Level* pLevel = pTower->GetLevel(level);
+   int lx = pLevel->GetX();
+   int xx = lx + ( x - 1 ) * 9; // not complete
+
+   SingleStair* pStair = new SingleStair( xx, level, level+1, pTower );
+   pTower->GetRouteList().push_back( pStair );
+   return true;
+}
+
+
 // Condos
-bool
-BuildCondoStategy::BuildHere (Tower* pTowwer, int x, int y)
+
+bool BuildCondoStategy::BuildHere (Tower* pTower, int x, int level)
 {
    return true;
 }

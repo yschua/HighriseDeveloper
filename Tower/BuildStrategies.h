@@ -37,6 +37,7 @@ public:
    int GetWidth() { return mWidth; };
    int GetHeight() { return mHeight; };
 public:
+   virtual bool PlacingRoom() { return false; }
    virtual bool BuildHere (Tower* pTowwer, int x, int y);
 };
 // Offices
@@ -51,6 +52,7 @@ public:
    }
 public:
    bool BuildHere (Tower* pTowwer, int x, int y);
+   virtual bool PlacingRoom() { return true; }
 };
 
 // Apartments
@@ -59,9 +61,28 @@ class BuildApartmentStategy : public BuildStategyBase
 public:
    BuildApartmentStategy()
    {
+      mType = "Apartment"; // May not always be the class name
+      mWidth = 8;       // 72/9
+      mHeight = 1;      // or 36 pixels
    }
 public:
    bool BuildHere (Tower* pTowwer, int x, int y);
+   virtual bool PlacingRoom() { return true; }
+};
+
+//stairs
+class BuildStairStategy : public BuildStategyBase
+{
+public:
+   BuildStairStategy()
+   {
+      mType = "Stairs"; // May not always be the class name
+      mWidth = 2;       // 18/9
+      mHeight = 1;      // or 36 pixels
+   }
+public:
+   bool BuildHere (Tower* pTowwer, int x, int y);
+   virtual bool PlacingRoom() { return false; }
 };
 
 // Condos
@@ -70,9 +91,13 @@ class BuildCondoStategy : public BuildStategyBase
 public:
    BuildCondoStategy()
    {
+      mType = "Condo"; // May not always be the class name
+      mWidth = 12;       // 108/9
+      mHeight = 1;      // or 36 pixels
    }
 public:
    bool BuildHere (Tower* pTowwer, int x, int y);
+   virtual bool PlacingRoom() { return true; }
 };
 
 // select and drag

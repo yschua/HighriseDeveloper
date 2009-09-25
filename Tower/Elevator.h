@@ -144,11 +144,13 @@ public:
    inline int  GetNumber() { return mNumber; }
 
    // Methods
+
    void ClearStops();
    void Move( int x, int y );
    void Resize( int x, int y );
 
 protected:
+   void LoadImages();
    void PosCalc ();
    virtual void SetCallButton (RouteVisitor* visitor);
    virtual void SetFloorButton (RouteVisitor* visitor);

@@ -74,19 +74,12 @@ Elevator::Elevator ( Lift_Styles style, int x, short BottomLevel, short TopLevel
    mStartRoute = mBottomLevel;
    mEndRoute = mBottomLevel;
 
-   ImageManager * images = ImageManager::GetInstance ();
-   mElevatorImage = new AnimationSingle (images->GetTexture ("elevator_u_n.png", GL_RGBA), 32, 32);
-   mLiftPit = new AnimationSingle (images->GetTexture ("liftpit_1.png", GL_RGBA), 36, 36);
-
    mX = x+2;
    mY = (int)(mBottomLevel * 36);
    mZ = -0.49f; // slightly in front of the tower
 
    mNumber = gElevatorsNumber++; // set number;
-
-   mLiftMachine = new ElevatorMachine( x, mTopLevel+1, this );
-   mLiftPit->SetPosition ((float)x, (float)(mBottomLevel-1) * -36 ); // neg 36 so it becomed positive for model view
-   mElevatorShaft = new ElevatorShaft( x, mTopLevel, mBottomLevel-1, this );
+   LoadImages();
 }
 
 Elevator::Elevator( SerializerBase& ser, short TopLevel, Tower * TowerParent )
@@ -107,12 +100,23 @@ Elevator::Elevator( SerializerBase& ser, short TopLevel, Tower * TowerParent )
    mOffset = (short)ser.GetInt( "offset" );
    mRidersOnBoard = (short)ser.GetInt( "ridersonboard" );
    mMaxCap = (short)ser.GetInt( "maxcap" );
+   LoadImages();
 }
 
 Elevator::~Elevator()
 {
    delete mElevatorImage;
 };
+
+void Elevator::LoadImages()
+{
+   ImageManager * images = ImageManager::GetInstance ();
+   mElevatorImage = new AnimationSingle (images->GetTexture ("elevator_u_n.png", GL_RGBA), 32, 32);
+   mLiftMachine = new ElevatorMachine( mX - 2, mTopLevel+1, this );
+   mLiftPit = new AnimationSingle (images->GetTexture ("liftpit_1.png", GL_RGBA), 36, 36);
+   mLiftPit->SetPosition ((float)mX - 2, (float)(mBottomLevel-1) * -36 ); // neg 36 so it becomed positive for model view
+   mElevatorShaft = new ElevatorShaft( mX - 2, mTopLevel, mBottomLevel-1, this );
+}
 
 void
 Elevator::ClearStops()

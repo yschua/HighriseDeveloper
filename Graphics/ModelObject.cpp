@@ -32,7 +32,7 @@ ModelObject::Render(AnimationBase* pBase, bool bLight)
 {
    float x = pBase->GetPositionX();//-ms.x; position needs to be a member of modelObject, let physics access it to move it.
    float y = -pBase->GetPositionY();//-ms.y;
-   float z = 0; //pBase->GetPositionZ();
+   float z = pBase->GetPositionZ();
    float x2 = x + pBase->GetWidth();
    float y2 = y - pBase->GetHeight();
    //glBindTexture( GL_TEXTURE_2D, pBase->GetTextureID() );//to_draw.GetTexture() ); // get the current texture

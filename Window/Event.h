@@ -30,6 +30,7 @@ enum HR_Events
    HR_PlaceApartment,
    HR_PlaceCondo,
    HR_PlaceElevator,
+   HR_PlaceStairs,
    HR_PlaceNone,
    HR_Close
 };

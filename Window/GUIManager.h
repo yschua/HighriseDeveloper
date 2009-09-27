@@ -55,8 +55,8 @@ private:
 
 	KeyMap mKeyMap;
 	MouseButtonMap mMouseButtonMap;
-	bool mPlacingRoom;
-	FloorBase* mRoom;
+	//bool mPlacingRoom;
+	//FloorBase* mRoom;
 
    SceneEvent& mSE;  // this does not belong here but needed until the event manager can hande it
 

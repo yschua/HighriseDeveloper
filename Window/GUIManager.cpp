@@ -1,9 +1,11 @@
 #include <SFML/System.hpp>
 #include <string>
+//#include <wx/wx.h>
 #include "../Root/HighRiseException.h"
 
 #include "../Root/SceneEvent.h"
 #include "GUIManager.h"
+
 
 GUIManager::GUIManager(SceneEvent& rse) //, Tower* Tower) can't pass a tower as there will be more than one. Think events
 :  mpRenderer(NULL)
@@ -13,47 +15,47 @@ GUIManager::GUIManager(SceneEvent& rse) //, Tower* Tower) can't pass a tower as 
 	InitMaps();
 	try
 	{
-	   //mTower = Tower;
-	   //mPlacingRoom = false;
-	   //mRoom = NULL;
 	   using namespace CEGUI;
-		mpRenderer = new CEGUI::OpenGLRenderer(0);
-		mpSystem = new CEGUI::System(mpRenderer);
-      CEGUI::DefaultResourceProvider* rp = static_cast<CEGUI::DefaultResourceProvider*>
-         (CEGUI::System::getSingleton().getResourceProvider());
+	   // LOOK, we are USING THE CEGUI NAMESPACE!! The extra CEGUI::'s are not nessesary...
+		mpRenderer = new OpenGLRenderer(0);
+		mpSystem = new System(mpRenderer);
+      DefaultResourceProvider* rp = static_cast<DefaultResourceProvider*>
+         (System::getSingleton().getResourceProvider());
 
       rp->setResourceGroupDirectory("resource", "data/gui/");
-      CEGUI::Imageset::setDefaultResourceGroup("resource");
-      CEGUI::Font::setDefaultResourceGroup("resource");
-      CEGUI::Scheme::setDefaultResourceGroup("resource");
-      CEGUI::WidgetLookManager::setDefaultResourceGroup("resource");
-      CEGUI::WindowManager::setDefaultResourceGroup("resource");
+      Imageset::setDefaultResourceGroup("resource");
+      Font::setDefaultResourceGroup("resource");
+      Scheme::setDefaultResourceGroup("resource");
+      WidgetLookManager::setDefaultResourceGroup("resource");
+      WindowManager::setDefaultResourceGroup("resource");
 
-		CEGUI::SchemeManager::getSingleton().loadScheme("WindowsLook.scheme");
-		CEGUI::FontManager::getSingleton().createFont("DejaVuSans-10.font");
+		SchemeManager::getSingleton().loadScheme("WindowsLook.scheme");
+		FontManager::getSingleton().createFont("DejaVuSans-10.font");
 
-		mpWM = CEGUI::WindowManager::getSingletonPtr();
+		mpWM = WindowManager::getSingletonPtr();
 
       mpRootWind = mpWM->createWindow( "DefaultWindow", "root" );
       mpSystem->setGUISheet( mpRootWind );
 
-      // Just making test windows now
-      CEGUI::FrameWindow* fWnd = (CEGUI::FrameWindow*) mpWM->createWindow( "WindowsLook/FrameWindow", "testWindow" );
+      // Just making a test window now
+      FrameWindow* fWnd = (FrameWindow*) mpWM->createWindow( "WindowsLook/FrameWindow", "testWindow" );
       mpRootWind->addChildWindow( fWnd );
-      CEGUI::Window* pTestBtn = mpWM->createWindow("WindowsLook/Button", "TestBtn" );
-
-      LoadLayout("Menu.layout");
-      mpWM->getWindow((CEGUI::utf8*)"BnOffice")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&GUIManager::OnOffice, this));
-      mpWM->getWindow((CEGUI::utf8*)"BnApartment")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&GUIManager::OnApartment, this));
-      mpWM->getWindow((CEGUI::utf8*)"BnStairs")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&GUIManager::OnStairs, this));
-      // elevator
-      mpWM->getWindow((CEGUI::utf8*)"MenuBackground/Open")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&GUIManager::OnOpen, this));
-      mpWM->getWindow((CEGUI::utf8*)"MenuBackground/Save")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&GUIManager::OnSave, this));
-
-      //pTestBtn->setMinSize(UVector2(UDim(0.0f, 100), UDim(0.0f, 20)));
+      Window* pTestBtn = mpWM->createWindow("WindowsLook/Button", "TestBtn" );
 		pTestBtn->setSize(UVector2(UDim(0.5f, 0), UDim(0.5f, 0)));
 		pTestBtn->setPosition(UVector2(UDim(0.25f, 0), UDim(0.4f, 0)));
       fWnd->addChildWindow( pTestBtn );
+
+      // Load the menu layout from xml and get the buttons to do something. NOTE: If you remove the buttons
+      // from the xml, this may or may not crash. We need to check if getWindow() returns a vaild pointer.
+      LoadLayout("Menu.layout");
+      mpWM->getWindow((utf8*)"BnOffice")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnOffice, this));
+      mpWM->getWindow((utf8*)"BnApartment")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnApartment, this));
+      mpWM->getWindow((utf8*)"BnStairs")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnStairs, this));
+      // elevator
+      mpWM->getWindow((utf8*)"MenuBackground/Open")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnOpen, this));
+      mpWM->getWindow((utf8*)"MenuBackground/Save")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnSave, this));
+
+
 
       mpSystem->setDefaultMouseCursor("WindowsLook", "MouseArrow");
 	}
@@ -114,21 +116,18 @@ bool GUIManager::OnStairs (const CEGUI::EventArgs& e)
 
 bool GUIManager::OnOpen(const CEGUI::EventArgs& e)
 {
+   // Should display a dialog asking the user what they want to open.
+   // But, we need a way to do this, and a way to pause the game when we do.
    mSE.OnOpen("data/xml/Tower.xml");
    return true;
 }
 
 bool GUIManager::OnSave(const CEGUI::EventArgs& e)
 {
+   // Should display a dialog asking the user where they want to save.
+   // But, we need a way to do this, and a way to pause the game when we do.
    // Should this be moved elsewhere?
    mSE.OnSave("data/xml/Tower2.xml");
-//   TiXmlDocument* pDoc = new TiXmlDocument("data/xml/Tower.xml");
-//   TiXmlElement* pRoot = new TiXmlElement("highrisetower");
-////   mTower->Save(pRoot);
-//   pDoc->LinkEndChild(pRoot);
-//   std::cout << "DEBUG: Output of save attempt: \n";
-//   pDoc->Print();
-//   pDoc->SaveFile();
    return true;
 }
 
@@ -171,14 +170,14 @@ GUIManager::OnKeyUp (sf::Key::Code Key)
 bool
 GUIManager::OnMouseMove (Vector2i Scene, Vector2i Cam)
 {
-   return mpSystem->injectMousePosition(static_cast<float>(Cam.x), static_cast<float>(Cam.y));
+   return mpSystem->injectMousePosition(float(Cam.x), float(Cam.y));
 }
 
 bool
 GUIManager::OnMouseWheel (int Delta)
 {
-   if (mpSystem->injectMouseWheelChange(static_cast<float>(Delta))) {
-      std::cout << "GUIManager ate MouseWheel" << std::endl;
+   if (mpSystem->injectMouseWheelChange(float(Delta))) {
+      std::cout << "GUIManager ate MouseWheel (OMNOMNOM now make me a sandwich)" << std::endl;
       return true;
    }
    else
@@ -187,6 +186,10 @@ GUIManager::OnMouseWheel (int Delta)
 
 bool GUIManager::OnResize(Vector2i NewSize)
 {
+   // We need to manually resize the space the GUI is being drawn on so that things are not streched.
+   // For some reason, this doesn't work.
+   mpRootWind->setSize(CEGUI::UVector2(CEGUI::UDim(0, NewSize.x*10), CEGUI::UDim(1, NewSize.y)));
+   std::cout << "Set the size of the CEGUI window! (" << NewSize.x << ", " << NewSize.y << ")\n";
    return false;
 }
 

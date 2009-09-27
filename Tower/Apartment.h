@@ -18,12 +18,15 @@
 
 #ifndef _APARTMENT_H
 #define _APARTMENT_H
+// base classes
 #include "../Graphics/ModelObject.h"
+#include "FloorBase.h"
 
 class FloorBase;
 
 enum apartment_state
 {
+   apt_vacant,
    apt_unoccupied_day,
    apt_occupied_day,
    apt_occupied_night,
@@ -33,12 +36,13 @@ enum apartment_state
 class Apartment : public FloorBase, public Gfx::ModelObject
 {
 private:
+   apartment_state vacant (float dt);
    apartment_state unoccupied_day (float dt);
    apartment_state occupied_day (float dt);
    apartment_state occupied_night (float dt);
    apartment_state occupied_sleep (float dt);       // running sandman functions
    std::map<apartment_state, Animation *> manimations;
-   apartment_state mcurrent_state;
+   apartment_state mCurrentState;
    int mcurrent_animation;
 
 public:
@@ -48,6 +52,8 @@ public:
    virtual void Draw ();
    virtual void DrawFramework ();
    virtual void Save(SerializerBase& ser);
+   virtual BaseType GetType () { return BaseResidence; }
+
 };
 
 #endif   // _APARTMENT_H

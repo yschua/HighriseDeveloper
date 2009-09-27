@@ -27,11 +27,11 @@ Person::Person (Location& loc)
    mMood = MS_Content;
    mActivity = AS_JobHunting; // noob, starts out looking for home, job etc.
    mOccupation = 0;
-   mHome = 1;          // have a home (Test code)
+   mHome = 0;          // have a home (Test code)
    mCurrentState = CS_Idle;
    mLocation = loc;    // copy
    ImageManager * pImageMam = ImageManager::GetInstance ();
-   Texture* ptexHappy =pImageMam->GetTexture ("Person.h.png", GL_RGBA);
+   Texture* ptexHappy =pImageMam->GetTexture ("person.h.png", GL_RGBA);
    Texture* ptexAnnoied =pImageMam->GetTexture ("person_a.png", GL_RGBA);
    Texture* ptexMad =pImageMam->GetTexture ("person_m.png", GL_RGBA);
 
@@ -56,11 +56,12 @@ void Person::Update (float dt)
    // check time of day, what activity should we be doing.
    if (mOccupation < 1) // && age > 16 )
    {
-      mActivity = AS_JobHunting;
+      SetActivity (AS_JobHunting);
    }
    else if (mHome < 1)
    {
-      mActivity = AS_CondoHunting; // if income < $n AS_ApartmentHunting.
+      SetActivity (AS_ApartmentHunting);
+      //mActivity = AS_CondoHunting; // if income < $n AS_ApartmentHunting.
    }
    switch (mActivity)
    {
@@ -82,14 +83,14 @@ void Person::Update (float dt)
       if (mWorkPath.index >= mWorkPath.size) // this can be handled better and also need to check times
       {
          mLocation.mLevel = mWorkPath.mPathList[mWorkPath.index-1].mLevel; // this will bring the car to the office level at days end
-         set_Activity( AS_Working ); // offices and businesses show employees at work.
+         SetActivity( AS_Working ); // offices and businesses show employees at work.
       }
       break;
    case AS_Working:
       if (rand() % 100 == 50 )
       {
-         set_Activity( AS_GoingHome );
-         set_CurrentState( Person::CS_Walking );
+         SetActivity( AS_GoingHome );
+         SetCurrentState( Person::CS_Walking );
 
          int home_level = (rand() % 1) + 4;   // test code, give them a home
          Location& cur = mWorkPath.mPathList[0];
@@ -115,7 +116,7 @@ void Person::Update (float dt)
       }
       else
       {
-         set_Activity( AS_Relaxing ); // offices and businesses show employees at work.
+         SetActivity( AS_Relaxing ); // offices and businesses show employees at work.
       }
       break;
    }
@@ -124,4 +125,10 @@ void Person::Update (float dt)
 void Person::Draw( )
 {
    Render (manimations[mMood]);
+}
+
+void Person::SetResidence( )
+{
+   SetActivity (AS_GoingHome);
+   mHome = 1; // pResidence
 }

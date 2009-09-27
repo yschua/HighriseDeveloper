@@ -37,6 +37,7 @@
 #include "../Tower/Level.h"
 #include "../Root/HighRiseException.h"
 #include "../People/Citizens.h"
+#include "FloorAgent.h"
 
 #include "PathAgent.h"
 #include "CitizensAgent.h"
@@ -77,6 +78,7 @@ void CitizensAgent::Update (float dt)
       peep->Update( dt );
       Path& workPath = peep->get_WorkPath(); // for now just doing work
       //  TODO: case statement from hell, on the refactor list
+      // use a state engine to replace this
       switch ( peep->get_Activity() )
       {
          case Person::AS_Sleeping:
@@ -84,7 +86,7 @@ void CitizensAgent::Update (float dt)
             break;
 
          case Person::AS_JobHunting:
-            if (peep->get_CurrentState() == Person::CS_Idle)
+            if (peep->GetCurrentState() == Person::CS_Idle)
             {
                Location dest;
                dest.mBuilding = 1;
@@ -92,8 +94,8 @@ void CitizensAgent::Update (float dt)
                dest.mRoute = 0;              // plugged into first elevater until pathfinder does the job.
                dest.mX = 1;                  // TODO:  find the room number
 //Log               std::cout << "A new person has entered your building looking for work on Level# " << dest.mLevel << std::endl;
-               peep->set_Activity( Person::AS_GoingToWork);
-               peep->set_Occupation (1);
+               peep->SetActivity( Person::AS_GoingToWork);
+               peep->SetOccupation (1);
                PathAgent Path (peep);
                Path.findPath (peep->get_Location(), dest, mTower);
 
@@ -107,6 +109,16 @@ void CitizensAgent::Update (float dt)
 
          case Person::AS_ApartmentHunting:
             // Set up cheap housing (not in the original tower game.
+            {
+               FloorAgent agent(mTower);
+               FloorBase* pFB = agent.FindAHome(0, peep);
+               if (pFB != NULL)
+               {
+                  pFB->SetOwner (peep);
+                  peep->SetResidence();
+               }
+               // else keep looking
+            }
             break;
 
          case Person::AS_GoingToWork:
@@ -120,7 +132,7 @@ void CitizensAgent::Update (float dt)
                }
                else
                {
-                  switch ( peep->get_CurrentState() )
+                  switch ( peep->GetCurrentState() )
                   {
                   case Person::CS_Waiting:
                      // tally up wait states
@@ -130,7 +142,7 @@ void CitizensAgent::Update (float dt)
                      break;
                   case Person::CS_Disembarking:
                      workPath.index++;
-                     peep->set_CurrentState( Person::CS_Walking );
+                     peep->SetCurrentState( Person::CS_Walking );
                      // fall through
                   default:
                      //Routes* routeList = Routes::GetInstance();
@@ -147,7 +159,7 @@ void CitizensAgent::Update (float dt)
                         route->SetCallButton( &visitor );
                         if( visitor.IsBoarding() )
                         {
-                           peep->set_CurrentState( Person::CS_Riding );
+                           peep->SetCurrentState( Person::CS_Riding );
                            Level* pLevel = mTower.GetLevel(curLevel);
                            PersonQueue* pQ = pLevel->FindQueue(route);
                            if( pQ )
@@ -157,7 +169,7 @@ void CitizensAgent::Update (float dt)
                         }
                         else
                         {
-                           peep->set_CurrentState( Person::CS_Waiting );
+                           peep->SetCurrentState( Person::CS_Waiting );
                         }
                      }
                   }
@@ -180,7 +192,7 @@ void CitizensAgent::Update (float dt)
                }
                else
                {
-                  switch ( peep->get_CurrentState() )
+                  switch ( peep->GetCurrentState() )
                   {
                   case Person::CS_Waiting:
                      // tally up wait states
@@ -190,7 +202,7 @@ void CitizensAgent::Update (float dt)
                      break;
                   case Person::CS_Disembarking:
                      workPath.index++;
-                     peep->set_CurrentState( Person::CS_Walking );
+                     peep->SetCurrentState( Person::CS_Walking );
                      // fall through
                   default:
                      //Routes* routeList = Routes::GetInstance();
@@ -208,11 +220,11 @@ void CitizensAgent::Update (float dt)
                         route->SetCallButton( &visitor );
                         if( visitor.IsBoarding() )
                         {
-                           peep->set_CurrentState( Person::CS_Riding );
+                           peep->SetCurrentState( Person::CS_Riding );
                         }
                         else
                         {
-                           peep->set_CurrentState( Person::CS_Waiting );
+                           peep->SetCurrentState( Person::CS_Waiting );
                         }
                      }
                   }
@@ -240,7 +252,7 @@ void CitizensAgent::Draw()
    for (i = persons.begin (); i != persons.end (); i++)
    {
       Person* peep = (*i);
-      if( peep && peep->get_CurrentState() == Person::CS_Waiting )
+      if( peep && peep->GetCurrentState() == Person::CS_Waiting )
       {
          peep->Draw();
       }

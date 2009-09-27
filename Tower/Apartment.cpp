@@ -22,52 +22,58 @@
 #include "../Graphics/Animation.h"
 #include "../Root/SerializerBase.h"
 
-#include "FloorBase.h"
 #include "../Types/String.h"
 
 #include "Apartment.h"
 
 using namespace Gfx;
 
+//   apt_vacant,
 //   apt_unoccupied_day,
 //   apt_occupied_day,
 //   apt_occupied_night,
 //   apt_sleep_night
 
-apartment_state
-Apartment::unoccupied_day (float dt)
+apartment_state Apartment::vacant (float dt)
 {
    if (rand () % 50 == 3)
       return apt_occupied_day;
    return apt_unoccupied_day;
 }
 
-apartment_state
-Apartment::occupied_day (float dt)
+apartment_state Apartment::unoccupied_day (float dt)
+{
+   if (rand () % 50 == 3)
+      return apt_occupied_day;
+   return apt_unoccupied_day;
+}
+
+apartment_state Apartment::occupied_day (float dt)
 {
    if (rand () % 50 == 3)
       return apt_unoccupied_day;
    return apt_occupied_day;
 }
 
-apartment_state
-Apartment::occupied_night (float dt)
+apartment_state Apartment::occupied_night (float dt)
 {
    return apt_occupied_sleep;
 }
 
-apartment_state
-Apartment::occupied_sleep (float dt)
+apartment_state Apartment::occupied_sleep (float dt)
 {
    return apt_occupied_day;
 }
 
 Apartment::Apartment (int x, int level, Tower * TowerParent)
-      :  mcurrent_state (apt_occupied_day)
+      :  mCurrentState (apt_vacant)
       ,  FloorBase (x, x + 72, level, TowerParent)
 {
    ImageManager * image_man = ImageManager::GetInstance ();
    std::cout << "New apartment at " << mX << ", " << mY << " level " << mLevel << std::endl;
+   manimations[apt_vacant] = new Animation (72, 36);
+   manimations[apt_vacant]->AddFrame (image_man->GetTexture ("apartment_empty_1.png", GL_RGBA), 1000);
+   manimations[apt_vacant]->SetPosition (mX, mY);
    manimations[apt_occupied_day] = new Animation (72, 36);
    manimations[apt_occupied_day]->AddFrame (image_man->GetTexture ("apartment_r_d_1.png", GL_RGBA), 1000);
    manimations[apt_occupied_day]->AddFrame (image_man->GetTexture ("apartment_r_n_1.png", GL_RGBA), 1000);
@@ -77,37 +83,61 @@ Apartment::Apartment (int x, int level, Tower * TowerParent)
    manimations[apt_unoccupied_day]->SetPosition (mX, mY);
 }
 
-void
-Apartment::Update (float dt)
+void Apartment::Update (float dt)
 {
-   manimations[mcurrent_state]->Update (dt);
-   apartment_state new_state;
-   switch (mcurrent_state)
+   manimations[mCurrentState]->Update (dt);
+   if( mOccupants < 0 )
    {
-      case apt_unoccupied_day :
-         new_state = unoccupied_day (dt);
-         break;
-      case apt_occupied_day :
-         new_state = occupied_day (dt);
-         break;
+      mOccupants = 0;
    }
-   mcurrent_state = new_state;
+
+   switch (mCurrentState)
+   {
+   case apt_vacant:
+      if (mOwner != NULL)
+      {
+         mCurrentState = unoccupied_day (dt);
+      }
+      break;
+   case apt_unoccupied_day :
+      if (mOwner != NULL)
+      {
+         mCurrentState = vacant (dt);
+      }
+      else
+      {
+         if( mOccupants > 0 )
+            mCurrentState = occupied_day (dt);
+      }
+      break;
+   case apt_occupied_day :
+      if (mOwner != NULL)
+      {
+         mCurrentState = vacant (dt);
+      }
+      else
+      {
+         if( mOccupants < 1 )
+            mCurrentState = unoccupied_day (dt);
+      }
+      break;
+   }
 }
 
 void Apartment::Draw ()
 {
-   Render (manimations[mcurrent_state]);
+   Render (manimations[mCurrentState]);
 }
 
 void Apartment::DrawFramework ()
 {
-   RenderFramework( manimations[mcurrent_state], mID);
+   RenderFramework( manimations[mCurrentState], mID);
 }
 
 void Apartment::Save(SerializerBase& ser)
 {
    ser.Add("type", "apartment");   // first tag
    FloorBase::Save(ser);
-   ser.Add("state", ToString((mcurrent_state == apt_occupied_day)?1:0).c_str()); // use the state engine get this property
+   ser.Add("state", ToString((mCurrentState == apt_occupied_day)?1:0).c_str()); // use the state engine get this property
    // if something goes bump, either deal with it or throw it
 }

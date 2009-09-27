@@ -27,6 +27,7 @@ class FloorBase; // aggregate of floor spaces for offices, condos and hotels
 class Level;
 class Elevator;
 class TowerAgent;
+class FloorAgent;
 class GameManager;
 class Routes;
 class Person;
@@ -40,6 +41,7 @@ class BuildStairStategy;
 class Tower : public Gfx::ModelObject
 {
    friend class TowerAgent;
+   friend class FloorAgent;
    friend class GameManager;
    friend class BuildStairStategy;
 

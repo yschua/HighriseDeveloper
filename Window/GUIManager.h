@@ -2,6 +2,7 @@
 #define GUIManager_H
 
 #include <CEGUI.h>
+
 #include <RendererModules/OpenGLGUIRenderer/openglrenderer.h>
 #include <CEGUISystem.h>
 #include <CEGUIDefaultResourceProvider.h>

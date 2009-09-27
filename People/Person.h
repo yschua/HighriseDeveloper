@@ -158,19 +158,19 @@ public:
    {
       return mActivity;
    }
-   void set_Activity (Activity_State state )
+   void SetActivity (Activity_State state )
    {
       mActivity = state;
    }
-   Current_State get_CurrentState () // inline for faster access, same isolation, just quicker code.
+   Current_State GetCurrentState () // inline for faster access, same isolation, just quicker code.
    {
       return mCurrentState;
    }
-   void set_CurrentState (Current_State state )
+   void SetCurrentState (Current_State state )
    {
       mCurrentState = state;
    }
-   void set_Occupation( int occ )
+   void SetOccupation( int occ )
    {
       mOccupation = occ;
    }
@@ -179,10 +179,12 @@ public:
       return mLocation;
    }
 
-   // Implementation
+   // Implementation methods
    virtual void Update (float dt);
    virtual void Draw ();
    virtual int  DrawFramework (int id) { return 0; }
+   void    SetResidence( );
+
 
 };
 

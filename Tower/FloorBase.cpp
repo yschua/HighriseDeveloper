@@ -28,19 +28,6 @@
 //using namespace Gfx;
 unsigned int FloorBase::NextID = 1;
 
-
-void
-FloorBase::Update (float dt)
-{
-   std::cout << "Floor base class: update function called" << std::endl;
-}
-
-void
-FloorBase::Draw ()
-{
-   std::cout << "Floor base class: Draw function called" << std::endl;
-}
-
 FloorBase::FloorBase (int x, int x2, int level, Tower* pTowerParent)
       :  mX ((float)x)
       ,  mX2 ((float)x2)
@@ -50,6 +37,8 @@ FloorBase::FloorBase (int x, int x2, int level, Tower* pTowerParent)
    mY = (float)(mLevel * -36);
    mZ = -0.5f;
    mID = FloorBase::GetNextID();
+   mOccupants = 0;
+   mOwner = 0;
    pTowerParent->GetScene().RegisterFloorSpace (mID, this);
 }
 
@@ -65,3 +54,22 @@ int FloorBase::GetNextID() // static
 {
    return NextID++;
 }
+
+void FloorBase::SetOwner (Person* pPerson)
+{
+   mOwner = pPerson;
+   // add family and/or partners for residences
+   // allow employment for offices
+   mOccupants = 1;
+}
+
+void FloorBase::Update (float dt)
+{
+   std::cout << "Floor base class: update function called" << std::endl;
+}
+
+void FloorBase::Draw ()
+{
+   std::cout << "Floor base class: Draw function called" << std::endl;
+}
+

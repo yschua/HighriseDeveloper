@@ -18,17 +18,35 @@
 #define _FLOORBASE_H
 
 class Tower;
+class Person;
 class Level;
 class TiXmlElement;
 class SerializerBase;
 
+enum BaseType
+{
+   BaseEmpty = 0,
+   BaseResidence,
+   BaseOffice,
+   BaseRetail,
+   BaseRestaurant,
+   BaseHotel,
+   BaseVenue,
+   BaseSecurity,
+   BaseMedical,
+   BaseRestroom
+};
+
 class FloorBase
 {
    friend class Level;  // allows level to own these spaces by being able to set protected variables.
+
 protected:
    int mLevel;
    int mID;
+   int mOccupants;
    Tower * mTowerParent;
+   Person* mOwner;
 
 //public:
    float mX;    // lower left origin.x
@@ -58,8 +76,11 @@ public:
    virtual void Update (float dt);
    virtual void Draw ();
    virtual void DrawFramework () { }
+   virtual BaseType GetType () { return BaseEmpty; }
 
-   //virtual bool Save(TiXmlElement*);
+   void SetOwner (Person* pPerson);
+   bool IsVacant () { return (mOwner==NULL); }
+
    virtual void Save(SerializerBase& ser);// iXmlElement* pnParent)
 
    static int GetNextID();

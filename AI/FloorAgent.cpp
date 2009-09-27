@@ -23,10 +23,12 @@
 
 #include "../Tower/Level.h"
 #include "../Tower/FloorBase.h"
+#include "../Tower/Tower.h"
+#include "../People/Person.h"
 #include "FloorAgent.h"
 
-FloorAgent::FloorAgent ( Level* level )
-      :  mLevel( level )
+FloorAgent::FloorAgent ( Tower& tower )
+:  mTower( tower )
 {
 
 }
@@ -36,13 +38,63 @@ FloorAgent::~FloorAgent ()
 
 }
 
-bool FloorAgent::AddFloorSpace (FloorBase* pFS, int x, int x2 )
+bool FloorAgent::AddFloorSpace (FloorBase* pFS, int x, int x2, int y)
 {
-   if (mLevel->TestForEmptySpace (x, x2))
+   Level* pLevel = mTower.GetLevel(y);
+   if (pLevel->TestForEmptySpace (x, x2))
    {
       pFS->SetX ((float)x);
       pFS->SetX2 ((float)x2);
-      mLevel->AddFloorSpace (pFS);
+      pLevel->AddFloorSpace (pFS);
    }
    return true;
 }
+
+FloorBase* FloorAgent::FindWork (int preferences)
+{
+   Level::FloorIterType fit;
+   Tower::LevelIterator lit;
+   Tower::LevelVector& levels = mTower.GetLevels();
+   for (lit = levels.begin(); lit != levels.end(); lit++)
+   {
+      Level* pLevel = (*lit);
+      Level::FloorVector& rooms = pLevel->GetFloorSpaces();
+      for (fit = rooms.begin(); fit != rooms.end(); fit++)
+      {
+         FloorBase* pRoom = (*fit);
+         if (pRoom->GetType() == BaseOffice && pRoom->IsVacant())
+         {
+            return pRoom;
+         }
+      }
+   }
+   return NULL;
+}
+
+FloorBase* FloorAgent::FindAHome (int preferences, Person* pPeep)
+{
+   Level::FloorIterType fit;
+   Tower::LevelIterator lit;
+   Tower::LevelVector& levels = mTower.GetLevels();
+   for (lit = levels.begin(); lit != levels.end(); lit++)
+   {
+      Level* pLevel = (*lit);
+      Level::FloorVector& rooms = pLevel->GetFloorSpaces();
+      for (fit = rooms.begin(); fit != rooms.end(); fit++)
+      {
+         FloorBase* pRoom = (*fit);
+         if (pRoom->GetType() == BaseResidence && pRoom->IsVacant())
+         {
+            return pRoom;
+         }
+      }
+   }
+   return NULL;
+}
+
+FloorBase* FloorAgent::FindAHotel (int preferences)
+{
+   FloorBase* pRoom = NULL;   
+   return pRoom;
+}
+

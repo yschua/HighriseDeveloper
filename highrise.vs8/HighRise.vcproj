@@ -40,7 +40,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;\Dev\VC++\SFML-1.5\include&quot;;&quot;\Dev\VC++\CEGUI-SDK-0.6.2-vc8\include&quot;;&quot;\Dev\VC++\CEGUI-SDK-0.6.2-vc8&quot;"
+				AdditionalIncludeDirectories="&quot;\Dev\VC++\SFML-1.5\include&quot;;&quot;\Dev\VC++\CEGUI-SDK-0.6.2-vc8\include&quot;;&quot;\Dev\VC++\CEGUI-SDK-0.6.2-vc8&quot;;&quot;F:\Dev\VC++\wxWidgets-2.8.10\include&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -178,6 +178,14 @@
 			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
+			<File
+				RelativePath=".\HighRiseDev.rc"
+				>
+			</File>
+			<File
+				RelativePath=".\icon1.ico"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Window"
@@ -649,6 +657,10 @@
 		</File>
 		<File
 			RelativePath=".\ReadMe.txt"
+			>
+		</File>
+		<File
+			RelativePath=".\resource.h"
 			>
 		</File>
 	</Files>

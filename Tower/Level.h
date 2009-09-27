@@ -30,10 +30,12 @@ class Tower;
 class RouteBase;
 class PersonQueue;
 class GameManager;
+class FloorAgent;
 
 class Level : public Gfx::ModelObject
 {
    friend class GameManager;
+   friend class FloorAgent;
 private:
    std::vector<FloorBase*> mFloorSpaces;
    std::list<PersonQueue*> mRouteQueues;  // person queue for elevators that stop on this level
@@ -88,6 +90,7 @@ public:
 public:
    // decls
    typedef std::vector<FloorBase*>::iterator FloorIterType;
+   typedef std::vector<FloorBase*> FloorVector;
    typedef std::list<PersonQueue*>::iterator QueueIterType;
 
    // Properties

@@ -56,6 +56,11 @@ Office::Office (int x, int level, Tower * TowerParent)
    manimations[s_occupied_day]->AddFrame (image_man->GetTexture ("office_o_d_3.png", GL_RGBA), 1000);
    manimations[s_occupied_day]->AddFrame (image_man->GetTexture ("office_o_d_4.png", GL_RGBA), 1000);
    manimations[s_occupied_day]->AddFrame (image_man->GetTexture ("office_o_d_5.png", GL_RGBA), 1000);
+   manimations[s_occupied_day]->AddFrame (image_man->GetTexture ("office_o_d_6.png", GL_RGBA), 1000);
+   manimations[s_occupied_day]->AddFrame (image_man->GetTexture ("Office-2.png", GL_RGBA), 1000);
+   manimations[s_occupied_day]->AddFrame (image_man->GetTexture ("Office-3.png", GL_RGBA), 1000);
+   manimations[s_occupied_day]->AddFrame (image_man->GetTexture ("Office-7.png", GL_RGBA), 1000);
+   manimations[s_occupied_day]->AddFrame (image_man->GetTexture ("Office-8.png", GL_RGBA), 1000);
    manimations[s_occupied_day]->SetPosition (mX, mY);
    manimations[s_unoccupied_day] = new Animation (72,36);
    manimations[s_unoccupied_day]->AddFrame (image_man->GetTexture ("office_u_d.png", GL_RGBA), 1000);

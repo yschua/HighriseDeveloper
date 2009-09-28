@@ -36,11 +36,11 @@ enum apartment_state
 class Apartment : public FloorBase, public Gfx::ModelObject
 {
 private:
-   apartment_state vacant (float dt);
-   apartment_state unoccupied_day (float dt);
-   apartment_state occupied_day (float dt);
-   apartment_state occupied_night (float dt);
-   apartment_state occupied_sleep (float dt);       // running sandman functions
+   apartment_state vacant (int dt);
+   apartment_state unoccupied_day (int dt);
+   apartment_state occupied_day (int dt);
+   apartment_state occupied_night (int dt);
+   apartment_state occupied_sleep (int dt);       // running sandman functions
    std::map<apartment_state, Animation *> manimations;
    apartment_state mCurrentState;
    int mcurrent_animation;
@@ -48,7 +48,7 @@ private:
 public:
    Apartment (int x, int level, Tower * TowerParent);
 
-   virtual void Update (float dt);
+   virtual void Update (float dt, int tod);
    virtual void Draw ();
    virtual void DrawFramework ();
    virtual void Save(SerializerBase& ser);

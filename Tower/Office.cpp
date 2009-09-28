@@ -68,7 +68,7 @@ Office::Office (int x, int level, Tower * TowerParent)
 }
 
 void
-Office::Update (float dt)
+Office::Update (float dt, int tod)
 {
    manimations[mcurrent_state]->Update (dt);
    office_state new_state;

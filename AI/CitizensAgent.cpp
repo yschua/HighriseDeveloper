@@ -56,7 +56,7 @@ void CitizensAgent::Update (float dt)
 {
    // Shouldn't Citizens be a member within each Tower? Supposedly you would want this seperate.
    Citizens* citizens = Citizens::get_Instance(); // the citizens object that holds the people collection
-   if ( (rand() % 200) == 3 )  // TODO: need a better spawn mechanism, raised to 100
+   if ( (rand() % 5) == 3 )  // TODO: need a better spawn mechanism, raised to 100
    {
 
       //Location loc; // all zeros
@@ -81,10 +81,6 @@ void CitizensAgent::Update (float dt)
       // use a state engine to replace this
       switch ( peep->get_Activity() )
       {
-         case Person::AS_Sleeping:
-            // check alarm;
-            break;
-
          case Person::AS_JobHunting:
             if (peep->GetCurrentState() == Person::CS_Idle)
             {
@@ -94,7 +90,14 @@ void CitizensAgent::Update (float dt)
                dest.mRoute = 0;              // plugged into first elevater until pathfinder does the job.
                dest.mX = 1;                  // TODO:  find the room number
 //Log               std::cout << "A new person has entered your building looking for work on Level# " << dest.mLevel << std::endl;
-               peep->SetActivity( Person::AS_GoingToWork);
+               if (dt >= 6*60 && dt < 16*60)
+               {
+                  peep->SetActivity( Person::AS_GoingToWork);
+               }
+               else
+               {
+                  peep->SetActivity( Person::AS_Relaxing);
+               }
                peep->SetOccupation (1);
                PathAgent Path (peep);
                Path.findPath (peep->get_Location(), dest, mTower);
@@ -115,7 +118,9 @@ void CitizensAgent::Update (float dt)
                if (pFB != NULL)
                {
                   pFB->SetOwner (peep);
-                  peep->SetResidence();
+                  peep->SetResidence (pFB->GetLevel());
+                  peep->SetActivity (Person::AS_GoingHome);
+                  peep->SetCurrentState (Person::CS_Idle);
                }
                // else keep looking
             }

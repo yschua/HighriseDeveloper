@@ -174,6 +174,10 @@ public:
    {
       mOccupation = occ;
    }
+   int GetOccupation()
+   {
+      return mOccupation;
+   }
    Location& get_Location()
    {
       return mLocation;
@@ -183,7 +187,7 @@ public:
    virtual void Update (float dt);
    virtual void Draw ();
    virtual int  DrawFramework (int id) { return 0; }
-   void    SetResidence( );
+   void    SetResidence (int level);
 
 
 };

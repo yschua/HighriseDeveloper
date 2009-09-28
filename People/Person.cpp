@@ -27,11 +27,11 @@ Person::Person (Location& loc)
    mMood = MS_Content;
    mActivity = AS_JobHunting; // noob, starts out looking for home, job etc.
    mOccupation = 0;
-   mHome = 0;          // have a home (Test code)
+   mHome = 0;
    mCurrentState = CS_Idle;
    mLocation = loc;    // copy
    ImageManager * pImageMam = ImageManager::GetInstance ();
-   Texture* ptexHappy =pImageMam->GetTexture ("person.h.png", GL_RGBA);
+   Texture* ptexHappy =pImageMam->GetTexture ("person_h.png", GL_RGBA);
    Texture* ptexAnnoied =pImageMam->GetTexture ("person_a.png", GL_RGBA);
    Texture* ptexMad =pImageMam->GetTexture ("person_m.png", GL_RGBA);
 
@@ -51,18 +51,26 @@ Person::~Person (void)
 {
 }
 
-void Person::Update (float dt)
+void Person::Update (float dt)   //actual time
 {
    // check time of day, what activity should we be doing.
+   if (dt> 20*60 && !(mActivity == AS_Sleeping) )
+   {
+      SetActivity (AS_Sleeping);
+   }
+
    if (mOccupation < 1) // && age > 16 )
    {
       SetActivity (AS_JobHunting);
+      return;
    }
-   else if (mHome < 1)
+   else if (mHome < 1 && mActivity == AS_GoingHome )
    {
       SetActivity (AS_ApartmentHunting);
+      return;
       //mActivity = AS_CondoHunting; // if income < $n AS_ApartmentHunting.
    }
+
    switch (mActivity)
    {
    case AS_GoingToWork:
@@ -87,16 +95,24 @@ void Person::Update (float dt)
       }
       break;
    case AS_Working:
-      if (rand() % 100 == 50 )
+      if (dt > 17*60)
       {
          SetActivity( AS_GoingHome );
          SetCurrentState( Person::CS_Walking );
-
-         int home_level = (rand() % 1) + 4;   // test code, give them a home
-         Location& cur = mWorkPath.mPathList[0];
-         cur.mLevel = home_level;
-         cur.mX = 2;
          mWorkPath.index--;  // this is the return trip home
+      }
+      else if( dt > 11*60+45 && dt < 13*60+15) // do lunch
+      {
+         SetActivity( AS_LunchBreak );
+         SetCurrentState( Person::CS_Walking );
+         mWorkPath.index--;  // this is the return trip home
+      }
+      break;
+   case AS_LunchBreak:
+      if( dt > 13*60) // do lunch
+      {
+         SetActivity( AS_GoingToWork );
+         SetCurrentState( Person::CS_Walking );
       }
       break;
    case AS_GoingHome:
@@ -119,6 +135,13 @@ void Person::Update (float dt)
          SetActivity( AS_Relaxing ); // offices and businesses show employees at work.
       }
       break;
+   case AS_Sleeping:
+      if (dt > 6*60 && dt < 14*60)
+      {
+         SetActivity( AS_GoingToWork );
+         SetCurrentState( CS_Busy );
+      }
+      break;
    }
 }
 
@@ -127,8 +150,10 @@ void Person::Draw( )
    Render (manimations[mMood]);
 }
 
-void Person::SetResidence( )
+void Person::SetResidence (int level)
 {
    SetActivity (AS_GoingHome);
+   mWorkPath.mPathList[0].mLevel = level;
+   mWorkPath.mPathList[0].mX = 400; // need this
    mHome = 1; // pResidence
 }

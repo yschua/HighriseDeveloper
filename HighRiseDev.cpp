@@ -113,7 +113,13 @@ main ()
             pInterface->Update(10);
             break;
          default:
-            People.Update( 40 );
+            static int cc_count = 30; //only once in a while
+            if( cc_count < 1 )
+            {
+               People.Update( pInterface->GetTimeOfDay() );
+               cc_count = 60;
+            }
+            cc_count--;
             cycle = 0;
             break;
          }

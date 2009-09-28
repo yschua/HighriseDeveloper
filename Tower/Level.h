@@ -109,7 +109,7 @@ public:
    inline int GetX () { return mX; }
 
    // Methods
-   virtual void Update (float dt);
+   virtual void Update (float dt, int tod);
    virtual void Draw ();
 
    bool AddFloorSpace (FloorBase * floor);

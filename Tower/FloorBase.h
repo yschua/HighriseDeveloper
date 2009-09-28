@@ -73,7 +73,7 @@ public:
    inline void SetY(float y) { mY = y; }
 
    // Methods
-   virtual void Update (float dt);
+   virtual void Update (float dt, int tod);
    virtual void Draw ();
    virtual void DrawFramework () { }
    virtual BaseType GetType () { return BaseEmpty; }

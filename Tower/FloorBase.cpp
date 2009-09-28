@@ -63,7 +63,7 @@ void FloorBase::SetOwner (Person* pPerson)
    mOccupants = 1;
 }
 
-void FloorBase::Update (float dt)
+void FloorBase::Update (float dt, int tod)
 {
    std::cout << "Floor base class: update function called" << std::endl;
 }

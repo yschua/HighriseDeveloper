@@ -43,7 +43,7 @@ private:
 public:
    Office (int x, int level, Tower * TowerParent);
 
-   void Update (float dt);
+   void Update (float dt, int tod);
    void Draw ();
    void DrawFramework ();
 

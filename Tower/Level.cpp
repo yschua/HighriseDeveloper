@@ -121,11 +121,11 @@ Level::SetFloorPositions( int x, int x2 )
 }
 
 void
-Level::Update (float dt)
+Level::Update (float dt, int tod)
 {
    std::vector<FloorBase *>::iterator i;
    for (i = mFloorSpaces.begin (); i != mFloorSpaces.end (); i++)
-      (*i)->Update (dt);
+      (*i)->Update (dt, tod);
 }
 
 // Function that calls the OpenGL rendering in the subclass.

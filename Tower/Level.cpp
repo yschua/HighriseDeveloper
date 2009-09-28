@@ -16,9 +16,6 @@
 
 #include <cstring>
 #include <iostream>
-#include <map>
-#include <vector>
-#include <list>
 #include "../Root/Physics.h"
 #include "../Graphics/Image.h"
 #include "../Graphics/Animation.h"
@@ -90,7 +87,7 @@ Level::~Level()
 bool
 Level::AddFloorSpace (FloorBase * floor)
 {
-   mFloorSpaces.push_back (floor);
+   mFloorSpaces.insert (std::pair<unsigned int,FloorBase*>(floor->GetID(),floor) );
 //   if (floor->mX < mX)
 //      mX = (int)floor->mX;
 //   if (floor->mX2 > mX2)
@@ -123,18 +120,24 @@ Level::SetFloorPositions( int x, int x2 )
 void
 Level::Update (float dt, int tod)
 {
-   std::vector<FloorBase *>::iterator i;
+   Level::FloorIterType i;
    for (i = mFloorSpaces.begin (); i != mFloorSpaces.end (); i++)
-      (*i)->Update (dt, tod);
+   {
+      FloorBase* pFB = (*i).second;
+      pFB->Update (dt, tod);
+   }
 }
 
 // Function that calls the OpenGL rendering in the subclass.
 void
 Level::Draw ()
 {
-   std::vector<FloorBase *>::iterator i;
+   Level::FloorIterType i;
    for (i = mFloorSpaces.begin (); i != mFloorSpaces.end (); i++)
-      (*i)->Draw ();
+   {
+      FloorBase* pFB = (*i).second;
+      pFB->Draw ();
+   }
    //Camera::GetInstance()->Draw (*nFireEscapeLeft);
    //Camera::GetInstance()->Draw (*nFireEscapeRight);
    DrawEmptySpace();
@@ -160,10 +163,11 @@ Level::DrawFramework (bool LevelOnly)
    }
    else
    {
-      std::vector<FloorBase *>::iterator i;
-      for (i = mFloorSpaces.begin (); i != mFloorSpaces.end (); ++i)
+      Level::FloorIterType i;
+      for (i = mFloorSpaces.begin (); i != mFloorSpaces.end (); i++)
       {
-         (*i)->DrawFramework ();
+         FloorBase* pFB = (*i).second;
+         pFB->DrawFramework ();
       }
       //RenderFramework (*nFireEscapeLeft); these three need framework draw too
       //RenderFramework (*nFireEscapeRight);
@@ -191,14 +195,25 @@ Level::DrawEmptyFramework ()
    }
 }
 
+FloorBase* Level::GetSpaceByID (int id)
+{
+   FloorIterType it = mFloorSpaces.find(id);
+   if( it != mFloorSpaces.end() )
+   {
+      FloorBase* fb = (*it).second;
+      return fb;
+   }
+   return NULL;
+}
+
+
 // Possible Deprecation
-FloorBase*
-Level::FindSpace (int x)
+FloorBase* Level::FindSpace (int x)
 {
    Level::FloorIterType it;
-   for (mFloorSpaces.begin(); it<mFloorSpaces.end(); ++it)
+   for (it = mFloorSpaces.begin(); it != mFloorSpaces.end(); ++it)
    {
-      FloorBase* pFB = (*it);
+      FloorBase* pFB = (*it).second;
       if( x >= pFB->GetX() && x<= pFB->GetX2() )
       {
          return pFB;
@@ -212,9 +227,9 @@ bool
 Level::TestForEmptySpace (int x, int x2 )
 {
    Level::FloorIterType it;
-   for (it=mFloorSpaces.begin(); it<mFloorSpaces.end(); ++it)
+   for (it=mFloorSpaces.begin(); it != mFloorSpaces.end(); ++it)
    {
-      FloorBase* pFB = (*it);
+      FloorBase* pFB = (*it).second;
       if( (x >= pFB->GetX() && x<= pFB->GetX2()) || (x >= pFB->GetX() && x2<= pFB->GetX2()) )
       {
          return false;
@@ -304,9 +319,9 @@ Level::ScanFloorSpace() // Marks the gird for what is in the space
    {
       memset (mpFloorSpaceGrid, 0, sizeof(unsigned char)*mFloorSpaceGridSize);
       Level::FloorIterType it;
-      for (it=mFloorSpaces.begin(); it<mFloorSpaces.end(); ++it)
+      for (it=mFloorSpaces.begin(); it != mFloorSpaces.end(); ++it)
       {
-         FloorBase* pFB = *it;
+         FloorBase* pFB = (*it).second;
          int x = int ((pFB->GetX()-this->mX) / 9);
          int x2 = int ((pFB->GetX2()-this->mX) / 9);
 

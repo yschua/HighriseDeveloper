@@ -29,17 +29,17 @@
 using namespace Gfx;
 
 office_state
-Office::unoccupied_day (float dt)
+Office::unoccupied_day (int tod)
 {
-   if (rand () % 50 == 3)
+   if (mPeopleInOffice > 0 )  // some people are at work
       return s_occupied_day;
    return s_unoccupied_day;
 }
 
 office_state
-Office::occupied_day (float dt)
+Office::occupied_day (int tod)
 {
-   if (rand () % 50 == 3)
+   if (mPeopleInOffice < 0)  // people are home
       return s_unoccupied_day;
    return s_occupied_day;
 }
@@ -65,6 +65,8 @@ Office::Office (int x, int level, Tower * TowerParent)
    manimations[s_unoccupied_day] = new Animation (72,36);
    manimations[s_unoccupied_day]->AddFrame (image_man->GetTexture ("office_u_d.png", GL_RGBA), 1000);
    manimations[s_unoccupied_day]->SetPosition (mX, mY);
+   mPeopleInOffice = 0;
+   mMaxPositions = rand() % 20;
 }
 
 void
@@ -75,10 +77,10 @@ Office::Update (float dt, int tod)
    switch (mcurrent_state)
    {
       case s_unoccupied_day :
-         new_state = unoccupied_day (dt);
+         new_state = unoccupied_day (tod);
          break;
       case s_occupied_day :
-         new_state = occupied_day (dt);
+         new_state = occupied_day (tod);
          break;
    }
    mcurrent_state = new_state;
@@ -100,4 +102,23 @@ void Office::Save(SerializerBase& ser)
    FloorBase::Save(ser);
    ser.Add("state", ToString((mcurrent_state == s_occupied_day)?1:0).c_str());
    // if something goes bump, either deal with it or throw it
+}
+
+void Office::PeopleInOut( int count )
+{
+   mPeopleInOffice += count;
+   if (mPeopleInOffice < 0 )
+   {
+      mPeopleInOffice = 0;
+   }
+}
+
+bool Office::PeopleApply( )
+{
+   if (mEmployees < mMaxPositions)
+   {
+      mEmployees++;
+      return true;
+   }
+   return false;
 }

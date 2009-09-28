@@ -16,7 +16,7 @@
 
 #ifndef _LEVEL_H
 #define _LEVEL_H
-
+#include <map>
 #include <list>
 
 #include "../Graphics/ModelObject.h"
@@ -37,7 +37,7 @@ class Level : public Gfx::ModelObject
    friend class GameManager;
    friend class FloorAgent;
 private:
-   std::vector<FloorBase*> mFloorSpaces;
+   std::map<unsigned int, FloorBase*> mFloorSpaces;
    std::list<PersonQueue*> mRouteQueues;  // person queue for elevators that stop on this level
    Tower * mTowerParent;
    int  mID;
@@ -89,13 +89,13 @@ public:
 
 public:
    // decls
-   typedef std::vector<FloorBase*>::iterator FloorIterType;
-   typedef std::vector<FloorBase*> FloorVector;
+   typedef std::map<unsigned int, FloorBase*>::iterator FloorIterType;
+   typedef std::map<unsigned int, FloorBase*> FloorMap;
    typedef std::list<PersonQueue*>::iterator QueueIterType;
 
    // Properties
 protected:
-   inline std::vector<FloorBase*>& GetFloorSpaces()
+   inline FloorMap& GetFloorSpaces()
    {
       return mFloorSpaces;
    }
@@ -114,7 +114,8 @@ public:
 
    bool AddFloorSpace (FloorBase * floor);
    void SetFloorPositions( int x, int x2 );
-   FloorBase* FindSpace (int x);
+   FloorBase* GetSpaceByID (int id);
+   FloorBase* FindSpace (int x); // location
    PersonQueue* FindQueue (RouteBase* pRoute);
 
    bool TestForEmptySpace (int x, int x2 );

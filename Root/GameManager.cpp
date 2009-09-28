@@ -162,23 +162,22 @@ bool GameManager::LoadTower(TiXmlNode* pnTower, Tower* pTower)
                std::string Type = pnType->FirstChild()->Value();
                int XPos = FromString<int>(pnXPos->FirstChild()->Value());
                // Need a better way to do this...
-               FloorBase* pRoom;
+               FloorBase* pRoom = NULL;
                if (Type == "office")
                {
                   pRoom = new Office(XPos, levelno, pTower);
-                  //pRoom->SetState(State);
+                  pTower->GetLevel(levelno)->AddFloorSpace(pRoom);
                }
                else if (Type == "apartment")
                {
                   pRoom = new Apartment(XPos, levelno, pTower);
-                  //pRoom->SetState(State);
+                  pTower->GetLevel(levelno)->AddFloorSpace(pRoom);
                }
                else
                {
                   std::cout << "WARNING: " << Type << " is an invalid room type!\n";
                }
                std::cout << "DEBUG: New " << Type << " on floor " << levelno << " (position " << XPos << ")\n";
-               pTower->GetLevel(levelno)->AddFloorSpace(pRoom);
             }
          }
       }
@@ -204,7 +203,7 @@ bool GameManager::SaveTower(TiXmlElement* pnTower, Tower* pTower)
       XMLSerializer xmlLevel( pnLevel );
       pLevel->Save( xmlLevel );
       pnTower->LinkEndChild(pnLevel);
-      std::vector<FloorBase*>& fps = pLevel->GetFloorSpaces();
+      Level::FloorMap& fps = pLevel->GetFloorSpaces();
       for (unsigned int i = 0; i < fps.size(); i++)
       {
          TiXmlElement* pnSpace = new TiXmlElement("room");

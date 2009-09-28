@@ -117,7 +117,7 @@ main ()
             if( cc_count < 1 )
             {
                People.Update( pInterface->GetTimeOfDay() );
-               cc_count = 60;
+               cc_count = 20;
             }
             cc_count--;
             cycle = 0;

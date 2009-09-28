@@ -174,20 +174,6 @@
 	</References>
 	<Files>
 		<Filter
-			Name="Resource Files"
-			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
-			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
-			>
-			<File
-				RelativePath=".\HighRiseDev.rc"
-				>
-			</File>
-			<File
-				RelativePath=".\icon1.ico"
-				>
-			</File>
-		</Filter>
-		<Filter
 			Name="Window"
 			>
 			<File
@@ -514,14 +500,6 @@
 				RelativePath="..\Tower\TowerDebug.cpp"
 				>
 			</File>
-			<File
-				RelativePath="..\Tower\TowerLoad.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\Tower\TowerLoad.h"
-				>
-			</File>
 		</Filter>
 		<Filter
 			Name="tinyxml"
@@ -653,14 +631,6 @@
 		</File>
 		<File
 			RelativePath="..\HighRiseDev.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ReadMe.txt"
-			>
-		</File>
-		<File
-			RelativePath=".\resource.h"
 			>
 		</File>
 	</Files>

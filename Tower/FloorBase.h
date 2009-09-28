@@ -67,6 +67,7 @@ public:
    inline float GetY() { return mY; }
    inline float GetZ() {return mZ; }
    inline int   GetLevel() { return mLevel; }
+   inline int   GetID () { return mID; }
 
    inline void SetX(float x) { mX = x; }
    inline void SetX2(float x) { mX2 = x; }

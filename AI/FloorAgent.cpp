@@ -23,6 +23,7 @@
 
 #include "../Tower/Level.h"
 #include "../Tower/FloorBase.h"
+#include "../Tower/Office.h"
 #include "../Tower/Tower.h"
 #include "../People/Person.h"
 #include "FloorAgent.h"
@@ -58,20 +59,24 @@ FloorBase* FloorAgent::FindWork (int preferences)
    for (lit = levels.begin(); lit != levels.end(); lit++)
    {
       Level* pLevel = (*lit);
-      Level::FloorVector& rooms = pLevel->GetFloorSpaces();
+      Level::FloorMap& rooms = pLevel->GetFloorSpaces();
       for (fit = rooms.begin(); fit != rooms.end(); fit++)
       {
-         FloorBase* pRoom = (*fit);
-         if (pRoom->GetType() == BaseOffice && pRoom->IsVacant())
+         FloorBase* pRoom = (*fit).second;
+         if (pRoom->GetType() == BaseOffice ) //&& !pRoom->IsVacant()) employers will move in ans open the office for hire
          {
-            return pRoom;
+            Office* pOffice = reinterpret_cast<Office*>(pRoom);   // Base class is really and office so rinterpret it as Office
+            if( pOffice->PeopleApply() )
+            {
+               return pRoom;
+            }
          }
       }
    }
    return NULL;
 }
 
-FloorBase* FloorAgent::FindAHome (int preferences, Person* pPeep)
+FloorBase* FloorAgent::FindAHome (int preferences)
 {
    Level::FloorIterType fit;
    Tower::LevelIterator lit;
@@ -79,10 +84,10 @@ FloorBase* FloorAgent::FindAHome (int preferences, Person* pPeep)
    for (lit = levels.begin(); lit != levels.end(); lit++)
    {
       Level* pLevel = (*lit);
-      Level::FloorVector& rooms = pLevel->GetFloorSpaces();
+      Level::FloorMap& rooms = pLevel->GetFloorSpaces();
       for (fit = rooms.begin(); fit != rooms.end(); fit++)
       {
-         FloorBase* pRoom = (*fit);
+         FloorBase* pRoom = (*fit).second;
          if (pRoom->GetType() == BaseResidence && pRoom->IsVacant())
          {
             return pRoom;

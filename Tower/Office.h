@@ -34,11 +34,16 @@ enum office_state
 class Office : public FloorBase, public Gfx::ModelObject
 {
 private:
-   office_state unoccupied_day (float dt);
-   office_state occupied_day (float dt);
+   office_state unoccupied_day (int tod);
+   office_state occupied_day (int tod);
    std::map<office_state, Animation *> manimations;
    office_state mcurrent_state;
-   int mcurrent_animation;
+   int mCurrentAnimation;
+   int mPeopleInOffice;
+   int mEmployees;
+   int mMaxPositions;
+   int mOfficeStyle; // Offices, boardrooms, data centers, phone banks, etc
+   int mOfficeNumner;
 
 public:
    Office (int x, int level, Tower * TowerParent);
@@ -46,8 +51,14 @@ public:
    void Update (float dt, int tod);
    void Draw ();
    void DrawFramework ();
+   virtual BaseType GetType () { return BaseOffice; }
 
    void Save(SerializerBase& ser);
+
+   void PeopleInOut( int count );
+   bool Office::PeopleApply( );    // get a job
+   void SetOfficeNumber(int no) { mOfficeNumner = no; }
+   int  GetOfficeNumber() { return mOfficeNumner; }
 };
 
 #endif

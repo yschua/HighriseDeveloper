@@ -33,6 +33,7 @@
 #include "../Tower/Routes.h"
 #include "../Tower/PersonQueue.h"
 #include "../Tower/RouteBase.h"
+#include "../Tower/Office.h"
 #include "../Tower/Tower.h"
 #include "../Tower/Level.h"
 #include "../Root/HighRiseException.h"
@@ -84,25 +85,31 @@ void CitizensAgent::Update (float dt)
          case Person::AS_JobHunting:
             if (peep->GetCurrentState() == Person::CS_Idle)
             {
-               Location dest;
-               dest.mBuilding = 1;
-               dest.mLevel = 1 + (rand() % 3); // TODO:  get a real job finder
-               dest.mRoute = 0;              // plugged into first elevater until pathfinder does the job.
-               dest.mX = 1;                  // TODO:  find the room number
-//Log               std::cout << "A new person has entered your building looking for work on Level# " << dest.mLevel << std::endl;
-               if (dt >= 6*60 && dt < 16*60)
+               FloorAgent agent(mTower);
+               FloorBase* pFB = agent.FindWork(0);
+               if( pFB != NULL )
                {
-                  peep->SetActivity( Person::AS_GoingToWork);
-               }
-               else
-               {
-                  peep->SetActivity( Person::AS_Relaxing);
-               }
-               peep->SetOccupation (1);
-               PathAgent Path (peep);
-               Path.findPath (peep->get_Location(), dest, mTower);
+                  Location dest;
+                  dest.mBuilding = 1;
+                  dest.mLevel = pFB->GetLevel(); // TODO:  get a real job finder
+                  dest.mRoute = 0;              // plugged into first elevater until pathfinder does the job.
+                  dest.mX = 1;                  // TODO:  find the room number
+   //Log               std::cout << "A new person has entered your building looking for work on Level# " << dest.mLevel << std::endl;
+                  if (dt >= 6*60 && dt < 16*60)
+                  {
+                     peep->SetActivity( Person::AS_GoingToWork);
+                  }
+                  else
+                  {
+                     peep->SetActivity( Person::AS_Relaxing);
+                  }
+                  peep->SetOccupation (1);
+                  peep->SetWorkID( pFB->GetID());
+                  PathAgent Path (peep);
+                  Path.findPath (peep->get_Location(), dest, mTower);
 
-               mTower.EnterTower (peep);
+                  mTower.EnterTower (peep);
+               }
             }
             break;
 
@@ -114,7 +121,7 @@ void CitizensAgent::Update (float dt)
             // Set up cheap housing (not in the original tower game.
             {
                FloorAgent agent(mTower);
-               FloorBase* pFB = agent.FindAHome(0, peep);
+               FloorBase* pFB = agent.FindAHome(0);
                if (pFB != NULL)
                {
                   pFB->SetOwner (peep);
@@ -179,14 +186,47 @@ void CitizensAgent::Update (float dt)
                      }
                   }
                   workPath.index++; // TODO: wait for elevator, we are moving ahead before getting to the level
+                  if( workPath.index == workPath.size )
+                  {
+                     try
+                     {
+                        Level* pLevel = mTower.GetLevel(workPath.mPathList[workPath.size - 1].mLevel);
+                        FloorBase* pFB = pLevel->GetSpaceByID( peep->GetWorkID());
+                        if( pFB && pFB->GetType() == BaseOffice )
+                        {
+                           Office* pOffice = reinterpret_cast<Office*>(pFB);
+                           pOffice->PeopleInOut(1);
+                        }
+                     }
+                     catch(...)
+                     {
+                        peep->SetOccupation(0); // unemployed
+                     }
+                  }
                }
             }
             else
             {
             }
             break;
+         case Person::AS_ClockingOut:
+            if ( workPath.index > 0 )
+            {
+               int idx = workPath.index;
+               int curLevel = peep->get_Location().mLevel;
+               Level* pLevel = mTower.GetLevel(curLevel);
+               FloorBase* pFB = pLevel->GetSpaceByID( peep->GetWorkID());
+               if( pFB && pFB->GetType() == BaseOffice )
+               {
+                  Office* pOffice = reinterpret_cast<Office*>(pFB);
+                  pOffice->PeopleInOut(-1);
+               }
+            }
+            peep->SetActivity( Person::AS_GoingHome );
+            break;
 
          case Person::AS_GoingHome:
+
             if ( workPath.index >= 0 )
             {
                int idx = workPath.index;

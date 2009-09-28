@@ -34,35 +34,35 @@ using namespace Gfx;
 //   apt_occupied_night,
 //   apt_sleep_night
 
-apartment_state Apartment::vacant (int dt)
+apartment_state Apartment::vacant (int tod)
 {
    return apt_unoccupied_day;
 }
 
-apartment_state Apartment::unoccupied_day (int dt)
+apartment_state Apartment::unoccupied_day (int tod)
 {
-   if (dt>13*60+20)
+   if (tod>13*60+20)
       return apt_occupied_day;
    return apt_unoccupied_day;
 }
 
-apartment_state Apartment::occupied_day (int dt)
+apartment_state Apartment::occupied_day (int tod)
 {
-   if (dt>16*60)  // and people are home
+   if (tod>16*60)  // and people are home
       return apt_occupied_night;
    return apt_occupied_day;
 }
 
-apartment_state Apartment::occupied_night (int dt)
+apartment_state Apartment::occupied_night (int tod)
 {
-   if (dt>20*60+30)
+   if (tod>20*60+30)
       return apt_occupied_sleep;
    return apt_occupied_night;
 }
 
-apartment_state Apartment::occupied_sleep (int dt)
+apartment_state Apartment::occupied_sleep (int tod)
 {
-   if (dt < 10*60 && dt>5*60+20)
+   if (tod < 10*60 && tod > 5*60+20)
       return apt_occupied_day;
    return apt_occupied_sleep;
 }

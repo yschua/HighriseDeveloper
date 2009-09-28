@@ -44,6 +44,7 @@ FloorBase::FloorBase (int x, int x2, int level, Tower* pTowerParent)
 
 void FloorBase::Save(SerializerBase& ser)
 {
+   ser.Add("number", this->mID );
    ser.Add("xpos", ToString(mX).c_str());
    ser.Add("ypos", ToString(mY).c_str());
    ser.Add("zpos", ToString(mZ).c_str());

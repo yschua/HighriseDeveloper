@@ -97,7 +97,7 @@ void Person::Update (float dt)   //actual time
    case AS_Working:
       if (dt > 17*60)
       {
-         SetActivity( AS_GoingHome );
+         SetActivity( AS_ClockingOut );
          SetCurrentState( Person::CS_Walking );
          mWorkPath.index--;  // this is the return trip home
       }

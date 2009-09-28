@@ -97,6 +97,7 @@ public:
       AS_Reading,
       AS_GoingToWork,
       AS_Working,
+      AS_ClockingOut,
       AS_GoingHome,
       AS_Shopping,
       AS_BreakFast,
@@ -138,7 +139,8 @@ private:
    std::map<Mood_State, AnimationSingle *> manimations;
    // not set on if this will be a class or enum
 
-   int            mHome;        // Where's the Crib
+   unsigned int mHome;        // Where's the Crib
+   unsigned int mWorkID;   // number of the office or buisinee we work in
 public:
    // CTOR/DTOR
    Person (Location& loc);    // x is their starting point, usually in the lobby.
@@ -182,7 +184,14 @@ public:
    {
       return mLocation;
    }
-
+   unsigned int GetWorkID()   // number of the office or buisinee we work in
+   {
+      return mWorkID;
+   }
+   void SetWorkID (unsigned int id)
+   {
+      mWorkID = id;   // number of the office or buisinee we work in
+   }
    // Implementation methods
    virtual void Update (float dt);
    virtual void Draw ();

@@ -89,10 +89,10 @@ Clock::Update (int minutes)
          mYear++;
       }
    }
-   int mins = mTimeOfDay % 15;
+   int mins = mTimeOfDay % 30;
    float hours = (float)mTimeOfDay / 30;
    mHourHand.Angle = 360.0f / 24 * hours;
-   mMinuteHand.Angle =  360.0f / 15 * mins;
+   mMinuteHand.Angle =  360.0f / 30 * mins;
 }
 
 void

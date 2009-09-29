@@ -66,11 +66,12 @@ Office::Office (int x, int level, Tower * TowerParent)
    manimations[s_unoccupied_day]->AddFrame (image_man->GetTexture ("office_u_d.png", GL_RGBA), 1000);
    manimations[s_unoccupied_day]->SetPosition (mX, mY);
    mPeopleInOffice = 0;
-   mMaxPositions = rand() % 20;
+   mEmployees = 0;
+   mMaxPositions = rand() % 6;
+   mOfficeStyle = 0;
 }
 
-void
-Office::Update (float dt, int tod)
+void Office::Update (float dt, int tod)
 {
    manimations[mcurrent_state]->Update (dt);
    office_state new_state;

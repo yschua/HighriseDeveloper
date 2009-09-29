@@ -41,9 +41,9 @@ Tower::DebugLoad (int x, int y, int x2)
    try
    {
       // persist these
-      Elevator* pElevator = new Elevator( Elevator::LS_Standard, 472, -1, 6, this );
+      Elevator* pElevator = new Elevator( Elevator::LS_Standard, 472, -1, 8, this );
       GetRoutes().AddRoute( pElevator );
-      pElevator = new Elevator( Elevator::LS_Standard, 472 + 36 + 9, 0, 5, this );
+      pElevator = new Elevator( Elevator::LS_Standard, 472 + 36 + 9, 0, 8, this );
       GetRoutes().AddRoute( pElevator );
       Level* pLevel = GetLevel(0);
       pLevel->AddRouteToQueue(GetRoutes().GetRoutes()[0]);

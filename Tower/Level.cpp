@@ -110,7 +110,7 @@ Level::SetFloorPositions( int x, int x2 )
    else
    {
       nFireEscapeLeft->SetPosition ((float)mX - 24.0f, (float)mY);
-      nFireEscapeRight->SetPosition ((float)mX2, (float)mY);
+      nFireEscapeRight->SetPosition ((float)mX2 -8.0f, (float)mY);
    }
    mEmptyFLoor->SetPosition ((float)mX, (float)mY);  // x is irrelivant
    ResizeFloorSpaceGrid();

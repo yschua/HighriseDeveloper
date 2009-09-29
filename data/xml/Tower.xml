@@ -62,13 +62,6 @@
             <level>-1</level>
             <xstart>400</xstart>
             <xend>400</xend>
-            <room>
-                <type>office</type>
-                <xpos>400</xpos>
-                <ypos>36</ypos>
-                <zpos>-0.5</zpos>
-                <state>0</state>
-            </room>
         </level>
         <level>
             <type>Lobby</type>
@@ -80,7 +73,7 @@
             <type>Floor</type>
             <level>1</level>
             <xstart>400</xstart>
-            <xend>820</xend>
+            <xend>840</xend>
             <room>
                 <type>office</type>
                 <xpos>400</xpos>
@@ -111,14 +104,14 @@
             </room>
             <room>
                 <type>office</type>
-                <xpos>697</xpos>
+                <xpos>688</xpos>
                 <ypos>-36</ypos>
                 <zpos>-0.5</zpos>
                 <state>0</state>
             </room>
             <room>
                 <type>office</type>
-                <xpos>769</xpos>
+                <xpos>760</xpos>
                 <ypos>-36</ypos>
                 <zpos>-0.5</zpos>
                 <state>0</state>
@@ -128,7 +121,7 @@
             <type>Floor</type>
             <level>2</level>
             <xstart>400</xstart>
-            <xend>820</xend>
+            <xend>840</xend>
             <room>
                 <type>office</type>
                 <xpos>400</xpos>
@@ -176,7 +169,7 @@
             <type>Floor</type>
             <level>3</level>
             <xstart>400</xstart>
-            <xend>820</xend>
+            <xend>840</xend>
             <room>
                 <type>office</type>
                 <xpos>400</xpos>
@@ -224,7 +217,7 @@
             <type>Floor</type>
             <level>4</level>
             <xstart>400</xstart>
-            <xend>820</xend>
+            <xend>840</xend>
             <room>
                 <type>office</type>
                 <xpos>400</xpos>
@@ -272,7 +265,67 @@
             <type>Floor</type>
             <level>5</level>
             <xstart>400</xstart>
-            <xend>820</xend>
+            <xend>840</xend>
+           <room>
+              <type>apartment</type>
+              <xpos>400</xpos>
+              <ypos>-144</ypos>
+              <zpos>-0.5</zpos>
+              <state>1</state>
+           </room>
+           <room>
+              <type>apartment</type>
+              <xpos>472</xpos>
+              <ypos>-144</ypos>
+              <zpos>-0.5</zpos>
+              <state>1</state>
+           </room>
+           <room>
+              <type>apartment</type>
+              <xpos>544</xpos>
+              <ypos>-144</ypos>
+              <zpos>-0.5</zpos>
+              <state>1</state>
+           </room>
+           <room>
+              <type>apartment</type>
+              <xpos>616</xpos>
+              <ypos>-144</ypos>
+              <zpos>-0.5</zpos>
+              <state>1</state>
+           </room>
+           <room>
+              <type>apartment</type>
+              <xpos>688</xpos>
+              <ypos>-144</ypos>
+              <zpos>-0.5</zpos>
+              <state>0</state>
+           </room>
+           <room>
+              <type>apartment</type>
+              <xpos>760</xpos>
+              <ypos>-144</ypos>
+              <zpos>-0.5</zpos>
+              <state>0</state>
+           </room>
         </level>
+       <level>
+          <type>Floor</type>
+          <level>6</level>
+          <xstart>400</xstart>
+          <xend>840</xend>
+       </level>
+       <level>
+          <type>Floor</type>
+          <level>7</level>
+          <xstart>400</xstart>
+          <xend>840</xend>
+       </level>
+       <level>
+          <type>Floor</type>
+          <level>8</level>
+          <xstart>400</xstart>
+          <xend>840</xend>
+       </level>
     </tower>
 </highrisetower>

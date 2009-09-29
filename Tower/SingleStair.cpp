@@ -22,7 +22,6 @@
 #include "../Graphics/Image.h"
 #include "../Graphics/Animation.h"
 #include "../Graphics/Tiler.h"
-#include "../Root/RouteVisitor.h"  // class that will Update the SingleStairs route request queue
 #include "../Root/SerializerBase.h"
 
 #include "RouteBase.h"  // SingleStairs route (levels).
@@ -96,7 +95,7 @@ void SingleStair::PosCalc ()
 }
 
 
-int SingleStair::LoadPerson(Person* person, int destLevel) // returns space remaining
+int SingleStair::LoadPerson(Person* person, RoutingRequest& req) // returns space remaining
 {
    if (mWalkersOnStairs < mMaxCap)
    {

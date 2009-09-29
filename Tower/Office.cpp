@@ -67,7 +67,7 @@ Office::Office (int x, int level, Tower * TowerParent)
    manimations[s_unoccupied_day]->SetPosition (mX, mY);
    mPeopleInOffice = 0;
    mEmployees = 0;
-   mMaxPositions = rand() % 6;
+   mMaxPositions = rand() % 6 + 2;
    mOfficeStyle = 0;
 }
 

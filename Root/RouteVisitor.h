@@ -31,13 +31,13 @@ struct RoutingRequest
 class RouteVisitor
 {
 protected:
-   RoutingRequest* mroutingRequest;
+   RoutingRequest& mroutingRequest;
    bool m_Boarding;
 public:
-   RouteVisitor (RoutingRequest* rq, int count);
+   RouteVisitor (RoutingRequest& rq, int count);
    ~RouteVisitor (void);
 
-   virtual RoutingRequest* getRoute( )
+   virtual RoutingRequest& getRoute( )
    {
       return mroutingRequest;
    }

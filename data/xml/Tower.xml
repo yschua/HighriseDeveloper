@@ -56,6 +56,11 @@
             <level>-2</level>
             <xstart>400</xstart>
             <xend>400</xend>
+           <type>office</type>
+           <xpos>400</xpos>
+           <ypos>-36</ypos>
+           <zpos>-0.5</zpos>
+           <state>1</state>
         </level>
         <level>
             <type>Floor</type>

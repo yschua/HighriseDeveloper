@@ -29,7 +29,6 @@
 #include <iostream>
 #include <cstdlib>
 #include "../People/Person.h"
-#include "../Root/RouteVisitor.h"
 #include "../Tower/Routes.h"
 #include "../Tower/PersonQueue.h"
 #include "../Tower/RouteBase.h"
@@ -57,7 +56,7 @@ void CitizensAgent::Update (float dt)
 {
    // Shouldn't Citizens be a member within each Tower? Supposedly you would want this seperate.
    Citizens* citizens = Citizens::get_Instance(); // the citizens object that holds the people collection
-   if ( (rand() % 5) == 3 )  // TODO: need a better spawn mechanism, raised to 100
+   if ( (rand() % 4) == 3 )  // TODO: need a better spawn mechanism, raised to 100
    {
 
       //Location loc; // all zeros
@@ -167,21 +166,21 @@ void CitizensAgent::Update (float dt)
                         RoutingRequest req;     // routing code needs to queue this person
                         req.OriginLevel = curLevel;
                         req.DestinLevel = workPath.mPathList[idx].mLevel;
-                        RouteVisitor visitor(&req, 1);
-                        route->SetCallButton( &visitor );
-                        if( visitor.IsBoarding() )
+                        bool IsBoarding = route->SetCallButton( req );
+                        if( IsBoarding )
                         {
                            peep->SetCurrentState( Person::CS_Riding );
+                           route->LoadPerson (peep, req);
+                        }
+                        else
+                        {
+                           peep->SetCurrentState( Person::CS_Waiting );
                            Level* pLevel = mTower.GetLevel(curLevel);
                            PersonQueue* pQ = pLevel->FindQueue(route);
                            if( pQ )
                            {
                               pQ->AddPerson(peep);
                            }
-                        }
-                        else
-                        {
-                           peep->SetCurrentState( Person::CS_Waiting );
                         }
                      }
                   }
@@ -261,15 +260,21 @@ void CitizensAgent::Update (float dt)
                         RoutingRequest req;
                         req.OriginLevel = curLevel;
                         req.DestinLevel = workPath.mPathList[idx].mLevel;
-                        RouteVisitor visitor(&req, 1);
-                        route->SetCallButton( &visitor );
-                        if( visitor.IsBoarding() )
+                        bool IsBoarding = route->SetCallButton( req );
+                        if( IsBoarding ) // car is on this floor
                         {
                            peep->SetCurrentState( Person::CS_Riding );
+                           route->LoadPerson (peep, req);
                         }
                         else
                         {
                            peep->SetCurrentState( Person::CS_Waiting );
+                           Level* pLevel = mTower.GetLevel(curLevel);
+                           PersonQueue* pQ = pLevel->FindQueue(route);
+                           if( pQ )
+                           {
+                              pQ->AddPerson(peep);
+                           }
                         }
                      }
                   }

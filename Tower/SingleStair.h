@@ -26,7 +26,7 @@
 
 // these decls allow inclusion of this header without the need to load these class headers.
 //class RouteBase;
-class RouteVisitor;
+struct RoutingRequest;
 class AnimationSingle;
 class Person;
 class Tower;
@@ -82,11 +82,11 @@ namespace TowerObjects
       void LoadImages();
       void PosCalc ();
 
-      int  LoadPerson(Person* person, int destLevel); // returns space remaining
+      int  LoadPerson(Person* person, RoutingRequest& req); // returns space remaining
       void Motion ();
       void SetDestination (int level);
-      void SetCallButton( RouteVisitor* visitor ) { }; // call the elevator
-      void SetFloorButton( RouteVisitor* visitor ) { };      // once inside, select a floor
+      bool SetCallButton( RoutingRequest& req ) { return false; } // call the elevator
+      void SetFloorButton( RoutingRequest& req ) { }      // once inside, select a floor
    public:
 
       virtual void Update (float dt);

@@ -575,14 +575,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\Root\RouteVisitor.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\Root\RouteVisitor.h"
-				>
-			</File>
-			<File
 				RelativePath="..\Root\SceneEvent.cpp"
 				>
 			</File>

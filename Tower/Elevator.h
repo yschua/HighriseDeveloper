@@ -26,7 +26,7 @@
 
 // these decls allow inclusion of this header without the need to load these class headers.
 //class RouteBase;
-class RouteVisitor;
+struct RoutingRequest;
 class AnimationSingle;
 class ElevatorMachine; // mover above
 class ElevatorShaft;   // holds the tiler to show the shaft
@@ -55,7 +55,7 @@ class SerializerBase;
 
 #define BUTTON_UP 0x01     // this is a call to floor
 #define BUTTON_DOWN 0x02   // this is a call to floor
-#define DESINATION  0x04   // this is a level destination
+#define DESTINATION  0x04   // this is a level destination
 
 struct FloorStop
 {
@@ -100,6 +100,7 @@ protected:
 
    AnimationSingle* mElevatorImage;
    AnimationSingle* mLiftPit;
+   AnimationSingle* mRiderImage;
    ElevatorMachine* mLiftMachine;
    ElevatorShaft*   mElevatorShaft;
 
@@ -152,9 +153,10 @@ public:
 protected:
    void LoadImages();
    void PosCalc ();
-   virtual void SetCallButton (RouteVisitor* visitor);
-   virtual void SetFloorButton (RouteVisitor* visitor);
-   int  LoadPerson(Person* person, int destLevel); // returns space remaining
+   virtual bool SetCallButton (RoutingRequest& req);
+   virtual void SetFloorButton (RoutingRequest& req);
+   int  LoadPerson(Person* person, RoutingRequest& req); // returns space remaining
+   Person* UnloadPerson( ); // returns space remaining
    void NextCallButton ();
    void Motion ();
    void SetDestination (int level);

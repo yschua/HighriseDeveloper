@@ -33,14 +33,17 @@ Animation::AddFrame (Texture* pTex, float duration)
    mFrames.push_back (std::pair<Texture*, float> (pTex, duration));
 }
 
-void
-Animation::BindTexture()
+void Animation::ClearFrames ()
+{
+   mFrames.clear();
+}
+
+void Animation::BindTexture()
 {
    return mFrames[mCurrentFrame].first->Bind();
 }
 
-void
-Animation::Update (float dt)
+void Animation::Update (float dt)
 {
    mTime += dt;
    if (mTime > mFrames[mCurrentFrame].second)
@@ -48,8 +51,9 @@ Animation::Update (float dt)
       mTime = 0;
       mCurrentFrame++;
       if (mCurrentFrame >= mFrames.size ())
+      {
          mCurrentFrame = 0;
-//      sprite->SetImage (*mframes[mcurrent_frame].first);
+      }
    }
 }
 

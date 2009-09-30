@@ -40,6 +40,8 @@ public:
    }
    inline float* GetLightingColor() { return LightingColor; }
    virtual void BindTexture() = 0;
+   virtual void ClearFrames () {};
+   virtual void Update (float dt) {};
 };
 
 class Animation : public AnimationBase
@@ -53,6 +55,7 @@ public:
    Animation (int width, int height);
 
    void AddFrame (Texture* pTex, float duration);
+   void ClearFrames ();
    void Update (float dt);
    void BindTexture();
 };

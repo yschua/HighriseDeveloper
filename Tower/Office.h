@@ -27,17 +27,21 @@ class SerializerBase;
 
 enum office_state
 {
-   s_unoccupied_day,
-   s_occupied_day
+   OS_Vacant,
+   OS_Occupied
+};
+enum office_mode
+{
+   OM_Night = 0, 
+   OM_DayUnoccupied,
+   OM_DayOccupied
 };
 
 class Office : public FloorBase, public Gfx::ModelObject
 {
-private:
-   office_state unoccupied_day (int tod);
-   office_state occupied_day (int tod);
-   std::map<office_state, Animation *> manimations;
-   office_state mcurrent_state;
+   std::map<office_mode, AnimationBase*> manimations;
+   office_state mCurrentState;// vacant /occupied
+   office_mode  mCurrentMode; // day / night
    int mCurrentAnimation;
    int mPeopleInOffice;
    int mEmployees;
@@ -53,12 +57,18 @@ public:
    void DrawFramework ();
    virtual BaseType GetType () { return BaseOffice; }
 
+   void RemoveImages();
+   void SetImages (int set);
    void Save(SerializerBase& ser);
 
    void PeopleInOut( int count );
-   bool Office::PeopleApply( );    // get a job
+   bool PeopleApply( );    // get a job
    void SetOfficeNumber(int no) { mOfficeNumner = no; }
    int  GetOfficeNumber() { return mOfficeNumner; }
+
+private:
+   void OfficeMode (int tod);
+   void OfficeState();
 };
 
 #endif

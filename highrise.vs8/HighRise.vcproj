@@ -399,6 +399,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\Tower\Condo.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\Tower\Condo.h"
+				>
+			</File>
+			<File
 				RelativePath="..\Tower\Damage.cpp"
 				>
 			</File>
@@ -455,6 +463,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\Tower\HotelRoom.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\Tower\HotelRoom.h"
+				>
+			</File>
+			<File
 				RelativePath="..\Tower\Level.cpp"
 				>
 			</File>
@@ -468,6 +484,14 @@
 			</File>
 			<File
 				RelativePath="..\Tower\Lobby.h"
+				>
+			</File>
+			<File
+				RelativePath="..\Tower\MedicalClinic.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\Tower\MedicalClinic.h"
 				>
 			</File>
 			<File
@@ -487,6 +511,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\Tower\RetailShop.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\Tower\RetailShop.h"
+				>
+			</File>
+			<File
 				RelativePath="..\Tower\RouteBase.h"
 				>
 			</File>
@@ -496,6 +528,22 @@
 			</File>
 			<File
 				RelativePath="..\Tower\Routes.h"
+				>
+			</File>
+			<File
+				RelativePath="..\Tower\Security.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\Tower\Security.h"
+				>
+			</File>
+			<File
+				RelativePath="..\Tower\ServiceCenter.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\Tower\ServiceCenter.h"
 				>
 			</File>
 			<File
@@ -516,6 +564,14 @@
 			</File>
 			<File
 				RelativePath="..\Tower\TowerDebug.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\Tower\WasteManagement.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\Tower\WasteManagement.h"
 				>
 			</File>
 		</Filter>

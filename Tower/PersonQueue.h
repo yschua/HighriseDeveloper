@@ -19,6 +19,7 @@
 #pragma once
 #ifndef _PERSONQUEUE_H
 #define _PERSONQUEUE_H
+#include <queue>
 
 class Person;
 class CitizenAgent; // to move people
@@ -31,18 +32,15 @@ protected:
    short mTailIndex;
    short mCapacity;
    short mSweepIndex; // moves through the queue filling gaps
-   RouteBase* mpRoute;
-   Person** mpQueue;
+   //Person** mpQueue;
+   std::queue<Person*> mpQueue;
 
 public:
    PersonQueue();
-   void AssignElevator(RouteBase* pRouee);
-   inline RouteBase* GetRoute() { return mpRoute; }
-
    void AddPerson (Person* person);
    Person* TakeNextPerson ();
    void Update();
-   void Draw();
+   void Draw (int vx, int vy);
 };
 
 #endif //_PERSONQUEUE_H

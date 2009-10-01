@@ -25,6 +25,7 @@
 #include "../Root/SerializerBase.h"
 #include "../People/Person.h"
 
+#include "PersonQueue.h"
 #include "RouteBase.h"  // Elevators route (levels).
 #include "ElevatorBase.h"
 #include "ElevatorMachine.h"
@@ -56,6 +57,7 @@ Elevator::Elevator ( Lift_Styles style, int x, short BottomLevel, short TopLevel
       ,  mTowerParent (TowerParent)
       ,  Body(32, 32)
 {
+   mCurrentLevel = 0;
    mTopLevel = TopLevel;
    mBottomLevel = BottomLevel;
    mPosition = (mBottomLevel) * 36;
@@ -81,6 +83,8 @@ Elevator::Elevator ( Lift_Styles style, int x, short BottomLevel, short TopLevel
 
    mNumber = gElevatorsNumber++; // set number;
    LoadImages();
+   mRouteQueues = NULL;
+   SetQueues();
 }
 
 Elevator::Elevator( SerializerBase& ser, short TopLevel, Tower * TowerParent )
@@ -92,6 +96,7 @@ Elevator::Elevator( SerializerBase& ser, short TopLevel, Tower * TowerParent )
    mX = ser.GetInt( "startx" );
    mY = ser.GetInt( "starty" );
    mZ = ser.GetFloat( "startz" );
+   mCurrentLevel = 0;
    mTopLevel = (short)ser.GetInt( "toplevel" );
    mBottomLevel = (short)ser.GetInt( "bottomlevel" );
    mPosition = (short)ser.GetInt( "position" );
@@ -103,6 +108,8 @@ Elevator::Elevator( SerializerBase& ser, short TopLevel, Tower * TowerParent )
    mMaxCap = (short)ser.GetInt( "maxcap" );
    mOffset = mBottomLevel * 36;
    LoadImages();
+   mRouteQueues = NULL;
+   SetQueues();
 }
 
 Elevator::~Elevator()
@@ -339,13 +346,28 @@ void Elevator::Update (float dt)
    if( mIdleTime > 0 )
    {
       Person* person = UnloadPerson();
-      if( person == NULL )
+      PersonQueue* pQ = (*mRouteQueues)[mCurrentLevel];
+      Person* personOn = pQ->TakeNextPerson();
+      pQ->Update();
+
+      if( person == NULL && personOn == NULL)
       {
          mIdleTime--;
       }
       else
       {
-         person->SetCurrentState( Person::CS_Disembarking );
+         if( person != NULL ) person->SetCurrentState( Person::CS_Disembarking );
+         if( personOn != NULL )
+         {
+            int curLevel = personOn->get_Location().mLevel;
+            int idx = personOn->get_WorkPath().index;
+            //personOn->SetCurrentState( Person::CS_Boarding );
+            RoutingRequest req;     // routing code needs to queue this person
+            req.OriginLevel = curLevel;
+            req.DestinLevel = personOn->get_WorkPath().mPathList[idx].mLevel;
+            personOn->SetCurrentState( Person::CS_Riding );
+            LoadPerson (personOn, req);
+         }
          mIdleTime = 10;
       }
    }
@@ -367,6 +389,13 @@ void Elevator::Draw ()
    {
       Render( mRiderImage, (float)(mX + mStandingPositions[idx]), (float)(mX + mStandingPositions[idx] + 8));
    }
+   QueueIterType it;
+   int il = mBottomLevel;
+   for (it=mRouteQueues->begin(); it!=mRouteQueues->end(); ++it)
+   {
+      PersonQueue* pQ = (*it);
+      pQ->Draw (mX+18, il++);
+   }
 }
 
 void Elevator::Save( SerializerBase& ser )
@@ -387,4 +416,30 @@ void Elevator::Save( SerializerBase& ser )
    ser.Add( "maxcap", mMaxCap );
 //   ser.Add( "riders", mRiders, sizeof(mRiders) );
 //   ser.Add( "stops", mStops, sizeof(mStops) );
+}
+
+void Elevator::SetQueues ()
+{
+   if (mRouteQueues == NULL)
+   {
+      mRouteQueues = new QueueType();
+   }
+   QueueIterType it;
+   int count = mTopLevel - mBottomLevel;
+   for (int idx = 0; idx < count; ++idx)
+   {
+      PersonQueue* pQ = new PersonQueue();
+      mRouteQueues->push_back(pQ);
+   }
+}
+
+PersonQueue* Elevator::FindQueue (int Level)
+{
+   unsigned int index = Level - mBottomLevel;
+   if (index >= 0 && index < mRouteQueues->size())
+   {
+      PersonQueue* pQ = (*mRouteQueues)[index];
+      return pQ;
+   }
+   return NULL;
 }

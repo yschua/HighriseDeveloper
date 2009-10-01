@@ -145,9 +145,16 @@ void Person::Update (float dt)   //actual time
    }
 }
 
-void Person::Draw( )
+void Person::Draw ()
 {
-   Render (manimations[mMood]);
+   
+   Render (manimations[mMood] );
+}
+
+void Person::Draw (int vx, int vy)
+{
+   
+   Render (manimations[mMood], vx, vx+8 );
 }
 
 void Person::SetResidence (int level)

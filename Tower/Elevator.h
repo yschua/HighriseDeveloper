@@ -32,9 +32,11 @@ class ElevatorMachine; // mover above
 class ElevatorShaft;   // holds the tiler to show the shaft
 class ElevatorPit;     // landing pit below
 class Person;
+class PersonQueue;
 class Tower;
 class SerializerBase;
 
+#include <vector>
 #include "../Root/Physics.h"
 #include "../Graphics/ModelObject.h"
 #include "RouteBase.h"
@@ -130,6 +132,9 @@ protected:
 
    LiftOps_State  mLiftOperation;
    unsigned char  mLiftStyle;
+   std::vector<PersonQueue*>* mRouteQueues;  // person queue for elevators that stop on this level
+   typedef std::vector<PersonQueue*> QueueType;
+   typedef std::vector<PersonQueue*>::iterator QueueIterType;
 
    Tower * mTowerParent;
 
@@ -167,6 +172,13 @@ public:
    virtual void DrawFramework () { } // later we do lifts to
    
    void Save( SerializerBase& ser );
+
+   inline QueueType* GetPersonQueues()
+   {
+      return mRouteQueues;
+   }
+   void SetQueues ();
+   PersonQueue* FindQueue (int level);
 };
 
 #endif

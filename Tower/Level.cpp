@@ -146,12 +146,6 @@ Level::Draw ()
       Render (nFireEscapeLeft);
       Render (nFireEscapeRight);
    }
-   Level::QueueIterType it;
-   for (it=mRouteQueues.begin(); it!=mRouteQueues.end(); ++it)
-   {
-      PersonQueue* pQ = (*it);
-      pQ->Draw();
-   }
 }
 
 void
@@ -238,44 +232,6 @@ Level::TestForEmptySpace (int x, int x2 )
    return true;
 }
 
-void
-Level::AddRouteToQueue (RouteBase* pRoute)
-{
-   // may wand to check for dups
-   PersonQueue* pQ = new PersonQueue();
-   pQ->AssignElevator(pRoute);
-   mRouteQueues.push_back (pQ);
-}
-
-void
-Level::RemoveRouteFromQueue (RouteBase* pRoute)
-{
-   Level::QueueIterType it;
-   for (it=mRouteQueues.begin(); it!=mRouteQueues.end(); ++it)
-   {
-      PersonQueue* pQ = (*it);
-      if( pQ->GetRoute() == pRoute )
-      {
-         mRouteQueues.remove (pQ);
-         break;
-      }
-   }
-}
-
-PersonQueue*
-Level::FindQueue (RouteBase* pRoute)
-{
-   Level::QueueIterType it;
-   for (it=mRouteQueues.begin(); it!=mRouteQueues.end(); ++it)
-   {
-      PersonQueue* pQ = (*it);
-      if( pQ->GetRoute() == pRoute )
-      {
-         return pQ;
-      }
-   }
-   return NULL;
-}
 
 void
 Level::ResizeFloorSpaceGrid()

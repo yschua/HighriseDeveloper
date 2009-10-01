@@ -136,3 +136,8 @@ void SingleStair::Save( SerializerBase& ser )
    ser.Add( "walkersonstairs", mWalkersOnStairs );
    ser.Add( "maxcap", mMaxCap );
 }
+
+PersonQueue* SingleStair::FindQueue (int level)
+{
+   return NULL;
+}

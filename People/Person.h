@@ -122,6 +122,7 @@ public:
       CS_Walking,       // Ok good, going somewhere
       CS_Riding,        // In a vehicle, elevator, train, car etc.
       CS_Disembarking,  // Car just dropped a person off;
+      CS_Boarding,      // Car picking up person
       CS_Waiting        // In queue
    };
 
@@ -195,6 +196,7 @@ public:
    // Implementation methods
    virtual void Update (float dt);
    virtual void Draw ();
+   virtual void Draw (int vx, int vy);
    virtual int  DrawFramework (int id) { return 0; }
    void    SetResidence (int level);
 

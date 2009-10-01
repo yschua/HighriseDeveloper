@@ -33,6 +33,7 @@ namespace Gfx
       ModelObject ();
 
       virtual void Draw() = 0;
+      virtual void Draw(int vx, int vy) {}
    protected:
       void Render (AnimationBase* pBase, bool bLight = false);  // draw method replacement, drawing now happens on the GPU side for us
       void Render (AnimationBase* pBase, float x, float x2 );  // overload with specified X and X2

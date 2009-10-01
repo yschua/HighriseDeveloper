@@ -16,103 +16,43 @@
 
 // head and tail queue. People in and out while waiting for elevators, trams, rail and buses.
 #include <iostream>
-#include <vector>
 #include "../People/Person.h"
 #include "Elevator.h"
 #include "PersonQueue.h"
 
 PersonQueue::PersonQueue()
 {
-   mHeadIndex = 0;
-   mTailIndex = 0;
-   mCapacity = 32;
-   mpQueue = new Person*[mCapacity];
 }
 
 void PersonQueue::AddPerson (Person* person)
 {
-   bool bRealloc = false;
-   if ( mTailIndex +1 >= mCapacity)
-   {
-      if( mHeadIndex == 0 )
-      {
-         bRealloc = true;
-      }
-      else
-      {
-         mTailIndex = 0;
-      }
-   }
-   else if ( mHeadIndex  == mTailIndex +1)
-   {
-      bRealloc = true;
-   }
-   else
-   {
-   }
-   if (bRealloc)
-   {
-      Person** newQueue = new Person*[mCapacity];
-      // copy queue;
-      delete mpQueue;
-      mpQueue = newQueue;
-   }
-   person = mpQueue[mHeadIndex];
-   mHeadIndex++;
+   mpQueue.push(person);
    if( mHeadIndex >= mCapacity )
    {
       mHeadIndex = 0;
    }
 }
 
-void PersonQueue::AssignElevator (RouteBase* pRoute)
-{
-   mpRoute = pRoute;
-}
-
 Person* PersonQueue::TakeNextPerson ()
 {
    Person* person = 0;
-   if (mHeadIndex != mTailIndex)
+   if (!mpQueue.empty())
    {
-      person = mpQueue[mHeadIndex];
-      mHeadIndex++;
-      if( mHeadIndex >= mCapacity )
-      {
-         mHeadIndex = 0;
-      }
-      mSweepIndex = 0;
+      person = mpQueue.front();
+      mpQueue.pop();
    }
    return person;
 }
 
 void PersonQueue::Update()
 {
-   // compress the line
-   if (mTailIndex > 1 && mSweepIndex < mTailIndex)
-   {
-      if (mSweepIndex < 0)
-      {
-         mSweepIndex = 0;
-      }
-      else if(mSweepIndex < mTailIndex)
-      {
-         if(mpQueue[mSweepIndex] == NULL)
-         {
-            mpQueue[mSweepIndex] = mpQueue[mSweepIndex+1];
-         }
-         mSweepIndex++;
-      }
-   }
 }
 
-void PersonQueue::Draw()
+void PersonQueue::Draw (int vx, int vy)
 {
-   for( int x = 0; x < mTailIndex; ++x )
+   for( unsigned int x = 0; x < mpQueue.size(); ++x )
    {
-      if(mpQueue[mSweepIndex])
-      {
-         mpQueue[mSweepIndex]->Draw();
-      }
+      Person* peep = mpQueue.c[x];
+      peep->Draw(vx,vy);
    }
 }

@@ -29,6 +29,7 @@
 struct RoutingRequest;
 class AnimationSingle;
 class Person;
+class PersonQueue;
 class Tower;
 class SerializerBase;
 
@@ -94,6 +95,8 @@ namespace TowerObjects
       virtual void DrawFramework () { } // geometry test
       
       void Save( SerializerBase& ser );
+      PersonQueue* FindQueue (int level);
+
    };
 }
 

@@ -20,7 +20,6 @@
 #include <list>
 
 #include "../Graphics/ModelObject.h"
-#include "../xml/tinyxml/tinyxml.h"
 #include "FloorBase.h"
 
 class AnimationSingle;
@@ -38,7 +37,6 @@ class Level : public Gfx::ModelObject
    friend class FloorAgent;
 private:
    std::map<unsigned int, FloorBase*> mFloorSpaces;
-   std::list<PersonQueue*> mRouteQueues;  // person queue for elevators that stop on this level
    Tower * mTowerParent;
    int  mID;
 
@@ -84,24 +82,18 @@ public:
    // CTOR
    Level (int level, int x, int y, int x2, Tower * TowerParent);
    // Initialize from an xml node
-//   Level (TiXmlNode*);
    virtual ~Level ();
 
 public:
    // decls
    typedef std::map<unsigned int, FloorBase*>::iterator FloorIterType;
    typedef std::map<unsigned int, FloorBase*> FloorMap;
-   typedef std::list<PersonQueue*>::iterator QueueIterType;
 
    // Properties
 protected:
    inline FloorMap& GetFloorSpaces()
    {
       return mFloorSpaces;
-   }
-   inline std::list<PersonQueue*>& GetPersonQueues()
-   {
-      return mRouteQueues;
    }
 public:
    inline int GetLevel () { return mLevel; }
@@ -116,11 +108,8 @@ public:
    void SetFloorPositions( int x, int x2 );
    FloorBase* GetSpaceByID (int id);
    FloorBase* FindSpace (int x); // location
-   PersonQueue* FindQueue (RouteBase* pRoute);
 
    bool TestForEmptySpace (int x, int x2 );
-   void AddRouteToQueue (RouteBase* pElevator);  // set and remove the elevator stops
-   void RemoveRouteFromQueue (RouteBase* pElevator);
 
    void Save(SerializerBase& ser);
 };

@@ -175,8 +175,8 @@ void CitizensAgent::Update (float dt)
                         else
                         {
                            peep->SetCurrentState( Person::CS_Waiting );
-                           Level* pLevel = mTower.GetLevel(curLevel);
-                           PersonQueue* pQ = pLevel->FindQueue(route);
+                           //Level* pLevel = mTower.GetLevel(curLevel);
+                           PersonQueue* pQ = route->FindQueue(curLevel);
                            if( pQ )
                            {
                               pQ->AddPerson(peep);
@@ -269,8 +269,8 @@ void CitizensAgent::Update (float dt)
                         else
                         {
                            peep->SetCurrentState( Person::CS_Waiting );
-                           Level* pLevel = mTower.GetLevel(curLevel);
-                           PersonQueue* pQ = pLevel->FindQueue(route);
+                           //Level* pLevel = mTower.GetLevel(curLevel);
+                           PersonQueue* pQ = route->FindQueue(curLevel);
                            if( pQ )
                            {
                               pQ->AddPerson(peep);
@@ -302,9 +302,9 @@ void CitizensAgent::Draw()
    for (i = persons.begin (); i != persons.end (); i++)
    {
       Person* peep = (*i);
-      if( peep && peep->GetCurrentState() == Person::CS_Waiting )
+      if( peep && peep->GetCurrentState() == Person::AS_JobHunting )
       {
-         peep->Draw();
+         peep->Draw( 320, 36); // standing outside
       }
    }
 }

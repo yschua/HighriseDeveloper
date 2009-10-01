@@ -18,6 +18,7 @@
 #define _ROUTEBASE_H
 class SerializerBase; // visitor;
 class Person;
+class PersonQueue;
 
 struct RoutingRequest
 {
@@ -36,6 +37,7 @@ public:
    virtual void Update (float dt) = 0;
    virtual void Draw () = 0;
    virtual void Save( SerializerBase& ser ) = 0;
+   virtual PersonQueue* FindQueue (int level) = 0;
 };
 
 #endif //_ROUTEBASE_H

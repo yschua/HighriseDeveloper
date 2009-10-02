@@ -14,8 +14,8 @@
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef _OFFICE_H
-#define _OFFICE_H
+#ifndef _SERVICECENTER_H
+#define _SERVICECENTER_H
 
 #include <map>
 
@@ -27,30 +27,29 @@ class SerializerBase;
 
 enum office_state
 {
-   OS_Vacant,
-   OS_Occupied
+   SS_Vacant,
+   SS_Occupied
 };
 enum office_mode
 {
-   OM_Night = 0, 
-   OM_DayUnoccupied,
-   OM_DayOccupied
+   SM_Night = 0, 
+   SM_DayUnoccupied,
+   SM_DayOccupied
 };
 
-class Office : public FloorBase, public Gfx::ModelObject
+class ServiceCenter : public FloorBase, public Gfx::ModelObject
 {
    std::map<office_mode, AnimationBase*> manimations;
    office_state mCurrentState;// vacant /occupied
    office_mode  mCurrentMode; // day / night
    int mCurrentAnimation;
-   int mPeopleInOffice;
+   int mPeopleInService;
    int mEmployees;
    int mMaxPositions;
-   int mOfficeStyle; // Offices, boardrooms, data centers, phone banks, etc
-   int mOfficeNumner;
+   int mServiceNumner;
 
 public:
-   Office (int x, int level, Tower * TowerParent);
+   ServiceCenter (int x, int level, Tower * TowerParent);
 
    void Update (float dt, int tod);
    void Draw ();
@@ -63,12 +62,12 @@ public:
 
    void PeopleInOut( int count );
    bool PeopleApply( );    // get a job
-   void SetOfficeNumber(int no) { mOfficeNumner = no; }
-   int  GetOfficeNumber() { return mOfficeNumner; }
+   void SetServiceNumber(int no) { mServiceNumner = no; }
+   int  GetServiceNumber() { return mServiceNumner; }
 
 private:
-   void OfficeMode (int tod);
-   void OfficeState();
+   void ServiceMode (int tod);
+   void ServiceState();
 };
 
-#endif
+#endif //_SERVICECENTER_H

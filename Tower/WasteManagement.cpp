@@ -32,157 +32,133 @@ namespace TowerObjects
 {
    // use the XML serializer to replace this
    // 
-   const char* RetailImagesU[] =
+   const char* WasteMgtImages0[] =
    {
-      "Retail_u_n.png",
-      "Retail_u_d.png",
-      "Retail_u_0.png"
+      "WasteMgt_0_n.png",
+      "WasteMgt_0_d_0.png",
+      "WasteMgt_0_d_1.png",
+      "WasteMgt_0_d_2.png",
+      "WasteMgt_0_d_3.png",
+      "WasteMgt_0_d_4.png",
+      "WasteMgt_0_d_5.png"
    };
-   const char* RetailImages0[] =
-   {
-      "Retail_0_n.png",
-      "Retail_0_d_0.png",
-      "Retail_0_d_1.png",
-      "Retail_0_d_2.png",
-      "Retail_0_d_3.png",
-      "Retail_0_d_4.png",
-      "Retail_0_d_5.png"
-   };
-   const char* RetailImages6[] =
-   {
-      "Retail_6_n.png",
-      "Retail_6_d_0.png",
-      "Retail_6_d_1.png",
-      "Retail_6_d_2.png"
-   };
-   const char* RetailImages7[] =
-   {
-      "Retail_7_n.png",
-      "Retail_7_d_0.png",
-      "Retail_7_d_1.png",
-      "Retail_7_d_2.png",
-      "Retail_7_d_4.png",
-      "Retail_7_d_3.png",
-      "Retail_7_d_5.png"
-   };
-   struct RetailImage
+   struct WasteMgtImage
    {
       const char** Images;
       int count;
    };
-   RetailImage RetailImages[] =
+   WasteMgtImage WasteMgtImages[] =
    {
-      { RetailImagesU, 3 }
-      //{ RetailImages0, 7 },
-      //{ RetailImages6, 4 },
-      //{ RetailImages7, 7 }
+      { WasteMgtImages0, 7 }
+      //{ WasteMgtImagesU, 3 },
+      //{ WasteMgtImages6, 4 },
+      //{ WasteMgtImages7, 7 }
    };
    const int TotalSets = 1;
 }
 
 using namespace TowerObjects;
 
-RetailShop::RetailShop (int x, int level, Tower * TowerParent)
-      :  mCurrentState (OS_Vacant)
-      ,  mCurrentMode (OM_Night)
+WasteManagement::WasteManagement (int x, int level, Tower * TowerParent)
+      :  mCurrentState (WMS_Vacant)
+      ,  mCurrentMode (WMM_Night)
       ,  FloorBase (x, x + 72, level, TowerParent)
 {
    ImageManager * image_man = ImageManager::GetInstance ();
-   std::cout << "New Retail at " << mX << ", " << mY << " level " << mLevel << std::endl;
-   mPeopleInRetail = 0;
+   std::cout << "New WasteMgt at " << mX << ", " << mY << " level " << mLevel << std::endl;
+   mPeopleInWasteManagement = 0;
    mEmployees = 0;
    mMaxPositions = rand() % 6 + 2;
-   mRetailStyle = 0;
    SetImages (0);
 }
 
-void RetailShop::RetailMode (int tod)
+void WasteManagement::WasteManagementMode (int tod)
 {
-   if (mPeopleInRetail > 0)  // some people are at work
+   if (mPeopleInWasteManagement > 0)  // some people are at work
    {
-      mCurrentMode = OM_DayOccupied;
+      mCurrentMode = WMM_DayOccupied;
    }
    else if (tod > 8*60 && tod < 16*60)
    {
-      mCurrentMode = OM_DayUnoccupied;
+      mCurrentMode = WMM_DayUnoccupied;
    }
    else
    {
-      mCurrentMode = OM_Night;
+      mCurrentMode = WMM_Night;
    }
 }
 
-void Retail::RetailState()
+void WasteManagement::WasteManagementState()
 {
-   if ( mCurrentState == OS_Vacant && mPeopleInRetail > 0 )  // need to check for rent paid
+   if ( mCurrentState == WMS_Vacant && mPeopleInWasteManagement > 0 )  // need to check for rent paid
    {
-      int set = 1 + rand() % (TotalSets-1);
+      int set = 0;// + rand() % (TotalSets-1);
       RemoveImages();
       SetImages(set);
-      mCurrentState = OS_Occupied;
+      mCurrentState = WMS_Occupied;
    }
 }
 
-void Retail::RemoveImages()
+void WasteManagement::RemoveImages()
 {
-   manimations[OM_Night]->ClearFrames();
-   manimations[OM_DayUnoccupied]->ClearFrames();
-   manimations[OM_DayOccupied]->ClearFrames();
+   manimations[WMM_Night]->ClearFrames();
+   manimations[WMM_DayUnoccupied]->ClearFrames();
+   manimations[WMM_DayOccupied]->ClearFrames();
 }
 
-void Retail::SetImages (int set)
+void WasteManagement::SetImages (int set)
 {
    ImageManager * image_man = ImageManager::GetInstance ();
-   RetailImage& oi = RetailImages [set];
-   manimations[OM_Night] = new AnimationSingle (image_man->GetTexture (oi.Images[0], GL_RGBA), 72, 36);
-   manimations[OM_Night]->SetPosition (mX, mY);
-   manimations[OM_DayUnoccupied] = new AnimationSingle (image_man->GetTexture (oi.Images[1], GL_RGBA), 72, 36);
-   manimations[OM_DayUnoccupied]->SetPosition (mX, mY);
+   WasteMgtImage& oi = WasteMgtImages [set];
+   manimations[WMM_Night] = new AnimationSingle (image_man->GetTexture (oi.Images[0], GL_RGBA), 72, 36);
+   manimations[WMM_Night]->SetPosition (mX, mY);
+   manimations[WMM_DayUnoccupied] = new AnimationSingle (image_man->GetTexture (oi.Images[1], GL_RGBA), 72, 36);
+   manimations[WMM_DayUnoccupied]->SetPosition (mX, mY);
    Animation* pAn = new Animation (72,36);
-   manimations[OM_DayOccupied] = pAn;
+   manimations[WMM_DayOccupied] = pAn;
    for (int idx = 2; idx < oi.count; ++idx )
    {
-      pAn->AddFrame (image_man->GetTexture (oi.Images[idx], GL_RGBA), 1500+rand()%120);
+      pAn->AddFrame (image_man->GetTexture (oi.Images[idx], GL_RGBA), (float)(1500+rand()%120));
       pAn->SetPosition (mX, mY);
    }
 }
 
-void Retail::Update (float dt, int tod)
+void WasteManagement::Update (float dt, int tod)
 {
-   RetailMode (tod);
+   WasteManagementMode (tod);
    manimations[mCurrentMode]->Update (dt);
 }
 
-void Retail::Draw ()
+void WasteManagement::Draw ()
 {
    Render (manimations[mCurrentMode]);
 }
 
-void Retail::DrawFramework ()
+void WasteManagement::DrawFramework ()
 {
    RenderFramework( manimations[mCurrentMode], mID);
 }
 
-void Retail::Save(SerializerBase& ser)
+void WasteManagement::Save(SerializerBase& ser)
 {
-   ser.Add("type", "Retail");   // first tag
+   ser.Add("type", "wastemgt");   // first tag
    FloorBase::Save(ser);
-   ser.Add("state", ToString((mCurrentState == OS_Occupied)?1:0).c_str());
+   ser.Add("state", ToString((mCurrentState == WMS_Occupied)?1:0).c_str());
    ser.Add("mode", mCurrentMode );
    // if something goes bump, either deal with it or throw it
 }
 
-void Retail::PeopleInOut( int count )
+void WasteManagement::PeopleInOut( int count )
 {
-   mPeopleInRetail += count;
-   if (mPeopleInRetail < 0 )
+   mPeopleInWasteManagement += count;
+   if (mPeopleInWasteManagement < 0 )
    {
-      mPeopleInRetail = 0;
+      mPeopleInWasteManagement = 0;
    }
-   RetailState();
+   WasteManagementState();
 }
 
-bool Retail::PeopleApply( )
+bool WasteManagement::PeopleApply( )
 {
    if (mEmployees < mMaxPositions) // && mCurrentState == OS_Occupied)
    {

@@ -34,7 +34,8 @@ enum BaseType
    BaseVenue,
    BaseSecurity,
    BaseMedical,
-   BaseRestroom
+   BaseRestroom,
+   BaseWasteManagement
 };
 
 class FloorBase

@@ -14,8 +14,8 @@
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef _OFFICE_H
-#define _OFFICE_H
+#ifndef _WasteManagement_H
+#define _WasteManagement_H
 
 #include <map>
 
@@ -25,37 +25,37 @@
 class Animation;
 class SerializerBase;
 
-enum office_state
+enum WasteManagement_state
 {
-   OS_Vacant,
-   OS_Occupied
+   WMS_Vacant,
+   WMS_Occupied
 };
-enum office_mode
+enum WasteManagement_mode
 {
-   OM_Night = 0, 
-   OM_DayUnoccupied,
-   OM_DayOccupied
+   WMM_Night = 0, 
+   WMM_DayUnoccupied,
+   WMM_DayOccupied
 };
 
-class Office : public FloorBase, public Gfx::ModelObject
+class WasteManagement : public FloorBase, public Gfx::ModelObject
 {
-   std::map<office_mode, AnimationBase*> manimations;
-   office_state mCurrentState;// vacant /occupied
-   office_mode  mCurrentMode; // day / night
+   std::map<WasteManagement_mode, AnimationBase*> manimations;
+   WasteManagement_state mCurrentState;// vacant /occupied
+   WasteManagement_mode  mCurrentMode; // day / night
    int mCurrentAnimation;
-   int mPeopleInOffice;
+   int mPeopleInWasteManagement;
    int mEmployees;
    int mMaxPositions;
-   int mOfficeStyle; // Offices, boardrooms, data centers, phone banks, etc
-   int mOfficeNumner;
+   int mWasteManagementState;
+   int mWasteManagementNumner;
 
 public:
-   Office (int x, int level, Tower * TowerParent);
+   WasteManagement (int x, int level, Tower * TowerParent);
 
    void Update (float dt, int tod);
    void Draw ();
    void DrawFramework ();
-   virtual BaseType GetType () { return BaseOffice; }
+   virtual BaseType GetType () { return BaseWasteManagement; }
 
    void RemoveImages();
    void SetImages (int set);
@@ -63,12 +63,12 @@ public:
 
    void PeopleInOut( int count );
    bool PeopleApply( );    // get a job
-   void SetOfficeNumber(int no) { mOfficeNumner = no; }
-   int  GetOfficeNumber() { return mOfficeNumner; }
+   void SetWasteManagementNumber(int no) { mWasteManagementNumner = no; }
+   int  GetWasteManagementNumber() { return mWasteManagementNumner; }
 
 private:
-   void OfficeMode (int tod);
-   void OfficeState();
+   void WasteManagementMode (int tod);
+   void WasteManagementState();
 };
 
 #endif

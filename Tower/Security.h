@@ -27,14 +27,14 @@ class SerializerBase;
 
 enum Security_State
 {
-   SE_Vacant,
+   SE_Unoccupied,
    SE_Occupied
 };
 
 class Security : public FloorBase, public Gfx::ModelObject
 {
    std::map<Security_State, AnimationBase*> manimations;
-   Security_state mCurrentState;// vacant /occupied
+   Security_State mCurrentState;// vacant /occupied
    int mCurrentAnimation;
    int mPeopleInSecurity;
    int mEmployees;
@@ -60,8 +60,7 @@ public:
    int  GetSecurityNumber() { return mSecurityNumner; }
 
 private:
-   void SecurityMode (int tod);
-   void SecurityState();
+   void SecurityState (int tod);
 };
 
 #endif // _SECURITY_H

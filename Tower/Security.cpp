@@ -57,8 +57,7 @@ namespace TowerObjects
 using namespace TowerObjects;
 
 Security::Security (int x, int level, Tower * TowerParent)
-      :  mCurrentState (OS_Vacant)
-      ,  mCurrentMode (OM_Night)
+      :  mCurrentState (SE_Unoccupied)
       ,  FloorBase (x, x + 72, level, TowerParent)
 {
    ImageManager * image_man = ImageManager::GetInstance ();
@@ -69,19 +68,15 @@ Security::Security (int x, int level, Tower * TowerParent)
    SetImages (0);
 }
 
-void Security::Security_State(int tod)
+void Security::SecurityState(int tod)
 {
-   if (mPeopleInSecurity_ > 0)  // some people are at work
+   if (mPeopleInSecurity > 0)  // some people are at work
    {
-      mCurrentMode = OM_DayOccupied;
-   }
-   else if (tod > 8*60 && tod < 16*60)
-   {
-      mCurrentMode = OM_DayUnoccupied;
+      mCurrentState = SE_Occupied;
    }
    else
    {
-      mCurrentMode = OM_Night;
+      mCurrentState = SE_Unoccupied;
    }
 }
 
@@ -89,10 +84,10 @@ void Security::SetImages (int set)
 {
    ImageManager * image_man = ImageManager::GetInstance ();
    Security_Image& oi = Security_Images [set];
-   manimations[SE_DayUnoccupied] = new AnimationSingle (image_man->GetTexture (oi.Images[1], GL_RGBA), 72, 36);
-   manimations[SE_DayUnoccupied]->SetPosition (mX, mY);
+   manimations[SE_Unoccupied] = new AnimationSingle (image_man->GetTexture (oi.Images[1], GL_RGBA), 72, 36);
+   manimations[SE_Unoccupied]->SetPosition (mX, mY);
    Animation* pAn = new Animation (72,36);
-   manimations[SE_DayOccupied] = pAn;
+   manimations[SE_Occupied] = pAn;
    for (int idx = 0; idx < oi.count; ++idx )
    {
       pAn->AddFrame (image_man->GetTexture (oi.Images[idx], GL_RGBA), (float)(1500+rand()%120));
@@ -102,37 +97,35 @@ void Security::SetImages (int set)
 
 void Security::Update (float dt, int tod)
 {
-   Security_Mode (tod);
-   manimations[mCurrentMode]->Update (dt);
+   SecurityState (tod);
+   manimations[mCurrentState]->Update (dt);
 }
 
 void Security::Draw ()
 {
-   Render (manimations[mCurrentMode]);
+   Render (manimations[mCurrentState]);
 }
 
 void Security::DrawFramework ()
 {
-   RenderFramework( manimations[mCurrentMode], mID);
+   RenderFramework( manimations[mCurrentState], mID);
 }
 
 void Security::Save(SerializerBase& ser)
 {
    ser.Add("type", "Security_");   // first tag
    FloorBase::Save(ser);
-   ser.Add("state", ToString((mCurrentState == OS_Occupied)?1:0).c_str());
-   ser.Add("mode", mCurrentMode );
+   ser.Add("state", SE_Occupied);
    // if something goes bump, either deal with it or throw it
 }
 
 void Security::PeopleInOut( int count )
 {
-   mPeopleInSecurity_ += count;
-   if (mPeopleInSecurity_ < 0 )
+   mPeopleInSecurity += count;
+   if (mPeopleInSecurity < 0 )
    {
-      mPeopleInSecurity_ = 0;
+      mPeopleInSecurity = 0;
    }
-   Security_State();
 }
 
 bool Security::PeopleApply( )

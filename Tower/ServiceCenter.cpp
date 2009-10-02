@@ -32,157 +32,133 @@ namespace TowerObjects
 {
    // use the XML serializer to replace this
    // 
-   const char* RetailImagesU[] =
+   const char* ServiceCenterImages0[] =
    {
-      "Retail_u_n.png",
-      "Retail_u_d.png",
-      "Retail_u_0.png"
+      "ServiceCenter_0_n.png",
+      "ServiceCenter_0_d_0.png",
+      "ServiceCenter_0_d_1.png",
+      "ServiceCenter_0_d_2.png",
+      "ServiceCenter_0_d_3.png",
+      "ServiceCenter_0_d_4.png",
+      "ServiceCenter_0_d_5.png"
    };
-   const char* RetailImages0[] =
-   {
-      "Retail_0_n.png",
-      "Retail_0_d_0.png",
-      "Retail_0_d_1.png",
-      "Retail_0_d_2.png",
-      "Retail_0_d_3.png",
-      "Retail_0_d_4.png",
-      "Retail_0_d_5.png"
-   };
-   const char* RetailImages6[] =
-   {
-      "Retail_6_n.png",
-      "Retail_6_d_0.png",
-      "Retail_6_d_1.png",
-      "Retail_6_d_2.png"
-   };
-   const char* RetailImages7[] =
-   {
-      "Retail_7_n.png",
-      "Retail_7_d_0.png",
-      "Retail_7_d_1.png",
-      "Retail_7_d_2.png",
-      "Retail_7_d_4.png",
-      "Retail_7_d_3.png",
-      "Retail_7_d_5.png"
-   };
-   struct RetailImage
+   struct ServiceCenterImage
    {
       const char** Images;
       int count;
    };
-   RetailImage RetailImages[] =
+   ServiceCenterImage ServiceCenterImages[] =
    {
-      { RetailImagesU, 3 }
-      //{ RetailImages0, 7 },
-      //{ RetailImages6, 4 },
-      //{ RetailImages7, 7 }
+      { ServiceCenterImages0, 7 }
+      //{ ServiceCenterImagesn, 7 },
+      //{ ServiceCenterImages6, 4 },
+      //{ ServiceCenterImages7, 7 }
    };
    const int TotalSets = 1;
 }
 
 using namespace TowerObjects;
 
-RetailShop::RetailShop (int x, int level, Tower * TowerParent)
-      :  mCurrentState (OS_Vacant)
-      ,  mCurrentMode (OM_Night)
-      ,  FloorBase (x, x + 72, level, TowerParent)
+ServiceCenter::ServiceCenter (int x, int level, Tower * TowerParent)
+:  mCurrentState (SS_Vacant)
+,  mCurrentMode (SM_Night)
+,  FloorBase (x, x + 72, level, TowerParent)
 {
    ImageManager * image_man = ImageManager::GetInstance ();
-   std::cout << "New Retail at " << mX << ", " << mY << " level " << mLevel << std::endl;
-   mPeopleInRetail = 0;
+   std::cout << "New ServiceCenter at " << mX << ", " << mY << " level " << mLevel << std::endl;
+   mPeopleInService = 0;
    mEmployees = 0;
    mMaxPositions = rand() % 6 + 2;
-   mRetailStyle = 0;
    SetImages (0);
 }
 
-void RetailShop::RetailMode (int tod)
+void ServiceCenter::ServiceMode (int tod)
 {
-   if (mPeopleInRetail > 0)  // some people are at work
+   if (mPeopleInService > 0)  // some people are at work
    {
-      mCurrentMode = OM_DayOccupied;
+      mCurrentMode = SM_DayOccupied;
    }
    else if (tod > 8*60 && tod < 16*60)
    {
-      mCurrentMode = OM_DayUnoccupied;
+      mCurrentMode = SM_DayUnoccupied;
    }
    else
    {
-      mCurrentMode = OM_Night;
+      mCurrentMode = SM_Night;
    }
 }
 
-void Retail::RetailState()
+void ServiceCenter::ServiceState()
 {
-   if ( mCurrentState == OS_Vacant && mPeopleInRetail > 0 )  // need to check for rent paid
+   if ( mCurrentState == SS_Vacant && mPeopleInService > 0 )  // need to check for rent paid
    {
       int set = 1 + rand() % (TotalSets-1);
       RemoveImages();
       SetImages(set);
-      mCurrentState = OS_Occupied;
+      mCurrentState = SS_Occupied;
    }
 }
 
-void Retail::RemoveImages()
+void ServiceCenter::RemoveImages()
 {
-   manimations[OM_Night]->ClearFrames();
-   manimations[OM_DayUnoccupied]->ClearFrames();
-   manimations[OM_DayOccupied]->ClearFrames();
+   manimations[SM_Night]->ClearFrames();
+   manimations[SM_DayUnoccupied]->ClearFrames();
+   manimations[SM_DayOccupied]->ClearFrames();
 }
 
-void Retail::SetImages (int set)
+void ServiceCenter::SetImages (int set)
 {
    ImageManager * image_man = ImageManager::GetInstance ();
-   RetailImage& oi = RetailImages [set];
-   manimations[OM_Night] = new AnimationSingle (image_man->GetTexture (oi.Images[0], GL_RGBA), 72, 36);
-   manimations[OM_Night]->SetPosition (mX, mY);
-   manimations[OM_DayUnoccupied] = new AnimationSingle (image_man->GetTexture (oi.Images[1], GL_RGBA), 72, 36);
-   manimations[OM_DayUnoccupied]->SetPosition (mX, mY);
+   ServiceCenterImage& oi = ServiceCenterImages [set];
+   manimations[SM_Night] = new AnimationSingle (image_man->GetTexture (oi.Images[0], GL_RGBA), 72, 36);
+   manimations[SM_Night]->SetPosition (mX, mY);
+   manimations[SM_DayUnoccupied] = new AnimationSingle (image_man->GetTexture (oi.Images[1], GL_RGBA), 72, 36);
+   manimations[SM_DayUnoccupied]->SetPosition (mX, mY);
    Animation* pAn = new Animation (72,36);
-   manimations[OM_DayOccupied] = pAn;
+   manimations[SM_DayOccupied] = pAn;
    for (int idx = 2; idx < oi.count; ++idx )
    {
-      pAn->AddFrame (image_man->GetTexture (oi.Images[idx], GL_RGBA), 1500+rand()%120);
+      pAn->AddFrame (image_man->GetTexture (oi.Images[idx], GL_RGBA), (float)(1500+rand()%120));
       pAn->SetPosition (mX, mY);
    }
 }
 
-void Retail::Update (float dt, int tod)
+void ServiceCenter::Update (float dt, int tod)
 {
-   RetailMode (tod);
+   ServiceMode (tod);
    manimations[mCurrentMode]->Update (dt);
 }
 
-void Retail::Draw ()
+void ServiceCenter::Draw ()
 {
    Render (manimations[mCurrentMode]);
 }
 
-void Retail::DrawFramework ()
+void ServiceCenter::DrawFramework ()
 {
    RenderFramework( manimations[mCurrentMode], mID);
 }
 
-void Retail::Save(SerializerBase& ser)
+void ServiceCenter::Save(SerializerBase& ser)
 {
-   ser.Add("type", "Retail");   // first tag
+   ser.Add("type", "ServiceCenter");   // first tag
    FloorBase::Save(ser);
-   ser.Add("state", ToString((mCurrentState == OS_Occupied)?1:0).c_str());
+   ser.Add("state", mCurrentState );
    ser.Add("mode", mCurrentMode );
    // if something goes bump, either deal with it or throw it
 }
 
-void Retail::PeopleInOut( int count )
+void ServiceCenter::PeopleInOut( int count )
 {
-   mPeopleInRetail += count;
-   if (mPeopleInRetail < 0 )
+   mPeopleInService += count;
+   if (mPeopleInService < 0 )
    {
-      mPeopleInRetail = 0;
+      mPeopleInService = 0;
    }
-   RetailState();
+   ServiceState();
 }
 
-bool Retail::PeopleApply( )
+bool ServiceCenter::PeopleApply( )
 {
    if (mEmployees < mMaxPositions) // && mCurrentState == OS_Occupied)
    {

@@ -38,15 +38,16 @@ namespace TowerObjects
       "Hotel_u_d.png",
       "Hotel_u_0.png"
    };
-   const char* HotelImages0[] =
+   const char* HotelImagesS[] =
    {
-      "Hotel_0_n.png",
-      "Hotel_0_d_0.png",
-      "Hotel_0_d_1.png",
-      "Hotel_0_d_2.png",
-      "Hotel_0_d_3.png",
-      "Hotel_0_d_4.png",
-      "Hotel_0_d_5.png"
+      "Hotel_S_u.png",
+      "Hotel_S_n.png",
+      "Hotel_S_d_0.png",
+      "Hotel_S_d_1.png",
+      "Hotel_S_d_2.png",
+      "Hotel_S_d_3.png",
+      "Hotel_S_d_4.png",
+      "Hotel_S_d_5.png"
    };
    const char* HotelImages6[] =
    {
@@ -72,7 +73,7 @@ namespace TowerObjects
    };
    RetailImage HotelImages[] =
    {
-      { HotelImagesU, 3 }
+      { HotelImagesS, 3 }
       //{ HotelImages0, 7 },
       //{ HotelImages6, 4 },
       //{ HotelImages7, 7 }

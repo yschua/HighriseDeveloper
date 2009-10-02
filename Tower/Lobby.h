@@ -25,9 +25,10 @@ class SerializerBase;
 class Lobby : public Level // make lobby a level in itself
 {
 private:
-   Tiler * tile;
-   AnimationSingle * awn_left;
-   AnimationSingle * awn_right;
+   Tiler* mTile;
+   AnimationSingle* mDesk;
+   AnimationSingle* awn_left;
+   AnimationSingle* awn_right;
 
 public:
    Lobby (int x, int x2, int level, Tower * TowerParent);

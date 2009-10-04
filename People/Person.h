@@ -199,6 +199,7 @@ public:
    virtual void Draw (int vx, int vy);
    virtual int  DrawFramework (int id) { return 0; }
    void    SetResidence (int level);
+   void    SetCurrent( int Level );
 
 
 };

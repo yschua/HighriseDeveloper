@@ -133,6 +133,7 @@ void Person::Update (float dt)   //actual time
       else
       {
          SetActivity( AS_Relaxing ); // offices and businesses show employees at work.
+         mLocation.mLevel = mWorkPath.mPathList[mWorkPath.index].mLevel; // this will bring the car to the office level at days end
       }
       break;
    case AS_Sleeping:
@@ -163,4 +164,9 @@ void Person::SetResidence (int level)
    mWorkPath.mPathList[0].mLevel = level;
    mWorkPath.mPathList[0].mX = 400; // need this
    mHome = 1; // pResidence
+}
+
+void Person::SetCurrent( int level )
+{
+   mLocation.mLevel = level;
 }

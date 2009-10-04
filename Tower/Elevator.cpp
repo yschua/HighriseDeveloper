@@ -57,13 +57,14 @@ Elevator::Elevator ( Lift_Styles style, int x, short BottomLevel, short TopLevel
       ,  mTowerParent (TowerParent)
       ,  Body(32, 32)
 {
-   mCurrentLevel = 0;
+   mCurrentLevel = 1;
    mTopLevel = TopLevel;
    mBottomLevel = BottomLevel;
    mPosition = (mBottomLevel) * 36;
-   mDirection = 0;
-   mIdleTime = 30;
+   mDirection = -1;
+   mIdleTime = 10;
    mEnd2 = -1;
+   mPosition = 1; // make the elevater hit the floor
    //mOffset = 0;//BottomLevel * -36;
    mOffset = mBottomLevel * 36;
 
@@ -163,7 +164,7 @@ bool Elevator::SetCallButton (RoutingRequest& req)    // where is an elevator wh
    bool bIsOnFloor = false;
    int dirFlag = (req.DestinLevel > req.OriginLevel) ? BUTTON_UP : BUTTON_DOWN;
    int reqLevel = req.OriginLevel - mBottomLevel;
-   int cur_level = (mPosition + 18 )/ 36 - mBottomLevel;
+   int cur_level = (mPosition - 18 )/ 36 - mBottomLevel;
    int align = mPosition % 36;  // zero if we are aligned with a floor (safe stop)
 
    if( cur_level == reqLevel && align == 0 )
@@ -192,7 +193,7 @@ int Elevator::LoadPerson(Person* person, RoutingRequest& req) // returns space r
       mRiders[mRidersOnBoard].mDestLevel = req.DestinLevel - mBottomLevel;
       mRiders[mRidersOnBoard].mPerson = person;
       mRidersOnBoard++;
-      this->SetCallButton( req );
+      this->SetFloorButton( req );
    }
    return mMaxCap - mRidersOnBoard;
 }
@@ -222,14 +223,15 @@ Person* Elevator::UnloadPerson( ) // returns space remaining
 void Elevator::SetDestination (int level)
 {
    mEndRoute = level;
+   mStartRoute = mCurrentLevel;
    mDirection = ( mStartRoute < mEndRoute ) ? 1 : -1;
 }
 
 void Elevator::NextCallButton ()
 {
    int nPasses = 2; // only 2 directions
-   int curStop = mStartRoute;
-   bool bDown = (mDirection < 1);
+   int curStop = mCurrentLevel;
+   bool bDown = (mDirection < 1 && curStop > 0);
    while( nPasses > 0 )
    {
       if( bDown )   // search down
@@ -247,6 +249,13 @@ void Elevator::NextCallButton ()
                   SetDestination( idx + mBottomLevel );
                   break;
                }
+            }
+         }
+         if (nPasses> 0) // only true if we have not looked down yet
+         {
+            if (mDirection =- 1)
+            {
+               mDirection = 0;
             }
          }
          bDown = false; // search up if not found
@@ -268,7 +277,14 @@ void Elevator::NextCallButton ()
                }
             }
          }
-         bDown = (nPasses> 0); // only true if we have not looked down yet
+         if (nPasses> 0) // only true if we have not looked down yet
+         {
+            if (mDirection == 1)
+            {
+               mDirection = 0;
+            }
+            bDown = true;
+         }
       }
    }
 }
@@ -278,7 +294,7 @@ void Elevator::Motion ()
    int max = mTopLevel * 36;
    int min = mBottomLevel * 36;
    int align = mPosition % 36;  // zero if we are aligned with a floor (safe stop)
-   mCurrentLevel = (mPosition +18) / 36 - mBottomLevel;
+   mCurrentLevel = (mPosition ) / 36 - mBottomLevel;
    int index = mCurrentLevel;// - mBottomLevel;
    if( index < 0 || index >= mFloorCount )
       throw new HighriseException( "Elevator: Error in current floor index" );
@@ -308,11 +324,15 @@ void Elevator::Motion ()
       }
       else
       {
-         if( align == 0 && mStops[index].mButtonFlag&BUTTON_UP|DESTINATION )
+         NextCallButton();
+         if( align == 0 && mStops[index].mButtonFlag&(BUTTON_UP|DESTINATION) )
          {
             mStops[index].mButtonFlag &= BUTTON_DOWN; // clear all but down
          }
-         NextCallButton();
+         if (mDirection != 1) // no longer up
+         {
+            mStops[index].mButtonFlag = 0;
+         }
          mStartRoute = mEndRoute; // this stops the elevator at the destination to wait for a request.
          mIdleTime = 20;
       }
@@ -325,9 +345,13 @@ void Elevator::Motion ()
       }
       else
       {
-         if( align == 0 && mStops[index].mButtonFlag&BUTTON_DOWN|DESTINATION )
+         if( align == 0 && mStops[index].mButtonFlag&(BUTTON_DOWN|DESTINATION) )
          {
             mStops[index].mButtonFlag &= BUTTON_UP; // clear all but up
+         }
+         if (mDirection != -1) // no longer up
+         {
+            mStops[index].mButtonFlag = 0;
          }
          NextCallButton();
          mStartRoute = mEndRoute; // this stops the elevator at the destination to wait for a request.
@@ -361,6 +385,8 @@ void Elevator::Update (float dt)
          {
             int curLevel = personOn->get_Location().mLevel;
             int idx = personOn->get_WorkPath().index;
+            if( idx < 0 ) idx = 0; // bug patch
+
             //personOn->SetCurrentState( Person::CS_Boarding );
             RoutingRequest req;     // routing code needs to queue this person
             req.OriginLevel = curLevel;

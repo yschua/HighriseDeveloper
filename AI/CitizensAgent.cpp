@@ -152,6 +152,7 @@ void CitizensAgent::Update (float dt)
                      // enroute
                      break;
                   case Person::CS_Disembarking:
+                     peep->SetCurrent(workPath.mPathList[idx].mLevel);
                      workPath.index++;
                      peep->SetCurrentState( Person::CS_Walking );
                      // fall through
@@ -184,7 +185,7 @@ void CitizensAgent::Update (float dt)
                         }
                      }
                   }
-                  workPath.index++; // TODO: wait for elevator, we are moving ahead before getting to the level
+                  //workPath.index++; // TODO: wait for elevator, we are moving ahead before getting to the level
                   if( workPath.index == workPath.size )
                   {
                      try
@@ -245,7 +246,10 @@ void CitizensAgent::Update (float dt)
                      // enroute
                      break;
                   case Person::CS_Disembarking:
-                     workPath.index++;
+                     if (workPath.index)
+                     {
+                        workPath.index--; // TODO: wait for elevator, we are moving ahead before getting to the level
+                     }
                      peep->SetCurrentState( Person::CS_Walking );
                      // fall through
                   default:
@@ -278,7 +282,6 @@ void CitizensAgent::Update (float dt)
                         }
                      }
                   }
-                  workPath.index--; // TODO: wait for elevator, we are moving ahead before getting to the level
                }
             }
             else

@@ -3,36 +3,81 @@
 <GUILayout >
     <Window Type="WindowsLook/StaticImage" Name="MenuBackground" >
         <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
-        <Property Name="UnifiedAreaRect" Value="{{0.0025,0},{1,-20},{1.0025,0},{1,0}}" />
-        <Window Type="WindowsLook/Button" Name="BnOffice" >
-            <Property Name="Text" Value="Office" />
-            <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
-            <Property Name="UnifiedAreaRect" Value="{{0,2},{0,2},{0,80},{1,0}}" />
-        </Window>
+        <Property Name="UnifiedAreaRect" Value="{{0,0},{0,48},{0.0,80},{1,0}}" />
+       <Window Type="WindowsLook/Button" Name="BnSelect" >
+          <Property Name="Text" Value="Select" />
+          <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
+          <Property Name="UnifiedAreaRect" Value="{{0,2},{0,4},{0,80},{0,32}}" />
+       </Window>
+       <Window Type="WindowsLook/Button" Name="BnOffice" >
+          <Property Name="Text" Value="Office" />
+          <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
+          <Property Name="UnifiedAreaRect" Value="{{0,2},{0,36},{0,80},{0,64}}" />
+       </Window>
         <Window Type="WindowsLook/Button" Name="BnApartment" >
-            <Property Name="Text" Value="Apartment" />
-            <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
-            <Property Name="UnifiedAreaRect" Value="{{0,82},{0,2},{0,162},{1,0}}" />
-        </Window>
-        <Window Type="WindowsLook/Button" Name="BnElevator" >
-            <Property Name="Text" Value="Elevator" />
-            <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
-            <Property Name="UnifiedAreaRect" Value="{{0,166},{0,2},{0,246},{1,0}}" />
+          <Property Name="Text" Value="Apartment" />
+          <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
+          <Property Name="UnifiedAreaRect" Value="{{0,2},{0,68},{0,80},{0,96}}" />
+       </Window>
+       <Window Type="WindowsLook/Button" Name="BnCondo" >
+          <Property Name="Text" Value="Condo" />
+          <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
+          <Property Name="UnifiedAreaRect" Value="{{0,2},{0,100},{0,80},{0,128}}" />
+       </Window>
+       <Window Type="WindowsLook/Button" Name="BnHotel" >
+          <Property Name="Text" Value="Hotel" />
+          <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
+          <Property Name="UnifiedAreaRect" Value="{{0,2},{0,132},{0,80},{0,160}}" />
+       </Window>
+       <Window Type="WindowsLook/Button" Name="BnRetail" >
+          <Property Name="Text" Value="Retail" />
+          <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
+          <Property Name="UnifiedAreaRect" Value="{{0,2},{0,164},{0,80},{0,192}}" />
+       </Window>
+       <Window Type="WindowsLook/Button" Name="BnSecurity" >
+          <Property Name="Text" Value="Security" />
+          <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
+          <Property Name="UnifiedAreaRect" Value="{{0,2},{0,196},{0,80},{0,224}}" />
+       </Window>
+       <Window Type="WindowsLook/Button" Name="BnHouseKeeping" >
+          <Property Name="Text" Value="Housekeep." />
+          <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
+          <Property Name="UnifiedAreaRect" Value="{{0,2},{0,228},{0,80},{0,256}}" />
+       </Window>
+       <Window Type="WindowsLook/Button" Name="BnClinic" >
+          <Property Name="Text" Value="Clinic" />
+          <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
+          <Property Name="UnifiedAreaRect" Value="{{0,2},{0,260},{0,80},{0,288}}" />
+       </Window>
+       <Window Type="WindowsLook/Button" Name="BnWaste" >
+          <Property Name="Text" Value="Waste" />
+          <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
+          <Property Name="UnifiedAreaRect" Value="{{0,2},{0,292},{0,80},{0,320}}" />
+       </Window>
+       <Window Type="WindowsLook/Button" Name="BnElevator" >
+          <Property Name="Text" Value="Elevator" />
+          <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
+          <Property Name="UnifiedAreaRect" Value="{{0,2},{0,324},{0,80},{0,352}}" />
         </Window>
        <Window Type="WindowsLook/Button" Name="BnStairs" >
           <Property Name="Text" Value="Stairs" />
           <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
-          <Property Name="UnifiedAreaRect" Value="{{0,248},{0,2},{0,328},{1,0}}" />
+          <Property Name="UnifiedAreaRect" Value="{{0,2},{0,356},{0,80},{0,384}}" />
+       </Window>
+       <Window Type="WindowsLook/Button" Name="BnRemove" >
+          <Property Name="Text" Value="Remove" />
+          <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
+          <Property Name="UnifiedAreaRect" Value="{{0,2},{0,3882},{0,80},{0,416}}" />
        </Window>
        <Window Type="WindowsLook/Button" Name="MenuBackground/Open" >
           <Property Name="Text" Value="Open" />
           <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
-          <Property Name="UnifiedAreaRect" Value="{{1,-200},{0,2},{1,-102},{1,0}}" />
+          <Property Name="UnifiedAreaRect" Value="{{0,2},{1,-64},{0,80},{1,-36}}" />
        </Window>
        <Window Type="WindowsLook/Button" Name="MenuBackground/Save" >
-            <Property Name="Text" Value="Save" />
-            <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
-            <Property Name="UnifiedAreaRect" Value="{{1,-100},{0,2},{1,-2},{1,0}}" />
+          <Property Name="Text" Value="Save" />
+          <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
+          <Property Name="UnifiedAreaRect" Value="{{0,2},{1,-32},{0,80},{1,-4}}" />
         </Window>
     </Window>
 </GUILayout>

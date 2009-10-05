@@ -39,10 +39,10 @@ Tower::Tower (int towerNo, int NoSubLevels, Scene& rScene )
    int nsubs = -NoSubLevels;
    for (int sub = nsubs; sub < 0; ++sub)
    {
-      Level* level = new Level (sub, 400, sub, 400, this);
+      Level* level = new Level (sub, 396, sub, 396, this);
       mLevels.push_back (level);
    }
-   Lobby* lobby = new Lobby (370, 796+72, 0, this);
+   Lobby* lobby = new Lobby (396-36, 796+72, 0, this);   // 36 here is the awning width
    mLevels.push_back (lobby);
 }
 

@@ -34,7 +34,7 @@ bool BuildStategyBase::BuildHere (Tower* pTower, int x, int level)
 {
    return false;  // no tool selection
 }
-void BuildStategyBase::ShowGhostBuild(Tower* pTower, int x, int level)
+void BuildStategyBase::ShowGhostBuild(Tower* pTower)
 {
 }
 
@@ -46,35 +46,21 @@ bool BuildOfficeStategy::BuildHere (Tower* pTower, int x, int level)
    Level* pLevel = pTower->GetLevel(level);
 
    // test code until the snap to grid alligns the rooms
-   int lx = pLevel->GetX();
-   for (int ix = -3; ix < 4; ++ix )
+   int lx = 0;//pLevel->GetX();
+   int xx = lx + x * Level::mUnitSize;
+   bool bAvail = pLevel->IsSpaceEmpty (xx, xx + mWidth * Level::mUnitSize);
+   if (bAvail)
    {
-      int xx = lx + (ix + x) * 9;
-      bool bAvail = pLevel->IsSpaceEmpty (xx, xx + mWidth * 9);
-      if (bAvail)
-      {
-         FloorBase* pRoom = new Office(xx, level, pTower); //OnToolHit is going to set this up, when we hit the floor
-         //pRoom->SetX (x + (lx * 9));
-         //pRoom->SetX2 (x + (lx + mWidth * 9));
-         pLevel->AddFloorSpace (pRoom);
-         //int* blah = NULL;
-         //int some = *blah;
-         //std::cout << "stshfkjdhflkfjhsdlkfs\n";
-         break;
-      }
+      FloorBase* pRoom = new Office(xx, level, pTower); //OnToolHit is going to set this up, when we hit the floor
+      pLevel->AddFloorSpace (pRoom);
    }
    return true;
 }
-void BuildOfficeStategy::ShowGhostBuild (Tower* pTower, int x, int level)
+void BuildOfficeStategy::ShowGhostBuild (Tower* pTower)
 {
-   Level* pLevel = pTower->GetLevel(level);
-   int lx = pLevel->GetX();
-   int xx = lx + ( x - 1 ) * 9; // not complete
    GhostRoom& GR = pTower->GetGhostRoom();
-   GR.SetX ((float)x);
-   GR.SetX2 ((float)xx);
-   GR.SetY ((float)level);
    GR.SetShownType( BaseOffice);
+   GR.SetWidth (8);
 }
 
 
@@ -86,57 +72,40 @@ BuildApartmentStategy::BuildHere (Tower* pTower, int x, int level)
    Level* pLevel = pTower->GetLevel(level);
 
    // test code until the snap to grid alligns the rooms
-   int lx = pLevel->GetX();
-   for (int ix = -3; ix < 4; ++ix )
+   int lx = 0;//pLevel->GetX();
+   int xx = lx + x * Level::mUnitSize;
+   bool bAvail = pLevel->IsSpaceEmpty (xx, xx + mWidth * Level::mUnitSize);
+   if (bAvail)
    {
-      int xx = lx + (ix + x) * 9;
-      bool bAvail = pLevel->IsSpaceEmpty (xx, xx + mWidth * 9);
-      if (bAvail)
-      {
-         FloorBase* pRoom = new Apartment(xx, level, pTower); //OnToolHit is going to set this up, when we hit the floor
-         //pRoom->SetX (x + (lx * 9));
-         //pRoom->SetX2 (x + (lx + mWidth * 9));
-         pLevel->AddFloorSpace (pRoom);
-         break;
-      }
+      FloorBase* pRoom = new Apartment(xx, level, pTower); //OnToolHit is going to set this up, when we hit the floor
+      pLevel->AddFloorSpace (pRoom);
    }
    return true;
 }
-void BuildApartmentStategy::ShowGhostBuild (Tower* pTower, int x, int level)
+void BuildApartmentStategy::ShowGhostBuild (Tower* pTower)
 {
-   Level* pLevel = pTower->GetLevel(level);
-   int lx = pLevel->GetX();
-   int xx = lx + ( x - 1 ) * 9; // not complete
    GhostRoom& GR = pTower->GetGhostRoom();
-   GR.SetX ((float)x);
-   GR.SetX2 ((float)xx);
-   GR.SetY ((float)level);
    GR.SetShownType( BaseResidence);
-
+   GR.SetWidth (8);
 }
 
 
 bool BuildStairStategy::BuildHere (Tower* pTower, int x, int level)
 {
    Level* pLevel = pTower->GetLevel(level);
-   int lx = pLevel->GetX();
-   int xx = lx + ( x - 1 ) * 9; // not complete
+   int lx = 0;//pLevel->GetX();
+   int xx = lx + x * Level::mUnitSize; // not complete
 
    SingleStair* pStair = new SingleStair( xx, level, level+1, pTower );
    pTower->GetRouteList().push_back( pStair );
    return true;
 }
 
-void BuildStairStategy::ShowGhostBuild (Tower* pTower, int x, int level)
+void BuildStairStategy::ShowGhostBuild (Tower* pTower)
 {
-   Level* pLevel = pTower->GetLevel(level);
-   int lx = pLevel->GetX();
-   int xx = lx + ( x - 1 ) * 9; // not complete
    GhostRoom& GR = pTower->GetGhostRoom();
-   GR.SetX ((float)x);
-   GR.SetX2 ((float)xx);
-   GR.SetY ((float)level);
    GR.SetShownType( BaseStair);
+   GR.SetWidth (3);
 }
 
 // Condos
@@ -146,16 +115,11 @@ bool BuildCondoStategy::BuildHere (Tower* pTower, int x, int level)
    return true;
 }
 
-void BuildCondoStategy::ShowGhostBuild (Tower* pTower, int x, int level)
+void BuildCondoStategy::ShowGhostBuild (Tower* pTower)
 {
-   Level* pLevel = pTower->GetLevel(level);
-   int lx = pLevel->GetX();
-   int xx = lx + ( x - 1 ) * 9; // not complete
    GhostRoom& GR = pTower->GetGhostRoom();
-   GR.SetX ((float)x);
-   GR.SetX2 ((float)xx);
-   GR.SetY ((float)level);
    GR.SetShownType( BaseResidence);
+   GR.SetWidth (12);
 }
 
 

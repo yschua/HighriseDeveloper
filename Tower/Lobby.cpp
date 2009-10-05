@@ -36,7 +36,7 @@ Lobby::Lobby (int x, int x2, int level, Tower * TowerParent)
    ImageManager * images = ImageManager::GetInstance ();
    mDesk = new AnimationSingle( images->GetTexture("lobbyA.png", GL_RGBA), 36, 36 );
    mDesk->SetPosition(mX, 0);
-   mTile = new Tiler (images->GetTexture("lobbyB.png", GL_RGBA), Tiler::Horizontal, (float)x+36, 0, 0, (float)(x2-x), 36);
+   mTile = new Tiler (images->GetTexture("lobbyB.png", GL_RGBA), Tiler::Horizontal, (float)x+36, 0, 0, (float)(x2-x-36), 36);
    mTile->SetTessel ((float)(x2-x)/72, 1.0f);
    nFireEscapeLeft->SetPosition ((float)mX - 56, (float)mY);
    nFireEscapeRight->SetPosition ((float)mX2, (float)mY);

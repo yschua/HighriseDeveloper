@@ -27,9 +27,11 @@ using namespace Gfx;
 
 GhostRoom::GhostRoom (int x, int level)
       :  mCurrentState (GS_Invalid)
-      ,  FloorBase (x, x + 72, level, NULL)
-      ,  mBase (72,36)
+      ,  FloorBase (x, x + Level::mUnitSize, level, NULL)
+      ,  mBase (Level::mUnitSize, 36)
 {
+   mWidthUnits = 1;
+   mOffsetUnits = 0;
 }
 
 void GhostRoom::SetState( Ghost_State gs )
@@ -39,12 +41,22 @@ void GhostRoom::SetState( Ghost_State gs )
    mBase.SetLightingColor( (gs == GS_Valid) ? cfGreen : cfGray );
 }
 
-void GhostRoom::Move (Vector2f& point)
+void GhostRoom::SetWidth( int units)
 {
-   mX = point.x;
+   mWidthUnits = units;
+   mOffsetUnits = units / 2;
+   mBase.SetWidth (units * Level::mUnitSize);
+}
+
+void GhostRoom::Move (Vector3f& point)
+{
+   int x = int(point.x) / Level::mUnitSize - mOffsetUnits;
+   int y = int(point.y - 28) / 36;
+   mX = (float)(x * Level::mUnitSize);
    mX2 = mX + 72;
-   mY = point.y;
-   mLevel = mY/-36;
+   mY = (float)(y * 36);
+   mLevel = int(mY/-36);
+   mZ = -0.1f; // point.z;
    mBase.SetPosition (mX, mY);
 }
 
@@ -55,7 +67,7 @@ void GhostRoom::Update (Tower* pTower)
       Level* level = pTower->GetLevel(mLevel);
       if (level != NULL)
       {
-         SetState (level->IsSpaceEmpty(mX, mX2) ? GS_Valid : GS_Invalid);
+         SetState (level->IsSpaceEmpty((int)mX, (int)mX2) ? GS_Valid : GS_Invalid);
       }
       else
       {

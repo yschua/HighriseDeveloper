@@ -289,6 +289,38 @@ int Camera::RenderFramework (Scene* pModel, Vector2f mouse, int level)
    return iResult; // the object id
 }
 
+Vector3f Camera::GetOGLPos (Vector2f winVec) // NeHe Productions at GameDev
+{
+   // this little magic function takes the mouse position in view coordinates and transforms it through
+   // the same GL Matrix as the scene. This is then adjusted for the building positon.
+	GLint viewport[4];
+	GLdouble modelview[16];
+	GLdouble projection[16];
+
+   glMatrixMode(GL_MODELVIEW);
+   glPushMatrix();
+
+	glGetDoublev( GL_MODELVIEW_MATRIX, modelview );
+	glGetDoublev( GL_PROJECTION_MATRIX, projection );
+	glGetIntegerv( GL_VIEWPORT, viewport );
+
+
+	GLfloat winX = winVec.x;
+	GLfloat winY = winVec.y;//(float)viewport[3] - winVec.y;
+   GLfloat winZ[16];
+   memset (winZ, 0, sizeof(winZ));
+	glReadPixels ((int)winX, int(winY), 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, winZ );
+
+	GLdouble posX = 0;
+   GLdouble posY = 0;
+   GLdouble posZ = 0;
+	gluUnProject( winX, winY, winZ[0], modelview, projection, viewport, &posX, &posY, &posZ);
+
+   glMatrixMode(GL_MODELVIEW);
+   glPopMatrix();
+	return Vector3f((float)posX-GetPositionX(), (float)posY+GetPositionY(), (float)posZ); // +GetPositionX());
+}
+
 bool
 Camera::GetEvent (sf::Event & event)
 {

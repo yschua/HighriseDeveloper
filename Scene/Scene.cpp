@@ -53,16 +53,19 @@ Scene::SelectTool (int toolID)
    {
    case HR_PlaceOffice:
       mpBuildStrategy = new BuildOfficeStategy();
+      mpBuildStrategy->ShowGhostBuild (mTowers[0]);
       bResult = true;
       break;
 
    case HR_PlaceApartment:
       mpBuildStrategy = new BuildApartmentStategy();
+      mpBuildStrategy->ShowGhostBuild (mTowers[0]);
       bResult = true;
       break;
 
    case HR_PlaceStairs:
       mpBuildStrategy = new BuildStairStategy();
+      mpBuildStrategy->ShowGhostBuild (mTowers[0]);
       bResult = true;
       break;
    }
@@ -114,15 +117,9 @@ void Scene::RenderFramework (int level)
 void Scene::MoveGhostRoom (Vector2f& point)
 {
    Camera* pCam = Camera::GetInstance();
-   float asp = pCam->GetAspect();
-   int yh = pCam->GetHeight();
-   int x = int(point.x * asp + 60) / 9;
-   int y = int(((yh - point.y - 268) * asp) / -36);
-   point.x = x * 9+4;
-   point.y = y * 36;
-
+   Vector3f vec = pCam->GetOGLPos (point);
    Tower* pTower = mTowers[0];
-   pTower->GetGhostRoom().Move (point );// asp
+   pTower->GetGhostRoom().Move (vec);// asp
 }
 
 void Scene::Hit( int hit, Vector2i& Scene )  // taking a mouse hit, send it through geometry to see what we hit
@@ -136,8 +133,7 @@ void Scene::Hit( int hit, Vector2i& Scene )  // taking a mouse hit, send it thro
          Level* pLevel = pTower->FindLevel (hit);
          if( pLevel )
          {
-            Camera* pCam = Camera::GetInstance();
-            int x = pCam->RenderFramework( this, Scene, pLevel->GetLevel());
+            int x = (int)(pTower->GetGhostRoom().GetX() / 9);
             std::cout << "Mouse on Level: " << pLevel->GetLevel() << " Level ID: " << hit << std::endl;
             mpBuildStrategy->BuildHere(pTower, x, pLevel->GetLevel());
             break;
@@ -158,11 +154,9 @@ void Scene::Hit( int hit, Vector2i& Scene )  // taking a mouse hit, send it thro
          Level* pLevel = pTower->FindLevel (hit);
          if( pLevel )
          {
-            Camera* pCam = Camera::GetInstance();
-            int x = pCam->RenderFramework( this, Scene, pLevel->GetLevel());
-            int xPos = pCam->TranslateX( this, Scene );
+            int x = (int)(pTower->GetGhostRoom().GetX() / 9);
             std::cout << "Mouse on Level: " << pLevel->GetLevel() << " Level ID: " << hit << std::endl;
-            mpBuildStrategy->BuildHere(pTower, xPos, pLevel->GetLevel());
+            mpBuildStrategy->BuildHere(pTower, x, pLevel->GetLevel());
             break;
          }
          else

@@ -75,7 +75,7 @@ void CitizensAgent::Update (float dt, int tod)
    for (i = persons.begin (); i != persons.end (); i++)
    {
       Person* peep = (*i);
-      peep->Update( dt );
+      peep->Update( tod );
       Path& workPath = peep->get_WorkPath(); // for now just doing work
       //  TODO: case statement from hell, on the refactor list
       // use a state engine to replace this

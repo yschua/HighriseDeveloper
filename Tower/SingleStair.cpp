@@ -55,7 +55,7 @@ SingleStair::SingleStair ( int x, short BottomLevel, short TopLevel, Tower * Tow
 
    mX = x;
    mY = (int)(mBottomLevel * 36);
-   mZ = -0.49f; // slightly in front of the tower
+   mZ = -0.69f; // slightly in front of the tower
 
    mNumber = gStairsNumber++; // set number;
    LoadImages();

@@ -39,6 +39,7 @@ public:
       LightingColor[3] = lc[3]/256;
    }
    inline float* GetLightingColor() { return LightingColor; }
+   inline void SetWidth (float w) { mWidth.x = w; }
    virtual void BindTexture() = 0;
    virtual void ClearFrames () {};
    virtual void Update (float dt) {};

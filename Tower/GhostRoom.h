@@ -36,9 +36,12 @@ enum Ghost_State
 
 class GhostRoom : public FloorBase, public Gfx::ModelObject
 {
-   Ghost_State mCurrentState;// vacant /occupied/ day / night
+   Ghost_State    mCurrentState;// vacant /occupied/ day / night
    AnimationShape mBase;
-   BaseType mShownType;
+   BaseType       mShownType;
+
+   int   mWidthUnits;
+   int   mOffsetUnits;
 
 public:
    GhostRoom (int x, int level);
@@ -49,7 +52,8 @@ public:
    virtual BaseType GetType () { return BaseGhostRoom; }
    void SetShownType (BaseType bt) { mShownType = bt; }
    void SetState( Ghost_State gs );
-   void Move (Vector2f& point);
+   void Move (Vector3f& point);
+   void SetWidth( int units);
 
 //   void RemoveImages();
 //   void SetImages (int set);

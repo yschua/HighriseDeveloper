@@ -75,6 +75,7 @@ public:
    void DrawInterface (Interface* pI);
    int  RenderFramework (Scene* pModel, Vector2f mouse, int level); // level == 0, render the whole tower.
    int  TranslateX (Scene* pModel, Vector2f mouse);
+   Vector3f GetOGLPos (Vector2f winVec);   // Where is the confounded mouse pointer in 3D
    void Create (const std::string & caption);
    void Center (int x, int y);
    bool GetEvent (sf::Event & event);

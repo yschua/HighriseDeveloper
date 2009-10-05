@@ -78,8 +78,29 @@ ModelObject::Render(AnimationBase* pBase, float x, float x2 )
    glEnd();
 }
 
-void
-ModelObject::Render(Tiler* pTiler)
+void ModelObject::RenderRectangle (AnimationBase* pBase )
+{
+   float x = pBase->GetPositionX();//-ms.x; position needs to be a member of modelObject, let physics access it to move it.
+   float y = -pBase->GetPositionY();//-ms.y;
+   float z = 1;//pBase->GetPositionZ();
+   float x2 = x + pBase->GetWidth();
+   float y2 = y - pBase->GetHeight();
+   const float* pColors = pBase->GetLightingColor();
+   glColor4fv (pColors);
+   glDisable (GL_TEXTURE_2D);
+   glBegin(GL_QUADS);
+   {
+      glVertex3f( x, y2, z );
+      glVertex3f( x, y, z );
+      glVertex3f( x2, y, z );
+      glVertex3f( x2, y2, z );
+   }
+   glEnd();
+   glColor4ub (255,255,255,255);
+   glEnable (GL_TEXTURE_2D);
+}
+
+void ModelObject::Render(Tiler* pTiler)
 {
    float x = pTiler->GetPositionX();//-ms.x; position needs to be a member of modelObject, let physics access it to move it.
    float y = -pTiler->GetPositionY();//-ms.y;

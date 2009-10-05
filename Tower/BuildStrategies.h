@@ -39,6 +39,7 @@ public:
 public:
    virtual bool PlacingRoom() { return false; }
    virtual bool BuildHere (Tower* pTowwer, int x, int y);
+   virtual void ShowGhostBuild (Tower* pTower, int x, int level);
 };
 // Offices
 class BuildOfficeStategy : public BuildStategyBase
@@ -53,6 +54,7 @@ public:
 public:
    bool BuildHere (Tower* pTowwer, int x, int y);
    virtual bool PlacingRoom() { return true; }
+   virtual void ShowGhostBuild (Tower* pTower, int x, int level);
 };
 
 // Apartments
@@ -68,6 +70,7 @@ public:
 public:
    bool BuildHere (Tower* pTowwer, int x, int y);
    virtual bool PlacingRoom() { return true; }
+   virtual void ShowGhostBuild (Tower* pTower, int x, int level);
 };
 
 //stairs
@@ -83,6 +86,7 @@ public:
 public:
    bool BuildHere (Tower* pTowwer, int x, int y);
    virtual bool PlacingRoom() { return false; }
+   virtual void ShowGhostBuild (Tower* pTower, int x, int level);
 };
 
 // Condos
@@ -98,11 +102,12 @@ public:
 public:
    bool BuildHere (Tower* pTowwer, int x, int y);
    virtual bool PlacingRoom() { return true; }
+   virtual void ShowGhostBuild (Tower* pTower, int x, int level);
 };
 
 // select and drag
 // build lobby
 // build elevator
-// build stairs
+// build other
 
 #endif // _BUILDSTRATEGIES_H

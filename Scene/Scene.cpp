@@ -111,7 +111,21 @@ void Scene::RenderFramework (int level)
    }
 }
 
-void Scene::Hit( int hit, Vector2i Scene )  // taking a mouse hit, send it through geometry to see what we hit
+void Scene::MoveGhostRoom (Vector2f& point)
+{
+   Camera* pCam = Camera::GetInstance();
+   float asp = pCam->GetAspect();
+   int yh = pCam->GetHeight();
+   int x = int(point.x * asp + 60) / 9;
+   int y = int(((yh - point.y - 268) * asp) / -36);
+   point.x = x * 9+4;
+   point.y = y * 36;
+
+   Tower* pTower = mTowers[0];
+   pTower->GetGhostRoom().Move (point );// asp
+}
+
+void Scene::Hit( int hit, Vector2i& Scene )  // taking a mouse hit, send it through geometry to see what we hit
 {
    if( mpBuildStrategy && mpBuildStrategy->PlacingRoom() )
    {

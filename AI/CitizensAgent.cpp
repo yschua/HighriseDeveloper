@@ -52,7 +52,7 @@ CitizensAgent::~CitizensAgent ()
 {
 }
 
-void CitizensAgent::Update (float dt)
+void CitizensAgent::Update (float dt, int tod)
 {
    // Shouldn't Citizens be a member within each Tower? Supposedly you would want this seperate.
    Citizens* citizens = Citizens::get_Instance(); // the citizens object that holds the people collection
@@ -64,7 +64,7 @@ void CitizensAgent::Update (float dt)
 //      Person* peep = new Person( loc );
 //      mPeople.push_back( peep );
       // Shouldn't this be Update(dt)?
-      citizens->Update( 1 );
+      citizens->Update( dt );
 //log      std::cout << "Your city added 1 person" << " Population in city: " << citizens->GetPopulation() << std::endl;
    }
    // std::list<Person*> Should be a member typedef!
@@ -94,7 +94,7 @@ void CitizensAgent::Update (float dt)
                   dest.mRoute = 0;              // plugged into first elevater until pathfinder does the job.
                   dest.mX = 1;                  // TODO:  find the room number
    //Log               std::cout << "A new person has entered your building looking for work on Level# " << dest.mLevel << std::endl;
-                  if (dt >= 6*60 && dt < 16*60)
+                  if (tod >= 6*60 && tod < 16*60)
                   {
                      peep->SetActivity( Person::AS_GoingToWork);
                   }

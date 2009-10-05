@@ -31,7 +31,7 @@ protected:
 public:
    AnimationBase( int w, int h );
 
-   inline void SetLightingColor( float lc[4] )
+   inline void SetLightingColor( const float lc[4] )
    {
       LightingColor[0] = lc[0]/256;  // todays cpus optimize this faster than a call to mem copy.
       LightingColor[1] = lc[1]/256;
@@ -42,6 +42,13 @@ public:
    virtual void BindTexture() = 0;
    virtual void ClearFrames () {};
    virtual void Update (float dt) {};
+};
+
+class AnimationShape : public AnimationBase
+{
+public:
+   AnimationShape (int width, int height);
+   virtual void BindTexture() {}
 };
 
 class Animation : public AnimationBase

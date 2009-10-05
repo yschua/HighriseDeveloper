@@ -34,6 +34,10 @@ bool BuildStategyBase::BuildHere (Tower* pTower, int x, int level)
 {
    return false;  // no tool selection
 }
+void BuildStategyBase::ShowGhostBuild(Tower* pTower, int x, int level)
+{
+}
+
 
 // Offices
 bool BuildOfficeStategy::BuildHere (Tower* pTower, int x, int level)
@@ -61,6 +65,18 @@ bool BuildOfficeStategy::BuildHere (Tower* pTower, int x, int level)
    }
    return true;
 }
+void BuildOfficeStategy::ShowGhostBuild (Tower* pTower, int x, int level)
+{
+   Level* pLevel = pTower->GetLevel(level);
+   int lx = pLevel->GetX();
+   int xx = lx + ( x - 1 ) * 9; // not complete
+   GhostRoom& GR = pTower->GetGhostRoom();
+   GR.SetX ((float)x);
+   GR.SetX2 ((float)xx);
+   GR.SetY ((float)level);
+   GR.SetShownType( BaseOffice);
+}
+
 
 // Apartments
 bool
@@ -86,6 +102,19 @@ BuildApartmentStategy::BuildHere (Tower* pTower, int x, int level)
    }
    return true;
 }
+void BuildApartmentStategy::ShowGhostBuild (Tower* pTower, int x, int level)
+{
+   Level* pLevel = pTower->GetLevel(level);
+   int lx = pLevel->GetX();
+   int xx = lx + ( x - 1 ) * 9; // not complete
+   GhostRoom& GR = pTower->GetGhostRoom();
+   GR.SetX ((float)x);
+   GR.SetX2 ((float)xx);
+   GR.SetY ((float)level);
+   GR.SetShownType( BaseResidence);
+
+}
+
 
 bool BuildStairStategy::BuildHere (Tower* pTower, int x, int level)
 {
@@ -98,6 +127,17 @@ bool BuildStairStategy::BuildHere (Tower* pTower, int x, int level)
    return true;
 }
 
+void BuildStairStategy::ShowGhostBuild (Tower* pTower, int x, int level)
+{
+   Level* pLevel = pTower->GetLevel(level);
+   int lx = pLevel->GetX();
+   int xx = lx + ( x - 1 ) * 9; // not complete
+   GhostRoom& GR = pTower->GetGhostRoom();
+   GR.SetX ((float)x);
+   GR.SetX2 ((float)xx);
+   GR.SetY ((float)level);
+   GR.SetShownType( BaseStair);
+}
 
 // Condos
 
@@ -105,6 +145,19 @@ bool BuildCondoStategy::BuildHere (Tower* pTower, int x, int level)
 {
    return true;
 }
+
+void BuildCondoStategy::ShowGhostBuild (Tower* pTower, int x, int level)
+{
+   Level* pLevel = pTower->GetLevel(level);
+   int lx = pLevel->GetX();
+   int xx = lx + ( x - 1 ) * 9; // not complete
+   GhostRoom& GR = pTower->GetGhostRoom();
+   GR.SetX ((float)x);
+   GR.SetX2 ((float)xx);
+   GR.SetY ((float)level);
+   GR.SetShownType( BaseResidence);
+}
+
 
 // select and drag
 // build lobby

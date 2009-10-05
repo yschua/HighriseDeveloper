@@ -51,10 +51,10 @@ Person::~Person (void)
 {
 }
 
-void Person::Update (float dt)   //actual time
+void Person::Update (int tod)   //actual time
 {
    // check time of day, what activity should we be doing.
-   if (dt> 20*60 && !(mActivity == AS_Sleeping) )
+   if (tod > 20*60 && !(mActivity == AS_Sleeping) )
    {
       SetActivity (AS_Sleeping);
    }
@@ -95,13 +95,13 @@ void Person::Update (float dt)   //actual time
       }
       break;
    case AS_Working:
-      if (dt > 17*60)
+      if (tod > 17*60)
       {
          SetActivity( AS_ClockingOut );
          SetCurrentState( Person::CS_Walking );
          mWorkPath.index--;  // this is the return trip home
       }
-      else if( dt > 11*60+45 && dt < 13*60+15) // do lunch
+      else if( tod > 11*60+45 && tod < 13*60+15) // do lunch
       {
          SetActivity( AS_LunchBreak );
          SetCurrentState( Person::CS_Walking );
@@ -109,7 +109,7 @@ void Person::Update (float dt)   //actual time
       }
       break;
    case AS_LunchBreak:
-      if( dt > 13*60) // do lunch
+      if( tod > 13*60) // do lunch
       {
          SetActivity( AS_GoingToWork );
          SetCurrentState( Person::CS_Walking );
@@ -137,7 +137,7 @@ void Person::Update (float dt)   //actual time
       }
       break;
    case AS_Sleeping:
-      if (dt > 6*60 && dt < 14*60)
+      if (tod > 6*60 && tod < 14*60)
       {
          SetActivity( AS_GoingToWork );
          SetCurrentState( CS_Busy );

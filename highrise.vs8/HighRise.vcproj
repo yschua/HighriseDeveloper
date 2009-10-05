@@ -463,6 +463,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\Tower\GhostRoom.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\Tower\GhostRoom.h"
+				>
+			</File>
+			<File
 				RelativePath="..\Tower\HotelRoom.cpp"
 				>
 			</File>
@@ -615,10 +623,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\Root\HighRiseException.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\Root\HighRiseException.h"
 				>
 			</File>
@@ -680,6 +684,10 @@
 			</File>
 			<File
 				RelativePath="..\People\Citizens.h"
+				>
+			</File>
+			<File
+				RelativePath="..\Root\HighRiseException.cpp"
 				>
 			</File>
 			<File

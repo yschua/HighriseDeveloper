@@ -142,6 +142,8 @@
 		<Unit filename="Tower\ElevatorShaft.h" />
 		<Unit filename="Tower\FloorBase.cpp" />
 		<Unit filename="Tower\FloorBase.h" />
+		<Unit filename="Tower\GhostRoom.cpp" />
+		<Unit filename="Tower\GhostRoom.h" />
 		<Unit filename="Tower\HotelRoom.cpp" />
 		<Unit filename="Tower\HotelRoom.h" />
 		<Unit filename="Tower\Level.cpp" />

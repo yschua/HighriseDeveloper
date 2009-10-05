@@ -39,7 +39,7 @@ protected:
    Tower& mTower; // must have one or more
 
 public:
-   void Update (float dt);
+   void Update (float dt, int tod);
    void Draw ();   // People
 
    CitizensAgent (Tower& mTower); // use a tower agent for multiple towers

@@ -22,6 +22,7 @@
 
 #include "../Graphics/ModelObject.h"
 #include "Routes.h"
+#include "GhostRoom.h" // local for speed
 
 class FloorBase; // aggregate of floor spaces for offices, condos and hotels
 class Level;
@@ -32,8 +33,6 @@ class GameManager;
 class Routes;
 class Person;
 class Scene;
-//class TiXmlElement;
-//class TiXmlNode;
 class BuildStairStategy;
 
 // Tower is a ModelObject along with all the FloorSpace entities
@@ -52,6 +51,7 @@ class Tower : public Gfx::ModelObject
    std::vector<Level*> mLevels;     // Lobby is at mNo_SubLevels not zero
    Routes mRoutes;
    Scene& mScene; // this is where all the towers are modeled in OpenGL.
+   GhostRoom mGhostRoom;
 
 public:
    typedef std::vector<Level*>::iterator LevelIterator;
@@ -65,6 +65,7 @@ public:
    inline Routes& GetRoutes() { return mRoutes; } // For routing citizens
    inline int GetPopulation() { return mPopulation; }
    inline Scene& GetScene() { return mScene; }
+   inline GhostRoom& GetGhostRoom() {  return mGhostRoom; }
 
 protected:
    inline LevelVector& GetLevels()

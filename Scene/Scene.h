@@ -78,7 +78,8 @@ public:
    void Update (float dt, int timeOfDay);
    void Draw ();
    void RenderFramework (int level); // hit test run
-   void Hit (int hit, Vector2i Scene);  // mouse x and y, send it through geometry to see what we hit
+   void Hit (int hit, Vector2i& point);  // mouse x and y, send it through geometry to see what we hit
+   void MoveGhostRoom (Vector2f& point);
 
 };
 

@@ -332,6 +332,8 @@ Level::IsSpaceEmpty( int ix, int ix2 ) // TestForEmptySpace...
    bool bResult = true;
    int x = int ((ix - this->mX) / 9);
    int x2 = int ((ix2 - this->mX) / 9);
+   if(x <0 || x2 > mFloorSpaceGridSize)
+      return false;
 
    for (int i=x;i < x2; ++i)
    {

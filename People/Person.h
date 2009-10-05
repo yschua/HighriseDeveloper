@@ -194,7 +194,7 @@ public:
       mWorkID = id;   // number of the office or buisinee we work in
    }
    // Implementation methods
-   virtual void Update (float dt);
+   virtual void Update (int tod);
    virtual void Draw ();
    virtual void Draw (int vx, int vy);
    virtual int  DrawFramework (int id) { return 0; }

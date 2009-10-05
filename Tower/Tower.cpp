@@ -33,6 +33,7 @@ Tower::Tower (int towerNo, int NoSubLevels, Scene& rScene )
 :  mTowerNo (towerNo)
 ,  mNo_SubLevels (NoSubLevels)
 ,  mScene(rScene)
+,  mGhostRoom (0,0)
 {
    mPopulation = 0;
    int nsubs = -NoSubLevels;
@@ -69,8 +70,12 @@ Level* Tower::GetLevel( int level ) // positive gets you a level above, negative
 {
    // What is the point of all this? Why not just store the levels in an std::map<int, CLevel>?
    std::vector<Level*>::size_type index = level + mNo_SubLevels;
-   while (index > mLevels.size())
-      NewLevel(400,(int)mLevels.size(),724);
+   //while (index > mLevels.size())
+   //   NewLevel(400,(int)mLevels.size(),724);
+   if( index >= mLevels.size())
+   {
+      return NULL;
+   }
    return mLevels[index];
 }
 
@@ -96,6 +101,8 @@ void Tower::Update (float dt, int timeOfDay)
       (*iLevel)->Update( dt, timeOfDay );
    }
    mRoutes.Update( dt );
+   mGhostRoom.GetLevel();
+   mGhostRoom.Update (this);
    
 }
 
@@ -106,6 +113,7 @@ void Tower::Draw ()
    {
       (*iLevel)->Draw( );
    }
+   mGhostRoom.Draw();
    mRoutes.Draw();
 }
 

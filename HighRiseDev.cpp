@@ -116,7 +116,7 @@ main ()
             static int cc_count = 30; //only once in a while
             if( cc_count < 1 )
             {
-               People.Update( pInterface->GetTimeOfDay() );
+               People.Update( 100,pInterface->GetTimeOfDay() );
                cc_count = 20;
             }
             cc_count--;

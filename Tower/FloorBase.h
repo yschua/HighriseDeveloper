@@ -26,6 +26,7 @@ class SerializerBase;
 enum BaseType
 {
    BaseEmpty = 0,
+   BaseGhostRoom,
    BaseResidence,
    BaseOffice,
    BaseRetail,
@@ -35,7 +36,9 @@ enum BaseType
    BaseSecurity,
    BaseMedical,
    BaseRestroom,
-   BaseWasteManagement
+   BaseWasteManagement,
+   BaseStair,
+   BaseElevator
 };
 
 class FloorBase

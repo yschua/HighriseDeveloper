@@ -56,6 +56,7 @@ public:
    // properties
    void SetMaxFramerate (int rate);
    float GetAspect () { return mAspect; }
+   float GetZoom() { return mZoomFactor; }
    //void SetCamSize (int x, int y);
    void SetSceneSize (Vector2f);
    Vector2f GetSceneSize () { return mScene; }

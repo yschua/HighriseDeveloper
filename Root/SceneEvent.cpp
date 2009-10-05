@@ -43,14 +43,20 @@ SceneEvent::OnToolHit (int tool)
    return false;
 }
 
-bool SceneEvent::OnMouseDown (sf::Mouse::Button Button, Vector2i Scene, Vector2i Cam)
+bool SceneEvent::OnMouseDown (sf::Mouse::Button Button, Vector2i pointa, Vector2i pointb)
 {
    Camera* pCam = Camera::GetInstance();
-   int hit = pCam->RenderFramework (mpScene, Scene, 0);
+   int hit = pCam->RenderFramework (mpScene, pointa, 0);
    if( hit )
    {
-      mpScene->Hit( hit, Scene );
+      mpScene->Hit( hit, pointa );
    }
+   return false; // leave the message in for the pointer
+}
+
+bool SceneEvent::OnMouseMove ( Vector2i pointa, Vector2i pointb)
+{
+   mpScene->MoveGhostRoom( Vector2f (pointa.x,pointa.y) );
    return true;
 }
 

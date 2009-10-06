@@ -24,6 +24,8 @@
 #include "Tower.h"
 #include "Office.h"
 #include "Apartment.h"
+#include "HotelRoom.h"
+#include "Housekeeping.h"
 #include "SingleStair.h"
 #include "BuildStrategies.h"
 
@@ -63,7 +65,6 @@ void BuildOfficeStategy::ShowGhostBuild (Tower* pTower)
    GR.SetWidth (8);
 }
 
-
 // Apartments
 bool
 BuildApartmentStategy::BuildHere (Tower* pTower, int x, int level)
@@ -89,6 +90,30 @@ void BuildApartmentStategy::ShowGhostBuild (Tower* pTower)
    GR.SetWidth (8);
 }
 
+
+// Hotel
+bool BuildHotelStategy::BuildHere (Tower* pTower, int x, int level)
+{
+//         Apartment* new_apt = new Apartment (x, level, this);
+   Level* pLevel = pTower->GetLevel(level);
+
+   // test code until the snap to grid alligns the rooms
+   int lx = 0;//pLevel->GetX();
+   int xx = lx + x * Level::mUnitSize;
+   bool bAvail = pLevel->IsSpaceEmpty (xx, xx + mWidth * Level::mUnitSize);
+   if (bAvail)
+   {
+      FloorBase* pRoom = new HotelRoom(xx, level, pTower); //OnToolHit is going to set this up, when we hit the floor
+      pLevel->AddFloorSpace (pRoom);
+   }
+   return true;
+}
+void BuildHotelStategy::ShowGhostBuild (Tower* pTower)
+{
+   GhostRoom& GR = pTower->GetGhostRoom();
+   GR.SetShownType( BaseHotel);
+   GR.SetWidth (6);
+}
 
 bool BuildStairStategy::BuildHere (Tower* pTower, int x, int level)
 {

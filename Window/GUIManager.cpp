@@ -50,6 +50,8 @@ GUIManager::GUIManager(SceneEvent& rse) //, Tower* Tower) can't pass a tower as 
       LoadLayout("Menu.layout");
       mpWM->getWindow((utf8*)"BnOffice")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnOffice, this));
       mpWM->getWindow((utf8*)"BnApartment")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnApartment, this));
+      mpWM->getWindow((utf8*)"BnHotel")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnHotel, this));
+//      mpWM->getWindow((utf8*)"BnHousekeeping")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnHousekeeping, this));
       mpWM->getWindow((utf8*)"BnStairs")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnStairs, this));
       // elevator
       mpWM->getWindow((utf8*)"MenuBackground/Open")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnOpen, this));
@@ -127,7 +129,7 @@ bool GUIManager::OnHotel (const CEGUI::EventArgs& e)
 
    // set FloorPlacement to Stairs
    // route mouse clicks that hit the main into the FloorPlacement manager.
-   mSE.OnToolHit (HR_Hotel);  // this only sets the strategy.
+   mSE.OnToolHit (HR_PlaceHotel);  // this only sets the strategy.
    return true;
 }
 
@@ -136,7 +138,7 @@ bool GUIManager::OnRetail (const CEGUI::EventArgs& e)
 
    // set FloorPlacement to Stairs
    // route mouse clicks that hit the main into the FloorPlacement manager.
-   mSE.OnToolHit (HR_Retail);  // this only sets the strategy.
+   mSE.OnToolHit (HR_PlaceRetail);  // this only sets the strategy.
    return true;
 }
 
@@ -145,7 +147,7 @@ bool GUIManager::OnSecurity (const CEGUI::EventArgs& e)
 
    // set FloorPlacement to Stairs
    // route mouse clicks that hit the main into the FloorPlacement manager.
-   mSE.OnToolHit (HR_Security);  // this only sets the strategy.
+   mSE.OnToolHit (HR_PlaceSecurity);  // this only sets the strategy.
    return true;
 }
 
@@ -154,7 +156,7 @@ bool GUIManager::OnHouseKeeping (const CEGUI::EventArgs& e)
 
    // set FloorPlacement to Stairs
    // route mouse clicks that hit the main into the FloorPlacement manager.
-   mSE.OnToolHit (HR_HouseKeeping);  // this only sets the strategy.
+   mSE.OnToolHit (HR_PlaceHouseKeeping);  // this only sets the strategy.
    return true;
 }
 
@@ -163,7 +165,7 @@ bool GUIManager::OnClinic (const CEGUI::EventArgs& e)
 
    // set FloorPlacement to Stairs
    // route mouse clicks that hit the main into the FloorPlacement manager.
-   mSE.OnToolHit (HR_Clinic);  // this only sets the strategy.
+   mSE.OnToolHit (HR_PlaceClinic);  // this only sets the strategy.
    return true;
 }
 
@@ -172,7 +174,7 @@ bool GUIManager::OnWaste (const CEGUI::EventArgs& e)
 
    // set FloorPlacement to Stairs
    // route mouse clicks that hit the main into the FloorPlacement manager.
-   mSE.OnToolHit (HR_WasteManagement);  // this only sets the strategy.
+   mSE.OnToolHit (HR_PlaceWasteManagement);  // this only sets the strategy.
    return true;
 }
 

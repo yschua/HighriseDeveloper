@@ -56,7 +56,8 @@ bool SceneEvent::OnMouseDown (sf::Mouse::Button Button, Vector2i pointa, Vector2
 
 bool SceneEvent::OnMouseMove ( Vector2i pointa, Vector2i pointb)
 {
-   mpScene->MoveGhostRoom( Vector2f (pointa.x,pointa.y) );
+   Vector2f vec((float)pointa.x, (float)pointa.y);
+   mpScene->MoveGhostRoom (vec);
    return true;
 }
 

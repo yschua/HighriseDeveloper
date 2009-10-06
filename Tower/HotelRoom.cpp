@@ -85,8 +85,9 @@ using namespace TowerObjects;
 
 HotelRoom::HotelRoom (int x, int level, Tower * TowerParent)
       :  mCurrentState (HS_Vacant)
-      ,  FloorBase (x, x + 72, level, TowerParent)
+      ,  FloorBase (x, x + 54, level, TowerParent)
 {
+   mWidth = 54;
    ImageManager * image_man = ImageManager::GetInstance ();
    std::cout << "New Retail at " << mX << ", " << mY << " level " << mLevel << std::endl;
    mOccupants = 0;
@@ -123,11 +124,13 @@ void HotelRoom::SetImages (int set)
 //HS_OccupiedNight,
 //HS_OccupiedSleep
 
-   manimations[HS_UnoccupiedDay] = new AnimationSingle (image_man->GetTexture (oi.Images[0], GL_RGBA), 72, 36);
+   manimations[HS_Vacant] = new AnimationSingle (image_man->GetTexture (oi.Images[0], GL_RGBA), mWidth, 36);
+   manimations[HS_Vacant]->SetPosition (mX, mY);
+   manimations[HS_UnoccupiedDay] = new AnimationSingle (image_man->GetTexture (oi.Images[0], GL_RGBA), mWidth, 36);
    manimations[HS_UnoccupiedDay]->SetPosition (mX, mY);
-   manimations[HS_UnoccupiedNight] = new AnimationSingle (image_man->GetTexture (oi.Images[1], GL_RGBA), 72, 36);
+   manimations[HS_UnoccupiedNight] = new AnimationSingle (image_man->GetTexture (oi.Images[1], GL_RGBA), mWidth, 36);
    manimations[HS_UnoccupiedNight]->SetPosition (mX, mY);
-   Animation* pAn = new Animation (72,36);
+   Animation* pAn = new Animation (mWidth, 36);
    manimations[HS_OccupiedDay] = pAn;
    for (int idx = 2; idx < oi.count; ++idx )
    {

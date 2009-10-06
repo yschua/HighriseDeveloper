@@ -73,6 +73,21 @@ public:
    virtual void ShowGhostBuild (Tower* pTower);
 };
 
+class BuildHotelStategy : public BuildStategyBase
+{
+public:
+   BuildHotelStategy()
+   {
+      mType = "Hotel"; // May not always be the class name
+      mWidth = 6;       // 72/9
+      mHeight = 1;      // or 36 pixels
+   }
+public:
+   bool BuildHere (Tower* pTowwer, int x, int y);
+   virtual bool PlacingRoom() { return true; }
+   virtual void ShowGhostBuild (Tower* pTower);
+};
+
 //stairs
 class BuildStairStategy : public BuildStategyBase
 {

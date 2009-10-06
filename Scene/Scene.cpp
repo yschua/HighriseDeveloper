@@ -63,6 +63,12 @@ Scene::SelectTool (int toolID)
       bResult = true;
       break;
 
+   case HR_PlaceHotel:
+      mpBuildStrategy = new BuildHotelStategy();
+      mpBuildStrategy->ShowGhostBuild (mTowers[0]);
+      bResult = true;
+      break;
+
    case HR_PlaceStairs:
       mpBuildStrategy = new BuildStairStategy();
       mpBuildStrategy->ShowGhostBuild (mTowers[0]);

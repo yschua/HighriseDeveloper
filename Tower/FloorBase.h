@@ -33,6 +33,7 @@ enum BaseType
    BaseRestaurant,
    BaseHotel,
    BaseVenue,
+   BaseService,
    BaseSecurity,
    BaseMedical,
    BaseRestroom,

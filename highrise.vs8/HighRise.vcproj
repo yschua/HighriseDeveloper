@@ -479,6 +479,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\Tower\Housekeeping.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\Tower\Housekeeping.h"
+				>
+			</File>
+			<File
 				RelativePath="..\Tower\Level.cpp"
 				>
 			</File>
@@ -544,14 +552,6 @@
 			</File>
 			<File
 				RelativePath="..\Tower\Security.h"
-				>
-			</File>
-			<File
-				RelativePath="..\Tower\ServiceCenter.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\Tower\ServiceCenter.h"
 				>
 			</File>
 			<File

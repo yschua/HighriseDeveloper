@@ -14,8 +14,8 @@
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef _HOTEL_H
-#define _HOTEL_H
+#ifndef _HOUSEKEEPING_H
+#define _HOUSEKEEPING_H
 
 #include <map>
 
@@ -25,44 +25,49 @@
 class Animation;
 class SerializerBase;
 
-enum Hotel_State
+enum service_state
 {
-   HS_Vacant,
-   HS_UnoccupiedDay,
-   HS_UnoccupiedNight,
-   HS_OccupiedDay,
-   HS_OccupiedNight,
-   HS_OccupiedSleep
+   SS_Vacant,
+   SS_Occupied
+};
+enum service_mode
+{
+   SM_Night = 0, 
+   SM_DayUnoccupied,
+   SM_DayOccupied
 };
 
-class HotelRoom : public FloorBase, public Gfx::ModelObject
+class Housekeeping : public FloorBase, public Gfx::ModelObject
 {
-   std::map<Hotel_State, AnimationBase*> manimations;
-   Hotel_State mCurrentState;// vacant /occupied/ day / night
+   std::map<service_mode, AnimationBase*> manimations;
+   service_state mCurrentState;// vacant /occupied
+   service_mode  mCurrentMode; // day / night
    int mCurrentAnimation;
-   int mOccupants;
-   int mRoomStyle; // Regular, Double, King, Suite
-   int mHotelNumner;
-   int mWidth;
+   int mPeopleInService;
+   int mEmployees;
+   int mMaxPositions;
+   int mServiceNumner;
 
 public:
-   HotelRoom (int x, int level, Tower * TowerParent);
+   Housekeeping (int x, int level, Tower * TowerParent);
 
    void Update (float dt, int tod);
    void Draw ();
    void DrawFramework ();
-   virtual BaseType GetType () { return BaseHotel; }
+   virtual BaseType GetType () { return BaseService; }
 
    void RemoveImages();
    void SetImages (int set);
    void Save(SerializerBase& ser);
 
    void PeopleInOut( int count );
-   void SetHotelNumber(int no) { mHotelNumner = no; }
-   int  GetHotelNumber() { return mHotelNumner; }
+   bool PeopleApply( );    // get a job
+   void SetServiceNumber(int no) { mServiceNumner = no; }
+   int  GetServiceNumber() { return mServiceNumner; }
 
 private:
-   void HotelState(int tod);
+   void ServiceMode (int tod);
+   void ServiceState();
 };
 
-#endif //_HOTEL_H
+#endif //_HOUSEKEEPING_H

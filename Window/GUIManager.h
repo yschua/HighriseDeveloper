@@ -27,7 +27,7 @@ public:
    bool OnHotel (const CEGUI::EventArgs& e);
    bool OnRetail (const CEGUI::EventArgs& e);
    bool OnSecurity (const CEGUI::EventArgs& e);
-   bool OnHouseKeeping (const CEGUI::EventArgs& e);
+   bool OnHousekeeping (const CEGUI::EventArgs& e);
    bool OnClinic (const CEGUI::EventArgs& e);
    bool OnWaste (const CEGUI::EventArgs& e);
    bool OnElevator (const CEGUI::EventArgs& e);

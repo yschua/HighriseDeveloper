@@ -50,7 +50,7 @@ public:
    void Update (float dt, int tod);
    void Draw ();
    void DrawFramework ();
-   virtual BaseType GetType () { return BaseMedical; }
+   virtual BaseType GetType () { return BaseClinic; }
 
    void RemoveImages();
    void SetImages (int set);

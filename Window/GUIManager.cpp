@@ -52,6 +52,8 @@ GUIManager::GUIManager(SceneEvent& rse) //, Tower* Tower) can't pass a tower as 
       mpWM->getWindow((utf8*)"BnApartment")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnApartment, this));
       mpWM->getWindow((utf8*)"BnHotel")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnHotel, this));
 //      mpWM->getWindow((utf8*)"BnHousekeeping")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnHousekeeping, this));
+      mpWM->getWindow((utf8*)"BnSecurity")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnSecurity, this));
+      mpWM->getWindow((utf8*)"BnClinic")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnClinic, this));
       mpWM->getWindow((utf8*)"BnStairs")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnStairs, this));
       // elevator
       mpWM->getWindow((utf8*)"MenuBackground/Open")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnOpen, this));
@@ -129,7 +131,7 @@ bool GUIManager::OnHotel (const CEGUI::EventArgs& e)
 
    // set FloorPlacement to Stairs
    // route mouse clicks that hit the main into the FloorPlacement manager.
-   mSE.OnToolHit (HR_PlaceHotel);  // this only sets the strategy.
+   mSE.OnToolHit (HR_PlaceHotelSingle);  // this only sets the strategy.
    return true;
 }
 
@@ -151,7 +153,7 @@ bool GUIManager::OnSecurity (const CEGUI::EventArgs& e)
    return true;
 }
 
-bool GUIManager::OnHouseKeeping (const CEGUI::EventArgs& e)
+bool GUIManager::OnHousekeeping (const CEGUI::EventArgs& e)
 {
 
    // set FloorPlacement to Stairs

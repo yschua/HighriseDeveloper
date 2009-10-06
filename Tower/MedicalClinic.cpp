@@ -34,9 +34,9 @@ namespace TowerObjects
    // 
    const char* MedicalClinicImagesU[] =
    {
-      "MedicalClinic_u_n.png",
-      "MedicalClinic_u_d.png",
-      "MedicalClinic_u_0.png"
+      "MedicalClinic_u.png",
+      "MedicalClinic_u.png",
+      "MedicalClinic_u.png"
    };
    const char* MedicalClinicImages0[] =
    {
@@ -84,7 +84,7 @@ using namespace TowerObjects;
 
 MedicalClinic::MedicalClinic (int x, int level, Tower * TowerParent)
       :  mCurrentState (MS_NightUnoccupied)
-      ,  FloorBase (x, x + 72, level, TowerParent)
+      ,  FloorBase (x, x + 144, level, TowerParent)
 {
    ImageManager * image_man = ImageManager::GetInstance ();
    std::cout << "New MedicalClinic at " << mX << ", " << mY << " level " << mLevel << std::endl;
@@ -125,11 +125,11 @@ void MedicalClinic::SetImages (int set)
 {
    ImageManager * image_man = ImageManager::GetInstance ();
    MedicalClinicImage& oi = MedicalClinicImages [set];
-   manimations[MS_NightUnoccupied] = new AnimationSingle (image_man->GetTexture (oi.Images[0], GL_RGBA), 72, 36);
+   manimations[MS_NightUnoccupied] = new AnimationSingle (image_man->GetTexture (oi.Images[0], GL_RGBA), 144, 36);
    manimations[MS_NightUnoccupied]->SetPosition (mX, mY);
-   manimations[MS_DayUnoccupied] = new AnimationSingle (image_man->GetTexture (oi.Images[1], GL_RGBA), 72, 36);
+   manimations[MS_DayUnoccupied] = new AnimationSingle (image_man->GetTexture (oi.Images[1], GL_RGBA), 144, 36);
    manimations[MS_DayUnoccupied]->SetPosition (mX, mY);
-   Animation* pAn = new Animation (72,36);
+   Animation* pAn = new Animation (144,36);
    manimations[MS_DayOccupied] = pAn;
    //MS_DayOccupied
    for (int idx = 2; idx < oi.count; ++idx )

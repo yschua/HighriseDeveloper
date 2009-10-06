@@ -49,31 +49,69 @@ bool
 Scene::SelectTool (int toolID)
 {
    bool bResult = false;
+   BuildStrategyBase* pOldStrategy = mpBuildStrategy;
    switch (toolID)
    {
    case HR_PlaceOffice:
-      mpBuildStrategy = new BuildOfficeStategy();
+      mpBuildStrategy = new BuildOfficeStrategy();
       mpBuildStrategy->ShowGhostBuild (mTowers[0]);
       bResult = true;
       break;
 
    case HR_PlaceApartment:
-      mpBuildStrategy = new BuildApartmentStategy();
+      mpBuildStrategy = new BuildApartmentStrategy();
       mpBuildStrategy->ShowGhostBuild (mTowers[0]);
       bResult = true;
       break;
 
-   case HR_PlaceHotel:
-      mpBuildStrategy = new BuildHotelStategy();
+   case HR_PlaceHotelSingle:
+      mpBuildStrategy = new BuildHotelStrategy(5);
+      mpBuildStrategy->ShowGhostBuild (mTowers[0]);
+      bResult = true;
+      break;
+   case HR_PlaceHotelDouble:
+      mpBuildStrategy = new BuildHotelStrategy(6);
+      mpBuildStrategy->ShowGhostBuild (mTowers[0]);
+      bResult = true;
+      break;
+   case HR_PlaceHotelKing:
+      mpBuildStrategy = new BuildHotelStrategy(7);
+      mpBuildStrategy->ShowGhostBuild (mTowers[0]);
+      bResult = true;
+      break;
+   case HR_PlaceHotelSuite:
+      mpBuildStrategy = new BuildHotelStrategy(8);
+      mpBuildStrategy->ShowGhostBuild (mTowers[0]);
+      bResult = true;
+      break;
+   case HR_PlaceSecurity:
+      mpBuildStrategy = new BuildSecurityStrategy();
+      mpBuildStrategy->ShowGhostBuild (mTowers[0]);
+      bResult = true;
+      break;
+
+   case HR_PlaceClinic:
+      mpBuildStrategy = new BuildClinicStrategy();
       mpBuildStrategy->ShowGhostBuild (mTowers[0]);
       bResult = true;
       break;
 
    case HR_PlaceStairs:
-      mpBuildStrategy = new BuildStairStategy();
+      mpBuildStrategy = new BuildStairStrategy();
       mpBuildStrategy->ShowGhostBuild (mTowers[0]);
       bResult = true;
       break;
+   }
+   if (bResult && !(pOldStrategy==NULL))
+   {
+      try
+      {
+         delete pOldStrategy;
+      }
+      catch (...)
+      {
+         std::cout << "Error deleting old BuildStrategy in Scene";
+      }
    }
    return bResult;
 }

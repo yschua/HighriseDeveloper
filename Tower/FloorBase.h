@@ -35,7 +35,7 @@ enum BaseType
    BaseVenue,
    BaseService,
    BaseSecurity,
-   BaseMedical,
+   BaseClinic,
    BaseRestroom,
    BaseWasteManagement,
    BaseStair,

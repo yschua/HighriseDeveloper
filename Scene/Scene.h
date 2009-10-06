@@ -28,7 +28,7 @@
 class FloorBase; // aggregate of floor spaces for offices, condos and hotels
 class Tower;
 class Background;
-class BuildStategyBase;
+class BuildStrategyBase;
 class GameManager;
 
 // Tower is a ModelObject along with all the FloorSpace entities
@@ -50,7 +50,7 @@ private:
 
    //Routes mRoutes;
    Background* mpBackground;
-   BuildStategyBase* mpBuildStrategy;  // Place floor objects
+   BuildStrategyBase* mpBuildStrategy;  // Place floor objects
 
 public:
    // ctor/dtor

@@ -34,13 +34,15 @@ namespace TowerObjects
    // 
    const char* Security_Images0[] =
    {
-      "Security_0_d_u.png",
-      "Security_0_d_0.png",
-      "Security_0_d_1.png",
-      "Security_0_d_2.png",
-      "Security_0_d_3.png",
-      "Security_0_d_4.png",
-      "Security_0_d_5.png"
+      "Security_u.png",
+      "Security_u.png",
+      "Security_u.png",
+      "Security_u_0.png",
+      "Security_u_1.png",
+      "Security_u_2.png",
+      "Security_u_3.png",
+      "Security_u_4.png",
+      "Security_u_5.png"
    };
    struct Security_Image
    {
@@ -58,7 +60,7 @@ using namespace TowerObjects;
 
 Security::Security (int x, int level, Tower * TowerParent)
       :  mCurrentState (SE_Unoccupied)
-      ,  FloorBase (x, x + 72, level, TowerParent)
+      ,  FloorBase (x, x + 126, level, TowerParent)
 {
    ImageManager * image_man = ImageManager::GetInstance ();
    std::cout << "New Security_ at " << mX << ", " << mY << " level " << mLevel << std::endl;
@@ -84,9 +86,9 @@ void Security::SetImages (int set)
 {
    ImageManager * image_man = ImageManager::GetInstance ();
    Security_Image& oi = Security_Images [set];
-   manimations[SE_Unoccupied] = new AnimationSingle (image_man->GetTexture (oi.Images[1], GL_RGBA), 72, 36);
+   manimations[SE_Unoccupied] = new AnimationSingle (image_man->GetTexture (oi.Images[1], GL_RGBA), 126, 36);
    manimations[SE_Unoccupied]->SetPosition (mX, mY);
-   Animation* pAn = new Animation (72,36);
+   Animation* pAn = new Animation (126,36);
    manimations[SE_Occupied] = pAn;
    for (int idx = 0; idx < oi.count; ++idx )
    {

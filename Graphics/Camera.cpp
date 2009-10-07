@@ -17,6 +17,7 @@
 #include "../Resources.h"
 
 #include <iostream>
+#include <cstring>
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
 #include "../Root/Physics.h"
@@ -332,23 +333,23 @@ Camera::OnKeyDown (sf::Key::Code Key)
 {
    if (Key == sf::Key::D)
    {
-      mv.x = -200;
-      ma.x = 150;
+      mv.x = mZoomFactor;
+      ma.x = -0.5*mZoomFactor;
    }
    if (Key == sf::Key::S)
    {
-      mv.y = 200;
-      ma.y = -150;
+      mv.y = -mZoomFactor;
+      ma.y = 0.5*mZoomFactor;
    }
    if (Key == sf::Key::A)
    {
-      mv.x = 200;
-      ma.x = -150;
+      mv.x = -mZoomFactor;
+      ma.x = 0.5*mZoomFactor;
    }
    if (Key == sf::Key::W)
    {
-      mv.y = -200;
-      ma.y = 150;
+      mv.y = mZoomFactor;
+      ma.y = -0.5*mZoomFactor;
    }
    if (Key == sf::Key::E)
    {

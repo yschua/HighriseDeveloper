@@ -50,9 +50,9 @@ void PersonQueue::Update()
 
 void PersonQueue::Draw (int vx, int vy)
 {
-   for( unsigned int x = 0; x < mpQueue.size(); ++x )
+/*   for( unsigned int x = 0; x < mpQueue.size(); ++x )
    {
-      Person* peep = mpQueue.c[x];
+      Person* peep = mpQueue[x];
       peep->Draw(vx,vy);
-   }
+   }*/
 }

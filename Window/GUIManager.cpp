@@ -37,6 +37,9 @@ GUIManager::GUIManager(SceneEvent& rse) //, Tower* Tower) can't pass a tower as 
       mpRootWind = mpWM->createWindow( "DefaultWindow", "root" );
       mpSystem->setGUISheet( mpRootWind );
 
+      ImagesetManager::getSingletonPtr()->getImageset("WindowsLook")->setAutoScalingEnabled(false);
+      //FontManager::getSingletonPtr()->getFont("DejaVuSans-10.font")->setAutoScaled(false);
+
       // Just making a test window now
       FrameWindow* fWnd = (FrameWindow*) mpWM->createWindow( "WindowsLook/FrameWindow", "testWindow" );
       mpRootWind->addChildWindow( fWnd );
@@ -281,7 +284,8 @@ bool GUIManager::OnResize(Vector2i NewSize)
 {
    // We need to manually resize the space the GUI is being drawn on so that things are not streched.
    // For some reason, this doesn't work.
-   mpRootWind->setSize(CEGUI::UVector2(CEGUI::UDim(0, NewSize.x*10), CEGUI::UDim(1, NewSize.y)));
+   //mpRootWind->setSize(CEGUI::UVector2(CEGUI::UDim(0, NewSize.x*10), CEGUI::UDim(1, NewSize.y)));
+   mpRenderer->setDisplaySize(CEGUI::Size(NewSize.x, NewSize.y));
    std::cout << "Set the size of the CEGUI window! (" << NewSize.x << ", " << NewSize.y << ")\n";
    return false;
 }

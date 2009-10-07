@@ -119,6 +119,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="&quot;\Dev\VC++\SFML-1.5\include&quot;;&quot;\Dev\VC++\CEGUI-SDK-0.6.2-vc8\include&quot;;&quot;\Dev\VC++\CEGUI-SDK-0.6.2-vc8&quot;;&quot;F:\Dev\VC++\wxWidgets-2.8.10\include&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
@@ -137,7 +138,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="sfml-Graphics.lib sfml-System.lib sfml-Window.lib OPENGL32.LIB glu32.lib CEGUIBase.lib OpenGLGUIRenderer.lib CEGUITinyXMLParser_Static.lib"
 				LinkIncremental="1"
+				AdditionalLibraryDirectories="&quot;\Dev\VC++\SFML-1.5\lib\vc2005&quot;;&quot;C:\Program Files (x86)\Microsoft Visual Studio 8\VC\lib&quot;;&quot;\Dev\VC++\CEGUI-SDK-0.6.2-vc8\lib&quot;"
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				OptimizeReferences="2"
@@ -623,6 +626,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\Root\HighRiseException.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\Root\HighRiseException.h"
 				>
 			</File>
@@ -684,10 +691,6 @@
 			</File>
 			<File
 				RelativePath="..\People\Citizens.h"
-				>
-			</File>
-			<File
-				RelativePath="..\Root\HighRiseException.cpp"
 				>
 			</File>
 			<File

@@ -20,6 +20,7 @@
 #include "../Tower/RouteBase.h"  // Elevators route (levels).
 #include "../Tower/ElevatorBase.h"
 #include "../Tower/Elevator.h"
+#include "../Tower/SkyLobby.h"
 #include "../Scene/Scene.h"
 
 #include "GameManager.h"
@@ -153,14 +154,20 @@ bool GameManager::LoadTower(TiXmlNode* pnTower, Tower* pTower)
          {
             TiXmlNode* pnType = pnRoom->FirstChild("type");
             TiXmlNode* pnXPos = pnRoom->FirstChild("xpos");
+            TiXmlNode* pnXEnd = pnRoom->FirstChild("xend");
             TiXmlNode* pnState = pnRoom->FirstChild("state");
 
-            std::cout << "Loading room. " << pnType << " " << pnXPos << " " << pnState << std::endl;
             if (pnType && pnXPos && pnState)
             {
                int State = (pnState) ? FromString<int>(pnState->FirstChild()->Value()) : 0;
                std::string Type = pnType->FirstChild()->Value();
                int XPos = FromString<int>(pnXPos->FirstChild()->Value());
+               int XEnd = 0;
+               std::cout << "Loading room. " << Type << " " << XPos << " " << State << std::endl;
+               if( pnXEnd!= NULL)
+               {
+                  XEnd = FromString<int>(pnXEnd->FirstChild()->Value());
+               }
                // Need a better way to do this...
                FloorBase* pRoom = NULL;
                if (Type == "office")
@@ -171,6 +178,11 @@ bool GameManager::LoadTower(TiXmlNode* pnTower, Tower* pTower)
                else if (Type == "apartment")
                {
                   pRoom = new Apartment(XPos, levelno, pTower);
+                  pTower->GetLevel(levelno)->AddFloorSpace(pRoom);
+               }
+               else if (Type == "skylobby")
+               {
+                  pRoom = new SkyLobby(XPos, XEnd, levelno, pTower);
                   pTower->GetLevel(levelno)->AddFloorSpace(pRoom);
                }
                else

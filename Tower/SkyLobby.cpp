@@ -24,56 +24,40 @@
 #include "Level.h"
 #include "FloorBase.h"
 
-#include "Lobby.h"
+#include "SkyLobby.h"
 
 using namespace Gfx;
 
-Lobby::Lobby (int x, int x2, int level, Tower * TowerParent)
-:   Level ( level, x, 0, x2, TowerParent )
+SkyLobby::SkyLobby (int x, int x2, int level, Tower * TowerParent)
+:   FloorBase ( level, x, x2, TowerParent )
 {
-   mX2 = x2;
-   mX = x;
+   mX2 = (float)x2;
+   mX = (float)x;
    ImageManager * images = ImageManager::GetInstance ();
-   if( level > 0 )
-   {
-      mDesk = NULL;
-      mTile = new Tiler (images->GetTexture("skylobby.png", GL_RGBA), Tiler::Horizontal, (float)x+36, 0, 0, (float)(x2-x-36), 36);
-      mTile->SetTessel ((float)(x2-x)/72, 1.0f);
-   }
-   else
-   {
-      mDesk = new AnimationSingle( images->GetTexture("lobbyA.png", GL_RGBA), 36, 36 );
-      mDesk->SetPosition(mX, 0);
-      mTile = new Tiler (images->GetTexture("lobbyB.png", GL_RGBA), Tiler::Horizontal, (float)x+36, 0, 0, (float)(x2-x-36), 36);
-      mTile->SetTessel ((float)(x2-x)/72, 1.0f);
-   }
-   nFireEscapeLeft->SetPosition ((float)mX - 56, (float)mY);
-   nFireEscapeRight->SetPosition ((float)mX2, (float)mY);
-   std::cout << "New lobby at " << mX << " to " << mX2 << " Y level " << mY << std::endl;
+   mTile = new Tiler (images->GetTexture("skylobby.png", GL_RGBA), Tiler::Horizontal, (float)x+36, 0, 0, (float)(x2-x-36), 36);
+   mTile->SetTessel ((float)(x2-x)/72, 1.0f);
+   std::cout << "New Sky lobby at " << mX << " to " << mX2 << " Y level " << mY << std::endl;
 }
 
 void
-Lobby::Update (float dt)
+SkyLobby::Update (float dt)
 {
 
 }
 
-void Lobby::Draw ()
+void SkyLobby::Draw ()
 {
-   if( mDesk != NULL) Render(mDesk);
    Render(mTile);
-   Render(nFireEscapeLeft);
-   Render(nFireEscapeRight);
 }
 
-void Lobby::DrawFramework ()
+void SkyLobby::DrawFramework ()
 {
    //RenderFramework( mpFrame, id);
 }
 
-void Lobby::Save(SerializerBase& ser)
+void SkyLobby::Save(SerializerBase& ser)
 {
-   ser.Add("type", "Lobby");   // first tag
+   ser.Add("type", "SkyLobby");   // first tag
    ser.Add("level", mLevel);   // first tag
    ser.Add("xstart", mX);   // first tag
    ser.Add("xend", mX2);   // first tag

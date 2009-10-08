@@ -566,6 +566,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\Tower\SkyLobby.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\Tower\SkyLobby.h"
+				>
+			</File>
+			<File
 				RelativePath="..\Tower\Tower.cpp"
 				>
 			</File>

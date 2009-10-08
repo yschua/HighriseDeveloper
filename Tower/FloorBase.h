@@ -39,7 +39,8 @@ enum BaseType
    BaseRestroom,
    BaseWasteManagement,
    BaseStair,
-   BaseElevator
+   BaseElevator,
+   BaseSkyLevel
 };
 
 class FloorBase

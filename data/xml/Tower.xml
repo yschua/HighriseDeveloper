@@ -334,5 +334,55 @@
           <xstart>396</xstart>
           <xend>828</xend>
        </level>
+       <level>
+          <type>Floor</type>
+          <level>9</level>
+          <xstart>396</xstart>
+          <xend>828</xend>
+       </level>
+       <level>
+          <type>Floor</type>
+          <level>10</level>
+          <xstart>396</xstart>
+          <xend>828</xend>
+       </level>
+       <level>
+          <type>Floor</type>
+          <level>11</level>
+          <xstart>396</xstart>
+          <xend>828</xend>
+       </level>
+       <level>
+          <type>Floor</type>
+          <level>12</level>
+          <xstart>396</xstart>
+          <xend>828</xend>
+       </level>
+       <level>
+          <type>Floor</type>
+          <level>13</level>
+          <xstart>396</xstart>
+          <xend>828</xend>
+       </level>
+       <level>
+          <type>Floor</type>
+          <level>14</level>
+          <xstart>396</xstart>
+          <xend>828</xend>
+       </level>
+       <level>
+          <type>Floor</type>
+          <level>15</level>
+          <xstart>396</xstart>
+          <xend>828</xend>
+          <room>
+             <type>skylobby</type>
+             <xpos>396</xpos>
+             <xend>828</xend>
+             <ypos>-396</ypos>
+             <zpos>-0.5</zpos>
+             <state>1</state>
+          </room>
+       </level>
     </tower>
 </highrisetower>

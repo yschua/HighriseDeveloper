@@ -63,7 +63,11 @@ Scene::SelectTool (int toolID)
       mpBuildStrategy->ShowGhostBuild (mTowers[0]);
       bResult = true;
       break;
-
+   case HR_PlaceCondo:
+      mpBuildStrategy = new BuildCondoStrategy();
+      mpBuildStrategy->ShowGhostBuild (mTowers[0]);
+      bResult = true;
+      break;
    case HR_PlaceHotelSingle:
       mpBuildStrategy = new BuildHotelStrategy(5);
       mpBuildStrategy->ShowGhostBuild (mTowers[0]);
@@ -86,6 +90,11 @@ Scene::SelectTool (int toolID)
       break;
    case HR_PlaceSecurity:
       mpBuildStrategy = new BuildSecurityStrategy();
+      mpBuildStrategy->ShowGhostBuild (mTowers[0]);
+      bResult = true;
+      break;
+   case HR_PlaceHouseKeeping:
+      mpBuildStrategy = new BuildHousekeepingStrategy();
       mpBuildStrategy->ShowGhostBuild (mTowers[0]);
       bResult = true;
       break;

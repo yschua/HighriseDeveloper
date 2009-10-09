@@ -34,7 +34,9 @@ namespace TowerObjects
    // 
    const char* HousekeepingImages0[] =
    {
-      "Housekeeping_0_n.png",
+      "Housekeeping.png",
+      "Housekeeping.png",
+      "Housekeeping.png",
       "Housekeeping_0_d_0.png",
       "Housekeeping_0_d_1.png",
       "Housekeeping_0_d_2.png",
@@ -49,7 +51,7 @@ namespace TowerObjects
    };
    HousekeepingImage HousekeepingImages[] =
    {
-      { HousekeepingImages0, 7 }
+      { HousekeepingImages0, 3 }
       //{ HousekeepingImagesn, 7 },
       //{ HousekeepingImages6, 4 },
       //{ HousekeepingImages7, 7 }
@@ -62,7 +64,7 @@ using namespace TowerObjects;
 Housekeeping::Housekeeping (int x, int level, Tower * TowerParent)
 :  mCurrentState (SS_Vacant)
 ,  mCurrentMode (SM_Night)
-,  FloorBase (x, x + 72, level, TowerParent)
+,  FloorBase (x, x + 126, level, TowerParent)
 {
    ImageManager * image_man = ImageManager::GetInstance ();
    std::cout << "New Housekeeping at " << mX << ", " << mY << " level " << mLevel << std::endl;
@@ -92,7 +94,7 @@ void Housekeeping::ServiceState()
 {
    if ( mCurrentState == SS_Vacant && mPeopleInService > 0 )  // need to check for rent paid
    {
-      int set = 1 + rand() % (TotalSets-1);
+      int set = (1 + rand()) % (TotalSets);
       RemoveImages();
       SetImages(set);
       mCurrentState = SS_Occupied;
@@ -110,11 +112,11 @@ void Housekeeping::SetImages (int set)
 {
    ImageManager * image_man = ImageManager::GetInstance ();
    HousekeepingImage& oi = HousekeepingImages [set];
-   manimations[SM_Night] = new AnimationSingle (image_man->GetTexture (oi.Images[0], GL_RGBA), 72, 36);
+   manimations[SM_Night] = new AnimationSingle (image_man->GetTexture (oi.Images[0], GL_RGBA), 126, 36);
    manimations[SM_Night]->SetPosition (mX, mY);
-   manimations[SM_DayUnoccupied] = new AnimationSingle (image_man->GetTexture (oi.Images[1], GL_RGBA), 72, 36);
+   manimations[SM_DayUnoccupied] = new AnimationSingle (image_man->GetTexture (oi.Images[1], GL_RGBA), 126, 36);
    manimations[SM_DayUnoccupied]->SetPosition (mX, mY);
-   Animation* pAn = new Animation (72,36);
+   Animation* pAn = new Animation (126,36);
    manimations[SM_DayOccupied] = pAn;
    for (int idx = 2; idx < oi.count; ++idx )
    {

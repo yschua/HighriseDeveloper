@@ -39,7 +39,7 @@
           <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
           <Property Name="UnifiedAreaRect" Value="{{0,2},{0,196},{0,80},{0,224}}" />
        </Window>
-       <Window Type="WindowsLook/Button" Name="BnHouseKeeping" >
+       <Window Type="WindowsLook/Button" Name="BnHousekeeping" >
           <Property Name="Text" Value="Housekeep." />
           <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
           <Property Name="UnifiedAreaRect" Value="{{0,2},{0,228},{0,80},{0,256}}" />

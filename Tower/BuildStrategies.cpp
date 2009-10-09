@@ -22,6 +22,7 @@
 #include "FloorBase.h"
 #include "Level.h"
 #include "Tower.h"
+#include "Condo.h"
 #include "Office.h"
 #include "Security.h"
 #include "Apartment.h"
@@ -130,6 +131,15 @@ void BuildStairStrategy::ShowGhostBuild (Tower* pTower)
 
 bool BuildCondoStrategy::BuildHere (Tower* pTower, int x, int level)
 {
+   Level* pLevel = pTower->GetLevel(level);
+
+   int xx = x * Level::mUnitSize;
+   bool bAvail = pLevel->IsSpaceEmpty (xx, xx + mWidth * Level::mUnitSize);
+   if (bAvail)
+   {
+      FloorBase* pRoom = new Condo(xx, level, pTower); //OnToolHit is going to set this up, when we hit the floor
+      pLevel->AddFloorSpace (pRoom);
+   }
    return true;
 }
 
@@ -137,11 +147,20 @@ void BuildCondoStrategy::ShowGhostBuild (Tower* pTower)
 {
    GhostRoom& GR = pTower->GetGhostRoom();
    GR.SetShownType( BaseResidence);
-   GR.SetWidth (12);
+   GR.SetWidth (14);
 }
 
 bool BuildHousekeepingStrategy::BuildHere (Tower* pTower, int x, int level)
 {
+   Level* pLevel = pTower->GetLevel(level);
+
+   int xx = x * Level::mUnitSize;
+   bool bAvail = pLevel->IsSpaceEmpty (xx, xx + mWidth * Level::mUnitSize);
+   if (bAvail)
+   {
+      FloorBase* pRoom = new Housekeeping(xx, level, pTower); //OnToolHit is going to set this up, when we hit the floor
+      pLevel->AddFloorSpace (pRoom);
+   }
    return true;
 }
 
@@ -149,7 +168,7 @@ void BuildHousekeepingStrategy::ShowGhostBuild (Tower* pTower)
 {
    GhostRoom& GR = pTower->GetGhostRoom();
    GR.SetShownType( BaseResidence);
-   GR.SetWidth (12);
+   GR.SetWidth (14);
 }
 
 bool BuildServiceStrategy::BuildHere (Tower* pTower, int x, int level)

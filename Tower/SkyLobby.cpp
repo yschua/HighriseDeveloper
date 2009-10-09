@@ -29,12 +29,14 @@
 using namespace Gfx;
 
 SkyLobby::SkyLobby (int x, int x2, int level, Tower * TowerParent)
-:   FloorBase ( level, x, x2, TowerParent )
+:   FloorBase ( x, x2, level, TowerParent )
 {
    mX2 = (float)x2;
    mX = (float)x;
+   mY = (float)level*36;
+   mZ = 0.5;
    ImageManager * images = ImageManager::GetInstance ();
-   mTile = new Tiler (images->GetTexture("skylobby.png", GL_RGBA), Tiler::Horizontal, (float)x+36, 0, 0, (float)(x2-x-36), 36);
+   mTile = new Tiler (images->GetTexture("skylobby.png", GL_RGBA), Tiler::Horizontal, (float)mX, -mY, mZ, (float)(x2-x), 36);
    mTile->SetTessel ((float)(x2-x)/72, 1.0f);
    std::cout << "New Sky lobby at " << mX << " to " << mX2 << " Y level " << mY << std::endl;
 }

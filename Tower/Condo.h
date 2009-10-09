@@ -26,11 +26,11 @@ class FloorBase;
 
 enum Condo_State
 {
-   apt_vacant,
-   apt_unoccupied_day,
-   apt_occupied_day,
-   apt_occupied_night,
-   apt_occupied_sleep
+   condo_vacant,
+   condo_unoccupied_day,
+   condo_occupied_day,
+   condo_occupied_night,
+   condo_occupied_sleep
 };
 
 class Condo : public FloorBase, public Gfx::ModelObject

@@ -333,23 +333,31 @@ Camera::OnKeyDown (sf::Key::Code Key)
 {
    if (Key == sf::Key::D)
    {
-      mv.x = mZoomFactor;
-      ma.x = -0.5*mZoomFactor;
+
+      mv.x += 0.4*mZoomFactor;
+      ma.x = -0.25*mZoomFactor;
+      //if (mv.x == 0) mv.x = 0.5*mZoomFactor;
    }
    if (Key == sf::Key::S)
    {
-      mv.y = -mZoomFactor;
-      ma.y = 0.5*mZoomFactor;
+
+      mv.y += -0.3*mZoomFactor;
+      ma.y = 0.25*mZoomFactor;
+      //if (mv.y == 0) mv.y = -0.5*mZoomFactor;
    }
    if (Key == sf::Key::A)
    {
-      mv.x = -mZoomFactor;
-      ma.x = 0.5*mZoomFactor;
+
+      mv.x += -0.4*mZoomFactor;
+      ma.x = 0.25*mZoomFactor;
+      //if (mv.x == 0) mv.x = -0.5*mZoomFactor;
    }
    if (Key == sf::Key::W)
    {
-      mv.y = mZoomFactor;
-      ma.y = -0.5*mZoomFactor;
+
+      mv.y += 0.3*mZoomFactor;
+      ma.y = -0.25*mZoomFactor;
+      //if (mv.y == 0) mv.y = 0.5*mZoomFactor;
    }
    if (Key == sf::Key::E)
    {

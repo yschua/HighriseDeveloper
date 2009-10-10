@@ -42,12 +42,14 @@ private:
 
 public:
    Condo (int x, int level, Tower * TowerParent);
+   static BaseType GetBaseType() { return BaseCondo; }
+   static const char* GetTypeString() { return "condo"; }
 
    virtual void Update (float dt, int tod);
    virtual void Draw ();
    virtual void DrawFramework ();
    virtual void Save(SerializerBase& ser);
-   virtual BaseType GetType () { return BaseResidence; }
+   virtual BaseType GetType () { return BaseCondo; }
 
 protected:
    Condo_State vacant (int dt);

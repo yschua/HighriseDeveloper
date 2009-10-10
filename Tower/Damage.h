@@ -30,7 +30,9 @@ protected:
 public:
    Damage (int x, int x2, int level, Tower * TowerParent, AnimationSingle* pFrame);
 
-   void Update (float dt);
+   static BaseType GetBaseType() { return BaseEmpty; }
+   static const char* GetTypeString() { return "damage"; }
+   void Update (float dt, int tod);
    void Draw ();
    void DrawFramework ();
 };

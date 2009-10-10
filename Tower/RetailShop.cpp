@@ -116,7 +116,7 @@ void RetailShop::RetailShopState()
 {
    if ( mCurrentState == RS_Vacant && mPeopleInShop > 0 )  // need to check for rent paid
    {
-      int set = 1 + rand() % (TotalSets-1);
+      int set = 1 + rand() % (TotalSets);
       RemoveImages();
       SetImages(set);
       mCurrentState = RS_Occupied;

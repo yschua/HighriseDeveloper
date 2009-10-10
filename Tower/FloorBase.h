@@ -27,20 +27,22 @@ enum BaseType
 {
    BaseEmpty = 0,
    BaseGhostRoom,
-   BaseResidence,
+   BaseApartment,
+   BaseCondo,
    BaseOffice,
    BaseRetail,
    BaseRestaurant,
    BaseHotel,
    BaseVenue,
+   BaseHousekeeping,
    BaseService,
    BaseSecurity,
    BaseClinic,
    BaseRestroom,
    BaseWasteManagement,
-   BaseStair,
+   BaseSingleStair,
    BaseElevator,
-   BaseSkyLevel
+   BaseSkyLobby
 };
 
 class FloorBase
@@ -66,7 +68,7 @@ protected:
 public:
    // CTOR
    FloorBase (int x, int x2, int level, Tower * TowerParent);
-
+   static BaseType GetBaseType() { return BaseEmpty; }
    // Properties
    inline float GetX() { return mX; }
    inline float GetX2() { return mX2; }

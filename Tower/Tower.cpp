@@ -100,7 +100,7 @@ void Tower::Update (float dt, int timeOfDay)
    {
       (*iLevel)->Update( dt, timeOfDay );
    }
-   mRoutes.Update( dt );
+   mRoutes.Update( dt, timeOfDay );
    mGhostRoom.GetLevel();
    mGhostRoom.Update (this);
    

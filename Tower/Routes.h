@@ -38,7 +38,7 @@ public:
       return mRoutes;
    }
    void AddRoute(RouteBase * route);
-   void Update (float dt);
+   void Update (float dt, int tod);
    void Draw ();
 };
 

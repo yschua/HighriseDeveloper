@@ -46,7 +46,7 @@ protected:
 
 public:
    // CTOR/DTOR
-   ElevatorMachine( int x, int level, Elevator* pElevator );
+   ElevatorMachine( int x, int level, int width, Elevator* pElevator );
    virtual ~ElevatorMachine();
 
    // Implemantation

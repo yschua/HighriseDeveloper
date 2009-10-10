@@ -37,7 +37,7 @@ protected:
 
 public:
    // CTOR/DTOR
-   ElevatorShaft( int x, int topLevel, int bottomLevel, Elevator* pElevator );
+   ElevatorShaft( int x, int topLevel, int bottomLevel, int width, Elevator* pElevator );
    virtual ~ElevatorShaft( );
 
    // Implemantation

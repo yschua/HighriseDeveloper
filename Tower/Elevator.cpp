@@ -32,6 +32,8 @@
 #include "ElevatorShaft.h"
 #include "ElevatorPit.h"
 #include "Elevator.h"
+#include "Level.h"
+#include "Tower.h"
 
 #include "../Root/HighRiseException.h"
 
@@ -51,7 +53,7 @@ const int Elevator::mStandingPositions[16] =
    12,20,16,4,18,22,6,24,8,10,2,5,9,13,17,21
 };
 
-Elevator::Elevator ( Lift_Styles style, int x, short BottomLevel, short TopLevel, Tower * TowerParent)
+Elevator::Elevator ( LiftStyle style, int x, short BottomLevel, short TopLevel, Tower * TowerParent)
       :  mLiftStyle( style )
       ,  mLiftOperation( LOS_Waiting )
       ,  mTowerParent (TowerParent)
@@ -121,18 +123,67 @@ Elevator::~Elevator()
 void Elevator::LoadImages()
 {
    ImageManager * images = ImageManager::GetInstance ();
-   mElevatorImage = new AnimationSingle (images->GetTexture ("elevator_u_n.png", GL_RGBA), 32, 32);
+   const char* pImageName = "elevator_u_n.png";
+   switch (mLiftStyle)
+   {
+   case LS_Standard:
+      mWidth.x = 32;
+      break;
+   case LS_HighCapacity:
+      mWidth.x = 41;
+      pImageName = "elevator_u_w.png";
+      break;
+   case LS_Freight:
+      mWidth.x = 32;
+      pImageName = "elevator_u_s.png";
+      break;
+   case LS_Express:
+      mWidth.x = 32;
+      pImageName = "elevator_o_x.png";
+      break;
+   }
+   mElevatorImage = new AnimationSingle (images->GetTexture (pImageName, GL_RGBA), mWidth.x, mHeight.y);
    mRiderImage = new AnimationSingle (images->GetTexture ("person_e.png", GL_RGBA), 8, 16);
    mRiderImage->SetPosition ((float)mX +8, (float)(mBottomLevel-1) * -36 ); // neg 36 so it becomed positive for model view
-   mLiftMachine = new ElevatorMachine( mX - 2, mTopLevel+1, this );
-   mLiftPit = new AnimationSingle (images->GetTexture ("liftpit_1.png", GL_RGBA), 36, 36);
+   mLiftMachine = new ElevatorMachine( mX - 2, mTopLevel+1, mWidth.x+4, this );
+   mLiftPit = new AnimationSingle (images->GetTexture ("liftpit_1.png", GL_RGBA), mWidth.x+4, 36);
    mLiftPit->SetPosition ((float)mX - 2, (float)(mBottomLevel-1) * -36 ); // neg 36 so it becomed positive for model view
-   mElevatorShaft = new ElevatorShaft( mX - 2, mTopLevel, mBottomLevel-1, this );
+   mElevatorShaft = new ElevatorShaft( mX - 2, mTopLevel, mBottomLevel-1, mWidth.x+4, this );
 }
 
 void Elevator::ClearStops()
 {
    memset( mStops, 0, sizeof(mStops) );
+}
+
+void Elevator::SetStopLevels ()
+{
+   int levels = mTopLevel - mBottomLevel;
+   int level = mBottomLevel;
+   int stop = 0;
+   switch(mLiftStyle)
+   {
+   case LS_Standard:
+      for( int idx = 0; idx < levels; ++idx)
+      {
+         mStops[idx].mLevel = level++;
+      }
+      break;
+   case LS_HighCapacity:
+      for( int idx = 0; idx < levels; ++idx)
+      {
+         Level* pLevel = mTowerParent->GetLevel(level);
+         if( pLevel->HasLobby() )
+         {
+            mStops[stop++].mLevel = level;
+         }
+         level++;
+      }
+      break;
+   case LS_Freight:
+   case LS_Express:
+      break;
+   }
 }
 
 void Elevator::PosCalc ()
@@ -361,11 +412,15 @@ void Elevator::Motion ()
    PosCalc();
 }
 
+void Elevator::Update (float dt)
+{
+   std::cout << "Elevator update without time called: " << std::endl;
+}
 
 // Elevator is either in motion or idle( doors open, loading, unloading, no calls )
 // When idle do nothing. Idle times are set when the elevator arrives at a floor
 // When idle cycle ends scan for destinations and calls.
-void Elevator::Update (float dt)
+void Elevator::Update (float dt, int tod)
 {
    if( mIdleTime > 0 )
    {

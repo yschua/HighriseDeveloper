@@ -45,7 +45,7 @@ void GhostRoom::SetWidth( int units)
 {
    mWidthUnits = units;
    mOffsetUnits = units / 2;
-   mBase.SetWidth (units * Level::mUnitSize);
+   mBase.SetWidth ((float)units * Level::mUnitSize);
 }
 
 void GhostRoom::Move (Vector3f& point)
@@ -53,7 +53,7 @@ void GhostRoom::Move (Vector3f& point)
    int x = int(point.x) / Level::mUnitSize - mOffsetUnits;
    int y = int(point.y - 28) / 36;
    mX = (float)(x * Level::mUnitSize);
-   mX2 = mX + 72;
+   mX2 = mX + mBase.GetWidth();
    mY = (float)(y * 36);
    mLevel = int(mY/-36);
    mZ = -0.1f; // point.z;

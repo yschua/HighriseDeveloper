@@ -48,11 +48,14 @@ private:
 public:
    Apartment (int x, int level, Tower * TowerParent);
 
+   static BaseType GetBaseType() { return BaseApartment; }
+   static const char* GetTypeString() { return "apartment"; }
+
    virtual void Update (float dt, int tod);
    virtual void Draw ();
    virtual void DrawFramework ();
    virtual void Save(SerializerBase& ser);
-   virtual BaseType GetType () { return BaseResidence; }
+   virtual BaseType GetType () { return BaseApartment; }
 
 };
 

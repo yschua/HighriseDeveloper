@@ -34,6 +34,7 @@ enum HR_Events
    HR_PlaceHotelKing,
    HR_PlaceHotelSuite,
    HR_PlaceRetail,
+   HR_PlaceRestaurant,
    HR_PlaceHouseKeeping,
    HR_PlaceSecurity,
    HR_PlaceClinic,

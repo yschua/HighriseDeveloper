@@ -41,8 +41,7 @@ SkyLobby::SkyLobby (int x, int x2, int level, Tower * TowerParent)
    std::cout << "New Sky lobby at " << mX << " to " << mX2 << " Y level " << mY << std::endl;
 }
 
-void
-SkyLobby::Update (float dt)
+void SkyLobby::Update (float dt, int tod)
 {
 
 }

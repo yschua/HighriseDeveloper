@@ -50,68 +50,8 @@ Scene::SelectTool (int toolID)
 {
    bool bResult = false;
    BuildStrategyBase* pOldStrategy = mpBuildStrategy;
-   switch (toolID)
-   {
-   case HR_PlaceOffice:
-      mpBuildStrategy = new BuildOfficeStrategy();
-      mpBuildStrategy->ShowGhostBuild (mTowers[0]);
-      bResult = true;
-      break;
-
-   case HR_PlaceApartment:
-      mpBuildStrategy = new BuildApartmentStrategy();
-      mpBuildStrategy->ShowGhostBuild (mTowers[0]);
-      bResult = true;
-      break;
-   case HR_PlaceCondo:
-      mpBuildStrategy = new BuildCondoStrategy();
-      mpBuildStrategy->ShowGhostBuild (mTowers[0]);
-      bResult = true;
-      break;
-   case HR_PlaceHotelSingle:
-      mpBuildStrategy = new BuildHotelStrategy(5);
-      mpBuildStrategy->ShowGhostBuild (mTowers[0]);
-      bResult = true;
-      break;
-   case HR_PlaceHotelDouble:
-      mpBuildStrategy = new BuildHotelStrategy(6);
-      mpBuildStrategy->ShowGhostBuild (mTowers[0]);
-      bResult = true;
-      break;
-   case HR_PlaceHotelKing:
-      mpBuildStrategy = new BuildHotelStrategy(7);
-      mpBuildStrategy->ShowGhostBuild (mTowers[0]);
-      bResult = true;
-      break;
-   case HR_PlaceHotelSuite:
-      mpBuildStrategy = new BuildHotelStrategy(8);
-      mpBuildStrategy->ShowGhostBuild (mTowers[0]);
-      bResult = true;
-      break;
-   case HR_PlaceSecurity:
-      mpBuildStrategy = new BuildSecurityStrategy();
-      mpBuildStrategy->ShowGhostBuild (mTowers[0]);
-      bResult = true;
-      break;
-   case HR_PlaceHouseKeeping:
-      mpBuildStrategy = new BuildHousekeepingStrategy();
-      mpBuildStrategy->ShowGhostBuild (mTowers[0]);
-      bResult = true;
-      break;
-
-   case HR_PlaceClinic:
-      mpBuildStrategy = new BuildClinicStrategy();
-      mpBuildStrategy->ShowGhostBuild (mTowers[0]);
-      bResult = true;
-      break;
-
-   case HR_PlaceStairs:
-      mpBuildStrategy = new BuildStairStrategy();
-      mpBuildStrategy->ShowGhostBuild (mTowers[0]);
-      bResult = true;
-      break;
-   }
-   if (bResult && !(pOldStrategy==NULL))
+   mpBuildStrategy = BuildStrategyBase::CreateStrategy (toolID, mTowers[0]);
+   if (mpBuildStrategy != pOldStrategy)
    {
       try
       {

@@ -46,6 +46,8 @@ Tower::DebugLoad (int x, int y, int x2)
       pElevator = new Elevator( Elevator::LS_Standard, 472 + 36 + 9, 0, 15, this );
       GetRoutes().AddRoute( pElevator );
       Level* pLevel = GetLevel(0);
+      pElevator = new Elevator( Elevator::LS_HighCapacity, 472 + 144, 0, 15, this );
+      GetRoutes().AddRoute( pElevator );
    }
    catch (...)
    {

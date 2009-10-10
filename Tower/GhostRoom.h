@@ -45,6 +45,8 @@ class GhostRoom : public FloorBase, public Gfx::ModelObject
 
 public:
    GhostRoom (int x, int level);
+   static BaseType GetBaseType() { return BaseEmpty; }
+   static const char* GetTypeString() { return "placementCursor"; }
 
    void Update (Tower* pTower);
    void Draw ();

@@ -41,12 +41,12 @@ void Routes::AddRoute(RouteBase* route)
    mRoutes.push_back( route );
 }
 
-void Routes::Update (float dt)
+void Routes::Update (float dt, int tod)
 {
    std::vector<RouteBase*>::iterator i;
    for (i = mRoutes.begin (); i != mRoutes.end (); i++)
    {
-      (*i)->Update( dt );
+      (*i)->Update( dt, tod );
    }
 }
 

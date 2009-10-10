@@ -44,6 +44,8 @@ class Security : public FloorBase, public Gfx::ModelObject
 
 public:
    Security (int x, int level, Tower * TowerParent);
+   static BaseType GetBaseType() { return BaseSecurity; }
+   static const char* GetTypeString() { return "security"; }
 
    void Update (float dt, int tod);
    void Draw ();

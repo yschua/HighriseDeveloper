@@ -84,6 +84,23 @@ Level::~Level()
       }
 }
 
+bool Level::HasLobby()
+{
+   if (mLevel == 0)
+      return true;
+
+   Level::FloorIterType i;
+   for (i = mFloorSpaces.begin (); i != mFloorSpaces.end (); i++)
+   {
+      FloorBase* pFB = (*i).second;
+      if(pFB->GetType() == BaseSkyLobby)
+      {
+         return true;
+      }
+   }   
+   return false;
+}
+
 bool
 Level::AddFloorSpace (FloorBase * floor)
 {

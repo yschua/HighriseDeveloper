@@ -88,7 +88,7 @@ FloorBase* FloorAgent::FindAHome (int preferences)
       for (fit = rooms.begin(); fit != rooms.end(); fit++)
       {
          FloorBase* pRoom = (*fit).second;
-         if (pRoom->GetType() == BaseResidence && pRoom->IsVacant())
+         if ((pRoom->GetType() == BaseApartment || pRoom->GetType() == BaseCondo) && pRoom->IsVacant())
          {
             return pRoom;
          }

@@ -39,7 +39,7 @@ Damage::Damage (int x, int x2, int level, Tower * TowerParent, AnimationSingle* 
 }
 
 void
-Damage::Update (float dt)
+Damage::Update (float dt, int tod)
 {
    // nothing happening
    mFire.Update (20.0f);

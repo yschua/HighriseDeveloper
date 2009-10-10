@@ -50,6 +50,8 @@ class Housekeeping : public FloorBase, public Gfx::ModelObject
 
 public:
    Housekeeping (int x, int level, Tower * TowerParent);
+   static BaseType GetBaseType() { return BaseHousekeeping; }
+   static const char* GetTypeString() { return "housekeeping"; }
 
    void Update (float dt, int tod);
    void Draw ();

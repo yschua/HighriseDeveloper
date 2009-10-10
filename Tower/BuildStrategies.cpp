@@ -18,6 +18,8 @@
 #include <list>
 #include <vector>
 #include <iostream>
+
+#include "../Window/Event.h"
 #include "Routes.h"
 #include "FloorBase.h"
 #include "Level.h"
@@ -28,8 +30,10 @@
 #include "Apartment.h"
 #include "HotelRoom.h"
 #include "Housekeeping.h"
+#include "RetailShop.h"
 #include "SingleStair.h"
 #include "MedicalClinic.h"
+#include "WasteManagement.h"
 #include "BuildStrategies.h"
 
 using namespace TowerObjects;
@@ -43,223 +47,90 @@ void BuildStrategyBase::ShowGhostBuild(Tower* pTower)
 {
 }
 
-// Offices
-bool BuildOfficeStrategy::BuildHere (Tower* pTower, int x, int level)
+BuildStrategyBase* BuildStrategyBase::CreateStrategy(int toolID, Tower* pTower)
 {
-   // we don't have multi tower support yet but this will eventually deal with that
-   Level* pLevel = pTower->GetLevel(level);
-
-   int xx = x * Level::mUnitSize;
-   bool bAvail = pLevel->IsSpaceEmpty (xx, xx + mWidth * Level::mUnitSize);
-   if (bAvail)
+   BuildStrategyBase* pBuildStrategy = NULL;
+   switch (toolID)
    {
-      FloorBase* pRoom = new Office(xx, level, pTower); //OnToolHit is going to set this up, when we hit the floor
-      pLevel->AddFloorSpace (pRoom);
+   case HR_PlaceOffice:
+      pBuildStrategy = new BuildRoomStrategy<Office>(8,1);
+      pBuildStrategy->ShowGhostBuild (pTower);
+      break;
+
+   case HR_PlaceApartment:
+      pBuildStrategy = new BuildRoomStrategy<Apartment>(8,1);
+      pBuildStrategy->ShowGhostBuild (pTower);
+      break;
+   case HR_PlaceCondo:
+      pBuildStrategy = new BuildRoomStrategy<Condo>(14,1);
+      pBuildStrategy->ShowGhostBuild (pTower);
+      break;
+   case HR_PlaceHotelSingle:
+      pBuildStrategy = new BuildRoomStrategy<HotelRoom>(6,1);
+      pBuildStrategy->ShowGhostBuild (pTower);
+      break;
+
+   case HR_PlaceHotelDouble:
+      pBuildStrategy = new BuildRoomStrategy<HotelRoom>(7,1);
+      pBuildStrategy->ShowGhostBuild (pTower);
+      break;
+
+   case HR_PlaceHotelKing:
+      pBuildStrategy = new BuildRoomStrategy<HotelRoom>(8,1);
+      pBuildStrategy->ShowGhostBuild (pTower);
+      break;
+
+   case HR_PlaceHotelSuite:
+      pBuildStrategy = new BuildRoomStrategy<HotelRoom>(9,1); // luxury suite
+      pBuildStrategy->ShowGhostBuild (pTower);
+      break;
+
+   case HR_PlaceSecurity:
+      pBuildStrategy = new BuildRoomStrategy<Security>(12,1);
+      pBuildStrategy->ShowGhostBuild (pTower);
+      break;
+
+   case HR_PlaceHouseKeeping:
+      pBuildStrategy = new BuildRoomStrategy<Housekeeping>(12,1);
+      pBuildStrategy->ShowGhostBuild (pTower);
+      break;
+
+   case HR_PlaceClinic:
+      pBuildStrategy = new BuildRoomStrategy<MedicalClinic>(14,1);
+      pBuildStrategy->ShowGhostBuild (pTower);
+      break;
+
+   case HR_PlaceRestaurant:
+      //pBuildStrategy = new BuildRoomStrategy<Restaurant>(12,1);
+      //pBuildStrategy->ShowGhostBuild (pTower);
+      break;
+
+   case HR_PlaceRetail:
+      pBuildStrategy = new BuildRoomStrategy<RetailShop>(10,1);
+      pBuildStrategy->ShowGhostBuild (pTower);
+      break;
+
+   case HR_PlaceStairs:
+      pBuildStrategy = new BuildRouteStrategy<SingleStair>(3,1);
+      pBuildStrategy->ShowGhostBuild (pTower);
+      break;
+
+   case HR_PlaceWasteManagement:
+      pBuildStrategy = new BuildRoomStrategy<WasteManagement>(16,2);
+      pBuildStrategy->ShowGhostBuild (pTower);
+      break;
    }
-   return true;
+   //case HR_PlaceServices:
+   //   pBuildStrategy = new BuildRoomStrategy<Housekeeping>(12,1);
+   //   pBuildStrategy->ShowGhostBuild (pTower);
+   //   bResult = true;
+   //   break;
+
+   //case HR_PlaceTheater:
+   //   pBuildStrategy = new BuildRoomStrategy<Clinic>(0,1);
+   //   pBuildStrategy->ShowGhostBuild (pTower);
+   //   bResult = true;
+   //   break;
+
+   return pBuildStrategy;
 }
-void BuildOfficeStrategy::ShowGhostBuild (Tower* pTower)
-{
-   GhostRoom& GR = pTower->GetGhostRoom();
-   GR.SetShownType( BaseOffice);
-   GR.SetWidth (8);
-}
-
-// Apartments
-bool
-BuildApartmentStrategy::BuildHere (Tower* pTower, int x, int level)
-{
-//         Apartment* new_apt = new Apartment (x, level, this);
-   Level* pLevel = pTower->GetLevel(level);
-
-   int xx = x * Level::mUnitSize;
-   bool bAvail = pLevel->IsSpaceEmpty (xx, xx + mWidth * Level::mUnitSize);
-   if (bAvail)
-   {
-      FloorBase* pRoom = new Apartment(xx, level, pTower); //OnToolHit is going to set this up, when we hit the floor
-      pLevel->AddFloorSpace (pRoom);
-   }
-   return true;
-}
-void BuildApartmentStrategy::ShowGhostBuild (Tower* pTower)
-{
-   GhostRoom& GR = pTower->GetGhostRoom();
-   GR.SetShownType( BaseResidence);
-   GR.SetWidth (8);
-}
-
-
-// Hotel
-bool BuildHotelStrategy::BuildHere (Tower* pTower, int x, int level)
-{
-   Level* pLevel = pTower->GetLevel(level);
-
-   int xx = x * Level::mUnitSize;
-   bool bAvail = pLevel->IsSpaceEmpty (xx, xx + mWidth * Level::mUnitSize);
-   if (bAvail)
-   {
-      FloorBase* pRoom = new HotelRoom(xx, level, pTower); //OnToolHit is going to set this up, when we hit the floor
-      pLevel->AddFloorSpace (pRoom);
-   }
-   return true;
-}
-void BuildHotelStrategy::ShowGhostBuild (Tower* pTower)
-{
-   GhostRoom& GR = pTower->GetGhostRoom();
-   GR.SetShownType( BaseHotel);
-   GR.SetWidth (6);
-}
-
-bool BuildStairStrategy::BuildHere (Tower* pTower, int x, int level)
-{
-   Level* pLevel = pTower->GetLevel(level);
-   int xx = x * Level::mUnitSize; // not complete
-
-   SingleStair* pStair = new SingleStair( xx, level, level+1, pTower );
-   pTower->GetRouteList().push_back( pStair );
-   return true;
-}
-
-void BuildStairStrategy::ShowGhostBuild (Tower* pTower)
-{
-   GhostRoom& GR = pTower->GetGhostRoom();
-   GR.SetShownType( BaseStair);
-   GR.SetWidth (3);
-}
-
-// Condos
-
-bool BuildCondoStrategy::BuildHere (Tower* pTower, int x, int level)
-{
-   Level* pLevel = pTower->GetLevel(level);
-
-   int xx = x * Level::mUnitSize;
-   bool bAvail = pLevel->IsSpaceEmpty (xx, xx + mWidth * Level::mUnitSize);
-   if (bAvail)
-   {
-      FloorBase* pRoom = new Condo(xx, level, pTower); //OnToolHit is going to set this up, when we hit the floor
-      pLevel->AddFloorSpace (pRoom);
-   }
-   return true;
-}
-
-void BuildCondoStrategy::ShowGhostBuild (Tower* pTower)
-{
-   GhostRoom& GR = pTower->GetGhostRoom();
-   GR.SetShownType( BaseResidence);
-   GR.SetWidth (14);
-}
-
-bool BuildHousekeepingStrategy::BuildHere (Tower* pTower, int x, int level)
-{
-   Level* pLevel = pTower->GetLevel(level);
-
-   int xx = x * Level::mUnitSize;
-   bool bAvail = pLevel->IsSpaceEmpty (xx, xx + mWidth * Level::mUnitSize);
-   if (bAvail)
-   {
-      FloorBase* pRoom = new Housekeeping(xx, level, pTower); //OnToolHit is going to set this up, when we hit the floor
-      pLevel->AddFloorSpace (pRoom);
-   }
-   return true;
-}
-
-void BuildHousekeepingStrategy::ShowGhostBuild (Tower* pTower)
-{
-   GhostRoom& GR = pTower->GetGhostRoom();
-   GR.SetShownType( BaseResidence);
-   GR.SetWidth (14);
-}
-
-bool BuildServiceStrategy::BuildHere (Tower* pTower, int x, int level)
-{
-   return true;
-}
-
-void BuildServiceStrategy::ShowGhostBuild (Tower* pTower)
-{
-   GhostRoom& GR = pTower->GetGhostRoom();
-   GR.SetShownType( BaseResidence);
-   GR.SetWidth (10);
-}
-
-bool BuildSecurityStrategy::BuildHere (Tower* pTower, int x, int level)
-{
-   Level* pLevel = pTower->GetLevel(level);
-
-   int xx = x * Level::mUnitSize;
-   bool bAvail = pLevel->IsSpaceEmpty (xx, xx + mWidth * Level::mUnitSize);
-   if (bAvail)
-   {
-      FloorBase* pRoom = new Security(xx, level, pTower); //OnToolHit is going to set this up, when we hit the floor
-      pLevel->AddFloorSpace (pRoom);
-   }
-   return true;
-}
-
-void BuildSecurityStrategy::ShowGhostBuild (Tower* pTower)
-{
-   GhostRoom& GR = pTower->GetGhostRoom();
-   GR.SetShownType( BaseSecurity);
-   GR.SetWidth (14);
-}
-
-bool BuildClinicStrategy::BuildHere (Tower* pTower, int x, int level)
-{
-   Level* pLevel = pTower->GetLevel(level);
-
-   int xx = x * Level::mUnitSize;
-   bool bAvail = pLevel->IsSpaceEmpty (xx, xx + mWidth * Level::mUnitSize);
-   if (bAvail)
-   {
-      FloorBase* pRoom = new MedicalClinic(xx, level, pTower); //OnToolHit is going to set this up, when we hit the floor
-      pLevel->AddFloorSpace (pRoom);
-   }
-   return true;
-}
-void BuildClinicStrategy::ShowGhostBuild (Tower* pTower)
-{
-   GhostRoom& GR = pTower->GetGhostRoom();
-   GR.SetShownType( BaseClinic);
-   GR.SetWidth (16);
-}
-
-bool BuildWasteManagementStrategy::BuildHere (Tower* pTower, int x, int level)
-{
-   return true;
-}
-
-void BuildWasteManagementStrategy::ShowGhostBuild (Tower* pTower)
-{
-   GhostRoom& GR = pTower->GetGhostRoom();
-   GR.SetShownType( BaseResidence);
-   GR.SetWidth (18);
-}
-bool BuildRetailStrategy::BuildHere (Tower* pTower, int x, int level)
-{
-   return true;
-}
-
-void BuildRetailStrategy::ShowGhostBuild (Tower* pTower)
-{
-   GhostRoom& GR = pTower->GetGhostRoom();
-   GR.SetShownType( BaseResidence);
-   GR.SetWidth (10);
-}
- 
-bool BuildRestaurantStrategy::BuildHere (Tower* pTower, int x, int level)
-{
-   return true;
-}
-
-void BuildRestaurantStrategy::ShowGhostBuild (Tower* pTower)
-{
-   GhostRoom& GR = pTower->GetGhostRoom();
-   GR.SetShownType( BaseResidence);
-   GR.SetWidth (14);
-}
-
-// select and drag
-// build lobby
-// build elevator
-

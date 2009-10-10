@@ -51,6 +51,8 @@ class Office : public FloorBase, public Gfx::ModelObject
 
 public:
    Office (int x, int level, Tower * TowerParent);
+   static BaseType GetBaseType() { return BaseOffice; }
+   static const char* GetTypeString() { return "office"; }
 
    void Update (float dt, int tod);
    void Draw ();

@@ -40,7 +40,7 @@ ElevatorBase::~ElevatorBase()
 }
 
 void
-ElevatorBase::Update (float dt)
+ElevatorBase::Update (float dt, int tod)
 {
 
 }

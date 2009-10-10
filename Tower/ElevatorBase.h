@@ -36,6 +36,7 @@ public:
 
    // Implemantation
    void pos_calc ();
+   virtual void Update (float dt, int tod);
    virtual void Update (float dt) = 0; // pure
    virtual void Draw () = 0;
 };

@@ -16,6 +16,8 @@
 
 #ifndef _ROUTEBASE_H
 #define _ROUTEBASE_H
+#include "FloorBase.h"
+
 class SerializerBase; // visitor;
 class Person;
 class PersonQueue;
@@ -31,9 +33,11 @@ class RouteBase // Abstract, does not even have a CPP file at this point.
 
 public:
    RouteBase() {};
+   static BaseType GetBaseType() { return BaseSingleStair; }
    virtual bool SetCallButton( RoutingRequest& req ) = 0;    // call the elevator
    virtual void SetFloorButton( RoutingRequest& req ) = 0;   // once inside, select a floor
    virtual int  LoadPerson(Person* person, RoutingRequest& req) = 0; // pack them in
+   virtual void Update (float dt, int tod) {};
    virtual void Update (float dt) = 0;
    virtual void Draw () = 0;
    virtual void Save( SerializerBase& ser ) = 0;

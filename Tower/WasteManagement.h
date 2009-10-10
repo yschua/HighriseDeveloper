@@ -51,6 +51,8 @@ class WasteManagement : public FloorBase, public Gfx::ModelObject
 
 public:
    WasteManagement (int x, int level, Tower * TowerParent);
+   static BaseType GetBaseType() { return BaseWasteManagement; }
+   static const char* GetTypeString() { return "wastemanagement"; }
 
    void Update (float dt, int tod);
    void Draw ();

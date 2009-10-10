@@ -25,7 +25,7 @@
 
 using namespace Gfx;
 
-ElevatorShaft::ElevatorShaft ( int x, int topLevel, int bottomLevel, Elevator* pElevator )
+ElevatorShaft::ElevatorShaft ( int x, int topLevel, int bottomLevel, int width, Elevator* pElevator )
       :  ElevatorBase( x, bottomLevel, pElevator )
 {
    mx = x;
@@ -34,7 +34,7 @@ ElevatorShaft::ElevatorShaft ( int x, int topLevel, int bottomLevel, Elevator* p
    mBottomLevel = bottomLevel;
    ImageManager * images = ImageManager::GetInstance ();
    mShaftTiler = new Tiler (images->GetTexture ("liftshaft.png", GL_RGBA), Tiler::Vertical, mx,
-                               ((mBottomLevel) * -36), 0, 36, ((mTopLevel-mBottomLevel) * -36));
+                               ((mBottomLevel) * -36), 0, width, ((mTopLevel-mBottomLevel) * -36));
    mShaftTiler->SetTessel( 1, (mTopLevel-mBottomLevel ));
 }
 

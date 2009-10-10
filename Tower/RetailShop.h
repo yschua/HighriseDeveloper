@@ -51,6 +51,8 @@ class RetailShop : public FloorBase, public Gfx::ModelObject
 
 public:
    RetailShop (int x, int level, Tower * TowerParent);
+   static BaseType GetBaseType() { return BaseRetail; }
+   static const char* GetTypeString() { return "retailshop"; }
 
    void Update (float dt, int tod);
    void Draw ();

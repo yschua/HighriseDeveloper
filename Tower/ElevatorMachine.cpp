@@ -26,14 +26,14 @@
 
 using namespace Gfx;
 
-ElevatorMachine::ElevatorMachine (int x, int level, Elevator* pElevator )
+ElevatorMachine::ElevatorMachine (int x, int level, int width, Elevator* pElevator )
       :  ElevatorBase( x, level, pElevator )
       ,  mState( LMS_Idle )
 {
    ImageManager * image_man = ImageManager::GetInstance ();
 //   my = (Camera::GetInstance()->GetSceneRect ().Top ) - (level * 36);
    std::cout << "New elevator machine at " << mx << ", " << my << std::endl;
-   mLifterAnimation = new Animation (36, 32);
+   mLifterAnimation = new Animation (width, 32);
    mLifterAnimation->AddFrame (image_man->GetTexture ("liftMachine_1.png", GL_RGBA), 1000);
    mLifterAnimation->AddFrame (image_man->GetTexture ("liftMachine_2.png", GL_RGBA), 1000);
    mLifterAnimation->AddFrame (image_man->GetTexture ("liftMachine_3.png", GL_RGBA), 1000);

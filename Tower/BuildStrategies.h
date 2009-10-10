@@ -25,15 +25,17 @@ class Tower;
 class BuildStrategyBase
 {
 protected:
-   std::string mType;  // Office, Apt, Condo
+   BaseType mType;  // Office, Apt, Condo
    // subtype maybe, reception, cubes, datacente, boardroom (offices) or luxury/studio apt.
    int mWidth;    // in units of 9 pixels
    int mHeight;   // Levels (1,2 or 3)
 
-public:
    BuildStrategyBase()
    {
    }
+
+public:
+   static BuildStrategyBase* CreateStrategy(int ToolID, Tower* pTower);
    // get/set properties
    int GetWidth() { return mWidth; };
    int GetHeight() { return mHeight; };
@@ -43,206 +45,72 @@ public:
    virtual void ShowGhostBuild (Tower* pTower);
 };
 
-class BuildStrategyFactory
-{
-   BuildStrategyFactory();
-//   BuildStrategyBase* MakeStrategy (const char* type );
-   BuildStrategyBase* MakeStrategy (int type );
-};
-
-// Offices
-class BuildOfficeStrategy : public BuildStrategyBase
+// crazy2be
+// changed strategy classes to a template class
+template <class T>
+class BuildRoomStrategy : public BuildStrategyBase
 {
 public:
-   BuildOfficeStrategy()
+   BuildRoomStrategy(int width, int height)
    {
-      mType = "Office"; // May not always be the class name
-      mWidth = 8;       // 72/9
-      mHeight = 1;      // or 36 pixels
+      mType = T::GetBaseType();
+      mWidth = width;
+      mHeight = height;
    }
-public:
-   bool BuildHere (Tower* pTowwer, int x, int y);
+   bool BuildHere (Tower* pTower, int x, int y)
+   {
+      // we don't have multi tower support yet but this will eventually deal with that
+      Level* pLevel = pTower->GetLevel(y);
+
+      int xx = x * Level::mUnitSize;
+      bool bAvail = pLevel->IsSpaceEmpty (xx, xx + mWidth * Level::mUnitSize);
+      if (bAvail)
+      {
+         FloorBase* pRoom = new T(xx, y, pTower); //OnToolHit is going to set this up, when we hit the floor
+         pLevel->AddFloorSpace (pRoom);
+      }
+      return true;
+   }
    virtual bool PlacingRoom() { return true; }
-   virtual void ShowGhostBuild (Tower* pTower);
+   virtual void ShowGhostBuild (Tower* pTower)
+   {
+      GhostRoom& GR = pTower->GetGhostRoom();
+      GR.SetShownType(mType);
+      GR.SetWidth(mWidth);
+   }
 };
 
-// Apartments
-class BuildApartmentStrategy : public BuildStrategyBase
+template <class T>
+class BuildRouteStrategy : public BuildStrategyBase
 {
 public:
-   BuildApartmentStrategy()
+   BuildRouteStrategy(int width, int height)
    {
-      mType = "Apartment"; // May not always be the class name
-      mWidth = 8;       // 72/9
-      mHeight = 1;      // or 36 pixels
+      mType = T::GetBaseType();
+      mWidth = width;
+      mHeight = height;
    }
-public:
-   bool BuildHere (Tower* pTowwer, int x, int y);
-   virtual bool PlacingRoom() { return true; }
-   virtual void ShowGhostBuild (Tower* pTower);
-};
+   bool BuildHere (Tower* pTower, int x, short BottLevel, short TopLevel, Tower * TowerParent )
+   {
+      // we don't have multi tower support yet but this will eventually deal with that
+      Level* pLevel = pTower->GetLevel(y);
 
-class BuildHotelStrategy : public BuildStrategyBase
-{
-public:
-   BuildHotelStrategy(int units)
-   {
-      mType = "Hotel"; // May not always be the class name
-      mWidth = units;       // 72/9
-      mHeight = 1;      // or 36 pixels
+      int xx = x * Level::mUnitSize;
+      bool bAvail = pLevel->IsSpaceEmpty (xx, bottomLevel, topLevel, pTower);
+      if (bAvail)
+      {
+         RouteBase* pRoom = new T(xx, y, pTower); //OnToolHit is going to set this up, when we hit the floor
+//         pLevel->mRAddFloorSpace (pRoom);
+      }
+      return true;
    }
-public:
-   bool BuildHere (Tower* pTowwer, int x, int y);
-   virtual bool PlacingRoom() { return true; }
-   virtual void ShowGhostBuild (Tower* pTower);
-};
-
-//stairs
-class BuildStairStrategy : public BuildStrategyBase
-{
-public:
-   BuildStairStrategy()
-   {
-      mType = "Stairs"; // May not always be the class name
-      mWidth = 2;       // 18/9
-      mHeight = 1;      // or 36 pixels
-   }
-public:
-   bool BuildHere (Tower* pTowwer, int x, int y);
    virtual bool PlacingRoom() { return false; }
-   virtual void ShowGhostBuild (Tower* pTower);
-};
-
-// Condos
-class BuildCondoStrategy : public BuildStrategyBase
-{
-public:
-   BuildCondoStrategy()
+   virtual void ShowGhostBuild (Tower* pTower)
    {
-      mType = "Condo"; // May not always be the class name
-      mWidth = 12;       // 108/9
-      mHeight = 1;      // or 36 pixels
+      GhostRoom& GR = pTower->GetGhostRoom();
+      GR.SetShownType(mType);
+      GR.SetWidth(mWidth);
    }
-public:
-   bool BuildHere (Tower* pTowwer, int x, int y);
-   virtual bool PlacingRoom() { return true; }
-   virtual void ShowGhostBuild (Tower* pTower);
 };
-
-// 
-class BuildHousekeepingStrategy : public BuildStrategyBase
-{
-public:
-   BuildHousekeepingStrategy()
-   {
-      mType = "Housekeeping"; // May not always be the class name
-      mWidth = 12;       // 108/9
-      mHeight = 1;      // or 36 pixels
-   }
-public:
-   bool BuildHere (Tower* pTowwer, int x, int y);
-   virtual bool PlacingRoom() { return true; }
-   virtual void ShowGhostBuild (Tower* pTower);
-};
-
-// 
-class BuildServiceStrategy : public BuildStrategyBase
-{
-public:
-   BuildServiceStrategy()
-   {
-      mType = "Services"; // May not always be the class name
-      mWidth = 12;       // 108/9
-      mHeight = 1;      // or 36 pixels
-   }
-public:
-   bool BuildHere (Tower* pTowwer, int x, int y);
-   virtual bool PlacingRoom() { return true; }
-   virtual void ShowGhostBuild (Tower* pTower);
-};
-
-// 
-class BuildSecurityStrategy : public BuildStrategyBase
-{
-public:
-   BuildSecurityStrategy()
-   {
-      mType = "Security"; // May not always be the class name
-      mWidth = 12;       // 108/9
-      mHeight = 1;      // or 36 pixels
-   }
-public:
-   bool BuildHere (Tower* pTowwer, int x, int y);
-   virtual bool PlacingRoom() { return true; }
-   virtual void ShowGhostBuild (Tower* pTower);
-};
-
-// 
-class BuildClinicStrategy : public BuildStrategyBase
-{
-public:
-   BuildClinicStrategy()
-   {
-      mType = "Clinic"; // May not always be the class name
-      mWidth = 12;       // 108/9
-      mHeight = 1;      // or 36 pixels
-   }
-public:
-   bool BuildHere (Tower* pTowwer, int x, int y);
-   virtual bool PlacingRoom() { return true; }
-   virtual void ShowGhostBuild (Tower* pTower);
-};
-
-// 
-class BuildWasteManagementStrategy : public BuildStrategyBase
-{
-public:
-   BuildWasteManagementStrategy()
-   {
-      mType = "WasteManagement"; // May not always be the class name
-      mWidth = 12;       // 108/9
-      mHeight = 1;      // or 36 pixels
-   }
-public:
-   bool BuildHere (Tower* pTowwer, int x, int y);
-   virtual bool PlacingRoom() { return true; }
-   virtual void ShowGhostBuild (Tower* pTower);
-};
-
-// 
-class BuildRetailStrategy : public BuildStrategyBase
-{
-public:
-   BuildRetailStrategy()
-   {
-      mType = "RetailShop"; // May not always be the class name
-      mWidth = 12;       // 108/9
-      mHeight = 1;      // or 36 pixels
-   }
-public:
-   bool BuildHere (Tower* pTowwer, int x, int y);
-   virtual bool PlacingRoom() { return true; }
-   virtual void ShowGhostBuild (Tower* pTower);
-};
-
-class BuildRestaurantStrategy : public BuildStrategyBase
-{
-public:
-   BuildRestaurantStrategy()
-   {
-      mType = "Restaurant"; // May not always be the class name
-      mWidth = 12;       // 108/9
-      mHeight = 1;      // or 36 pixels
-   }
-public:
-   bool BuildHere (Tower* pTowwer, int x, int y);
-   virtual bool PlacingRoom() { return true; }
-   virtual void ShowGhostBuild (Tower* pTower);
-};
-
-// select and drag
-// build lobby
-// build elevator
-// build other
 
 #endif // _BUILDSTRATEGIES_H

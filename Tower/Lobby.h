@@ -32,8 +32,10 @@ private:
 
 public:
    Lobby (int x, int x2, int level, Tower * TowerParent);
+   static BaseType GetBaseType() { return BaseEmpty; }
+   static const char* GetTypeString() { return "lobby"; }
 
-   void Update (float dt);
+   void Update (float dt, int tod);
    void Draw ();
    void DrawFramework ();
    void Save(SerializerBase& ser);

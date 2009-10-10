@@ -71,6 +71,8 @@ namespace TowerObjects
       SingleStair( int x, short BottLevel, short TopLevel, Tower * TowerParent );
       SingleStair( SerializerBase& ser, short TopLevel, Tower * TowerParent );
       virtual ~SingleStair();
+      static BaseType GetBaseType() { return BaseSingleStair; }
+      static const char* GetTypeString() { return "singlestair"; }
 
       // Properties
       inline int  GetNumber() { return mNumber; }

@@ -68,6 +68,7 @@ public:
    {
       return mFloorIsFull;
    }
+   bool  HasLobby();
 
    // Level tracking methods/functions
    void  ResizeFloorSpaceGrid();
@@ -83,6 +84,8 @@ public:
    Level (int level, int x, int y, int x2, Tower * TowerParent);
    // Initialize from an xml node
    virtual ~Level ();
+   static BaseType GetBaseType() { return BaseEmpty; }
+   static const char* GetTypeString() { return "level"; }
 
 public:
    // decls

@@ -87,7 +87,7 @@ public:
       LOS_ReturnToHome, // Send car to set home floor
    };
 
-   enum Lift_Styles
+   enum LiftStyle
    {
       LS_Small = 0,
       LS_Standard,
@@ -131,7 +131,7 @@ protected:
    short mMaxCap;
 
    LiftOps_State  mLiftOperation;
-   unsigned char  mLiftStyle;
+   LiftStyle      mLiftStyle;
    std::vector<PersonQueue*>* mRouteQueues;  // person queue for elevators that stop on this level
    typedef std::vector<PersonQueue*> QueueType;
    typedef std::vector<PersonQueue*>::iterator QueueIterType;
@@ -140,11 +140,13 @@ protected:
 
 public:
    // CTOR/DTOR  Use create to make on
-   Elevator( Lift_Styles style, int x, short BottLevel, short TopLevel, Tower * TowerParent );
+   Elevator( LiftStyle style, int x, short BottLevel, short TopLevel, Tower * TowerParent );
    Elevator( SerializerBase& ser, short TopLevel, Tower * TowerParent );
    virtual ~Elevator();
 
-   static Elevator* Create( Lift_Styles style, int x, short BottomLevel, short TopLevel, Tower * TowerParent );  // this is rejected for som reason
+   static Elevator* Create( LiftStyle style, int x, short BottomLevel, short TopLevel, Tower * TowerParent );  // this is rejected for som reason
+   static BaseType GetBaseType() { return BaseElevator; }
+   static const char* GetTypeString() { return "elevator"; }
 
    // Properties
    inline int  GetNumber() { return mNumber; }
@@ -165,8 +167,11 @@ protected:
    void NextCallButton ();
    void Motion ();
    void SetDestination (int level);
+   void SetQueues ();
+   void SetStopLevels ();
 public:
 
+   virtual void Update (float dt, int tod);
    virtual void Update (float dt);
    virtual void Draw ();
    virtual void DrawFramework () { } // later we do lifts to
@@ -177,7 +182,6 @@ public:
    {
       return mRouteQueues;
    }
-   void SetQueues ();
    PersonQueue* FindQueue (int level);
 };
 

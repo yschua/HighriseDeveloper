@@ -122,19 +122,27 @@ Camera::Display ()
    // Do bounds checking
    if (ms.x > 0) {
       //std::cout << "Outside of left bound.\n";
-      mv.x = -10;
+      if (mv.x > 0) mv.x = 0;
+      mv.x += -10;
+      ma.x = 10;
    }
    if (ms.x < -1500) {
       //std::cout << "Outside of right bound?\n";
-      mv.x = 10;
+      if (mv.x < 0) mv.x = 0;
+      mv.x += 10;
+      ma.x = -10;
    }
    if (ms.y > 100) {
       //std::cout << "Outside of top bound?\n";
-      mv.y = -10;
+      if (mv.y > 0) mv.y = 0;
+      mv.y += -10;
+      ma.y = 10;
    }
    if (ms.y < -500) {
       //std::cout << "Outside of bottom bound?\n";
-      mv.y = 10;
+      if (mv.y < 0) mv.y = 0;
+      mv.y += 10;
+      mv.y = -10;
    }
 
    mpWindow->Display ();

@@ -41,12 +41,12 @@ GUIManager::GUIManager(SceneEvent& rse) //, Tower* Tower) can't pass a tower as 
       //FontManager::getSingletonPtr()->getFont("DejaVuSans-10.font")->setAutoScaled(false);
 
       // Just making a test window now
-      FrameWindow* fWnd = (FrameWindow*) mpWM->createWindow( "WindowsLook/FrameWindow", "testWindow" );
+      /*FrameWindow* fWnd = (FrameWindow*) mpWM->createWindow( "WindowsLook/FrameWindow", "testWindow" );
       mpRootWind->addChildWindow( fWnd );
       Window* pTestBtn = mpWM->createWindow("WindowsLook/Button", "TestBtn" );
 		pTestBtn->setSize(UVector2(UDim(0.5f, 0), UDim(0.5f, 0)));
 		pTestBtn->setPosition(UVector2(UDim(0.25f, 0), UDim(0.4f, 0)));
-      fWnd->addChildWindow( pTestBtn );
+      fWnd->addChildWindow( pTestBtn );*/
 
       // Load the menu layout from xml and get the buttons to do something. NOTE: If you remove the buttons
       // from the xml, this may or may not crash. We need to check if getWindow() returns a vaild pointer.

@@ -79,7 +79,7 @@
                     </Dim>
                 </Area>
                 <Image imageset="WindowsLook" image="Background" />
-                <Colours topLeft="FFAFAFAF" topRight="FFFFFFFF" bottomLeft="FFFFFFFF" bottomRight="FFAFAFAF" />
+                <!--<Colours topLeft="FFAFAFAF" topRight="FFFFFFFF" bottomLeft="FFFFFFFF" bottomRight="FFAFAFAF" />-->
                 <VertFormat type="Stretched" />
                 <HorzFormat type="Stretched" />
             </ImageryComponent>
@@ -133,7 +133,7 @@
                     </Dim>
                 </Area>
                 <Image imageset="WindowsLook" image="Background" />
-                <Colours topLeft="FFCFD9CF" topRight="FFF2FFF2" bottomLeft="FFF2FFF2" bottomRight="FFCFD9CF" />
+                <!--<Colours topLeft="FFCFD9CF" topRight="FFF2FFF2" bottomLeft="FFF2FFF2" bottomRight="FFCFD9CF" />-->
                 <VertFormat type="Stretched" />
                 <HorzFormat type="Stretched" />
             </ImageryComponent>
@@ -187,7 +187,7 @@
                     </Dim>
                 </Area>
                 <Image imageset="WindowsLook" image="Background" />
-                <Colours topLeft="FFAFAFAF" topRight="FFFFFFFF" bottomLeft="FFFFFFFF" bottomRight="FFAFAFAF" />
+                <!--<Colours topLeft="FFAFAFAF" topRight="FFFFFFFF" bottomLeft="FFFFFFFF" bottomRight="FFAFAFAF" />-->
                 <VertFormat type="Stretched" />
                 <HorzFormat type="Stretched" />
             </ImageryComponent>
@@ -1203,27 +1203,27 @@
         </ImagerySection>
         <StateImagery name="Normal">
             <Layer>
-                <Section look="WindowsLook/Button" section="normal" />
+                <!--<Section look="WindowsLook/Button" section="normal" />-->
                 <Section section="icon" />
             </Layer>
         </StateImagery>
         <StateImagery name="Hover">
             <Layer>
-                <Section look="WindowsLook/Button" section="hover" />
+                <!--<Section look="WindowsLook/Button" section="hover" />-->
                 <Section section="icon" />
             </Layer>
         </StateImagery>
         <StateImagery name="Pushed">
             <Layer>
-                <Section look="WindowsLook/Button" section="pushed" />
+                <!--<Section look="WindowsLook/Button" section="pushed" />-->
                 <Section section="icon" />
             </Layer>
         </StateImagery>
         <StateImagery name="Disabled">
             <Layer>
-                <Section look="WindowsLook/Button" section="disabled">
+                <!--<Section look="WindowsLook/Button" section="disabled">
                     <Colours topLeft="FFDFDFDF" topRight="FFDFDFDF" bottomLeft="FFDFDFDF" bottomRight="FFDFDFDF" />
-                </Section>
+                </Section>-->
                 <Section section="icon" />
             </Layer>
         </StateImagery>

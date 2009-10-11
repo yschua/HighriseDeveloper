@@ -47,6 +47,7 @@ public:
 
 // crazy2be
 // changed strategy classes to a template class
+// Generic template implementation for rooms
 template <class T>
 class BuildRoomStrategy : public BuildStrategyBase
 {
@@ -90,16 +91,28 @@ public:
       mWidth = width;
       mHeight = height;
    }
-   bool BuildHere (Tower* pTower, int x, short BottLevel, short TopLevel, Tower * TowerParent )
+   bool BuildHere (Tower* pTower, int x, short BottomLevel, short TopLevel)
    {
       // we don't have multi tower support yet but this will eventually deal with that
-      Level* pLevel = pTower->GetLevel(y);
+      Level* pBottomLevel = pTower->GetLevel(BottomLevel);
+      Level* pTopLevel = pTower->GetLevel(TopLevel);
+
 
       int xx = x * Level::mUnitSize;
-      bool bAvail = pLevel->IsSpaceEmpty (xx, bottomLevel, topLevel, pTower);
+      // Shouldn't we have a dedicated function for checking if transport can be placed here?
+      // in the original, it's on a different "layer"
+      bool bAvail = true;
+      for (int i = BottomLevel; i < TopLevel; i++) {
+         Level* pLevel = pTower->GetLevel(i);
+         if (!pBottomLevel->IsSpaceEmpty (xx, xx + mWidth * Level::mUnitSize)) {
+            bAvail = false;
+            break;
+         }
+      }
+
       if (bAvail)
       {
-         RouteBase* pRoom = new T(xx, y, pTower); //OnToolHit is going to set this up, when we hit the floor
+         RouteBase* pRoom = new T(xx, BottomLevel, TopLevel, pTower); //OnToolHit is going to set this up, when we hit the floor
 //         pLevel->mRAddFloorSpace (pRoom);
       }
       return true;

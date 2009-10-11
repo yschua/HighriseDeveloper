@@ -32,7 +32,7 @@ enum office_state
 };
 enum office_mode
 {
-   OM_Night = 0, 
+   OM_Night = 0,
    OM_DayUnoccupied,
    OM_DayOccupied
 };
@@ -68,6 +68,8 @@ public:
    void SetOfficeNumber(int no) { mOfficeNumner = no; }
    int  GetOfficeNumber() { return mOfficeNumner; }
 
+   static int mWidth;
+   static int mHeight;
 private:
    void OfficeMode (int tod);
    void OfficeState();

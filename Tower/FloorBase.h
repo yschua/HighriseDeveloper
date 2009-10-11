@@ -92,6 +92,9 @@ public:
 
    virtual void Save(SerializerBase& ser);// iXmlElement* pnParent)
 
+   static int mWidth;
+   static int mHeight;
+
    static int GetNextID();
 };
 

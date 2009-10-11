@@ -119,6 +119,24 @@ Camera::SetActive()
 void
 Camera::Display ()
 {
+   // Do bounds checking
+   if (ms.x > 0) {
+      //std::cout << "Outside of left bound.\n";
+      mv.x = -10;
+   }
+   if (ms.x < -1500) {
+      //std::cout << "Outside of right bound?\n";
+      mv.x = 10;
+   }
+   if (ms.y > 100) {
+      //std::cout << "Outside of top bound?\n";
+      mv.y = -10;
+   }
+   if (ms.y < -500) {
+      //std::cout << "Outside of bottom bound?\n";
+      mv.y = 10;
+   }
+
    mpWindow->Display ();
 }
 
@@ -333,28 +351,28 @@ Camera::OnKeyDown (sf::Key::Code Key)
 {
    if (Key == sf::Key::D)
    {
-
+      if (mv.x > 0) mv.x = 0;
       mv.x += 0.4*mZoomFactor;
       ma.x = -0.25*mZoomFactor;
       //if (mv.x == 0) mv.x = 0.5*mZoomFactor;
    }
    if (Key == sf::Key::S)
    {
-
+      if (mv.y < 0) mv.y = 0;
       mv.y += -0.3*mZoomFactor;
       ma.y = 0.25*mZoomFactor;
       //if (mv.y == 0) mv.y = -0.5*mZoomFactor;
    }
    if (Key == sf::Key::A)
    {
-
+      if (mv.x < 0) mv.x = 0;
       mv.x += -0.4*mZoomFactor;
       ma.x = 0.25*mZoomFactor;
       //if (mv.x == 0) mv.x = -0.5*mZoomFactor;
    }
    if (Key == sf::Key::W)
    {
-
+      if (mv.y > 0) mv.y = 0;
       mv.y += 0.3*mZoomFactor;
       ma.y = -0.25*mZoomFactor;
       //if (mv.y == 0) mv.y = 0.5*mZoomFactor;

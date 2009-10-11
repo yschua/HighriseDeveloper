@@ -31,7 +31,7 @@ using namespace Gfx;
 namespace TowerObjects
 {
    // use the XML serializer to replace this
-   // 
+   //
    const char* OfficeImagesU[] =
    {
       "office_u_n.png",
@@ -81,6 +81,9 @@ namespace TowerObjects
 }
 
 using namespace TowerObjects;
+
+int Office::mWidth = 8;
+int Office::mHeight = 1;
 
 Office::Office (int x, int level, Tower * TowerParent)
       :  mCurrentState (OS_Vacant)

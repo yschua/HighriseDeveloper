@@ -216,11 +216,13 @@ bool GameManager::SaveTower(TiXmlElement* pnTower, Tower* pTower)
       pLevel->Save( xmlLevel );
       pnTower->LinkEndChild(pnLevel);
       Level::FloorMap& fps = pLevel->GetFloorSpaces();
-      for (unsigned int i = 0; i < fps.size(); i++)
+      Level::FloorIterType it; 
+      for (it = fps.begin(); it != fps.end(); it++ )
       {
+         FloorBase* pFB = (*it).second;
          TiXmlElement* pnSpace = new TiXmlElement("room");
          XMLSerializer xmlRoom(pnSpace);
-         fps[i]->Save( xmlRoom );
+         pFB->Save( xmlRoom );
          pnLevel->LinkEndChild(pnSpace);
       }
    }

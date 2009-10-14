@@ -94,44 +94,44 @@ Condo::Condo (int x, int level, Tower * TowerParent)
 
 void Condo::Update (float dt, int tod)
 {
-   manimations[mCurrentState]->Update (dt);
-   if( mOccupants < 0 )
-   {
-      mOccupants = 0;
-   }
+   //manimations[mCurrentState]->Update (dt);
+   //if( mOccupants < 0 )
+   //{
+   //   mOccupants = 0;
+   //}
 
-   switch (mCurrentState)
-   {
-   case condo_vacant:
-      if (mOwner != NULL)
-      {
-         mCurrentState = unoccupied_day (tod);
-      }
-      break;
+   //switch (mCurrentState)
+   //{
+   //case condo_vacant:
+   //   if (mOwner != NULL)
+   //   {
+   //      mCurrentState = unoccupied_day (tod);
+   //   }
+   //   break;
 
-   case condo_unoccupied_day :
-      if (mOwner == NULL)
-      {
-         mCurrentState = vacant (tod);
-      }
-      else
-      {
-         if( mOccupants > 0 )
-            mCurrentState = occupied_day (tod);
-      }
-      break;
-   case condo_occupied_day :
-      mCurrentState = occupied_day (tod);
-      break;
+   //case condo_unoccupied_day :
+   //   if (mOwner == NULL)
+   //   {
+   //      mCurrentState = vacant (tod);
+   //   }
+   //   else
+   //   {
+   //      if( mOccupants > 0 )
+   //         mCurrentState = occupied_day (tod);
+   //   }
+   //   break;
+   //case condo_occupied_day :
+   //   mCurrentState = occupied_day (tod);
+   //   break;
 
-   case condo_occupied_night :
-      mCurrentState = occupied_night (tod);
-      break;
+   //case condo_occupied_night :
+   //   mCurrentState = occupied_night (tod);
+   //   break;
 
-   case condo_occupied_sleep:
-      mCurrentState = occupied_sleep (tod);
-      break;
-   }
+   //case condo_occupied_sleep:
+   //   mCurrentState = occupied_sleep (tod);
+   //   break;
+   //}
 }
 
 void Condo::Draw ()

@@ -153,7 +153,10 @@ Level::Draw ()
    for (i = mFloorSpaces.begin (); i != mFloorSpaces.end (); i++)
    {
       FloorBase* pFB = (*i).second;
-      pFB->Draw ();
+      if( pFB )
+      {
+         pFB->Draw ();
+      }
    }
    //Camera::GetInstance()->Draw (*nFireEscapeLeft);
    //Camera::GetInstance()->Draw (*nFireEscapeRight);

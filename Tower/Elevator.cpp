@@ -72,7 +72,7 @@ Elevator::Elevator ( LiftStyle style, int x, short BottomLevel, short TopLevel, 
 
    mFloorCount = TopLevel - BottomLevel;
    mRidersOnBoard = 0;
-   mMaxCap = 12;
+   mMaxCap = (style == LS_HighCapacity) ? 30 : 15;
    memset( mRiders, 0, sizeof(mRiders) );
    ClearStops();
    memset( mStops, 0, sizeof(mStops) );

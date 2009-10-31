@@ -1,11 +1,14 @@
 #include <SFML/System.hpp>
 #include <string>
-//#include <wx/wx.h>
+#include <CEGUI.h>
+
 #include "../Root/HighRiseException.h"
 
 #include "../Root/SceneEvent.h"
+#include "SettingsWindow.h"
 #include "GUIManager.h"
 
+static SettingsWindow PrefsWin;
 
 GUIManager::GUIManager(SceneEvent& rse) //, Tower* Tower) can't pass a tower as there will be more than one. Think events
 :  mpRenderer(NULL)
@@ -51,6 +54,7 @@ GUIManager::GUIManager(SceneEvent& rse) //, Tower* Tower) can't pass a tower as 
       // Load the menu layout from xml and get the buttons to do something. NOTE: If you remove the buttons
       // from the xml, this may or may not crash. We need to check if getWindow() returns a vaild pointer.
       LoadLayout("Menu.layout");
+      mpWM->getWindow((utf8*)"BnSelect")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnSelect, this));
       mpWM->getWindow((utf8*)"BnOffice")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnOffice, this));
       mpWM->getWindow((utf8*)"BnApartment")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnApartment, this));
       mpWM->getWindow((utf8*)"BnHotel")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnHotel, this));
@@ -99,6 +103,7 @@ bool GUIManager::OnSelect (const CEGUI::EventArgs& e)
 {
    // set FloorPlacement to Office
    // route mouse clicks that hit the main into the FloorPlacement manager.
+   PrefsWin.Create (this->mpRootWind);
    mSE.OnToolHit (HR_SelectBuildCursor);  // this only sets the strategy.
    return true;
 }

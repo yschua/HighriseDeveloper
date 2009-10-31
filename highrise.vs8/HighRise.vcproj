@@ -238,6 +238,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\Window\SettingsWindow.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\Window\SettingsWindow.h"
+				>
+			</File>
+			<File
 				RelativePath="..\Window\Stats.cpp"
 				>
 			</File>

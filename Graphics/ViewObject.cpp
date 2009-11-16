@@ -35,17 +35,18 @@ void ViewObject::Render(AnimationBase* pBase)
    float z = 100; //pBody->GetPositionZ();
    float x2 = x + pBase->GetWidth();
    float y2 = y + pBase->GetHeight();
+   const float* fUVs = pBase->GetUVs();
 //   glBindTexture( GL_TEXTURE_2D, pBody->GetTextureID() );//to_draw.GetTexture() ); // get the current texture
    pBase->BindTexture();
    glBegin(GL_QUADS);
    {
-      glTexCoord2f( 0.0, 1.0 );
+      glTexCoord2fv( &fUVs[0] );
       glVertex3f( x, y2, z );
-      glTexCoord2f( 0.0, 0.0 );
+      glTexCoord2fv( &fUVs[2] );
       glVertex3f( x, y, z );
-      glTexCoord2f( 1.0, 0.0 );
+      glTexCoord2fv( &fUVs[4] );
       glVertex3f( x2, y, z );
-      glTexCoord2f( 1.0, 1.0 );
+      glTexCoord2fv( &fUVs[6] );
       glVertex3f( x2, y2, z );
    }
    glEnd();
@@ -76,26 +77,26 @@ void ViewObject::Render(AnimationBase* pBase, const float uvs[4][2])
 
 void ViewObject::RenderText(AnimationBase* pBase, float x, float y, string str)
 {
-   const float cu = 0.035f;
+   const float cu = 1.0f/32;
    float z = 100; //pBody->GetPositionZ();
    float x2 = x + 9;
-   float y2 = y + 12;
+   float y2 = y + 15;
 //   glBindTexture( GL_TEXTURE_2D, pBody->GetTextureID() );//to_draw.GetTexture() ); // get the current texture
    pBase->BindTexture();
    glBegin(GL_QUADS);
    {
       for( unsigned int ic = 0; ic < str.length(); ++ic)
       {
-         char t=str[ic]-'0';
-         float u = t * cu;
-         float v = 0.9f;
-         glTexCoord2f (u, v-0.32f);
+         char t = (char)(str[ic]-' ') & 0x7F ;
+         float u = (t%32) * cu;
+         float v = 1.0f - 0.13f * int((128-t)/32);
+         glTexCoord2f (u, v-0.125f);
          glVertex3f( x, y2, z );
          glTexCoord2f (u, v);
          glVertex3f( x, y, z );
          glTexCoord2f (u+cu, v);
          glVertex3f( x2, y, z );
-         glTexCoord2f (u+cu, v-0.32f);
+         glTexCoord2f (u+cu, v-0.125f);
          glVertex3f( x2, y2, z );
          x+=8;
          x2+=8;

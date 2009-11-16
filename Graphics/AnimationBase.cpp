@@ -22,8 +22,24 @@
 // all things not in 3D space. Used for interface
 using namespace Gfx;
 
+namespace Gfx
+{
+   // this defines the coordinates to map the texture image from in pairs
+   const float DefaultUVs[8] =
+   { 0.0f, 1.0f,  0.0f, 0.0f,  1.0f, 0.0f,  1.0, 1.0f }; 
+}
+
 AnimationBase::AnimationBase( int w, int h )
    : Body( w, h )
 {
+   SetUVs (Gfx::DefaultUVs);
 }
 
+AnimationBase::~AnimationBase ()
+{
+}
+
+void AnimationBase::SetUVs (const float uvs[8])
+{
+   memcpy (mUV, uvs, sizeof(mUV));
+}

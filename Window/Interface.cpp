@@ -43,6 +43,7 @@ Interface::Update (float dt)
    if( ++count > dt )
    {
       count = 0;
+      mStats.SetDayOfWeek (mClock.DayOfWeekToString());
       mStats.Update();
    }
 }

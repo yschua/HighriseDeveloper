@@ -27,15 +27,19 @@ class AnimationSingle;
 class Stats : public Gfx::ViewObject
 {
 protected:
-   AnimationSingle * mStatsFace;
+   AnimationSingle* mOtherFace;   // Day of week
+   AnimationSingle* mStatsFace;  // Date
    int mNet;
    int mPopulation;
    int mStars;
    string mstrNet;
    string mstrPopulation;
+   string mstrDayOfWeek;
+   string mstrDate;
 
 public:
    // properties
+   void SetDayOfWeek (const char* szDay) { mstrDayOfWeek = szDay; }
    void SetNet (int amt) { mNet = amt; }
    void SetPopulation (int pop) { mPopulation = pop; }
    void SetStars (int stars) { mStars = stars; }

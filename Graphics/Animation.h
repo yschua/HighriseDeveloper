@@ -27,9 +27,16 @@ class AnimationBase : public Body
    // we can add implementation to support lighting and material attributes here
 protected:
    float LightingColor[4];
+   float mUV[8];  // texture offsets 4 pairs
 
 public:
    AnimationBase( int w, int h );
+   virtual ~AnimationBase();
+
+   inline const float* GetUVs()
+   {
+      return mUV;
+   }
 
    inline void SetLightingColor( const float lc[4] )
    {
@@ -43,6 +50,7 @@ public:
    virtual void BindTexture() = 0;
    virtual void ClearFrames () {};
    virtual void Update (float dt) {};
+   virtual void SetUVs (const float uvs[8]);
 };
 
 class AnimationShape : public AnimationBase

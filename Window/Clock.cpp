@@ -30,10 +30,16 @@ namespace Gfx
    const unsigned char kszColor2[] = { 152,160,52,255 }; // light gold
 }
 
+const char* Clock::pszDaysOfWeek[] = // move to resources for internationaliztion
+{
+   "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
+};
+
 Clock::Clock ()
 {
    mTimeOfDay = 0;
    mDayOfYear = 1;
+   mDayOfWeek = 0;
    mYear = 1950;
 
    ImageManager * images = ImageManager::GetInstance ();
@@ -75,6 +81,14 @@ Clock::PosCalc ()
    mMinuteHand.Position = Vector3f((Camera::GetInstance ()->GetCamSize ().x / 2), 32, 100.1f );
 }
 
+const char* Clock::DayOfWeekToString()
+{
+   if( mDayOfWeek < 0 || mDayOfWeek > 6 )
+      mDayOfWeek = 0;
+
+   return pszDaysOfWeek [mDayOfWeek];
+}
+
 void
 Clock::Update (int minutes)
 {
@@ -88,6 +102,7 @@ Clock::Update (int minutes)
          mDayOfYear = 1;
          mYear++;
       }
+      mDayOfWeek = (mDayOfWeek > 6) ? 0 : mDayOfWeek+1;
    }
    int mins = mTimeOfDay % 30;
    float hours = (float)mTimeOfDay / 30;

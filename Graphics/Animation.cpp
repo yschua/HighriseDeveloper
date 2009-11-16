@@ -19,6 +19,7 @@
 #include "../Root/Physics.h"
 #include "Animation.h"
 
+
 AnimationShape::AnimationShape (int width, int height)
 :  AnimationBase (width, height)
 {
@@ -30,7 +31,6 @@ Animation::Animation (int width, int height)
 {
    mCurrentFrame = 0;
    mTime = 0;
-//   sprite = new sf::Sprite ();
 }
 
 void

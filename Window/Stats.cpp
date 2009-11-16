@@ -23,6 +23,15 @@
 #include "../Graphics/Camera.h"
 #include "Stats.h"
 
+namespace UI
+{
+   // this defines the coordinates to map the texture image from in pairs
+   const float OtherUVs[8] =
+   { 0.0f, 0.125f,  0.0f, 0.25f,  1.0f, 0.25f,  1.0f, 0.125f }; // trim the right rounded edge
+   const float StatBarUVs[8] =   // stats.png
+   { 0.0f, 0.0f,  0.0f, 0.125f,  1.0f, 0.125f,  1.0f, 0.0f };
+}
+
 std::string itoa( int n )
 {
    std::ostringstream s;
@@ -37,11 +46,16 @@ Stats::Stats ()
    mNet = 100000;
    mPopulation = 0;
    mStars = 1;
-
+   mstrDayOfWeek = "Monday";
+   mstrDate = "1-1-2010";
 
    ImageManager * images = ImageManager::GetInstance ();
    Texture* pTex = images->GetTexture ("stats.png", GL_RGBA);
+   mOtherFace = new AnimationSingle (pTex, 256, 16);
    mStatsFace = new AnimationSingle (pTex, 256, 16);
+
+   mOtherFace->SetUVs(UI::OtherUVs);
+   mStatsFace->SetUVs(UI::StatBarUVs);
    PosCalc ();
 
 }
@@ -54,6 +68,7 @@ void
 Stats::PosCalc ()
 {
    Camera::GetInstance ();
+   mOtherFace->SetPosition ((Camera::GetInstance ()->GetCamSize ().x / 2) - 128, 0); // relative based on clock
    mStatsFace->SetPosition ((Camera::GetInstance ()->GetCamSize ().x / 2) - 128, -15); // relative based on clock
 }
 
@@ -64,23 +79,17 @@ Stats::Update ()
    mstrPopulation = itoa( mPopulation );
 }
 
-namespace UI
-{
-   const float StatBarUVs[4][2] =   // stats.png
-   {
-      { 0.0, 0.0 },
-      { 0.0, 0.5 },
-      { 1.0, 0.5 },
-      { 1.0, 0.0 }
-   };
-}
-
 void
 Stats::Draw ()
 {
-   Render( mStatsFace, UI::StatBarUVs );
+   Render (mOtherFace);
+   Render (mStatsFace);
    float x = mStatsFace->GetPositionX();
    float y = mStatsFace->GetPositionY()+2;
    RenderText( mStatsFace, x+40, y, mstrNet);
    RenderText( mStatsFace, x+158, y, mstrPopulation);
+   x = mOtherFace->GetPositionX();
+   y = mOtherFace->GetPositionY();
+   RenderText( mStatsFace, x+40, y, mstrDayOfWeek);
+   RenderText( mStatsFace, x+158, y, mstrDate);
 }

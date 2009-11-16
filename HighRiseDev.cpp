@@ -52,9 +52,10 @@ main ()
 
    Interface* pInterface = new Interface();
    Scene theScene;
-   Tower theTower (1, 10, theScene); // numero uno with 10 sub levels
-   theScene.AddTower (&theTower); // pointer for graphics
-   CitizensAgent People( theTower ); // known tower, later this will be a tower list for mutiple towers
+   Tower theTower (1, 10, theScene);   // numero uno with 10 sub levels
+   theTower.AdjustFunds( 1000000 );     // start with 1Mil
+   theScene.AddTower (&theTower);      // pointer for graphics
+   CitizensAgent People( theTower );   // known tower, later this will be a tower list for mutiple towers
 
    sf::String Title( string("Alpha"));
 
@@ -110,6 +111,7 @@ main ()
             break;
          case 1:
             pInterface->mStats.SetPopulation( theTower.GetPopulation() );
+            pInterface->mStats.SetNet( theTower.GetAvailableFunds() );
             pInterface->Update(10);
             break;
          default:

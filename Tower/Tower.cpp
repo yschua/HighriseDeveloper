@@ -36,6 +36,7 @@ Tower::Tower (int towerNo, int NoSubLevels, Scene& rScene )
 ,  mGhostRoom (0,0)
 {
    mPopulation = 0;
+   mAvailableFunds = 0;
    int nsubs = -NoSubLevels;
    for (int sub = nsubs; sub < 0; ++sub)
    {

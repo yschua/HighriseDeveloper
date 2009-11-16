@@ -47,6 +47,7 @@ class Tower : public Gfx::ModelObject
    int mTowerNo;
    int mNo_SubLevels;
    int mPopulation;  // People in the tower currently
+   double mAvailableFunds;
 
    std::vector<Level*> mLevels;     // Lobby is at mNo_SubLevels not zero
    Routes mRoutes;
@@ -64,6 +65,8 @@ public:
    // properties
    inline Routes& GetRoutes() { return mRoutes; } // For routing citizens
    inline int GetPopulation() { return mPopulation; }
+   inline double GetAvailableFunds() { return mAvailableFunds; }
+   void AdjustFunds (double amt) { mAvailableFunds += amt; }  // pass neg value to subtract
    inline Scene& GetScene() { return mScene; }
    inline GhostRoom& GetGhostRoom() {  return mGhostRoom; }
 

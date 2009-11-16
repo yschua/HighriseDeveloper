@@ -29,6 +29,7 @@ protected:
    // subtype maybe, reception, cubes, datacente, boardroom (offices) or luxury/studio apt.
    int mWidth;    // in units of 9 pixels
    int mHeight;   // Levels (1,2 or 3)
+   double mCost;
 
    BuildStrategyBase()
    {
@@ -37,8 +38,9 @@ protected:
 public:
    static BuildStrategyBase* CreateStrategy(int ToolID, Tower* pTower);
    // get/set properties
-   int GetWidth() { return mWidth; };
-   int GetHeight() { return mHeight; };
+   int GetWidth() { return mWidth; }
+   int GetHeight() { return mHeight; }
+   double GetCost() { return mCost; }
 public:
    virtual bool PlacingRoom() { return false; }
    virtual bool BuildHere (Tower* pTowwer, int x, int y);
@@ -52,16 +54,20 @@ template <class T>
 class BuildRoomStrategy : public BuildStrategyBase
 {
 public:
-   BuildRoomStrategy(int width, int height)
+   BuildRoomStrategy(int width, int height, double cost)
    {
       mType = T::GetBaseType();
       mWidth = width;
       mHeight = height;
+      mCost = cost;
    }
    bool BuildHere (Tower* pTower, int x, int y)
    {
       // we don't have multi tower support yet but this will eventually deal with that
       Level* pLevel = pTower->GetLevel(y);
+      double dCash = pTower->GetAvailableFunds();
+      if( dCash < this->mCost)
+         return false;
 
       int xx = x * Level::mUnitSize;
       bool bAvail = pLevel->IsSpaceEmpty (xx, xx + mWidth * Level::mUnitSize);
@@ -69,6 +75,7 @@ public:
       {
          FloorBase* pRoom = new T(xx, y, pTower); //OnToolHit is going to set this up, when we hit the floor
          pLevel->AddFloorSpace (pRoom);
+         pTower->AdjustFunds( -mCost );
       }
       return true;
    }
@@ -96,15 +103,19 @@ public:
       // we don't have multi tower support yet but this will eventually deal with that
       Level* pBottomLevel = pTower->GetLevel(BottomLevel);
       Level* pTopLevel = pTower->GetLevel(TopLevel);
-
+      double dCash = pTower->GetAvailableFunds();
+      if( dCash < this->mCost)
+         return false;
 
       int xx = x * Level::mUnitSize;
       // Shouldn't we have a dedicated function for checking if transport can be placed here?
       // in the original, it's on a different "layer"
       bool bAvail = true;
-      for (int i = BottomLevel; i < TopLevel; i++) {
+      for (int i = BottomLevel; i < TopLevel; i++)
+      {
          Level* pLevel = pTower->GetLevel(i);
-         if (!pBottomLevel->IsSpaceEmpty (xx, xx + mWidth * Level::mUnitSize)) {
+         if (!pBottomLevel->IsSpaceEmpty (xx, xx + mWidth * Level::mUnitSize))
+         {
             bAvail = false;
             break;
          }

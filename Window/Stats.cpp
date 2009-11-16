@@ -27,7 +27,7 @@ namespace UI
 {
    // this defines the coordinates to map the texture image from in pairs
    const float OtherUVs[8] =
-   { 0.0f, 0.125f,  0.0f, 0.25f,  1.0f, 0.25f,  1.0f, 0.125f }; // trim the right rounded edge
+   { 0.0f, 0.128f,  0.0f, 0.25f,  1.0f, 0.25f,  1.0f, 0.128f }; // trim the right rounded edge
    const float StatBarUVs[8] =   // stats.png
    { 0.0f, 0.0f,  0.0f, 0.125f,  1.0f, 0.125f,  1.0f, 0.0f };
 }

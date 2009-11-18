@@ -402,6 +402,18 @@
 				>
 			</File>
 			<File
+				RelativePath="..\Tower\BuildData.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\Tower\BuildFactory.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\Tower\BuildFactory.h"
+				>
+			</File>
+			<File
 				RelativePath="..\Tower\BuildStrategies.cpp"
 				>
 			</File>

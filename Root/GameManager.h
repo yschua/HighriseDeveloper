@@ -36,6 +36,7 @@ private:
 public:
    GameManager( Scene& scene);
    ~GameManager() {}
+   bool LoadBuildPack (const char *fileName);
    bool LoadGame(const char* fileName);
    bool SaveGame(const char* fileName);
 

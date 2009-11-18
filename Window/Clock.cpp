@@ -30,9 +30,23 @@ namespace Gfx
    const unsigned char kszColor2[] = { 152,160,52,255 }; // light gold
 }
 
-const char* Clock::pszDaysOfWeek[] = // move to resources for internationaliztion
+const int Clock::kDays[] = { 0,31,59,90,120,151,181,212,243,273,303,234 };
+
+const char* Clock::pszDaysOfWeek[] = // move to resources with more internationaliztion
 {
-   "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
+   "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat",
+   "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", // Credit to Google for Translation
+   "Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", // Deutsch
+   "Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", // Espaniol 
+   "Dimanche", "Lundi", "mardi", "mercredi", "Jeudi", "Vendredi", "Samedi" // France
+};
+const char* Clock::pszMonths[] = // move to resources with more internationaliztion
+{
+   "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", // generic
+   "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December", // English
+   "Januar", "Februar", "März", "April", "Mai", "June", "Juli", "August", "September", "Oktober", "November", "Dezember", // Deutsch
+   "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre", // Espaniol 
+   "Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"  // France 
 };
 
 Clock::Clock ()
@@ -40,7 +54,9 @@ Clock::Clock ()
    mTimeOfDay = 0;
    mDayOfYear = 1;
    mDayOfWeek = 0;
+   mMonth = 0;
    mYear = 1950;
+   mLanguageCode = 0;
 
    ImageManager * images = ImageManager::GetInstance ();
    Texture* pTex = images->GetTexture ("clock.png", GL_RGBA);
@@ -86,7 +102,31 @@ const char* Clock::DayOfWeekToString()
    if( mDayOfWeek < 0 || mDayOfWeek > 6 )
       mDayOfWeek = 0;
 
-   return pszDaysOfWeek [mDayOfWeek];
+   return pszDaysOfWeek [(mDayOfWeek + mLanguageCode*7)];
+}
+
+const char* Clock::MonthToString()
+{
+   if( mMonth < 0 || mMonth > 11 )
+      mMonth = 0;
+
+   return pszMonths [(mMonth + mLanguageCode*12)];
+}
+
+const char* Clock::DateString()
+{
+   char buf[16];
+   int iDay = mDayOfYear - kDays[mMonth];
+   if( !((mYear & 1000) == 0))
+   {
+      if( mMonth > 1 && (mYear % 4) == 0 ) iDay++; // month = 0 is Jan, 1 is Feb etc.
+   }
+   static std::string str = MonthToString();
+   str += " ";
+   str += _itoa_s(iDay, buf, 10 );
+   str += ", ";
+   str += _itoa_s(mYear, buf, 10 );
+   return str.c_str();
 }
 
 void
@@ -99,10 +139,28 @@ Clock::Update (int minutes)
       mDayOfYear++;
       if (mDayOfYear > 365)
       {
-         mDayOfYear = 1;
-         mYear++;
+         if( mDayOfYear > 366 || (mYear & 1000) == 0 || (mYear % 4) > 0 ) // check leap year
+         {
+            mDayOfYear = 1;
+            mYear++;
+         }
       }
       mDayOfWeek = (mDayOfWeek > 6) ? 0 : mDayOfWeek+1;
+      int iDays = mDayOfYear;
+      if( !((mYear & 1000) == 0))
+      {
+         if( mDayOfYear > 59 && (mYear % 4) > 0 ) iDays--; // month = 0 is Jan, 1 is Feb etc. Compensate for leap day
+      }
+      for( int idx = 11; mDayOfYear > 31 && idx > 0; ++idx )
+      {
+         if( iDays <= kDays[idx] )
+         {
+//            iDays = Days[idx];
+            mMonth = idx;
+            break;
+         }
+      }
+
    }
    int mins = mTimeOfDay % 30;
    float hours = (float)mTimeOfDay / 30;

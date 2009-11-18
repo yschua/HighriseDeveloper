@@ -8,13 +8,14 @@
 #include "SettingsWindow.h"
 #include "GUIManager.h"
 
-static SettingsWindow PrefsWin;
 
-GUIManager::GUIManager(SceneEvent& rse) //, Tower* Tower) can't pass a tower as there will be more than one. Think events
+GUIManager::GUIManager(SceneEvent& rse, Interface& rInterface) //, Tower* Tower) can't pass a tower as there will be more than one. Think events
 :  mpRenderer(NULL)
 ,  mpSystem(NULL)
 ,  mSE(rse)
+,  mInterface(rInterface)
 {
+   mpPrefsWin = NULL;
 	InitMaps();
 	try
 	{
@@ -103,7 +104,11 @@ bool GUIManager::OnSelect (const CEGUI::EventArgs& e)
 {
    // set FloorPlacement to Office
    // route mouse clicks that hit the main into the FloorPlacement manager.
-   PrefsWin.Create (this->mpRootWind);
+   if (!mpPrefsWin)
+   {
+      mpPrefsWin = new SettingsWindow(mInterface);
+   }
+   mpPrefsWin->Create (this->mpRootWind);
    mSE.OnToolHit (HR_SelectBuildCursor);  // this only sets the strategy.
    return true;
 }
@@ -291,7 +296,7 @@ bool GUIManager::OnResize(Vector2i NewSize)
    // We need to manually resize the space the GUI is being drawn on so that things are not streched.
    // For some reason, this doesn't work.
    //mpRootWind->setSize(CEGUI::UVector2(CEGUI::UDim(0, NewSize.x*10), CEGUI::UDim(1, NewSize.y)));
-   mpRenderer->setDisplaySize(CEGUI::Size(NewSize.x, NewSize.y));
+   mpRenderer->setDisplaySize(CEGUI::Size((float)NewSize.x, (float)NewSize.y));
    std::cout << "Set the size of the CEGUI window! (" << NewSize.x << ", " << NewSize.y << ")\n";
    return false;
 }

@@ -25,6 +25,9 @@
 #include "../Tower/Level.h"
 #include "../Tower/Tower.h"
 #include "../Tower/BuildStrategies.h"
+#include "../Tower/BuildData.h"
+#include "../Tower/BuildFactory.h"
+
 #include "Background.h"
 #include "Scene.h"
 
@@ -50,7 +53,9 @@ Scene::SelectTool (int toolID)
 {
    bool bResult = false;
    BuildStrategyBase* pOldStrategy = mpBuildStrategy;
-   mpBuildStrategy = BuildStrategyBase::CreateStrategy (toolID, mTowers[0]);
+   TowerObjects::BuildFactory* pBuilder = TowerObjects::BuildFactory::GetInstance();
+   mpBuildStrategy = pBuilder->CreateStrategy(toolID, mTowers[0]);
+//   mpBuildStrategy = BuildStrategyBase::CreateStrategy (toolID, mTowers[0]);
    if (mpBuildStrategy != pOldStrategy)
    {
       try

@@ -35,7 +35,8 @@ public:
    bool AddFloorSpace (FloorBase* pFS, int x, int x2, int y);
    FloorBase* FindWork (int preferences); 
    FloorBase* FindAHome (int preferences); 
-   FloorBase* FindAHotel (int preferences); 
+   FloorBase* FindAHotel (int preferences);
+   double CollectFromTenants (unsigned int floor);
 };
 
 #endif

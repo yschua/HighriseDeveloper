@@ -51,6 +51,14 @@ void XMLSerializer::Add( const char* tag, float val )
    mpnParent->LinkEndChild(pnElement);
 }
 
+void XMLSerializer::Add( const char* tag, double val )
+{
+   TiXmlElement* pnElement = new TiXmlElement(tag);
+   TiXmlText* pnVal = new TiXmlText(ToString(val).c_str());
+   pnElement->LinkEndChild(pnVal);
+   mpnParent->LinkEndChild(pnElement);
+}
+
 void XMLSerializer::Add( const char* tag, const char* str )
 {
    TiXmlElement* pnElement = new TiXmlElement(tag);
@@ -65,13 +73,69 @@ void XMLSerializer::AddChild( const char* tag )
    mpnParent->LinkEndChild(pnSpace);
 }
 
+TiXmlElement* XMLSerializer::AddTiXMLChild( const char* tag )
+{
+   TiXmlElement* pnNew = new TiXmlElement(tag);
+   mpnParent->LinkEndChild(pnNew);
+   return pnNew;
+}
+
+SerializerBase* XMLSerializer::Spawn(const char* pName)
+{
+   TiXmlElement* pnNew = AddTiXMLChild(pName);
+   XMLSerializer* pSer = new XMLSerializer(pnNew);
+   return pSer;
+}
+
+SerializerBase* XMLSerializer::GetFirstChild(const char* pName)
+{
+   XMLSerializer* pNewSer = NULL;
+   TiXmlElement* pnSib = mpnParent->FirstChildElement(pName);
+   if (pnSib != NULL)
+   {
+      pNewSer = new XMLSerializer(pnSib);
+   }
+   return pNewSer;
+}
+
+SerializerBase* XMLSerializer::GetNextSibling(const char* pName)
+{
+   XMLSerializer* pNewSer = NULL;
+   TiXmlElement* pnSib = mpnParent->NextSiblingElement(pName);
+   if (pnSib != NULL)
+   {
+      pNewSer = new XMLSerializer(pnSib);
+   }
+   return pNewSer;
+}
+
+const char* XMLSerializer::GetString( const char* tag )
+{
+   TiXmlNode* pnName = mpnParent->FirstChild(tag);
+   const char* psz = "";
+   TiXmlNode* pnStr = pnName->FirstChild();
+   if( pnStr )
+   {
+      psz = pnStr->Value();
+   }
+   return psz;
+}
+
+double XMLSerializer::GetDouble( const char* tag )
+{
+   TiXmlNode* pnName = mpnParent->FirstChild(tag);
+   return FromString<double>(pnName->FirstChild()->Value());
+}
+
 float XMLSerializer::GetFloat( const char* tag )
 {
-   return 0.0;
+   TiXmlNode* pnName = mpnParent->FirstChild(tag);
+   return FromString<float>(pnName->FirstChild()->Value());
 }
 
 int XMLSerializer::GetInt( const char* tag )
 {
-   return 0;
+   TiXmlNode* pnName = mpnParent->FirstChild(tag);
+   return FromString<int>(pnName->FirstChild()->Value());
 }
 

@@ -13,7 +13,8 @@
  *   You should have received a copy of the GNU General Public License
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
-// Tick Tock!
+// XML extension of serialization!
+// This may be replaced with another form of storage
 
 #pragma once
 #ifndef _XMLSERIALIZER_H
@@ -33,11 +34,18 @@ public:
    XMLSerializer( const char* tag );
    virtual ~XMLSerializer ();
    virtual void AddChild( const char*pName );
+   TiXmlElement* AddTiXMLChild( const char*pName );
    void Add( const char* tag, int val );
    void Add( const char* tag, float val );
+   void Add( const char* tag, double val );
    void Add( const char* tag, const char* str );
+   const char* GetString( const char* tag );
+   double GetDouble( const char* tag );
    float GetFloat( const char* tag );
    int   GetInt( const char* tag );
+   SerializerBase* Spawn(const char* pName);
+   SerializerBase* GetFirstChild (const char* pName);
+   SerializerBase* GetNextSibling (const char* pName);
 };
 
 #endif // _XMLSERIALIZER_H

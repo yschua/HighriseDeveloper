@@ -12,12 +12,17 @@
 class SceneEvent;
 class FloorBase;
 class Tower;
+class Interface;
+class SettingsWindow;
 
 
 class GUIManager : public EventBase
 {
+protected:
+   SettingsWindow* mpPrefsWin;
+   Interface& mInterface;
 public:
-	GUIManager(SceneEvent& rse); //, Tower* Tower);
+	GUIManager(SceneEvent& rse, Interface& pInterface); //, Tower* Tower);
 	~GUIManager();
 
    bool OnOffice (const CEGUI::EventArgs& e);   // concrete until we setup registering the rooms

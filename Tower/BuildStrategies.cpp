@@ -35,6 +35,7 @@
 #include "MedicalClinic.h"
 #include "WasteManagement.h"
 #include "BuildStrategies.h"
+#include "BuildData.h"
 
 using namespace TowerObjects;
 
@@ -47,76 +48,79 @@ void BuildStrategyBase::ShowGhostBuild(Tower* pTower)
 {
 }
 
-BuildStrategyBase* BuildStrategyBase::CreateStrategy(int toolID, Tower* pTower)
+BuildStrategyBase* BuildStrategyBase::CreateStrategy(BuildData* pBuildData, Tower* pTower)
 {
    BuildStrategyBase* pBuildStrategy = NULL;
-   switch (toolID)
+   int iUnits = pBuildData->UnitsWide;
+   int iLevels = pBuildData->LevelsHigh;
+   double dCost = pBuildData->BuildCost;
+   switch (pBuildData->BuildType)
    {
    case HR_PlaceOffice:
-      pBuildStrategy = new BuildRoomStrategy<Office>(8,1, 40000);
+      pBuildStrategy = new BuildRoomStrategy<Office>(*pBuildData);
       pBuildStrategy->ShowGhostBuild (pTower);
       break;
 
    case HR_PlaceApartment:
-      pBuildStrategy = new BuildRoomStrategy<Apartment>(8,1, 30000);
+      pBuildStrategy = new BuildRoomStrategy<Apartment>(*pBuildData);
       pBuildStrategy->ShowGhostBuild (pTower);
       break;
    case HR_PlaceCondo:
-      pBuildStrategy = new BuildRoomStrategy<Condo>(14,1, 100000);
+      pBuildStrategy = new BuildRoomStrategy<Condo>(*pBuildData);
       pBuildStrategy->ShowGhostBuild (pTower);
       break;
    case HR_PlaceHotelSingle:
-      pBuildStrategy = new BuildRoomStrategy<HotelRoom>(6,1, 20000);
+      pBuildStrategy = new BuildRoomStrategy<HotelRoom>(*pBuildData);
       pBuildStrategy->ShowGhostBuild (pTower);
       break;
 
    case HR_PlaceHotelDouble:
-      pBuildStrategy = new BuildRoomStrategy<HotelRoom>(7,1, 25000);
+      pBuildStrategy = new BuildRoomStrategy<HotelRoom>(*pBuildData);
       pBuildStrategy->ShowGhostBuild (pTower);
       break;
 
    case HR_PlaceHotelKing:
-      pBuildStrategy = new BuildRoomStrategy<HotelRoom>(8,1, 30000);
+      pBuildStrategy = new BuildRoomStrategy<HotelRoom>(*pBuildData);
       pBuildStrategy->ShowGhostBuild (pTower);
       break;
 
    case HR_PlaceHotelSuite:
-      pBuildStrategy = new BuildRoomStrategy<HotelRoom>(9,1, 50000); // luxury suite
+      pBuildStrategy = new BuildRoomStrategy<HotelRoom>(*pBuildData); // luxury suite
       pBuildStrategy->ShowGhostBuild (pTower);
       break;
 
    case HR_PlaceSecurity:
-      pBuildStrategy = new BuildRoomStrategy<Security>(12,1, 250000);
+      pBuildStrategy = new BuildRoomStrategy<Security>(*pBuildData);
       pBuildStrategy->ShowGhostBuild (pTower);
       break;
 
    case HR_PlaceHouseKeeping:
-      pBuildStrategy = new BuildRoomStrategy<Housekeeping>(12,1, 125000);
+      pBuildStrategy = new BuildRoomStrategy<Housekeeping>(*pBuildData);
       pBuildStrategy->ShowGhostBuild (pTower);
       break;
 
    case HR_PlaceClinic:
-      pBuildStrategy = new BuildRoomStrategy<MedicalClinic>(14,1, 500000);
+      pBuildStrategy = new BuildRoomStrategy<MedicalClinic>(*pBuildData);
       pBuildStrategy->ShowGhostBuild (pTower);
       break;
 
    case HR_PlaceRestaurant:
-      //pBuildStrategy = new BuildRoomStrategy<Restaurant>(12,1, 200000);
+      //pBuildStrategy = new BuildRoomStrategy<Restaurant>(*pBuildData);
       //pBuildStrategy->ShowGhostBuild (pTower);
       break;
 
    case HR_PlaceRetail:
-      pBuildStrategy = new BuildRoomStrategy<RetailShop>(10,1, 100000);
+      pBuildStrategy = new BuildRoomStrategy<RetailShop>(*pBuildData);
       pBuildStrategy->ShowGhostBuild (pTower);
       break;
 
    case HR_PlaceStairs:
-      pBuildStrategy = new BuildRouteStrategy<SingleStair>(3,1);//, 5000);
+      pBuildStrategy = new BuildRouteStrategy<SingleStair>(*pBuildData);
       pBuildStrategy->ShowGhostBuild (pTower);
       break;
 
    case HR_PlaceWasteManagement:
-      pBuildStrategy = new BuildRoomStrategy<WasteManagement>(16,2, 75000);
+      pBuildStrategy = new BuildRoomStrategy<WasteManagement>(*pBuildData);
       pBuildStrategy->ShowGhostBuild (pTower);
       break;
    }

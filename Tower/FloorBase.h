@@ -53,6 +53,7 @@ protected:
    int mLevel;
    int mID;
    int mOccupants;
+   double mRent;
    Tower * mTowerParent;
    Person* mOwner;
 
@@ -76,10 +77,12 @@ public:
    inline float GetZ() {return mZ; }
    inline int   GetLevel() { return mLevel; }
    inline int   GetID () { return mID; }
+   inline double GetRent () { return mRent; }
 
    inline void SetX(float x) { mX = x; }
    inline void SetX2(float x) { mX2 = x; }
    inline void SetY(float y) { mY = y; }
+   inline void SetRent(double rent) { mRent = rent; }
 
    // Methods
    virtual void Update (float dt, int tod);

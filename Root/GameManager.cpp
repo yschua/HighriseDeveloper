@@ -21,6 +21,9 @@
 #include "../Tower/ElevatorBase.h"
 #include "../Tower/Elevator.h"
 #include "../Tower/SkyLobby.h"
+#include "../Tower/BuildData.h"
+#include "../Tower/BuildStrategies.h"
+#include "../Tower/BuildFactory.h"
 #include "../Scene/Scene.h"
 
 #include "GameManager.h"
@@ -28,6 +31,56 @@
 GameManager::GameManager (Scene& scene)
 :  mScene(scene)
 {
+}
+
+bool GameManager::LoadBuildPack (const char *fileName)
+{
+   using namespace TowerObjects; // if your compiler fails here, move this line up under the includes
+
+   // stuffing the floors with test spaces
+   TiXmlDocument* xml = new TiXmlDocument();
+   xml->LoadFile(fileName);
+   std::cout << "DEBUG: " << xml->Value() << " output: \n";
+   xml->Print();
+   TiXmlNode* pnGame = xml->FirstChild();
+   //std::cout << "DEBUG: Root node: " << nTower->Value() << '\n';
+
+   BuildFactory* pF = BuildFactory::GetInstance();
+   if (xml->Error() || pnGame == NULL)
+   {
+      pF->Default(); // put together the developer edition of the builder pack
+
+      TiXmlDocument* pDoc = new TiXmlDocument( fileName );
+      TiXmlElement* pnRoot = new TiXmlElement("BuilderPack");
+      pDoc->LinkEndChild (pnRoot);
+
+      double net = 1000000;
+      int pop = 1;
+
+      XMLSerializer xmlRoot( pnRoot );
+      xmlRoot.Add ("name","Default Pack");
+      xmlRoot.Add ("net", net);
+      xmlRoot.Add ("population", pop);
+
+      XMLSerializer xmlEle( pnRoot );
+
+      pF->Save(xmlEle);
+
+      std::cout << "DEBUG: Output default Builder Pack: \n";
+      pDoc->Print();
+      pDoc->SaveFile();
+   }
+   else
+   {
+      //pnGame->Value == "BuilderPack");
+      TiXmlNode* pnName = pnGame->FirstChild("name");
+      TiXmlNode* pnNet = pnGame->FirstChild("net");
+      TiXmlNode* pnPop = pnGame->FirstChild("population");
+      TiXmlElement* pnTemplate = pnGame->FirstChildElement("BuildTemplate");
+      XMLSerializer xmlEle( pnTemplate );
+      pF->Load(xmlEle);
+   }   
+   return true;
 }
 
 bool GameManager::LoadGame (const char *fileName)

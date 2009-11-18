@@ -18,6 +18,8 @@
 #include <SFML/Graphics.hpp>
 #include <string.h>
 #include <map>
+#include "../Types/String.h"
+#include "../Settings/Settings.h"
 #include "../Root/Physics.h"
 #include "../Graphics/Image.h"
 #include "../Graphics/Animation.h"
@@ -28,15 +30,65 @@ using namespace Gfx;
 
 Interface::Interface ()
 {
+   mLanguageCode = 0;
+   LoadSettings();
+   mChangedSettings = false;
 }
 
-void
-Interface::PosCalc ()
+Interface::~Interface ()
+{
+   if (mChangedSettings)
+   {
+      SaveSettings();
+   }
+}
+
+void Interface::LoadSettings()
+{
+   Settings::SettingsIni theSettings;
+   theSettings.Load();
+   bool bHasSettings = false;
+   if( theSettings.SettingsAreLoaded() )
+   {
+      int iCode = FromString<int>(theSettings.Get("Language.Code"));
+      if( iCode >0 && iCode < 5 )
+      {
+         SetLanguageCode (iCode);
+         bHasSettings = true;
+      }
+   }
+   if (!bHasSettings)
+   {
+      SetLanguageCode (1);
+      theSettings.Set ("Language.Code", "1", true);
+   }
+}
+
+void Interface::SaveSettings()
+{
+   Settings::SettingsIni theSettings;
+   theSettings.Load();
+   bool bHasSettings = false;
+   char buf[8];
+   if( theSettings.SettingsAreLoaded() )
+   {
+      _itoa_s(mLanguageCode, buf ,8 , 10);
+      theSettings.Set ("Language.Code", buf, true);
+   }
+}
+
+void Interface::SetLanguageCode (int code)
+{
+   mLanguageCode = code;
+   mClock.SetLanguage (code);
+   mChangedSettings = true;
+}
+
+void Interface::PosCalc ()
 {
 }
 
-void
-Interface::Update (float dt)
+void Interface::Update (float dt)
 {
    static float count = 0;
    mClock.Update(1); // 1 minute update
@@ -48,8 +100,7 @@ Interface::Update (float dt)
    }
 }
 
-void
-Interface::Draw ()
+void Interface::Draw ()
 {
    mClock.Draw ();
    mStats.Draw ();

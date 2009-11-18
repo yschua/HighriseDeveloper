@@ -20,17 +20,15 @@
 #include "Graphics/Camera.h"
 
 #include "AI/CitizensAgent.h"
-//#include "AI/PathAgent.h"
-//#include "AI/FloorAgent.h"
 
 #include "Tower/Routes.h"
 #include "Tower/Tower.h"
 #include "Scene/Background.h"
 #include "Scene/Scene.h"
 
-
 #include "Window/GUIManager.h"
 #include "Root/SceneEvent.h"
+#include "Root/GameManager.h" // xml saver
 
 #include "HighRiseDev.h"
 
@@ -65,7 +63,16 @@ main ()
       theScene.SetBG (new Background (cam->GetSceneSize().x, cam->GetSceneSize().y));
 
       SceneEvent SceneEV(&theScene);
-      GUIManager Gui (SceneEV); //, &theTower);
+      GUIManager Gui (SceneEV, *pInterface); //, &theTower);
+      try
+      {
+         GameManager tm( theScene );
+         tm.LoadBuildPack( "data/xml/DefaultBuildPack.xml" ); // use settings for path and pack name
+      }
+      catch( ... )
+      {
+         throw new HighriseException( "Failed to load pack\n" );
+      }
 
       EventHandler Events;
       Events.Add (&Gui);
@@ -111,7 +118,7 @@ main ()
             break;
          case 1:
             pInterface->mStats.SetPopulation( theTower.GetPopulation() );
-            pInterface->mStats.SetNet( theTower.GetAvailableFunds() );
+            pInterface->mStats.SetNet( (int)theTower.GetAvailableFunds() );
             pInterface->Update(10);
             break;
          default:
@@ -129,6 +136,7 @@ main ()
          // end update scope
       }
       std::cout << mev.IsRunning() << "\n";
+      delete pInterface;
    }
    catch ( HighriseException* ex )
    {

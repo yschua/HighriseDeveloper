@@ -13,7 +13,7 @@
  *   You should have received a copy of the GNU General Public License
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
-// Tick Tock!
+// Root of save and load!
 
 #pragma once
 #ifndef _SERIALIZERBASE_H
@@ -29,9 +29,15 @@ public:
    virtual void AddChild( const char*pName ) = 0;
    virtual void Add( const char* tag, int val ) = 0;
    virtual void Add( const char* tag, float val ) = 0;
+   virtual void Add( const char* tag, double val ) = 0;
    virtual void Add( const char* tag, const char* tr ) = 0;
    virtual float GetFloat( const char* tag ) = 0;
+   virtual double GetDouble( const char* tag ) = 0;
    virtual int GetInt( const char* tag ) = 0;
+   virtual const char* GetString( const char* tag ) = 0;
+   virtual SerializerBase* Spawn (const char* pName) = 0;
+   virtual SerializerBase* GetFirstChild (const char* pName) = 0;
+   virtual SerializerBase* GetNextSibling (const char* pName) = 0;
 };
 
 #endif // _SERIALIZERBASE_H

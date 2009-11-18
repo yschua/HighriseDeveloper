@@ -24,11 +24,20 @@
 class Interface
 {
 private:
+   bool mChangedSettings;
+   int mLanguageCode;
 
-public:
-   Interface ();
+public: // these should be protected
    Clock mClock;
    Stats mStats;
+public:
+   Interface ();
+   ~Interface ();
+
+   void SetLanguageCode( int code );
+   int GetLanguageCode() { return mLanguageCode; }
+   void LoadSettings();
+   void SaveSettings();
 
    int GetTimeOfDay() { return mClock.GetTimeOfDay();  }
 

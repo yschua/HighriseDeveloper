@@ -18,6 +18,8 @@
 #ifndef _SETTINGSWINDOW_H
 #define _SETTINGSWINDOW_H
 
+class Interface;
+
 namespace CEGUI
 {
    class FrameWindow;
@@ -27,8 +29,9 @@ class SettingsWindow
 {
 protected:
    CEGUI::FrameWindow* mpWnd;
+   Interface& mInterface;
 public:
-   SettingsWindow ();
+   SettingsWindow (Interface& rInterface);
    ~SettingsWindow ();
 
 public:
@@ -38,6 +41,10 @@ public:
    bool OnMusicCheck(const CEGUI::EventArgs& e);
    bool OnSoundCheck(const CEGUI::EventArgs& e);
    bool OnClose (const CEGUI::EventArgs& e);
+   bool OnEnglish(const CEGUI::EventArgs& e);
+   bool OnSpanish(const CEGUI::EventArgs& e);
+   bool OnFrench(const CEGUI::EventArgs& e);
+   bool OnGerman(const CEGUI::EventArgs& e);
 };
 
 #endif // _SETTINGSWINDOW_H

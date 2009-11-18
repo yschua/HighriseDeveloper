@@ -103,3 +103,24 @@ FloorBase* FloorAgent::FindAHotel (int preferences)
    return pRoom;
 }
 
+
+double FloorAgent::CollectFromTenants (unsigned int floor)
+{
+   double dCollected = 0;
+   Tower::LevelVector& levels = mTower.GetLevels();
+   if( floor > levels.size() )
+   {
+   }
+   else
+   {
+      Level* pLevel = levels[floor];
+      Level::FloorIterType fit;
+      Level::FloorMap& rooms = pLevel->GetFloorSpaces();
+      for (fit = rooms.begin(); fit != rooms.end(); fit++)
+      {
+         FloorBase* pRoom = (*fit).second;
+         dCollected += pRoom->GetRent();
+      }
+   }
+   return dCollected;
+}

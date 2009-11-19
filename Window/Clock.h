@@ -52,6 +52,7 @@ public:
    // properties
    int GetTimeOfDay() { return mTimeOfDay; }
    int GetDayOfWeek() { return mDayOfWeek; }
+   int GetDayOfYear() { return mDayOfYear; }
    void SetLanguage( int code ) { mLanguageCode =  code; }
 
    // Inherited methods

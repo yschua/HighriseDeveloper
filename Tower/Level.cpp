@@ -42,6 +42,8 @@ Level::Level (int level, int x, int y, int x2, Tower * TowerParent)
 {
    mLevel = level;
    mID = FloorBase::GetNextID();
+   mRentCollected = 0;
+   mNextRentDay = 0;
                  // The levels origin and vectors (partial implementation for 3D)
    // mX, ,X2 are set in SetFloorPosiitons (x,x2)
    mY = y*-36;   //(int)(Camera::GetInstance()->GetSceneRect ().Top ) - (mLevel * 36);
@@ -137,12 +139,24 @@ Level::SetFloorPositions( int x, int x2 )
 void
 Level::Update (float dt, int tod)
 {
+   mRentCollected = 0;
    Level::FloorIterType i;
+   if (dt == 1 && mNextRentDay > 330)
+      mNextRentDay = 1;
    for (i = mFloorSpaces.begin (); i != mFloorSpaces.end (); i++)
    {
       FloorBase* pFB = (*i).second;
-      pFB->Update (dt, tod);
+      pFB->Update (20, tod);
+
+
+      if (dt >= mNextRentDay)
+      {
+         double fRent = pFB->GetRent();
+         mRentCollected += fRent;
+      }
    }
+   if (dt >= mNextRentDay)
+      mNextRentDay+= 7;
 }
 
 // Function that calls the OpenGL rendering in the subclass.

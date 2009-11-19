@@ -90,6 +90,6 @@ Stats::Draw ()
    RenderText( mStatsFace, x+158, y, mstrPopulation);
    x = mOtherFace->GetPositionX();
    y = mOtherFace->GetPositionY();
-   RenderText( mStatsFace, x+40, y, mstrDayOfWeek);
+   RenderText( mStatsFace, x+30, y, mstrDayOfWeek);
    RenderText( mStatsFace, x+158, y, mstrDate);
 }

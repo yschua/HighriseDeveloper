@@ -53,9 +53,9 @@ Clock::Clock ()
 {
    mTimeOfDay = 0;
    mDayOfYear = 1;
-   mDayOfWeek = 0;
+   mDayOfWeek = 6;
    mMonth = 0;
-   mYear = 1950;
+   mYear = 2000;
    mLanguageCode = 0;
 
    ImageManager * images = ImageManager::GetInstance ();
@@ -121,11 +121,15 @@ const char* Clock::DateString()
    {
       if( mMonth > 1 && (mYear % 4) == 0 ) iDay++; // month = 0 is Jan, 1 is Feb etc.
    }
-   static std::string str = MonthToString();
-   str += " ";
-   str += _itoa_s(iDay, buf, 10 );
-   str += ", ";
-   str += _itoa_s(mYear, buf, 10 );
+   static std::string str;// = MonthToString();
+   _itoa_s(iDay, buf, 10 );
+   str = buf;
+   str += "-";
+   _itoa_s(mMonth+1, buf, 10 );
+   str += buf;
+   str += "-";
+   _itoa_s(mYear, buf, 10 );
+   str += buf;
    return str.c_str();
 }
 

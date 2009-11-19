@@ -449,11 +449,12 @@ void Elevator::Update (float dt, int tod)
             personOn->SetCurrentState( Person::CS_Riding );
             LoadPerson (personOn, req);
          }
-         mIdleTime = 10;
+         mIdleTime = 20;
       }
    }
    else
    {
+      mIdleTime = 0;
       Motion();
    }
 }

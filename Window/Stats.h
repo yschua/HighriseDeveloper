@@ -40,6 +40,7 @@ protected:
 public:
    // properties
    void SetDayOfWeek (const char* szDay) { mstrDayOfWeek = szDay; }
+   void SetDate (const char* szDate) { mstrDate = szDate; }
    void SetNet (int amt) { mNet = amt; }
    void SetPopulation (int pop) { mPopulation = pop; }
    void SetStars (int stars) { mStars = stars; }

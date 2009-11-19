@@ -31,8 +31,11 @@ using namespace Gfx;
 Interface::Interface ()
 {
    mLanguageCode = 0;
+   mSoundFxOn = false;
+   mMusicOn = false;
    LoadSettings();
    mChangedSettings = false;
+   mCurDay = 0;
 }
 
 Interface::~Interface ()
@@ -56,10 +59,14 @@ void Interface::LoadSettings()
          SetLanguageCode (iCode);
          bHasSettings = true;
       }
+      mSoundFxOn = (theSettings.Get ("Sound.FX")[0] == '1' ? true : false ); // its a string, at the least it will have a null terminator
+      mMusicOn = (theSettings.Get ("Sound.Music")[0] == '1' ? true : false );
    }
    if (!bHasSettings)
    {
       SetLanguageCode (1);
+      theSettings.Set ("Sound.FX", (mSoundFxOn)? "1":"0", false );
+      theSettings.Set ("Sound.Music", (mMusicOn)? "1":"0", false );
       theSettings.Set ("Language.Code", "1", true);
    }
 }
@@ -73,6 +80,8 @@ void Interface::SaveSettings()
    if( theSettings.SettingsAreLoaded() )
    {
       _itoa_s(mLanguageCode, buf ,8 , 10);
+      theSettings.Set ("Sound.FX", (mSoundFxOn)? "1":"0", false );
+      theSettings.Set ("Sound.Music", (mMusicOn)? "1":"0", false );
       theSettings.Set ("Language.Code", buf, true);
    }
 }
@@ -82,6 +91,23 @@ void Interface::SetLanguageCode (int code)
    mLanguageCode = code;
    mClock.SetLanguage (code);
    mChangedSettings = true;
+   mCurDay = 0;
+}
+
+void Interface::SetSoundFx (bool bFX)
+{
+   mSoundFxOn = bFX;
+   // toddle the sound fx
+   mChangedSettings = true;
+   mCurDay = 0;
+}
+
+void Interface::SetMusic ( bool bMusic)
+{
+   mMusicOn = bMusic;
+   // toggle the music player
+   mChangedSettings = true;
+   mCurDay = 0;
 }
 
 void Interface::PosCalc ()
@@ -90,14 +116,20 @@ void Interface::PosCalc ()
 
 void Interface::Update (float dt)
 {
-   static float count = 0;
+   static int count = 0;
    mClock.Update(1); // 1 minute update
-   if( ++count > dt )
+   if( count < 1)
    {
-      count = 0;
-      mStats.SetDayOfWeek (mClock.DayOfWeekToString());
+      count = dt;
+      if( mClock.GetDayOfYear() != mCurDay )
+      {
+         mStats.SetDayOfWeek (mClock.DayOfWeekToString());
+         mStats.SetDate (mClock.DateString());
+         mCurDay = mClock.GetDayOfYear();
+      }
       mStats.Update();
    }
+   count--;
 }
 
 void Interface::Draw ()

@@ -56,6 +56,7 @@ public:
    virtual void DrawFramework ();
    virtual void Save(SerializerBase& ser);
    virtual BaseType GetType () { return BaseApartment; }
+   virtual double GetRent ();
 
 };
 

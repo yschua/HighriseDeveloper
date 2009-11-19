@@ -36,7 +36,6 @@ public:
    FloorBase* FindWork (int preferences); 
    FloorBase* FindAHome (int preferences); 
    FloorBase* FindAHotel (int preferences);
-   double CollectFromTenants (unsigned int floor);
 };
 
 #endif

@@ -86,6 +86,7 @@
                 <xpos>396</xpos>
                 <ypos>-36</ypos>
                 <zpos>-0.5</zpos>
+               <rent>100</rent>
                 <state>1</state>
             </room>
             <room>
@@ -93,35 +94,40 @@
                 <xpos>468</xpos>
                 <ypos>-36</ypos>
                 <zpos>-0.5</zpos>
-                <state>0</state>
+               <rent>100</rent>
+               <state>0</state>
             </room>
             <room>
                 <type>office</type>
                 <xpos>540</xpos>
                 <ypos>-36</ypos>
                 <zpos>-0.5</zpos>
-                <state>0</state>
+               <rent>100</rent>
+               <state>0</state>
             </room>
             <room>
                 <type>office</type>
                 <xpos>612</xpos>
                 <ypos>-36</ypos>
                 <zpos>-0.5</zpos>
-                <state>1</state>
+               <rent>100</rent>
+               <state>1</state>
             </room>
             <room>
                 <type>office</type>
                 <xpos>684</xpos>
                 <ypos>-36</ypos>
                 <zpos>-0.5</zpos>
-                <state>0</state>
+               <rent>100</rent>
+               <state>0</state>
             </room>
             <room>
                 <type>office</type>
                 <xpos>756</xpos>
                 <ypos>-36</ypos>
                 <zpos>-0.5</zpos>
-                <state>0</state>
+               <rent>100</rent>
+               <state>0</state>
             </room>
         </level>
         <level>
@@ -134,42 +140,48 @@
                 <xpos>396</xpos>
                 <ypos>-72</ypos>
                 <zpos>-0.5</zpos>
-                <state>0</state>
+               <rent>100</rent>
+               <state>0</state>
             </room>
             <room>
                 <type>office</type>
                 <xpos>468</xpos>
                 <ypos>-72</ypos>
                 <zpos>-0.5</zpos>
-                <state>1</state>
+               <rent>100</rent>
+               <state>1</state>
             </room>
             <room>
                 <type>office</type>
                 <xpos>540</xpos>
                 <ypos>-72</ypos>
                 <zpos>-0.5</zpos>
-                <state>0</state>
+               <rent>100</rent>
+               <state>0</state>
             </room>
             <room>
                 <type>office</type>
                 <xpos>612</xpos>
                 <ypos>-72</ypos>
                 <zpos>-0.5</zpos>
-                <state>0</state>
+               <rent>100</rent>
+               <state>0</state>
             </room>
             <room>
                 <type>office</type>
                 <xpos>684</xpos>
                 <ypos>-72</ypos>
                 <zpos>-0.5</zpos>
-                <state>1</state>
+               <rent>100</rent>
+               <state>1</state>
             </room>
             <room>
                 <type>office</type>
                 <xpos>756</xpos>
                 <ypos>-72</ypos>
                 <zpos>-0.5</zpos>
-                <state>1</state>
+               <rent>100</rent>
+               <state>1</state>
             </room>
         </level>
         <level>
@@ -182,42 +194,48 @@
                 <xpos>396</xpos>
                 <ypos>-108</ypos>
                 <zpos>-0.5</zpos>
-                <state>0</state>
+               <rent>100</rent>
+               <state>0</state>
             </room>
             <room>
                 <type>office</type>
                 <xpos>468</xpos>
                 <ypos>-108</ypos>
                 <zpos>-0.5</zpos>
-                <state>1</state>
+               <rent>100</rent>
+               <state>1</state>
             </room>
             <room>
                 <type>office</type>
                 <xpos>540</xpos>
                 <ypos>-108</ypos>
                 <zpos>-0.5</zpos>
-                <state>1</state>
+               <rent>100</rent>
+               <state>1</state>
             </room>
             <room>
                 <type>office</type>
                 <xpos>612</xpos>
                 <ypos>-108</ypos>
                 <zpos>-0.5</zpos>
-                <state>0</state>
+               <rent>100</rent>
+               <state>0</state>
             </room>
             <room>
                 <type>office</type>
                 <xpos>684</xpos>
                 <ypos>-108</ypos>
                 <zpos>-0.5</zpos>
-                <state>0</state>
+               <rent>100</rent>
+               <state>0</state>
             </room>
             <room>
                 <type>office</type>
                 <xpos>756</xpos>
                 <ypos>-108</ypos>
                 <zpos>-0.5</zpos>
-                <state>1</state>
+               <rent>100</rent>
+               <state>1</state>
             </room>
         </level>
         <level>
@@ -230,42 +248,48 @@
                 <xpos>396</xpos>
                 <ypos>-144</ypos>
                 <zpos>-0.5</zpos>
-                <state>1</state>
+               <rent>100</rent>
+               <state>1</state>
             </room>
             <room>
                 <type>office</type>
                 <xpos>468</xpos>
                 <ypos>-144</ypos>
                 <zpos>-0.5</zpos>
-                <state>1</state>
+               <rent>100</rent>
+               <state>1</state>
             </room>
             <room>
                 <type>office</type>
                 <xpos>540</xpos>
                 <ypos>-144</ypos>
                 <zpos>-0.5</zpos>
-                <state>1</state>
+               <rent>100</rent>
+               <state>1</state>
             </room>
             <room>
                 <type>office</type>
                 <xpos>612</xpos>
                 <ypos>-144</ypos>
                 <zpos>-0.5</zpos>
-                <state>1</state>
+               <rent>100</rent>
+               <state>1</state>
             </room>
             <room>
                 <type>office</type>
                 <xpos>684</xpos>
                 <ypos>-144</ypos>
                 <zpos>-0.5</zpos>
-                <state>0</state>
+               <rent>100</rent>
+               <state>0</state>
             </room>
             <room>
                 <type>office</type>
                 <xpos>756</xpos>
                 <ypos>-144</ypos>
                 <zpos>-0.5</zpos>
-                <state>0</state>
+               <rent>100</rent>
+               <state>0</state>
             </room>
         </level>
         <level>
@@ -278,6 +302,7 @@
               <xpos>396</xpos>
               <ypos>-144</ypos>
               <zpos>-0.5</zpos>
+              <rent>20</rent>
               <state>1</state>
            </room>
            <room>
@@ -285,6 +310,7 @@
               <xpos>468</xpos>
               <ypos>-144</ypos>
               <zpos>-0.5</zpos>
+              <rent>20</rent>
               <state>1</state>
            </room>
            <room>
@@ -292,6 +318,7 @@
               <xpos>540</xpos>
               <ypos>-144</ypos>
               <zpos>-0.5</zpos>
+              <rent>20</rent>
               <state>1</state>
            </room>
            <room>
@@ -299,6 +326,7 @@
               <xpos>612</xpos>
               <ypos>-144</ypos>
               <zpos>-0.5</zpos>
+              <rent>20</rent>
               <state>1</state>
            </room>
            <room>
@@ -306,6 +334,7 @@
               <xpos>684</xpos>
               <ypos>-144</ypos>
               <zpos>-0.5</zpos>
+              <rent>20</rent>
               <state>0</state>
            </room>
            <room>
@@ -313,6 +342,7 @@
               <xpos>756</xpos>
               <ypos>-144</ypos>
               <zpos>-0.5</zpos>
+              <rent>20</rent>
               <state>0</state>
            </room>
         </level>
@@ -381,6 +411,7 @@
              <xend>828</xend>
              <ypos>-396</ypos>
              <zpos>-0.5</zpos>
+             <rent>0</rent>
              <state>1</state>
           </room>
        </level>
@@ -394,6 +425,7 @@
              <xpos>396</xpos>
              <ypos>-36</ypos>
              <zpos>-0.5</zpos>
+             <rent>90</rent>
              <state>1</state>
           </room>
           <room>
@@ -401,6 +433,7 @@
              <xpos>468</xpos>
              <ypos>-36</ypos>
              <zpos>-0.5</zpos>
+             <rent>90</rent>
              <state>0</state>
           </room>
           <room>
@@ -408,6 +441,7 @@
              <xpos>540</xpos>
              <ypos>-36</ypos>
              <zpos>-0.5</zpos>
+             <rent>90</rent>
              <state>0</state>
           </room>
           <room>
@@ -415,6 +449,7 @@
              <xpos>612</xpos>
              <ypos>-36</ypos>
              <zpos>-0.5</zpos>
+             <rent>90</rent>
              <state>1</state>
           </room>
           <room>
@@ -422,6 +457,7 @@
              <xpos>684</xpos>
              <ypos>-36</ypos>
              <zpos>-0.5</zpos>
+             <rent>90</rent>
              <state>0</state>
           </room>
           <room>
@@ -429,6 +465,7 @@
              <xpos>756</xpos>
              <ypos>-36</ypos>
              <zpos>-0.5</zpos>
+             <rent>90</rent>
              <state>0</state>
           </room>
        </level>
@@ -442,6 +479,7 @@
              <xpos>396</xpos>
              <ypos>-72</ypos>
              <zpos>-0.5</zpos>
+             <rent>90</rent>
              <state>0</state>
           </room>
           <room>
@@ -449,6 +487,7 @@
              <xpos>468</xpos>
              <ypos>-72</ypos>
              <zpos>-0.5</zpos>
+             <rent>90</rent>
              <state>1</state>
           </room>
           <room>
@@ -456,6 +495,7 @@
              <xpos>540</xpos>
              <ypos>-72</ypos>
              <zpos>-0.5</zpos>
+             <rent>90</rent>
              <state>0</state>
           </room>
           <room>
@@ -463,6 +503,7 @@
              <xpos>612</xpos>
              <ypos>-72</ypos>
              <zpos>-0.5</zpos>
+             <rent>90</rent>
              <state>0</state>
           </room>
           <room>
@@ -470,6 +511,7 @@
              <xpos>684</xpos>
              <ypos>-72</ypos>
              <zpos>-0.5</zpos>
+             <rent>90</rent>
              <state>1</state>
           </room>
           <room>
@@ -477,6 +519,7 @@
              <xpos>756</xpos>
              <ypos>-72</ypos>
              <zpos>-0.5</zpos>
+             <rent>90</rent>
              <state>1</state>
           </room>
        </level>
@@ -490,6 +533,7 @@
              <xpos>396</xpos>
              <ypos>-108</ypos>
              <zpos>-0.5</zpos>
+             <rent>90</rent>
              <state>0</state>
           </room>
           <room>
@@ -497,6 +541,7 @@
              <xpos>468</xpos>
              <ypos>-108</ypos>
              <zpos>-0.5</zpos>
+             <rent>90</rent>
              <state>1</state>
           </room>
           <room>
@@ -504,6 +549,7 @@
              <xpos>540</xpos>
              <ypos>-108</ypos>
              <zpos>-0.5</zpos>
+             <rent>90</rent>
              <state>1</state>
           </room>
           <room>
@@ -511,6 +557,7 @@
              <xpos>612</xpos>
              <ypos>-108</ypos>
              <zpos>-0.5</zpos>
+             <rent>90</rent>
              <state>0</state>
           </room>
           <room>
@@ -518,6 +565,7 @@
              <xpos>684</xpos>
              <ypos>-108</ypos>
              <zpos>-0.5</zpos>
+             <rent>90</rent>
              <state>0</state>
           </room>
           <room>
@@ -525,6 +573,7 @@
              <xpos>756</xpos>
              <ypos>-108</ypos>
              <zpos>-0.5</zpos>
+             <rent>90</rent>
              <state>1</state>
           </room>
        </level>

@@ -87,7 +87,6 @@ main ()
       // stuffing the floors with test spaces
       theTower.DebugLoad (0,0,0);   // just updating elevators
       //
-
       std::cout << "Starting event loop...\n";
       int cycle = 0;
       while (mev.IsRunning())
@@ -132,7 +131,7 @@ main ()
             cycle = 0;
             break;
          }
-         theTower.Update (60, pInterface->GetTimeOfDay());
+         theTower.Update (pInterface->GetDayOfYear(), pInterface->GetTimeOfDay());
          // end update scope
       }
       std::cout << mev.IsRunning() << "\n";

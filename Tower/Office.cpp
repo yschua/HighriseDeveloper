@@ -194,3 +194,10 @@ bool Office::PeopleApply( )
    }
    return false;
 }
+
+double Office::GetRent ()
+{
+   if(mEmployees > 0 )
+      return mRent;
+   return 0;
+}

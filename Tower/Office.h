@@ -58,6 +58,7 @@ public:
    void Draw ();
    void DrawFramework ();
    virtual BaseType GetType () { return BaseOffice; }
+   virtual double GetRent ();
 
    void RemoveImages();
    void SetImages (int set);

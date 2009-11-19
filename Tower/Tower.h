@@ -47,6 +47,7 @@ class Tower : public Gfx::ModelObject
    int mTowerNo;
    int mNo_SubLevels;
    int mPopulation;  // People in the tower currently
+   int mFloorWorkingOn;
    double mAvailableFunds;
 
    std::vector<Level*> mLevels;     // Lobby is at mNo_SubLevels not zero

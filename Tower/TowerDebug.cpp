@@ -41,12 +41,12 @@ Tower::DebugLoad (int x, int y, int x2)
    try
    {
       // persist these
-      Elevator* pElevator = new Elevator( Elevator::LS_Standard, 472, -1, 15, this );
+      Elevator* pElevator = new Elevator( Elevator::LS_Standard, 472, -1, 19, this );
       GetRoutes().AddRoute( pElevator );
-      pElevator = new Elevator( Elevator::LS_Standard, 472 + 36 + 9, 0, 15, this );
+      pElevator = new Elevator( Elevator::LS_Standard, 472 + 36 + 9, 0, 19, this );
       GetRoutes().AddRoute( pElevator );
       Level* pLevel = GetLevel(0);
-      pElevator = new Elevator( Elevator::LS_HighCapacity, 472 + 144, 0, 15, this );
+      pElevator = new Elevator( Elevator::LS_HighCapacity, 472 + 144, 0, 22, this );
       GetRoutes().AddRoute( pElevator );
    }
    catch (...)

@@ -51,6 +51,8 @@ protected:
                // y vector = height
    float mZ;     // face set to zero
                // z vector = depth but not implement until 3D
+   int   mNextRentDay;
+   double mRentCollected;
    AnimationSingle* nFireEscapeLeft;
    AnimationSingle* nFireEscapeRight;
    AnimationSingle* mEmptyFLoor;
@@ -69,6 +71,7 @@ public:
       return mFloorIsFull;
    }
    bool  HasLobby();
+   double GetRentCollected() { return mRentCollected; };
 
    // Level tracking methods/functions
    void  ResizeFloorSpaceGrid();

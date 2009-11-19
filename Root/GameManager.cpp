@@ -16,6 +16,8 @@
 #include "../Tower/Office.h"
 #include "../Tower/Apartment.h"
 #include "../Tower/Lobby.h"
+#include "../Tower/Condo.h"
+#include "../Tower/HotelRoom.h"
 #include "../Tower/Tower.h"
 #include "../Tower/RouteBase.h"  // Elevators route (levels).
 #include "../Tower/ElevatorBase.h"
@@ -209,7 +211,13 @@ bool GameManager::LoadTower(TiXmlNode* pnTower, Tower* pTower)
             TiXmlNode* pnXPos = pnRoom->FirstChild("xpos");
             TiXmlNode* pnXEnd = pnRoom->FirstChild("xend");
             TiXmlNode* pnState = pnRoom->FirstChild("state");
+            TiXmlNode* pnRent =  pnRoom->FirstChild("rent");
 
+            double dRent = 0;
+            if (pnRent)
+            {
+               dRent = FromString<double>(pnRent->FirstChild()->Value());
+            }
             if (pnType && pnXPos && pnState)
             {
                int State = (pnState) ? FromString<int>(pnState->FirstChild()->Value()) : 0;
@@ -233,6 +241,16 @@ bool GameManager::LoadTower(TiXmlNode* pnTower, Tower* pTower)
                   pRoom = new Apartment(XPos, levelno, pTower);
                   pTower->GetLevel(levelno)->AddFloorSpace(pRoom);
                }
+               else if (Type == "condo")
+               {
+                  pRoom = new Condo(XPos, levelno, pTower);
+                  pTower->GetLevel(levelno)->AddFloorSpace(pRoom);
+               }
+               else if (Type == "hotelroom")
+               {
+                  pRoom = new HotelRoom(XPos, levelno, pTower);
+                  pTower->GetLevel(levelno)->AddFloorSpace(pRoom);
+               }
                else if (Type == "skylobby")
                {
                   pRoom = new SkyLobby(XPos, XEnd, levelno, pTower);
@@ -242,6 +260,7 @@ bool GameManager::LoadTower(TiXmlNode* pnTower, Tower* pTower)
                {
                   std::cout << "WARNING: " << Type << " is an invalid room type!\n";
                }
+               pRoom->SetRent( dRent );
                std::cout << "DEBUG: New " << Type << " on floor " << levelno << " (position " << XPos << ")\n";
             }
          }

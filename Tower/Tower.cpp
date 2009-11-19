@@ -37,6 +37,7 @@ Tower::Tower (int towerNo, int NoSubLevels, Scene& rScene )
 {
    mPopulation = 0;
    mAvailableFunds = 0;
+   mFloorWorkingOn = 0;
    int nsubs = -NoSubLevels;
    for (int sub = nsubs; sub < 0; ++sub)
    {
@@ -96,12 +97,23 @@ Level* Tower::FindLevel(int id)
 
 void Tower::Update (float dt, int timeOfDay)
 {
-   std::vector<Level *>::iterator iLevel;
-   for (iLevel = mLevels.begin (); iLevel != mLevels.end (); ++iLevel)
+//   std::vector<Level *>::iterator iLevel;
+//   for (iLevel = mLevels.begin (); iLevel != mLevels.end (); ++iLevel)
+//   {
+//      (*iLevel)->Update( dt, timeOfDay );
+//   }
+   mFloorWorkingOn++;
+   if( mFloorWorkingOn >= mLevels.size() )
    {
-      (*iLevel)->Update( dt, timeOfDay );
+      mFloorWorkingOn = 0; // set to lowest level
    }
-   mRoutes.Update( dt, timeOfDay );
+   else
+   {
+      Level* pLevel = mLevels[mFloorWorkingOn];
+      pLevel->Update (dt, timeOfDay);
+      this->AdjustFunds (pLevel->GetRentCollected());
+   }
+   mRoutes.Update( 10, timeOfDay );
    mGhostRoom.GetLevel();
    mGhostRoom.Update (this);
    

@@ -39,6 +39,7 @@ FloorBase::FloorBase (int x, int x2, int level, Tower* pTowerParent)
    mID = FloorBase::GetNextID();
    mOccupants = 0;
    mOwner = 0;
+   mRent = 0;
    if (pTowerParent!=NULL)
    {
       pTowerParent->GetScene().RegisterFloorSpace (mID, this);
@@ -51,6 +52,7 @@ void FloorBase::Save(SerializerBase& ser)
    ser.Add("xpos", ToString(mX).c_str());
    ser.Add("ypos", ToString(mY).c_str());
    ser.Add("zpos", ToString(mZ).c_str());
+   ser.Add("rent", ToString(mRent).c_str());
 }
 
 

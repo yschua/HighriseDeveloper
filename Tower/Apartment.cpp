@@ -151,3 +151,10 @@ void Apartment::Save(SerializerBase& ser)
    ser.Add("state", ToString((mCurrentState == apt_occupied_day)?1:0).c_str()); // use the state engine get this property
    // if something goes bump, either deal with it or throw it
 }
+
+double Apartment::GetRent ()
+{
+   if (mOwner != NULL)
+      return mRent;
+   return 0;
+}

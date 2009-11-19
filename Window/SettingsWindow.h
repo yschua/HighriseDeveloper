@@ -29,6 +29,8 @@ class SettingsWindow
 {
 protected:
    CEGUI::FrameWindow* mpWnd;
+   CEGUI::Checkbox* mpSoundFx;
+   CEGUI::Checkbox* mpMusic;
    Interface& mInterface;
 public:
    SettingsWindow (Interface& rInterface);

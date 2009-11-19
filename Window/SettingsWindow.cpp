@@ -93,9 +93,11 @@ bool SettingsWindow::Create (CEGUI::Window* pRoot)
    pLabel1->setSize(UVector2(cegui_reldim(0.26f), cegui_reldim( 0.1f)));
    pLabel1->setText("Enable Sound:");
    // Sound Enable CheckBox
-   CEGUI::Checkbox* pBox1 = static_cast<CEGUI::Checkbox*>(winMgr.createWindow(LOOK "/Checkbox", "Settings/SoundChechBox"));
-   pBox1->setSize(UVector2(cegui_reldim(0.1f), cegui_reldim( 0.1f)));
-   pBox1->setPosition(UVector2(cegui_reldim(0.32f), cegui_reldim( 0.1f)));
+   mpSoundFx = static_cast<CEGUI::Checkbox*>(winMgr.createWindow(LOOK "/Checkbox", "Settings/SoundChechBox"));
+   mpSoundFx->setSize(UVector2(cegui_reldim(0.1f), cegui_reldim( 0.1f)));
+   mpSoundFx->setPosition(UVector2(cegui_reldim(0.32f), cegui_reldim( 0.1f)));
+   mpSoundFx->subscribeEvent (RadioButton::EventMouseClick, Event::Subscriber(&SettingsWindow::OnSoundCheck, this));
+   mpSoundFx->setSelected (mInterface.GetSoundFx()); 
 
    // Music Label
    pLabel2->setProperty("FrameEnabled", "false");
@@ -104,9 +106,11 @@ bool SettingsWindow::Create (CEGUI::Window* pRoot)
    pLabel2->setSize(UVector2(cegui_reldim(0.2f), cegui_reldim( 0.1f)));
    pLabel2->setText("Enable Music:");
    // Music Enable CheckBox
-   CEGUI::Checkbox* pBox2 = static_cast<CEGUI::Checkbox*>(winMgr.createWindow(LOOK "/Checkbox", "Settings/MusicCheckBox"));
-   pBox2->setSize(UVector2(cegui_reldim(0.1f), cegui_reldim( 0.1f)));
-   pBox2->setPosition(UVector2(cegui_reldim(0.32f), cegui_reldim( 0.2f)));
+   mpMusic = static_cast<CEGUI::Checkbox*>(winMgr.createWindow(LOOK "/Checkbox", "Settings/MusicCheckBox"));
+   mpMusic->setSize(UVector2(cegui_reldim(0.1f), cegui_reldim( 0.1f)));
+   mpMusic->setPosition(UVector2(cegui_reldim(0.32f), cegui_reldim( 0.2f)));
+   mpMusic->subscribeEvent (RadioButton::EventMouseClick, Event::Subscriber(&SettingsWindow::OnMusicCheck, this));
+   mpMusic->setSelected (mInterface.GetMusic());
 
    // Lanugage Label
    int code = mInterface.GetLanguageCode();
@@ -120,7 +124,7 @@ bool SettingsWindow::Create (CEGUI::Window* pRoot)
    pBox3a->setPosition(UVector2(cegui_reldim(0.32f), cegui_reldim( 0.3f)));
 //   pBox3a->addEvent("EnglishChecked");
    if (code==1) pBox3a->setSelected(true);
-   pBox3a->subscribeEvent (RadioButton::EventMouseClick, Event::Subscriber(&SettingsWindow::OnEnglish,this));
+   pBox3a->subscribeEvent (RadioButton::EventMouseClick, Event::Subscriber(&SettingsWindow::OnEnglish, this));
 
    CEGUI::RadioButton* pBox3b = static_cast<CEGUI::RadioButton*>(winMgr.createWindow(LOOK "/RadioButton", "Settings3/SpanishCheckBox"));
    pBox3b->setSize(UVector2(cegui_reldim(0.05f), cegui_reldim( 0.05f)));
@@ -170,15 +174,12 @@ bool SettingsWindow::Create (CEGUI::Window* pRoot)
    mpWnd->addChildWindow(pLabel3c);
    mpWnd->addChildWindow(pLabel3d);
 
-   mpWnd->addChildWindow(pBox1);
-   mpWnd->addChildWindow(pBox2);
+   mpWnd->addChildWindow(mpSoundFx);
+   mpWnd->addChildWindow(mpMusic);
    mpWnd->addChildWindow(pBox3a);
    mpWnd->addChildWindow(pBox3b);
    mpWnd->addChildWindow(pBox3c);
    mpWnd->addChildWindow(pBox3d);
-
-   mpWnd->subscribeEvent (FrameWindow::EventCloseClicked, Event::Subscriber(&SettingsWindow::OnSoundCheck, this));
-   mpWnd->subscribeEvent (FrameWindow::EventCloseClicked, Event::Subscriber(&SettingsWindow::OnMusicCheck, this));
 
    // subscribe handler that closes the dialog
    mpWnd->subscribeEvent (FrameWindow::EventCloseClicked, Event::Subscriber(&SettingsWindow::OnClose, this));
@@ -193,11 +194,13 @@ bool SettingsWindow::OnClose(const CEGUI::EventArgs& e)
 
 bool SettingsWindow::OnSoundCheck(const CEGUI::EventArgs& e)
 {
+   mInterface.SetSoundFx( (mpSoundFx->isSelected()) );
    return true;
 }
 
 bool SettingsWindow::OnMusicCheck(const CEGUI::EventArgs& e)
 {
+   mInterface.SetMusic( (mpMusic->isSelected()) );
    return true;
 }
 

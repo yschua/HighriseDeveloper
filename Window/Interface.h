@@ -25,7 +25,10 @@ class Interface
 {
 private:
    bool mChangedSettings;
+   bool mSoundFxOn;
+   bool mMusicOn;
    int mLanguageCode;
+   int mCurDay;
 
 public: // these should be protected
    Clock mClock;
@@ -35,11 +38,17 @@ public:
    ~Interface ();
 
    void SetLanguageCode( int code );
+   void SetSoundFx (bool bFX);
+   void SetMusic ( bool bMusic);
    int GetLanguageCode() { return mLanguageCode; }
+   bool GetSoundFx() { return mSoundFxOn; }
+   bool GetMusic() { return mMusicOn; }
+
    void LoadSettings();
    void SaveSettings();
 
-   int GetTimeOfDay() { return mClock.GetTimeOfDay();  }
+   int GetTimeOfDay() { return mClock.GetTimeOfDay(); }
+   int GetDayOfYear() { return mClock.GetDayOfYear(); }
 
    void PosCalc ();
    void Update (float dt);

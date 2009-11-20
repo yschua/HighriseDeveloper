@@ -43,7 +43,7 @@ class Clock : public Gfx::ViewObject
 protected:
    static const char* pszDaysOfWeek[];
    static const char* pszMonths[];
-   static const int Clock::kDays[];
+   static const int kDays[];
 public:
    Clock ();
    ~Clock ();

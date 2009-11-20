@@ -119,29 +119,31 @@ Camera::SetActive()
 void
 Camera::Display ()
 {
+   // For fun ;)
+   int BounceAmount = 2;
    // Do bounds checking
    if (ms.x > 0) {
       //Outside of left bound
       if (mv.x > 0) mv.x = 0;
-      mv.x += -50;
+      mv.x += -20;
       ma.x = 10;
    }
-   if (ms.x < -1500) {
+   if (ms.x < -1280) {
       //Outside of right bound
       if (mv.x < 0) mv.x = 0;
-      mv.x += 50;
+      mv.x += 20;
       ma.x = -10;
    }
-   if (ms.y > 100) {
+   if (ms.y > 400) {
       //Outside of bottom bound
       if (mv.y > 0) mv.y = 0;
-      mv.y += -50;
+      mv.y += -20;
       ma.y = 10;
    }
-   if (ms.y < -500) {
+   if (ms.y < -675) {
       //Outside of top bound
       if (mv.y < 0) mv.y = 0;
-      mv.y += 50;
+      mv.y += 20;
       ma.y = -10;
    }
 

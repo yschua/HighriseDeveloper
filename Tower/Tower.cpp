@@ -74,7 +74,7 @@ Level* Tower::GetLevel( int level ) // positive gets you a level above, negative
    std::vector<Level*>::size_type index = level + mNo_SubLevels;
    //while (index > mLevels.size())
    //   NewLevel(400,(int)mLevels.size(),724);
-   if( index >= mLevels.size())
+   if(( index >= mLevels.size() )||( index < 0))
    {
       return NULL;
    }
@@ -116,7 +116,7 @@ void Tower::Update (float dt, int timeOfDay)
    mRoutes.Update( 10, timeOfDay );
    mGhostRoom.GetLevel();
    mGhostRoom.Update (this);
-   
+
 }
 
 void Tower::Draw ()

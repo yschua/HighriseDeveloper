@@ -16,11 +16,17 @@
 
 #include <map>
 #include <cstring>
+#include <sstream>
 #include "../Graphics/Image.h"
 #include "../Graphics/Animation.h"
 #include "../Graphics/Camera.h"
 #include "Clock.h"
 
+std::string ToString( int Number ) {
+   std::stringstream out;
+   out << Number;
+   return out.str();
+}
 using namespace Gfx;
 
 namespace Gfx
@@ -37,7 +43,7 @@ const char* Clock::pszDaysOfWeek[] = // move to resources with more internationa
    "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat",
    "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", // Credit to Google for Translation
    "Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", // Deutsch
-   "Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", // Espaniol 
+   "Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", // Espaniol
    "Dimanche", "Lundi", "mardi", "mercredi", "Jeudi", "Vendredi", "Samedi" // France
 };
 const char* Clock::pszMonths[] = // move to resources with more internationaliztion
@@ -45,8 +51,8 @@ const char* Clock::pszMonths[] = // move to resources with more internationalizt
    "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", // generic
    "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December", // English
    "Januar", "Februar", "März", "April", "Mai", "June", "Juli", "August", "September", "Oktober", "November", "Dezember", // Deutsch
-   "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre", // Espaniol 
-   "Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"  // France 
+   "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre", // Espaniol
+   "Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"  // France
 };
 
 Clock::Clock ()
@@ -122,14 +128,14 @@ const char* Clock::DateString()
       if( mMonth > 1 && (mYear % 4) == 0 ) iDay++; // month = 0 is Jan, 1 is Feb etc.
    }
    static std::string str;// = MonthToString();
-   _itoa_s(iDay, buf, 10 );
-   str = buf;
+   //_itoa(iDay, buf );
+   str = ToString(iDay);
    str += "-";
-   _itoa_s(mMonth+1, buf, 10 );
-   str += buf;
+   //_itoa(mMonth+1, buf );
+   str += ToString(mMonth+1);
    str += "-";
-   _itoa_s(mYear, buf, 10 );
-   str += buf;
+   //_itoa(mYear, buf );
+   str += ToString(mYear);
    return str.c_str();
 }
 

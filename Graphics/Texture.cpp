@@ -16,6 +16,7 @@
 
 #include <iostream>
 #include "Texture.h"
+#include "ErrorImage.h"
 
 using namespace Gfx;
 
@@ -27,7 +28,7 @@ Texture::Texture( const string& pszName )
 
 bool Texture::Load (const string& pszName)
 {
-   LoadFromFile (pszName);
+   if (!LoadFromFile (pszName)) if (!LoadFromFile("data/Error.png")) LoadFromPixels(64, 64, ErrorImagePixels);
    SetSmooth(true);
    Bind ( );
    glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); // setup for the tiler or animation

@@ -76,13 +76,13 @@ void Interface::SaveSettings()
    Settings::SettingsIni theSettings;
    theSettings.Load();
    bool bHasSettings = false;
-   char buf[8];
+   //char buf[8];
    if( theSettings.SettingsAreLoaded() )
    {
-      _itoa_s(mLanguageCode, buf ,8 , 10);
+
       theSettings.Set ("Sound.FX", (mSoundFxOn)? "1":"0", false );
       theSettings.Set ("Sound.Music", (mMusicOn)? "1":"0", false );
-      theSettings.Set ("Language.Code", buf, true);
+      theSettings.Set ("Language.Code", ToString(mLanguageCode), true);
    }
 }
 

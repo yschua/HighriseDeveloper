@@ -19,6 +19,9 @@
 #include <string>
 #include <map>
 
+#include "BuildData.h"
+#include "Level.h"
+
 class Tower;
 struct BuildData;
 
@@ -108,11 +111,11 @@ public:
       for (int i = BottomLevel; i < TopLevel; i++)
       {
          Level* pLevel = pTower->GetLevel(i);
-         if (!pBottomLevel->IsSpaceEmpty (xx, xx + mWidth * Level::mUnitSize))
+/*         if (!pBottomLevel->IsSpaceEmpty (xx, xx + mWidth * Level::mUnitSize))
          {
             bAvail = false;
             break;
-         }
+         }*/
       }
 
       if (bAvail)

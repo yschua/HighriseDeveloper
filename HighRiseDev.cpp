@@ -41,6 +41,9 @@ int
 main ()
 {
    atexit(debugprint);
+   // Camera manages the window, opengl, and some drawing. It's a singleton for the sake
+   // of simplicity, although it's possible that it should not be (so we can support multiple
+   // rendering targets/windows).
    Camera * cam = Camera::GetInstance ();
 
    cam->SetSceneSize (Vector2f(1280, 720));
@@ -77,18 +80,22 @@ main ()
       EventHandler Events;
       Events.Add (&Gui);
       Events.Add (cam);
-      
+
       MainEvent mev;
       Events.Add(&SceneEV);
       Events.Add (&mev);
 
       // Load the test tower
       SceneEV.OnOpen("data/xml/Tower.xml");
-      // stuffing the floors with test spaces
-      theTower.DebugLoad (0,0,0);   // just updating elevators
-      //
+      // stuffing the floors with test spaces.
+      // note this actually loads the xml file
+      // at data/xml/Tower.xml
+      theTower.DebugLoad(1,1,1);
       std::cout << "Starting event loop...\n";
       int cycle = 0;
+      // The main event loop. Processed about 30 times per second, although
+      // lower framerates shouldn't slow down the game when we get it all
+      // working properly.
       while (mev.IsRunning())
       {
          // This should be here so we can create custom events later,
@@ -101,7 +108,7 @@ main ()
          // drawing scope
          cam->Clear ();
          cam->SetActive();
-         cam->Integrate (60);
+         cam->Integrate (80);
          cam->DrawModel(&theScene); // the background and tower(s).
          cam->DrawInterface( pInterface );
          cam->DrawPeople(&People);
@@ -113,18 +120,18 @@ main ()
          switch( cycle++ )
          {
          case 0:
-            theScene.Update (0, pInterface->GetTimeOfDay());
+            theScene.Update (80, pInterface->GetTimeOfDay());
             break;
          case 1:
             pInterface->mStats.SetPopulation( theTower.GetPopulation() );
             pInterface->mStats.SetNet( (int)theTower.GetAvailableFunds() );
-            pInterface->Update(10);
+            pInterface->Update(80);
             break;
          default:
             static int cc_count = 30; //only once in a while
             if( cc_count < 1 )
             {
-               People.Update( 100,pInterface->GetTimeOfDay() );
+               People.Update( 800,pInterface->GetTimeOfDay() );
                cc_count = 20;
             }
             cc_count--;

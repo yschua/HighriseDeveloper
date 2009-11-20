@@ -34,7 +34,7 @@ namespace TowerObjects
 
    public:
       BuildFactory ();
-      BuildStrategyBase* BuildFactory::CreateStrategy( int ToolID, Tower* pTower );
+      BuildStrategyBase* CreateStrategy( int ToolID, Tower* pTower );
       static BuildFactory * GetInstance ();
 
       typedef std::map<unsigned int, BuildData*>::iterator BuildTypeIterator;

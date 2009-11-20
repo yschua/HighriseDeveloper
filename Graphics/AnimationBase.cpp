@@ -17,6 +17,7 @@
 
 #include <iostream>
 #include <string>
+#include <cstring>
 #include "Animation.h"
 
 // all things not in 3D space. Used for interface
@@ -26,7 +27,7 @@ namespace Gfx
 {
    // this defines the coordinates to map the texture image from in pairs
    const float DefaultUVs[8] =
-   { 0.0f, 1.0f,  0.0f, 0.0f,  1.0f, 0.0f,  1.0, 1.0f }; 
+   { 0.0f, 1.0f,  0.0f, 0.0f,  1.0f, 0.0f,  1.0, 1.0f };
 }
 
 AnimationBase::AnimationBase( int w, int h )

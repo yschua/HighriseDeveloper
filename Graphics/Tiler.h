@@ -31,6 +31,7 @@ private:
    float mHeight;
    float mTesselX;
    float mTesselY;
+   float LightingColor[4];
    //int mImageSizeX, mImageSizeY;
 //   sf::Image * mframe;
    Texture* mpTexture;
@@ -60,6 +61,14 @@ public:
 //   void SetImage (sf::Image * image);
    void SetTexture (Texture* pTex) { mpTexture = pTex; }
    void SetTessel (float x, float y) { mTesselX=x; mTesselY=y; }
+   inline void SetLightingColor( const float lc[4] )
+   {
+      LightingColor[0] = lc[0]/256;  // todays cpus optimize this faster than a call to mem copy.
+      LightingColor[1] = lc[1]/256;
+      LightingColor[2] = lc[2]/256;
+      LightingColor[3] = lc[3]/256;
+   }
+   inline float* GetLightingColor() { return LightingColor; }
 
    void CalcPos ();
    void Resize (int x, int x2, int tesx, int tessy);

@@ -102,7 +102,10 @@ void CitizensAgent::Update (float dt, int tod)
                   {
                      peep->SetActivity( Person::AS_Relaxing);
                   }
-                  peep->SetOccupation (1);
+                  if( (rand() % 6) == 2 ) // one out of 6 will make good money to afford more than an apartment
+                     peep->SetOccupation (2);
+                  else
+                     peep->SetOccupation (1);
                   peep->SetWorkID( pFB->GetID());
                   PathAgent Path (peep);
                   Path.findPath (peep->get_Location(), dest, mTower);
@@ -113,7 +116,22 @@ void CitizensAgent::Update (float dt, int tod)
             break;
 
          case Person::AS_CondoHunting:
-            // Phase 2 with 2 star building
+            {
+               FloorAgent agent(mTower);
+               FloorBase* pFB = agent.FindAHome(1); // condo
+               if (pFB != NULL)
+               {
+                  pFB->SetOwner (peep);
+                  mTower.AdjustFunds (pFB->GetSalePrice()); // buy condo
+                  peep->SetResidence (pFB->GetLevel());
+                  peep->SetActivity (Person::AS_GoingHome);
+                  peep->SetCurrentState (Person::CS_Idle);
+               }
+               else
+               {
+                  peep->SetActivity (Person::AS_ApartmentHunting);
+               }
+            }
             break;
 
          case Person::AS_ApartmentHunting:
@@ -124,6 +142,7 @@ void CitizensAgent::Update (float dt, int tod)
                if (pFB != NULL)
                {
                   pFB->SetOwner (peep);
+                  mTower.AdjustFunds (100); // lease
                   peep->SetResidence (pFB->GetLevel());
                   peep->SetActivity (Person::AS_GoingHome);
                   peep->SetCurrentState (Person::CS_Idle);

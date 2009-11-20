@@ -16,6 +16,7 @@
 
 // "I movin on up, to that delux apartment in the sky" The Jefferson's
 
+#pragma once
 #ifndef _APARTMENT_H
 #define _APARTMENT_H
 // base classes

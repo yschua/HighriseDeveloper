@@ -42,6 +42,7 @@ private:
    bool mIgnoreCamera;
    Vector2i mMouseStartPos;
    bool mMovingView;
+   sf::Rect<float> mBounds;
    Camera ();
 
 protected:

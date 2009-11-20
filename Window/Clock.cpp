@@ -17,16 +17,12 @@
 #include <map>
 #include <cstring>
 #include <sstream>
+#include "../Types/string.h"
 #include "../Graphics/Image.h"
 #include "../Graphics/Animation.h"
 #include "../Graphics/Camera.h"
 #include "Clock.h"
 
-std::string ToString( int Number ) {
-   std::stringstream out;
-   out << Number;
-   return out.str();
-}
 using namespace Gfx;
 
 namespace Gfx
@@ -57,7 +53,7 @@ const char* Clock::pszMonths[] = // move to resources with more internationalizt
 
 Clock::Clock ()
 {
-   mTimeOfDay = 0;
+   mTimeOfDay = 5*60;// 5AM
    mDayOfYear = 1;
    mDayOfWeek = 6;
    mMonth = 0;
@@ -121,20 +117,16 @@ const char* Clock::MonthToString()
 
 const char* Clock::DateString()
 {
-   char buf[16];
    int iDay = mDayOfYear - kDays[mMonth];
    if( !((mYear & 1000) == 0))
    {
       if( mMonth > 1 && (mYear % 4) == 0 ) iDay++; // month = 0 is Jan, 1 is Feb etc.
    }
    static std::string str;// = MonthToString();
-   //_itoa(iDay, buf );
    str = ToString(iDay);
    str += "-";
-   //_itoa(mMonth+1, buf );
    str += ToString(mMonth+1);
    str += "-";
-   //_itoa(mYear, buf );
    str += ToString(mYear);
    return str.c_str();
 }

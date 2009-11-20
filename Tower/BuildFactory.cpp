@@ -103,7 +103,7 @@ void BuildFactory::Default() // developers eddition
    pbd->SetDefault( HR_PlaceApartment,8,1, 30000, 0, 50);
    Register (pbd);
    pbd = new BuildData();
-   pbd->SetDefault( HR_PlaceCondo,14,1, 100000, 1000000, 10);
+   pbd->SetDefault( HR_PlaceCondo,14,1, 100000, 500000, 10);
    Register (pbd);
    pbd = new BuildData();
    pbd->SetDefault( HR_PlaceHotelSingle,6,1, 20000, 0, 10);

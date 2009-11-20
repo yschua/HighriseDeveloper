@@ -370,7 +370,7 @@ void Elevator::Motion ()
    case 1:
       if( mPosition < dest )
       {
-         mPosition++;
+         mPosition+=2; // faster lifts
          mLiftMachine->Update( 1 );
       }
       else
@@ -391,7 +391,7 @@ void Elevator::Motion ()
    case -1:
       if( mPosition > dest )
       {
-         mPosition--;
+         mPosition-=2;
          mLiftMachine->Update( -1 );
       }
       else

@@ -32,41 +32,43 @@ namespace Model
 {
    const float RGBSkyColors[8][4] =
    {
-      {  10,  15,  18,  20 }, // night glow from lights
-      { 188,  95, 188, 148 }, // dawn a color birds might sing to
+      {  15,  20,  38,  80 }, // night glow from lights
+      { 178,  185, 168, 148 }, // dawn a color birds might sing to
       { 250, 250, 250, 255 }, // day just short of sunburn
       { 250, 105,  75, 190 }, // early eve Sailors delight
-      {  25,  25,  90,  90 }, // late eve longwave light
-      {  10,  15,  18,  20 }, // night glow from lights
+      {  95,  45,  90,  90 }, // late eve longwave light
+      {  45,  35,  78,  80 }, // night glow from lights
+      {  25,  25,  58,  80 }, // night glow from lights
       { 200, 250, 120, 255 }  // not good
    };
    int state_times[]=
    {
-      60*6+10,    // 6:10am dawn
+      60*5+30,    // 6:10am dawn
       60*7+45,    // 7:45am sun up
       60*17+10,   // 5:10pm start the fade
       60*19+20,   // 7:20pm go twilight (afterglow)
-      60*21+10    // 9:10pm go dark
+      60*21+10,   // 9:10pm go dark
+      60*23+50    //11:50pm reset
    };
 }
 
-Background::Background (float width, float height)
+Background::Background (float left, float top, float width, float height)
 {
    ImageManager * images = ImageManager::GetInstance ();
    // sky this will be the sky dome in 3D
    mBackImage = new AnimationSingle (images->GetTexture ("back.png", GL_RGBA), (int)width, (int)height);
-   mBackImage->SetPosition(Vector3f( 0, -680, -0.1f )); //cam->GetSceneRect().Left, cam->GetWorldRect().Top - mBackImage->mSprite->GetImage()->GetHeight()) );
+   mBackImage->SetPosition(Vector3f( left, top, -0.1f )); //cam->GetSceneRect().Left, cam->GetWorldRect().Top - mBackImage->mSprite->GetImage()->GetHeight()) );
    mBackImage->SetLightingColor (mRGBALight);
    // move the ground down 36 since lobby is at 0
 
    // Z axis is 0 for now
-   mBackBuildings = new Tiler (images->GetTexture ("buildings.png", GL_RGBA), Tiler::Horizontal, 0, -28, -0.09f, width, 64 );
-   mBackGround = new Tiler (images->GetTexture ("ground.png", GL_RGBA), Tiler::Horizontal, 0, 0+36, -0.09f, width, 320 );
+   mBackBuildings = new Tiler (images->GetTexture ("buildings.png", GL_RGBA), Tiler::Horizontal, left, -36, -0.09f, width, 72 );
+   mBackGround = new Tiler (images->GetTexture ("ground.png", GL_RGBA), Tiler::Horizontal, left, 0+36, -0.09f, width, 320 );
 
    mLightState = BLS_Night;
    memset (mRGBATransition, 0, sizeof(mRGBALight));
    memcpy (mRGBALight, Model::RGBSkyColors[0], 4*sizeof(float));
-   mStepsToTansion = 0;
+   mStepsToTransition = 0;
    mNextTimeEvent = Model::state_times[0];
 }
 
@@ -74,9 +76,9 @@ void
 Background::Update (int TimeOfDay)
 {
    mBackImage->SetLightingColor (mRGBALight);
-   if( mStepsToTansion < 0 )
+   if( mStepsToTransition < 0 )
    {
-      mStepsToTansion = 0;
+      mStepsToTransition = 0;
    }
    if (TimeOfDay > Model::state_times[mLightState] || mLightState == BLS_Reset)
    {
@@ -104,13 +106,13 @@ Background::Update (int TimeOfDay)
             throw new HighriseException ("State error in Background Image");
       }
       const float* pRGB = Model::RGBSkyColors[mLightState];
-      mStepsToTansion = (int)fabs(pRGB[3] - mRGBALight[3]); // starts trasition
-      if( mStepsToTansion > 0 )
+      mStepsToTransition = int(2*fabs(pRGB[3] - mRGBALight[3])); // starts trasition
+      if( mStepsToTransition > 0 )
       {
-         mRGBATransition[0] = (pRGB[0] - mRGBALight[0]) / mStepsToTansion;
-         mRGBATransition[1] = (pRGB[1] - mRGBALight[1]) / mStepsToTansion;
-         mRGBATransition[2] = (pRGB[2] - mRGBALight[2]) / mStepsToTansion;
-         mRGBATransition[3] = (pRGB[3] - mRGBALight[3]) / mStepsToTansion;
+         mRGBATransition[0] = (pRGB[0] - mRGBALight[0]) / mStepsToTransition;
+         mRGBATransition[1] = (pRGB[1] - mRGBALight[1]) / mStepsToTransition;
+         mRGBATransition[2] = (pRGB[2] - mRGBALight[2]) / mStepsToTransition;
+         mRGBATransition[3] = (pRGB[3] - mRGBALight[3]) / mStepsToTransition;
       }
    }
 }
@@ -120,18 +122,22 @@ Background::Draw ()
 {
    try
    {
-      if (mStepsToTansion > 0)
+      if (mStepsToTransition > 0)
       {
          mRGBALight[0] += mRGBATransition[0];
          mRGBALight[1] += mRGBATransition[1];
          mRGBALight[2] += mRGBATransition[2];
          mRGBALight[3] += mRGBATransition[3];
-         mStepsToTansion--;
+         mStepsToTransition--;
          mBackImage->SetLightingColor(mRGBALight);
+         if( !(mLightState == BLS_Reset || mLightState == BLS_Night) )
+         {
+            mBackBuildings->SetLightingColor(mRGBALight); // keep these semi lit
+         }
       }
 
       Render(mBackImage, true);
-      Render(mBackBuildings);
+      Render(mBackBuildings, true);
       Render(mBackGround);
    }
    catch( ... )

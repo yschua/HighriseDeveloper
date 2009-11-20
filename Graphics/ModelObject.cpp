@@ -100,7 +100,7 @@ void ModelObject::RenderRectangle (AnimationBase* pBase )
    glEnable (GL_TEXTURE_2D);
 }
 
-void ModelObject::Render(Tiler* pTiler)
+void ModelObject::Render(Tiler* pTiler, bool bLight)
 {
    float x = pTiler->GetPositionX();//-ms.x; position needs to be a member of modelObject, let physics access it to move it.
    float y = -pTiler->GetPositionY();//-ms.y;
@@ -110,6 +110,10 @@ void ModelObject::Render(Tiler* pTiler)
    float xT = pTiler->GetTesselX();
    float yT = pTiler->GetTesselY();
    pTiler->BindTexture();//to_draw.GetTexture() ); // get the current texture
+   if (bLight)
+   {
+      glColor4fv (pTiler->GetLightingColor());
+   }
    glBegin(GL_QUADS);
    {
       glTexCoord2f( 0.0, yT );
@@ -122,6 +126,7 @@ void ModelObject::Render(Tiler* pTiler)
       glVertex3f( x2, y2, z );
    }
    glEnd();
+   glColor4ub (250,250,250,255);
 }
 
 void

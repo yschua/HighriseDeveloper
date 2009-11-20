@@ -40,13 +40,13 @@ private:
    BackLight_State mLightState;
    float mRGBALight[4];
    float mRGBATransition[4];
-   int   mStepsToTansion;     // countdown to zero 
+   int   mStepsToTransition;     // countdown to zero 
    int   mNextTimeEvent;
 
 public:
    void Update (int TimeOfDay);
    void Draw ();
-   Background (float width, float height);
+   Background (float left, float top, float width, float height);
    int  RenderFramework (int id) { return id; }; // don't click this, yet
 
 };

@@ -37,6 +37,7 @@ Camera * Camera::mpInstance = NULL;
 
 Camera::Camera ()
 :  Body (1280, 720)
+,  mBounds (-1600, -1280, 100, 60)
 {
    sf::WindowSettings Settings;
    Settings.DepthBits         = 24; // Request a 24 bits depth buffer
@@ -51,8 +52,8 @@ Camera::Camera ()
    mCam.y = 600;
    mIgnoreCamera = false;
    mpInput = &(mpWindow->GetInput ());
-   ms.x = -620;
-   ms.y = -170;
+   ms.x = -820;
+   ms.y = -160;
    mpWindow->ShowMouseCursor (false);
 }
 
@@ -120,31 +121,39 @@ void
 Camera::Display ()
 {
    // For fun ;)
-   int BounceAmount = 2;
+   //int BounceAmount = 2;
    // Do bounds checking
-   if (ms.x > 0) {
+   if (ms.x > mBounds.Right) // 0
+   {
+      ms.x = mBounds.Right;
       //Outside of left bound
       if (mv.x > 0) mv.x = 0;
-      mv.x += -20;
-      ma.x = 10;
+      mv.x =-1; //+= -20;
+      ma.x = 1; //10;
    }
-   if (ms.x < -1280) {
+   if (ms.x < mBounds.Left) //-1280
+   {
+      ms.x = mBounds.Left;
       //Outside of right bound
       if (mv.x < 0) mv.x = 0;
-      mv.x += 20;
-      ma.x = -10;
+      mv.x = 1;  // += 20;
+      ma.x = -1; // -10;
    }
-   if (ms.y > 400) {
+   if (ms.y > mBounds.Bottom) // 400
+   {
+      ms.y = mBounds.Bottom; // 400
       //Outside of bottom bound
       if (mv.y > 0) mv.y = 0;
-      mv.y += -20;
-      ma.y = 10;
+      mv.y = -1; //+= -20;
+      ma.y = 1; //10;
    }
-   if (ms.y < -675) {
+   if (ms.y < mBounds.Top) // -675 
+   {
+      ms.y = mBounds.Top; //-675
       //Outside of top bound
       if (mv.y < 0) mv.y = 0;
-      mv.y += 20;
-      ma.y = -10;
+      mv.y = 1; //+= 20;
+      ma.y = -1; //-10;
    }
 
    mpWindow->Display ();
@@ -362,29 +371,29 @@ Camera::OnKeyDown (sf::Key::Code Key)
    if (Key == sf::Key::D)
    {
       if (mv.x > 0) mv.x = 0;
-      mv.x += 0.4*mZoomFactor;
-      ma.x = -0.25*mZoomFactor;
+      mv.x += 0.4f * mZoomFactor;
+      ma.x = -0.25f * mZoomFactor;
       //if (mv.x == 0) mv.x = 0.5*mZoomFactor;
    }
    if (Key == sf::Key::S)
    {
       if (mv.y < 0) mv.y = 0;
-      mv.y += -0.3*mZoomFactor;
-      ma.y = 0.25*mZoomFactor;
+      mv.y += -0.3f * mZoomFactor;
+      ma.y = 0.25f * mZoomFactor;
       //if (mv.y == 0) mv.y = -0.5*mZoomFactor;
    }
    if (Key == sf::Key::A)
    {
       if (mv.x < 0) mv.x = 0;
-      mv.x += -0.4*mZoomFactor;
-      ma.x = 0.25*mZoomFactor;
+      mv.x += -0.4f * mZoomFactor;
+      ma.x = 0.25f * mZoomFactor;
       //if (mv.x == 0) mv.x = -0.5*mZoomFactor;
    }
    if (Key == sf::Key::W)
    {
       if (mv.y > 0) mv.y = 0;
-      mv.y += 0.3*mZoomFactor;
-      ma.y = -0.25*mZoomFactor;
+      mv.y += 0.3f * mZoomFactor;
+      ma.y = -0.25f * mZoomFactor;
       //if (mv.y == 0) mv.y = 0.5*mZoomFactor;
    }
    if (Key == sf::Key::E)

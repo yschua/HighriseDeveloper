@@ -120,7 +120,7 @@ void Interface::Update (float dt)
    mClock.Update(1); // 1 minute update
    if( count < 1)
    {
-      count = dt;
+      count = (int)dt;
       if( mClock.GetDayOfYear() != mCurDay )
       {
          mStats.SetDayOfWeek (mClock.DayOfWeekToString());

@@ -66,7 +66,14 @@ void Person::Update (int tod)   //actual time
    }
    else if (mHome < 1 && mActivity == AS_GoingHome )
    {
-      SetActivity (AS_ApartmentHunting);
+      if( this->mOccupation > 1 )
+      {
+         SetActivity (AS_CondoHunting);
+      }
+      else
+      {
+         SetActivity (AS_ApartmentHunting);
+      }
       return;
       //mActivity = AS_CondoHunting; // if income < $n AS_ApartmentHunting.
    }

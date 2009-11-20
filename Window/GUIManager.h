@@ -2,12 +2,12 @@
 #define GUIManager_H
 
 #include <CEGUI.h>
+#include <iostream>
 
 #include <RendererModules/OpenGLGUIRenderer/openglrenderer.h>
 #include <CEGUISystem.h>
 #include <CEGUIDefaultResourceProvider.h>
 #include "Event.h"
-#include <iostream>
 
 class SceneEvent;
 class FloorBase;

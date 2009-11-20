@@ -72,6 +72,7 @@ public:
       {
          FloorBase* pRoom = new T(xx, y, pTower); //OnToolHit is going to set this up, when we hit the floor
          pRoom->SetRent (mBuildData.RentalCost);
+         pRoom->SetSalePrice (mBuildData.PurchasePrice);
          pLevel->AddFloorSpace (pRoom);
          pTower->AdjustFunds( -mBuildData.BuildCost );
       }

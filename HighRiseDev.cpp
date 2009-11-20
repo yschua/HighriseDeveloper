@@ -46,7 +46,7 @@ main ()
    // rendering targets/windows).
    Camera * cam = Camera::GetInstance ();
 
-   cam->SetSceneSize (Vector2f(1280, 720));
+   cam->SetSceneSize (Vector2f(1920, 1920));
    cam->SetMaxFramerate (60);
    cam->SetActive();
    cam->InitGL();
@@ -63,7 +63,7 @@ main ()
    std::cout << "Basic loading finished....\n";
    try
    {
-      theScene.SetBG (new Background (cam->GetSceneSize().x, cam->GetSceneSize().y));
+      theScene.SetBG (new Background ( -80, -1908, cam->GetSceneSize().x, cam->GetSceneSize().y));
 
       SceneEvent SceneEV(&theScene);
       GUIManager Gui (SceneEV, *pInterface); //, &theTower);
@@ -125,7 +125,7 @@ main ()
          case 1:
             pInterface->mStats.SetPopulation( theTower.GetPopulation() );
             pInterface->mStats.SetNet( (int)theTower.GetAvailableFunds() );
-            pInterface->Update(80);
+            pInterface->Update(20);
             break;
          default:
             static int cc_count = 30; //only once in a while
@@ -138,7 +138,7 @@ main ()
             cycle = 0;
             break;
          }
-         theTower.Update (pInterface->GetDayOfYear(), pInterface->GetTimeOfDay());
+         theTower.Update ((float)pInterface->GetDayOfYear(), pInterface->GetTimeOfDay());
          // end update scope
       }
       std::cout << mev.IsRunning() << "\n";

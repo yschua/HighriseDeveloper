@@ -457,6 +457,7 @@ void Elevator::Update (float dt, int tod)
       mIdleTime = 0;
       Motion();
    }
+   mLiftMachine->Update (1);
 }
 
 void Elevator::Draw ()

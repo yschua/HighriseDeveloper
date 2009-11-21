@@ -1,4 +1,4 @@
 <?xml version="1.0" ?>
-<Imageset Name="DeleteButton" Imagefile="Delete.png" NativeHorzRes="64" NativeVertRes="64" AutoScaled="false">
-	<Image Name="Normal" XPos="0" YPos="0" Width="64" Height="64" />
+<Imageset Name="DeleteButton" Imagefile="Delete.png" NativeHorzRes="48" NativeVertRes="48" AutoScaled="false">
+	<Image Name="Normal" XPos="0" YPos="0" Width="48" Height="48" />
 </Imageset>

@@ -1,0 +1,4 @@
+<?xml version="1.0" ?>
+<Imageset Name="CondoButton" Imagefile="Condo.png" NativeHorzRes="48" NativeVertRes="48" AutoScaled="false">
+   <Image Name="Normal" XPos="0" YPos="0" Width="48" Height="48" />
+</Imageset>

@@ -36,6 +36,8 @@ ElevatorShaft::ElevatorShaft ( int x, int topLevel, int bottomLevel, int width, 
    mShaftTiler = new Tiler (images->GetTexture ("liftshaft.png", GL_RGBA), Tiler::Vertical, mx,
                                ((mBottomLevel) * -36), 0, width, ((mTopLevel-mBottomLevel) * -36));
    mShaftTiler->SetTessel( 1, (mTopLevel-mBottomLevel ));
+   const float half[] = { 250.0f, 250.0f, 250.0f, 167.0f };
+   mShaftTiler->SetLightingColor( half );
 }
 
 ElevatorShaft::~ElevatorShaft()
@@ -51,5 +53,5 @@ ElevatorShaft::Update (float dt)
 void
 ElevatorShaft::Draw ()
 {
-   Render(mShaftTiler);
+   Render(mShaftTiler, true);
 }

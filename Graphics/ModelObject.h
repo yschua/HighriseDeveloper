@@ -39,6 +39,7 @@ namespace Gfx
       void Render (AnimationBase* pBase, float x, float x2 );  // overload with specified X and X2
       void Render (Tiler* pTiler, bool bLight = false);  // draw method replacement, drawing now happens on the GPU side for us
       void RenderRectangle (AnimationBase* pBase );
+      void RenderTriangle( const float Verts[], const float Color[], float x, float y, float z );
       void RenderParallax (FireAnimation* pBase, float xOffset );  // overload with specified X and X2 for parallax animation
       void RenderFramework (AnimationBase* pBase, int id); // milk and cookies run just for the basics to test for a hit
       void RenderFramework (AnimationBase* pBase, float x, float x2, int id );  // overload with specified X and X2 and id

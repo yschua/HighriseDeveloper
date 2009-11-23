@@ -100,6 +100,26 @@ void ModelObject::RenderRectangle (AnimationBase* pBase )
    glEnable (GL_TEXTURE_2D);
 }
 
+void ModelObject::RenderTriangle( const float Verts[], const float Color[], float x, float y, float z )
+{
+   glColor4fv (Color);
+   glDisable (GL_TEXTURE_2D);
+   glPushMatrix();
+   {
+      glTranslatef (x, y, z);
+      glBegin(GL_TRIANGLES);
+      {
+         glVertex3fv( &Verts[0] );
+         glVertex3fv( &Verts[3] );
+         glVertex3fv( &Verts[6] );
+      }
+      glEnd();
+   }
+   glPopMatrix();
+   glColor4ub (255,255,255,255);
+   glEnable (GL_TEXTURE_2D);
+}
+
 void ModelObject::Render(Tiler* pTiler, bool bLight)
 {
    float x = pTiler->GetPositionX();//-ms.x; position needs to be a member of modelObject, let physics access it to move it.

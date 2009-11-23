@@ -5,7 +5,11 @@
 	<Imageset Name="OpenButton" Filename="OpenButton.imageset" />
 	<Imageset Name="DeleteButton" Filename="DeleteButton.imageset" />
 	<Imageset Name="SelectButton" Filename="SelectButton.imageset" />
-	<Imageset Name="MenuBackgroundLeft" Filename="MenuBackgroundLeft.imageset" />
+   <Imageset Name="OfficeButton" Filename="OfficeButton.imageset" />
+   <Imageset Name="AptButton" Filename="AptButton.imageset" />
+   <Imageset Name="CondoButton" Filename="CondoButton.imageset" />
+   <Imageset Name="HotelButton" Filename="HotelButton.imageset" />
+   <Imageset Name="MenuBackgroundLeft" Filename="MenuBackgroundLeft.imageset" />
 	
 	<LookNFeel Filename="WindowsLook.looknfeel" />
 	<WindowSet Filename="CEGUIFalagardWRBase" />

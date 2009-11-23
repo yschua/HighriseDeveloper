@@ -462,6 +462,11 @@ void Elevator::Update (float dt, int tod)
 
 void Elevator::Draw ()
 {
+   const float ArrowDown[] =    { -3.0f,-3.0f, 0.1f, 0.0f,-6.0f, 0.1f, 3.0f,-3.0f, 0.1f };
+   const float ArrowUp[] = { -3.0f, 3.0f, 0.1f, 0.0f, 6.0f, 0.1f, 3.0f, 3.0f, 0.1f };
+   const float ArrowDim[] = { 0.1f, 0.4f, 0.1f, 0.7f };
+   const float ArrowLit[] = { 0.2f, 1.0f, 0.2f, 1.0f };
+
    mElevatorShaft->Draw ();
    mLiftMachine->Draw ();
 //   mcam->Draw (*mLiftPit );
@@ -474,10 +479,29 @@ void Elevator::Draw ()
    }
    QueueIterType it;
    int il = mBottomLevel;
+   int index = 0;
    for (it=mRouteQueues->begin(); it!=mRouteQueues->end(); ++it)
    {
       PersonQueue* pQ = (*it);
-      pQ->Draw (mX+18, il++);
+      pQ->Draw (mX+18, 36*il );
+      il++;
+      if( mStops[index].mButtonFlag&BUTTON_UP)
+      {
+         RenderTriangle (ArrowUp, ArrowLit, mX + 4, il*36 - 48, 0.0f );
+      }
+      else
+      {
+         RenderTriangle (ArrowUp, ArrowDim, mX + 4, il*36 - 48, 0.0f );
+      }
+      if( mStops[index].mButtonFlag&BUTTON_DOWN)
+      {
+         RenderTriangle (ArrowDown, ArrowLit, mX + 4, il*36 - 48, 0.0f );
+      }
+      else
+      {
+         RenderTriangle (ArrowDown, ArrowDim, mX + 4, il*36 - 48, 0.0f );
+      }
+      index++;
    }
 }
 

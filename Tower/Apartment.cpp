@@ -74,21 +74,21 @@ Apartment::Apartment (int x, int level, Tower * TowerParent)
    ImageManager * image_man = ImageManager::GetInstance ();
    std::cout << "New apartment at " << mX << ", " << mY << " level " << mLevel << std::endl;
    manimations[apt_vacant] = new Animation (72, 36);
-   manimations[apt_vacant]->AddFrame (image_man->GetTexture ("apartment_empty_1.png", GL_RGBA), 1000);
+   manimations[apt_vacant]->AddFrame (image_man->GetTexture ("Apartment_empty_1.png", GL_RGBA), 1000);
    manimations[apt_vacant]->SetPosition (mX, mY);
    manimations[apt_occupied_day] = new Animation (72, 36);
-   manimations[apt_occupied_day]->AddFrame (image_man->GetTexture ("apartment_r_d_1.png", GL_RGBA), 1000);
-   manimations[apt_occupied_day]->AddFrame (image_man->GetTexture ("apartment_r_d_2.png", GL_RGBA), 1000);
-   manimations[apt_occupied_day]->AddFrame (image_man->GetTexture ("apartment_r_d_3.png", GL_RGBA), 1000);
+   manimations[apt_occupied_day]->AddFrame (image_man->GetTexture ("Apartment_r_d_1.png", GL_RGBA), 1000);
+   manimations[apt_occupied_day]->AddFrame (image_man->GetTexture ("Apartment_r_d_2.png", GL_RGBA), 1000);
+   manimations[apt_occupied_day]->AddFrame (image_man->GetTexture ("Apartment_r_d_3.png", GL_RGBA), 1000);
    manimations[apt_occupied_day]->SetPosition (mX, mY);
    manimations[apt_occupied_night] = new Animation (72, 36);
-   manimations[apt_occupied_night]->AddFrame (image_man->GetTexture ("apartment_r_n_1.png", GL_RGBA), 1000);
+   manimations[apt_occupied_night]->AddFrame (image_man->GetTexture ("Apartment_r_n_1.png", GL_RGBA), 1000);
    manimations[apt_occupied_night]->SetPosition (mX, mY);
    manimations[apt_unoccupied_day] = new Animation (72, 36);
-   manimations[apt_unoccupied_day]->AddFrame (image_man->GetTexture ("apartment_r_u_1.png", GL_RGBA), 1000);
+   manimations[apt_unoccupied_day]->AddFrame (image_man->GetTexture ("Apartment_r_u_1.png", GL_RGBA), 1000);
    manimations[apt_unoccupied_day]->SetPosition (mX, mY);
    manimations[apt_occupied_sleep] = new Animation (72, 36);
-   manimations[apt_occupied_sleep]->AddFrame (image_man->GetTexture ("apartment_r_s_1.png", GL_RGBA), 1000);
+   manimations[apt_occupied_sleep]->AddFrame (image_man->GetTexture ("Apartment_r_s_1.png", GL_RGBA), 1000);
    manimations[apt_occupied_sleep]->SetPosition (mX, mY);
 }
 

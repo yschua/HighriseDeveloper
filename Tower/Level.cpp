@@ -52,20 +52,20 @@ Level::Level (int level, int x, int y, int x2, Tower * TowerParent)
 
    if (level < 0)
    {
-      nFireEscapeLeft = new AnimationSingle (ImageManager::GetInstance()->GetTexture("foundation.png", GL_RGBA), 9, 36);
-      nFireEscapeRight = new AnimationSingle (ImageManager::GetInstance()->GetTexture("foundation.png", GL_RGBA), 9, 36);
+      nFireEscapeLeft = new AnimationSingle (ImageManager::GetInstance()->GetTexture("Foundation.png", GL_RGBA), 9, 36);
+      nFireEscapeRight = new AnimationSingle (ImageManager::GetInstance()->GetTexture("Foundation.png", GL_RGBA), 9, 36);
    }
    else if (level > 0)
    {
-      nFireEscapeLeft = new AnimationSingle (ImageManager::GetInstance()->GetTexture("fire_escape_l.png", GL_RGBA), 24, 36);
-      nFireEscapeRight = new AnimationSingle (ImageManager::GetInstance()->GetTexture("fire_escape_r.png", GL_RGBA), 24, 36);
+      nFireEscapeLeft = new AnimationSingle (ImageManager::GetInstance()->GetTexture("FireEscape_l.png", GL_RGBA), 24, 36);
+      nFireEscapeRight = new AnimationSingle (ImageManager::GetInstance()->GetTexture("FireEscape_r.png", GL_RGBA), 24, 36);
    }
    else
    {
-      nFireEscapeLeft = new AnimationSingle (ImageManager::GetInstance()->GetTexture("awn_left.png", GL_RGBA), 56, 36);
-      nFireEscapeRight = new AnimationSingle (ImageManager::GetInstance()->GetTexture("awn_right.png", GL_RGBA), 56, 36);
+      nFireEscapeLeft = new AnimationSingle (ImageManager::GetInstance()->GetTexture("AwnLeft.png", GL_RGBA), 56, 36);
+      nFireEscapeRight = new AnimationSingle (ImageManager::GetInstance()->GetTexture("AwnRight.png", GL_RGBA), 56, 36);
    }
-   mEmptyFLoor = new AnimationSingle (ImageManager::GetInstance()->GetTexture("emptyfloor_d_1.png", GL_RGBA), 56, 36);
+   mEmptyFLoor = new AnimationSingle (ImageManager::GetInstance()->GetTexture("EmptyFloor_d_1.png", GL_RGBA), 56, 36);
    // proto code
    mTheLevel = new AnimationEmpty (x2-x, 36);
    mpFloorSpaceGrid = NULL;

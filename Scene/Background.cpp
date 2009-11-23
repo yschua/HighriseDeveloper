@@ -56,14 +56,14 @@ Background::Background (float left, float top, float width, float height)
 {
    ImageManager * images = ImageManager::GetInstance ();
    // sky this will be the sky dome in 3D
-   mBackImage = new AnimationSingle (images->GetTexture ("back.png", GL_RGBA), (int)width, (int)height);
+   mBackImage = new AnimationSingle (images->GetTexture ("Back.png", GL_RGBA), (int)width, (int)height);
    mBackImage->SetPosition(Vector3f( left, top, -0.1f )); //cam->GetSceneRect().Left, cam->GetWorldRect().Top - mBackImage->mSprite->GetImage()->GetHeight()) );
    mBackImage->SetLightingColor (mRGBALight);
    // move the ground down 36 since lobby is at 0
 
    // Z axis is 0 for now
-   mBackBuildings = new Tiler (images->GetTexture ("buildings.png", GL_RGBA), Tiler::Horizontal, left, -36, -0.09f, width, 72 );
-   mBackGround = new Tiler (images->GetTexture ("ground.png", GL_RGBA), Tiler::Horizontal, left, 0+36, -0.09f, width, 320 );
+   mBackBuildings = new Tiler (images->GetTexture ("Buildings.png", GL_RGBA), Tiler::Horizontal, left, -36, -0.09f, width, 72 );
+   mBackGround = new Tiler (images->GetTexture ("Ground.png", GL_RGBA), Tiler::Horizontal, left, 0+36, -0.09f, width, 320 );
 
    mLightState = BLS_Night;
    memset (mRGBATransition, 0, sizeof(mRGBALight));

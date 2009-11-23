@@ -34,36 +34,36 @@ namespace TowerObjects
    //
    const char* OfficeImagesU[] =
    {
-      "office_u_n.png",
-      "office_u_d.png",
-      "office_u_d.png"
+      "Office_u_n.png",
+      "Office_u_d.png",
+      "Office_u_d.png"
    };
    const char* OfficeImages0[] =
    {
-      "office_0_n.png",
-      "office_0_d_0.png",
-      "office_0_d_1.png",
-      "office_0_d_2.png",
-      "office_0_d_3.png",
-      "office_0_d_4.png",
-      "office_0_d_5.png"
+      "Office_0_n.png",
+      "Office_0_d_0.png",
+      "Office_0_d_1.png",
+      "Office_0_d_2.png",
+      "Office_0_d_3.png",
+      "Office_0_d_4.png",
+      "Office_0_d_5.png"
    };
    const char* OfficeImages6[] =
    {
-      "office_6_n.png",
-      "office_6_d_0.png",
-      "office_6_d_1.png",
-      "office_6_d_2.png"
+      "Office_6_n.png",
+      "Office_6_d_0.png",
+      "Office_6_d_1.png",
+      "Office_6_d_2.png"
    };
    const char* OfficeImages7[] =
    {
-      "office_7_n.png",
-      "office_7_d_0.png",
-      "office_7_d_1.png",
-      "office_7_d_2.png",
-      "office_7_d_4.png",
-      "office_7_d_3.png",
-      "office_7_d_5.png"
+      "Office_7_n.png",
+      "Office_7_d_0.png",
+      "Office_7_d_1.png",
+      "Office_7_d_2.png",
+      "Office_7_d_4.png",
+      "Office_7_d_3.png",
+      "Office_7_d_5.png"
    };
    struct OfficeImage
    {

@@ -61,7 +61,7 @@ Clock::Clock ()
    mLanguageCode = 0;
 
    ImageManager * images = ImageManager::GetInstance ();
-   Texture* pTex = images->GetTexture ("clock.png", GL_RGBA);
+   Texture* pTex = images->GetTexture ("Clock.png", GL_RGBA);
    mClockFace = new AnimationSingle (pTex, 64, 64);
    PosCalc ();
 

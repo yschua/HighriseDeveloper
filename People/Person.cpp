@@ -31,9 +31,9 @@ Person::Person (Location& loc)
    mCurrentState = CS_Idle;
    mLocation = loc;    // copy
    ImageManager * pImageMam = ImageManager::GetInstance ();
-   Texture* ptexHappy =pImageMam->GetTexture ("person_h.png", GL_RGBA);
-   Texture* ptexAnnoied =pImageMam->GetTexture ("person_a.png", GL_RGBA);
-   Texture* ptexMad =pImageMam->GetTexture ("person_m.png", GL_RGBA);
+   Texture* ptexHappy =pImageMam->GetTexture ("Person_h.png", GL_RGBA);
+   Texture* ptexAnnoied =pImageMam->GetTexture ("Person_a.png", GL_RGBA);
+   Texture* ptexMad =pImageMam->GetTexture ("Person_m.png", GL_RGBA);
 
    manimations[MS_Furious] = new AnimationSingle (ptexMad, 8, 16);
    manimations[MS_Mad] = new AnimationSingle (ptexMad, 8, 16);

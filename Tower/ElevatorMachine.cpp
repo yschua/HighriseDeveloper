@@ -34,9 +34,9 @@ ElevatorMachine::ElevatorMachine (int x, int level, int width, Elevator* pElevat
 //   my = (Camera::GetInstance()->GetSceneRect ().Top ) - (level * 36);
    std::cout << "New elevator machine at " << mx << ", " << my << std::endl;
    mLifterAnimation = new Animation (width, 32);
-   mLifterAnimation->AddFrame (image_man->GetTexture ("liftMachine_1.png", GL_RGBA), 10);
-   mLifterAnimation->AddFrame (image_man->GetTexture ("liftMachine_2.png", GL_RGBA), 10);
-   mLifterAnimation->AddFrame (image_man->GetTexture ("liftMachine_3.png", GL_RGBA), 10);
+   mLifterAnimation->AddFrame (image_man->GetTexture ("LiftMachine_1.png", GL_RGBA), 10);
+   mLifterAnimation->AddFrame (image_man->GetTexture ("LiftMachine_2.png", GL_RGBA), 10);
+   mLifterAnimation->AddFrame (image_man->GetTexture ("LiftMachine_3.png", GL_RGBA), 10);
    mImageFrame = 0;
    mFirstFrame = 0;
    mLastFrame = 2;

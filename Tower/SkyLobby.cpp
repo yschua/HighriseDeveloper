@@ -36,7 +36,7 @@ SkyLobby::SkyLobby (int x, int x2, int level, Tower * TowerParent)
    mY = (float)level*36;
    mZ = 0.5;
    ImageManager * images = ImageManager::GetInstance ();
-   mTile = new Tiler (images->GetTexture("skylobby.png", GL_RGBA), Tiler::Horizontal, (float)mX, -mY, mZ, (float)(x2-x), 36);
+   mTile = new Tiler (images->GetTexture("SkyLobby.png", GL_RGBA), Tiler::Horizontal, (float)mX, -mY, mZ, (float)(x2-x), 36);
    mTile->SetTessel ((float)(x2-x)/72, 1.0f);
    std::cout << "New Sky lobby at " << mX << " to " << mX2 << " Y level " << mY << std::endl;
 }

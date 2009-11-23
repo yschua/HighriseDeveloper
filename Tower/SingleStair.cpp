@@ -85,7 +85,7 @@ SingleStair::~SingleStair()
 void SingleStair::LoadImages()
 {
    ImageManager * images = ImageManager::GetInstance ();
-   mSingleStairImage = new AnimationSingle (images->GetTexture ("singlestair.png", GL_RGBA), 27, 36);
+   mSingleStairImage = new AnimationSingle (images->GetTexture ("SingleStair.png", GL_RGBA), 27, 36);
    mSingleStairImage->SetPosition (mX, -mY);
 }
 

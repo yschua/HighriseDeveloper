@@ -123,7 +123,7 @@ Elevator::~Elevator()
 void Elevator::LoadImages()
 {
    ImageManager * images = ImageManager::GetInstance ();
-   const char* pImageName = "elevator_u_n.png";
+   const char* pImageName = "Elevator_u_n.png";
    switch (mLiftStyle)
    {
    case LS_Standard:
@@ -131,22 +131,22 @@ void Elevator::LoadImages()
       break;
    case LS_HighCapacity:
       mWidth.x = 41;
-      pImageName = "elevator_u_w.png";
+      pImageName = "Elevator_u_w.png";
       break;
    case LS_Freight:
       mWidth.x = 32;
-      pImageName = "elevator_u_s.png";
+      pImageName = "Elevator_u_s.png";
       break;
    case LS_Express:
       mWidth.x = 32;
-      pImageName = "elevator_o_x.png";
+      pImageName = "Elevator_o_x.png";
       break;
    }
    mElevatorImage = new AnimationSingle (images->GetTexture (pImageName, GL_RGBA), mWidth.x, mHeight.y);
-   mRiderImage = new AnimationSingle (images->GetTexture ("person_e.png", GL_RGBA), 8, 16);
+   mRiderImage = new AnimationSingle (images->GetTexture ("Person_e.png", GL_RGBA), 8, 16);
    mRiderImage->SetPosition ((float)mX +8, (float)(mBottomLevel-1) * -36 ); // neg 36 so it becomed positive for model view
    mLiftMachine = new ElevatorMachine( mX - 2, mTopLevel+1, mWidth.x+4, this );
-   mLiftPit = new AnimationSingle (images->GetTexture ("liftpit_1.png", GL_RGBA), mWidth.x+4, 36);
+   mLiftPit = new AnimationSingle (images->GetTexture ("LiftPit_1.png", GL_RGBA), mWidth.x+4, 36);
    mLiftPit->SetPosition ((float)mX - 2, (float)(mBottomLevel-1) * -36 ); // neg 36 so it becomed positive for model view
    mElevatorShaft = new ElevatorShaft( mX - 2, mTopLevel, mBottomLevel-1, mWidth.x+4, this );
 }

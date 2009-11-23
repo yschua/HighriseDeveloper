@@ -74,7 +74,7 @@ Condo::Condo (int x, int level, Tower * TowerParent)
    ImageManager * image_man = ImageManager::GetInstance ();
    std::cout << "New Condo at " << mX << ", " << mY << " level " << mLevel << std::endl;
    manimations[condo_vacant] = new Animation (126, 36);
-   manimations[condo_vacant]->AddFrame (image_man->GetTexture ("Condo_empty_1.png", GL_RGBA), 1000);
+   manimations[condo_vacant]->AddFrame (image_man->GetTexture ("CondoEmpty_1.png", GL_RGBA), 1000);
    manimations[condo_vacant]->SetPosition (mX, mY);
    //manimations[condo_occupied_day] = new Animation (72, 36);
    //manimations[condo_occupied_day]->AddFrame (image_man->GetTexture ("Condo_r_d_1.png", GL_RGBA), 1000);

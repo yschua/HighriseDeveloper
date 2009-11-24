@@ -42,7 +42,7 @@ Lobby::Lobby (int x, int x2, int level, Tower * TowerParent)
    }
    else
    {
-      mDesk = new AnimationSingle( images->GetTexture("SobbyA.png", GL_RGBA), 36, 36 );
+      mDesk = new AnimationSingle( images->GetTexture("LobbyA.png", GL_RGBA), 36, 36 );
       mDesk->SetPosition((float)mX, 0);
       mTile = new Tiler (images->GetTexture("LobbyB.png", GL_RGBA), Tiler::Horizontal, (float)x+36, 0, 0, (float)(x2-x-36), 36);
       mTile->SetTessel ((float)(x2-x)/72, 1.0f);

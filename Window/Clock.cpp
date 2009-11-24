@@ -17,7 +17,7 @@
 #include <map>
 #include <cstring>
 #include <sstream>
-#include "../Types/string.h"
+#include "../Types/String.h"
 #include "../Graphics/Image.h"
 #include "../Graphics/Animation.h"
 #include "../Graphics/Camera.h"

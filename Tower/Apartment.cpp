@@ -74,7 +74,7 @@ Apartment::Apartment (int x, int level, Tower * TowerParent)
    ImageManager * image_man = ImageManager::GetInstance ();
    std::cout << "New apartment at " << mX << ", " << mY << " level " << mLevel << std::endl;
    manimations[apt_vacant] = new Animation (72, 36);
-   manimations[apt_vacant]->AddFrame (image_man->GetTexture ("Apartment_empty_1.png", GL_RGBA), 1000);
+   manimations[apt_vacant]->AddFrame (image_man->GetTexture ("ApartmentEmpty_1.png", GL_RGBA), 1000);
    manimations[apt_vacant]->SetPosition (mX, mY);
    manimations[apt_occupied_day] = new Animation (72, 36);
    manimations[apt_occupied_day]->AddFrame (image_man->GetTexture ("Apartment_r_d_1.png", GL_RGBA), 1000);

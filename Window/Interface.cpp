@@ -117,7 +117,7 @@ void Interface::PosCalc ()
 void Interface::Update (float dt)
 {
    static int count = 0;
-   mClock.Update(60); // 1 minute update
+   mClock.Update(1);//60); // 1 minute update
    if( count < 1)
    {
       count = (int)dt;

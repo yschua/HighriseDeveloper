@@ -130,6 +130,11 @@ protected:
    short mFloorCount;
    short mMaxCap;
 
+   // calculated values
+   short mMaxFloorY;
+   short mMinFloorY;
+   short mDestinatonY;
+
    LiftOps_State  mLiftOperation;
    LiftStyle      mLiftStyle;
    std::vector<PersonQueue*>* mRouteQueues;  // person queue for elevators that stop on this level
@@ -169,6 +174,7 @@ protected:
    void SetDestination (int level);
    void SetQueues ();
    void SetStopLevels ();
+   void SetMinMax();
 public:
 
    virtual void Update (float dt, int tod);

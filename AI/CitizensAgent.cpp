@@ -278,7 +278,6 @@ void CitizensAgent::Update (float dt, int tod)
                      {
                         std::vector<RouteBase*>::iterator i;
                         i = routeList.GetRoutes().begin ();
-                        i++;  // go home on the 2nd elevator
                         RouteBase* route = (*i);
                         RoutingRequest req;
                         req.OriginLevel = curLevel;

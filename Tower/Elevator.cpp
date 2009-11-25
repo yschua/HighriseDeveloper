@@ -66,8 +66,6 @@ Elevator::Elevator ( LiftStyle style, int x, short BottomLevel, short TopLevel, 
    mDirection = -1;
    mIdleTime = 10;
    mEnd2 = -1;
-   mPosition = 1; // make the elevater hit the floor
-   //mOffset = 0;//BottomLevel * -36;
    mOffset = mBottomLevel * 36;
 
    mFloorCount = TopLevel - BottomLevel;
@@ -88,6 +86,7 @@ Elevator::Elevator ( LiftStyle style, int x, short BottomLevel, short TopLevel, 
    LoadImages();
    mRouteQueues = NULL;
    SetQueues();
+   SetMinMax();
 }
 
 Elevator::Elevator( SerializerBase& ser, short TopLevel, Tower * TowerParent )
@@ -113,6 +112,7 @@ Elevator::Elevator( SerializerBase& ser, short TopLevel, Tower * TowerParent )
    LoadImages();
    mRouteQueues = NULL;
    SetQueues();
+   SetMinMax();
 }
 
 Elevator::~Elevator()
@@ -271,11 +271,21 @@ Person* Elevator::UnloadPerson( ) // returns space remaining
    return person;
 }
 
+void Elevator::SetMinMax() // call when the elevator is created and when the shaft length is changed
+{
+   mMaxFloorY = mTopLevel * 36;
+   mMinFloorY = mBottomLevel * 36;
+   mDestinatonY = mPosition;
+}
+
 void Elevator::SetDestination (int level)
 {
    mEndRoute = level;
    mStartRoute = mCurrentLevel;
    mDirection = ( mStartRoute < mEndRoute ) ? 1 : -1;
+   mDestinatonY = ((mStartRoute == mEndRoute) ? (mStartRoute+mBottomLevel) * 36 : (mEndRoute+mBottomLevel) * 36);
+   if (mDestinatonY > mMaxFloorY ) mDestinatonY = mMaxFloorY;
+   else if (mDestinatonY < mMinFloorY ) mDestinatonY = mMinFloorY;
 }
 
 void Elevator::NextCallButton ()
@@ -283,19 +293,20 @@ void Elevator::NextCallButton ()
    int nPasses = 2; // only 2 directions
    int curStop = mCurrentLevel;
    bool bDown = (mDirection < 1 && curStop > 0);
+   mDirection = 0;
    while( nPasses > 0 )
    {
       if( bDown )   // search down
       {
          --nPasses;
-         for( int idx=curStop-1; idx>=0; --idx )
+         for( int idx=0; idx < curStop; ++idx ) // find the lowest lit button
          {
             if( mStops[idx].mButtonFlag )
             {
                nPasses = 0; // found a button lit, done with main loop but we have to check precidence
                // on the way down we stop on destination floors or floors with lit down buttons or proceed to the lowest floor with a lit up button.
                // later on the way up we will stop on floors with lit up buttons.
-               if( mStops[idx].mButtonFlag&BUTTON_DOWN|DESTINATION )
+               if( mStops[idx].mButtonFlag ) //& (BUTTON_DOWN|DESTINATION) )
                {
                   SetDestination( idx + mBottomLevel );
                   break;
@@ -304,7 +315,7 @@ void Elevator::NextCallButton ()
          }
          if (nPasses> 0) // only true if we have not looked down yet
          {
-            if (mDirection =- 1)
+            if (mDirection < 0)
             {
                mDirection = 0;
             }
@@ -314,14 +325,14 @@ void Elevator::NextCallButton ()
       else
       {
          --nPasses;
-         for( int idx=curStop+1; idx < mFloorCount; ++idx )
+         for( int idx=mFloorCount-1; idx > curStop; --idx ) //find the highest lit button
          {
             if( mStops[idx].mButtonFlag )
             {
                nPasses = 0; // found a button lit, done with main loop but we have to check precidence
                // on the way up we stop on destination floors or floors with lit up buttons or proceed to the highest floor with a lit down button.
                // later on the way down we will stop on floors with lit down buttons.
-               if( mStops[idx].mButtonFlag&BUTTON_UP|DESTINATION )
+               if( mStops[idx].mButtonFlag ) //& (BUTTON_UP|DESTINATION) )
                {
                   SetDestination( idx );
                   break;
@@ -330,7 +341,7 @@ void Elevator::NextCallButton ()
          }
          if (nPasses> 0) // only true if we have not looked down yet
          {
-            if (mDirection == 1)
+            if (mDirection > 0)
             {
                mDirection = 0;
             }
@@ -342,17 +353,12 @@ void Elevator::NextCallButton ()
 
 void Elevator::Motion ()
 {
-   int max = mTopLevel * 36;
-   int min = mBottomLevel * 36;
    int align = mPosition % 36;  // zero if we are aligned with a floor (safe stop)
    mCurrentLevel = (mPosition ) / 36 - mBottomLevel;
    int index = mCurrentLevel;// - mBottomLevel;
    if( index < 0 || index >= mFloorCount )
       throw new HighriseException( "Elevator: Error in current floor index" );
 
-   int dest = ((mStartRoute == mEndRoute) ? (mStartRoute+mBottomLevel) * 36 : (mEndRoute+mBottomLevel) * 36);
-   if (dest > max ) dest = max;
-   if (dest < min ) dest = min;
    switch( mDirection )
    {
    case 0:
@@ -368,9 +374,14 @@ void Elevator::Motion ()
       }
       break;
    case 1:
-      if( mPosition < dest )
+      if( mPosition < mDestinatonY )
       {
-         mPosition+=2; // faster lifts
+         if( align == 0 && mStops[index].mButtonFlag&(BUTTON_UP|DESTINATION) )
+         {
+            mStops[index].mButtonFlag &= BUTTON_DOWN; // clear all but down
+            mIdleTime = 10;
+         }
+         mPosition+=1; // faster lifts
          mLiftMachine->Update( 1 );
       }
       else
@@ -389,9 +400,14 @@ void Elevator::Motion ()
       }
       break;
    case -1:
-      if( mPosition > dest )
+      if( mPosition > mDestinatonY )
       {
-         mPosition-=2;
+         if( align == 0 && mStops[index].mButtonFlag&(BUTTON_DOWN|DESTINATION) )
+         {
+            mStops[index].mButtonFlag &= BUTTON_UP; // clear all but up
+            mIdleTime = 10;
+         }
+         mPosition-=1;
          mLiftMachine->Update( -1 );
       }
       else
@@ -449,7 +465,7 @@ void Elevator::Update (float dt, int tod)
             personOn->SetCurrentState( Person::CS_Riding );
             LoadPerson (personOn, req);
          }
-         mIdleTime = 20;
+         mIdleTime += 2;
       }
    }
    else
@@ -521,9 +537,16 @@ void Elevator::Save( SerializerBase& ser )
    ser.Add( "offset", mOffset );
    ser.Add( "ridersonboard", mRidersOnBoard );
    ser.Add( "maxcap", mMaxCap );
-//   ser.Add( "riders", mRiders, sizeof(mRiders) );
-//   ser.Add( "stops", mStops, sizeof(mStops) );
 }
+
+/*
+<type>transport</type>
+<name>Elevator</name>
+<cost>9</cost>
+<gfx>
+...
+</gfx>
+*/
 
 void Elevator::SetQueues ()
 {

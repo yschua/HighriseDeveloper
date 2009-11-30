@@ -59,9 +59,12 @@ class SerializerBase;
 #define BUTTON_DOWN 0x02   // this is a call to floor
 #define DESTINATION  0x04   // this is a level destination
 
+#define STOP_HERE 0x01
+#define STOP_ISLOBBY 0x02
 struct FloorStop
 {
    short mLevel;
+   char  mLevelFlag;
    char  mButtonFlag;
 };
 
@@ -106,7 +109,7 @@ protected:
    ElevatorMachine* mLiftMachine;
    ElevatorShaft*   mElevatorShaft;
 
-   Rider       mRiders[16];
+   Rider       mRiders[32];
    FloorStop   mStops[32];
 
    // Controls this things motion
@@ -189,6 +192,8 @@ public:
       return mRouteQueues;
    }
    PersonQueue* FindQueue (int level);
+   bool StopsOnLevel(int level);
+   int  FindLobby();
 };
 
 #endif

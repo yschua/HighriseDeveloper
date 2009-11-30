@@ -87,6 +87,7 @@ Elevator::Elevator ( LiftStyle style, int x, short BottomLevel, short TopLevel, 
    mRouteQueues = NULL;
    SetQueues();
    SetMinMax();
+   SetStopLevels();
 }
 
 Elevator::Elevator( SerializerBase& ser, short TopLevel, Tower * TowerParent )
@@ -113,6 +114,7 @@ Elevator::Elevator( SerializerBase& ser, short TopLevel, Tower * TowerParent )
    mRouteQueues = NULL;
    SetQueues();
    SetMinMax();
+   SetStopLevels();
 }
 
 Elevator::~Elevator()
@@ -158,7 +160,7 @@ void Elevator::ClearStops()
 
 void Elevator::SetStopLevels ()
 {
-   int levels = mTopLevel - mBottomLevel;
+   int levels = mTopLevel - mBottomLevel + 1;
    int level = mBottomLevel;
    int stop = 0;
    switch(mLiftStyle)
@@ -166,6 +168,15 @@ void Elevator::SetStopLevels ()
    case LS_Standard:
       for( int idx = 0; idx < levels; ++idx)
       {
+         Level* pLevel = mTowerParent->GetLevel(level);
+         if( pLevel && pLevel->HasLobby() )
+         {
+            mStops[idx].mLevelFlag = STOP_HERE|STOP_ISLOBBY;
+         }
+         else
+         {
+            mStops[idx].mLevelFlag = STOP_HERE;
+         }
          mStops[idx].mLevel = level++;
       }
       break;
@@ -173,9 +184,14 @@ void Elevator::SetStopLevels ()
       for( int idx = 0; idx < levels; ++idx)
       {
          Level* pLevel = mTowerParent->GetLevel(level);
-         if( pLevel->HasLobby() )
+         if( pLevel && pLevel->HasLobby() )
          {
             mStops[stop++].mLevel = level;
+            mStops[idx].mLevelFlag = STOP_HERE|STOP_ISLOBBY;
+         }
+         else
+         {
+            mStops[idx].mLevelFlag = 0;
          }
          level++;
       }
@@ -194,20 +210,9 @@ void Elevator::PosCalc ()
 
 void Elevator::SetFloorButton (RoutingRequest& req)   // OK, take me there
 {
-   //mStartRoute = req.OriginLevel;
-   //mEndRoute = req.DestinLevel;
    std::cout << "Route: origin: " << mStartRoute << " end: " << mEndRoute << std::endl;
    int reqLevel = req.DestinLevel - mBottomLevel;
    mStops[reqLevel].mButtonFlag |= DESTINATION;
-   //if ( mEndRoute != mStartRoute )
-   //{
-   //   mDirection = (mStartRoute < mEndRoute) ? 1 : -1;
-   //   mIdleTime = 10; // pause at drop off floor;
-   //}
-   //else
-   //{
-   //   mDirection = 0;
-   //}
 }
 
 bool Elevator::SetCallButton (RoutingRequest& req)    // where is an elevator when you need one, I've pushed this button 5 times already
@@ -308,7 +313,7 @@ void Elevator::NextCallButton ()
                // later on the way up we will stop on floors with lit up buttons.
                if( mStops[idx].mButtonFlag ) //& (BUTTON_DOWN|DESTINATION) )
                {
-                  SetDestination( idx + mBottomLevel );
+                  SetDestination( idx);
                   break;
                }
             }
@@ -325,7 +330,7 @@ void Elevator::NextCallButton ()
       else
       {
          --nPasses;
-         for( int idx=mFloorCount-1; idx > curStop; --idx ) //find the highest lit button
+         for( int idx=mFloorCount; idx > curStop; --idx ) //find the highest lit button
          {
             if( mStops[idx].mButtonFlag )
             {
@@ -356,7 +361,7 @@ void Elevator::Motion ()
    int align = mPosition % 36;  // zero if we are aligned with a floor (safe stop)
    mCurrentLevel = (mPosition ) / 36 - mBottomLevel;
    int index = mCurrentLevel;// - mBottomLevel;
-   if( index < 0 || index >= mFloorCount )
+   if( index < 0 || index > mFloorCount )
       throw new HighriseException( "Elevator: Error in current floor index" );
 
    switch( mDirection )
@@ -555,7 +560,7 @@ void Elevator::SetQueues ()
       mRouteQueues = new QueueType();
    }
    QueueIterType it;
-   int count = mTopLevel - mBottomLevel;
+   int count = mTopLevel - mBottomLevel + 1;
    for (int idx = 0; idx < count; ++idx)
    {
       PersonQueue* pQ = new PersonQueue();
@@ -563,13 +568,39 @@ void Elevator::SetQueues ()
    }
 }
 
-PersonQueue* Elevator::FindQueue (int Level)
+PersonQueue* Elevator::FindQueue (int level)
 {
-   unsigned int index = Level - mBottomLevel;
+   unsigned int index = level - mBottomLevel;
    if (index >= 0 && index < mRouteQueues->size())
    {
       PersonQueue* pQ = (*mRouteQueues)[index];
       return pQ;
    }
    return NULL;
+}
+
+bool Elevator::StopsOnLevel(int level)
+{
+   unsigned int index = level - mBottomLevel;
+   if (index >= 0 && index < mRouteQueues->size())
+   {
+      if( mStops[index].mLevelFlag & STOP_HERE )
+      {
+         return true;
+      }
+   }
+   return false;
+}
+
+int Elevator::FindLobby()
+{
+   int count = mTopLevel - mBottomLevel + 1;
+   for (int idx = 0; idx < count; ++idx)
+   {
+      if ((mStops[idx].mLevelFlag & STOP_ISLOBBY) && (mStops[idx].mLevelFlag & STOP_HERE))
+      {
+         return mStops[idx].mLevel;
+      }
+   }
+   return false;
 }

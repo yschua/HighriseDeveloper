@@ -172,37 +172,13 @@ void CitizensAgent::Update (float dt, int tod)
                      break;
                   case Person::CS_Disembarking:
                      peep->SetCurrent(workPath.mPathList[idx].mLevel);
+                     curLevel = workPath.mPathList[idx].mLevel;
                      workPath.index++;
                      peep->SetCurrentState( Person::CS_Walking );
+                     idx = workPath.index;
                      // fall through
                   default:
-                     //Routes* routeList = Routes::GetInstance();
-                     Routes& routeList = mTower.GetRoutes();
-                     if (  routeList.GetRoutes().size() > 0 )
-                     {
-                        std::vector<RouteBase*>::iterator i;
-                        i = routeList.GetRoutes().begin ();
-                        RouteBase* route = (*i);
-                        RoutingRequest req;     // routing code needs to queue this person
-                        req.OriginLevel = curLevel;
-                        req.DestinLevel = workPath.mPathList[idx].mLevel;
-                        bool IsBoarding = route->SetCallButton( req );
-                        if( IsBoarding )
-                        {
-                           peep->SetCurrentState( Person::CS_Riding );
-                           route->LoadPerson (peep, req);
-                        }
-                        else
-                        {
-                           peep->SetCurrentState( Person::CS_Waiting );
-                           //Level* pLevel = mTower.GetLevel(curLevel);
-                           PersonQueue* pQ = route->FindQueue(curLevel);
-                           if( pQ )
-                           {
-                              pQ->AddPerson(peep);
-                           }
-                        }
-                     }
+                     RoutePerson(idx, workPath, peep);
                   }
                   //workPath.index++; // TODO: wait for elevator, we are moving ahead before getting to the level
                   if( workPath.index == workPath.size )
@@ -265,40 +241,17 @@ void CitizensAgent::Update (float dt, int tod)
                      // enroute
                      break;
                   case Person::CS_Disembarking:
-                     if (workPath.index)
+                     if (workPath.index > 0)
                      {
                         workPath.index--; // TODO: wait for elevator, we are moving ahead before getting to the level
                      }
                      peep->SetCurrentState( Person::CS_Walking );
+                     peep->SetCurrent(workPath.mPathList[idx].mLevel);
+                     curLevel = workPath.mPathList[idx].mLevel;
+                     idx = workPath.index;
                      // fall through
                   default:
-                     //Routes* routeList = Routes::GetInstance();
-                     Routes& routeList = mTower.GetRoutes();
-                     if ( routeList.GetRoutes().size() > 0 )
-                     {
-                        std::vector<RouteBase*>::iterator i;
-                        i = routeList.GetRoutes().begin ();
-                        RouteBase* route = (*i);
-                        RoutingRequest req;
-                        req.OriginLevel = curLevel;
-                        req.DestinLevel = workPath.mPathList[idx].mLevel;
-                        bool IsBoarding = route->SetCallButton( req );
-                        if( IsBoarding ) // car is on this floor
-                        {
-                           peep->SetCurrentState( Person::CS_Riding );
-                           route->LoadPerson (peep, req);
-                        }
-                        else
-                        {
-                           peep->SetCurrentState( Person::CS_Waiting );
-                           //Level* pLevel = mTower.GetLevel(curLevel);
-                           PersonQueue* pQ = route->FindQueue(curLevel);
-                           if( pQ )
-                           {
-                              pQ->AddPerson(peep);
-                           }
-                        }
-                     }
+                     RoutePerson(curLevel, workPath, peep);
                   }
                }
             }
@@ -309,6 +262,38 @@ void CitizensAgent::Update (float dt, int tod)
          default:
             // do something
             break;   // microsoft requires this break
+      }
+   }
+}
+
+void CitizensAgent::RoutePerson(int index, Path& Path, Person* peep)
+{
+   Routes& routeList = mTower.GetRoutes();
+   if (  routeList.GetRoutes().size() > 0 )
+   {
+      RoutingRequest req;     // routing code needs to queue this person
+      req.OriginLevel = peep->GetCurrent();
+      req.DestinLevel = Path.mPathList[index].mLevel;
+      int rte = Path.mPathList[index].mRoute;
+      if(rte >= 0 && rte < routeList.GetRoutes().size())
+      {
+         RouteBase* route = routeList.GetRoutes()[rte];
+         bool IsBoarding = route->SetCallButton( req );
+         if( IsBoarding )
+         {
+            peep->SetCurrentState( Person::CS_Riding );
+            route->LoadPerson (peep, req);
+         }
+         else
+         {
+            peep->SetCurrentState( Person::CS_Waiting );
+            //Level* pLevel = mTower.GetLevel(curLevel);
+            PersonQueue* pQ = route->FindQueue(peep->GetCurrent());
+            if( pQ )
+            {
+               pQ->AddPerson(peep);
+            }
+         }
       }
    }
 }

@@ -42,6 +42,8 @@ public:
    virtual void Draw () = 0;
    virtual void Save( SerializerBase& ser ) = 0;
    virtual PersonQueue* FindQueue (int level) = 0;
+   virtual bool StopsOnLevel(int level) = 0;
+   virtual int  FindLobby() = 0;
 };
 
 #endif //_ROUTEBASE_H

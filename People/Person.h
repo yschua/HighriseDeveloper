@@ -200,7 +200,7 @@ public:
    virtual int  DrawFramework (int id) { return 0; }
    void    SetResidence (int level);
    void    SetCurrent( int Level );
-
+   int     GetCurrent( ) { return mLocation.mLevel; }
 
 };
 

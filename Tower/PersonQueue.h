@@ -28,9 +28,6 @@ class RouteBase;
 class PersonQueue // Abstract, does not even have a CPP file at this point.
 {
 protected:
-   short mHeadIndex;
-   short mTailIndex;
-   short mCapacity;
    short mSweepIndex; // moves through the queue filling gaps
    //Person** mpQueue;
    std::queue<Person*> mpQueue;

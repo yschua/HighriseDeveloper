@@ -27,10 +27,6 @@ PersonQueue::PersonQueue()
 void PersonQueue::AddPerson (Person* person)
 {
    mpQueue.push(person);
-   if( mHeadIndex >= mCapacity )
-   {
-      mHeadIndex = 0;
-   }
 }
 
 Person* PersonQueue::TakeNextPerson ()

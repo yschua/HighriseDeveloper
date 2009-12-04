@@ -69,6 +69,7 @@
 					<Add library="GLU" />
 					<Add library="libCEGUIBase" />
 					<Add library="libCEGUIOpenGLRenderer" />
+					<Add library="libjsoncpp" />
 				</Linker>
 			</Target>
 		</Build>

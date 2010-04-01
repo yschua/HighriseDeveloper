@@ -46,7 +46,8 @@ public:
    bool OnEnglish(const CEGUI::EventArgs& e);
    bool OnSpanish(const CEGUI::EventArgs& e);
    bool OnFrench(const CEGUI::EventArgs& e);
-   bool OnGerman(const CEGUI::EventArgs& e);
+   bool OnDeutsch(const CEGUI::EventArgs& e);
+   bool OnItalian (const CEGUI::EventArgs& e);
 };
 
 #endif // _SETTINGSWINDOW_H

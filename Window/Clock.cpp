@@ -39,16 +39,18 @@ const char* Clock::pszDaysOfWeek[] = // move to resources with more internationa
    "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat",
    "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", // Credit to Google for Translation
    "Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", // Deutsch
-   "Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", // Espaniol
-   "Dimanche", "Lundi", "mardi", "mercredi", "Jeudi", "Vendredi", "Samedi" // France
+   "Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", // Espaniol
+   "Dimanche", "Lundi", "mardi", "mercredi", "Jeudi", "Vendredi", "Samedi", // Franch
+   "Sabato", "Domenica", "Lunedi", "Martedì", "Mercoledì", "Giovedi", "Venerdì" // Italiano
 };
 const char* Clock::pszMonths[] = // move to resources with more internationaliztion
 {
    "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", // generic
    "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December", // English
-   "Januar", "Februar", "März", "April", "Mai", "June", "Juli", "August", "September", "Oktober", "November", "Dezember", // Deutsch
+   "Januar", "Februar", "Marz", "April", "Mai", "June", "Juli", "August", "September", "Oktober", "November", "Dezember", // Deutsch
    "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre", // Espaniol
-   "Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"  // France
+   "Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Decembre",  // Franch
+   "Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre" // Italiano
 };
 
 Clock::Clock ()
@@ -131,8 +133,7 @@ const char* Clock::DateString()
    return str.c_str();
 }
 
-void
-Clock::Update (int minutes)
+void Clock::Update (int minutes)
 {
    mTimeOfDay += minutes;
    if (mTimeOfDay > 23*60+59)   // only 1440 minutes in a day
@@ -164,10 +165,10 @@ Clock::Update (int minutes)
       }
 
    }
-   int mins = mTimeOfDay % 30;
+   int mins = mTimeOfDay % 60;
    float hours = (float)mTimeOfDay / 30;
    mHourHand.Angle = 360.0f / 24 * hours;
-   mMinuteHand.Angle =  360.0f / 30 * mins;
+   mMinuteHand.Angle =  360.0f / 60 * mins;
 }
 
 void

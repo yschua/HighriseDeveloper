@@ -1,7 +1,7 @@
 #include <SFML/System.hpp>
 #include <string>
 #include <CEGUI.h>
-#include <json/json.h>
+//#include <json/json.h>
 
 #include "../Root/HighRiseException.h"
 
@@ -52,41 +52,43 @@ GUIManager::GUIManager(SceneEvent& rse, Interface& rInterface) //, Tower* Tower)
 		pTestBtn->setSize(UVector2(UDim(0.5f, 0), UDim(0.5f, 0)));
 		pTestBtn->setPosition(UVector2(UDim(0.25f, 0), UDim(0.4f, 0)));
       fWnd->addChildWindow( pTestBtn );*/
-      Json::Value root;
-      Json::Reader reader;
-      std::ifstream conffile;
-      conffile.open("data/gui/Gui.js");
-      if (!conffile.is_open()) { std::cout << "Error loading data/gui/Gui.js! Failed to open file."; }
-      std::string conf;
-      getline(conffile, conf, '\0');
-      std::cout << conf;
-      bool parseGood = reader.parse(conf, root);
-      if (!parseGood) std::cout << "failed to parse /data/gui/Gui.js, " << reader.getFormatedErrorMessages();
 
-      struct Local {
-         CEGUI::WindowManager* mpWM;
-         CEGUI::Window* mpRootWind;
-         void ProcessNode(Json::Value& Node) {
-            std::string Name = Node["Name"].asString();
-            std::string Type = Node["Type"].asString();
-            Window* NewWindow = mpWM->createWindow(Type, Name);
-            mpRootWind->addChildWindow(NewWindow);
-            std::string Size = Node["UnifiedSize"].asString();
-            NewWindow->setProperty("UnifiedSize", Size);
-            std::cout << "created window " << Name << " (type " << Type << ") with size " << Size << '\n';
-            Json::Value children = Node["Children"];
-            if (children.type()) {
-               for (int i = 0; i < children.size(); ++i) {
-                  std::cout << children[i];
-                  ProcessNode(children[i]);
-               }
-            }
-         }
-      };
-      Local blah;
-      blah.mpWM = mpWM;
-      blah.mpRootWind = mpRootWind;
-      blah.ProcessNode(root);
+      // JSON test code
+      //Json::Value root;
+      //Json::Reader reader;
+      //std::ifstream conffile;
+      //conffile.open("data/gui/Gui.js");
+      //if (!conffile.is_open()) { std::cout << "Error loading data/gui/Gui.js! Failed to open file."; }
+      //std::string conf;
+      //getline(conffile, conf, '\0');
+      //std::cout << conf;
+      //bool parseGood = reader.parse(conf, root);
+      //if (!parseGood) std::cout << "failed to parse /data/gui/Gui.js, " << reader.getFormatedErrorMessages();
+
+      //struct Local {
+      //   CEGUI::WindowManager* mpWM;
+      //   CEGUI::Window* mpRootWind;
+      //   void ProcessNode(Json::Value& Node) {
+      //      std::string Name = Node["Name"].asString();
+      //      std::string Type = Node["Type"].asString();
+      //      Window* NewWindow = mpWM->createWindow(Type, Name);
+      //      mpRootWind->addChildWindow(NewWindow);
+      //      std::string Size = Node["UnifiedSize"].asString();
+      //      NewWindow->setProperty("UnifiedSize", Size);
+      //      std::cout << "created window " << Name << " (type " << Type << ") with size " << Size << '\n';
+      //      Json::Value children = Node["Children"];
+      //      if (children.type()) {
+      //         for (int i = 0; i < children.size(); ++i) {
+      //            std::cout << children[i];
+      //            ProcessNode(children[i]);
+      //         }
+      //      }
+      //   }
+      //};
+      //Local blah;
+      //blah.mpWM = mpWM;
+      //blah.mpRootWind = mpRootWind;
+      //blah.ProcessNode(root);
       // Load the menu layout from xml and get the buttons to do something. NOTE: If you remove the buttons
       // from the xml, this may or may not crash. We need to check if getWindow() returns a vaild pointer.
       LoadLayout("Menu.layout");

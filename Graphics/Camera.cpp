@@ -39,12 +39,16 @@ Camera::Camera ()
 :  Body (1280, 720)
 ,  mBounds (-1600, -1280, 100, 60)
 {
-   sf::WindowSettings Settings;
-   Settings.DepthBits         = 24; // Request a 24 bits depth buffer
-   Settings.StencilBits       = 8;  // Request a 8 bits stencil buffer
-   Settings.AntialiasingLevel = 2;  // Request 2 levels of antialiasing
+   sf::ContextSettings Settings;
+   Settings.depthBits         = 24; // Request a 24 bits depth buffer
+   Settings.stencilBits       = 8;  // Request a 8 bits stencil buffer
+   Settings.antialiasingLevel = 2;  // Request 2 levels of antialiasing
    mpWindow = new sf::RenderWindow ();
-   mpWindow->Create (sf::VideoMode (800, 600, 32), "Highrise Developer (version " HR_VERSION ")", sf::Style::Close|sf::Style::Resize, Settings);
+   mpWindow->create(
+       sf::VideoMode (800, 600, 32),
+       "Highrise Developer (version " HR_VERSION ")",
+       sf::Style::Close | sf::Style::Resize,
+       Settings);
    //mpWindow->SetPosition( 0, 100);
    mZoomFactor = -400; // back away 200 feet
    mAspect = (float)(800.0 / 600);
@@ -53,7 +57,7 @@ Camera::Camera ()
    mIgnoreCamera = false;
    ms.x = -820;
    ms.y = -160;
-   mpWindow->ShowMouseCursor (false);
+   mpWindow->setMouseCursorVisible(false);
 }
 
 Vector2i
@@ -72,7 +76,7 @@ Camera::GetLocalMouse()
 void
 Camera::SetMaxFramerate (int rate)
 {
-   mpWindow->SetFramerateLimit (rate);
+   mpWindow->setFramerateLimit (rate);
 }
 
 void
@@ -148,7 +152,7 @@ Camera::Display ()
       ma.y = -1; //-10;
    }
 
-   mpWindow->Display ();
+   mpWindow->display();
 }
 
 void
@@ -354,7 +358,7 @@ Vector3f Camera::GetOGLPos (Vector2f winVec) // NeHe Productions at GameDev
 bool
 Camera::GetEvent (sf::Event & event)
 {
-   return mpWindow->GetEvent (event);
+   return mpWindow->pollEvent(event);
 }
 
 bool

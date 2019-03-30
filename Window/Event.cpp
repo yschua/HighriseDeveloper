@@ -26,7 +26,6 @@
 EventHandler::EventHandler ()
 {
    Cam = Camera::GetInstance ();
-   mpInput = Cam->GetInput();
 }
 
 void
@@ -60,19 +59,19 @@ bool EventHandler::HandleEvents (const sf::Event& Event)
 
       case sf::Event::MouseButtonPressed:
          for (ConType::iterator i = mHandlers.begin (); i != mHandlers.end (); i++)
-            if ((*i)->OnMouseDown (Event.MouseButton.Button, Vector2i(mpInput->GetMouseX (), mpInput->GetMouseY ()), Vector2i(mpInput->GetMouseX (), mpInput->GetMouseY ())))
+            if ((*i)->OnMouseDown (Event.MouseButton.Button, Cam->GetLocalMouse(), Cam->GetLocalMouse()))
                return true;
       break;
 
       case sf::Event::MouseButtonReleased:
          for (ConType::iterator i = mHandlers.begin (); i != mHandlers.end (); i++)
-            if ((*i)->OnMouseUp (Event.MouseButton.Button, Vector2i(mpInput->GetMouseX (), mpInput->GetMouseY ()), Vector2i(mpInput->GetMouseX (), mpInput->GetMouseY ())))
+            if ((*i)->OnMouseUp (Event.MouseButton.Button, Cam->GetLocalMouse(), Cam->GetLocalMouse()))
                return true;
       break;
 
       case sf::Event::MouseMoved:
          for (ConType::iterator i = mHandlers.begin (); i != mHandlers.end (); i++)
-            if ((*i)->OnMouseMove (Vector2i(mpInput->GetMouseX (), mpInput->GetMouseY ()), Vector2i(mpInput->GetMouseX (), mpInput->GetMouseY ())))
+            if ((*i)->OnMouseMove (Cam->GetLocalMouse(), Cam->GetLocalMouse()))
                return true;
       break;
 

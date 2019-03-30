@@ -35,7 +35,6 @@ class Camera : public Body, public EventBase
 private:
    Vector2f mScene, mCam;
    sf::Window* mpWindow;
-   const sf::Input* mpInput;
    static Camera* mpInstance;
    float mZoomFactor;
    float mAspect;
@@ -53,7 +52,6 @@ protected:
 
 public:
    static Camera* GetInstance();
-   const sf::Input * GetInput ();
    // properties
    void SetMaxFramerate (int rate);
    float GetAspect () { return mAspect; }

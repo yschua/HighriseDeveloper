@@ -51,16 +51,9 @@ Camera::Camera ()
    mCam.x = 800;
    mCam.y = 600;
    mIgnoreCamera = false;
-   mpInput = &(mpWindow->GetInput ());
    ms.x = -820;
    ms.y = -160;
    mpWindow->ShowMouseCursor (false);
-}
-
-const sf::Input *
-Camera::GetInput ()
-{
-   return mpInput;
 }
 
 Vector2i
@@ -73,9 +66,8 @@ Camera::GetMouse ()
 Vector2i
 Camera::GetLocalMouse()
 {
-   return Vector2i (mpInput->GetMouseX (), mpInput->GetMouseY ());
+    return sf::Mouse::getPosition(*mpWindow);
 }
-
 
 void
 Camera::SetMaxFramerate (int rate)

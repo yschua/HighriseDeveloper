@@ -119,33 +119,35 @@ Camera::Display ()
    // For fun ;)
    //int BounceAmount = 2;
    // Do bounds checking
-   if (ms.x > mBounds.Right) // 0
+   const float right = mBounds.left + mBounds.width;
+   if (ms.x > right) // 0
    {
-      ms.x = mBounds.Right;
+      ms.x = right;
       //Outside of left bound
       if (mv.x > 0) mv.x = 0;
       mv.x =-1; //+= -20;
       ma.x = 1; //10;
    }
-   if (ms.x < mBounds.Left) //-1280
+   if (ms.x < mBounds.left) //-1280
    {
-      ms.x = mBounds.Left;
+      ms.x = mBounds.left;
       //Outside of right bound
       if (mv.x < 0) mv.x = 0;
       mv.x = 1;  // += 20;
       ma.x = -1; // -10;
    }
-   if (ms.y > mBounds.Bottom) // 400
+   const float bottom = mBounds.top + mBounds.height;
+   if (ms.y > bottom) // 400
    {
-      ms.y = mBounds.Bottom; // 400
+      ms.y = bottom; // 400
       //Outside of bottom bound
       if (mv.y > 0) mv.y = 0;
       mv.y = -1; //+= -20;
       ma.y = 1; //10;
    }
-   if (ms.y < mBounds.Top) // -675 
+   if (ms.y < mBounds.top) // -675 
    {
-      ms.y = mBounds.Top; //-675
+      ms.y = mBounds.top; //-675
       //Outside of top bound
       if (mv.y < 0) mv.y = 0;
       mv.y = 1; //+= 20;

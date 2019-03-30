@@ -21,7 +21,7 @@
 // Is there a way to avoid this include?
 #include <string>
 #include "SFML/Graphics.hpp"
-
+#include <SFML/OpenGL.hpp>
 
 using namespace std;
 

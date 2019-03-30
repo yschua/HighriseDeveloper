@@ -17,7 +17,7 @@
  *   You should have received a copy of the GNU General Public License
  *   along with Extreme Park Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include <CEGUI.h>
+#include <CEGUI/CEGUI.h>
 #include "SettingsWindow.h"
 #include "Interface.h"
 #define LOOK "WindowsLook"

@@ -1,12 +1,12 @@
 #ifndef GUIManager_H
 #define GUIManager_H
 
-#include <CEGUI.h>
+#include <CEGUI/CEGUI.h>
 #include <iostream>
 
-#include <RendererModules/OpenGLGUIRenderer/openglrenderer.h>
-#include <CEGUISystem.h>
-#include <CEGUIDefaultResourceProvider.h>
+#include <CEGUI/RendererModules/OpenGL/GLRenderer.h>
+#include <CEGUI/System.h>
+#include <CEGUI/DefaultResourceProvider.h>
 #include "Event.h"
 
 class SceneEvent;

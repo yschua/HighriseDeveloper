@@ -1,6 +1,6 @@
 #include <SFML/System.hpp>
 #include <string>
-#include <CEGUI.h>
+#include <CEGUI/CEGUI.h>
 //#include <json/json.h>
 
 #include "../Root/HighRiseException.h"

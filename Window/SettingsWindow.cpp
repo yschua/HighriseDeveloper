@@ -52,7 +52,7 @@ bool SettingsWindow::Create (CEGUI::Window* pRoot)
    mpWnd = (FrameWindow*)winMgr.createWindow( LOOK "/FrameWindow", "Settings");
    // Here we attach the newly created FrameWindow to the previously created
    // DefaultWindow which we will be using as the root of the displayed gui.
-   pRoot->addChildWindow(mpWnd);
+   pRoot->addChild(mpWnd);
 
    // Windows are in Relative metrics mode by default.  This means that we can
    // specify sizes and positions without having to know the exact pixel size
@@ -178,22 +178,22 @@ bool SettingsWindow::Create (CEGUI::Window* pRoot)
    pLabel3e->setSize(UVector2(cegui_reldim(0.25f), cegui_reldim( 0.05f)));
    pLabel3e->setText("Italian");
 
-   mpWnd->addChildWindow(pLabel1);
-   mpWnd->addChildWindow(pLabel2);
-   mpWnd->addChildWindow(pLabel3);
-   mpWnd->addChildWindow(pLabel3a);
-   mpWnd->addChildWindow(pLabel3b);
-   mpWnd->addChildWindow(pLabel3c);
-   mpWnd->addChildWindow(pLabel3d);
-   mpWnd->addChildWindow(pLabel3e);
+   mpWnd->addChild(pLabel1);
+   mpWnd->addChild(pLabel2);
+   mpWnd->addChild(pLabel3);
+   mpWnd->addChild(pLabel3a);
+   mpWnd->addChild(pLabel3b);
+   mpWnd->addChild(pLabel3c);
+   mpWnd->addChild(pLabel3d);
+   mpWnd->addChild(pLabel3e);
 
-   mpWnd->addChildWindow(mpSoundFx);
-   mpWnd->addChildWindow(mpMusic);
-   mpWnd->addChildWindow(pBox3a);
-   mpWnd->addChildWindow(pBox3b);
-   mpWnd->addChildWindow(pBox3c);
-   mpWnd->addChildWindow(pBox3d);
-   mpWnd->addChildWindow(pBox3e);
+   mpWnd->addChild(mpSoundFx);
+   mpWnd->addChild(mpMusic);
+   mpWnd->addChild(pBox3a);
+   mpWnd->addChild(pBox3b);
+   mpWnd->addChild(pBox3c);
+   mpWnd->addChild(pBox3d);
+   mpWnd->addChild(pBox3e);
 
    // subscribe handler that closes the dialog
    mpWnd->subscribeEvent (FrameWindow::EventCloseClicked, Event::Subscriber(&SettingsWindow::OnClose, this));

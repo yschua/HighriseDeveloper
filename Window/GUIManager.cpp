@@ -89,21 +89,23 @@ GUIManager::GUIManager(SceneEvent& rse, Interface& rInterface) //, Tower* Tower)
       //blah.mpWM = mpWM;
       //blah.mpRootWind = mpRootWind;
       //blah.ProcessNode(root);
+
+      // NOTE getChild() here may or may not return the Window pointer correctly
       // Load the menu layout from xml and get the buttons to do something. NOTE: If you remove the buttons
       // from the xml, this may or may not crash. We need to check if getWindow() returns a vaild pointer.
-      LoadLayout("Menu.layout");
-      mpWM->getWindow((utf8*)"BnSelect")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnSelect, this));
-      mpWM->getWindow((utf8*)"BnOffice")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnOffice, this));
-      mpWM->getWindow((utf8*)"BnApartment")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnApartment, this));
-      mpWM->getWindow((utf8*)"BnHotel")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnHotel, this));
-      mpWM->getWindow((utf8*)"BnHousekeeping")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnHousekeeping, this));
-      mpWM->getWindow((utf8*)"BnSecurity")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnSecurity, this));
-      mpWM->getWindow((utf8*)"BnClinic")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnClinic, this));
-      mpWM->getWindow((utf8*)"BnCondo")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnCondo, this));
-      mpWM->getWindow((utf8*)"BnStairs")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnStairs, this));
+      CEGUI::Window* pLayout = LoadLayout("Menu.layout");
+      pLayout->getChild((utf8*)"BnSelect")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnSelect, this));
+      pLayout->getChild((utf8*)"BnOffice")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnOffice, this));
+      pLayout->getChild((utf8*)"BnApartment")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnApartment, this));
+      pLayout->getChild((utf8*)"BnHotel")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnHotel, this));
+      pLayout->getChild((utf8*)"BnHousekeeping")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnHousekeeping, this));
+      pLayout->getChild((utf8*)"BnSecurity")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnSecurity, this));
+      pLayout->getChild((utf8*)"BnClinic")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnClinic, this));
+      pLayout->getChild((utf8*)"BnCondo")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnCondo, this));
+      pLayout->getChild((utf8*)"BnStairs")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnStairs, this));
       // elevator
-      mpWM->getWindow((utf8*)"MenuBackground/Open")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnOpen, this));
-      mpWM->getWindow((utf8*)"MenuBackground/Save")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnSave, this));
+      pLayout->getChild((utf8*)"MenuBackground/Open")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnOpen, this));
+      pLayout->getChild((utf8*)"MenuBackground/Save")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnSave, this));
 
 
 
@@ -126,8 +128,8 @@ CEGUI::Window* GUIManager::LoadLayout(const std::string& Name) {
 }
 
 CEGUI::Window* GUIManager::LoadLayout(const std::string& Name, CEGUI::Window* Parent) {
-   CEGUI::Window* pLayout = mpWM->loadWindowLayout(Name);
-   Parent->addChildWindow(pLayout);
+   CEGUI::Window* pLayout = mpWM->loadLayoutFromFile(Name);
+   Parent->addChild(pLayout);
    return pLayout;
 }
 

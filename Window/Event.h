@@ -56,8 +56,8 @@ public:
    virtual bool OnResize (Vector2i viewSize) { return false; }
    virtual bool OnMouseDown (sf::Mouse::Button Button, Vector2i Scene, Vector2i Cam) { return false; }
    virtual bool OnMouseUp (sf::Mouse::Button Button, Vector2i Scene, Vector2i Cam) { return false; }
-   virtual bool OnKeyDown (sf::Key::Code Key) { return false; }
-   virtual bool OnKeyUp (sf::Key::Code Key) { return false; }
+   virtual bool OnKeyDown (sf::Keyboard::Key Key) { return false; }
+   virtual bool OnKeyUp (sf::Keyboard::Key Key) { return false; }
    virtual bool OnMouseMove (Vector2i Scene, Vector2i Cam) { return false; }
    virtual bool OnMouseWheel (int Delta) { return false; }
    virtual bool OnClose () { return false; }
@@ -72,7 +72,6 @@ private:
    typedef std::vector<EventBase*> ConType;
    ConType mHandlers;
    Camera* Cam;
-   const sf::Input* mpInput;
 
 public:
    EventHandler ();

@@ -36,36 +36,36 @@ EventHandler::Add (EventBase* Handler)
 
 bool EventHandler::HandleEvents (const sf::Event& Event)
 {
-   switch (Event.Type)
+   switch (Event.type)
    {
       case sf::Event::KeyPressed:
          for (ConType::iterator i = mHandlers.begin (); i != mHandlers.end (); i++)
-            if ((*i)->OnKeyDown (Event.Key.Code))
+            if ((*i)->OnKeyDown (Event.key.code))
                return true;
                // return true if one of our handlers returned true; ie the event was eaten
       break;
 
       case sf::Event::Resized:
          for (ConType::iterator i = mHandlers.begin (); i != mHandlers.end (); i++)
-            (*i)->OnResize (Vector2i(Event.Size.Width, Event.Size.Height));
+            (*i)->OnResize (Vector2i(Event.size.width, Event.size.height));
                // We want all Event.handlers to receive this one; we don't want it to be "eaten"
       break;
 
       case sf::Event::KeyReleased:
          for (ConType::iterator i = mHandlers.begin (); i != mHandlers.end (); i++)
-            if ((*i)->OnKeyUp (Event.Key.Code))
+            if ((*i)->OnKeyUp (Event.key.code))
                return true;
       break;
 
       case sf::Event::MouseButtonPressed:
          for (ConType::iterator i = mHandlers.begin (); i != mHandlers.end (); i++)
-            if ((*i)->OnMouseDown (Event.MouseButton.Button, Cam->GetLocalMouse(), Cam->GetLocalMouse()))
+            if ((*i)->OnMouseDown (Event.mouseButton.button, Cam->GetLocalMouse(), Cam->GetLocalMouse()))
                return true;
       break;
 
       case sf::Event::MouseButtonReleased:
          for (ConType::iterator i = mHandlers.begin (); i != mHandlers.end (); i++)
-            if ((*i)->OnMouseUp (Event.MouseButton.Button, Cam->GetLocalMouse(), Cam->GetLocalMouse()))
+            if ((*i)->OnMouseUp (Event.mouseButton.button, Cam->GetLocalMouse(), Cam->GetLocalMouse()))
                return true;
       break;
 
@@ -90,12 +90,12 @@ bool EventHandler::HandleEvents (const sf::Event& Event)
 
       case sf::Event::MouseWheelMoved:
          for (ConType::iterator i = mHandlers.begin (); i != mHandlers.end (); i++)
-            if ((*i)->OnMouseWheel (Event.MouseWheel.Delta))
+            if ((*i)->OnMouseWheel (Event.mouseWheel.delta))
                return true;
       break;
 
       // EXTREMELY HACKISH, we need a new way to do this. CUSTOM EVENTS!!!
-      case sf::Event::JoyButtonPressed: // no event mutations
+      case sf::Event::JoystickButtonPressed: // no event mutations
          for (ConType::iterator i = mHandlers.begin (); i != mHandlers.end (); i++)
             if ((*i)->OnToolHit("DOESNT WORK YET DUH!!!!")) // event does not support other events
                return true;

@@ -366,37 +366,37 @@ Camera::GetEvent (sf::Event & event)
 }
 
 bool
-Camera::OnKeyDown (sf::Key::Code Key)
+Camera::OnKeyDown (sf::Keyboard::Key Key)
 {
-   if (Key == sf::Key::D)
+   if (Key == sf::Keyboard::D)
    {
       if (mv.x > 0) mv.x = 0;
       mv.x += 0.4f * mZoomFactor;
       ma.x = -0.25f * mZoomFactor;
       //if (mv.x == 0) mv.x = 0.5*mZoomFactor;
    }
-   if (Key == sf::Key::S)
+   if (Key == sf::Keyboard::S)
    {
       if (mv.y < 0) mv.y = 0;
       mv.y += -0.3f * mZoomFactor;
       ma.y = 0.25f * mZoomFactor;
       //if (mv.y == 0) mv.y = -0.5*mZoomFactor;
    }
-   if (Key == sf::Key::A)
+   if (Key == sf::Keyboard::A)
    {
       if (mv.x < 0) mv.x = 0;
       mv.x += -0.4f * mZoomFactor;
       ma.x = 0.25f * mZoomFactor;
       //if (mv.x == 0) mv.x = -0.5*mZoomFactor;
    }
-   if (Key == sf::Key::W)
+   if (Key == sf::Keyboard::W)
    {
       if (mv.y > 0) mv.y = 0;
       mv.y += 0.3f * mZoomFactor;
       ma.y = -0.25f * mZoomFactor;
       //if (mv.y == 0) mv.y = 0.5*mZoomFactor;
    }
-   if (Key == sf::Key::E)
+   if (Key == sf::Keyboard::E)
    {
       SetVelocity (0, 0);
    }

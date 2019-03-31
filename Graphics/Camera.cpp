@@ -20,6 +20,7 @@
 #include <cstring>
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
+
 #include "../Root/Physics.h"
 #include "../Scene/Scene.h"
 #include "../AI/CitizensAgent.h"
@@ -29,8 +30,9 @@
 #include "Animation.h"
 #include "ModelObject.h"   // 3d abstract
 #include "ViewObject.h"    // 2d abstract
-
 #include "Camera.h"
+
+#include <gl/GLU.h>
 
 #define FIELD_OF_VIEW 90.0f  // this controls how long the focal view of the camera is in OpenGL
 Camera * Camera::mpInstance = NULL;
@@ -172,7 +174,7 @@ Camera::OnResize (Vector2i vi)
    mAspect = (float)(vi.x) / vi.y;
    glMatrixMode(GL_PROJECTION);
    glLoadIdentity();
-	gluPerspective (FIELD_OF_VIEW, mAspect ,1.0f,1000.0f);		// Calculate The Aspect Ratio Of The Window
+   gluPerspective(FIELD_OF_VIEW, mAspect ,1.0f, 1000.0f);		// Calculate The Aspect Ratio Of The Window
    return true;
 }
 
@@ -193,7 +195,7 @@ Camera::InitGL()
    // Setup a perspective projection
    glMatrixMode(GL_PROJECTION);
    glLoadIdentity();
-   gluPerspective (FIELD_OF_VIEW, mAspect, 1.0f, 1000.f);
+   gluPerspective(FIELD_OF_VIEW, mAspect, 1.0f, 1000.f);
    glEnable (GL_TEXTURE_2D);
 }
 
@@ -295,7 +297,7 @@ int Camera::RenderFramework (Scene* pModel, Vector2f mouse, int level)
    gluPickMatrix(mouse.x, viewport[3]-mouse.y, 2, 2, viewport); // mouse y is inverted
 
    // Apply perspective matrix
-   gluPerspective (FIELD_OF_VIEW, mAspect, 1.0f, 1000.f);		// Calculate The Aspect Ratio Of The Window
+   gluPerspective(FIELD_OF_VIEW, mAspect, 1.0f, 1000.f);		// Calculate The Aspect Ratio Of The Window
    glTranslatef (GetPositionX(), GetPositionY(), mZoomFactor);
 
    // Draw the scene

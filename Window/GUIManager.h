@@ -54,7 +54,7 @@ public:
 
 	CEGUI::System* getSystem() { return mpSystem; }
 	CEGUI::WindowManager* getWindowManager() { return mpWM; }
-	void setRootWindow(CEGUI::Window* Win) {mpSystem->setGUISheet(Win); mpRootWind = Win;}
+	void setRootWindow(CEGUI::Window* Win);
 	CEGUI::Window* LoadLayout(const std::string& Name);
 	CEGUI::Window* LoadLayout(const std::string& Name, CEGUI::Window* Parent);
 

@@ -22,25 +22,25 @@ GUIManager::GUIManager(SceneEvent& rse, Interface& rInterface) //, Tower* Tower)
 	{
 	   using namespace CEGUI;
 	   // LOOK, we are USING THE CEGUI NAMESPACE!! The extra CEGUI::'s are not nessesary...
-		mpRenderer = new OpenGLRenderer(0);
-		mpSystem = new System(mpRenderer);
+      mpRenderer = &OpenGLRenderer::create();
+      mpSystem = &System::create(*mpRenderer);
       DefaultResourceProvider* rp = static_cast<DefaultResourceProvider*>
          (System::getSingleton().getResourceProvider());
 
       rp->setResourceGroupDirectory("resource", "data/gui/");
-      Imageset::setDefaultResourceGroup("resource");
+      ImageManager::setImagesetDefaultResourceGroup("resource");
       Font::setDefaultResourceGroup("resource");
       Scheme::setDefaultResourceGroup("resource");
       WidgetLookManager::setDefaultResourceGroup("resource");
       WindowManager::setDefaultResourceGroup("resource");
 
-		SchemeManager::getSingleton().loadScheme("WindowsLook.scheme");
-		FontManager::getSingleton().createFont("DejaVuSans-10.font");
+      SchemeManager::getSingleton().createFromFile("WindowsLook.scheme");
+      FontManager::getSingleton().createFromFile("DejaVuSans-10.font");
 
 		mpWM = WindowManager::getSingletonPtr();
 
       mpRootWind = mpWM->createWindow( "DefaultWindow", "root" );
-      mpSystem->setGUISheet( mpRootWind );
+      CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(mpRootWind);
 
       ImagesetManager::getSingletonPtr()->getImageset("WindowsLook")->setAutoScalingEnabled(false);
       //FontManager::getSingletonPtr()->getFont("DejaVuSans-10.font")->setAutoScaled(false);
@@ -107,9 +107,7 @@ GUIManager::GUIManager(SceneEvent& rse, Interface& rInterface) //, Tower* Tower)
       pLayout->getChild((utf8*)"MenuBackground/Open")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnOpen, this));
       pLayout->getChild((utf8*)"MenuBackground/Save")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnSave, this));
 
-
-
-      mpSystem->setDefaultMouseCursor("WindowsLook", "MouseArrow");
+      CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().setDefaultImage("WindowsLook/MouseArrow");
 	}
 	catch (CEGUI::Exception& e)
 	{
@@ -119,8 +117,14 @@ GUIManager::GUIManager(SceneEvent& rse, Interface& rInterface) //, Tower* Tower)
 
 GUIManager::~GUIManager()
 {
-	delete mpSystem;
-	delete mpRenderer;
+    CEGUI::System::destroy();
+    CEGUI::OpenGLRenderer::destroy(*mpRenderer);
+}
+
+void GUIManager::setRootWindow(CEGUI::Window* Win)
+{
+    CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(Win);
+    mpRootWind = Win;
 }
 
 CEGUI::Window* GUIManager::LoadLayout(const std::string& Name) {
@@ -135,7 +139,7 @@ CEGUI::Window* GUIManager::LoadLayout(const std::string& Name, CEGUI::Window* Pa
 
 void GUIManager::Draw()
 {
-	mpSystem->renderGUI();
+    CEGUI::System::getSingleton().renderAllGUIContexts();
 }
 
 /* Handling events... */
@@ -291,38 +295,38 @@ GUIManager::OnMouseDown (sf::Mouse::Button Button, Vector2i Scene, Vector2i Cam)
    //   mPlacingRoom = false;
    //   mRoom = NULL;
    //} else {
-      return mpSystem->injectMouseButtonDown(CEMouseButton(Button));
+      return CEGUI::System::getSingleton().getDefaultGUIContext().injectMouseButtonDown(CEMouseButton(Button));
    //}
 }
 
 bool
 GUIManager::OnMouseUp (sf::Mouse::Button Button, Vector2i Scene, Vector2i Cam)
 {
-   return mpSystem->injectMouseButtonUp(CEMouseButton(Button));
+    return CEGUI::System::getSingleton().getDefaultGUIContext().injectMouseButtonUp(CEMouseButton(Button));
 }
 
 bool
 GUIManager::OnKeyDown (sf::Keyboard::Key Key)
 {
-   return mpSystem->injectKeyDown(CEKey(Key));
+    return CEGUI::System::getSingleton().getDefaultGUIContext().injectKeyDown(CEKey(Key));
 }
 
 bool
 GUIManager::OnKeyUp (sf::Keyboard::Key Key)
 {
-   return mpSystem->injectKeyUp(CEKey(Key));
+    return CEGUI::System::getSingleton().getDefaultGUIContext().injectKeyUp(CEKey(Key));
 }
 
 bool
 GUIManager::OnMouseMove (Vector2i Scene, Vector2i Cam)
 {
-   return mpSystem->injectMousePosition(float(Cam.x), float(Cam.y));
+    return CEGUI::System::getSingleton().getDefaultGUIContext().injectMousePosition(Cam.x, Cam.y);
 }
 
 bool
 GUIManager::OnMouseWheel (int Delta)
 {
-   if (mpSystem->injectMouseWheelChange(float(Delta))) {
+   if (CEGUI::System::getSingleton().getDefaultGUIContext().injectMouseWheelChange(Delta)) {
       std::cout << "GUIManager ate MouseWheel (OMNOMNOM now make me a sandwich)" << std::endl;
       return true;
    }
@@ -335,7 +339,7 @@ bool GUIManager::OnResize(Vector2i NewSize)
    // We need to manually resize the space the GUI is being drawn on so that things are not streched.
    // For some reason, this doesn't work.
    //mpRootWind->setSize(CEGUI::UVector2(CEGUI::UDim(0, NewSize.x*10), CEGUI::UDim(1, NewSize.y)));
-   mpRenderer->setDisplaySize(CEGUI::Size((float)NewSize.x, (float)NewSize.y));
+   mpRenderer->setDisplaySize(CEGUI::Sizef((float)NewSize.x, (float)NewSize.y));
    std::cout << "Set the size of the CEGUI window! (" << NewSize.x << ", " << NewSize.y << ")\n";
    return false;
 }

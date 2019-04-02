@@ -320,13 +320,13 @@ GUIManager::OnKeyUp (sf::Keyboard::Key Key)
 bool
 GUIManager::OnMouseMove (Vector2i Scene, Vector2i Cam)
 {
-    return CEGUI::System::getSingleton().getDefaultGUIContext().injectMousePosition(Cam.x, Cam.y);
+    return CEGUI::System::getSingleton().getDefaultGUIContext().injectMousePosition(static_cast<float>(Cam.x), static_cast<float>(Cam.y));
 }
 
 bool
 GUIManager::OnMouseWheel (int Delta)
 {
-   if (CEGUI::System::getSingleton().getDefaultGUIContext().injectMouseWheelChange(Delta)) {
+   if (CEGUI::System::getSingleton().getDefaultGUIContext().injectMouseWheelChange(static_cast<float>(Delta))) {
       std::cout << "GUIManager ate MouseWheel (OMNOMNOM now make me a sandwich)" << std::endl;
       return true;
    }

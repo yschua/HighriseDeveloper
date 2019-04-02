@@ -42,7 +42,7 @@ GUIManager::GUIManager(SceneEvent& rse, Interface& rInterface) //, Tower* Tower)
       mpRootWind = mpWM->createWindow( "DefaultWindow", "root" );
       CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(mpRootWind);
 
-      ImagesetManager::getSingletonPtr()->getImageset("WindowsLook")->setAutoScalingEnabled(false);
+      ImageManager::getSingleton().loadImageset("WindowsLook.imageset");
       //FontManager::getSingletonPtr()->getFont("DejaVuSans-10.font")->setAutoScaled(false);
 
       // Just making a test window now

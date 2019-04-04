@@ -39,7 +39,7 @@ Camera * Camera::mpInstance = NULL;
 
 Camera::Camera ()
 :  Body (1280, 720)
-,  mBounds (-1600, -1280, 100, 60)
+,  mBounds (-1600, -1280, 1700, 1340)
 {
    sf::ContextSettings Settings;
    Settings.depthBits         = 24; // Request a 24 bits depth buffer

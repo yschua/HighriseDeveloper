@@ -27,7 +27,7 @@ GUIManager::GUIManager(SceneEvent& rse, Interface& rInterface) //, Tower* Tower)
       DefaultResourceProvider* rp = static_cast<DefaultResourceProvider*>
          (System::getSingleton().getResourceProvider());
 
-      rp->setResourceGroupDirectory("resource", "data/gui/");
+      rp->setResourceGroupDirectory("resource", "../data/gui/");
       ImageManager::setImagesetDefaultResourceGroup("resource");
       Font::setDefaultResourceGroup("resource");
       Scheme::setDefaultResourceGroup("resource");
@@ -42,7 +42,6 @@ GUIManager::GUIManager(SceneEvent& rse, Interface& rInterface) //, Tower* Tower)
       mpRootWind = mpWM->createWindow( "DefaultWindow", "root" );
       CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(mpRootWind);
 
-      ImageManager::getSingleton().loadImageset("WindowsLook.imageset");
       //FontManager::getSingletonPtr()->getFont("DejaVuSans-10.font")->setAutoScaled(false);
 
       // Just making a test window now
@@ -90,22 +89,24 @@ GUIManager::GUIManager(SceneEvent& rse, Interface& rInterface) //, Tower* Tower)
       //blah.mpRootWind = mpRootWind;
       //blah.ProcessNode(root);
 
+
+
       // NOTE getChild() here may or may not return the Window pointer correctly
       // Load the menu layout from xml and get the buttons to do something. NOTE: If you remove the buttons
       // from the xml, this may or may not crash. We need to check if getWindow() returns a vaild pointer.
       CEGUI::Window* pLayout = LoadLayout("Menu.layout");
       pLayout->getChild((utf8*)"BnSelect")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnSelect, this));
-      pLayout->getChild((utf8*)"BnOffice")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnOffice, this));
-      pLayout->getChild((utf8*)"BnApartment")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnApartment, this));
-      pLayout->getChild((utf8*)"BnHotel")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnHotel, this));
-      pLayout->getChild((utf8*)"BnHousekeeping")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnHousekeeping, this));
-      pLayout->getChild((utf8*)"BnSecurity")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnSecurity, this));
-      pLayout->getChild((utf8*)"BnClinic")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnClinic, this));
-      pLayout->getChild((utf8*)"BnCondo")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnCondo, this));
-      pLayout->getChild((utf8*)"BnStairs")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnStairs, this));
+      pLayout->getChild((utf8*)"BuildBackground/BnOffice")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnOffice, this));
+      pLayout->getChild((utf8*)"BuildBackground/BnApartment")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnApartment, this));
+      pLayout->getChild((utf8*)"BuildBackground/BnHotel")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnHotel, this));
+      pLayout->getChild((utf8*)"BuildBackground/BnHousekeeping")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnHousekeeping, this));
+      pLayout->getChild((utf8*)"BuildBackground/BnSecurity")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnSecurity, this));
+      pLayout->getChild((utf8*)"BuildBackground/BnClinic")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnClinic, this));
+      pLayout->getChild((utf8*)"BuildBackground/BnCondo")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnCondo, this));
+      pLayout->getChild((utf8*)"BuildBackground/BnStairs")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnStairs, this));
       // elevator
-      pLayout->getChild((utf8*)"MenuBackground/Open")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnOpen, this));
-      pLayout->getChild((utf8*)"MenuBackground/Save")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnSave, this));
+      pLayout->getChild((utf8*)"Open")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnOpen, this));
+      pLayout->getChild((utf8*)"Save")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnSave, this));
 
       CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().setDefaultImage("WindowsLook/MouseArrow");
 	}

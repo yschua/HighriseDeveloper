@@ -27,7 +27,7 @@ GUIManager::GUIManager(SceneEvent& rse, Interface& rInterface) //, Tower* Tower)
       DefaultResourceProvider* rp = static_cast<DefaultResourceProvider*>
          (System::getSingleton().getResourceProvider());
 
-      rp->setResourceGroupDirectory("resource", "../data/gui/");
+      rp->setResourceGroupDirectory("resource", "data/gui/");
       ImageManager::setImagesetDefaultResourceGroup("resource");
       Font::setDefaultResourceGroup("resource");
       Scheme::setDefaultResourceGroup("resource");

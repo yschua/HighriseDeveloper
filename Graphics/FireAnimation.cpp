@@ -125,7 +125,7 @@ FireAnimation::AddFrame (Texture* pTex, float duration)
 void
 FireAnimation::BindTexture()
 {
-   return mframes[mcurrent_frame].first->Bind();
+    sf::Texture::bind(mframes[mcurrent_frame].first);
 }
 
 void

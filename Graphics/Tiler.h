@@ -55,7 +55,7 @@ public:
    float GetHeight() { return mHeight; }
    inline void BindTexture()
    {
-      mpTexture->Bind();
+       sf::Texture::bind(mpTexture);
    }
 
 //   void SetImage (sf::Image * image);

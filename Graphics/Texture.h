@@ -29,7 +29,7 @@ namespace Gfx
 {
    class ImageManager;
 
-   class Texture : public sf::Image
+   class Texture : public sf::Texture
    {
       friend class ImageManager;
 

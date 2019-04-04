@@ -1,103 +1,101 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<GUILayout >
-    <Window Type="WindowsLook/StaticImage" Name="MenuBackground" >
-        <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
-        <Property Name="UnifiedAreaRect" Value="{{0,0},{1,-48},{1,0},{1,0}}" />
-        <Property Name="IconImage" Value="set:MenuBackgroundLeft image:Normal" />
-        <Window Type="WindowsLook/IconButton" Name="BnSelect" >
-            <Property Name="Text" Value="Select" />
-            <Property Name="IconImage" Value="set:SelectButton image:Normal" />
-            <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
-            <Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{0,48},{0,48}}" />
+<GUILayout version="4">
+    <Window name="MenuBackground" type="WindowsLook/StaticImage">
+        <Property name="MaxSize" value="{{1,0},{1,0}}" />
+        <Property name="Area" value="{{0,0},{1,-48},{1,0},{1,0}}" />
+        <Property name="IconImage" value="MenuBackgroundLeft/Normal" />
+        <Window name="BnSelect" type="WindowsLook/IconButton">
+            <Property name="Text" value="Select" />
+            <Property name="IconImage" value="SelectButton/Normal" />
+            <Property name="MaxSize" value="{{1,0},{1,0}}" />
+            <Property name="Area" value="{{0,0},{0,0},{0,48},{0,48}}" />
         </Window>
-        <Window Type="WindowsLook/IconButton" Name="BnDelete" >
-            <Property Name="Text" Value="Select" />
-            <Property Name="IconImage" Value="set:DeleteButton image:Normal" />
-            <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
-            <Property Name="UnifiedAreaRect" Value="{{0,48},{0,0},{0,96},{0,48}}" />
+        <Window name="BnDelete" type="WindowsLook/IconButton">
+            <Property name="Text" value="Select" />
+            <Property name="IconImage" value="DeleteButton/Normal" />
+            <Property name="MaxSize" value="{{1,0},{1,0}}" />
+            <Property name="Area" value="{{0,48},{0,0},{0,96},{0,48}}" />
         </Window>
-        <Window Type="WindowsLook/StaticImage" Name="BuildBackground">
-           <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
-           <Property Name="UnifiedAreaRect" Value="{{0,96},{1,-48},{1,-96},{1,0}}" />
-           <Property Name="IconImage" Value="set:MenuBackgroundLeft image:Normal" />
-           <Window Type="WindowsLook/IconButton" Name="BnOffice" >
-              <Property Name="Text" Value="Office" />
-              <Property Name="IconImage" Value="set:OfficeButton image:Normal" />
-              <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
-              <Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{0,48},{0,48}}" />
+        <Window name="BuildBackground" type="WindowsLook/StaticImage">
+           <Property name="MaxSize" value="{{1,0},{1,0}}" />
+           <Property name="Area" value="{{0,96},{1,-48},{1,-96},{1,0}}" />
+           <Property name="IconImage" value="MenuBackgroundLeft/Normal" />
+           <Window name="BnOffice" type="WindowsLook/IconButton">
+              <Property name="Text" value="Office" />
+              <Property name="IconImage" value="OfficeButton/Normal" />
+              <Property name="MaxSize" value="{{1,0},{1,0}}" />
+              <Property name="Area" value="{{0,0},{0,0},{0,48},{0,48}}" />
            </Window>
-           <Window Type="WindowsLook/IconButton" Name="BnApartment" >
-              <Property Name="Text" Value="Apartment" />
-              <Property Name="IconImage" Value="set:AptButton image:Normal" />
-              <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
-              <Property Name="UnifiedAreaRect" Value="{{0,48},{0,0},{0,96},{0,48}}" />
+           <Window name="BnApartment" type="WindowsLook/IconButton">
+              <Property name="Text" value="Apartment" />
+              <Property name="IconImage" value="AptButton/Normal" />
+              <Property name="MaxSize" value="{{1,0},{1,0}}" />
+              <Property name="Area" value="{{0,48},{0,0},{0,96},{0,48}}" />
            </Window>
-           <Window Type="WindowsLook/IconButton" Name="BnCondo" >
-              <Property Name="Text" Value="Condo" />
-              <Property Name="IconImage" Value="set:CondoButton image:Normal" />
-              <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
-              <Property Name="UnifiedAreaRect" Value="{{0,96},{0,0},{0,144},{0,48}}" />
+           <Window name="BnCondo" type="WindowsLook/IconButton">
+              <Property name="Text" value="Condo" />
+              <Property name="IconImage" value="CondoButton/Normal" />
+              <Property name="MaxSize" value="{{1,0},{1,0}}" />
+              <Property name="Area" value="{{0,96},{0,0},{0,144},{0,48}}" />
            </Window>
-           <Window Type="WindowsLook/IconButton" Name="BnHotel" >
-              <Property Name="Text" Value="Hotel" />
-              <Property Name="IconImage" Value="set:HotelButton image:Normal" />
-              <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
-              <Property Name="UnifiedAreaRect" Value="{{0,144},{0,0},{0,192},{0,48}}" />
+           <Window name="BnHotel" type="WindowsLook/IconButton">
+              <Property name="Text" value="Hotel" />
+              <Property name="IconImage" value="HotelButton/Normal" />
+              <Property name="MaxSize" value="{{1,0},{1,0}}" />
+              <Property name="Area" value="{{0,144},{0,0},{0,192},{0,48}}" />
            </Window>
-           <Window Type="WindowsLook/Button" Name="BnRetail" >
-               <Property Name="Text" Value="Retail" />
-               <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
-               <Property Name="UnifiedAreaRect" Value="{{0,192},{0,0},{0,240},{0,48}}" />
+           <Window name="BnRetail" type="WindowsLook/Button">
+               <Property name="Text" value="Retail" />
+               <Property name="MaxSize" value="{{1,0},{1,0}}" />
+               <Property name="Area" value="{{0,192},{0,0},{0,240},{0,48}}" />
            </Window>
-           <Window Type="WindowsLook/Button" Name="BnSecurity" >
-               <Property Name="Text" Value="Security" />
-               <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
-               <Property Name="UnifiedAreaRect" Value="{{0,240},{0,0},{0,288},{0,48}}" />
+           <Window name="BnSecurity" type="WindowsLook/Button">
+               <Property name="Text" value="Security" />
+               <Property name="MaxSize" value="{{1,0},{1,0}}" />
+               <Property name="Area" value="{{0,240},{0,0},{0,288},{0,48}}" />
            </Window>
-           <Window Type="WindowsLook/Button" Name="BnHousekeeping" >
-               <Property Name="Text" Value="HouseK." />
-               <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
-               <Property Name="UnifiedAreaRect" Value="{{0,288},{0,0},{0,336},{0,48}}" />
+           <Window name="BnHousekeeping" type="WindowsLook/Button">
+               <Property name="Text" value="HouseK." />
+               <Property name="MaxSize" value="{{1,0},{1,0}}" />
+               <Property name="Area" value="{{0,288},{0,0},{0,336},{0,48}}" />
            </Window>
-           <Window Type="WindowsLook/Button" Name="BnClinic" >
-               <Property Name="Text" Value="Clinic" />
-               <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
-               <Property Name="UnifiedAreaRect" Value="{{0,336},{0,0},{0,384},{0,48}}" />
+           <Window name="BnClinic" type="WindowsLook/Button">
+               <Property name="Text" value="Clinic" />
+               <Property name="MaxSize" value="{{1,0},{1,0}}" />
+               <Property name="Area" value="{{0,336},{0,0},{0,384},{0,48}}" />
            </Window>
-           <Window Type="WindowsLook/Button" Name="BnWaste" >
-               <Property Name="Text" Value="Waste" />
-               <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
-               <Property Name="UnifiedAreaRect" Value="{{0,384},{0,0},{0,432},{0,48}}" />
+           <Window name="BnWaste" type="WindowsLook/Button">
+               <Property name="Text" value="Waste" />
+               <Property name="MaxSize" value="{{1,0},{1,0}}" />
+               <Property name="Area" value="{{0,384},{0,0},{0,432},{0,48}}" />
            </Window>
-           <Window Type="WindowsLook/Button" Name="BnElevator" >
-               <Property Name="Text" Value="Elevator" />
-              <Property Name="IconImage" Value="set:ElevatorButton image:Normal" />
-              <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
-               <Property Name="UnifiedAreaRect" Value="{{0,432},{0,0},{0,480},{0,48}}" />
+           <Window name="BnElevator" type="WindowsLook/Button">
+               <Property name="Text" value="Elevator" />
+              <Property name="IconImage" value="ElevatorButton/Normal" />
+              <Property name="MaxSize" value="{{1,0},{1,0}}" />
+               <Property name="Area" value="{{0,432},{0,0},{0,480},{0,48}}" />
            </Window>
-           <Window Type="WindowsLook/Button" Name="BnStairs" >
-               <Property Name="Text" Value="Stairs" />
-               <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
-               <Property Name="UnifiedAreaRect" Value="{{0,480},{0,0},{0,528},{0,48}}" />
+           <Window name="BnStairs" type="WindowsLook/Button">
+               <Property name="Text" value="Stairs" />
+               <Property name="MaxSize" value="{{1,0},{1,0}}" />
+               <Property name="Area" value="{{0,480},{0,0},{0,528},{0,48}}" />
            </Window>
-           <Window Type="WindowsLook/Button" Name="BnRemove" >
-               <Property Name="Text" Value="Remove" />
-               <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
-               <Property Name="UnifiedAreaRect" Value="{{0,528},{0,0},{0,576},{0,48}}" />
+           <Window name="BnRemove" type="WindowsLook/Button">
+               <Property name="Text" value="Remove" />
+               <Property name="MaxSize" value="{{1,0},{1,0}}" />
+               <Property name="Area" value="{{0,528},{0,0},{0,576},{0,48}}" />
            </Window>
         </Window>
-        <Window Type="WindowsLook/IconButton" Name="MenuBackground/Open" >
-            <Property Name="Text" Value="Open" />
-            <Property Name="IconImage" Value="set:OpenButton image:Normal" />
-            <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
-            <Property Name="UnifiedAreaRect" Value="{{1,-96},{0,0},{1,-48},{0,48}}" />
+        <Window name="Open" type="WindowsLook/IconButton">
+            <Property name="Text" value="Open" />
+            <Property name="IconImage" value="OpenButton/Normal" />
+            <Property name="MaxSize" value="{{1,0},{1,0}}" />
+            <Property name="Area" value="{{1,-96},{0,0},{1,-48},{0,48}}" />
         </Window>
-        <Window Type="WindowsLook/IconButton" Name="MenuBackground/Save" >
-            <Property Name="Text" Value="Save" />
-            <Property Name="IconImage" Value="set:SaveButton image:Normal" />
-            <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
-            <Property Name="UnifiedAreaRect" Value="{{1,-48},{0,0},{1,0},{0,48}}" />
+        <Window name="Save" type="WindowsLook/IconButton">
+            <Property name="Text" value="Save" />
+            <Property name="IconImage" value="SaveButton/Normal" />
+            <Property name="MaxSize" value="{{1,0},{1,0}}" />
+            <Property name="Area" value="{{1,-48},{0,0},{1,0},{0,48}}" />
         </Window>
     </Window>
 </GUILayout>

@@ -4,6 +4,8 @@
 #include <iostream>
 #include "Vector2.h"
 
+// TODO don't think this is used
+
 //typedef std::pair<float, float> vector2;
 template <class T = float>
 class Rect

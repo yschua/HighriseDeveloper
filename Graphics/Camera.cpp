@@ -20,6 +20,7 @@
 #include <cstring>
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
+
 #include "../Root/Physics.h"
 #include "../Scene/Scene.h"
 #include "../AI/CitizensAgent.h"
@@ -29,38 +30,36 @@
 #include "Animation.h"
 #include "ModelObject.h"   // 3d abstract
 #include "ViewObject.h"    // 2d abstract
-
 #include "Camera.h"
+
+#include <gl/GLU.h>
 
 #define FIELD_OF_VIEW 90.0f  // this controls how long the focal view of the camera is in OpenGL
 Camera * Camera::mpInstance = NULL;
 
 Camera::Camera ()
 :  Body (1280, 720)
-,  mBounds (-1600, -1280, 100, 60)
+,  mBounds (-1600, -1280, 1700, 1340)
 {
-   sf::WindowSettings Settings;
-   Settings.DepthBits         = 24; // Request a 24 bits depth buffer
-   Settings.StencilBits       = 8;  // Request a 8 bits stencil buffer
-   Settings.AntialiasingLevel = 2;  // Request 2 levels of antialiasing
+   sf::ContextSettings Settings;
+   Settings.depthBits         = 24; // Request a 24 bits depth buffer
+   Settings.stencilBits       = 8;  // Request a 8 bits stencil buffer
+   Settings.antialiasingLevel = 2;  // Request 2 levels of antialiasing
    mpWindow = new sf::RenderWindow ();
-   mpWindow->Create (sf::VideoMode (800, 600, 32), "Highrise Developer (version " HR_VERSION ")", sf::Style::Close|sf::Style::Resize, Settings);
+   mpWindow->create(
+       sf::VideoMode (800, 600, 32),
+       "Highrise Developer (version " HR_VERSION ")",
+       sf::Style::Close | sf::Style::Resize,
+       Settings);
    //mpWindow->SetPosition( 0, 100);
    mZoomFactor = -400; // back away 200 feet
    mAspect = (float)(800.0 / 600);
    mCam.x = 800;
    mCam.y = 600;
    mIgnoreCamera = false;
-   mpInput = &(mpWindow->GetInput ());
    ms.x = -820;
    ms.y = -160;
-   mpWindow->ShowMouseCursor (false);
-}
-
-const sf::Input *
-Camera::GetInput ()
-{
-   return mpInput;
+   mpWindow->setMouseCursorVisible(false);
 }
 
 Vector2i
@@ -73,14 +72,13 @@ Camera::GetMouse ()
 Vector2i
 Camera::GetLocalMouse()
 {
-   return Vector2i (mpInput->GetMouseX (), mpInput->GetMouseY ());
+    return sf::Mouse::getPosition(*mpWindow);
 }
-
 
 void
 Camera::SetMaxFramerate (int rate)
 {
-   mpWindow->SetFramerateLimit (rate);
+   mpWindow->setFramerateLimit (rate);
 }
 
 void
@@ -123,40 +121,42 @@ Camera::Display ()
    // For fun ;)
    //int BounceAmount = 2;
    // Do bounds checking
-   if (ms.x > mBounds.Right) // 0
+   const float right = mBounds.left + mBounds.width;
+   if (ms.x > right) // 0
    {
-      ms.x = mBounds.Right;
+      ms.x = right;
       //Outside of left bound
       if (mv.x > 0) mv.x = 0;
       mv.x =-1; //+= -20;
       ma.x = 1; //10;
    }
-   if (ms.x < mBounds.Left) //-1280
+   if (ms.x < mBounds.left) //-1280
    {
-      ms.x = mBounds.Left;
+      ms.x = mBounds.left;
       //Outside of right bound
       if (mv.x < 0) mv.x = 0;
       mv.x = 1;  // += 20;
       ma.x = -1; // -10;
    }
-   if (ms.y > mBounds.Bottom) // 400
+   const float bottom = mBounds.top + mBounds.height;
+   if (ms.y > bottom) // 400
    {
-      ms.y = mBounds.Bottom; // 400
+      ms.y = bottom; // 400
       //Outside of bottom bound
       if (mv.y > 0) mv.y = 0;
       mv.y = -1; //+= -20;
       ma.y = 1; //10;
    }
-   if (ms.y < mBounds.Top) // -675 
+   if (ms.y < mBounds.top) // -675 
    {
-      ms.y = mBounds.Top; //-675
+      ms.y = mBounds.top; //-675
       //Outside of top bound
       if (mv.y < 0) mv.y = 0;
       mv.y = 1; //+= 20;
       ma.y = -1; //-10;
    }
 
-   mpWindow->Display ();
+   mpWindow->display();
 }
 
 void
@@ -174,7 +174,7 @@ Camera::OnResize (Vector2i vi)
    mAspect = (float)(vi.x) / vi.y;
    glMatrixMode(GL_PROJECTION);
    glLoadIdentity();
-	gluPerspective (FIELD_OF_VIEW, mAspect ,1.0f,1000.0f);		// Calculate The Aspect Ratio Of The Window
+   gluPerspective(FIELD_OF_VIEW, mAspect ,1.0f, 1000.0f);		// Calculate The Aspect Ratio Of The Window
    return true;
 }
 
@@ -195,7 +195,7 @@ Camera::InitGL()
    // Setup a perspective projection
    glMatrixMode(GL_PROJECTION);
    glLoadIdentity();
-   gluPerspective (FIELD_OF_VIEW, mAspect, 1.0f, 1000.f);
+   gluPerspective(FIELD_OF_VIEW, mAspect, 1.0f, 1000.f);
    glEnable (GL_TEXTURE_2D);
 }
 
@@ -297,7 +297,7 @@ int Camera::RenderFramework (Scene* pModel, Vector2f mouse, int level)
    gluPickMatrix(mouse.x, viewport[3]-mouse.y, 2, 2, viewport); // mouse y is inverted
 
    // Apply perspective matrix
-   gluPerspective (FIELD_OF_VIEW, mAspect, 1.0f, 1000.f);		// Calculate The Aspect Ratio Of The Window
+   gluPerspective(FIELD_OF_VIEW, mAspect, 1.0f, 1000.f);		// Calculate The Aspect Ratio Of The Window
    glTranslatef (GetPositionX(), GetPositionY(), mZoomFactor);
 
    // Draw the scene
@@ -362,41 +362,41 @@ Vector3f Camera::GetOGLPos (Vector2f winVec) // NeHe Productions at GameDev
 bool
 Camera::GetEvent (sf::Event & event)
 {
-   return mpWindow->GetEvent (event);
+   return mpWindow->pollEvent(event);
 }
 
 bool
-Camera::OnKeyDown (sf::Key::Code Key)
+Camera::OnKeyDown (sf::Keyboard::Key Key)
 {
-   if (Key == sf::Key::D)
+   if (Key == sf::Keyboard::D)
    {
       if (mv.x > 0) mv.x = 0;
       mv.x += 0.4f * mZoomFactor;
       ma.x = -0.25f * mZoomFactor;
       //if (mv.x == 0) mv.x = 0.5*mZoomFactor;
    }
-   if (Key == sf::Key::S)
+   if (Key == sf::Keyboard::S)
    {
       if (mv.y < 0) mv.y = 0;
       mv.y += -0.3f * mZoomFactor;
       ma.y = 0.25f * mZoomFactor;
       //if (mv.y == 0) mv.y = -0.5*mZoomFactor;
    }
-   if (Key == sf::Key::A)
+   if (Key == sf::Keyboard::A)
    {
       if (mv.x < 0) mv.x = 0;
       mv.x += -0.4f * mZoomFactor;
       ma.x = 0.25f * mZoomFactor;
       //if (mv.x == 0) mv.x = -0.5*mZoomFactor;
    }
-   if (Key == sf::Key::W)
+   if (Key == sf::Keyboard::W)
    {
       if (mv.y > 0) mv.y = 0;
       mv.y += 0.3f * mZoomFactor;
       ma.y = -0.25f * mZoomFactor;
       //if (mv.y == 0) mv.y = 0.5*mZoomFactor;
    }
-   if (Key == sf::Key::E)
+   if (Key == sf::Keyboard::E)
    {
       SetVelocity (0, 0);
    }

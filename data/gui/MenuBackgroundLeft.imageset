@@ -1,4 +1,3 @@
-<?xml version="1.0" ?>
-<Imageset Name="MenuBackgroundLeft" Imagefile="MenuBackgroundLeft.png" NativeHorzRes="64" NativeVertRes="128" AutoScaled="false">
-	<Image Name="Normal" XPos="0" YPos="0" Width="128" Height="64" />
+<Imageset autoScaled="false" imagefile="MenuBackgroundLeft.png" name="MenuBackgroundLeft" nativeHorzRes="64" nativeVertRes="128" version="2">
+	<Image height="64" name="Normal" width="128" xPos="0" yPos="0" />
 </Imageset>

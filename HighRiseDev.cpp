@@ -15,7 +15,8 @@
  */
 
 #include <iostream>
-#include <CEGUI.h>
+#include <CEGUI/CEGUI.h>
+#include "Window/GUIManager.h"
 
 #include "Graphics/Camera.h"
 
@@ -26,7 +27,6 @@
 #include "Scene/Background.h"
 #include "Scene/Scene.h"
 
-#include "Window/GUIManager.h"
 #include "Root/SceneEvent.h"
 #include "Root/GameManager.h" // xml saver
 

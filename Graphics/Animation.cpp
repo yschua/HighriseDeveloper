@@ -46,7 +46,7 @@ void Animation::ClearFrames ()
 
 void Animation::BindTexture()
 {
-   return mFrames[mCurrentFrame].first->Bind();
+    sf::Texture::bind(mFrames[mCurrentFrame].first);
 }
 
 void Animation::Update (float dt)
@@ -81,8 +81,7 @@ AnimationSingle::SetSubRect (int x1, int y1, int x2, int y2)
 void
 AnimationSingle::BindTexture()
 {
-   return mpTexture->Bind();
-   //return 2;
+    sf::Texture::bind(mpTexture);
 }
 
 AnimationEmpty::AnimationEmpty ( int width, int height)

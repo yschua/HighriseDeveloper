@@ -28,10 +28,15 @@ Texture::Texture( const string& pszName )
 
 bool Texture::Load (const string& pszName)
 {
-   if (!LoadFromFile (pszName)) if (!LoadFromFile("data/Error.png")) LoadFromPixels(64, 64, ErrorImagePixels);
-   SetSmooth(true);
-   Bind ( );
-   glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); // setup for the tiler or animation
-   glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-   return true;
+    if (!loadFromFile(pszName)) {
+        if (!loadFromFile("data/Error.png")) {
+            create(64, 64);
+            update(ErrorImagePixels);
+        }
+    }
+    setSmooth(true);
+    bind(this);
+    glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); // setup for the tiler or animation
+    glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    return true;
 }

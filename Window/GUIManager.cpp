@@ -41,6 +41,7 @@ GUIManager::GUIManager(SceneEvent& rse, Interface& rInterface) //, Tower* Tower)
 
       mpRootWind = mpWM->createWindow( "DefaultWindow", "root" );
       CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(mpRootWind);
+      mpRootWind->setMousePassThroughEnabled(true);
 
       //FontManager::getSingletonPtr()->getFont("DejaVuSans-10.font")->setAutoScaled(false);
 

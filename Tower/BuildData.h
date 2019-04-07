@@ -22,6 +22,8 @@
 
 #include <string>
 
+class SerializerBase;
+
 struct BuildData
 {
    short BuildType;   // office, condo, retail etc.

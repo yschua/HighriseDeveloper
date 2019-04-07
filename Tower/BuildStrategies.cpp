@@ -36,6 +36,7 @@
 #include "WasteManagement.h"
 #include "BuildStrategies.h"
 #include "BuildData.h"
+#include "BuildRemoveStrategy.h"
 
 using namespace TowerObjects;
 
@@ -51,9 +52,19 @@ void BuildStrategyBase::ShowGhostBuild(Tower* pTower)
 BuildStrategyBase* BuildStrategyBase::CreateStrategy(BuildData* pBuildData, Tower* pTower)
 {
    BuildStrategyBase* pBuildStrategy = NULL;
+
+   if (pBuildData == nullptr) {
+       BuildData dummy;
+       pBuildStrategy = new BuildRemoveStrategy(dummy);
+       pBuildStrategy->ShowGhostBuild(pTower);
+       return pBuildStrategy;
+   }
+
    int iUnits = pBuildData->UnitsWide;
    int iLevels = pBuildData->LevelsHigh;
    double dCost = pBuildData->BuildCost;
+
+
    switch (pBuildData->BuildType)
    {
    case HR_PlaceOffice:

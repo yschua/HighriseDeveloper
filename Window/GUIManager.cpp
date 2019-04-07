@@ -99,13 +99,16 @@ GUIManager::GUIManager(SceneEvent& rse, Interface& rInterface) //, Tower* Tower)
       pLayout->getChild((utf8*)"BnSelect")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnSelect, this));
       pLayout->getChild((utf8*)"BuildBackground/BnOffice")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnOffice, this));
       pLayout->getChild((utf8*)"BuildBackground/BnApartment")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnApartment, this));
-      pLayout->getChild((utf8*)"BuildBackground/BnHotel")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnHotel, this));
-      pLayout->getChild((utf8*)"BuildBackground/BnHousekeeping")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnHousekeeping, this));
-      pLayout->getChild((utf8*)"BuildBackground/BnSecurity")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnSecurity, this));
-      pLayout->getChild((utf8*)"BuildBackground/BnClinic")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnClinic, this));
       pLayout->getChild((utf8*)"BuildBackground/BnCondo")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnCondo, this));
+      pLayout->getChild((utf8*)"BuildBackground/BnHotel")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnHotel, this));
+      pLayout->getChild((utf8*)"BuildBackground/BnRetail")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnRetail, this));
+      pLayout->getChild((utf8*)"BuildBackground/BnSecurity")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnSecurity, this));
+      pLayout->getChild((utf8*)"BuildBackground/BnHousekeeping")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnHousekeeping, this));
+      pLayout->getChild((utf8*)"BuildBackground/BnClinic")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnClinic, this));
+      pLayout->getChild((utf8*)"BuildBackground/BnWaste")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnWaste, this));
+      pLayout->getChild((utf8*)"BuildBackground/BnElevator")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnElevator, this));
       pLayout->getChild((utf8*)"BuildBackground/BnStairs")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnStairs, this));
-      // elevator
+      pLayout->getChild((utf8*)"BuildBackground/BnRemove")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnRemove, this));
       pLayout->getChild((utf8*)"Open")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnOpen, this));
       pLayout->getChild((utf8*)"Save")->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&GUIManager::OnSave, this));
 
@@ -244,7 +247,7 @@ bool GUIManager::OnElevator (const CEGUI::EventArgs& e)
 
    // set FloorPlacement to Stairs
    // route mouse clicks that hit the main into the FloorPlacement manager.
-   mSE.OnToolHit (HR_PlaceStairs);  // this only sets the strategy.
+    // TODO
    return true;
 }
 
@@ -262,7 +265,7 @@ bool GUIManager::OnRemove (const CEGUI::EventArgs& e)
 
    // set FloorPlacement to Stairs
    // route mouse clicks that hit the main into the FloorPlacement manager.
-   mSE.OnToolHit (HR_PlaceStairs);  // this only sets the strategy.
+    mSE.OnToolHit(HR_Remove);
    return true;
 }
 

@@ -24,6 +24,7 @@
 #include "BuildData.h"
 #include "BuildStrategies.h"
 #include "BuildFactory.h"
+#include "BuildRemoveStrategy.h"
 
 namespace TowerObjects
 {
@@ -56,8 +57,12 @@ BuildStrategyBase* BuildFactory::CreateStrategy( int ToolID, Tower* pTower )
    BuildTypeIterator itBuild = mBuildTypes.find(ToolID);
    if (itBuild == mBuildTypes.end())
    {
-      BuildData dummy;
-      pBS = BuildStrategyBase::CreateStrategy(&dummy, pTower);
+       if (ToolID == HR_Remove) {
+           pBS = BuildStrategyBase::CreateStrategy(nullptr, pTower);
+       } else {
+           BuildData dummy;
+           pBS = BuildStrategyBase::CreateStrategy(&dummy, pTower);
+       }
    }
    else
    {

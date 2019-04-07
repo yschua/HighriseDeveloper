@@ -115,6 +115,14 @@ Level::AddFloorSpace (FloorBase * floor)
    return true;
 }
 
+bool Level::RemoveFloorSpace(FloorBase* floor)
+{
+    mFloorSpaces.erase(floor->GetID());
+    ScanFloorSpace();
+    delete floor;
+    return true;
+}
+
 void
 Level::SetFloorPositions( int x, int x2 )
 {
@@ -235,14 +243,13 @@ FloorBase* Level::GetSpaceByID (int id)
 }
 
 
-// Possible Deprecation
 FloorBase* Level::FindSpace (int x)
 {
    Level::FloorIterType it;
    for (it = mFloorSpaces.begin(); it != mFloorSpaces.end(); ++it)
    {
       FloorBase* pFB = (*it).second;
-      if( x >= pFB->GetX() && x<= pFB->GetX2() )
+      if( x >= pFB->GetX() && x < pFB->GetX2() )
       {
          return pFB;
       }

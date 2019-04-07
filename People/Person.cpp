@@ -25,10 +25,7 @@ Person::Person (Location& loc)
 {
    mHealth = HS_Well;
    mMood = MS_Content;
-   mActivity = AS_JobHunting; // noob, starts out looking for home, job etc.
-   mOccupation = 0;
-   mHome = 0;
-   mCurrentState = CS_Idle;
+   ResetState();
    mLocation = loc;    // copy
    ImageManager * pImageMam = ImageManager::GetInstance ();
    Texture* ptexHappy =pImageMam->GetTexture ("Person_h.png", GL_RGBA);
@@ -176,4 +173,12 @@ void Person::SetResidence (int level)
 void Person::SetCurrent( int level )
 {
    mLocation.mLevel = level;
+}
+
+void Person::ResetState()
+{
+    mActivity = AS_JobHunting;  // noob, starts out looking for home, job etc.
+    mOccupation = 0;
+    mHome = 0;
+    mCurrentState = CS_Idle;
 }

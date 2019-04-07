@@ -1,0 +1,15 @@
+# game files
+CEGUI.log
+Tower2.xml
+Settings.ini
+
+# Visual Studio
+highrise.vs8/*.vs/
+highrise.vs8/Backup/
+highrise.vs8/Debug/
+highrise.vs8/Release/
+highrise.vs8/packages/
+highrise.vs8/*.user
+highrise.vs8/*.VC.db
+highrise.vs8/*.VC.VC.opendb
+UpgradeLog*.htm

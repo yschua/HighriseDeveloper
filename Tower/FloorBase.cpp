@@ -42,10 +42,6 @@ FloorBase::FloorBase (int x, int x2, int level, Tower* pTowerParent)
    mOwner = nullptr;
    mRent = 0;
    mSalePrice = 0;
-   if (pTowerParent!=NULL)
-   {
-      pTowerParent->GetScene().RegisterFloorSpace (mID, this);
-   }
 }
 
 FloorBase::~FloorBase()

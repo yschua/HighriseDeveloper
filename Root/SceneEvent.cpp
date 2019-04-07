@@ -34,13 +34,9 @@ SceneEvent::~SceneEvent ()
 {
 }
 
-bool
-SceneEvent::OnToolHit (int tool)
+bool SceneEvent::OnToolHit (int tool)
 {
-   if( tool > HR_SelectBuildOption && tool < HR_PlaceNone )
-      return mpScene->SelectTool (tool);
-
-   return false;
+    return mpScene->SetTool(tool);
 }
 
 bool SceneEvent::OnMouseDown (sf::Mouse::Button Button, Vector2i pointa, Vector2i pointb)

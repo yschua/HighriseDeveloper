@@ -1,0 +1,429 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+    <Filter Include="Window">
+      <UniqueIdentifier>{c5571a6b-4206-4e90-b49d-c46080e40e97}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Settings">
+      <UniqueIdentifier>{61421a66-ccb4-4c67-8a54-601643191859}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics">
+      <UniqueIdentifier>{c8b09a84-439a-4042-a879-a895ba9184ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Types">
+      <UniqueIdentifier>{37eff179-fe88-4def-a8d3-ba72eb3d5efc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AI">
+      <UniqueIdentifier>{83ffad8b-4534-42d3-aa21-e2b845bfec8c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tower">
+      <UniqueIdentifier>{6471f0d5-0e2e-494e-a3a1-2687fd8c87f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="tinyxml">
+      <UniqueIdentifier>{8571144e-eff8-41af-ba14-680575b6c1b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Root">
+      <UniqueIdentifier>{9ab3cf17-c6d2-43ce-acc4-11d0cd6e2649}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{b3a4cce9-c51a-4fe8-96f9-213b949c594b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="People">
+      <UniqueIdentifier>{d441b62a-80b3-4c2e-bae8-51f3d7afe0b9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="HighRiseDev.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="icon1.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="resource.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Window\Clock.h">
+      <Filter>Window</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Window\Event.h">
+      <Filter>Window</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Window\GUIManager.h">
+      <Filter>Window</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Window\Interface.h">
+      <Filter>Window</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Window\SettingsWindow.h">
+      <Filter>Window</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Window\Stats.h">
+      <Filter>Window</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Settings\Settings.h">
+      <Filter>Settings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Graphics\Animation.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Graphics\Camera.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Graphics\ErrorImage.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Graphics\FireAnimation.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Graphics\Image.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Graphics\ModelObject.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Graphics\Texture.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Graphics\Tiler.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Graphics\ViewObject.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Types\rect.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Types\Vector2.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Types\Vector3.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\AI\CitizensAgent.h">
+      <Filter>AI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\AI\FloorAgent.h">
+      <Filter>AI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\AI\PathAgent.h">
+      <Filter>AI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Tower\Apartment.h">
+      <Filter>Tower</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Tower\BuildFactory.h">
+      <Filter>Tower</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Tower\BuildStrategies.h">
+      <Filter>Tower</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Tower\Condo.h">
+      <Filter>Tower</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Tower\Damage.h">
+      <Filter>Tower</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Tower\Elevator.h">
+      <Filter>Tower</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Tower\ElevatorBase.h">
+      <Filter>Tower</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Tower\ElevatorMachine.h">
+      <Filter>Tower</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Tower\ElevatorPit.h">
+      <Filter>Tower</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Tower\ElevatorShaft.h">
+      <Filter>Tower</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Tower\FloorBase.h">
+      <Filter>Tower</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Tower\GhostRoom.h">
+      <Filter>Tower</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Tower\HotelRoom.h">
+      <Filter>Tower</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Tower\Housekeeping.h">
+      <Filter>Tower</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Tower\Level.h">
+      <Filter>Tower</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Tower\Lobby.h">
+      <Filter>Tower</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Tower\MedicalClinic.h">
+      <Filter>Tower</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Tower\Office.h">
+      <Filter>Tower</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Tower\PersonQueue.h">
+      <Filter>Tower</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Tower\RetailShop.h">
+      <Filter>Tower</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Tower\RouteBase.h">
+      <Filter>Tower</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Tower\Routes.h">
+      <Filter>Tower</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Tower\Security.h">
+      <Filter>Tower</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Tower\SingleStair.h">
+      <Filter>Tower</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Tower\SkyLobby.h">
+      <Filter>Tower</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Tower\Tower.h">
+      <Filter>Tower</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Tower\WasteManagement.h">
+      <Filter>Tower</Filter>
+    </ClInclude>
+    <ClInclude Include="..\xml\tinyxml\tinystr.h">
+      <Filter>tinyxml</Filter>
+    </ClInclude>
+    <ClInclude Include="..\xml\tinyxml\tinyxml.h">
+      <Filter>tinyxml</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Root\GameManager.h">
+      <Filter>Root</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Root\HighRiseException.h">
+      <Filter>Root</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Root\Physics.h">
+      <Filter>Root</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Root\SceneEvent.h">
+      <Filter>Root</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Root\SerializerBase.h">
+      <Filter>Root</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Root\XMLSerializer.h">
+      <Filter>Root</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Scene\Background.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Scene\Scene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\People\Citizens.h">
+      <Filter>People</Filter>
+    </ClInclude>
+    <ClInclude Include="..\People\Person.h">
+      <Filter>People</Filter>
+    </ClInclude>
+    <ClInclude Include="..\HighRiseDev.h" />
+    <ClInclude Include="..\Tower\BuildRemoveStrategy.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Window\Clock.cpp">
+      <Filter>Window</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Window\Event.cpp">
+      <Filter>Window</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Window\GUIManager.cpp">
+      <Filter>Window</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Window\Interface.cpp">
+      <Filter>Window</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Window\SettingsWindow.cpp">
+      <Filter>Window</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Window\Stats.cpp">
+      <Filter>Window</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Settings\Settings.cpp">
+      <Filter>Settings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Graphics\Animation.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Graphics\AnimationBase.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Graphics\Camera.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Graphics\ErrorImage.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Graphics\FireAnimation.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Graphics\Image.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Graphics\ModelObject.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Graphics\Texture.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Graphics\Tiler.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Graphics\ViewObject.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\AI\CitizensAgent.cpp">
+      <Filter>AI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\AI\FloorAgent.cpp">
+      <Filter>AI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\AI\PathAgent.cpp">
+      <Filter>AI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Tower\Apartment.cpp">
+      <Filter>Tower</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Tower\BuildData.cpp">
+      <Filter>Tower</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Tower\BuildFactory.cpp">
+      <Filter>Tower</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Tower\BuildStrategies.cpp">
+      <Filter>Tower</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Tower\Condo.cpp">
+      <Filter>Tower</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Tower\Damage.cpp">
+      <Filter>Tower</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Tower\Elevator.cpp">
+      <Filter>Tower</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Tower\ElevatorBase.cpp">
+      <Filter>Tower</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Tower\ElevatorMachine.cpp">
+      <Filter>Tower</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Tower\ElevatorPit.cpp">
+      <Filter>Tower</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Tower\ElevatorShaft.cpp">
+      <Filter>Tower</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Tower\FloorBase.cpp">
+      <Filter>Tower</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Tower\GhostRoom.cpp">
+      <Filter>Tower</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Tower\HotelRoom.cpp">
+      <Filter>Tower</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Tower\Housekeeping.cpp">
+      <Filter>Tower</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Tower\Level.cpp">
+      <Filter>Tower</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Tower\Lobby.cpp">
+      <Filter>Tower</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Tower\MedicalClinic.cpp">
+      <Filter>Tower</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Tower\Office.cpp">
+      <Filter>Tower</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Tower\PersonQueue.cpp">
+      <Filter>Tower</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Tower\RetailShop.cpp">
+      <Filter>Tower</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Tower\Routes.cpp">
+      <Filter>Tower</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Tower\Security.cpp">
+      <Filter>Tower</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Tower\SingleStair.cpp">
+      <Filter>Tower</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Tower\SkyLobby.cpp">
+      <Filter>Tower</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Tower\Tower.cpp">
+      <Filter>Tower</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Tower\TowerDebug.cpp">
+      <Filter>Tower</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Tower\WasteManagement.cpp">
+      <Filter>Tower</Filter>
+    </ClCompile>
+    <ClCompile Include="..\xml\tinyxml\tinystr.cpp">
+      <Filter>tinyxml</Filter>
+    </ClCompile>
+    <ClCompile Include="..\xml\tinyxml\tinyxml.cpp">
+      <Filter>tinyxml</Filter>
+    </ClCompile>
+    <ClCompile Include="..\xml\tinyxml\tinyxmlerror.cpp">
+      <Filter>tinyxml</Filter>
+    </ClCompile>
+    <ClCompile Include="..\xml\tinyxml\tinyxmlparser.cpp">
+      <Filter>tinyxml</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Root\GameManager.cpp">
+      <Filter>Root</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Root\HighRiseException.cpp">
+      <Filter>Root</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Root\Physics.cpp">
+      <Filter>Root</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Root\SceneEvent.cpp">
+      <Filter>Root</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Root\XMLSerializer.cpp">
+      <Filter>Root</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Scene\Background.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Scene\Scene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\People\Citizens.cpp">
+      <Filter>People</Filter>
+    </ClCompile>
+    <ClCompile Include="..\People\Person.cpp">
+      <Filter>People</Filter>
+    </ClCompile>
+    <ClCompile Include="..\HighRiseDev.cpp" />
+    <ClCompile Include="..\Tower\BuildRemoveStrategy.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+</Project>

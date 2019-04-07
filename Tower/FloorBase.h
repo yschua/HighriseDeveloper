@@ -70,6 +70,7 @@ protected:
 public:
    // CTOR
    FloorBase (int x, int x2, int level, Tower * TowerParent);
+   virtual ~FloorBase();
    static BaseType GetBaseType() { return BaseEmpty; }
    // Properties
    inline float GetX() { return mX; }

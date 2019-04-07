@@ -201,6 +201,7 @@ public:
    void    SetResidence (int level);
    void    SetCurrent( int Level );
    int     GetCurrent( ) { return mLocation.mLevel; }
+   void ResetState();
 
 };
 

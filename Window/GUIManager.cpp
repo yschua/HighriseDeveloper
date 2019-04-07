@@ -265,7 +265,7 @@ bool GUIManager::OnRemove (const CEGUI::EventArgs& e)
 
    // set FloorPlacement to Stairs
    // route mouse clicks that hit the main into the FloorPlacement manager.
-    // TODO
+    mSE.OnToolHit(HR_Remove);
    return true;
 }
 

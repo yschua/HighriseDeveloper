@@ -24,6 +24,7 @@
 #include "../Root/SerializerBase.h"
 #include "../xml/tinyxml/tinyxml.h"
 #include "../Types/String.h"
+#include "../People/Person.h"
 
 //using namespace Gfx;
 unsigned int FloorBase::NextID = 1;
@@ -38,13 +39,19 @@ FloorBase::FloorBase (int x, int x2, int level, Tower* pTowerParent)
    mZ = -0.5f;
    mID = FloorBase::GetNextID();
    mOccupants = 0;
-   mOwner = 0;
+   mOwner = nullptr;
    mRent = 0;
    mSalePrice = 0;
    if (pTowerParent!=NULL)
    {
       pTowerParent->GetScene().RegisterFloorSpace (mID, this);
    }
+}
+
+FloorBase::~FloorBase()
+{
+    // TODO might be better to banish or kill any occupants
+    if (mOwner != nullptr) mOwner->ResetState();
 }
 
 void FloorBase::Save(SerializerBase& ser)

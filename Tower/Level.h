@@ -111,6 +111,7 @@ public:
    virtual void Draw ();
 
    bool AddFloorSpace (FloorBase * floor);
+   bool RemoveFloorSpace(FloorBase* floor);
    void SetFloorPositions( int x, int x2 );
    FloorBase* GetSpaceByID (int id);
    FloorBase* FindSpace (int x); // location

@@ -14,183 +14,90 @@
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "Scene.h"
 
 #include <iostream>
-#include <list>
-#include "../Root/Physics.h"
-#include "../Tower/Routes.h"
+#include "Background.h"
 #include "../Graphics/Camera.h"
 #include "../Window/Event.h"
-#include "../Tower/FloorBase.h"
 #include "../Tower/Level.h"
 #include "../Tower/Tower.h"
 #include "../Tower/BuildStrategies.h"
-#include "../Tower/BuildData.h"
 #include "../Tower/BuildFactory.h"
 
-#include "Background.h"
-#include "Scene.h"
-
-//using namespace Gfx;
-Scene::Scene ()
+Scene::Scene () : mpBackground(nullptr), mpBuildStrategy(nullptr)
 {
-   mpBackground = NULL;
-   mpBuildStrategy = NULL;
 }
 
 Scene::~Scene ()
 {
 }
 
-void
-Scene::AddTower (Tower* pTower)
+void Scene::SetTower(Tower* pTower)
 {
-   mTowers.push_back (pTower);   // only saved here for drawing
+    mpTower = pTower; // only saved here for drawing
 }
 
-bool
-Scene::SelectTool (int toolID)
+bool Scene::SetTool(int tool)
 {
-   bool bResult = false;
-   BuildStrategyBase* pOldStrategy = mpBuildStrategy;
-   TowerObjects::BuildFactory* pBuilder = TowerObjects::BuildFactory::GetInstance();
-   mpBuildStrategy = pBuilder->CreateStrategy(toolID, mTowers[0]);
-//   mpBuildStrategy = BuildStrategyBase::CreateStrategy (toolID, mTowers[0]);
-   if (mpBuildStrategy != pOldStrategy)
-   {
-      try
-      {
-         delete pOldStrategy;
-      }
-      catch (...)
-      {
-         std::cout << "Error deleting old BuildStrategy in Scene";
-      }
-   }
-   return bResult;
+    delete mpBuildStrategy;
+    mpBuildStrategy = nullptr;
+
+    if (tool > HR_SelectBuildOption && tool < HR_PlaceNone) {
+        // building new room
+        auto pBuildFactory = TowerObjects::BuildFactory::GetInstance();
+        mpBuildStrategy = pBuildFactory->CreateStrategy(tool, mpTower);
+    } 
+    
+    return true;
 }
 
-void
-Scene::SetBG (Background* pBG)
+void Scene::SetBackground(Background* pBG)
 {
-   mpBackground = pBG;
+    mpBackground = pBG;
 }
 
-void
-Scene::Update (float dt, int timeOfDay)
+void Scene::Update(float dt, int timeOfDay)
 {
-   mpBackground->Update(timeOfDay);
+    mpBackground->Update(timeOfDay);
 }
 
-void
-Scene::Draw ()
+void Scene::Draw ()
 {
-   mpBackground->Draw();
-   std::vector<Tower *>::iterator iTower;
-   for (iTower = mTowers.begin (); iTower != mTowers.end (); iTower++)
-   {
-      (*iTower)->Draw( );
-   }
+    mpBackground->Draw();
+    mpTower->Draw();
 }
 
-void Scene::RenderFramework (int level)
+void Scene::RenderFramework(int level)
 {
-   bool bLevelsOnly = (this->mpBuildStrategy==NULL) ? false : true;
-   std::vector<Tower *>::iterator iTower;
-   for (iTower = mTowers.begin (); iTower != mTowers.end (); iTower++)
-   {
-      if (level==0)
-      {
-         (*iTower)->DrawFramework (bLevelsOnly);
-      }
-      else
-      {
-         Tower* pTower = (*iTower);
-         Level* pLevel = pTower->GetLevel(level);
-         pLevel->DrawEmptyFramework(); // only draw empty space slection zones
-      }
-   }
+    if (level == 0) {
+        bool bLevelsOnly = (mpBuildStrategy != nullptr);
+        mpTower->DrawFramework(bLevelsOnly);
+    } else {
+        // only draw empty space slection zones
+        mpTower->GetLevel(level)->DrawEmptyFramework(); 
+    }
 }
 
-void Scene::MoveGhostRoom (Vector2f& point)
+void Scene::MoveGhostRoom(Vector2f& point)
 {
-   Camera* pCam = Camera::GetInstance();
-   Vector3f vec = pCam->GetOGLPos (point);
-   Tower* pTower = mTowers[0];
-   pTower->GetGhostRoom().Move (vec);// asp
+    Camera* pCam = Camera::GetInstance();
+    Vector3f vec = pCam->GetOGLPos (point);
+    mpTower->GetGhostRoom().Move(vec); // asp
 }
 
-void Scene::Hit( int hit, Vector2i& Scene )  // taking a mouse hit, send it through geometry to see what we hit
+// taking a mouse hit, send it through geometry to see what we hit
+void Scene::Hit(int hit, Vector2i& Scene)
 {
-   if( mpBuildStrategy && mpBuildStrategy->PlacingRoom() )
-   {
-      std::vector<Tower *>::iterator iTower;
-      for (iTower = mTowers.begin (); iTower != mTowers.end (); iTower++)
-      {
-         Tower* pTower = (*iTower);
-         Level* pLevel = pTower->FindLevel (hit);
-         if( pLevel )
-         {
-            int x = (int)(pTower->GetGhostRoom().GetX() / 9);
-            std::cout << "Mouse on Level: " << pLevel->GetLevel() << " Level ID: " << hit << std::endl;
-            mpBuildStrategy->BuildHere(pTower, x, pLevel->GetLevel());
-            break;
-         }
-         else
-         {
+    if (mpBuildStrategy != nullptr) {
+        Level* pLevel = mpTower->FindLevel (hit);
+        if (pLevel != nullptr) {
+            int x = static_cast<int>(mpTower->GetGhostRoom().GetX() / 9);
+            std::cout << "Mouse on Level: " << pLevel->GetLevel() <<
+                " Level ID: " << hit << std::endl;
+            mpBuildStrategy->BuildHere(mpTower, x, pLevel->GetLevel());
+        } else {
             std::cout << "Mouse on unknown level, Level ID: " << hit << std::endl;
-         }
-      }
-   }
-   else
-   {
-      FloorBase* pFS = FindFloorSpace(hit);
-      std::vector<Tower *>::iterator iTower;
-      for (iTower = mTowers.begin (); iTower != mTowers.end (); iTower++)
-      {
-         Tower* pTower = (*iTower);
-         Level* pLevel = pTower->FindLevel (hit);
-         if( pLevel )
-         {
-            int x = (int)(pTower->GetGhostRoom().GetX() / 9);
-            std::cout << "Mouse on Level: " << pLevel->GetLevel() << " Level ID: " << hit << std::endl;
-            mpBuildStrategy->BuildHere(pTower, x, pLevel->GetLevel());
-            break;
-         }
-         else
-         {
-            std::cout << "Mouse landed on an unresgister object (BUG)" << " Level ID: " << hit  << std::endl;
-         }
-      }
-   }
-}
-
-void Scene::RegisterFloorSpace (int id, FloorBase* pFS)
-{
-   mFloorSpaces.insert (mFloorSpaces.end(),TypeFloorSpaceMap(id, pFS));
-}
-
-void Scene::UnregisterFloorSpace (int id, FloorBase* pFS)
-{
-   mFloorSpaces.erase (id);
-}
-
-FloorBase* Scene::FindFloorSpace (int id)
-{
-   FloorBase* pFS = NULL;
-   try
-   {
-      TypeFloorSpaceIterator it = mFloorSpaces.find(id);
-      if( !(it == mFloorSpaces.end()))
-      {
-         TypeFloorSpaceMap& FSM = (TypeFloorSpaceMap&)(*it);
-         pFS = FSM.second;
-      }
-   }
-   catch(...)
-   {
-      // find failed
-   }
-
-   return pFS;
+        }
+    }
 }

@@ -106,12 +106,7 @@ bool GameManager::LoadGame (const char *fileName)
       //std::cout << "DEBUG: Root node: " << nTower->Value() << '\n';
       if ((!xml->Error()) || pnTower)
       {
-         Scene::TypeTowerIterator it;
-         Scene::TypeTowerVector& towers = mScene.GetTowers();
-         for( it=towers.begin(); it!=towers.end(); it++ )
-         {
-            LoadTower(pnTower, (*it));
-         }
+         LoadTower(pnTower, mScene.GetTower());
       }
    }
    else
@@ -153,12 +148,7 @@ bool GameManager::SaveGame(const char *fileName)
 
    pnRoot->LinkEndChild (pnTower);
 
-   Scene::TypeTowerIterator it;
-   Scene::TypeTowerVector& towers = mScene.GetTowers();
-   for( it=towers.begin(); it!=towers.end(); it++ )
-   {
-      SaveTower( pnTower, (*it) );
-   }
+   SaveTower(pnTower, mScene.GetTower());
 
    std::cout << "DEBUG: Output of save attempt: \n";
    pDoc->Print();

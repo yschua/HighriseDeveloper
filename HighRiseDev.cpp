@@ -55,7 +55,7 @@ main ()
    Scene theScene;
    Tower theTower (1, 10, theScene);   // numero uno with 10 sub levels
    theTower.AdjustFunds( 1000000 );     // start with 1Mil
-   theScene.AddTower (&theTower);      // pointer for graphics
+   theScene.SetTower (&theTower);      // pointer for graphics
    CitizensAgent People( theTower );   // known tower, later this will be a tower list for mutiple towers
 
    sf::String Title( string("Alpha"));
@@ -63,7 +63,7 @@ main ()
    std::cout << "Basic loading finished....\n";
    try
    {
-      theScene.SetBG (new Background ( -80, -1908, cam->GetSceneSize().x, cam->GetSceneSize().y));
+      theScene.SetBackground (new Background ( -80, -1908, cam->GetSceneSize().x, cam->GetSceneSize().y));
 
       SceneEvent SceneEV(&theScene);
       GUIManager Gui (SceneEV, *pInterface); //, &theTower);

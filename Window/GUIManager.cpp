@@ -110,6 +110,10 @@ void GUIManager::InitLayout()
 {
     CEGUI::Window* pLayout = LoadLayout("Menu.layout");
 
+    pLayout->getChild("BnPreferences")->subscribeEvent(
+        CEGUI::PushButton::EventClicked,
+        CEGUI::Event::Subscriber(&GUIManager::OnPreferences, this));
+
     pLayout->getChild("BnSelect")->subscribeEvent(
         CEGUI::PushButton::EventClicked,
         CEGUI::Event::Subscriber(&GUIManager::OnSelect, this));
@@ -169,7 +173,6 @@ void GUIManager::InitLayout()
     pLayout->getChild("Save")->subscribeEvent(
         CEGUI::PushButton::EventClicked,
         CEGUI::Event::Subscriber(&GUIManager::OnSave, this));
-
 }
 
 void GUIManager::setRootWindow(CEGUI::Window* Win)
@@ -193,20 +196,20 @@ void GUIManager::Draw()
     CEGUI::System::getSingleton().renderAllGUIContexts();
 }
 
-/* Handling events... */
+bool GUIManager::OnPreferences(const CEGUI::EventArgs& e)
+{
+    if (mpPrefsWin == nullptr) {
+        mpPrefsWin = new SettingsWindow(mInterface);
+    }
+    mpPrefsWin->Create(this->mpRootWind);
+    return true;
+}
+
 bool GUIManager::OnSelect (const CEGUI::EventArgs& e)
 {
-   // set FloorPlacement to Office
-   // route mouse clicks that hit the main into the FloorPlacement manager.
-   if (!mpPrefsWin)
-   {
-      mpPrefsWin = new SettingsWindow(mInterface);
-   }
-   mpPrefsWin->Create (this->mpRootWind);
    mSE.OnToolHit (HR_SelectBuildCursor);  // this only sets the strategy.
    return true;
 }
-
 
 bool GUIManager::OnOffice (const CEGUI::EventArgs& e)
 {

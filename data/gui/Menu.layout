@@ -3,15 +3,14 @@
         <Property name="MaxSize" value="{{1,0},{1,0}}" />
         <Property name="Area" value="{{0,0},{1,-48},{1,0},{1,0}}" />
         <Property name="IconImage" value="MenuBackgroundLeft/Normal" />
-        <Window name="BnSelect" type="WindowsLook/IconButton">
-            <Property name="Text" value="Select" />
-            <Property name="IconImage" value="SelectButton/Normal" />
+        <Window name="BnPreferences" type="WindowsLook/Button">
+            <Property name="Text" value="Pref." />
             <Property name="MaxSize" value="{{1,0},{1,0}}" />
             <Property name="Area" value="{{0,0},{0,0},{0,48},{0,48}}" />
         </Window>
-        <Window name="BnDelete" type="WindowsLook/IconButton">
+        <Window name="BnSelect" type="WindowsLook/IconButton">
             <Property name="Text" value="Select" />
-            <Property name="IconImage" value="DeleteButton/Normal" />
+            <Property name="IconImage" value="SelectButton/Normal" />
             <Property name="MaxSize" value="{{1,0},{1,0}}" />
             <Property name="Area" value="{{0,48},{0,0},{0,96},{0,48}}" />
         </Window>

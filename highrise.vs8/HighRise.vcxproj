@@ -1,0 +1,263 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectName>HighRiseDev</ProjectName>
+    <ProjectGuid>{E8AF950B-C382-4F85-8E66-53485E607759}</ProjectGuid>
+    <RootNamespace>HighRise</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0.10586.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>14.0.25420.1</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir>$(Configuration)\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir>$(Configuration)\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..\..\external\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <OpenMPSupport>true</OpenMPSupport>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>opengl32.lib;glu32.lib;CEGUIBase-0_d.lib;CEGUIOpenGLRenderer-0_d.lib;CEGUIExpatParser_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\..\external\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>..\..\external\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>opengl32.lib;glu32.lib;CEGUIBase-0.lib;CEGUIOpenGLRenderer-0.lib;CEGUIExpatParser.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\..\external\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ResourceCompile Include="HighRiseDev.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="icon1.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\AI\CitizensAgent.h" />
+    <ClInclude Include="..\AI\FloorAgent.h" />
+    <ClInclude Include="..\AI\PathAgent.h" />
+    <ClInclude Include="..\Graphics\Animation.h" />
+    <ClInclude Include="..\Graphics\Camera.h" />
+    <ClInclude Include="..\Graphics\ErrorImage.h" />
+    <ClInclude Include="..\Graphics\FireAnimation.h" />
+    <ClInclude Include="..\Graphics\Image.h" />
+    <ClInclude Include="..\Graphics\ModelObject.h" />
+    <ClInclude Include="..\Graphics\Texture.h" />
+    <ClInclude Include="..\Graphics\Tiler.h" />
+    <ClInclude Include="..\Graphics\ViewObject.h" />
+    <ClInclude Include="..\HighRiseDev.h" />
+    <ClInclude Include="..\People\Citizens.h" />
+    <ClInclude Include="..\People\Person.h" />
+    <ClInclude Include="..\Root\GameManager.h" />
+    <ClInclude Include="..\Root\HighRiseException.h" />
+    <ClInclude Include="..\Root\Physics.h" />
+    <ClInclude Include="..\Root\SceneEvent.h" />
+    <ClInclude Include="..\Root\SerializerBase.h" />
+    <ClInclude Include="..\Root\XMLSerializer.h" />
+    <ClInclude Include="..\Scene\Background.h" />
+    <ClInclude Include="..\Scene\Scene.h" />
+    <ClInclude Include="..\Settings\Settings.h" />
+    <ClInclude Include="..\Tower\Apartment.h" />
+    <ClInclude Include="..\Tower\BuildFactory.h" />
+    <ClInclude Include="..\Tower\BuildRemoveStrategy.h" />
+    <ClInclude Include="..\Tower\BuildStrategies.h" />
+    <ClInclude Include="..\Tower\Condo.h" />
+    <ClInclude Include="..\Tower\Damage.h" />
+    <ClInclude Include="..\Tower\Elevator.h" />
+    <ClInclude Include="..\Tower\ElevatorBase.h" />
+    <ClInclude Include="..\Tower\ElevatorMachine.h" />
+    <ClInclude Include="..\Tower\ElevatorPit.h" />
+    <ClInclude Include="..\Tower\ElevatorShaft.h" />
+    <ClInclude Include="..\Tower\FloorBase.h" />
+    <ClInclude Include="..\Tower\GhostRoom.h" />
+    <ClInclude Include="..\Tower\HotelRoom.h" />
+    <ClInclude Include="..\Tower\Housekeeping.h" />
+    <ClInclude Include="..\Tower\Level.h" />
+    <ClInclude Include="..\Tower\Lobby.h" />
+    <ClInclude Include="..\Tower\MedicalClinic.h" />
+    <ClInclude Include="..\Tower\Office.h" />
+    <ClInclude Include="..\Tower\PersonQueue.h" />
+    <ClInclude Include="..\Tower\RetailShop.h" />
+    <ClInclude Include="..\Tower\RouteBase.h" />
+    <ClInclude Include="..\Tower\Routes.h" />
+    <ClInclude Include="..\Tower\Security.h" />
+    <ClInclude Include="..\Tower\SingleStair.h" />
+    <ClInclude Include="..\Tower\SkyLobby.h" />
+    <ClInclude Include="..\Tower\Tower.h" />
+    <ClInclude Include="..\Tower\WasteManagement.h" />
+    <ClInclude Include="..\Types\rect.h" />
+    <ClInclude Include="..\Types\Vector2.h" />
+    <ClInclude Include="..\Types\Vector3.h" />
+    <ClInclude Include="..\Window\Clock.h" />
+    <ClInclude Include="..\Window\Event.h" />
+    <ClInclude Include="..\Window\GUIManager.h" />
+    <ClInclude Include="..\Window\Interface.h" />
+    <ClInclude Include="..\Window\SettingsWindow.h" />
+    <ClInclude Include="..\Window\Stats.h" />
+    <ClInclude Include="..\xml\tinyxml\tinystr.h" />
+    <ClInclude Include="..\xml\tinyxml\tinyxml.h" />
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\AI\CitizensAgent.cpp" />
+    <ClCompile Include="..\AI\FloorAgent.cpp" />
+    <ClCompile Include="..\AI\PathAgent.cpp" />
+    <ClCompile Include="..\Graphics\Animation.cpp" />
+    <ClCompile Include="..\Graphics\AnimationBase.cpp" />
+    <ClCompile Include="..\Graphics\Camera.cpp" />
+    <ClCompile Include="..\Graphics\ErrorImage.cpp" />
+    <ClCompile Include="..\Graphics\FireAnimation.cpp" />
+    <ClCompile Include="..\Graphics\Image.cpp" />
+    <ClCompile Include="..\Graphics\ModelObject.cpp" />
+    <ClCompile Include="..\Graphics\Texture.cpp" />
+    <ClCompile Include="..\Graphics\Tiler.cpp" />
+    <ClCompile Include="..\Graphics\ViewObject.cpp" />
+    <ClCompile Include="..\HighRiseDev.cpp" />
+    <ClCompile Include="..\People\Citizens.cpp" />
+    <ClCompile Include="..\People\Person.cpp" />
+    <ClCompile Include="..\Root\GameManager.cpp" />
+    <ClCompile Include="..\Root\HighRiseException.cpp" />
+    <ClCompile Include="..\Root\Physics.cpp" />
+    <ClCompile Include="..\Root\SceneEvent.cpp" />
+    <ClCompile Include="..\Root\XMLSerializer.cpp" />
+    <ClCompile Include="..\Scene\Background.cpp" />
+    <ClCompile Include="..\Scene\Scene.cpp" />
+    <ClCompile Include="..\Settings\Settings.cpp" />
+    <ClCompile Include="..\Tower\Apartment.cpp" />
+    <ClCompile Include="..\Tower\BuildData.cpp" />
+    <ClCompile Include="..\Tower\BuildFactory.cpp" />
+    <ClCompile Include="..\Tower\BuildRemoveStrategy.cpp" />
+    <ClCompile Include="..\Tower\BuildStrategies.cpp" />
+    <ClCompile Include="..\Tower\Condo.cpp" />
+    <ClCompile Include="..\Tower\Damage.cpp" />
+    <ClCompile Include="..\Tower\Elevator.cpp" />
+    <ClCompile Include="..\Tower\ElevatorBase.cpp" />
+    <ClCompile Include="..\Tower\ElevatorMachine.cpp" />
+    <ClCompile Include="..\Tower\ElevatorPit.cpp" />
+    <ClCompile Include="..\Tower\ElevatorShaft.cpp" />
+    <ClCompile Include="..\Tower\FloorBase.cpp" />
+    <ClCompile Include="..\Tower\GhostRoom.cpp" />
+    <ClCompile Include="..\Tower\HotelRoom.cpp" />
+    <ClCompile Include="..\Tower\Housekeeping.cpp" />
+    <ClCompile Include="..\Tower\Level.cpp" />
+    <ClCompile Include="..\Tower\Lobby.cpp" />
+    <ClCompile Include="..\Tower\MedicalClinic.cpp" />
+    <ClCompile Include="..\Tower\Office.cpp" />
+    <ClCompile Include="..\Tower\PersonQueue.cpp" />
+    <ClCompile Include="..\Tower\RetailShop.cpp" />
+    <ClCompile Include="..\Tower\Routes.cpp" />
+    <ClCompile Include="..\Tower\Security.cpp" />
+    <ClCompile Include="..\Tower\SingleStair.cpp" />
+    <ClCompile Include="..\Tower\SkyLobby.cpp" />
+    <ClCompile Include="..\Tower\Tower.cpp" />
+    <ClCompile Include="..\Tower\TowerDebug.cpp" />
+    <ClCompile Include="..\Tower\WasteManagement.cpp" />
+    <ClCompile Include="..\Window\Clock.cpp" />
+    <ClCompile Include="..\Window\Event.cpp" />
+    <ClCompile Include="..\Window\GUIManager.cpp">
+      <BrowseInformation Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</BrowseInformation>
+    </ClCompile>
+    <ClCompile Include="..\Window\Interface.cpp" />
+    <ClCompile Include="..\Window\SettingsWindow.cpp" />
+    <ClCompile Include="..\Window\Stats.cpp" />
+    <ClCompile Include="..\xml\tinyxml\tinystr.cpp" />
+    <ClCompile Include="..\xml\tinyxml\tinyxml.cpp" />
+    <ClCompile Include="..\xml\tinyxml\tinyxmlerror.cpp" />
+    <ClCompile Include="..\xml\tinyxml\tinyxmlparser.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+    <Import Project="packages\glew.redist.1.9.0.1\build\native\glew.redist.targets" Condition="Exists('packages\glew.redist.1.9.0.1\build\native\glew.redist.targets')" />
+    <Import Project="packages\sfml_audio.redist.2.5.1\build\native\sfml_audio.redist.targets" Condition="Exists('packages\sfml_audio.redist.2.5.1\build\native\sfml_audio.redist.targets')" />
+    <Import Project="packages\sfml_system.redist.2.5.1\build\native\sfml_system.redist.targets" Condition="Exists('packages\sfml_system.redist.2.5.1\build\native\sfml_system.redist.targets')" />
+    <Import Project="packages\sfml_system.2.5.1\build\native\sfml_system.targets" Condition="Exists('packages\sfml_system.2.5.1\build\native\sfml_system.targets')" />
+    <Import Project="packages\sfml_audio.2.5.1\build\native\sfml_audio.targets" Condition="Exists('packages\sfml_audio.2.5.1\build\native\sfml_audio.targets')" />
+    <Import Project="packages\sfml_window.redist.2.5.1\build\native\sfml_window.redist.targets" Condition="Exists('packages\sfml_window.redist.2.5.1\build\native\sfml_window.redist.targets')" />
+    <Import Project="packages\sfml_window.2.5.1\build\native\sfml_window.targets" Condition="Exists('packages\sfml_window.2.5.1\build\native\sfml_window.targets')" />
+    <Import Project="packages\sfml_graphics.redist.2.5.1\build\native\sfml_graphics.redist.targets" Condition="Exists('packages\sfml_graphics.redist.2.5.1\build\native\sfml_graphics.redist.targets')" />
+    <Import Project="packages\sfml_graphics.2.5.1\build\native\sfml_graphics.targets" Condition="Exists('packages\sfml_graphics.2.5.1\build\native\sfml_graphics.targets')" />
+  </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('packages\glew.redist.1.9.0.1\build\native\glew.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\glew.redist.1.9.0.1\build\native\glew.redist.targets'))" />
+    <Error Condition="!Exists('packages\sfml_audio.redist.2.5.1\build\native\sfml_audio.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\sfml_audio.redist.2.5.1\build\native\sfml_audio.redist.targets'))" />
+    <Error Condition="!Exists('packages\sfml_system.redist.2.5.1\build\native\sfml_system.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\sfml_system.redist.2.5.1\build\native\sfml_system.redist.targets'))" />
+    <Error Condition="!Exists('packages\sfml_system.2.5.1\build\native\sfml_system.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\sfml_system.2.5.1\build\native\sfml_system.targets'))" />
+    <Error Condition="!Exists('packages\sfml_audio.2.5.1\build\native\sfml_audio.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\sfml_audio.2.5.1\build\native\sfml_audio.targets'))" />
+    <Error Condition="!Exists('packages\sfml_window.redist.2.5.1\build\native\sfml_window.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\sfml_window.redist.2.5.1\build\native\sfml_window.redist.targets'))" />
+    <Error Condition="!Exists('packages\sfml_window.2.5.1\build\native\sfml_window.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\sfml_window.2.5.1\build\native\sfml_window.targets'))" />
+    <Error Condition="!Exists('packages\sfml_graphics.redist.2.5.1\build\native\sfml_graphics.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\sfml_graphics.redist.2.5.1\build\native\sfml_graphics.redist.targets'))" />
+    <Error Condition="!Exists('packages\sfml_graphics.2.5.1\build\native\sfml_graphics.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\sfml_graphics.2.5.1\build\native\sfml_graphics.targets'))" />
+  </Target>
+</Project>

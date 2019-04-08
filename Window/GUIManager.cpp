@@ -10,100 +10,66 @@
 #include "GUIManager.h"
 
 
-GUIManager::GUIManager(SceneEvent& rse, Interface& rInterface) //, Tower* Tower) can't pass a tower as there will be more than one. Think events
-:  mpRenderer(NULL)
-,  mpSystem(NULL)
-,  mSE(rse)
-,  mInterface(rInterface)
+GUIManager::GUIManager(SceneEvent& rse, Interface& rInterface) :
+    mpRenderer(NULL),
+    mpSystem(NULL),
+    mpPrefsWin(NULL),
+    mSE(rse),
+    mInterface(rInterface)
 {
-   mpPrefsWin = NULL;
-	InitMaps();
-	try
-	{
-	   using namespace CEGUI;
-	   // LOOK, we are USING THE CEGUI NAMESPACE!! The extra CEGUI::'s are not nessesary...
-      mpRenderer = &OpenGLRenderer::create();
-      mpSystem = &System::create(*mpRenderer);
-      DefaultResourceProvider* rp = static_cast<DefaultResourceProvider*>
-         (System::getSingleton().getResourceProvider());
+    InitMaps();
 
-      rp->setResourceGroupDirectory("resource", "data/gui/");
-      ImageManager::setImagesetDefaultResourceGroup("resource");
-      Font::setDefaultResourceGroup("resource");
-      Scheme::setDefaultResourceGroup("resource");
-      WidgetLookManager::setDefaultResourceGroup("resource");
-      WindowManager::setDefaultResourceGroup("resource");
+    try {
+        using namespace CEGUI;
 
-      SchemeManager::getSingleton().createFromFile("WindowsLook.scheme");
-      FontManager::getSingleton().createFromFile("DejaVuSans-10.font");
+        mpRenderer = &OpenGLRenderer::create();
+        mpSystem = &System::create(*mpRenderer);
 
-		mpWM = WindowManager::getSingletonPtr();
+        LoadResource();
 
-      mpRootWind = mpWM->createWindow( "DefaultWindow", "root" );
-      CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(mpRootWind);
-      mpRootWind->setMousePassThroughEnabled(true);
+        FontManager::getSingleton().createFromFile("DejaVuSans-10.font");
 
-      //FontManager::getSingletonPtr()->getFont("DejaVuSans-10.font")->setAutoScaled(false);
+        SchemeManager::getSingleton().createFromFile("WindowsLook.scheme");
 
-      // Just making a test window now
-      /*FrameWindow* fWnd = (FrameWindow*) mpWM->createWindow( "WindowsLook/FrameWindow", "testWindow" );
-      mpRootWind->addChildWindow( fWnd );
-      Window* pTestBtn = mpWM->createWindow("WindowsLook/Button", "TestBtn" );
-		pTestBtn->setSize(UVector2(UDim(0.5f, 0), UDim(0.5f, 0)));
-		pTestBtn->setPosition(UVector2(UDim(0.25f, 0), UDim(0.4f, 0)));
-      fWnd->addChildWindow( pTestBtn );*/
+	    mpWM = WindowManager::getSingletonPtr();
+        mpRootWind = mpWM->createWindow("DefaultWindow", "root");
+        auto& defaultGUIContext = System::getSingleton().getDefaultGUIContext();
+        defaultGUIContext.setRootWindow(mpRootWind);
+        mpRootWind->setMousePassThroughEnabled(true);
+        defaultGUIContext.getMouseCursor().setDefaultImage("WindowsLook/MouseArrow");
 
-      // JSON test code
-      //Json::Value root;
-      //Json::Reader reader;
-      //std::ifstream conffile;
-      //conffile.open("data/gui/Gui.js");
-      //if (!conffile.is_open()) { std::cout << "Error loading data/gui/Gui.js! Failed to open file."; }
-      //std::string conf;
-      //getline(conffile, conf, '\0');
-      //std::cout << conf;
-      //bool parseGood = reader.parse(conf, root);
-      //if (!parseGood) std::cout << "failed to parse /data/gui/Gui.js, " << reader.getFormatedErrorMessages();
+        InitLayout();
 
-      //struct Local {
-      //   CEGUI::WindowManager* mpWM;
-      //   CEGUI::Window* mpRootWind;
-      //   void ProcessNode(Json::Value& Node) {
-      //      std::string Name = Node["Name"].asString();
-      //      std::string Type = Node["Type"].asString();
-      //      Window* NewWindow = mpWM->createWindow(Type, Name);
-      //      mpRootWind->addChildWindow(NewWindow);
-      //      std::string Size = Node["UnifiedSize"].asString();
-      //      NewWindow->setProperty("UnifiedSize", Size);
-      //      std::cout << "created window " << Name << " (type " << Type << ") with size " << Size << '\n';
-      //      Json::Value children = Node["Children"];
-      //      if (children.type()) {
-      //         for (int i = 0; i < children.size(); ++i) {
-      //            std::cout << children[i];
-      //            ProcessNode(children[i]);
-      //         }
-      //      }
-      //   }
-      //};
-      //Local blah;
-      //blah.mpWM = mpWM;
-      //blah.mpRootWind = mpRootWind;
-      //blah.ProcessNode(root);
-
-      InitLayout();
-
-      CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().setDefaultImage("WindowsLook/MouseArrow");
-	}
-	catch (CEGUI::Exception& e)
-	{
-      throw new HighriseException(e.getMessage().c_str());
-	}
+    } catch (CEGUI::Exception& e) {
+        throw new HighriseException(e.getMessage().c_str());
+    }
 }
 
 GUIManager::~GUIManager()
 {
     CEGUI::System::destroy();
     CEGUI::OpenGLRenderer::destroy(*mpRenderer);
+}
+
+void GUIManager::LoadResource()
+{
+    using namespace CEGUI;
+
+    auto rp = System::getSingleton().getResourceProvider();
+    auto drp = static_cast<DefaultResourceProvider*>(rp);
+
+    drp->setResourceGroupDirectory("fonts",     "data/gui/fonts/");
+    drp->setResourceGroupDirectory("imagesets", "data/gui/imagesets/");
+    drp->setResourceGroupDirectory("layouts",   "data/gui/layouts/");
+    drp->setResourceGroupDirectory("looknfeel", "data/gui/looknfeel/");
+    drp->setResourceGroupDirectory("schemes",   "data/gui/schemes/");
+    //drp->setResourceGroupDirectory("schemas",   "data/gui/xml_schemas/");
+
+    Font::setDefaultResourceGroup("fonts");
+    ImageManager::setImagesetDefaultResourceGroup("imagesets");
+    WindowManager::setDefaultResourceGroup("layouts");
+    WidgetLookManager::setDefaultResourceGroup("looknfeel");
+    Scheme::setDefaultResourceGroup("schemes");
 }
 
 void GUIManager::InitLayout()

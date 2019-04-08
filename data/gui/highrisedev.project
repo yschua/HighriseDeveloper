@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project CEGUIDefaultResolution="800x600" CEGUIVersion="0.8" baseDirectory="." fontsPath="fonts" imagesetsPath="imagesets" layoutsPath="layouts" looknfeelsPath="looknfeel" schemesPath="schemes" version="CEED Project 1" xmlSchemasPath="xml_schemas">
+    <Items>
+        <Item name="imagesets" type="folder">
+            <Item path="imagesets/AptButton.imageset" type="file" />
+            <Item path="imagesets/CondoButton.imageset" type="file" />
+            <Item path="imagesets/DeleteButton.imageset" type="file" />
+            <Item path="imagesets/Hotel.imageset" type="file" />
+            <Item path="imagesets/HotelButton.imageset" type="file" />
+            <Item path="imagesets/MenuBackgroundLeft.imageset" type="file" />
+            <Item path="imagesets/OfficeButton.imageset" type="file" />
+            <Item path="imagesets/OpenButton.imageset" type="file" />
+            <Item path="imagesets/SaveButton.imageset" type="file" />
+            <Item path="imagesets/SelectButton.imageset" type="file" />
+            <Item path="imagesets/WindowsLook.imageset" type="file" />
+        </Item>
+        <Item name="layouts" type="folder">
+            <Item path="layouts/Menu.layout" type="file" />
+        </Item>
+    </Items>
+</Project>

@@ -80,6 +80,7 @@ private:
 	CEGUI::Key::Scan CEKey(sf::Keyboard::Key Code);
 	CEGUI::MouseButton CEMouseButton(sf::Mouse::Button Button);
     void InitLayout();
+    void LoadResource();
 };
 
 #endif

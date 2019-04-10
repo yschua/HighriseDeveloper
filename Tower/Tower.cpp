@@ -105,7 +105,7 @@ void Tower::Update (float dt, int timeOfDay)
 //      (*iLevel)->Update( dt, timeOfDay );
 //   }
    mFloorWorkingOn++;
-   if( mFloorWorkingOn >= mLevels.size() )
+   if( mFloorWorkingOn >= static_cast<int>(mLevels.size()) )
    {
       mFloorWorkingOn = 0; // set to lowest level
    }

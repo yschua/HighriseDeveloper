@@ -144,13 +144,13 @@ void Elevator::LoadImages()
       pImageName = "Elevator_o_x.png";
       break;
    }
-   mElevatorImage = new AnimationSingle (images->GetTexture (pImageName, GL_RGBA), mWidth.x, mHeight.y);
+   mElevatorImage = new AnimationSingle (images->GetTexture (pImageName, GL_RGBA), static_cast<int>(mWidth.x), static_cast<int>(mHeight.y));
    mRiderImage = new AnimationSingle (images->GetTexture ("Person_e.png", GL_RGBA), 8, 16);
    mRiderImage->SetPosition ((float)mX +8, (float)(mBottomLevel-1) * -36 ); // neg 36 so it becomed positive for model view
-   mLiftMachine = new ElevatorMachine( mX - 2, mTopLevel+1, mWidth.x+4, this );
-   mLiftPit = new AnimationSingle (images->GetTexture ("LiftPit_1.png", GL_RGBA), mWidth.x+4, 36);
+   mLiftMachine = new ElevatorMachine(mX - 2, mTopLevel + 1, static_cast<int>(mWidth.x + 4), this);
+   mLiftPit = new AnimationSingle (images->GetTexture ("LiftPit_1.png", GL_RGBA), static_cast<int>(mWidth.x + 4), 36);
    mLiftPit->SetPosition ((float)mX - 2, (float)(mBottomLevel-1) * -36 ); // neg 36 so it becomed positive for model view
-   mElevatorShaft = new ElevatorShaft( mX - 2, mTopLevel, mBottomLevel-1, mWidth.x+4, this );
+   mElevatorShaft = new ElevatorShaft(mX - 2, mTopLevel, mBottomLevel - 1, static_cast<int>(mWidth.x + 4), this);
 }
 
 void Elevator::ClearStops()
@@ -508,19 +508,19 @@ void Elevator::Draw ()
       il++;
       if( mStops[index].mButtonFlag&BUTTON_UP)
       {
-         RenderTriangle (ArrowUp, ArrowLit, mX + 4, il*36 - 48, 0.0f );
+         RenderTriangle (ArrowUp, ArrowLit, mX + 4.f, il*36.f - 48, 0.0f );
       }
       else
       {
-         RenderTriangle (ArrowUp, ArrowDim, mX + 4, il*36 - 48, 0.0f );
+         RenderTriangle (ArrowUp, ArrowDim, mX + 4.f, il*36.f - 48, 0.0f );
       }
       if( mStops[index].mButtonFlag&BUTTON_DOWN)
       {
-         RenderTriangle (ArrowDown, ArrowLit, mX + 4, il*36 - 48, 0.0f );
+         RenderTriangle (ArrowDown, ArrowLit, mX + 4.f, il*36.f - 48, 0.0f );
       }
       else
       {
-         RenderTriangle (ArrowDown, ArrowDim, mX + 4, il*36 - 48, 0.0f );
+         RenderTriangle (ArrowDown, ArrowDim, mX + 4.f, il*36.f - 48, 0.0f );
       }
       index++;
    }

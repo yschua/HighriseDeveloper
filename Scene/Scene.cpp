@@ -17,9 +17,11 @@
 #include "Scene.h"
 
 #include <iostream>
+
 #include "Background.h"
 #include "../Graphics/Camera.h"
 #include "../Window/Event.h"
+#include "../Window/RoomWindow.h"
 #include "../Tower/Level.h"
 #include "../Tower/Tower.h"
 #include "../Tower/BuildStrategies.h"
@@ -47,7 +49,11 @@ bool Scene::SetTool(int tool)
         // building new room
         auto pBuildFactory = TowerObjects::BuildFactory::GetInstance();
         mpBuildStrategy = pBuildFactory->CreateStrategy(tool, mpTower);
-    } 
+    } else {
+        auto& ghostRoom = mpTower->GetGhostRoom();
+        ghostRoom.SetShownType(BaseEmpty);
+        ghostRoom.SetWidth(1);
+    }
     
     return true;
 }
@@ -86,11 +92,16 @@ void Scene::MoveGhostRoom(Vector2f& point)
     mpTower->GetGhostRoom().Move(vec); // asp
 }
 
+void Scene::LoadWindows()
+{
+    m_roomWnd = std::make_unique<RoomWindow>();
+}
+
 // taking a mouse hit, send it through geometry to see what we hit
 void Scene::Hit(int hit, Vector2i& Scene)
 {
     if (mpBuildStrategy != nullptr) {
-        Level* pLevel = mpTower->FindLevel (hit);
+        Level* pLevel = mpTower->FindLevelById(hit);
         if (pLevel != nullptr) {
             int x = static_cast<int>(mpTower->GetGhostRoom().GetX() / 9);
             std::cout << "Mouse on Level: " << pLevel->GetLevel() <<
@@ -98,6 +109,13 @@ void Scene::Hit(int hit, Vector2i& Scene)
             mpBuildStrategy->BuildHere(mpTower, x, pLevel->GetLevel());
         } else {
             std::cout << "Mouse on unknown level, Level ID: " << hit << std::endl;
+        }
+    } else {
+        auto level = mpTower->FindLevel(mpTower->GetGhostRoom().GetLevel());
+        const auto room = level->GetSpaceByID(hit);
+        if (room != nullptr) {
+            m_roomWnd->SetRoom(room);
+            m_roomWnd->Show();
         }
     }
 }

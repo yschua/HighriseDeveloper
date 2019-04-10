@@ -57,6 +57,11 @@ bool SceneEvent::OnMouseMove ( Vector2i pointa, Vector2i pointb)
    return true;
 }
 
+void SceneEvent::LoadWindows()
+{
+    mpScene->LoadWindows();
+}
+
 bool SceneEvent::OnOpen (const char* pPath)
 {
    GameManager tm( *mpScene );

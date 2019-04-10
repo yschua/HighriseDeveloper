@@ -92,7 +92,8 @@ public:
    // AI interface
    void EnterTower (Person* pPerson);
    void LeaveTower (Person* pPerson);
-   Level* FindLevel(int id);
+   Level* FindLevelById(int id);
+   Level* FindLevel(int level);
 
    //bool Load(TiXmlNode* nTower);
    //bool Save(TiXmlElement* pnParent);

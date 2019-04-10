@@ -50,7 +50,7 @@ public:
    Apartment (int x, int level, Tower * TowerParent);
 
    static BaseType GetBaseType() { return BaseApartment; }
-   static const char* GetTypeString() { return "apartment"; }
+   std::string GetTypeName() const override { return "apartment"; }
 
    virtual void Update (float dt, int tod);
    virtual void Draw ();

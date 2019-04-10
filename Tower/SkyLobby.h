@@ -33,7 +33,7 @@ public:
    SkyLobby (int x, int x2, int level, Tower * TowerParent);
    static BaseType GetBaseType() { return BaseSkyLobby; }
    virtual BaseType GetType() { return BaseSkyLobby; }
-   static const char* GetTypeString() { return "skylobby"; }
+   std::string GetTypeName() const override { return "skylobby"; }
 
    void Update (float dt, int tod);
    void Draw ();

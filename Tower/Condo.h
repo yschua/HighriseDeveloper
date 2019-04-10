@@ -43,7 +43,7 @@ private:
 public:
    Condo (int x, int level, Tower * TowerParent);
    static BaseType GetBaseType() { return BaseCondo; }
-   static const char* GetTypeString() { return "condo"; }
+   std::string GetTypeName() const override { return "condo"; }
 
    virtual void Update (float dt, int tod);
    virtual void Draw ();

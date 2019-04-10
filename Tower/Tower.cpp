@@ -81,19 +81,21 @@ Level* Tower::GetLevel( int level ) // positive gets you a level above, negative
    return mLevels[index];
 }
 
-Level* Tower::FindLevel(int id)
+Level* Tower::FindLevelById(int id)
 {
-   std::vector<Level *>::iterator iLevel;
-   for (iLevel = mLevels.begin (); iLevel != mLevels.end (); ++iLevel)
-   {
-      if ((*iLevel)->GetID() == id )
-      {
-         return *iLevel;// = (*iLevel);
-      }
-   }
-   return NULL;
+    for (auto pLevel : mLevels) {
+        if (pLevel->GetID() == id) return pLevel;
+    }
+    return nullptr;
 }
 
+Level* Tower::FindLevel(int level)
+{
+    for (auto pLevel : mLevels) {
+        if (pLevel->GetLevel() == level) return pLevel;
+    }
+    return nullptr;
+}
 
 void Tower::Update (float dt, int timeOfDay)
 {

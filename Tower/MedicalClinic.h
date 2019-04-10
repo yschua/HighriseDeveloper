@@ -47,7 +47,7 @@ class MedicalClinic : public FloorBase, public Gfx::ModelObject
 public:
    MedicalClinic (int x, int level, Tower * TowerParent);
    static BaseType GetBaseType() { return BaseClinic; }
-   static const char* GetTypeString() { return "clinic"; }
+   std::string GetTypeName() const override { return "clinic"; }
 
    void Update (float dt, int tod);
    void Draw ();

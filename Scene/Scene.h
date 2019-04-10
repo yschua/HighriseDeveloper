@@ -18,10 +18,12 @@
 #define _SCENE_H
 
 #include "../Types/Vector2.h"
+#include <memory>
 
 class Tower;
 class Background;
 class BuildStrategyBase;
+class RoomWindow;
 
 class Scene
 {
@@ -37,11 +39,13 @@ public:
     void Hit(int hit, Vector2i& point);
     void MoveGhostRoom(Vector2f& point);
     Tower* GetTower() const { return mpTower; }
+    void LoadWindows();
 
 private:
     Tower* mpTower;
     Background* mpBackground;
     BuildStrategyBase* mpBuildStrategy;  // Place floor objects
+    std::unique_ptr<RoomWindow> m_roomWnd;
 };
 
 #endif //_SCENE_H

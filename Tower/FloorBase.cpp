@@ -83,3 +83,16 @@ void FloorBase::Draw ()
    std::cout << "Floor base class: Draw function called" << std::endl;
 }
 
+std::string FloorBase::GetTypeName() const
+{
+    return "Room";
+}
+
+std::string FloorBase::GetName() const
+{
+    auto str = GetTypeName();
+    str += " #" + std::to_string(mID);
+    str += " Level " + std::to_string(mLevel);
+    return str;
+}
+

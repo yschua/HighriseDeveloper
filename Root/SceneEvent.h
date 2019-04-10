@@ -43,6 +43,7 @@ public:
    bool OnSave (const char* pPath);
    virtual bool OnMouseDown (sf::Mouse::Button Button, Vector2i point, Vector2i pointb);
    virtual bool OnMouseMove ( Vector2i pointa, Vector2i pointb);
+   void LoadWindows();
 };
 
 #endif //_SCENE_EVENT

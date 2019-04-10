@@ -93,6 +93,8 @@ public:
    virtual void Draw ();
    virtual void DrawFramework () { }
    virtual BaseType GetType () { return BaseEmpty; }
+   virtual std::string GetTypeName() const;
+   std::string GetName() const;
 
    void SetOwner (Person* pPerson);
    bool IsVacant () { return (mOwner==NULL); }

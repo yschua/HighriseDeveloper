@@ -31,7 +31,7 @@ public:
    Damage (int x, int x2, int level, Tower * TowerParent, AnimationSingle* pFrame);
 
    static BaseType GetBaseType() { return BaseEmpty; }
-   static const char* GetTypeString() { return "damage"; }
+   std::string GetTypeName() const override { return "damage"; }
    void Update (float dt, int tod);
    void Draw ();
    void DrawFramework ();

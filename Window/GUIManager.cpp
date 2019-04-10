@@ -1,3 +1,19 @@
+/*   This file is part of Highrise Developer.
+*
+*   Highrise Developer is free software: you can redistribute it and/or modify
+*   it under the terms of the GNU General Public License as published by
+*   the Free Software Foundation, either version 3 of the License, or
+*   (at your option) any later version.
+
+*   Highrise Developer is distributed in the hope that it will be useful,
+*   but WITHOUT ANY WARRANTY; without even the implied warranty of
+*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+*   GNU General Public License for more details.
+*
+*   You should have received a copy of the GNU General Public License
+*   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
 #include <SFML/System.hpp>
 #include <string>
 #include <CEGUI/CEGUI.h>
@@ -40,6 +56,7 @@ GUIManager::GUIManager(SceneEvent& rse, Interface& rInterface) :
 
         InitLayout();
 
+        mSE.LoadWindows();
     } catch (CEGUI::Exception& e) {
         throw new HighriseException(e.getMessage().c_str());
     }
@@ -139,6 +156,10 @@ void GUIManager::InitLayout()
     pLayout->getChild("Save")->subscribeEvent(
         CEGUI::PushButton::EventClicked,
         CEGUI::Event::Subscriber(&GUIManager::OnSave, this));
+
+    pLayout->getChild("RoomWindow")->subscribeEvent(
+        CEGUI::FrameWindow::EventCloseClicked,
+        CEGUI::Event::Subscriber(&GUIManager::OnCloseWindow, this));
 }
 
 void GUIManager::setRootWindow(CEGUI::Window* Win)
@@ -171,10 +192,17 @@ bool GUIManager::OnPreferences(const CEGUI::EventArgs& e)
     return true;
 }
 
+bool GUIManager::OnCloseWindow(const CEGUI::EventArgs& e)
+{
+    const auto& wea = static_cast<const CEGUI::WindowEventArgs&>(e);
+    wea.window->hide();
+    return true;
+}
+
 bool GUIManager::OnSelect (const CEGUI::EventArgs& e)
 {
-   mSE.OnToolHit (HR_SelectBuildCursor);  // this only sets the strategy.
-   return true;
+    mSE.OnToolHit (HR_SelectBuildCursor);  // this only sets the strategy.
+    return true;
 }
 
 bool GUIManager::OnOffice (const CEGUI::EventArgs& e)

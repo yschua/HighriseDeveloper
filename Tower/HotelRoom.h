@@ -48,7 +48,7 @@ class HotelRoom : public FloorBase, public Gfx::ModelObject
 public:
    HotelRoom (int x, int level, Tower * TowerParent);
    static BaseType GetBaseType() { return BaseHotel; }
-   static const char* GetTypeString() { return "hotelRoom"; }
+   std::string GetTypeName() const override { return "hotelRoom"; }
 
    void Update (float dt, int tod);
    void Draw ();

@@ -145,7 +145,7 @@ void Office::SetImages (int set)
    manimations[OM_DayOccupied] = pAn;
    for (int idx = 2; idx < oi.count; ++idx )
    {
-      pAn->AddFrame (image_man->GetTexture (oi.Images[idx], GL_RGBA), 1500+rand()%120);
+       pAn->AddFrame (image_man->GetTexture (oi.Images[idx], GL_RGBA), static_cast<float>(1500 + rand() % 120));
       pAn->SetPosition (mX, mY);
    }
 }

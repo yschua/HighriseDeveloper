@@ -275,7 +275,7 @@ void CitizensAgent::RoutePerson(int index, Path& Path, Person* peep)
       req.OriginLevel = peep->GetCurrent();
       req.DestinLevel = Path.mPathList[index].mLevel;
       int rte = Path.mPathList[index].mRoute;
-      if(rte >= 0 && rte < routeList.GetRoutes().size())
+      if(rte >= 0 && rte < static_cast<int>(routeList.GetRoutes().size()))
       {
          RouteBase* route = routeList.GetRoutes()[rte];
          bool IsBoarding = route->SetCallButton( req );

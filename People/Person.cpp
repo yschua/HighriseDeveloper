@@ -159,7 +159,7 @@ void Person::Draw ()
 void Person::Draw (int vx, int vy)
 {
    
-   Render (manimations[mMood], vx, vx+8 );
+    Render (manimations[mMood], static_cast<float>(vx), static_cast<float>(vx + 8));
 }
 
 void Person::SetResidence (int level)

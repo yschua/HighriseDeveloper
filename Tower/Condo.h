@@ -22,7 +22,10 @@
 #include "../Graphics/ModelObject.h"
 #include "FloorBase.h"
 
+#include <map>
+
 class FloorBase;
+class Animation;
 
 enum Condo_State {
     condo_vacant,

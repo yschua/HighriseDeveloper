@@ -14,14 +14,16 @@
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <map>
-#include <cstring>
-#include <sstream>
-#include <cstdio>
-#include "../Graphics/Image.h"
+#include "Stats.h"
+
 #include "../Graphics/Animation.h"
 #include "../Graphics/Camera.h"
-#include "Stats.h"
+#include "../Graphics/Image.h"
+
+#include <cstdio>
+#include <cstring>
+#include <map>
+#include <sstream>
 
 namespace UI
 {

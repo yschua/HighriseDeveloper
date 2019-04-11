@@ -1,10 +1,10 @@
 
+#include <fstream>
+#include <iostream>
+#include <map>
+#include <sstream>
 #include <string>
 #include <vector>
-#include <map>
-#include <iostream>
-#include <sstream>
-#include <fstream>
 
 namespace Settings
 {

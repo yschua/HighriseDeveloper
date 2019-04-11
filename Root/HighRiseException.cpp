@@ -1,6 +1,7 @@
-#include <string>
-#include <exception>
 #include "HighRiseException.h"
+
+#include <exception>
+#include <string>
 
 HighriseException::HighriseException(const char* message)
 {

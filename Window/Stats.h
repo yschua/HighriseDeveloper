@@ -19,8 +19,8 @@
 #ifndef _STATS_H
 #define _STATS_H
 
-#include "../Graphics/ViewObject.h"
 #include "../Graphics/Animation.h"
+#include "../Graphics/ViewObject.h"
 
 class AnimationSingle;
 

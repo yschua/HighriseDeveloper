@@ -14,17 +14,19 @@
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <iostream>
-#include <SFML/Graphics.hpp>
-#include <string.h>
-#include <map>
-#include "../Types/String.h"
-#include "../Settings/Settings.h"
-#include "../Root/Physics.h"
-#include "../Graphics/Image.h"
+#include "Interface.h"
+
 #include "../Graphics/Animation.h"
 #include "../Graphics/Camera.h"
-#include "Interface.h"
+#include "../Graphics/Image.h"
+#include "../Root/Physics.h"
+#include "../Settings/Settings.h"
+#include "../Types/String.h"
+
+#include <SFML/Graphics.hpp>
+#include <iostream>
+#include <map>
+#include <string.h>
 
 using namespace Gfx;
 

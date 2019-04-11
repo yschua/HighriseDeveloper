@@ -16,11 +16,11 @@
 
 #ifndef _LEVEL_H
 #define _LEVEL_H
-#include <map>
-#include <list>
-
 #include "../Graphics/ModelObject.h"
 #include "FloorBase.h"
+
+#include <list>
+#include <map>
 
 class AnimationSingle;
 class AnimationEmpty;

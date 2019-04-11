@@ -14,23 +14,20 @@
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <iostream>
-#include <CEGUI/CEGUI.h>
-#include "Window/GUIManager.h"
-
-#include "Graphics/Camera.h"
+#include "HighRiseDev.h"
 
 #include "AI/CitizensAgent.h"
-
-#include "Tower/Routes.h"
-#include "Tower/Tower.h"
+#include "Graphics/Camera.h"
+#include "Root/GameManager.h" // xml saver
+#include "Root/SceneEvent.h"
 #include "Scene/Background.h"
 #include "Scene/Scene.h"
+#include "Tower/Routes.h"
+#include "Tower/Tower.h"
+#include "Window/GUIManager.h"
 
-#include "Root/SceneEvent.h"
-#include "Root/GameManager.h" // xml saver
-
-#include "HighRiseDev.h"
+#include <CEGUI/CEGUI.h>
+#include <iostream>
 
 void debugprint()
 {

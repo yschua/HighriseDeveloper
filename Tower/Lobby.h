@@ -17,6 +17,8 @@
 #ifndef _LOBBY_H
 #define _LOBBY_H
 
+#include "Level.h"
+
 class Tiler;
 class AnimationSingle;
 class Level;

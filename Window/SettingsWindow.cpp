@@ -17,9 +17,11 @@ filename:   Theme Park application
 *   You should have received a copy of the GNU General Public License
 *   along with Extreme Park Developer.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include <CEGUI/CEGUI.h>
 #include "SettingsWindow.h"
+
 #include "Interface.h"
+
+#include <CEGUI/CEGUI.h>
 #define LOOK "WindowsLook"
 
 SettingsWindow::SettingsWindow(Interface& rInterface) : mInterface(rInterface)

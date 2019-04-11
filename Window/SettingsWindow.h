@@ -23,6 +23,9 @@ class Interface;
 namespace CEGUI
 {
 class FrameWindow;
+class ToggleButton;
+class Window;
+class EventArgs;
 }
 
 class SettingsWindow

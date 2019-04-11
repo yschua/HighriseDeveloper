@@ -17,10 +17,9 @@
 #include <iostream>
 
 // Then user-defined types
-#include "../Scene/Scene.h"
 #include "../Graphics/Camera.h"
+#include "../Scene/Scene.h"
 #include "../Window/Event.h"
-
 #include "GameManager.h" // xml saver
 #include "SceneEvent.h"
 

@@ -17,10 +17,12 @@
 #ifndef _GHOSTROOM_H
 #define _GHOSTROOM_H
 
-#include "../Root/Physics.h"
 #include "../Graphics/Animation.h"
 #include "../Graphics/ModelObject.h"
+#include "../Root/Physics.h"
 #include "FloorBase.h"
+
+#include <string>
 
 class AnimationSingle;
 class SerializerBase;

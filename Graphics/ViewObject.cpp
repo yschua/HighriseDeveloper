@@ -14,11 +14,13 @@
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <iostream>
-#include <string>
+#include "ViewObject.h"
+
 #include "Animation.h"
 #include "Texture.h"
-#include "ViewObject.h"
+
+#include <iostream>
+#include <string>
 
 // all things not in 3D space. Used for interface
 using namespace Gfx;

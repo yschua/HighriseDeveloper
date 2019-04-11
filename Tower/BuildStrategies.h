@@ -16,11 +16,11 @@
 
 #ifndef _BUILDSTRATEGIES_H
 #define _BUILDSTRATEGIES_H
-#include <string>
-#include <map>
-
 #include "BuildData.h"
 #include "Level.h"
+
+#include <map>
+#include <string>
 
 class Tower;
 struct BuildData;

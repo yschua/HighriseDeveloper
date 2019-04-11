@@ -14,14 +14,15 @@
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "Event.h"
+
+#include "../Graphics/Camera.h"
+#include "../Types/Vector2.h"
+
+#include <SFML/Graphics.hpp>
+#include <SFML/System.hpp>
 #include <iostream>
 #include <list>
-#include <SFML/System.hpp>
-#include <SFML/Graphics.hpp>
-
-#include "../Types/Vector2.h"
-#include "../Graphics/Camera.h"
-#include "Event.h"
 
 EventHandler::EventHandler()
 {

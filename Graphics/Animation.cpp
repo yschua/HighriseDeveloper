@@ -14,10 +14,11 @@
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <vector>
+#include "Animation.h"
 
 #include "../Root/Physics.h"
-#include "Animation.h"
+
+#include <vector>
 
 AnimationShape::AnimationShape(int width, int height) : AnimationBase(width, height) {}
 

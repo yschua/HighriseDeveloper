@@ -14,9 +14,11 @@
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <iostream>
 #include "Texture.h"
+
 #include "ErrorImage.h"
+
+#include <iostream>
 
 using namespace Gfx;
 

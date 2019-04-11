@@ -16,8 +16,8 @@
 #ifndef _SKYLOBBY_H
 #define _SKYLOBBY_H
 
-#include "FloorBase.h"
 #include "../Graphics/ModelObject.h"
+#include "FloorBase.h"
 
 class Tiler;
 class AnimationSingle;

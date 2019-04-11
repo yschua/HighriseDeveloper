@@ -1,34 +1,32 @@
-#include <iostream>
-#include <vector>
-#include <list>
-#include <map>
-#include "../Types/String.h"
+#include "GameManager.h"
 
+#include "../Graphics/Texture.h"
+#include "../Scene/Scene.h"
+#include "../Tower/Apartment.h"
+#include "../Tower/BuildData.h"
+#include "../Tower/BuildFactory.h"
+#include "../Tower/BuildStrategies.h"
+#include "../Tower/Condo.h"
+#include "../Tower/Elevator.h"
+#include "../Tower/ElevatorBase.h"
+#include "../Tower/FloorBase.h"
+#include "../Tower/HotelRoom.h"
+#include "../Tower/Level.h"
+#include "../Tower/Lobby.h"
+#include "../Tower/Office.h"
+#include "../Tower/RouteBase.h" // Elevators route (levels).
+#include "../Tower/Routes.h"
+#include "../Tower/SkyLobby.h"
+#include "../Tower/Tower.h"
+#include "../Types/String.h"
 #include "../xml/tinyxml/tinyxml.h"
 #include "Physics.h"
 #include "XMLSerializer.h"
-#include "../Graphics/Texture.h"
 
-#include "../Tower/Routes.h"
-#include "../Tower/Routes.h"
-#include "../Tower/FloorBase.h"
-#include "../Tower/Level.h"
-#include "../Tower/Office.h"
-#include "../Tower/Apartment.h"
-#include "../Tower/Lobby.h"
-#include "../Tower/Condo.h"
-#include "../Tower/HotelRoom.h"
-#include "../Tower/Tower.h"
-#include "../Tower/RouteBase.h" // Elevators route (levels).
-#include "../Tower/ElevatorBase.h"
-#include "../Tower/Elevator.h"
-#include "../Tower/SkyLobby.h"
-#include "../Tower/BuildData.h"
-#include "../Tower/BuildStrategies.h"
-#include "../Tower/BuildFactory.h"
-#include "../Scene/Scene.h"
-
-#include "GameManager.h"
+#include <iostream>
+#include <list>
+#include <map>
+#include <vector>
 
 GameManager::GameManager(Scene& scene) : mScene(scene) {}
 

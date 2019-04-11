@@ -14,22 +14,21 @@
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <cstring>
-#include <iostream>
-#include "../Root/Physics.h"
-#include "../Graphics/Image.h"
-#include "../Graphics/Animation.h"
-#include "../People/Person.h"
-#include "../Root/SerializerBase.h"
-
-#include "PersonQueue.h"
-#include "Routes.h"
-#include "FloorBase.h"
 #include "Level.h"
 
+#include "../Graphics/Animation.h"
+#include "../Graphics/Image.h"
+#include "../People/Person.h"
 #include "../Root/HighRiseException.h"
-
+#include "../Root/Physics.h"
+#include "../Root/SerializerBase.h"
 #include "../Types/String.h"
+#include "FloorBase.h"
+#include "PersonQueue.h"
+#include "Routes.h"
+
+#include <cstring>
+#include <iostream>
 
 using namespace Gfx;
 

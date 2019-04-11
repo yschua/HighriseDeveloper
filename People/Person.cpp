@@ -16,10 +16,12 @@
 
 // People that make the tower thrive.
 
-#include <iostream>
-#include "../Graphics/Image.h"
-#include "../Graphics/Animation.h"
 #include "Person.h"
+
+#include "../Graphics/Animation.h"
+#include "../Graphics/Image.h"
+
+#include <iostream>
 
 Person::Person(Location& loc)
 {

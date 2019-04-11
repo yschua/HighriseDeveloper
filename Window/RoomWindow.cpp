@@ -16,9 +16,9 @@
 
 #include "RoomWindow.h"
 
-#include <CEGUI/Window.h>
-
 #include "../Tower/FloorBase.h"
+
+#include <CEGUI/Window.h>
 
 RoomWindow::RoomWindow() : m_room(nullptr)
 {

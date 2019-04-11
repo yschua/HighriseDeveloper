@@ -14,17 +14,18 @@
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "ServiceCenter.h"
+
+#include "../Graphics/Animation.h"
+#include "../Graphics/Image.h"
+#include "../Root/Physics.h"
+#include "../Root/SerializerBase.h"
+#include "../Types/String.h"
+#include "FloorBase.h"
+
 #include <iostream>
 #include <map>
 #include <vector>
-#include "../Root/Physics.h"
-#include "../Root/SerializerBase.h"
-#include "../Graphics/Image.h"
-#include "../Graphics/Animation.h"
-#include "FloorBase.h"
-#include "../Types/String.h"
-
-#include "ServiceCenter.h"
 
 using namespace Gfx;
 

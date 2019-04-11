@@ -17,19 +17,25 @@
 #ifndef GUIManager_H
 #define GUIManager_H
 
-#include <CEGUI/CEGUI.h>
-#include <iostream>
-
-#include <CEGUI/RendererModules/OpenGL/GLRenderer.h>
-#include <CEGUI/System.h>
-#include <CEGUI/DefaultResourceProvider.h>
 #include "Event.h"
+
+#include <CEGUI/InputEvent.h>
+#include <map>
 
 class SceneEvent;
 class FloorBase;
 class Tower;
 class Interface;
 class SettingsWindow;
+
+namespace CEGUI
+{
+class OpenGLRenderer;
+class EventArgs;
+class Window;
+class WindowManager;
+class System;
+}
 
 class GUIManager : public EventBase
 {

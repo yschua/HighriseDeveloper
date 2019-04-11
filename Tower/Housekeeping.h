@@ -17,10 +17,10 @@
 #ifndef _HOUSEKEEPING_H
 #define _HOUSEKEEPING_H
 
-#include <map>
-
 #include "../Graphics/ModelObject.h"
 #include "FloorBase.h"
+
+#include <map>
 
 class Animation;
 class SerializerBase;

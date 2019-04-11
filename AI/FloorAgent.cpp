@@ -17,16 +17,17 @@
 // When a new floor space object is added, it needs to be built, detailed and rented or sold.
 // This code will also have to release spaces when tenants move out.
 
-#include <vector>
-#include <list>
-#include <algorithm>
+#include "FloorAgent.h"
 
-#include "../Tower/Level.h"
+#include "../People/Person.h"
 #include "../Tower/FloorBase.h"
+#include "../Tower/Level.h"
 #include "../Tower/Office.h"
 #include "../Tower/Tower.h"
-#include "../People/Person.h"
-#include "FloorAgent.h"
+
+#include <algorithm>
+#include <list>
+#include <vector>
 
 FloorAgent::FloorAgent(Tower& tower) : mTower(tower) {}
 

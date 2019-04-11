@@ -13,10 +13,12 @@
  *   You should have received a copy of the GNU General Public License
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include <string>
-#include "../xml/tinyxml/tinyxml.h"
-#include "../Types/String.h"
 #include "XMLSerializer.h"
+
+#include "../Types/String.h"
+#include "../xml/tinyxml/tinyxml.h"
+
+#include <string>
 
 using namespace std;
 

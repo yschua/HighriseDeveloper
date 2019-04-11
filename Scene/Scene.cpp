@@ -16,16 +16,16 @@
 
 #include "Scene.h"
 
-#include <iostream>
-
-#include "Background.h"
 #include "../Graphics/Camera.h"
-#include "../Window/Event.h"
-#include "../Window/RoomWindow.h"
+#include "../Tower/BuildFactory.h"
+#include "../Tower/BuildStrategies.h"
 #include "../Tower/Level.h"
 #include "../Tower/Tower.h"
-#include "../Tower/BuildStrategies.h"
-#include "../Tower/BuildFactory.h"
+#include "../Window/Event.h"
+#include "../Window/RoomWindow.h"
+#include "Background.h"
+
+#include <iostream>
 
 Scene::Scene() : mpBackground(nullptr), mpBuildStrategy(nullptr) {}
 

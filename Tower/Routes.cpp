@@ -14,11 +14,12 @@
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <vector>
-
-#include "RouteBase.h"
-#include "ElevatorBase.h"
 #include "Routes.h"
+
+#include "ElevatorBase.h"
+#include "RouteBase.h"
+
+#include <vector>
 
 Routes::Routes() {}
 

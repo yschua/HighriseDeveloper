@@ -14,10 +14,11 @@
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "Animation.h"
+
+#include <cstring>
 #include <iostream>
 #include <string>
-#include <cstring>
-#include "Animation.h"
 
 // all things not in 3D space. Used for interface
 using namespace Gfx;

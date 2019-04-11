@@ -21,8 +21,10 @@
 #ifndef _PERSON_H
 #define _PERSON_H
 
-#include <map>
 #include "../Graphics/ModelObject.h"
+
+#include <map>
+
 class AnimationSingle;
 
 // temporary home for some structures

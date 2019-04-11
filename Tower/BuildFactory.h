@@ -20,8 +20,12 @@
 #ifndef _BUILDFACTORY_H
 #define _BUILDFACTORY_H
 
+#include <map>
+
 class BuildStrategy;
+class BuildStrategyBase;
 class Tower;
+class SerializerBase;
 struct BuildData;
 
 namespace TowerObjects

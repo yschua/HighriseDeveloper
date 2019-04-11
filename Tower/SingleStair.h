@@ -33,8 +33,8 @@ class PersonQueue;
 class Tower;
 class SerializerBase;
 
-#include "../Root/Physics.h"
 #include "../Graphics/ModelObject.h"
+#include "../Root/Physics.h"
 #include "RouteBase.h"
 
 // people walk up and down these but will ride the elevators in most cases

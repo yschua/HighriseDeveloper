@@ -13,17 +13,17 @@
 *   You should have received a copy of the GNU General Public License
 *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
 */
-
-#include <SFML/System.hpp>
-#include <string>
-#include <CEGUI/CEGUI.h>
-//#include <json/json.h>
+#include "GUIManager.h"
 
 #include "../Root/HighRiseException.h"
-
 #include "../Root/SceneEvent.h"
 #include "SettingsWindow.h"
-#include "GUIManager.h"
+
+#include <CEGUI/CEGUI.h>
+#include <CEGUI/RendererModules/OpenGL/GLRenderer.h>
+#include <SFML/System.hpp>
+#include <iostream>
+#include <string>
 
 GUIManager::GUIManager(SceneEvent& rse, Interface& rInterface) :
     mpRenderer(NULL),

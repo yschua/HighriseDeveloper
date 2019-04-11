@@ -18,6 +18,7 @@
 #define _SCENE_H
 
 #include "../Types/Vector2.h"
+
 #include <memory>
 
 class Tower;

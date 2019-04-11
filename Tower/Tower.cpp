@@ -14,20 +14,21 @@
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <vector> // changed from list to vector so the collection can be scrolled in up and down
-#include <list>
+#include "Tower.h"
 
-#include "../Root/Physics.h"
-#include "../Graphics/Texture.h"
 #include "../Graphics/Image.h"
+#include "../Graphics/Texture.h"
+#include "../Root/Physics.h"
 #include "../Scene/Scene.h"
-#include "Routes.h"
-#include "ElevatorBase.h"
 #include "Elevator.h"
+#include "ElevatorBase.h"
 #include "FloorBase.h"
 #include "Level.h"
 #include "Lobby.h"
-#include "Tower.h"
+#include "Routes.h"
+
+#include <list>
+#include <vector> // changed from list to vector so the collection can be scrolled in up and down
 
 Tower::Tower(int towerNo, int NoSubLevels, Scene& rScene) :
     mTowerNo(towerNo),

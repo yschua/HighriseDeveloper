@@ -19,19 +19,18 @@
 #include "Resources.h"
 
 // Include libraries first
-#include <utility>
+#include <SFML/Graphics.hpp>
+#include <SFML/System.hpp>
 #include <cstring>
 #include <iostream>
 #include <list>
+#include <utility>
 #include <vector>
-#include <SFML/System.hpp>
-#include <SFML/Graphics.hpp>
 
 // Then user-defined types
-#include "Window/Interface.h"
-#include "Window/Event.h"
-
 #include "Root/HighRiseException.h"
+#include "Window/Event.h"
+#include "Window/Interface.h"
 
 class MainEvent : public EventBase
 {

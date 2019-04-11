@@ -17,10 +17,10 @@
 #ifndef _OFFICE_H
 #define _OFFICE_H
 
-#include <map>
-
 #include "../Graphics/ModelObject.h"
 #include "FloorBase.h"
+
+#include <map>
 
 class Animation;
 class SerializerBase;

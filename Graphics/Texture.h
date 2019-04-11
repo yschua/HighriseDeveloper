@@ -19,9 +19,10 @@
 #define _TEXTURE_H
 
 // Is there a way to avoid this include?
-#include <string>
 #include "SFML/Graphics.hpp"
+
 #include <SFML/OpenGL.hpp>
+#include <string>
 
 using namespace std;
 

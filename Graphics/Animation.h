@@ -19,6 +19,7 @@
 #define _ANIMATION_H
 #include "../Root/Physics.h"
 #include "Texture.h"
+
 #include <SFML/OpenGL.hpp>
 
 using namespace Gfx;

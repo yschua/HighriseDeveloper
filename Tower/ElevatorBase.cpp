@@ -27,26 +27,19 @@
 
 using namespace Gfx;
 
-ElevatorBase::ElevatorBase ( int x, int level, Elevator* pElevator )
+ElevatorBase::ElevatorBase(int x, int level, Elevator* pElevator)
 {
-   mx = x;
-   my = 0;
-   mLevel = level;
-   mpParent = pElevator;
+    mx = x;
+    my = 0;
+    mLevel = level;
+    mpParent = pElevator;
 }
 
-ElevatorBase::~ElevatorBase()
-{
-}
+ElevatorBase::~ElevatorBase() {}
 
-void
-ElevatorBase::Update (float dt, int tod)
-{
+void ElevatorBase::Update(float dt, int tod) {}
 
-}
-
-void
-ElevatorBase::Draw ()
+void ElevatorBase::Draw()
 {
-//    Camera::GetInstance()->Draw (*manimations[mcurrent_state]);
+    //    Camera::GetInstance()->Draw (*manimations[mcurrent_state]);
 }

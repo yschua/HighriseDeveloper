@@ -11,7 +11,8 @@
 
 /*bool Tower::Load(TiXmlNode* nTower)
 {
-   // TODO: move the XML code outside the tower and create an attribute system (class serializer) to move the data
+   // TODO: move the XML code outside the tower and create an attribute system (class serializer) to move the
+data
    //       possibly a brige system or visitor patterm
    // Iterate through the levels
    std::cout << "DEBUG: Loading tower...\n" << nTower->Value() << "  " << nTower << '\n';
@@ -48,7 +49,8 @@
             pLevel = NewLevel(XStart, levelno, XEnd);
          }
 
-         for (TiXmlNode* pnRoom = pnLevel->FirstChild("room"); pnRoom != 0; pnRoom = pnRoom->NextSibling("room"))
+         for (TiXmlNode* pnRoom = pnLevel->FirstChild("room"); pnRoom != 0; pnRoom =
+pnRoom->NextSibling("room"))
          {
             TiXmlNode* pnType = pnRoom->FirstChild("type");
             TiXmlNode* pnXPos = pnRoom->FirstChild("xpos");
@@ -76,14 +78,15 @@
                {
                   std::cout << "WARNING: " << Type << " is an invalid room type!\n";
                }
-               std::cout << "DEBUG: New " << Type << " on floor " << levelno << " (position " << XPos << ")\n";
-               GetLevel(levelno)->AddFloorSpace(pRoom);
+               std::cout << "DEBUG: New " << Type << " on floor " << levelno << " (position " << XPos <<
+")\n"; GetLevel(levelno)->AddFloorSpace(pRoom);
             }
          }
       }
       else
       {
-         std::cout << "WARNING: Failed to load level " << levelno << ", could not find xstart or xend node.\n";
+         std::cout << "WARNING: Failed to load level " << levelno << ", could not find xstart or xend
+node.\n";
       }
       std::cout << "DEBUG: finished loading level " << levelno << '\n';
    }

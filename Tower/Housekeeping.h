@@ -25,51 +25,42 @@
 class Animation;
 class SerializerBase;
 
-enum service_state
-{
-   SS_Vacant,
-   SS_Occupied
-};
-enum service_mode
-{
-   SM_Night = 0, 
-   SM_DayUnoccupied,
-   SM_DayOccupied
-};
+enum service_state { SS_Vacant, SS_Occupied };
+enum service_mode { SM_Night = 0, SM_DayUnoccupied, SM_DayOccupied };
 
 class Housekeeping : public FloorBase, public Gfx::ModelObject
 {
-   std::map<service_mode, AnimationBase*> manimations;
-   service_state mCurrentState;// vacant /occupied
-   service_mode  mCurrentMode; // day / night
-   int mCurrentAnimation;
-   int mPeopleInService;
-   int mEmployees;
-   int mMaxPositions;
-   int mServiceNumner;
+    std::map<service_mode, AnimationBase*> manimations;
+    service_state mCurrentState; // vacant /occupied
+    service_mode mCurrentMode;   // day / night
+    int mCurrentAnimation;
+    int mPeopleInService;
+    int mEmployees;
+    int mMaxPositions;
+    int mServiceNumner;
 
 public:
-   Housekeeping (int x, int level, Tower * TowerParent);
-   static BaseType GetBaseType() { return BaseHousekeeping; }
-   std::string GetTypeName() const override { return "housekeeping"; }
+    Housekeeping(int x, int level, Tower* TowerParent);
+    static BaseType GetBaseType() { return BaseHousekeeping; }
+    std::string GetTypeName() const override { return "housekeeping"; }
 
-   void Update (float dt, int tod);
-   void Draw ();
-   void DrawFramework ();
-   virtual BaseType GetType () { return BaseService; }
+    void Update(float dt, int tod);
+    void Draw();
+    void DrawFramework();
+    virtual BaseType GetType() { return BaseService; }
 
-   void RemoveImages();
-   void SetImages (int set);
-   void Save(SerializerBase& ser);
+    void RemoveImages();
+    void SetImages(int set);
+    void Save(SerializerBase& ser);
 
-   void PeopleInOut( int count );
-   bool PeopleApply( );    // get a job
-   void SetServiceNumber(int no) { mServiceNumner = no; }
-   int  GetServiceNumber() { return mServiceNumner; }
+    void PeopleInOut(int count);
+    bool PeopleApply(); // get a job
+    void SetServiceNumber(int no) { mServiceNumner = no; }
+    int GetServiceNumber() { return mServiceNumner; }
 
 private:
-   void ServiceMode (int tod);
-   void ServiceState();
+    void ServiceMode(int tod);
+    void ServiceState();
 };
 
 #endif //_HOUSEKEEPING_H

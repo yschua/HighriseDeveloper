@@ -4,18 +4,15 @@
 
 using namespace std;
 
-class HighriseException :
-         public std::exception
+class HighriseException : public std::exception
 {
-   std::string mMessage;
-public:
-   HighriseException( const char* message );
-   ~HighriseException (void) throw ();
+    std::string mMessage;
 
-   string& get_Message()
-   {
-      return mMessage;
-   }
+public:
+    HighriseException(const char* message);
+    ~HighriseException(void) throw();
+
+    string& get_Message() { return mMessage; }
 };
 
 #endif //_HIGHRISEEXCEPTION_H

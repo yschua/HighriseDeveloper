@@ -22,32 +22,33 @@ class Interface;
 
 namespace CEGUI
 {
-   class FrameWindow;
+class FrameWindow;
 }
 
 class SettingsWindow
 {
 protected:
-   CEGUI::FrameWindow* mpWnd;
-   CEGUI::ToggleButton* mpSoundFx;
-   CEGUI::ToggleButton* mpMusic;
-   Interface& mInterface;
-public:
-   SettingsWindow (Interface& rInterface);
-   ~SettingsWindow ();
+    CEGUI::FrameWindow* mpWnd;
+    CEGUI::ToggleButton* mpSoundFx;
+    CEGUI::ToggleButton* mpMusic;
+    Interface& mInterface;
 
 public:
-   bool Create(CEGUI::Window* pRoot);
-   void Destroy ();
+    SettingsWindow(Interface& rInterface);
+    ~SettingsWindow();
 
-   bool OnMusicCheck(const CEGUI::EventArgs& e);
-   bool OnSoundCheck(const CEGUI::EventArgs& e);
-   bool OnClose (const CEGUI::EventArgs& e);
-   bool OnEnglish(const CEGUI::EventArgs& e);
-   bool OnSpanish(const CEGUI::EventArgs& e);
-   bool OnFrench(const CEGUI::EventArgs& e);
-   bool OnDeutsch(const CEGUI::EventArgs& e);
-   bool OnItalian (const CEGUI::EventArgs& e);
+public:
+    bool Create(CEGUI::Window* pRoot);
+    void Destroy();
+
+    bool OnMusicCheck(const CEGUI::EventArgs& e);
+    bool OnSoundCheck(const CEGUI::EventArgs& e);
+    bool OnClose(const CEGUI::EventArgs& e);
+    bool OnEnglish(const CEGUI::EventArgs& e);
+    bool OnSpanish(const CEGUI::EventArgs& e);
+    bool OnFrench(const CEGUI::EventArgs& e);
+    bool OnDeutsch(const CEGUI::EventArgs& e);
+    bool OnItalian(const CEGUI::EventArgs& e);
 };
 
 #endif // _SETTINGSWINDOW_H

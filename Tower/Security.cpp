@@ -30,112 +30,95 @@ using namespace Gfx;
 
 namespace TowerObjects
 {
-   // use the XML serializer to replace this
-   // 
-   const char* Security_Images0[] =
-   {
-      "Security_u.png",
-      "Security_u.png",
-      "Security_u.png",
-      "Security_u_0.png",
-      "Security_u_1.png",
-      "Security_u_2.png",
-      "Security_u_3.png",
-      "Security_u_4.png",
-      "Security_u_5.png"
-   };
-   struct Security_Image
-   {
-      const char** Images;
-      int count;
-   };
-   Security_Image Security_Images[] =
-   {
-      { Security_Images0, 3 }
-   };
-   const int TotalSets = 1;
+// use the XML serializer to replace this
+//
+const char* Security_Images0[] = {"Security_u.png",
+                                  "Security_u.png",
+                                  "Security_u.png",
+                                  "Security_u_0.png",
+                                  "Security_u_1.png",
+                                  "Security_u_2.png",
+                                  "Security_u_3.png",
+                                  "Security_u_4.png",
+                                  "Security_u_5.png"};
+struct Security_Image {
+    const char** Images;
+    int count;
+};
+Security_Image Security_Images[] = {{Security_Images0, 3}};
+const int TotalSets = 1;
 }
 
 using namespace TowerObjects;
 
-Security::Security (int x, int level, Tower * TowerParent)
-      :  mCurrentState (SE_Unoccupied)
-      ,  FloorBase (x, x + 126, level, TowerParent)
+Security::Security(int x, int level, Tower* TowerParent) :
+    mCurrentState(SE_Unoccupied),
+    FloorBase(x, x + 126, level, TowerParent)
 {
-   ImageManager * image_man = ImageManager::GetInstance ();
-   std::cout << "New Security_ at " << mX << ", " << mY << " level " << mLevel << std::endl;
-   mPeopleInSecurity = 0;
-   mEmployees = 0;
-   mMaxPositions = rand() % 6 + 2;
-   SetImages (0);
+    ImageManager* image_man = ImageManager::GetInstance();
+    std::cout << "New Security_ at " << mX << ", " << mY << " level " << mLevel << std::endl;
+    mPeopleInSecurity = 0;
+    mEmployees = 0;
+    mMaxPositions = rand() % 6 + 2;
+    SetImages(0);
 }
 
 void Security::SecurityState(int tod)
 {
-   if (mPeopleInSecurity > 0)  // some people are at work
-   {
-      mCurrentState = SE_Occupied;
-   }
-   else
-   {
-      mCurrentState = SE_Unoccupied;
-   }
+    if (mPeopleInSecurity > 0) // some people are at work
+    {
+        mCurrentState = SE_Occupied;
+    } else {
+        mCurrentState = SE_Unoccupied;
+    }
 }
 
-void Security::SetImages (int set)
+void Security::SetImages(int set)
 {
-   ImageManager * image_man = ImageManager::GetInstance ();
-   Security_Image& oi = Security_Images [set];
-   manimations[SE_Unoccupied] = new AnimationSingle (image_man->GetTexture (oi.Images[1], GL_RGBA), 126, 36);
-   manimations[SE_Unoccupied]->SetPosition (mX, mY);
-   Animation* pAn = new Animation (126,36);
-   manimations[SE_Occupied] = pAn;
-   for (int idx = 0; idx < oi.count; ++idx )
-   {
-      pAn->AddFrame (image_man->GetTexture (oi.Images[idx], GL_RGBA), (float)(1500+rand()%120));
-      pAn->SetPosition (mX, mY);
-   }
+    ImageManager* image_man = ImageManager::GetInstance();
+    Security_Image& oi = Security_Images[set];
+    manimations[SE_Unoccupied] = new AnimationSingle(image_man->GetTexture(oi.Images[1], GL_RGBA), 126, 36);
+    manimations[SE_Unoccupied]->SetPosition(mX, mY);
+    Animation* pAn = new Animation(126, 36);
+    manimations[SE_Occupied] = pAn;
+    for (int idx = 0; idx < oi.count; ++idx) {
+        pAn->AddFrame(image_man->GetTexture(oi.Images[idx], GL_RGBA), (float)(1500 + rand() % 120));
+        pAn->SetPosition(mX, mY);
+    }
 }
 
-void Security::Update (float dt, int tod)
+void Security::Update(float dt, int tod)
 {
-   SecurityState (tod);
-   manimations[mCurrentState]->Update (dt);
+    SecurityState(tod);
+    manimations[mCurrentState]->Update(dt);
 }
 
-void Security::Draw ()
-{
-   Render (manimations[mCurrentState]);
-}
+void Security::Draw() { Render(manimations[mCurrentState]); }
 
-void Security::DrawFramework ()
-{
-   RenderFramework( manimations[mCurrentState], mID);
-}
+void Security::DrawFramework() { RenderFramework(manimations[mCurrentState], mID); }
 
 void Security::Save(SerializerBase& ser)
 {
-   ser.Add("type", "Security_");   // first tag
-   FloorBase::Save(ser);
-   ser.Add("state", SE_Occupied);
-   // if something goes bump, either deal with it or throw it
+    ser.Add("type", "Security_"); // first tag
+    FloorBase::Save(ser);
+    ser.Add("state", SE_Occupied);
+    // if something goes bump, either deal with it or throw it
 }
 
-void Security::PeopleInOut( int count )
+void Security::PeopleInOut(int count)
 {
-   mPeopleInSecurity += count;
-   if (mPeopleInSecurity < 0 )
-   {
-      mPeopleInSecurity = 0;
-   }
+    mPeopleInSecurity += count;
+    if (mPeopleInSecurity < 0) {
+        mPeopleInSecurity = 0;
+    }
 }
 
-bool Security::PeopleApply( )
+bool Security::PeopleApply()
 {
-   if (mEmployees < mMaxPositions) // && mCurrentState == OS_Occupied)
-   {
-      mEmployees++;
-      return true;
-   }
-   return false;
+    if (mEmployees < mMaxPositions) // && mCurrentState == OS_Occupied)
+    {
+        mEmployees++;
+        return true;
+    }
+    return false;
 }

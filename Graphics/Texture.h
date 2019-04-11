@@ -27,29 +27,29 @@ using namespace std;
 
 namespace Gfx
 {
-   class ImageManager;
+class ImageManager;
 
-   class Texture : public sf::Texture
-   {
-      friend class ImageManager;
+class Texture : public sf::Texture
+{
+    friend class ImageManager;
 
-      std::string mName;
-      //unsigned int mID;
-      unsigned int mChannels;
+    std::string mName;
+    // unsigned int mID;
+    unsigned int mChannels;
 
-   protected:
-      // CTOR
-      Texture (const string& psName);
-      ~Texture () {};
+protected:
+    // CTOR
+    Texture(const string& psName);
+    ~Texture(){};
 
-   public:
-      // properties
-      //unsigned int GetID() { return mID; }
-      inline bool SupportsAlpha() { return mChannels==4; }
+public:
+    // properties
+    // unsigned int GetID() { return mID; }
+    inline bool SupportsAlpha() { return mChannels == 4; }
 
-      // methods
-      bool Load (const string& psName);
-   };
+    // methods
+    bool Load(const string& psName);
+};
 }
 
 #endif //_TEXTURE_H

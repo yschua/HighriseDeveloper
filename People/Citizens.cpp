@@ -29,102 +29,86 @@ Citizens* Citizens::minstance = NULL;
 
 Citizens* Citizens::get_Instance()
 {
-   if (minstance == NULL)
-   {
-      minstance = new Citizens();
-   }
-   return minstance;
+    if (minstance == NULL) {
+        minstance = new Citizens();
+    }
+    return minstance;
 }
 
 void Citizens::destroy() // clear out the city
 {
-   try
-   {
-      if (minstance != NULL)
-      {
-         delete minstance;
-      }
-      minstance = NULL;
-   }
-   catch ( HighriseException* ex )
-   {
-      minstance = NULL;
-      throw ex;            // pass on app generated exception
-   }
-   catch (...)
-   {
-      throw new HighriseException( "Error in cleaning up the Citezens collection" );
-   }
+    try {
+        if (minstance != NULL) {
+            delete minstance;
+        }
+        minstance = NULL;
+    } catch (HighriseException* ex) {
+        minstance = NULL;
+        throw ex; // pass on app generated exception
+    } catch (...) {
+        throw new HighriseException("Error in cleaning up the Citezens collection");
+    }
 }
 
-Citizens::Citizens()
-{
-}
+Citizens::Citizens() {}
 
 Citizens::~Citizens()
 {
-   std::cout << "Cleaning up Citizens";
-   try
-   {
-      std::list<Person *>::iterator i;
-      for (i = mPeople.begin (); i != mPeople.end (); i++)
-      {
-         Person* peep = (*i);
-         delete peep;
-      }
-   }
-   catch (...)
-   {
-      throw new HighriseException( "Error in Citezens destructor" );
-   }
+    std::cout << "Cleaning up Citizens";
+    try {
+        std::list<Person*>::iterator i;
+        for (i = mPeople.begin(); i != mPeople.end(); i++) {
+            Person* peep = (*i);
+            delete peep;
+        }
+    } catch (...) {
+        throw new HighriseException("Error in Citezens destructor");
+    }
 }
 
 // this update only needs to be called about once per second are so.
 // no need to call it on every frame
-void Citizens::Update (float dt)
+void Citizens::Update(float dt)
 {
-   // TODO: implement life cycles
-/*   std::list<C_Person *>::iterator i;
-   for (i = m_People.begin (); i != m_People.end (); i++)
-   {
-      C_Person* peep = (*i);
-   // look for dead people and remove when we get aging in.
-   // look for lost people stuck in elevators etc.
-   }*/
+    // TODO: implement life cycles
+    /*   std::list<C_Person *>::iterator i;
+       for (i = m_People.begin (); i != m_People.end (); i++)
+       {
+          C_Person* peep = (*i);
+       // look for dead people and remove when we get aging in.
+       // look for lost people stuck in elevators etc.
+       }*/
 }
 
 Person* Citizens::NewPerson()
 {
-   Location loc;
-   Person* person = new Person( loc );
-   mPeople.push_back (person);
-   return person;
+    Location loc;
+    Person* person = new Person(loc);
+    mPeople.push_back(person);
+    return person;
 }
 
-void Citizens::DestroyPerson( Person* person )
+void Citizens::DestroyPerson(Person* person)
 {
-   std::list<Person *>::iterator i;
-   for (i = mPeople.begin (); i != mPeople.end (); i++)
-   {
-      Person* peep = (*i);
-      if (peep == person)
-      {
-         mPeople.remove(peep);
-         delete peep;
-      }
-   }
+    std::list<Person*>::iterator i;
+    for (i = mPeople.begin(); i != mPeople.end(); i++) {
+        Person* peep = (*i);
+        if (peep == person) {
+            mPeople.remove(peep);
+            delete peep;
+        }
+    }
 }
 
-size_t Citizens::GetPopulationForTower( int Tower )
+size_t Citizens::GetPopulationForTower(int Tower)
 {
-   int pop = 0;
-   std::list<Person *>::iterator i;
-   for (i = mPeople.begin (); i != mPeople.end (); i++)
-   {
-      Person* peep = (*i);
-      // if(peep->get_Location().m_Tower == Tower )
-      if (peep->get_Location().mLevel != 0)
-         pop++;
-   }
-   return pop;
+    int pop = 0;
+    std::list<Person*>::iterator i;
+    for (i = mPeople.begin(); i != mPeople.end(); i++) {
+        Person* peep = (*i);
+        // if(peep->get_Location().m_Tower == Tower )
+        if (peep->get_Location().mLevel != 0)
+            pop++;
+    }
+    return pop;
 }

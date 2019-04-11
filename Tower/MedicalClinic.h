@@ -25,46 +25,40 @@
 class Animation;
 class SerializerBase;
 
-enum MedicalState
-{
-   MS_NightUnoccupied = 0, 
-   MS_NightOccupied,
-   MS_DayUnoccupied,
-   MS_DayOccupied
-};
+enum MedicalState { MS_NightUnoccupied = 0, MS_NightOccupied, MS_DayUnoccupied, MS_DayOccupied };
 
 class MedicalClinic : public FloorBase, public Gfx::ModelObject
 {
-   std::map<MedicalState, AnimationBase*> manimations;
-   MedicalState mCurrentState;// vacant /occupied / day / night
-   int mCurrentAnimation;
-   int mPatients;
-   int mEmployees;
-   int mMaxPositions;
-   int mMedicalClinicStyle; // MedicalClinics, boardrooms, data Clinics, phone banks, etc
-   int mMedicalClinicNumner;
+    std::map<MedicalState, AnimationBase*> manimations;
+    MedicalState mCurrentState; // vacant /occupied / day / night
+    int mCurrentAnimation;
+    int mPatients;
+    int mEmployees;
+    int mMaxPositions;
+    int mMedicalClinicStyle; // MedicalClinics, boardrooms, data Clinics, phone banks, etc
+    int mMedicalClinicNumner;
 
 public:
-   MedicalClinic (int x, int level, Tower * TowerParent);
-   static BaseType GetBaseType() { return BaseClinic; }
-   std::string GetTypeName() const override { return "clinic"; }
+    MedicalClinic(int x, int level, Tower* TowerParent);
+    static BaseType GetBaseType() { return BaseClinic; }
+    std::string GetTypeName() const override { return "clinic"; }
 
-   void Update (float dt, int tod);
-   void Draw ();
-   void DrawFramework ();
-   virtual BaseType GetType () { return BaseClinic; }
+    void Update(float dt, int tod);
+    void Draw();
+    void DrawFramework();
+    virtual BaseType GetType() { return BaseClinic; }
 
-   void RemoveImages();
-   void SetImages (int set);
-   void Save(SerializerBase& ser);
+    void RemoveImages();
+    void SetImages(int set);
+    void Save(SerializerBase& ser);
 
-   void PeopleInOut( int count );
-   bool PeopleApply( );    // get a job
-   void SetMedicalClinicNumber(int no) { mMedicalClinicNumner = no; }
-   int  GetMedicalClinicNumber() { return mMedicalClinicNumner; }
+    void PeopleInOut(int count);
+    bool PeopleApply(); // get a job
+    void SetMedicalClinicNumber(int no) { mMedicalClinicNumner = no; }
+    int GetMedicalClinicNumber() { return mMedicalClinicNumner; }
 
 private:
-   void MedicalClinicState(int tod);
+    void MedicalClinicState(int tod);
 };
 
 #endif //_MEDICALCLINIC_H

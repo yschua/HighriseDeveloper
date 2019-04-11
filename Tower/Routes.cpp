@@ -20,41 +20,33 @@
 #include "ElevatorBase.h"
 #include "Routes.h"
 
-Routes::Routes()
-{
-}
+Routes::Routes() {}
 
 Routes::~Routes()
 {
-   std::vector<RouteBase*>::iterator i;
-   for (i = mRoutes.begin (); i != mRoutes.end (); i++)
-   {
-      RouteBase*  pRoute = (*i);
-   // TODO: this needs to be done but there is a bug here
-   //   delete pRoute;
-   }
-   //mRoutes.clear();
+    std::vector<RouteBase*>::iterator i;
+    for (i = mRoutes.begin(); i != mRoutes.end(); i++) {
+        RouteBase* pRoute = (*i);
+        // TODO: this needs to be done but there is a bug here
+        //   delete pRoute;
+    }
+    // mRoutes.clear();
 }
 
-void Routes::AddRoute(RouteBase* route)
+void Routes::AddRoute(RouteBase* route) { mRoutes.push_back(route); }
+
+void Routes::Update(float dt, int tod)
 {
-   mRoutes.push_back( route );
+    std::vector<RouteBase*>::iterator i;
+    for (i = mRoutes.begin(); i != mRoutes.end(); i++) {
+        (*i)->Update(dt, tod);
+    }
 }
 
-void Routes::Update (float dt, int tod)
+void Routes::Draw()
 {
-   std::vector<RouteBase*>::iterator i;
-   for (i = mRoutes.begin (); i != mRoutes.end (); i++)
-   {
-      (*i)->Update( dt, tod );
-   }
-}
-
-void Routes::Draw ()
-{
-   std::vector<RouteBase*>::iterator i;
-   for (i = mRoutes.begin (); i != mRoutes.end (); i++)
-   {
-      (*i)->Draw( );
-   }
+    std::vector<RouteBase*>::iterator i;
+    for (i = mRoutes.begin(); i != mRoutes.end(); i++) {
+        (*i)->Draw();
+    }
 }

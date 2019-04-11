@@ -25,55 +25,47 @@
 class Animation;
 class SerializerBase;
 
-enum office_state
-{
-   OS_Vacant,
-   OS_Occupied
-};
-enum office_mode
-{
-   OM_Night = 0,
-   OM_DayUnoccupied,
-   OM_DayOccupied
-};
+enum office_state { OS_Vacant, OS_Occupied };
+enum office_mode { OM_Night = 0, OM_DayUnoccupied, OM_DayOccupied };
 
 class Office : public FloorBase, public Gfx::ModelObject
 {
-   std::map<office_mode, AnimationBase*> manimations;
-   office_state mCurrentState;// vacant /occupied
-   office_mode  mCurrentMode; // day / night
-   int mCurrentAnimation;
-   int mPeopleInOffice;
-   int mEmployees;
-   int mMaxPositions;
-   int mOfficeStyle; // Offices, boardrooms, data centers, phone banks, etc
-   int mOfficeNumner;
+    std::map<office_mode, AnimationBase*> manimations;
+    office_state mCurrentState; // vacant /occupied
+    office_mode mCurrentMode;   // day / night
+    int mCurrentAnimation;
+    int mPeopleInOffice;
+    int mEmployees;
+    int mMaxPositions;
+    int mOfficeStyle; // Offices, boardrooms, data centers, phone banks, etc
+    int mOfficeNumner;
 
 public:
-   Office (int x, int level, Tower * TowerParent);
-   static BaseType GetBaseType() { return BaseOffice; }
-   std::string GetTypeName() const override { return "office"; }
+    Office(int x, int level, Tower* TowerParent);
+    static BaseType GetBaseType() { return BaseOffice; }
+    std::string GetTypeName() const override { return "office"; }
 
-   void Update (float dt, int tod);
-   void Draw ();
-   void DrawFramework ();
-   virtual BaseType GetType () { return BaseOffice; }
-   virtual double GetRent ();
+    void Update(float dt, int tod);
+    void Draw();
+    void DrawFramework();
+    virtual BaseType GetType() { return BaseOffice; }
+    virtual double GetRent();
 
-   void RemoveImages();
-   void SetImages (int set);
-   void Save(SerializerBase& ser);
+    void RemoveImages();
+    void SetImages(int set);
+    void Save(SerializerBase& ser);
 
-   void PeopleInOut( int count );
-   bool PeopleApply( );    // get a job
-   void SetOfficeNumber(int no) { mOfficeNumner = no; }
-   int  GetOfficeNumber() { return mOfficeNumner; }
+    void PeopleInOut(int count);
+    bool PeopleApply(); // get a job
+    void SetOfficeNumber(int no) { mOfficeNumner = no; }
+    int GetOfficeNumber() { return mOfficeNumner; }
 
-   static int mWidth;
-   static int mHeight;
+    static int mWidth;
+    static int mHeight;
+
 private:
-   void OfficeMode (int tod);
-   void OfficeState();
+    void OfficeMode(int tod);
+    void OfficeState();
 };
 
 #endif

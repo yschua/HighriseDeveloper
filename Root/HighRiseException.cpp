@@ -2,12 +2,6 @@
 #include <exception>
 #include "HighRiseException.h"
 
-HighriseException::HighriseException( const char* message )
-{
-   mMessage = message;
-}
+HighriseException::HighriseException(const char* message) { mMessage = message; }
 
-HighriseException::~HighriseException(void)
-throw ()
-{
-}
+HighriseException::~HighriseException(void) throw() {}

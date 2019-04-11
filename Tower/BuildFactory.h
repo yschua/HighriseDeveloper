@@ -26,26 +26,25 @@ struct BuildData;
 
 namespace TowerObjects
 {
-   class BuildFactory
-   {
-   protected:
-      std::map<unsigned int, BuildData*> mBuildTypes;
-      static BuildFactory* mInstance;
+class BuildFactory
+{
+protected:
+    std::map<unsigned int, BuildData*> mBuildTypes;
+    static BuildFactory* mInstance;
 
-   public:
-      BuildFactory ();
-      BuildStrategyBase* CreateStrategy( int ToolID, Tower* pTower );
-      static BuildFactory * GetInstance ();
+public:
+    BuildFactory();
+    BuildStrategyBase* CreateStrategy(int ToolID, Tower* pTower);
+    static BuildFactory* GetInstance();
 
-      typedef std::map<unsigned int, BuildData*>::iterator BuildTypeIterator;
-      typedef std::map<unsigned int, BuildData*> BuildType;
-      void Register(BuildData* bd);
-      void Default ();     // Build the initial set
+    typedef std::map<unsigned int, BuildData*>::iterator BuildTypeIterator;
+    typedef std::map<unsigned int, BuildData*> BuildType;
+    void Register(BuildData* bd);
+    void Default(); // Build the initial set
 
-      void Save (SerializerBase& ser);
-      void Load (SerializerBase& ser);
-
-   };
+    void Save(SerializerBase& ser);
+    void Load(SerializerBase& ser);
+};
 }
 
-#endif   // _BUILDFACTORY_H
+#endif // _BUILDFACTORY_H

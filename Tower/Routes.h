@@ -23,23 +23,20 @@ class RouteBase; // aggregate of elevators and stairs
 class Routes
 {
 private:
-   std::vector<RouteBase*> mRoutes;
-//   static Routes* minstance; no longer static as each Tower.has it's own routes
+    std::vector<RouteBase*> mRoutes;
+    //   static Routes* minstance; no longer static as each Tower.has it's own routes
 
 public:
-   typedef std::vector<RouteBase*>::iterator RouteIterator;
-   typedef std::vector<RouteBase*> RoutesVector;
+    typedef std::vector<RouteBase*>::iterator RouteIterator;
+    typedef std::vector<RouteBase*> RoutesVector;
 
-   Routes(); // not part of Tower.
-   ~Routes();
-//   static Routes* GetInstance ();
-   RoutesVector& GetRoutes()
-   {
-      return mRoutes;
-   }
-   void AddRoute(RouteBase * route);
-   void Update (float dt, int tod);
-   void Draw ();
+    Routes(); // not part of Tower.
+    ~Routes();
+    //   static Routes* GetInstance ();
+    RoutesVector& GetRoutes() { return mRoutes; }
+    void AddRoute(RouteBase* route);
+    void Update(float dt, int tod);
+    void Draw();
 };
 
 #endif //_ROUTES_H

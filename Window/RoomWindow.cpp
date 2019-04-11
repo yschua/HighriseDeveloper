@@ -26,18 +26,12 @@ RoomWindow::RoomWindow() : m_room(nullptr)
     m_wnd = root->getChild("MenuBackground/RoomWindow");
 }
 
-RoomWindow::~RoomWindow()
-{
-}
+RoomWindow::~RoomWindow() {}
 
-void RoomWindow::Show()
-{
-    m_wnd->show();
-}
+void RoomWindow::Show() { m_wnd->show(); }
 
 void RoomWindow::SetRoom(const FloorBase* room)
 {
     m_room = room;
     m_wnd->setText(room->GetName());
 }
-

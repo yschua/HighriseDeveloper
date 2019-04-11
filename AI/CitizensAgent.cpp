@@ -42,275 +42,237 @@
 #include "PathAgent.h"
 #include "CitizensAgent.h"
 
-CitizensAgent::CitizensAgent (Tower& tower) // use a tower agent for multiple towers
-      :  mTower (tower)
-{
-
-}
-
-CitizensAgent::~CitizensAgent ()
+CitizensAgent::CitizensAgent(Tower& tower) // use a tower agent for multiple towers
+    :
+    mTower(tower)
 {
 }
 
-void CitizensAgent::Update (float dt, int tod)
+CitizensAgent::~CitizensAgent() {}
+
+void CitizensAgent::Update(float dt, int tod)
 {
-   // Shouldn't Citizens be a member within each Tower? Supposedly you would want this seperate.
-   Citizens* citizens = Citizens::get_Instance(); // the citizens object that holds the people collection
-   if ( (rand() % 4) == 3 )  // TODO: need a better spawn mechanism, raised to 100
-   {
+    // Shouldn't Citizens be a member within each Tower? Supposedly you would want this seperate.
+    Citizens* citizens = Citizens::get_Instance(); // the citizens object that holds the people collection
+    if ((rand() % 4) == 3)                         // TODO: need a better spawn mechanism, raised to 100
+    {
 
-      //Location loc; // all zeros
-      Person* peep = citizens->NewPerson();
-//      Person* peep = new Person( loc );
-//      mPeople.push_back( peep );
-      // Shouldn't this be Update(dt)?
-      citizens->Update( dt );
-//log      std::cout << "Your city added 1 person" << " Population in city: " << citizens->GetPopulation() << std::endl;
-   }
-   // std::list<Person*> Should be a member typedef!
-   std::list<Person *>::iterator i;
-   std::list<Person *>& persons = citizens->get_Persons(); // get the persons collection.
+        // Location loc; // all zeros
+        Person* peep = citizens->NewPerson();
+        //      Person* peep = new Person( loc );
+        //      mPeople.push_back( peep );
+        // Shouldn't this be Update(dt)?
+        citizens->Update(dt);
+        // log      std::cout << "Your city added 1 person" << " Population in city: " <<
+        // citizens->GetPopulation() << std::endl;
+    }
+    // std::list<Person*> Should be a member typedef!
+    std::list<Person*>::iterator i;
+    std::list<Person*>& persons = citizens->get_Persons(); // get the persons collection.
 
-   // TODO: Need to create a better interface that provides a clear persons iteration.
-   for (i = persons.begin (); i != persons.end (); i++)
-   {
-      Person* peep = (*i);
-      peep->Update( tod );
-      Path& workPath = peep->get_WorkPath(); // for now just doing work
-      //  TODO: case statement from hell, on the refactor list
-      // use a state engine to replace this
-      switch ( peep->get_Activity() )
-      {
-         case Person::AS_JobHunting:
-            if (peep->GetCurrentState() == Person::CS_Idle)
-            {
-               FloorAgent agent(mTower);
-               FloorBase* pFB = agent.FindWork(0);
-               if( pFB != NULL )
-               {
-                  Location dest;
-                  dest.mBuilding = 1;
-                  dest.mLevel = pFB->GetLevel(); // TODO:  get a real job finder
-                  dest.mRoute = 0;              // plugged into first elevater until pathfinder does the job.
-                  dest.mX = 1;                  // TODO:  find the room number
-   //Log               std::cout << "A new person has entered your building looking for work on Level# " << dest.mLevel << std::endl;
-                  if (tod >= 6*60 && tod < 16*60)
-                  {
-                     peep->SetActivity( Person::AS_GoingToWork);
-                  }
-                  else
-                  {
-                     peep->SetActivity( Person::AS_Relaxing);
-                  }
-                  if( (rand() % 6) == 2 ) // one out of 6 will make good money to afford more than an apartment
-                     peep->SetOccupation (2);
-                  else
-                     peep->SetOccupation (1);
-                  peep->SetWorkID( pFB->GetID());
-                  PathAgent Path (peep);
-                  Path.findPath (peep->get_Location(), dest, mTower);
+    // TODO: Need to create a better interface that provides a clear persons iteration.
+    for (i = persons.begin(); i != persons.end(); i++) {
+        Person* peep = (*i);
+        peep->Update(tod);
+        Path& workPath = peep->get_WorkPath(); // for now just doing work
+        //  TODO: case statement from hell, on the refactor list
+        // use a state engine to replace this
+        switch (peep->get_Activity()) {
+        case Person::AS_JobHunting:
+            if (peep->GetCurrentState() == Person::CS_Idle) {
+                FloorAgent agent(mTower);
+                FloorBase* pFB = agent.FindWork(0);
+                if (pFB != NULL) {
+                    Location dest;
+                    dest.mBuilding = 1;
+                    dest.mLevel = pFB->GetLevel(); // TODO:  get a real job finder
+                    dest.mRoute = 0; // plugged into first elevater until pathfinder does the job.
+                    dest.mX = 1;     // TODO:  find the room number
+                    // Log               std::cout << "A new person has entered your building looking for work
+                    // on Level# " << dest.mLevel << std::endl;
+                    if (tod >= 6 * 60 && tod < 16 * 60) {
+                        peep->SetActivity(Person::AS_GoingToWork);
+                    } else {
+                        peep->SetActivity(Person::AS_Relaxing);
+                    }
+                    if ((rand() % 6) ==
+                        2) // one out of 6 will make good money to afford more than an apartment
+                        peep->SetOccupation(2);
+                    else
+                        peep->SetOccupation(1);
+                    peep->SetWorkID(pFB->GetID());
+                    PathAgent Path(peep);
+                    Path.findPath(peep->get_Location(), dest, mTower);
 
-                  mTower.EnterTower (peep);
-               }
+                    mTower.EnterTower(peep);
+                }
             }
             break;
 
-         case Person::AS_CondoHunting:
-            {
-               FloorAgent agent(mTower);
-               FloorBase* pFB = agent.FindAHome(1); // condo
-               if (pFB != NULL)
-               {
-                  pFB->SetOwner (peep);
-                  mTower.AdjustFunds (pFB->GetSalePrice()); // buy condo
-                  peep->SetResidence (pFB->GetLevel());
-                  peep->SetActivity (Person::AS_GoingHome);
-                  peep->SetCurrentState (Person::CS_Idle);
-               }
-               else
-               {
-                  peep->SetActivity (Person::AS_ApartmentHunting);
-               }
+        case Person::AS_CondoHunting: {
+            FloorAgent agent(mTower);
+            FloorBase* pFB = agent.FindAHome(1); // condo
+            if (pFB != NULL) {
+                pFB->SetOwner(peep);
+                mTower.AdjustFunds(pFB->GetSalePrice()); // buy condo
+                peep->SetResidence(pFB->GetLevel());
+                peep->SetActivity(Person::AS_GoingHome);
+                peep->SetCurrentState(Person::CS_Idle);
+            } else {
+                peep->SetActivity(Person::AS_ApartmentHunting);
             }
-            break;
+        } break;
 
-         case Person::AS_ApartmentHunting:
+        case Person::AS_ApartmentHunting:
             // Set up cheap housing (not in the original tower game.
             {
-               FloorAgent agent(mTower);
-               FloorBase* pFB = agent.FindAHome(0);
-               if (pFB != NULL)
-               {
-                  pFB->SetOwner (peep);
-                  mTower.AdjustFunds (100); // lease
-                  peep->SetResidence (pFB->GetLevel());
-                  peep->SetActivity (Person::AS_GoingHome);
-                  peep->SetCurrentState (Person::CS_Idle);
-               }
-               // else keep looking
+                FloorAgent agent(mTower);
+                FloorBase* pFB = agent.FindAHome(0);
+                if (pFB != NULL) {
+                    pFB->SetOwner(peep);
+                    mTower.AdjustFunds(100); // lease
+                    peep->SetResidence(pFB->GetLevel());
+                    peep->SetActivity(Person::AS_GoingHome);
+                    peep->SetCurrentState(Person::CS_Idle);
+                }
+                // else keep looking
             }
             break;
 
-         case Person::AS_GoingToWork:
-            if ( workPath.index < workPath.size )
-            {
-               int idx = workPath.index;
-               int curLevel = peep->get_Location().mLevel;
-               if ( curLevel == workPath.mPathList[idx].mLevel ) // or tower is not = curtower (on a bus, train, car or skycab ).
-               {
-                  // just moving on the same level
-               }
-               else
-               {
-                  switch ( peep->GetCurrentState() )
-                  {
-                  case Person::CS_Waiting:
-                     // tally up wait states
-                     break;
-                  case Person::CS_Riding:
-                     // enroute
-                     break;
-                  case Person::CS_Disembarking:
-                     peep->SetCurrent(workPath.mPathList[idx].mLevel);
-                     curLevel = workPath.mPathList[idx].mLevel;
-                     workPath.index++;
-                     peep->SetCurrentState( Person::CS_Walking );
-                     idx = workPath.index;
-                     // fall through
-                  default:
-                     RoutePerson(idx, workPath, peep);
-                  }
-                  //workPath.index++; // TODO: wait for elevator, we are moving ahead before getting to the level
-                  if( workPath.index == workPath.size )
-                  {
-                     try
-                     {
-                        Level* pLevel = mTower.GetLevel(workPath.mPathList[workPath.size - 1].mLevel);
-                        FloorBase* pFB = pLevel->GetSpaceByID( peep->GetWorkID());
-                        if( pFB && pFB->GetType() == BaseOffice )
-                        {
-                           Office* pOffice = reinterpret_cast<Office*>(pFB);
-                           pOffice->PeopleInOut(1);
+        case Person::AS_GoingToWork:
+            if (workPath.index < workPath.size) {
+                int idx = workPath.index;
+                int curLevel = peep->get_Location().mLevel;
+                if (curLevel == workPath.mPathList[idx]
+                                    .mLevel) // or tower is not = curtower (on a bus, train, car or skycab ).
+                {
+                    // just moving on the same level
+                } else {
+                    switch (peep->GetCurrentState()) {
+                    case Person::CS_Waiting:
+                        // tally up wait states
+                        break;
+                    case Person::CS_Riding:
+                        // enroute
+                        break;
+                    case Person::CS_Disembarking:
+                        peep->SetCurrent(workPath.mPathList[idx].mLevel);
+                        curLevel = workPath.mPathList[idx].mLevel;
+                        workPath.index++;
+                        peep->SetCurrentState(Person::CS_Walking);
+                        idx = workPath.index;
+                        // fall through
+                    default:
+                        RoutePerson(idx, workPath, peep);
+                    }
+                    // workPath.index++; // TODO: wait for elevator, we are moving ahead before getting to the
+                    // level
+                    if (workPath.index == workPath.size) {
+                        try {
+                            Level* pLevel = mTower.GetLevel(workPath.mPathList[workPath.size - 1].mLevel);
+                            FloorBase* pFB = pLevel->GetSpaceByID(peep->GetWorkID());
+                            if (pFB && pFB->GetType() == BaseOffice) {
+                                Office* pOffice = reinterpret_cast<Office*>(pFB);
+                                pOffice->PeopleInOut(1);
+                            }
+                        } catch (...) {
+                            peep->SetOccupation(0); // unemployed
                         }
-                     }
-                     catch(...)
-                     {
-                        peep->SetOccupation(0); // unemployed
-                     }
-                  }
-               }
-            }
-            else
-            {
+                    }
+                }
+            } else {
             }
             break;
-         case Person::AS_ClockingOut:
-            if ( workPath.index > 0 )
-            {
-               int idx = workPath.index;
-               int curLevel = peep->get_Location().mLevel;
-               Level* pLevel = mTower.GetLevel(curLevel);
-               FloorBase* pFB = pLevel->GetSpaceByID( peep->GetWorkID());
-               if( pFB && pFB->GetType() == BaseOffice )
-               {
-                  Office* pOffice = reinterpret_cast<Office*>(pFB);
-                  pOffice->PeopleInOut(-1);
-               }
+        case Person::AS_ClockingOut:
+            if (workPath.index > 0) {
+                int idx = workPath.index;
+                int curLevel = peep->get_Location().mLevel;
+                Level* pLevel = mTower.GetLevel(curLevel);
+                FloorBase* pFB = pLevel->GetSpaceByID(peep->GetWorkID());
+                if (pFB && pFB->GetType() == BaseOffice) {
+                    Office* pOffice = reinterpret_cast<Office*>(pFB);
+                    pOffice->PeopleInOut(-1);
+                }
             }
-            peep->SetActivity( Person::AS_GoingHome );
+            peep->SetActivity(Person::AS_GoingHome);
             break;
 
-         case Person::AS_GoingHome:
+        case Person::AS_GoingHome:
 
-            if ( workPath.index >= 0 )
-            {
-               int idx = workPath.index;
-               int curLevel = peep->get_Location().mLevel;
-               if ( curLevel == workPath.mPathList[idx].mLevel )
-               {
-                  // just moving on the same level
-               }
-               else
-               {
-                  switch ( peep->GetCurrentState() )
-                  {
-                  case Person::CS_Waiting:
-                     // tally up wait states
-                     break;
-                  case Person::CS_Riding:
-                     // enroute
-                     break;
-                  case Person::CS_Disembarking:
-                     if (workPath.index > 0)
-                     {
-                        workPath.index--; // TODO: wait for elevator, we are moving ahead before getting to the level
-                     }
-                     peep->SetCurrentState( Person::CS_Walking );
-                     peep->SetCurrent(workPath.mPathList[idx].mLevel);
-                     curLevel = workPath.mPathList[idx].mLevel;
-                     idx = workPath.index;
-                     // fall through
-                  default:
-                     RoutePerson(curLevel, workPath, peep);
-                  }
-               }
-            }
-            else
-            {
+            if (workPath.index >= 0) {
+                int idx = workPath.index;
+                int curLevel = peep->get_Location().mLevel;
+                if (curLevel == workPath.mPathList[idx].mLevel) {
+                    // just moving on the same level
+                } else {
+                    switch (peep->GetCurrentState()) {
+                    case Person::CS_Waiting:
+                        // tally up wait states
+                        break;
+                    case Person::CS_Riding:
+                        // enroute
+                        break;
+                    case Person::CS_Disembarking:
+                        if (workPath.index > 0) {
+                            workPath.index--; // TODO: wait for elevator, we are moving ahead before getting
+                                              // to the level
+                        }
+                        peep->SetCurrentState(Person::CS_Walking);
+                        peep->SetCurrent(workPath.mPathList[idx].mLevel);
+                        curLevel = workPath.mPathList[idx].mLevel;
+                        idx = workPath.index;
+                        // fall through
+                    default:
+                        RoutePerson(curLevel, workPath, peep);
+                    }
+                }
+            } else {
             }
             break;
-         default:
+        default:
             // do something
-            break;   // microsoft requires this break
-      }
-   }
+            break; // microsoft requires this break
+        }
+    }
 }
 
 void CitizensAgent::RoutePerson(int index, Path& Path, Person* peep)
 {
-   Routes& routeList = mTower.GetRoutes();
-   if (  routeList.GetRoutes().size() > 0 )
-   {
-      RoutingRequest req;     // routing code needs to queue this person
-      req.OriginLevel = peep->GetCurrent();
-      req.DestinLevel = Path.mPathList[index].mLevel;
-      int rte = Path.mPathList[index].mRoute;
-      if(rte >= 0 && rte < static_cast<int>(routeList.GetRoutes().size()))
-      {
-         RouteBase* route = routeList.GetRoutes()[rte];
-         bool IsBoarding = route->SetCallButton( req );
-         if( IsBoarding )
-         {
-            peep->SetCurrentState( Person::CS_Riding );
-            route->LoadPerson (peep, req);
-         }
-         else
-         {
-            peep->SetCurrentState( Person::CS_Waiting );
-            //Level* pLevel = mTower.GetLevel(curLevel);
-            PersonQueue* pQ = route->FindQueue(peep->GetCurrent());
-            if( pQ )
-            {
-               pQ->AddPerson(peep);
+    Routes& routeList = mTower.GetRoutes();
+    if (routeList.GetRoutes().size() > 0) {
+        RoutingRequest req; // routing code needs to queue this person
+        req.OriginLevel = peep->GetCurrent();
+        req.DestinLevel = Path.mPathList[index].mLevel;
+        int rte = Path.mPathList[index].mRoute;
+        if (rte >= 0 && rte < static_cast<int>(routeList.GetRoutes().size())) {
+            RouteBase* route = routeList.GetRoutes()[rte];
+            bool IsBoarding = route->SetCallButton(req);
+            if (IsBoarding) {
+                peep->SetCurrentState(Person::CS_Riding);
+                route->LoadPerson(peep, req);
+            } else {
+                peep->SetCurrentState(Person::CS_Waiting);
+                // Level* pLevel = mTower.GetLevel(curLevel);
+                PersonQueue* pQ = route->FindQueue(peep->GetCurrent());
+                if (pQ) {
+                    pQ->AddPerson(peep);
+                }
             }
-         }
-      }
-   }
+        }
+    }
 }
 
 void CitizensAgent::Draw()
 {
-   Citizens* citizens = Citizens::get_Instance(); // the citizens object that holds the people collection
-   std::list<Person *>::iterator i;
-   std::list<Person *>& persons = citizens->get_Persons(); // get the persons collection.
+    Citizens* citizens = Citizens::get_Instance(); // the citizens object that holds the people collection
+    std::list<Person*>::iterator i;
+    std::list<Person*>& persons = citizens->get_Persons(); // get the persons collection.
 
-   // TODO: Need to create a better interface that provides a clear persons iteration.
-   for (i = persons.begin (); i != persons.end (); i++)
-   {
-      Person* peep = (*i);
-      if( peep && peep->GetCurrentState() == Person::AS_JobHunting )
-      {
-         peep->Draw( 320, 36); // standing outside
-      }
-   }
+    // TODO: Need to create a better interface that provides a clear persons iteration.
+    for (i = persons.begin(); i != persons.end(); i++) {
+        Person* peep = (*i);
+        if (peep && peep->GetCurrentState() == Person::AS_JobHunting) {
+            peep->Draw(320, 36); // standing outside
+        }
+    }
 }

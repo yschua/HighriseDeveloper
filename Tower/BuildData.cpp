@@ -19,61 +19,61 @@
 
 #include "BuildData.h"
 
-BuildData::BuildData ()
+BuildData::BuildData()
 {
-   BuildType = 0;
-   Variant = 0;
-   LevelsHigh = 0;
-   UnitsWide = 0;
-   EconomicEffect = 0;
-   NeighborEffect = 0;
-   MaxPeople = 1;
-   MinPeople = 0;
-   AmountPerPerson = 10;
-   RentFrequency = 1;
-   BuildCost = 1000.0;    
-   PurchasePrice = 5000.0;
-   RentalCost = 10.0;   
-   IncomeFactor = 1.0;
-   ImageName = "";
+    BuildType = 0;
+    Variant = 0;
+    LevelsHigh = 0;
+    UnitsWide = 0;
+    EconomicEffect = 0;
+    NeighborEffect = 0;
+    MaxPeople = 1;
+    MinPeople = 0;
+    AmountPerPerson = 10;
+    RentFrequency = 1;
+    BuildCost = 1000.0;
+    PurchasePrice = 5000.0;
+    RentalCost = 10.0;
+    IncomeFactor = 1.0;
+    ImageName = "";
 }
 
 void BuildData::Load(SerializerBase& ser)
 {
-   BuildType = (short)ser.GetInt("BuildType");
-   Variant = (short)ser.GetInt("Variant");
-   LevelsHigh = (short)ser.GetInt("LeveleHigh");
-   UnitsWide = (short)ser.GetInt("UnitsWide");
-   EconomicEffect = (short)ser.GetInt("EconomicEffect");
-   NeighborEffect = (short)ser.GetInt("NeighborEffect");
-   MaxPeople = (short)ser.GetInt("MaxPeople");
-   MinPeople = (short)ser.GetInt("MinPeople");
-   RentFrequency = (short)ser.GetDouble("RentFrequency");
-   AmountPerPerson= ser.GetDouble("AmountPerPerson");
-   BuildCost = ser.GetDouble("BuildCost");
-   PurchasePrice = ser.GetDouble("PurchasePrice");
-   RentalCost = ser.GetDouble("RentalCost");
-   IncomeFactor = ser.GetDouble("IncomeFactor");
-   ImageName = ser.GetString("Image");
+    BuildType = (short)ser.GetInt("BuildType");
+    Variant = (short)ser.GetInt("Variant");
+    LevelsHigh = (short)ser.GetInt("LeveleHigh");
+    UnitsWide = (short)ser.GetInt("UnitsWide");
+    EconomicEffect = (short)ser.GetInt("EconomicEffect");
+    NeighborEffect = (short)ser.GetInt("NeighborEffect");
+    MaxPeople = (short)ser.GetInt("MaxPeople");
+    MinPeople = (short)ser.GetInt("MinPeople");
+    RentFrequency = (short)ser.GetDouble("RentFrequency");
+    AmountPerPerson = ser.GetDouble("AmountPerPerson");
+    BuildCost = ser.GetDouble("BuildCost");
+    PurchasePrice = ser.GetDouble("PurchasePrice");
+    RentalCost = ser.GetDouble("RentalCost");
+    IncomeFactor = ser.GetDouble("IncomeFactor");
+    ImageName = ser.GetString("Image");
 }
 
 // Use by the levels editor
 void BuildData::Save(SerializerBase& ser)
 {
-   ser.Add("Type", "FloorSpace");   // first tag
-   ser.Add("BuildType", BuildType);
-   ser.Add("Variant", Variant);
-   ser.Add("LeveleHigh", LevelsHigh);
-   ser.Add("UnitsWide", UnitsWide);
-   ser.Add("EconomicEffect", EconomicEffect);
-   ser.Add("NeighborEffect", NeighborEffect);
-   ser.Add("MaxPeople", MaxPeople);
-   ser.Add("MinPeople", MinPeople);
-   ser.Add("AmountPerPerson", AmountPerPerson);
-   ser.Add("RentFrequency", RentFrequency);
-   ser.Add("BuildCost", BuildCost);
-   ser.Add("PurchasePrice", PurchasePrice);
-   ser.Add("RentalCost", RentalCost);
-   ser.Add("IncomeFactor", IncomeFactor);
-   ser.Add("Image", ImageName.c_str());
+    ser.Add("Type", "FloorSpace"); // first tag
+    ser.Add("BuildType", BuildType);
+    ser.Add("Variant", Variant);
+    ser.Add("LeveleHigh", LevelsHigh);
+    ser.Add("UnitsWide", UnitsWide);
+    ser.Add("EconomicEffect", EconomicEffect);
+    ser.Add("NeighborEffect", NeighborEffect);
+    ser.Add("MaxPeople", MaxPeople);
+    ser.Add("MinPeople", MinPeople);
+    ser.Add("AmountPerPerson", AmountPerPerson);
+    ser.Add("RentFrequency", RentFrequency);
+    ser.Add("BuildCost", BuildCost);
+    ser.Add("PurchasePrice", PurchasePrice);
+    ser.Add("RentalCost", RentalCost);
+    ser.Add("IncomeFactor", IncomeFactor);
+    ser.Add("Image", ImageName.c_str());
 }

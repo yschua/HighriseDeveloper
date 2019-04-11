@@ -24,52 +24,39 @@
 #include "GameManager.h" // xml saver
 #include "SceneEvent.h"
 
-SceneEvent::SceneEvent(Scene* pScene)
+SceneEvent::SceneEvent(Scene* pScene) { mpScene = pScene; }
+
+SceneEvent::~SceneEvent() {}
+
+bool SceneEvent::OnToolHit(int tool) { return mpScene->SetTool(tool); }
+
+bool SceneEvent::OnMouseDown(sf::Mouse::Button Button, Vector2i pointa, Vector2i pointb)
 {
-   mpScene = pScene;
+    Camera* pCam = Camera::GetInstance();
+    int hit = pCam->RenderFramework(mpScene, pointa, 0);
+    if (hit) {
+        mpScene->Hit(hit, pointa);
+    }
+    return false; // leave the message in for the pointer
 }
 
-
-SceneEvent::~SceneEvent ()
+bool SceneEvent::OnMouseMove(Vector2i pointa, Vector2i pointb)
 {
+    Vector2f vec((float)pointa.x, (float)pointa.y);
+    mpScene->MoveGhostRoom(vec);
+    return true;
 }
 
-bool SceneEvent::OnToolHit (int tool)
+void SceneEvent::LoadWindows() { mpScene->LoadWindows(); }
+
+bool SceneEvent::OnOpen(const char* pPath)
 {
-    return mpScene->SetTool(tool);
+    GameManager tm(*mpScene);
+    return tm.LoadGame(pPath);
 }
 
-bool SceneEvent::OnMouseDown (sf::Mouse::Button Button, Vector2i pointa, Vector2i pointb)
+bool SceneEvent::OnSave(const char* pPath)
 {
-   Camera* pCam = Camera::GetInstance();
-   int hit = pCam->RenderFramework (mpScene, pointa, 0);
-   if( hit )
-   {
-      mpScene->Hit( hit, pointa );
-   }
-   return false; // leave the message in for the pointer
-}
-
-bool SceneEvent::OnMouseMove ( Vector2i pointa, Vector2i pointb)
-{
-   Vector2f vec((float)pointa.x, (float)pointa.y);
-   mpScene->MoveGhostRoom (vec);
-   return true;
-}
-
-void SceneEvent::LoadWindows()
-{
-    mpScene->LoadWindows();
-}
-
-bool SceneEvent::OnOpen (const char* pPath)
-{
-   GameManager tm( *mpScene );
-   return tm.LoadGame( pPath );
-}
-
-bool SceneEvent::OnSave (const char* pPath)
-{
-   GameManager tm( *mpScene );
-   return tm.SaveGame( pPath );
+    GameManager tm(*mpScene);
+    return tm.SaveGame(pPath);
 }

@@ -25,26 +25,18 @@
 
 class Elevator;
 
-ElevatorPit::ElevatorPit ( int x, int level, Elevator* pElevator )
-      :  ElevatorBase( x, level, pElevator )
+ElevatorPit::ElevatorPit(int x, int level, Elevator* pElevator) : ElevatorBase(x, level, pElevator)
 {
-   mx = x;
-   mLevel = level;
-   my = (level * 36);
+    mx = x;
+    mLevel = level;
+    my = (level * 36);
 }
 
-ElevatorPit::~ElevatorPit()
-{
-}
+ElevatorPit::~ElevatorPit() {}
 
-void
-ElevatorPit::Update (float dt)
-{
+void ElevatorPit::Update(float dt) {}
 
-}
-
-void
-ElevatorPit::Draw ()
+void ElevatorPit::Draw()
 {
-//    Camera::GetInstance()->Draw (*manimations[mcurrent_state]);
+    //    Camera::GetInstance()->Draw (*manimations[mcurrent_state]);
 }

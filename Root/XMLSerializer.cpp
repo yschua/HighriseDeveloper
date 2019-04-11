@@ -20,122 +20,113 @@
 
 using namespace std;
 
-XMLSerializer::XMLSerializer (TiXmlElement* pnParent)
-:   mpnParent (pnParent)
+XMLSerializer::XMLSerializer(TiXmlElement* pnParent) : mpnParent(pnParent) {}
+
+XMLSerializer::XMLSerializer(const char* tag)
 {
+    TiXmlElement* pnSpace = new TiXmlElement(tag);
+    mpnParent->LinkEndChild(pnSpace);
 }
 
-XMLSerializer::XMLSerializer( const char* tag )
+XMLSerializer::~XMLSerializer() {}
+
+void XMLSerializer::Add(const char* tag, int val)
 {
-   TiXmlElement* pnSpace = new TiXmlElement(tag);
-   mpnParent->LinkEndChild(pnSpace);
+    TiXmlElement* pnElement = new TiXmlElement(tag);
+    TiXmlText* pnVal = new TiXmlText(ToString(val).c_str());
+    pnElement->LinkEndChild(pnVal);
+    mpnParent->LinkEndChild(pnElement);
 }
 
-XMLSerializer::~XMLSerializer ()
+void XMLSerializer::Add(const char* tag, float val)
 {
+    TiXmlElement* pnElement = new TiXmlElement(tag);
+    TiXmlText* pnVal = new TiXmlText(ToString(val).c_str());
+    pnElement->LinkEndChild(pnVal);
+    mpnParent->LinkEndChild(pnElement);
 }
 
-void XMLSerializer::Add( const char* tag, int val )
+void XMLSerializer::Add(const char* tag, double val)
 {
-   TiXmlElement* pnElement = new TiXmlElement(tag);
-   TiXmlText* pnVal = new TiXmlText(ToString(val).c_str());
-   pnElement->LinkEndChild(pnVal);
-   mpnParent->LinkEndChild(pnElement);
+    TiXmlElement* pnElement = new TiXmlElement(tag);
+    TiXmlText* pnVal = new TiXmlText(ToString(val).c_str());
+    pnElement->LinkEndChild(pnVal);
+    mpnParent->LinkEndChild(pnElement);
 }
 
-void XMLSerializer::Add( const char* tag, float val )
+void XMLSerializer::Add(const char* tag, const char* str)
 {
-   TiXmlElement* pnElement = new TiXmlElement(tag);
-   TiXmlText* pnVal = new TiXmlText(ToString(val).c_str());
-   pnElement->LinkEndChild(pnVal);
-   mpnParent->LinkEndChild(pnElement);
+    TiXmlElement* pnElement = new TiXmlElement(tag);
+    TiXmlText* pnText = new TiXmlText(str);
+    pnElement->LinkEndChild(pnText);
+    mpnParent->LinkEndChild(pnElement);
 }
 
-void XMLSerializer::Add( const char* tag, double val )
+void XMLSerializer::AddChild(const char* tag)
 {
-   TiXmlElement* pnElement = new TiXmlElement(tag);
-   TiXmlText* pnVal = new TiXmlText(ToString(val).c_str());
-   pnElement->LinkEndChild(pnVal);
-   mpnParent->LinkEndChild(pnElement);
+    TiXmlElement* pnSpace = new TiXmlElement(tag);
+    mpnParent->LinkEndChild(pnSpace);
 }
 
-void XMLSerializer::Add( const char* tag, const char* str )
+TiXmlElement* XMLSerializer::AddTiXMLChild(const char* tag)
 {
-   TiXmlElement* pnElement = new TiXmlElement(tag);
-   TiXmlText* pnText = new TiXmlText(str);
-   pnElement->LinkEndChild(pnText);
-   mpnParent->LinkEndChild(pnElement);
-}
-
-void XMLSerializer::AddChild( const char* tag )
-{
-   TiXmlElement* pnSpace = new TiXmlElement(tag);
-   mpnParent->LinkEndChild(pnSpace);
-}
-
-TiXmlElement* XMLSerializer::AddTiXMLChild( const char* tag )
-{
-   TiXmlElement* pnNew = new TiXmlElement(tag);
-   mpnParent->LinkEndChild(pnNew);
-   return pnNew;
+    TiXmlElement* pnNew = new TiXmlElement(tag);
+    mpnParent->LinkEndChild(pnNew);
+    return pnNew;
 }
 
 SerializerBase* XMLSerializer::Spawn(const char* pName)
 {
-   TiXmlElement* pnNew = AddTiXMLChild(pName);
-   XMLSerializer* pSer = new XMLSerializer(pnNew);
-   return pSer;
+    TiXmlElement* pnNew = AddTiXMLChild(pName);
+    XMLSerializer* pSer = new XMLSerializer(pnNew);
+    return pSer;
 }
 
 SerializerBase* XMLSerializer::GetFirstChild(const char* pName)
 {
-   XMLSerializer* pNewSer = NULL;
-   TiXmlElement* pnSib = mpnParent->FirstChildElement(pName);
-   if (pnSib != NULL)
-   {
-      pNewSer = new XMLSerializer(pnSib);
-   }
-   return pNewSer;
+    XMLSerializer* pNewSer = NULL;
+    TiXmlElement* pnSib = mpnParent->FirstChildElement(pName);
+    if (pnSib != NULL) {
+        pNewSer = new XMLSerializer(pnSib);
+    }
+    return pNewSer;
 }
 
 SerializerBase* XMLSerializer::GetNextSibling(const char* pName)
 {
-   XMLSerializer* pNewSer = NULL;
-   TiXmlElement* pnSib = mpnParent->NextSiblingElement(pName);
-   if (pnSib != NULL)
-   {
-      pNewSer = new XMLSerializer(pnSib);
-   }
-   return pNewSer;
+    XMLSerializer* pNewSer = NULL;
+    TiXmlElement* pnSib = mpnParent->NextSiblingElement(pName);
+    if (pnSib != NULL) {
+        pNewSer = new XMLSerializer(pnSib);
+    }
+    return pNewSer;
 }
 
-const char* XMLSerializer::GetString( const char* tag )
+const char* XMLSerializer::GetString(const char* tag)
 {
-   TiXmlNode* pnName = mpnParent->FirstChild(tag);
-   const char* psz = "";
-   TiXmlNode* pnStr = pnName->FirstChild();
-   if( pnStr )
-   {
-      psz = pnStr->Value();
-   }
-   return psz;
+    TiXmlNode* pnName = mpnParent->FirstChild(tag);
+    const char* psz = "";
+    TiXmlNode* pnStr = pnName->FirstChild();
+    if (pnStr) {
+        psz = pnStr->Value();
+    }
+    return psz;
 }
 
-double XMLSerializer::GetDouble( const char* tag )
+double XMLSerializer::GetDouble(const char* tag)
 {
-   TiXmlNode* pnName = mpnParent->FirstChild(tag);
-   return FromString<double>(pnName->FirstChild()->Value());
+    TiXmlNode* pnName = mpnParent->FirstChild(tag);
+    return FromString<double>(pnName->FirstChild()->Value());
 }
 
-float XMLSerializer::GetFloat( const char* tag )
+float XMLSerializer::GetFloat(const char* tag)
 {
-   TiXmlNode* pnName = mpnParent->FirstChild(tag);
-   return FromString<float>(pnName->FirstChild()->Value());
+    TiXmlNode* pnName = mpnParent->FirstChild(tag);
+    return FromString<float>(pnName->FirstChild()->Value());
 }
 
-int XMLSerializer::GetInt( const char* tag )
+int XMLSerializer::GetInt(const char* tag)
 {
-   TiXmlNode* pnName = mpnParent->FirstChild(tag);
-   return FromString<int>(pnName->FirstChild()->Value());
+    TiXmlNode* pnName = mpnParent->FirstChild(tag);
+    return FromString<int>(pnName->FirstChild()->Value());
 }
-

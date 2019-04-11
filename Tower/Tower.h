@@ -39,67 +39,61 @@ class BuildStairStrategy;
 // This renderes the Tower in the ModelSpaces with perspective, pan and zoom.
 class Tower : public Gfx::ModelObject
 {
-   friend class TowerAgent;
-   friend class FloorAgent;
-   friend class GameManager;
-   friend class BuildStairStrategy;
+    friend class TowerAgent;
+    friend class FloorAgent;
+    friend class GameManager;
+    friend class BuildStairStrategy;
 
-   int mTowerNo;
-   int mNo_SubLevels;
-   int mPopulation;  // People in the tower currently
-   int mFloorWorkingOn;
-   double mAvailableFunds;
+    int mTowerNo;
+    int mNo_SubLevels;
+    int mPopulation; // People in the tower currently
+    int mFloorWorkingOn;
+    double mAvailableFunds;
 
-   std::vector<Level*> mLevels;     // Lobby is at mNo_SubLevels not zero
-   Routes mRoutes;
-   Scene& mScene; // this is where all the towers are modeled in OpenGL.
-   GhostRoom mGhostRoom;
+    std::vector<Level*> mLevels; // Lobby is at mNo_SubLevels not zero
+    Routes mRoutes;
+    Scene& mScene; // this is where all the towers are modeled in OpenGL.
+    GhostRoom mGhostRoom;
 
 public:
-   typedef std::vector<Level*>::iterator LevelIterator;
-   typedef std::vector<Level*> LevelVector;
+    typedef std::vector<Level*>::iterator LevelIterator;
+    typedef std::vector<Level*> LevelVector;
 
-   // ctor/dtor
-   Tower( int towerNo, int NoSubLevels, Scene& rScene );
-   ~Tower();
+    // ctor/dtor
+    Tower(int towerNo, int NoSubLevels, Scene& rScene);
+    ~Tower();
 
-   // properties
-   inline Routes& GetRoutes() { return mRoutes; } // For routing citizens
-   inline int GetPopulation() { return mPopulation; }
-   inline double GetAvailableFunds() { return mAvailableFunds; }
-   void AdjustFunds (double amt) { mAvailableFunds += amt; }  // pass neg value to subtract
-   inline Scene& GetScene() { return mScene; }
-   inline GhostRoom& GetGhostRoom() {  return mGhostRoom; }
+    // properties
+    inline Routes& GetRoutes() { return mRoutes; } // For routing citizens
+    inline int GetPopulation() { return mPopulation; }
+    inline double GetAvailableFunds() { return mAvailableFunds; }
+    void AdjustFunds(double amt) { mAvailableFunds += amt; } // pass neg value to subtract
+    inline Scene& GetScene() { return mScene; }
+    inline GhostRoom& GetGhostRoom() { return mGhostRoom; }
 
 protected:
-   inline LevelVector& GetLevels()
-   {
-      return mLevels;
-   }
-   inline Routes::RoutesVector& GetRouteList()
-   {
-      return mRoutes.GetRoutes();
-   }
-   // methods
+    inline LevelVector& GetLevels() { return mLevels; }
+    inline Routes::RoutesVector& GetRouteList() { return mRoutes.GetRoutes(); }
+    // methods
 public:
-   Level* NewLevel (int x, int y, int x2);
-   Level* GetLevel (int level); // positive gets you a level above, negative gets you a basement level
+    Level* NewLevel(int x, int y, int x2);
+    Level* GetLevel(int level); // positive gets you a level above, negative gets you a basement level
 
-   void Update (float dt, int timeOfDay);
-   void Draw ();
-   void DrawFramework (bool bLevelsOnly);
+    void Update(float dt, int timeOfDay);
+    void Draw();
+    void DrawFramework(bool bLevelsOnly);
 
-   // AI interface
-   void EnterTower (Person* pPerson);
-   void LeaveTower (Person* pPerson);
-   Level* FindLevelById(int id);
-   Level* FindLevel(int level);
+    // AI interface
+    void EnterTower(Person* pPerson);
+    void LeaveTower(Person* pPerson);
+    Level* FindLevelById(int id);
+    Level* FindLevel(int level);
 
-   //bool Load(TiXmlNode* nTower);
-   //bool Save(TiXmlElement* pnParent);
+    // bool Load(TiXmlNode* nTower);
+    // bool Save(TiXmlElement* pnParent);
 
-   // Debug Methods
-   void DebugLoad (int x, int y, int x2); // this simply pumps floor objects and elevators into the tower.
+    // Debug Methods
+    void DebugLoad(int x, int y, int x2); // this simply pumps floor objects and elevators into the tower.
 };
 
 #endif //_TOWER_H

@@ -19,7 +19,7 @@
 
 namespace CEGUI
 {
-    class Window;
+class Window;
 }
 
 class FloorBase;

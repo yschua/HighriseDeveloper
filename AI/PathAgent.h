@@ -34,14 +34,14 @@ class Tower;
 class PathAgent
 {
 private:
-   Person*   mPerson;
-   Path      mCurrentPath; // local scratch
+    Person* mPerson;
+    Path mCurrentPath; // local scratch
 
 public:
-   bool findPath (Location& origin, Location& dest, Tower& tower);
-   PathAgent (Person* person);
-   PathAgent (Person* person, int level); // deposit person on this level;
-   virtual ~PathAgent (void);
+    bool findPath(Location& origin, Location& dest, Tower& tower);
+    PathAgent(Person* person);
+    PathAgent(Person* person, int level); // deposit person on this level;
+    virtual ~PathAgent(void);
 };
 
 #endif //_PATHAGENT_H

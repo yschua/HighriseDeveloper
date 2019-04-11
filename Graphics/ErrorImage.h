@@ -4,5 +4,5 @@
 
 namespace Gfx
 {
-   extern unsigned char ErrorImagePixels [64*64*4+1];
+extern unsigned char ErrorImagePixels[64 * 64 * 4 + 1];
 }

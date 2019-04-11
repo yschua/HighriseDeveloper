@@ -20,22 +20,22 @@
 #define _FLOORAGENT_H
 
 struct Location;
-class  Tower;
-class  FloorSpace;
+class Tower;
+class FloorSpace;
 
 class FloorAgent
 {
 protected:
-   Tower& mTower;
+    Tower& mTower;
 
 public:
-   FloorAgent (Tower& tower);
-   ~FloorAgent ( );
+    FloorAgent(Tower& tower);
+    ~FloorAgent();
 
-   bool AddFloorSpace (FloorBase* pFS, int x, int x2, int y);
-   FloorBase* FindWork (int preferences); 
-   FloorBase* FindAHome (int preferences); 
-   FloorBase* FindAHotel (int preferences);
+    bool AddFloorSpace(FloorBase* pFS, int x, int x2, int y);
+    FloorBase* FindWork(int preferences);
+    FloorBase* FindAHome(int preferences);
+    FloorBase* FindAHotel(int preferences);
 };
 
 #endif

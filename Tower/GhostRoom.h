@@ -28,42 +28,38 @@ class Tower;
 
 // simple room outline used to track the mouse and assist with placment
 
-enum Ghost_State
-{
-   GS_Invalid,
-   GS_Valid
-};
+enum Ghost_State { GS_Invalid, GS_Valid };
 
 class GhostRoom : public FloorBase, public Gfx::ModelObject
 {
-   Ghost_State    mCurrentState;// vacant /occupied/ day / night
-   AnimationShape mBase;
-   BaseType       mShownType;
+    Ghost_State mCurrentState; // vacant /occupied/ day / night
+    AnimationShape mBase;
+    BaseType mShownType;
 
-   int   mWidthUnits;
-   int   mOffsetUnits;
+    int mWidthUnits;
+    int mOffsetUnits;
 
 public:
-   GhostRoom (int x, int level);
-   static BaseType GetBaseType() { return BaseEmpty; }
-   std::string GetTypeName() const override { return "placementCursor"; }
+    GhostRoom(int x, int level);
+    static BaseType GetBaseType() { return BaseEmpty; }
+    std::string GetTypeName() const override { return "placementCursor"; }
 
-   void Update (Tower* pTower);
-   void Draw ();
-   void DrawFramework () {};
-   virtual BaseType GetType () { return BaseGhostRoom; }
-   void SetShownType (BaseType bt) { mShownType = bt; }
-   void SetState( Ghost_State gs );
-   void Move (Vector3f& point);
-   void SetWidth( int units);
+    void Update(Tower* pTower);
+    void Draw();
+    void DrawFramework(){};
+    virtual BaseType GetType() { return BaseGhostRoom; }
+    void SetShownType(BaseType bt) { mShownType = bt; }
+    void SetState(Ghost_State gs);
+    void Move(Vector3f& point);
+    void SetWidth(int units);
 
-//   void RemoveImages();
-//   void SetImages (int set);
-//   void Save(SerializerBase& ser) {};
-//
+    //   void RemoveImages();
+    //   void SetImages (int set);
+    //   void Save(SerializerBase& ser) {};
+    //
 
 private:
-   void GhostState(int tod);
+    void GhostState(int tod);
 };
 
 #endif //_GHOSTROOM_H

@@ -28,42 +28,42 @@
 
 using namespace Gfx;
 
-SkyLobby::SkyLobby (int x, int x2, int level, Tower * TowerParent)
-:   FloorBase ( x, x2, level, TowerParent )
+SkyLobby::SkyLobby(int x, int x2, int level, Tower* TowerParent) : FloorBase(x, x2, level, TowerParent)
 {
-   mX2 = (float)x2;
-   mX = (float)x;
-   mY = (float)level*36;
-   mZ = 0.5;
-   ImageManager * images = ImageManager::GetInstance ();
-   mTile = new Tiler (images->GetTexture("SkyLobby.png", GL_RGBA), Tiler::Horizontal, (float)mX, -mY, mZ, (float)(x2-x), 36);
-   mTile->SetTessel ((float)(x2-x)/72, 1.0f);
-   std::cout << "New Sky lobby at " << mX << " to " << mX2 << " Y level " << mY << std::endl;
+    mX2 = (float)x2;
+    mX = (float)x;
+    mY = (float)level * 36;
+    mZ = 0.5;
+    ImageManager* images = ImageManager::GetInstance();
+    mTile = new Tiler(images->GetTexture("SkyLobby.png", GL_RGBA),
+                      Tiler::Horizontal,
+                      (float)mX,
+                      -mY,
+                      mZ,
+                      (float)(x2 - x),
+                      36);
+    mTile->SetTessel((float)(x2 - x) / 72, 1.0f);
+    std::cout << "New Sky lobby at " << mX << " to " << mX2 << " Y level " << mY << std::endl;
 }
 
-void SkyLobby::Update (float dt, int tod)
-{
+void SkyLobby::Update(float dt, int tod) {}
 
-}
+void SkyLobby::Draw() { Render(mTile); }
 
-void SkyLobby::Draw ()
+void SkyLobby::DrawFramework()
 {
-   Render(mTile);
-}
-
-void SkyLobby::DrawFramework ()
-{
-   //RenderFramework( mpFrame, id);
+    // RenderFramework( mpFrame, id);
 }
 
 void SkyLobby::Save(SerializerBase& ser)
 {
-   ser.Add("type", "SkyLobby");   // first tag
-   ser.Add("level", mLevel);   // first tag
-   ser.Add("xstart", mX);   // first tag
-   ser.Add("xend", mX2);   // first tag
-   ser.Add("ystart", mY);   // first tag
-   ser.Add("zstart", mZ);   // first tag
-//   ser.Add("state", ToString((mcurrent_state == lobby_occupied_day)?1:0).c_str()); // use the state engine get this property
-   // if something goes bump, either deal with it or throw it
+    ser.Add("type", "SkyLobby"); // first tag
+    ser.Add("level", mLevel);    // first tag
+    ser.Add("xstart", mX);       // first tag
+    ser.Add("xend", mX2);        // first tag
+    ser.Add("ystart", mY);       // first tag
+    ser.Add("zstart", mZ);       // first tag
+    //   ser.Add("state", ToString((mcurrent_state == lobby_occupied_day)?1:0).c_str()); // use the state
+    //   engine get this property
+    // if something goes bump, either deal with it or throw it
 }

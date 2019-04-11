@@ -31,19 +31,19 @@ class GameManager
 {
 
 private:
-   Scene& mScene;
+    Scene& mScene;
 
 public:
-   GameManager( Scene& scene);
-   ~GameManager() {}
-   bool LoadBuildPack (const char *fileName);
-   bool LoadGame(const char* fileName);
-   bool SaveGame(const char* fileName);
+    GameManager(Scene& scene);
+    ~GameManager() {}
+    bool LoadBuildPack(const char* fileName);
+    bool LoadGame(const char* fileName);
+    bool SaveGame(const char* fileName);
 
-   bool LoadTower(TiXmlNode* nTower, Tower* pTower);
-   bool SaveTower(TiXmlElement* pnParent, Tower* pTower);
+    bool LoadTower(TiXmlNode* nTower, Tower* pTower);
+    bool SaveTower(TiXmlElement* pnParent, Tower* pTower);
 
-   void Add( TiXmlNode* pnElement, const char* szTag, const char* szText);
+    void Add(TiXmlNode* pnElement, const char* szTag, const char* szText);
 };
 
 #endif //_GAMEMANAGER_H

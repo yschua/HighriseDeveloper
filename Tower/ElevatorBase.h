@@ -22,23 +22,21 @@ class Elevator;
 class ElevatorBase
 {
 protected:
-
-   int mx;
-   int my;
-   short mLevel;
-   Elevator* mpParent;
-
+    int mx;
+    int my;
+    short mLevel;
+    Elevator* mpParent;
 
 public:
-   // CTOR/DTOR
-   ElevatorBase(  int x, int level, Elevator* pElevator );
-   virtual ~ElevatorBase( );
+    // CTOR/DTOR
+    ElevatorBase(int x, int level, Elevator* pElevator);
+    virtual ~ElevatorBase();
 
-   // Implemantation
-   void pos_calc ();
-   virtual void Update (float dt, int tod);
-   virtual void Update (float dt) = 0; // pure
-   virtual void Draw () = 0;
+    // Implemantation
+    void pos_calc();
+    virtual void Update(float dt, int tod);
+    virtual void Update(float dt) = 0; // pure
+    virtual void Draw() = 0;
 };
 
 #endif //_ELEVATORBASE_H

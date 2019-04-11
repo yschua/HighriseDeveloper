@@ -25,39 +25,27 @@
 
 using namespace Gfx;
 
-ElevatorShaft::ElevatorShaft ( int x, int topLevel, int bottomLevel, int width, Elevator* pElevator )
-      :  ElevatorBase( x, bottomLevel, pElevator )
+ElevatorShaft::ElevatorShaft(int x, int topLevel, int bottomLevel, int width, Elevator* pElevator) :
+    ElevatorBase(x, bottomLevel, pElevator)
 {
-   mx = x;
-   this->
-   mTopLevel = topLevel;
-   mBottomLevel = bottomLevel;
-   ImageManager * images = ImageManager::GetInstance ();
-   mShaftTiler = new Tiler(
-       images->GetTexture("LiftShaft.png", GL_RGBA),
-       Tiler::Vertical,
-       static_cast<float>(mx),
-       mBottomLevel * -36.f,
-       0.f,
-       static_cast<float>(width),
-       (mTopLevel - mBottomLevel) * -36.f);
-   mShaftTiler->SetTessel(1.f, static_cast<float>(mTopLevel - mBottomLevel));
-   const float half[] = { 250.0f, 250.0f, 250.0f, 167.0f };
-   mShaftTiler->SetLightingColor( half );
+    mx = x;
+    this->mTopLevel = topLevel;
+    mBottomLevel = bottomLevel;
+    ImageManager* images = ImageManager::GetInstance();
+    mShaftTiler = new Tiler(images->GetTexture("LiftShaft.png", GL_RGBA),
+                            Tiler::Vertical,
+                            static_cast<float>(mx),
+                            mBottomLevel * -36.f,
+                            0.f,
+                            static_cast<float>(width),
+                            (mTopLevel - mBottomLevel) * -36.f);
+    mShaftTiler->SetTessel(1.f, static_cast<float>(mTopLevel - mBottomLevel));
+    const float half[] = {250.0f, 250.0f, 250.0f, 167.0f};
+    mShaftTiler->SetLightingColor(half);
 }
 
-ElevatorShaft::~ElevatorShaft()
-{
-}
+ElevatorShaft::~ElevatorShaft() {}
 
-void
-ElevatorShaft::Update (float dt)
-{
+void ElevatorShaft::Update(float dt) {}
 
-}
-
-void
-ElevatorShaft::Draw ()
-{
-   Render(mShaftTiler, true);
-}
+void ElevatorShaft::Draw() { Render(mShaftTiler, true); }

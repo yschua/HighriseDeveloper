@@ -26,62 +26,55 @@
 
 using namespace Gfx;
 
-ElevatorMachine::ElevatorMachine (int x, int level, int width, Elevator* pElevator )
-      :  ElevatorBase( x, level, pElevator )
-      ,  mState( LMS_Idle )
+ElevatorMachine::ElevatorMachine(int x, int level, int width, Elevator* pElevator) :
+    ElevatorBase(x, level, pElevator),
+    mState(LMS_Idle)
 {
-   ImageManager * image_man = ImageManager::GetInstance ();
-//   my = (Camera::GetInstance()->GetSceneRect ().Top ) - (level * 36);
-   std::cout << "New elevator machine at " << mx << ", " << my << std::endl;
-   mLifterAnimation = new Animation (width, 32);
-   mLifterAnimation->AddFrame (image_man->GetTexture ("LiftMachine_1.png", GL_RGBA), 10);
-   mLifterAnimation->AddFrame (image_man->GetTexture ("LiftMachine_2.png", GL_RGBA), 10);
-   mLifterAnimation->AddFrame (image_man->GetTexture ("LiftMachine_3.png", GL_RGBA), 10);
-   mImageFrame = 0;
-   mFirstFrame = 0;
-   mLastFrame = 2;
-//   mcam = Camera::GetInstance ();
-   my =  -(level * 36)+4;
-   pos_calc();
+    ImageManager* image_man = ImageManager::GetInstance();
+    //   my = (Camera::GetInstance()->GetSceneRect ().Top ) - (level * 36);
+    std::cout << "New elevator machine at " << mx << ", " << my << std::endl;
+    mLifterAnimation = new Animation(width, 32);
+    mLifterAnimation->AddFrame(image_man->GetTexture("LiftMachine_1.png", GL_RGBA), 10);
+    mLifterAnimation->AddFrame(image_man->GetTexture("LiftMachine_2.png", GL_RGBA), 10);
+    mLifterAnimation->AddFrame(image_man->GetTexture("LiftMachine_3.png", GL_RGBA), 10);
+    mImageFrame = 0;
+    mFirstFrame = 0;
+    mLastFrame = 2;
+    //   mcam = Camera::GetInstance ();
+    my = -(level * 36) + 4;
+    pos_calc();
 }
 
-ElevatorMachine::~ElevatorMachine()
+ElevatorMachine::~ElevatorMachine() { delete mLifterAnimation; }
+
+void ElevatorMachine::pos_calc()
 {
-   delete mLifterAnimation;
+    mLifterAnimation->SetPosition((float)mx, (float)(my)); // elevator sprite is only 32x32
 }
 
-void
-ElevatorMachine::pos_calc ()
+void ElevatorMachine::Update(float dt)
 {
-   mLifterAnimation->SetPosition ((float)mx, (float)(my) ); // elevator sprite is only 32x32
+    switch (mState) {
+    case LMS_Down:
+        mDirection = -1;
+        break;
+    case LMS_Up:
+        mDirection = 1;
+        break;
+    case LMS_Idle:
+        mDirection = 0;
+        break;
+    }
+    mImageFrame += mDirection;
+    if (mImageFrame < 0)
+        mImageFrame = mLastFrame;
+    if (mImageFrame > mLastFrame)
+        mImageFrame = mFirstFrame;
+    mLifterAnimation->Update(dt);
 }
 
-void
-ElevatorMachine::Update (float dt)
+void ElevatorMachine::Draw()
 {
-   switch (mState)
-   {
-      case LMS_Down :
-         mDirection = -1;
-         break;
-      case LMS_Up :
-         mDirection = 1;
-         break;
-      case LMS_Idle :
-         mDirection = 0;
-         break;
-   }
-   mImageFrame += mDirection;
-   if ( mImageFrame < 0 )
-      mImageFrame = mLastFrame;
-   if ( mImageFrame > mLastFrame )
-      mImageFrame = mFirstFrame;
-   mLifterAnimation->Update (dt);
-}
-
-void
-ElevatorMachine::Draw ()
-{
-//   this->mcam->Draw( * mLifterAnimation );
-   Render (mLifterAnimation);
+    //   this->mcam->Draw( * mLifterAnimation );
+    Render(mLifterAnimation);
 }

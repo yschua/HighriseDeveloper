@@ -26,24 +26,25 @@
 #include <utility>
 #include <cstring>
 
-#include "../Window/Event.h"  // event base
+#include "../Window/Event.h" // event base
 
 class Scene;
 
 class SceneEvent : public EventBase
 {
 protected:
-   Scene* mpScene;
-public:
-   SceneEvent (Scene* pScene);
-   ~SceneEvent ();
+    Scene* mpScene;
 
-   bool OnToolHit (const int tool);
-   bool OnOpen (const char* pPath);
-   bool OnSave (const char* pPath);
-   virtual bool OnMouseDown (sf::Mouse::Button Button, Vector2i point, Vector2i pointb);
-   virtual bool OnMouseMove ( Vector2i pointa, Vector2i pointb);
-   void LoadWindows();
+public:
+    SceneEvent(Scene* pScene);
+    ~SceneEvent();
+
+    bool OnToolHit(const int tool);
+    bool OnOpen(const char* pPath);
+    bool OnSave(const char* pPath);
+    virtual bool OnMouseDown(sf::Mouse::Button Button, Vector2i point, Vector2i pointb);
+    virtual bool OnMouseMove(Vector2i pointa, Vector2i pointb);
+    void LoadWindows();
 };
 
 #endif //_SCENE_EVENT

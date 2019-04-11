@@ -20,13 +20,13 @@
 
 using namespace Gfx;
 
-Texture::Texture( const string& pszName )
+Texture::Texture(const string& pszName)
 {
-   mName = pszName;
-//   mID = 0;
+    mName = pszName;
+    //   mID = 0;
 }
 
-bool Texture::Load (const string& pszName)
+bool Texture::Load(const string& pszName)
 {
     if (!loadFromFile(pszName)) {
         if (!loadFromFile("data/Error.png")) {
@@ -36,7 +36,7 @@ bool Texture::Load (const string& pszName)
     }
     setSmooth(true);
     bind(this);
-    glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); // setup for the tiler or animation
-    glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); // setup for the tiler or animation
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
     return true;
 }

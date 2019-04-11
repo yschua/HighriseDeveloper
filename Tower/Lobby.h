@@ -25,20 +25,20 @@ class SerializerBase;
 class Lobby : public Level // make lobby a level in itself
 {
 private:
-   Tiler* mTile;
-   AnimationSingle* mDesk;
-   AnimationSingle* awn_left;
-   AnimationSingle* awn_right;
+    Tiler* mTile;
+    AnimationSingle* mDesk;
+    AnimationSingle* awn_left;
+    AnimationSingle* awn_right;
 
 public:
-   Lobby (int x, int x2, int level, Tower * TowerParent);
-   static BaseType GetBaseType() { return BaseEmpty; }
-   static const char* GetTypeString() { return "lobby"; }
+    Lobby(int x, int x2, int level, Tower* TowerParent);
+    static BaseType GetBaseType() { return BaseEmpty; }
+    static const char* GetTypeString() { return "lobby"; }
 
-   void Update (float dt, int tod);
-   void Draw ();
-   void DrawFramework ();
-   void Save(SerializerBase& ser);
+    void Update(float dt, int tod);
+    void Draw();
+    void DrawFramework();
+    void Save(SerializerBase& ser);
 };
 
 #endif

@@ -29,62 +29,60 @@
 #include "Lobby.h"
 #include "Tower.h"
 
-Tower::Tower (int towerNo, int NoSubLevels, Scene& rScene )
-:  mTowerNo (towerNo)
-,  mNo_SubLevels (NoSubLevels)
-,  mScene(rScene)
-,  mGhostRoom (0,0)
+Tower::Tower(int towerNo, int NoSubLevels, Scene& rScene) :
+    mTowerNo(towerNo),
+    mNo_SubLevels(NoSubLevels),
+    mScene(rScene),
+    mGhostRoom(0, 0)
 {
-   mPopulation = 0;
-   mAvailableFunds = 0;
-   mFloorWorkingOn = 0;
-   int nsubs = -NoSubLevels;
-   for (int sub = nsubs; sub < 0; ++sub)
-   {
-      Level* level = new Level (sub, 396, sub, 396, this);
-      mLevels.push_back (level);
-   }
-   Lobby* lobby = new Lobby (396-36, 796+72, 0, this);   // 36 here is the awning width
-   mLevels.push_back (lobby);
+    mPopulation = 0;
+    mAvailableFunds = 0;
+    mFloorWorkingOn = 0;
+    int nsubs = -NoSubLevels;
+    for (int sub = nsubs; sub < 0; ++sub) {
+        Level* level = new Level(sub, 396, sub, 396, this);
+        mLevels.push_back(level);
+    }
+    Lobby* lobby = new Lobby(396 - 36, 796 + 72, 0, this); // 36 here is the awning width
+    mLevels.push_back(lobby);
 }
 
-Tower::~Tower( )
+Tower::~Tower()
 {
-   std::vector<Level *>::iterator iLevel;
-   for (iLevel = mLevels.begin (); iLevel != mLevels.end (); ++iLevel)
-   {
-      Level *pLevel = (*iLevel);
-      delete pLevel;
-   }
-   mLevels.clear();
+    std::vector<Level*>::iterator iLevel;
+    for (iLevel = mLevels.begin(); iLevel != mLevels.end(); ++iLevel) {
+        Level* pLevel = (*iLevel);
+        delete pLevel;
+    }
+    mLevels.clear();
 }
 
-Level* Tower::NewLevel (int x, int y, int x2)
+Level* Tower::NewLevel(int x, int y, int x2)
 {
-   int level = (int)mLevels.size() - mNo_SubLevels;
-   Level* floor = new Level (level, x, y, x2,this);
-   mLevels.push_back (floor);
-   floor->ScanFloorSpace();   // get the floor space grid setup.
-   return floor;
+    int level = (int)mLevels.size() - mNo_SubLevels;
+    Level* floor = new Level(level, x, y, x2, this);
+    mLevels.push_back(floor);
+    floor->ScanFloorSpace(); // get the floor space grid setup.
+    return floor;
 }
 
-Level* Tower::GetLevel( int level ) // positive gets you a level above, negative gets you a basement level
+Level* Tower::GetLevel(int level) // positive gets you a level above, negative gets you a basement level
 {
-   // What is the point of all this? Why not just store the levels in an std::map<int, CLevel>?
-   std::vector<Level*>::size_type index = level + mNo_SubLevels;
-   //while (index > mLevels.size())
-   //   NewLevel(400,(int)mLevels.size(),724);
-   if(( index >= mLevels.size() )||( index < 0))
-   {
-      return NULL;
-   }
-   return mLevels[index];
+    // What is the point of all this? Why not just store the levels in an std::map<int, CLevel>?
+    std::vector<Level*>::size_type index = level + mNo_SubLevels;
+    // while (index > mLevels.size())
+    //   NewLevel(400,(int)mLevels.size(),724);
+    if ((index >= mLevels.size()) || (index < 0)) {
+        return NULL;
+    }
+    return mLevels[index];
 }
 
 Level* Tower::FindLevelById(int id)
 {
     for (auto pLevel : mLevels) {
-        if (pLevel->GetID() == id) return pLevel;
+        if (pLevel->GetID() == id)
+            return pLevel;
     }
     return nullptr;
 }
@@ -92,69 +90,65 @@ Level* Tower::FindLevelById(int id)
 Level* Tower::FindLevel(int level)
 {
     for (auto pLevel : mLevels) {
-        if (pLevel->GetLevel() == level) return pLevel;
+        if (pLevel->GetLevel() == level)
+            return pLevel;
     }
     return nullptr;
 }
 
-void Tower::Update (float dt, int timeOfDay)
+void Tower::Update(float dt, int timeOfDay)
 {
-//   std::vector<Level *>::iterator iLevel;
-//   for (iLevel = mLevels.begin (); iLevel != mLevels.end (); ++iLevel)
-//   {
-//      (*iLevel)->Update( dt, timeOfDay );
-//   }
-   mFloorWorkingOn++;
-   if( mFloorWorkingOn >= static_cast<int>(mLevels.size()) )
-   {
-      mFloorWorkingOn = 0; // set to lowest level
-   }
-   else
-   {
-      Level* pLevel = mLevels[mFloorWorkingOn];
-      pLevel->Update (dt, timeOfDay);
-      this->AdjustFunds (pLevel->GetRentCollected());
-   }
-   mRoutes.Update( 10, timeOfDay );
-   mGhostRoom.GetLevel();
-   mGhostRoom.Update (this);
-
+    //   std::vector<Level *>::iterator iLevel;
+    //   for (iLevel = mLevels.begin (); iLevel != mLevels.end (); ++iLevel)
+    //   {
+    //      (*iLevel)->Update( dt, timeOfDay );
+    //   }
+    mFloorWorkingOn++;
+    if (mFloorWorkingOn >= static_cast<int>(mLevels.size())) {
+        mFloorWorkingOn = 0; // set to lowest level
+    } else {
+        Level* pLevel = mLevels[mFloorWorkingOn];
+        pLevel->Update(dt, timeOfDay);
+        this->AdjustFunds(pLevel->GetRentCollected());
+    }
+    mRoutes.Update(10, timeOfDay);
+    mGhostRoom.GetLevel();
+    mGhostRoom.Update(this);
 }
 
-void Tower::Draw ()
+void Tower::Draw()
 {
-   std::vector<Level *>::iterator iLevel;
-   for (iLevel = mLevels.begin (); iLevel != mLevels.end (); ++iLevel)
-   {
-      (*iLevel)->Draw( );
-   }
-   mGhostRoom.Draw();
-   mRoutes.Draw();
+    std::vector<Level*>::iterator iLevel;
+    for (iLevel = mLevels.begin(); iLevel != mLevels.end(); ++iLevel) {
+        (*iLevel)->Draw();
+    }
+    mGhostRoom.Draw();
+    mRoutes.Draw();
 }
 
-void Tower::DrawFramework (bool bLevelsOnly)
+void Tower::DrawFramework(bool bLevelsOnly)
 
 {
-   std::vector<Level *>::iterator iLevel;
-   for (iLevel = mLevels.begin (); iLevel != mLevels.end (); ++iLevel)
-   {
-      (*iLevel)->DrawFramework (bLevelsOnly);
-   }
-//   mRoutes.RenderFramework(); do these later
+    std::vector<Level*>::iterator iLevel;
+    for (iLevel = mLevels.begin(); iLevel != mLevels.end(); ++iLevel) {
+        (*iLevel)->DrawFramework(bLevelsOnly);
+    }
+    //   mRoutes.RenderFramework(); do these later
 }
 
 // AI interface
-void Tower::EnterTower (Person* pPerson)
+void Tower::EnterTower(Person* pPerson)
 {
-   //when implemented, this funcition will place people into a queue, for an elevator, at the checkin desk etc.
-   mPopulation++;
+    // when implemented, this funcition will place people into a queue, for an elevator, at the checkin desk
+    // etc.
+    mPopulation++;
 }
 
 // AI interface
-void Tower::LeaveTower (Person* pPerson)
+void Tower::LeaveTower(Person* pPerson)
 {
-   // when implemented, this function will take people out of the building, walking, bus, train etc.
-   mPopulation--;
-   if (mPopulation < 0 )
-      mPopulation = 0;
+    // when implemented, this function will take people out of the building, walking, bus, train etc.
+    mPopulation--;
+    if (mPopulation < 0)
+        mPopulation = 0;
 }

@@ -26,43 +26,45 @@ class AnimationSingle;
 
 class Clock : public Gfx::ViewObject
 {
-   AnimationSingle * mClockFace;
-   int mTimeOfDay;
-   int mYear;
-   int mMonth;
-   int mDayOfWeek;
-   int mDayOfYear;
-   int mLanguageCode;
+    AnimationSingle* mClockFace;
+    int mTimeOfDay;
+    int mYear;
+    int mMonth;
+    int mDayOfWeek;
+    int mDayOfYear;
+    int mLanguageCode;
 
-   // These will pump directly into the transform for the hands
-   float mAngleHour;  // for the render
-   float mAngleMinute;
+    // These will pump directly into the transform for the hands
+    float mAngleHour; // for the render
+    float mAngleMinute;
 
-   SimpleQuad mMinuteHand;
-   SimpleQuad mHourHand;
+    SimpleQuad mMinuteHand;
+    SimpleQuad mHourHand;
+
 protected:
-   static const char* pszDaysOfWeek[];
-   static const char* pszMonths[];
-   static const int kDays[];
-public:
-   Clock ();
-   ~Clock ();
+    static const char* pszDaysOfWeek[];
+    static const char* pszMonths[];
+    static const int kDays[];
 
 public:
-   // properties
-   int GetTimeOfDay() { return mTimeOfDay; }
-   int GetDayOfWeek() { return mDayOfWeek; }
-   int GetDayOfYear() { return mDayOfYear; }
-   void SetLanguage( int code ) { mLanguageCode =  code; }
+    Clock();
+    ~Clock();
 
-   // Inherited methods
-   void Update (int minutes);
-   void Draw ();
-   // Local methods
-   void PosCalc ();
-   const char* DayOfWeekToString();
-   const char* MonthToString();
-   const char* DateString();
+public:
+    // properties
+    int GetTimeOfDay() { return mTimeOfDay; }
+    int GetDayOfWeek() { return mDayOfWeek; }
+    int GetDayOfYear() { return mDayOfYear; }
+    void SetLanguage(int code) { mLanguageCode = code; }
+
+    // Inherited methods
+    void Update(int minutes);
+    void Draw();
+    // Local methods
+    void PosCalc();
+    const char* DayOfWeekToString();
+    const char* MonthToString();
+    const char* DateString();
 };
 
 #endif // _CLOCK_H

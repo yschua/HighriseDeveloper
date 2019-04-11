@@ -33,93 +33,88 @@ class FloorAgent;
 
 class Level : public Gfx::ModelObject
 {
-   friend class GameManager;
-   friend class FloorAgent;
+    friend class GameManager;
+    friend class FloorAgent;
+
 private:
-   std::map<unsigned int, FloorBase*> mFloorSpaces;
-   Tower * mTowerParent;
-   int  mID;
+    std::map<unsigned int, FloorBase*> mFloorSpaces;
+    Tower* mTowerParent;
+    int mID;
 
 public:
-   static const int mUnitSize;
+    static const int mUnitSize;
 
 protected:
-   int   mLevel;
-   int   mX;    // lower left origin.x
-   int   mX2;   // x vector = width
-   int   mY;    // lower left origin.y
-               // y vector = height
-   float mZ;     // face set to zero
-               // z vector = depth but not implement until 3D
-   int   mNextRentDay;
-   double mRentCollected;
-   AnimationSingle* nFireEscapeLeft;
-   AnimationSingle* nFireEscapeRight;
-   AnimationSingle* mEmptyFLoor;
-   AnimationEmpty* mTheLevel;
+    int mLevel;
+    int mX;   // lower left origin.x
+    int mX2;  // x vector = width
+    int mY;   // lower left origin.y
+              // y vector = height
+    float mZ; // face set to zero
+              // z vector = depth but not implement until 3D
+    int mNextRentDay;
+    double mRentCollected;
+    AnimationSingle* nFireEscapeLeft;
+    AnimationSingle* nFireEscapeRight;
+    AnimationSingle* mEmptyFLoor;
+    AnimationEmpty* mTheLevel;
 
 protected:
-   // Level open Space tracking grid (proto type stuff
-   // Just using allocated simple byte array for easy debugging
-   unsigned char*  mpFloorSpaceGrid;
-   int   mFloorSpaceGridSize;
-   bool  mFloorIsFull;        // Can't place any more objects
-   bool  mNoEmptyFloorSpace;  // Skip the DrawEmptySpace function
+    // Level open Space tracking grid (proto type stuff
+    // Just using allocated simple byte array for easy debugging
+    unsigned char* mpFloorSpaceGrid;
+    int mFloorSpaceGridSize;
+    bool mFloorIsFull;       // Can't place any more objects
+    bool mNoEmptyFloorSpace; // Skip the DrawEmptySpace function
 public:
-   bool  IsFloorFull()
-   {
-      return mFloorIsFull;
-   }
-   bool  HasLobby();
-   double GetRentCollected() { return mRentCollected; };
+    bool IsFloorFull() { return mFloorIsFull; }
+    bool HasLobby();
+    double GetRentCollected() { return mRentCollected; };
 
-   // Level tracking methods/functions
-   void  ResizeFloorSpaceGrid();
-   void  ScanFloorSpace(); // Marks the gird for what is in the space
-   bool  IsSpaceEmpty( int x, int x2 ); // TestForEmptySpace...
-   void  DrawEmptySpace();
-   void  DrawFramework (bool LevelOnly);
-   void  DrawEmptyFramework();
-   // End prototype code
+    // Level tracking methods/functions
+    void ResizeFloorSpaceGrid();
+    void ScanFloorSpace();            // Marks the gird for what is in the space
+    bool IsSpaceEmpty(int x, int x2); // TestForEmptySpace...
+    void DrawEmptySpace();
+    void DrawFramework(bool LevelOnly);
+    void DrawEmptyFramework();
+    // End prototype code
 
 public:
-   // CTOR
-   Level (int level, int x, int y, int x2, Tower * TowerParent);
-   // Initialize from an xml node
-   virtual ~Level ();
-   static BaseType GetBaseType() { return BaseEmpty; }
-   static const char* GetTypeString() { return "level"; }
+    // CTOR
+    Level(int level, int x, int y, int x2, Tower* TowerParent);
+    // Initialize from an xml node
+    virtual ~Level();
+    static BaseType GetBaseType() { return BaseEmpty; }
+    static const char* GetTypeString() { return "level"; }
 
 public:
-   // decls
-   typedef std::map<unsigned int, FloorBase*>::iterator FloorIterType;
-   typedef std::map<unsigned int, FloorBase*> FloorMap;
+    // decls
+    typedef std::map<unsigned int, FloorBase*>::iterator FloorIterType;
+    typedef std::map<unsigned int, FloorBase*> FloorMap;
 
-   // Properties
+    // Properties
 protected:
-   inline FloorMap& GetFloorSpaces()
-   {
-      return mFloorSpaces;
-   }
+    inline FloorMap& GetFloorSpaces() { return mFloorSpaces; }
+
 public:
-   inline int GetLevel () { return mLevel; }
-   inline int GetID () { return mID; }
-   inline int GetX () { return mX; }
+    inline int GetLevel() { return mLevel; }
+    inline int GetID() { return mID; }
+    inline int GetX() { return mX; }
 
-   // Methods
-   virtual void Update (float dt, int tod);
-   virtual void Draw ();
+    // Methods
+    virtual void Update(float dt, int tod);
+    virtual void Draw();
 
-   bool AddFloorSpace (FloorBase * floor);
-   bool RemoveFloorSpace(FloorBase* floor);
-   void SetFloorPositions( int x, int x2 );
-   FloorBase* GetSpaceByID (int id);
-   FloorBase* FindSpace (int x); // location
+    bool AddFloorSpace(FloorBase* floor);
+    bool RemoveFloorSpace(FloorBase* floor);
+    void SetFloorPositions(int x, int x2);
+    FloorBase* GetSpaceByID(int id);
+    FloorBase* FindSpace(int x); // location
 
-   bool TestForEmptySpace (int x, int x2 );
+    bool TestForEmptySpace(int x, int x2);
 
-   void Save(SerializerBase& ser);
+    void Save(SerializerBase& ser);
 };
 
 #endif
-

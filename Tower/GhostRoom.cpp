@@ -23,65 +23,55 @@
 #include "GhostRoom.h"
 
 using namespace Gfx;
-//using namespace TowerObjects;
+// using namespace TowerObjects;
 
-GhostRoom::GhostRoom (int x, int level)
-      :  mCurrentState (GS_Invalid)
-      ,  FloorBase (x, x + Level::mUnitSize, level, NULL)
-      ,  mBase (Level::mUnitSize, 36)
+GhostRoom::GhostRoom(int x, int level) :
+    mCurrentState(GS_Invalid),
+    FloorBase(x, x + Level::mUnitSize, level, NULL),
+    mBase(Level::mUnitSize, 36)
 {
-   mWidthUnits = 1;
-   mOffsetUnits = 0;
+    mWidthUnits = 1;
+    mOffsetUnits = 0;
 }
 
-void GhostRoom::SetState( Ghost_State gs )
+void GhostRoom::SetState(Ghost_State gs)
 {
-   const float cfGreen[] = { 0.0f, 255.0f, 63.0f, 127.0f };
-   const float cfGray[] = { 127.0f, 63.0f, 63.0f, 127.0f };
-   mBase.SetLightingColor( (gs == GS_Valid) ? cfGreen : cfGray );
+    const float cfGreen[] = {0.0f, 255.0f, 63.0f, 127.0f};
+    const float cfGray[] = {127.0f, 63.0f, 63.0f, 127.0f};
+    mBase.SetLightingColor((gs == GS_Valid) ? cfGreen : cfGray);
 }
 
-void GhostRoom::SetWidth( int units)
+void GhostRoom::SetWidth(int units)
 {
-   mWidthUnits = units;
-   mOffsetUnits = units / 2;
-   mBase.SetWidth ((float)units * Level::mUnitSize);
+    mWidthUnits = units;
+    mOffsetUnits = units / 2;
+    mBase.SetWidth((float)units * Level::mUnitSize);
 }
 
-void GhostRoom::Move (Vector3f& point)
+void GhostRoom::Move(Vector3f& point)
 {
-   int x = int(point.x) / Level::mUnitSize - mOffsetUnits;
-   int y = int(point.y - 28) / 36;
-   mX = (float)(x * Level::mUnitSize);
-   mX2 = mX + mBase.GetWidth();
-   mY = (float)(y * 36);
-   mLevel = int(mY/-36);
-   mZ = -0.1f; // point.z;
-   mBase.SetPosition (mX, mY);
+    int x = int(point.x) / Level::mUnitSize - mOffsetUnits;
+    int y = int(point.y - 28) / 36;
+    mX = (float)(x * Level::mUnitSize);
+    mX2 = mX + mBase.GetWidth();
+    mY = (float)(y * 36);
+    mLevel = int(mY / -36);
+    mZ = -0.1f; // point.z;
+    mBase.SetPosition(mX, mY);
 }
 
-void GhostRoom::Update (Tower* pTower)
+void GhostRoom::Update(Tower* pTower)
 {
-   if( mLevel > -20 && mLevel < 110 && !(mLevel == 0) )
-   {
-      Level* level = pTower->GetLevel(mLevel);
-      if (level != NULL)
-      {
-         SetState (level->IsSpaceEmpty((int)mX, (int)mX2) ? GS_Valid : GS_Invalid);
-      }
-      else
-      {
-         SetState (GS_Invalid);
-      }
-   }
-   else
-   {
-      SetState (GS_Invalid);
-   }
+    if (mLevel > -20 && mLevel < 110 && !(mLevel == 0)) {
+        Level* level = pTower->GetLevel(mLevel);
+        if (level != NULL) {
+            SetState(level->IsSpaceEmpty((int)mX, (int)mX2) ? GS_Valid : GS_Invalid);
+        } else {
+            SetState(GS_Invalid);
+        }
+    } else {
+        SetState(GS_Invalid);
+    }
 }
 
-void GhostRoom::Draw ()
-{
-   RenderRectangle (&mBase);
-}
-
+void GhostRoom::Draw() { RenderRectangle(&mBase); }

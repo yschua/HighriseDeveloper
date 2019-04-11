@@ -18,37 +18,27 @@
 #ifndef _ROUTEVISITOR
 #define _ROUTEVISITOR
 
-struct RoutingRequest
-{
-   int OriginLevel;
-   int DestinLevel;
+struct RoutingRequest {
+    int OriginLevel;
+    int DestinLevel;
 };
 
 // TODO: check into multimaps
-
 
 // lightweight vistor pattern that minimizes interface with elevators and other means of floor level transit.
 class RouteVisitor
 {
 protected:
-   RoutingRequest& mroutingRequest;
-   bool m_Boarding;
-public:
-   RouteVisitor (RoutingRequest& rq, int count);
-   ~RouteVisitor (void);
+    RoutingRequest& mroutingRequest;
+    bool m_Boarding;
 
-   virtual RoutingRequest& getRoute( )
-   {
-      return mroutingRequest;
-   }
-   void SetBoarding()
-   {
-      m_Boarding = true;
-   }
-   bool IsBoarding()
-   {
-      return m_Boarding;
-   }
+public:
+    RouteVisitor(RoutingRequest& rq, int count);
+    ~RouteVisitor(void);
+
+    virtual RoutingRequest& getRoute() { return mroutingRequest; }
+    void SetBoarding() { m_Boarding = true; }
+    bool IsBoarding() { return m_Boarding; }
 };
 
 #endif //_ROUTEVISITOR

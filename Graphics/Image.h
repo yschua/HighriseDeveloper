@@ -22,25 +22,25 @@
 
 namespace Gfx
 {
-   class Texture;
+class Texture;
 
-   class ImageManager
-   {
-   private:
-      std::string mpath_prefix;
-      //std::map<std::string, sf::Image *> mimages;
-      std::map<std::string, Texture*> mImages;
-      static ImageManager * mInstance;
-      ImageManager ();
+class ImageManager
+{
+private:
+    std::string mpath_prefix;
+    // std::map<std::string, sf::Image *> mimages;
+    std::map<std::string, Texture*> mImages;
+    static ImageManager* mInstance;
+    ImageManager();
 
-   public:
-      static ImageManager * GetInstance ();
-      static ImageManager* i() { return GetInstance(); };
-//      sf::Image * GetImg (const std::string & name);
-      Texture* GetTexture( const std::string& name, int channels);
-//      int preload_image (const std::string& name);
-      void set_path (const std::string & prefix);
-   };
+public:
+    static ImageManager* GetInstance();
+    static ImageManager* i() { return GetInstance(); };
+    //      sf::Image * GetImg (const std::string & name);
+    Texture* GetTexture(const std::string& name, int channels);
+    //      int preload_image (const std::string& name);
+    void set_path(const std::string& prefix);
+};
 //   sf::Image* GetImage(const std::string& Key);
 }
 #endif // _IMAGEMANAGER_H

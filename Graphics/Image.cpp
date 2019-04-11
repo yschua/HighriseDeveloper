@@ -24,42 +24,34 @@
 
 using namespace Gfx;
 
-namespace Gfx {
-   Gfx::ImageManager * ImageManager::mInstance = NULL;
+namespace Gfx
+{
+Gfx::ImageManager* ImageManager::mInstance = NULL;
 
-   ImageManager::ImageManager ()
-   :   mpath_prefix ("data/")
-   {
-   }
+ImageManager::ImageManager() : mpath_prefix("data/") {}
 
-   ImageManager *
-   ImageManager::GetInstance ()
-   {
-      if (mInstance == NULL)
-      {
-         mInstance = new ImageManager ();
-      }
-      return mInstance;
-   }
+ImageManager* ImageManager::GetInstance()
+{
+    if (mInstance == NULL) {
+        mInstance = new ImageManager();
+    }
+    return mInstance;
+}
 
-   void
-   ImageManager::set_path (const std::string & prefix)
-   {
-      mpath_prefix = prefix;
-   }
+void ImageManager::set_path(const std::string& prefix) { mpath_prefix = prefix; }
 
-   Texture*
-   ImageManager::GetTexture (const std::string & name, int channels) // we have to tell it how many channels until we change the loader
-   {
-      if (mImages[name] == NULL)
-      {
-         Texture* pTexture = new Texture (name);
-         std::cout << "Loading file " << mpath_prefix + name << std::endl;
-         pTexture->Load (mpath_prefix + name);
-         mImages[name] = pTexture;
-         return pTexture;
-      }
-//      std::cout << "Using preloaded file " << name << std::endl;
-      return mImages[name];
-   }
+Texture*
+ImageManager::GetTexture(const std::string& name,
+                         int channels) // we have to tell it how many channels until we change the loader
+{
+    if (mImages[name] == NULL) {
+        Texture* pTexture = new Texture(name);
+        std::cout << "Loading file " << mpath_prefix + name << std::endl;
+        pTexture->Load(mpath_prefix + name);
+        mImages[name] = pTexture;
+        return pTexture;
+    }
+    //      std::cout << "Using preloaded file " << name << std::endl;
+    return mImages[name];
+}
 }

@@ -20,35 +20,27 @@
 #include "Elevator.h"
 #include "PersonQueue.h"
 
-PersonQueue::PersonQueue()
+PersonQueue::PersonQueue() {}
+
+void PersonQueue::AddPerson(Person* person) { mpQueue.push(person); }
+
+Person* PersonQueue::TakeNextPerson()
 {
+    Person* person = 0;
+    if (!mpQueue.empty()) {
+        person = mpQueue.front();
+        mpQueue.pop();
+    }
+    return person;
 }
 
-void PersonQueue::AddPerson (Person* person)
-{
-   mpQueue.push(person);
-}
+void PersonQueue::Update() {}
 
-Person* PersonQueue::TakeNextPerson ()
+void PersonQueue::Draw(int vx, int vy)
 {
-   Person* person = 0;
-   if (!mpQueue.empty())
-   {
-      person = mpQueue.front();
-      mpQueue.pop();
-   }
-   return person;
-}
-
-void PersonQueue::Update()
-{
-}
-
-void PersonQueue::Draw (int vx, int vy)
-{
-/*   for( unsigned int x = 0; x < mpQueue.size(); ++x )
-   {
-      Person* peep = mpQueue[x];
-      peep->Draw(vx,vy);
-   }*/
+    /*   for( unsigned int x = 0; x < mpQueue.size(); ++x )
+       {
+          Person* peep = mpQueue[x];
+          peep->Draw(vx,vy);
+       }*/
 }

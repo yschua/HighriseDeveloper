@@ -24,40 +24,38 @@
 
 class FloorBase;
 
-enum Condo_State
-{
-   condo_vacant,
-   condo_unoccupied_day,
-   condo_occupied_day,
-   condo_occupied_night,
-   condo_occupied_sleep
+enum Condo_State {
+    condo_vacant,
+    condo_unoccupied_day,
+    condo_occupied_day,
+    condo_occupied_night,
+    condo_occupied_sleep
 };
 
 class Condo : public FloorBase, public Gfx::ModelObject
 {
 private:
-   std::map<Condo_State, Animation *> manimations;
-   Condo_State mCurrentState;
-   int mcurrent_animation;
+    std::map<Condo_State, Animation*> manimations;
+    Condo_State mCurrentState;
+    int mcurrent_animation;
 
 public:
-   Condo (int x, int level, Tower * TowerParent);
-   static BaseType GetBaseType() { return BaseCondo; }
-   std::string GetTypeName() const override { return "condo"; }
+    Condo(int x, int level, Tower* TowerParent);
+    static BaseType GetBaseType() { return BaseCondo; }
+    std::string GetTypeName() const override { return "condo"; }
 
-   virtual void Update (float dt, int tod);
-   virtual void Draw ();
-   virtual void DrawFramework ();
-   virtual void Save(SerializerBase& ser);
-   virtual BaseType GetType () { return BaseCondo; }
+    virtual void Update(float dt, int tod);
+    virtual void Draw();
+    virtual void DrawFramework();
+    virtual void Save(SerializerBase& ser);
+    virtual BaseType GetType() { return BaseCondo; }
 
 protected:
-   Condo_State vacant (int dt);
-   Condo_State unoccupied_day (int dt);
-   Condo_State occupied_day (int dt);
-   Condo_State occupied_night (int dt);
-   Condo_State occupied_sleep (int dt);       // running sandman functions
-
+    Condo_State vacant(int dt);
+    Condo_State unoccupied_day(int dt);
+    Condo_State occupied_day(int dt);
+    Condo_State occupied_night(int dt);
+    Condo_State occupied_sleep(int dt); // running sandman functions
 };
 
-#endif   // _CONDO_H
+#endif // _CONDO_H

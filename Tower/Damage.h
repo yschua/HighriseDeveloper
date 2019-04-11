@@ -25,16 +25,17 @@
 class Damage : public FloorBase, public Gfx::ModelObject
 {
 protected:
-   AnimationSingle* mpFrame;
-   FireAnimation mFire;
-public:
-   Damage (int x, int x2, int level, Tower * TowerParent, AnimationSingle* pFrame);
+    AnimationSingle* mpFrame;
+    FireAnimation mFire;
 
-   static BaseType GetBaseType() { return BaseEmpty; }
-   std::string GetTypeName() const override { return "damage"; }
-   void Update (float dt, int tod);
-   void Draw ();
-   void DrawFramework ();
+public:
+    Damage(int x, int x2, int level, Tower* TowerParent, AnimationSingle* pFrame);
+
+    static BaseType GetBaseType() { return BaseEmpty; }
+    std::string GetTypeName() const override { return "damage"; }
+    void Update(float dt, int tod);
+    void Draw();
+    void DrawFramework();
 };
 
 #endif //_DAMAGE_H

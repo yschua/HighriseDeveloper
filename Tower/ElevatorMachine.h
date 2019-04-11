@@ -27,32 +27,27 @@ class Animation;
 class ElevatorMachine : public ElevatorBase, public ModelObject
 {
 public:
-   enum ElevatorMachine_State
-   {
-      LMS_Idle = 0,
-      LMS_Down = 1,
-      LMS_Up = 2
-   };
+    enum ElevatorMachine_State { LMS_Idle = 0, LMS_Down = 1, LMS_Up = 2 };
+
 private:
-   ElevatorMachine_State mState; // Controls this things motion
+    ElevatorMachine_State mState; // Controls this things motion
 
 protected:
-   short mDirection;
-   short mImageFrame;
-   short mLastFrame;
-   short mFirstFrame;
-   Animation* mLifterAnimation;
-
+    short mDirection;
+    short mImageFrame;
+    short mLastFrame;
+    short mFirstFrame;
+    Animation* mLifterAnimation;
 
 public:
-   // CTOR/DTOR
-   ElevatorMachine( int x, int level, int width, Elevator* pElevator );
-   virtual ~ElevatorMachine();
+    // CTOR/DTOR
+    ElevatorMachine(int x, int level, int width, Elevator* pElevator);
+    virtual ~ElevatorMachine();
 
-   // Implemantation
-   void pos_calc ();
-   virtual void Update (float dt);
-   virtual void Draw ();
+    // Implemantation
+    void pos_calc();
+    virtual void Update(float dt);
+    virtual void Draw();
 };
 
 #endif //_ELEVATORMACHINE_H

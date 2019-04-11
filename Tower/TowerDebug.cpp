@@ -35,23 +35,18 @@
 #include "../Root/HighRiseException.h"
 // This is a debug stub to load a building for early dev
 
-void
-Tower::DebugLoad (int x, int y, int x2)
+void Tower::DebugLoad(int x, int y, int x2)
 {
-   try
-   {
-      // persist these
-      Elevator* pElevator = new Elevator( Elevator::LS_Standard, 472, -1, 14, this );
-      GetRoutes().AddRoute( pElevator );
-      pElevator = new Elevator( Elevator::LS_Standard, 472 + 36 + 9, 15, 19, this );
-      GetRoutes().AddRoute( pElevator );
-      Level* pLevel = GetLevel(0);
-      pElevator = new Elevator( Elevator::LS_HighCapacity, 472 + 144, 0, 15, this );
-      GetRoutes().AddRoute( pElevator );
-   }
-   catch (...)
-   {
-      throw new HighriseException ("Debug Alpha Building failed to create");
-   }
+    try {
+        // persist these
+        Elevator* pElevator = new Elevator(Elevator::LS_Standard, 472, -1, 14, this);
+        GetRoutes().AddRoute(pElevator);
+        pElevator = new Elevator(Elevator::LS_Standard, 472 + 36 + 9, 15, 19, this);
+        GetRoutes().AddRoute(pElevator);
+        Level* pLevel = GetLevel(0);
+        pElevator = new Elevator(Elevator::LS_HighCapacity, 472 + 144, 0, 15, this);
+        GetRoutes().AddRoute(pElevator);
+    } catch (...) {
+        throw new HighriseException("Debug Alpha Building failed to create");
+    }
 }
-

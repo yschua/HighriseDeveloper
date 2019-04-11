@@ -28,57 +28,63 @@
 
 using namespace Gfx;
 
-Lobby::Lobby (int x, int x2, int level, Tower * TowerParent)
-:   Level ( level, x, 0, x2, TowerParent )
+Lobby::Lobby(int x, int x2, int level, Tower* TowerParent) : Level(level, x, 0, x2, TowerParent)
 {
-   mX2 = x2;
-   mX = x;
-   ImageManager * images = ImageManager::GetInstance ();
-   if( level > 0 )
-   {
-      mDesk = NULL;
-      mTile = new Tiler (images->GetTexture("SkyLobby.png", GL_RGBA), Tiler::Horizontal, (float)x+36, 0, 0, (float)(x2-x-36), 36);
-      mTile->SetTessel ((float)(x2-x)/72, 1.0f);
-   }
-   else
-   {
-      mDesk = new AnimationSingle( images->GetTexture("LobbyA.png", GL_RGBA), 36, 36 );
-      mDesk->SetPosition((float)mX, 0);
-      mTile = new Tiler (images->GetTexture("LobbyB.png", GL_RGBA), Tiler::Horizontal, (float)x+36, 0, 0, (float)(x2-x-36), 36);
-      mTile->SetTessel ((float)(x2-x)/72, 1.0f);
-   }
-   nFireEscapeLeft->SetPosition ((float)mX - 56, (float)mY);
-   nFireEscapeRight->SetPosition ((float)mX2, (float)mY);
-   std::cout << "New lobby at " << mX << " to " << mX2 << " Y level " << mY << std::endl;
+    mX2 = x2;
+    mX = x;
+    ImageManager* images = ImageManager::GetInstance();
+    if (level > 0) {
+        mDesk = NULL;
+        mTile = new Tiler(images->GetTexture("SkyLobby.png", GL_RGBA),
+                          Tiler::Horizontal,
+                          (float)x + 36,
+                          0,
+                          0,
+                          (float)(x2 - x - 36),
+                          36);
+        mTile->SetTessel((float)(x2 - x) / 72, 1.0f);
+    } else {
+        mDesk = new AnimationSingle(images->GetTexture("LobbyA.png", GL_RGBA), 36, 36);
+        mDesk->SetPosition((float)mX, 0);
+        mTile = new Tiler(images->GetTexture("LobbyB.png", GL_RGBA),
+                          Tiler::Horizontal,
+                          (float)x + 36,
+                          0,
+                          0,
+                          (float)(x2 - x - 36),
+                          36);
+        mTile->SetTessel((float)(x2 - x) / 72, 1.0f);
+    }
+    nFireEscapeLeft->SetPosition((float)mX - 56, (float)mY);
+    nFireEscapeRight->SetPosition((float)mX2, (float)mY);
+    std::cout << "New lobby at " << mX << " to " << mX2 << " Y level " << mY << std::endl;
 }
 
-void
-Lobby::Update (float dt, int tod)
-{
+void Lobby::Update(float dt, int tod) {}
 
+void Lobby::Draw()
+{
+    if (mDesk != NULL)
+        Render(mDesk);
+    Render(mTile);
+    Render(nFireEscapeLeft);
+    Render(nFireEscapeRight);
 }
 
-void Lobby::Draw ()
+void Lobby::DrawFramework()
 {
-   if( mDesk != NULL) Render(mDesk);
-   Render(mTile);
-   Render(nFireEscapeLeft);
-   Render(nFireEscapeRight);
-}
-
-void Lobby::DrawFramework ()
-{
-   //RenderFramework( mpFrame, id);
+    // RenderFramework( mpFrame, id);
 }
 
 void Lobby::Save(SerializerBase& ser)
 {
-   ser.Add("type", "Lobby");   // first tag
-   ser.Add("level", mLevel);   // first tag
-   ser.Add("xstart", mX);   // first tag
-   ser.Add("xend", mX2);   // first tag
-   ser.Add("ystart", mY);   // first tag
-   ser.Add("zstart", mZ);   // first tag
-//   ser.Add("state", ToString((mcurrent_state == lobby_occupied_day)?1:0).c_str()); // use the state engine get this property
-   // if something goes bump, either deal with it or throw it
+    ser.Add("type", "Lobby"); // first tag
+    ser.Add("level", mLevel); // first tag
+    ser.Add("xstart", mX);    // first tag
+    ser.Add("xend", mX2);     // first tag
+    ser.Add("ystart", mY);    // first tag
+    ser.Add("zstart", mZ);    // first tag
+    //   ser.Add("state", ToString((mcurrent_state == lobby_occupied_day)?1:0).c_str()); // use the state
+    //   engine get this property
+    // if something goes bump, either deal with it or throw it
 }

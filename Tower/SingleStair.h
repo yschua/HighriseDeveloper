@@ -25,7 +25,7 @@
 // This three parts build the shaft for the elevator/lift to run in.
 
 // these decls allow inclusion of this header without the need to load these class headers.
-//class RouteBase;
+// class RouteBase;
 struct RoutingRequest;
 class AnimationSingle;
 class Person;
@@ -40,66 +40,62 @@ class SerializerBase;
 // people walk up and down these but will ride the elevators in most cases
 namespace TowerObjects
 {
-   class SingleStair : public Body, public RouteBase, public Gfx::ModelObject // Quad morphic
-   {
-   public:
+class SingleStair : public Body, public RouteBase, public Gfx::ModelObject // Quad morphic
+{
+public:
+protected:
+    static int gElevatorsNumber;
+    static const int mStandingPositions[];
 
+    AnimationSingle* mSingleStairImage;
 
-   protected:
-      static int gElevatorsNumber;
-      static const int mStandingPositions[];
+    // Controls this things motion
+    int mX;
+    int mY;
+    float mZ;
 
-      AnimationSingle* mSingleStairImage;
+    int mNumber; // number of this stair
+    short mTopLevel;
+    short mBottomLevel;
 
-      // Controls this things motion
-      int   mX;
-      int   mY;
-      float mZ;
+    short mWalkersOnStairs;
+    short mFloorCount;
+    short mMaxCap;
 
-      int   mNumber;    // number of this stair
-      short mTopLevel;
-      short mBottomLevel;
+    Tower* mTowerParent;
 
-      short mWalkersOnStairs;
-      short mFloorCount;
-      short mMaxCap;
+public:
+    // CTOR/DTOR  Use create to make on
+    SingleStair(int x, short BottLevel, short TopLevel, Tower* TowerParent);
+    SingleStair(SerializerBase& ser, short TopLevel, Tower* TowerParent);
+    virtual ~SingleStair();
+    static BaseType GetBaseType() { return BaseSingleStair; }
+    static const char* GetTypeString() { return "singlestair"; }
 
-      Tower * mTowerParent;
+    // Properties
+    inline int GetNumber() { return mNumber; }
 
-   public:
-      // CTOR/DTOR  Use create to make on
-      SingleStair( int x, short BottLevel, short TopLevel, Tower * TowerParent );
-      SingleStair( SerializerBase& ser, short TopLevel, Tower * TowerParent );
-      virtual ~SingleStair();
-      static BaseType GetBaseType() { return BaseSingleStair; }
-      static const char* GetTypeString() { return "singlestair"; }
+    // Methods
+    void Move(int x, int y);
+    void Resize(int x, int y);
 
-      // Properties
-      inline int  GetNumber() { return mNumber; }
+protected:
+    void LoadImages();
+    void PosCalc();
 
-      // Methods
-      void Move( int x, int y );
-      void Resize( int x, int y );
+    int LoadPerson(Person* person, RoutingRequest& req); // returns space remaining
+    void Motion();
+    void SetDestination(int level);
+    bool SetCallButton(RoutingRequest& req) { return false; } // call the elevator
+    void SetFloorButton(RoutingRequest& req) {}               // once inside, select a floor
+public:
+    virtual void Update(float dt);
+    virtual void Draw();
+    virtual void DrawFramework() {} // geometry test
 
-   protected:
-      void LoadImages();
-      void PosCalc ();
-
-      int  LoadPerson(Person* person, RoutingRequest& req); // returns space remaining
-      void Motion ();
-      void SetDestination (int level);
-      bool SetCallButton( RoutingRequest& req ) { return false; } // call the elevator
-      void SetFloorButton( RoutingRequest& req ) { }      // once inside, select a floor
-   public:
-
-      virtual void Update (float dt);
-      virtual void Draw ();
-      virtual void DrawFramework () { } // geometry test
-      
-      void Save( SerializerBase& ser );
-      PersonQueue* FindQueue (int level);
-
-   };
+    void Save(SerializerBase& ser);
+    PersonQueue* FindQueue(int level);
+};
 }
 
 #endif _SINGLESTAIRS_H

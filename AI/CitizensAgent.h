@@ -34,19 +34,19 @@ class Tower;
 class CitizensAgent
 {
 private:
-//   std::vector<Person*> mPeople; now using the citizens collection
+    //   std::vector<Person*> mPeople; now using the citizens collection
 
 protected:
-   Tower& mTower; // must have one or more
+    Tower& mTower; // must have one or more
 
 public:
-   CitizensAgent (Tower& mTower); // use a tower agent for multiple towers
-   virtual ~CitizensAgent (void);
+    CitizensAgent(Tower& mTower); // use a tower agent for multiple towers
+    virtual ~CitizensAgent(void);
 
-   void Update (float dt, int tod);
-   void Draw ();   // People
+    void Update(float dt, int tod);
+    void Draw(); // People
 
-   void RoutePerson(int curLevel, Path& Path, Person* peep);
+    void RoutePerson(int curLevel, Path& Path, Person* peep);
 };
 
 #endif //_CITIZENSAGENT_H

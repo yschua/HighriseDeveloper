@@ -34,127 +34,114 @@ using namespace Gfx;
 //   apt_occupied_night,
 //   apt_sleep_night
 
-apartment_state Apartment::vacant (int tod)
+apartment_state Apartment::vacant(int tod) { return apt_unoccupied_day; }
+
+apartment_state Apartment::unoccupied_day(int tod)
 {
-   return apt_unoccupied_day;
+    if (tod > 13 * 60 + 20)
+        return apt_occupied_day;
+    return apt_unoccupied_day;
 }
 
-apartment_state Apartment::unoccupied_day (int tod)
+apartment_state Apartment::occupied_day(int tod)
 {
-   if (tod>13*60+20)
-      return apt_occupied_day;
-   return apt_unoccupied_day;
+    if (tod > 16 * 60) // and people are home
+        return apt_occupied_night;
+    return apt_occupied_day;
 }
 
-apartment_state Apartment::occupied_day (int tod)
+apartment_state Apartment::occupied_night(int tod)
 {
-   if (tod>16*60)  // and people are home
-      return apt_occupied_night;
-   return apt_occupied_day;
+    if (tod > 20 * 60 + 30)
+        return apt_occupied_sleep;
+    return apt_occupied_night;
 }
 
-apartment_state Apartment::occupied_night (int tod)
+apartment_state Apartment::occupied_sleep(int tod)
 {
-   if (tod>20*60+30)
-      return apt_occupied_sleep;
-   return apt_occupied_night;
+    if (tod < 10 * 60 && tod > 5 * 60 + 20)
+        return apt_occupied_day;
+    return apt_occupied_sleep;
 }
 
-apartment_state Apartment::occupied_sleep (int tod)
+Apartment::Apartment(int x, int level, Tower* TowerParent) :
+    mCurrentState(apt_vacant),
+    FloorBase(x, x + 72, level, TowerParent)
 {
-   if (tod < 10*60 && tod > 5*60+20)
-      return apt_occupied_day;
-   return apt_occupied_sleep;
+    ImageManager* image_man = ImageManager::GetInstance();
+    std::cout << "New apartment at " << mX << ", " << mY << " level " << mLevel << std::endl;
+    manimations[apt_vacant] = new Animation(72, 36);
+    manimations[apt_vacant]->AddFrame(image_man->GetTexture("ApartmentEmpty_1.png", GL_RGBA), 1000);
+    manimations[apt_vacant]->SetPosition(mX, mY);
+    manimations[apt_occupied_day] = new Animation(72, 36);
+    manimations[apt_occupied_day]->AddFrame(image_man->GetTexture("Apartment_r_d_1.png", GL_RGBA), 1000);
+    manimations[apt_occupied_day]->AddFrame(image_man->GetTexture("Apartment_r_d_2.png", GL_RGBA), 1000);
+    manimations[apt_occupied_day]->AddFrame(image_man->GetTexture("Apartment_r_d_3.png", GL_RGBA), 1000);
+    manimations[apt_occupied_day]->SetPosition(mX, mY);
+    manimations[apt_occupied_night] = new Animation(72, 36);
+    manimations[apt_occupied_night]->AddFrame(image_man->GetTexture("Apartment_r_n_1.png", GL_RGBA), 1000);
+    manimations[apt_occupied_night]->SetPosition(mX, mY);
+    manimations[apt_unoccupied_day] = new Animation(72, 36);
+    manimations[apt_unoccupied_day]->AddFrame(image_man->GetTexture("Apartment_r_u_1.png", GL_RGBA), 1000);
+    manimations[apt_unoccupied_day]->SetPosition(mX, mY);
+    manimations[apt_occupied_sleep] = new Animation(72, 36);
+    manimations[apt_occupied_sleep]->AddFrame(image_man->GetTexture("Apartment_r_s_1.png", GL_RGBA), 1000);
+    manimations[apt_occupied_sleep]->SetPosition(mX, mY);
 }
 
-Apartment::Apartment (int x, int level, Tower * TowerParent)
-      :  mCurrentState (apt_vacant)
-      ,  FloorBase (x, x + 72, level, TowerParent)
+void Apartment::Update(float dt, int tod)
 {
-   ImageManager * image_man = ImageManager::GetInstance ();
-   std::cout << "New apartment at " << mX << ", " << mY << " level " << mLevel << std::endl;
-   manimations[apt_vacant] = new Animation (72, 36);
-   manimations[apt_vacant]->AddFrame (image_man->GetTexture ("ApartmentEmpty_1.png", GL_RGBA), 1000);
-   manimations[apt_vacant]->SetPosition (mX, mY);
-   manimations[apt_occupied_day] = new Animation (72, 36);
-   manimations[apt_occupied_day]->AddFrame (image_man->GetTexture ("Apartment_r_d_1.png", GL_RGBA), 1000);
-   manimations[apt_occupied_day]->AddFrame (image_man->GetTexture ("Apartment_r_d_2.png", GL_RGBA), 1000);
-   manimations[apt_occupied_day]->AddFrame (image_man->GetTexture ("Apartment_r_d_3.png", GL_RGBA), 1000);
-   manimations[apt_occupied_day]->SetPosition (mX, mY);
-   manimations[apt_occupied_night] = new Animation (72, 36);
-   manimations[apt_occupied_night]->AddFrame (image_man->GetTexture ("Apartment_r_n_1.png", GL_RGBA), 1000);
-   manimations[apt_occupied_night]->SetPosition (mX, mY);
-   manimations[apt_unoccupied_day] = new Animation (72, 36);
-   manimations[apt_unoccupied_day]->AddFrame (image_man->GetTexture ("Apartment_r_u_1.png", GL_RGBA), 1000);
-   manimations[apt_unoccupied_day]->SetPosition (mX, mY);
-   manimations[apt_occupied_sleep] = new Animation (72, 36);
-   manimations[apt_occupied_sleep]->AddFrame (image_man->GetTexture ("Apartment_r_s_1.png", GL_RGBA), 1000);
-   manimations[apt_occupied_sleep]->SetPosition (mX, mY);
+    manimations[mCurrentState]->Update(dt);
+    if (mOccupants < 0) {
+        mOccupants = 0;
+    }
+
+    switch (mCurrentState) {
+    case apt_vacant:
+        if (mOwner != NULL) {
+            mCurrentState = unoccupied_day(tod);
+        }
+        break;
+
+    case apt_unoccupied_day:
+        if (mOwner == NULL) {
+            mCurrentState = vacant(tod);
+        } else {
+            if (mOccupants > 0)
+                mCurrentState = occupied_day(tod);
+        }
+        break;
+    case apt_occupied_day:
+        mCurrentState = occupied_day(tod);
+        break;
+
+    case apt_occupied_night:
+        mCurrentState = occupied_night(tod);
+        break;
+
+    case apt_occupied_sleep:
+        mCurrentState = occupied_sleep(tod);
+        break;
+    }
 }
 
-void Apartment::Update (float dt, int tod)
-{
-   manimations[mCurrentState]->Update (dt);
-   if( mOccupants < 0 )
-   {
-      mOccupants = 0;
-   }
+void Apartment::Draw() { Render(manimations[mCurrentState]); }
 
-   switch (mCurrentState)
-   {
-   case apt_vacant:
-      if (mOwner != NULL)
-      {
-         mCurrentState = unoccupied_day (tod);
-      }
-      break;
-
-   case apt_unoccupied_day :
-      if (mOwner == NULL)
-      {
-         mCurrentState = vacant (tod);
-      }
-      else
-      {
-         if( mOccupants > 0 )
-            mCurrentState = occupied_day (tod);
-      }
-      break;
-   case apt_occupied_day :
-      mCurrentState = occupied_day (tod);
-      break;
-
-   case apt_occupied_night :
-      mCurrentState = occupied_night (tod);
-      break;
-
-   case apt_occupied_sleep:
-      mCurrentState = occupied_sleep (tod);
-      break;
-   }
-}
-
-void Apartment::Draw ()
-{
-   Render (manimations[mCurrentState]);
-}
-
-void Apartment::DrawFramework ()
-{
-   RenderFramework( manimations[mCurrentState], mID);
-}
+void Apartment::DrawFramework() { RenderFramework(manimations[mCurrentState], mID); }
 
 void Apartment::Save(SerializerBase& ser)
 {
-   ser.Add("type", "apartment");   // first tag
-   FloorBase::Save(ser);
-   ser.Add("state", ToString((mCurrentState == apt_occupied_day)?1:0).c_str()); // use the state engine get this property
-   // if something goes bump, either deal with it or throw it
+    ser.Add("type", "apartment"); // first tag
+    FloorBase::Save(ser);
+    ser.Add("state",
+            ToString((mCurrentState == apt_occupied_day) ? 1 : 0)
+                .c_str()); // use the state engine get this property
+                           // if something goes bump, either deal with it or throw it
 }
 
-double Apartment::GetRent ()
+double Apartment::GetRent()
 {
-   if (mOwner != NULL)
-      return mRent;
-   return 0;
+    if (mOwner != NULL)
+        return mRent;
+    return 0;
 }

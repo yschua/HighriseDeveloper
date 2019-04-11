@@ -25,44 +25,40 @@
 class Animation;
 class SerializerBase;
 
-enum Security_State
-{
-   SE_Unoccupied,
-   SE_Occupied
-};
+enum Security_State { SE_Unoccupied, SE_Occupied };
 
 class Security : public FloorBase, public Gfx::ModelObject
 {
-   std::map<Security_State, AnimationBase*> manimations;
-   Security_State mCurrentState;// vacant /occupied
-   int mCurrentAnimation;
-   int mPeopleInSecurity;
-   int mEmployees;
-   int mMaxPositions;
-   int mSecurityStyle; // Securitys, boardrooms, data centers, phone banks, etc
-   int mSecurityNumner;
+    std::map<Security_State, AnimationBase*> manimations;
+    Security_State mCurrentState; // vacant /occupied
+    int mCurrentAnimation;
+    int mPeopleInSecurity;
+    int mEmployees;
+    int mMaxPositions;
+    int mSecurityStyle; // Securitys, boardrooms, data centers, phone banks, etc
+    int mSecurityNumner;
 
 public:
-   Security (int x, int level, Tower * TowerParent);
-   static BaseType GetBaseType() { return BaseSecurity; }
-   std::string GetTypeName() const override { return "security"; }
+    Security(int x, int level, Tower* TowerParent);
+    static BaseType GetBaseType() { return BaseSecurity; }
+    std::string GetTypeName() const override { return "security"; }
 
-   void Update (float dt, int tod);
-   void Draw ();
-   void DrawFramework ();
-   virtual BaseType GetType () { return BaseSecurity; }
+    void Update(float dt, int tod);
+    void Draw();
+    void DrawFramework();
+    virtual BaseType GetType() { return BaseSecurity; }
 
-   void RemoveImages();
-   void SetImages (int set);
-   void Save(SerializerBase& ser);
+    void RemoveImages();
+    void SetImages(int set);
+    void Save(SerializerBase& ser);
 
-   void PeopleInOut( int count );
-   bool PeopleApply( );    // get a job
-   void SetSecurityNumber(int no) { mSecurityNumner = no; }
-   int  GetSecurityNumber() { return mSecurityNumner; }
+    void PeopleInOut(int count);
+    bool PeopleApply(); // get a job
+    void SetSecurityNumber(int no) { mSecurityNumner = no; }
+    int GetSecurityNumber() { return mSecurityNumner; }
 
 private:
-   void SecurityState (int tod);
+    void SecurityState(int tod);
 };
 
 #endif // _SECURITY_H

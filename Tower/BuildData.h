@@ -24,42 +24,38 @@
 
 class SerializerBase;
 
-struct BuildData
-{
-   short BuildType;   // office, condo, retail etc.
-   short Variant;
-   short LevelsHigh;
-   short UnitsWide;
-   short EconomicEffect; // +/- influence on surrounding tenants.
-   short NeighborEffect; // +/- good or bad neightboor -(noisy, cooking or checmical oders) +(library,residential)
-   short MaxPeople;  // Max people allowed
-   short MinPeople;  // Min people needed for this to function
-   short RentFrequency;    // zero for one time
-   double AmountPerPerson;  // cost or income per person.
-   double BuildCost;       // cost to the Tower owner to build
-   double PurchasePrice;   // condo and other space purchase. Some may have rent fees
-   double RentalCost;      // periodic fee for lease and maintenace fees on purchased spaces.
-   double IncomeFactor;    // zero for
-   std::string ImageName;
+struct BuildData {
+    short BuildType; // office, condo, retail etc.
+    short Variant;
+    short LevelsHigh;
+    short UnitsWide;
+    short EconomicEffect;   // +/- influence on surrounding tenants.
+    short NeighborEffect;   // +/- good or bad neightboor -(noisy, cooking or checmical oders)
+                            // +(library,residential)
+    short MaxPeople;        // Max people allowed
+    short MinPeople;        // Min people needed for this to function
+    short RentFrequency;    // zero for one time
+    double AmountPerPerson; // cost or income per person.
+    double BuildCost;       // cost to the Tower owner to build
+    double PurchasePrice;   // condo and other space purchase. Some may have rent fees
+    double RentalCost;      // periodic fee for lease and maintenace fees on purchased spaces.
+    double IncomeFactor;    // zero for
+    std::string ImageName;
 
-   BuildData();
-   BuildData (SerializerBase* ser)
-   {
-      Load(*ser);
-   }
+    BuildData();
+    BuildData(SerializerBase* ser) { Load(*ser); }
 
-   void SetDefault(short type, short units, short levels, double cost, double price, double rent)
-   {
-      BuildType = type;
-      LevelsHigh = levels;
-      UnitsWide = units;
-      BuildCost = cost;
-      PurchasePrice = price;
-      RentalCost = rent;
-   }
-   void Save (SerializerBase& ser);
-   void Load (SerializerBase& ser);
-
+    void SetDefault(short type, short units, short levels, double cost, double price, double rent)
+    {
+        BuildType = type;
+        LevelsHigh = levels;
+        UnitsWide = units;
+        BuildCost = cost;
+        PurchasePrice = price;
+        RentalCost = rent;
+    }
+    void Save(SerializerBase& ser);
+    void Load(SerializerBase& ser);
 };
 
-#endif   // _BUILDDATA_H
+#endif // _BUILDDATA_H

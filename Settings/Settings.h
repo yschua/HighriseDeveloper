@@ -8,26 +8,27 @@
 
 namespace Settings
 {
-   class SettingsIni
-   {
-      bool mSettingsAreLoaded;
-   protected:
-      std::map<std::string, std::string> UserSettings;
-//      std::map<std::string, std::string> GlobalSettings;
+class SettingsIni
+{
+    bool mSettingsAreLoaded;
 
-   public:
-      SettingsIni();
+protected:
+    std::map<std::string, std::string> UserSettings;
+    //      std::map<std::string, std::string> GlobalSettings;
 
-      void Load();
-      bool SettingsAreLoaded() { return mSettingsAreLoaded; }
+public:
+    SettingsIni();
 
-      std::string Get(const std::string& Pref);
-      int GetInt(const std::string& Pref);
-      int Set(std::string Pref, std::string Value);
-      int Set(std::string Pref, std::string Value, bool WriteImmediately);
-      void ReadIni(std::string FileName, std::map<std::string, std::string>* Settings);
-      void SaveIni(std::string FileName, std::map<std::string, std::string>* Settings);
-      //extern bool DocumentLoaded;
-      //extern std::string CurSettingsPath;
-   };
+    void Load();
+    bool SettingsAreLoaded() { return mSettingsAreLoaded; }
+
+    std::string Get(const std::string& Pref);
+    int GetInt(const std::string& Pref);
+    int Set(std::string Pref, std::string Value);
+    int Set(std::string Pref, std::string Value, bool WriteImmediately);
+    void ReadIni(std::string FileName, std::map<std::string, std::string>* Settings);
+    void SaveIni(std::string FileName, std::map<std::string, std::string>* Settings);
+    // extern bool DocumentLoaded;
+    // extern std::string CurSettingsPath;
+};
 }

@@ -19,31 +19,31 @@
 
 #include "../Types/Vector2.h"
 
-enum HR_Events
-{
-   HR_MouseInScene = 0,       // Generic
-   HR_ClickInScene,           // Left Click
-   HR_MenuInScene,            // Right Click
-   HR_SelectBuildCursor,      // From tools if BuildOption returns true, set cursor and/or status bar to show active tool.
-   HR_SelectBuildOption,      // From tools, include Office, Elevater, Condo etc as option param
-   HR_PlaceOffice,
-   HR_PlaceApartment,
-   HR_PlaceCondo,
-   HR_PlaceHotelSingle,
-   HR_PlaceHotelDouble,
-   HR_PlaceHotelKing,
-   HR_PlaceHotelSuite,
-   HR_PlaceRetail,
-   HR_PlaceRestaurant,
-   HR_PlaceHouseKeeping,
-   HR_PlaceSecurity,
-   HR_PlaceClinic,
-   HR_PlaceWasteManagement,
-   HR_PlaceElevator,
-   HR_PlaceStairs,
-   HR_Remove,
-   HR_PlaceNone,
-   HR_Close
+enum HR_Events {
+    HR_MouseInScene = 0,  // Generic
+    HR_ClickInScene,      // Left Click
+    HR_MenuInScene,       // Right Click
+    HR_SelectBuildCursor, // From tools if BuildOption returns true, set cursor and/or status bar to show
+                          // active tool.
+    HR_SelectBuildOption, // From tools, include Office, Elevater, Condo etc as option param
+    HR_PlaceOffice,
+    HR_PlaceApartment,
+    HR_PlaceCondo,
+    HR_PlaceHotelSingle,
+    HR_PlaceHotelDouble,
+    HR_PlaceHotelKing,
+    HR_PlaceHotelSuite,
+    HR_PlaceRetail,
+    HR_PlaceRestaurant,
+    HR_PlaceHouseKeeping,
+    HR_PlaceSecurity,
+    HR_PlaceClinic,
+    HR_PlaceWasteManagement,
+    HR_PlaceElevator,
+    HR_PlaceStairs,
+    HR_Remove,
+    HR_PlaceNone,
+    HR_Close
 };
 
 class Camera;
@@ -51,33 +51,33 @@ class Camera;
 class EventBase
 {
 public:
-   // HELP! The Resize() event can not actually be captured by some classes, since they
-   // already define a Resize() member funtion. Maybe we should call prefix theese with
-   // "On"? (So OnResize(), OnMouseDown(), etc).
-   virtual bool OnResize (Vector2i viewSize) { return false; }
-   virtual bool OnMouseDown (sf::Mouse::Button Button, Vector2i Scene, Vector2i Cam) { return false; }
-   virtual bool OnMouseUp (sf::Mouse::Button Button, Vector2i Scene, Vector2i Cam) { return false; }
-   virtual bool OnKeyDown (sf::Keyboard::Key Key) { return false; }
-   virtual bool OnKeyUp (sf::Keyboard::Key Key) { return false; }
-   virtual bool OnMouseMove (Vector2i Scene, Vector2i Cam) { return false; }
-   virtual bool OnMouseWheel (int Delta) { return false; }
-   virtual bool OnClose () { return false; }
-   virtual bool OnToolHit (const std::string& Name) {return false; }
-   virtual bool OnOpen (const char* pPath) { return false; }
-   virtual bool OnSave (const char* pPath) { return false; }
+    // HELP! The Resize() event can not actually be captured by some classes, since they
+    // already define a Resize() member funtion. Maybe we should call prefix theese with
+    // "On"? (So OnResize(), OnMouseDown(), etc).
+    virtual bool OnResize(Vector2i viewSize) { return false; }
+    virtual bool OnMouseDown(sf::Mouse::Button Button, Vector2i Scene, Vector2i Cam) { return false; }
+    virtual bool OnMouseUp(sf::Mouse::Button Button, Vector2i Scene, Vector2i Cam) { return false; }
+    virtual bool OnKeyDown(sf::Keyboard::Key Key) { return false; }
+    virtual bool OnKeyUp(sf::Keyboard::Key Key) { return false; }
+    virtual bool OnMouseMove(Vector2i Scene, Vector2i Cam) { return false; }
+    virtual bool OnMouseWheel(int Delta) { return false; }
+    virtual bool OnClose() { return false; }
+    virtual bool OnToolHit(const std::string& Name) { return false; }
+    virtual bool OnOpen(const char* pPath) { return false; }
+    virtual bool OnSave(const char* pPath) { return false; }
 };
 
 class EventHandler
 {
 private:
-   typedef std::vector<EventBase*> ConType;
-   ConType mHandlers;
-   Camera* Cam;
+    typedef std::vector<EventBase*> ConType;
+    ConType mHandlers;
+    Camera* Cam;
 
 public:
-   EventHandler ();
-   void Add (EventBase* Handler);
-   bool HandleEvents (const sf::Event& Event);
+    EventHandler();
+    void Add(EventBase* Handler);
+    bool HandleEvents(const sf::Event& Event);
 };
 
 #endif // _EVENT_H

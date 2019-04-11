@@ -18,27 +18,22 @@
 #include <iostream>
 #include "Tower.h"
 
-BuildRemoveStrategy::BuildRemoveStrategy(BuildData& rBuildData) :
-    BuildStrategyBase(rBuildData)
+BuildRemoveStrategy::BuildRemoveStrategy(BuildData& rBuildData) : BuildStrategyBase(rBuildData)
 {
     mType = BaseEmpty;
 }
 
-BuildRemoveStrategy::~BuildRemoveStrategy()
-{
-}
+BuildRemoveStrategy::~BuildRemoveStrategy() {}
 
-bool BuildRemoveStrategy::PlacingRoom()
-{
-    return false;
-}
+bool BuildRemoveStrategy::PlacingRoom() { return false; }
 
 bool BuildRemoveStrategy::BuildHere(Tower* pTower, int x, int y)
 {
     auto pLevel = pTower->GetLevel(y);
     auto pRoom = pLevel->FindSpace(x * Level::mUnitSize);
 
-    if (pRoom == nullptr) return false;
+    if (pRoom == nullptr)
+        return false;
 
     pLevel->RemoveFloorSpace(pRoom);
     return true;

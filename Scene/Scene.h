@@ -44,7 +44,7 @@ public:
 private:
     Tower* mpTower;
     Background* mpBackground;
-    BuildStrategyBase* mpBuildStrategy;  // Place floor objects
+    BuildStrategyBase* mpBuildStrategy; // Place floor objects
     std::unique_ptr<RoomWindow> m_roomWnd;
 };
 

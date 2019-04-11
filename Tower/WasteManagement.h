@@ -25,52 +25,43 @@
 class Animation;
 class SerializerBase;
 
-enum WasteManagement_state
-{
-   WMS_Vacant,
-   WMS_Occupied
-};
-enum WasteManagement_mode
-{
-   WMM_Night = 0, 
-   WMM_DayUnoccupied,
-   WMM_DayOccupied
-};
+enum WasteManagement_state { WMS_Vacant, WMS_Occupied };
+enum WasteManagement_mode { WMM_Night = 0, WMM_DayUnoccupied, WMM_DayOccupied };
 
 class WasteManagement : public FloorBase, public Gfx::ModelObject
 {
-   std::map<WasteManagement_mode, AnimationBase*> manimations;
-   WasteManagement_state mCurrentState;// vacant /occupied
-   WasteManagement_mode  mCurrentMode; // day / night
-   int mCurrentAnimation;
-   int mPeopleInWasteManagement;
-   int mEmployees;
-   int mMaxPositions;
-   int mWasteManagementState;
-   int mWasteManagementNumner;
+    std::map<WasteManagement_mode, AnimationBase*> manimations;
+    WasteManagement_state mCurrentState; // vacant /occupied
+    WasteManagement_mode mCurrentMode;   // day / night
+    int mCurrentAnimation;
+    int mPeopleInWasteManagement;
+    int mEmployees;
+    int mMaxPositions;
+    int mWasteManagementState;
+    int mWasteManagementNumner;
 
 public:
-   WasteManagement (int x, int level, Tower * TowerParent);
-   static BaseType GetBaseType() { return BaseWasteManagement; }
-   std::string GetTypeName() const override { return "wastemanagement"; }
+    WasteManagement(int x, int level, Tower* TowerParent);
+    static BaseType GetBaseType() { return BaseWasteManagement; }
+    std::string GetTypeName() const override { return "wastemanagement"; }
 
-   void Update (float dt, int tod);
-   void Draw ();
-   void DrawFramework ();
-   virtual BaseType GetType () { return BaseWasteManagement; }
+    void Update(float dt, int tod);
+    void Draw();
+    void DrawFramework();
+    virtual BaseType GetType() { return BaseWasteManagement; }
 
-   void RemoveImages();
-   void SetImages (int set);
-   void Save(SerializerBase& ser);
+    void RemoveImages();
+    void SetImages(int set);
+    void Save(SerializerBase& ser);
 
-   void PeopleInOut( int count );
-   bool PeopleApply( );    // get a job
-   void SetWasteManagementNumber(int no) { mWasteManagementNumner = no; }
-   int  GetWasteManagementNumber() { return mWasteManagementNumner; }
+    void PeopleInOut(int count);
+    bool PeopleApply(); // get a job
+    void SetWasteManagementNumber(int no) { mWasteManagementNumner = no; }
+    int GetWasteManagementNumber() { return mWasteManagementNumner; }
 
 private:
-   void WasteManagementMode (int tod);
-   void WasteManagementState();
+    void WasteManagementMode(int tod);
+    void WasteManagementState();
 };
 
 #endif

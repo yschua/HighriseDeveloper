@@ -33,92 +33,79 @@
 
 #include "PathAgent.h"
 
-PathAgent::PathAgent (Person* person )
-      :  mPerson( person )
-{
-
-}
+PathAgent::PathAgent(Person* person) : mPerson(person) {}
 
 // functor level PathAgent
 // Instiate, get the person to his destination and done
-PathAgent::PathAgent (Person* person, int level)   // deposit person on this level;
-      :  mPerson( person )
+PathAgent::PathAgent(Person* person, int level) // deposit person on this level;
+    :
+    mPerson(person)
 {
-   person->get_Location();
+    person->get_Location();
 }
 
-PathAgent::~PathAgent ()
-{
+PathAgent::~PathAgent() {}
 
-}
-
-bool PathAgent::findPath (Location& origin, Location& dest, Tower& tower )
+bool PathAgent::findPath(Location& origin, Location& dest, Tower& tower)
 {
-   Path& path = mPerson->get_WorkPath(); // for now just doing work
-   path.clear();
-   // normally we would use the commented code but for now I've pluged direct to a single elevator
-   //Routes* routeList = Routes::GetInstance();
-   Routes& routeList = tower.GetRoutes();
-   CitizensAgent People( tower );
-   //for (i = routeList.get_Routes().begin (); i != routeList.get_Routes().end (); i++)
-   //{
-   //   RouteBase* route = (*i);
-   //}
-   int CarsTaken = 0;
-   int RouteStack[4];
-   int LevelStack[4];
-   Routes::RoutesVector& rvec = routeList.GetRoutes();
-   int newDest = dest.mLevel;
-   for (unsigned int idx = 0; idx < rvec.size(); ++idx)
-   {
-      RouteBase* pRoute = rvec[idx];
-      if (pRoute->StopsOnLevel(dest.mLevel))
-      {
-         LevelStack[CarsTaken] = dest.mLevel;   // the final level
-         RouteStack[CarsTaken++] = idx;         // the route we need to get there
-         if (!pRoute->StopsOnLevel(origin.mLevel))
-         {
-            // try an express elevator
-            int iSky = pRoute->FindLobby();
-            for (unsigned int idx2 = 0; idx2 < rvec.size(); ++idx2)
-            {
-               if (idx2 != idx) // save looking on the same route
-               {
-                  RouteBase* pRoute2 = rvec[idx2];
-                  if (pRoute2->StopsOnLevel(origin.mLevel) && pRoute2->StopsOnLevel(iSky))
-                  {
-                     LevelStack[CarsTaken] = iSky;   // start level
-                     RouteStack[CarsTaken++] = idx2;         // route taken
-                     break;
-                  }
-               }
+    Path& path = mPerson->get_WorkPath(); // for now just doing work
+    path.clear();
+    // normally we would use the commented code but for now I've pluged direct to a single elevator
+    // Routes* routeList = Routes::GetInstance();
+    Routes& routeList = tower.GetRoutes();
+    CitizensAgent People(tower);
+    // for (i = routeList.get_Routes().begin (); i != routeList.get_Routes().end (); i++)
+    //{
+    //   RouteBase* route = (*i);
+    //}
+    int CarsTaken = 0;
+    int RouteStack[4];
+    int LevelStack[4];
+    Routes::RoutesVector& rvec = routeList.GetRoutes();
+    int newDest = dest.mLevel;
+    for (unsigned int idx = 0; idx < rvec.size(); ++idx) {
+        RouteBase* pRoute = rvec[idx];
+        if (pRoute->StopsOnLevel(dest.mLevel)) {
+            LevelStack[CarsTaken] = dest.mLevel; // the final level
+            RouteStack[CarsTaken++] = idx;       // the route we need to get there
+            if (!pRoute->StopsOnLevel(origin.mLevel)) {
+                // try an express elevator
+                int iSky = pRoute->FindLobby();
+                for (unsigned int idx2 = 0; idx2 < rvec.size(); ++idx2) {
+                    if (idx2 != idx) // save looking on the same route
+                    {
+                        RouteBase* pRoute2 = rvec[idx2];
+                        if (pRoute2->StopsOnLevel(origin.mLevel) && pRoute2->StopsOnLevel(iSky)) {
+                            LevelStack[CarsTaken] = iSky;   // start level
+                            RouteStack[CarsTaken++] = idx2; // route taken
+                            break;
+                        }
+                    }
+                }
             }
-         }
-         LevelStack[CarsTaken] = origin.mLevel;   // start level
-         RouteStack[CarsTaken++] = idx;         // route taken
-         break;
-      }
-   }
-   int idxP = 0;
-   for( int idx = CarsTaken-1; idx >=0; --idx)
-   {
-      path.mPathList[idxP].mBuilding = dest.mBuilding;
-      path.mPathList[idxP].mLevel = LevelStack[idx];
-      path.mPathList[idxP].mRoute = RouteStack[idx]; // first option
-      path.mPathList[idxP].mX = 0;
-      idxP++;
-   }
+            LevelStack[CarsTaken] = origin.mLevel; // start level
+            RouteStack[CarsTaken++] = idx;         // route taken
+            break;
+        }
+    }
+    int idxP = 0;
+    for (int idx = CarsTaken - 1; idx >= 0; --idx) {
+        path.mPathList[idxP].mBuilding = dest.mBuilding;
+        path.mPathList[idxP].mLevel = LevelStack[idx];
+        path.mPathList[idxP].mRoute = RouteStack[idx]; // first option
+        path.mPathList[idxP].mX = 0;
+        idxP++;
+    }
 
-   //path.mPathList[0].mBuilding = dest.mBuilding;
-   //path.mPathList[0].mLevel = 0;
-   //path.mPathList[0].mRoute = 0; // first option
-   //path.mPathList[0].mX = 0;
-   //path.mPathList[1].mBuilding = dest.mBuilding;
-   //path.mPathList[1].mLevel = dest.mLevel;
-   //path.mPathList[1].mRoute = 0;
-   //path.mPathList[1].mX = dest.mX;
-   path.index = 0;
-   path.size = CarsTaken; //2;
-   return true;
+    // path.mPathList[0].mBuilding = dest.mBuilding;
+    // path.mPathList[0].mLevel = 0;
+    // path.mPathList[0].mRoute = 0; // first option
+    // path.mPathList[0].mX = 0;
+    // path.mPathList[1].mBuilding = dest.mBuilding;
+    // path.mPathList[1].mLevel = dest.mLevel;
+    // path.mPathList[1].mRoute = 0;
+    // path.mPathList[1].mX = dest.mX;
+    path.index = 0;
+    path.size = CarsTaken; // 2;
+    return true;
 }
-

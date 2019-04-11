@@ -27,17 +27,16 @@ class ElevatorBase;
 class ElevatorPit : public ElevatorBase
 {
 protected:
-//   AnimationSingle manimations;
-
+    //   AnimationSingle manimations;
 
 public:
-   // CTOR/DTOR
-   ElevatorPit(int x, int level, Elevator* pElevator );
-   virtual ~ElevatorPit();
+    // CTOR/DTOR
+    ElevatorPit(int x, int level, Elevator* pElevator);
+    virtual ~ElevatorPit();
 
-   // Implemantation
-   virtual void Update (float dt);
-   virtual void Draw ();
+    // Implemantation
+    virtual void Update(float dt);
+    virtual void Draw();
 };
 
 #endif //_ELEVATORPIT_H

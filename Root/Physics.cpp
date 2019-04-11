@@ -17,131 +17,114 @@
 #include <iostream>
 #include "Physics.h"
 
-Body::Body (int width, int height)
+Body::Body(int width, int height)
 {
-   mIsMoving = false;
-   mTime = 0;
-   mTimeTotal = 0;
-   // mMoveDest self initializes in the CTOR
-   ms = Vector3f(0,0,0);
-   mv = Vector2f(0,0);
-   ma = Vector2f(0,0);
-   mWidth = Vector3f ((float)width, 0, 0);
-   mHeight = Vector3f (0, (float)height, 0);
-   mDepth = Vector3f (0, 0, 1);
-   
+    mIsMoving = false;
+    mTime = 0;
+    mTimeTotal = 0;
+    // mMoveDest self initializes in the CTOR
+    ms = Vector3f(0, 0, 0);
+    mv = Vector2f(0, 0);
+    ma = Vector2f(0, 0);
+    mWidth = Vector3f((float)width, 0, 0);
+    mHeight = Vector3f(0, (float)height, 0);
+    mDepth = Vector3f(0, 0, 1);
 }
 
-Body::Body (Vector3f Pos, int width, int height)
+Body::Body(Vector3f Pos, int width, int height)
 {
-   ms = Pos;
-   mv = Vector2f(0,0);
-   ma = Vector2f(0,0);
-   mWidth = Vector3f ((float)width, 0, 0);
-   mHeight = Vector3f (0, (float)height, 0);
-   mDepth = Vector3f (0, 0, 1);
+    ms = Pos;
+    mv = Vector2f(0, 0);
+    ma = Vector2f(0, 0);
+    mWidth = Vector3f((float)width, 0, 0);
+    mHeight = Vector3f(0, (float)height, 0);
+    mDepth = Vector3f(0, 0, 1);
 }
 
-Body::Body (float x, float y, int width, int height)
+Body::Body(float x, float y, int width, int height)
 {
-   ms = Vector3f(x,y,0);
-   mv = Vector2f(0,0);
-   ma = Vector2f(0,0);
-   mWidth = Vector3f ((float)width, 0, 0);
-   mHeight = Vector3f (0, (float)height, 0);
-   mDepth = Vector3f (0, 0, 1);
+    ms = Vector3f(x, y, 0);
+    mv = Vector2f(0, 0);
+    ma = Vector2f(0, 0);
+    mWidth = Vector3f((float)width, 0, 0);
+    mHeight = Vector3f(0, (float)height, 0);
+    mDepth = Vector3f(0, 0, 1);
 }
 
-void
-Body::DebugPrint ()
+void Body::DebugPrint()
 {
-   std::cout << "Body: Position " << ms.x << " , " << ms.y << std::endl
-             << "Velocity " << mv.x << " , " << mv.y << std::endl
-             << "Acceleration " << ma.x << " , " << ma.y << std::endl;
+    std::cout << "Body: Position " << ms.x << " , " << ms.y << std::endl
+              << "Velocity " << mv.x << " , " << mv.y << std::endl
+              << "Acceleration " << ma.x << " , " << ma.y << std::endl;
 }
 
-void
-Body::SetPosition (float x, float y)
+void Body::SetPosition(float x, float y)
 {
-   ms.x = x;
-   ms.y = y;
+    ms.x = x;
+    ms.y = y;
 }
 
-void
-Body::SetVelocity (float x, float y)
+void Body::SetVelocity(float x, float y)
 {
-   mv.x = x;
-   mv.y = y;
+    mv.x = x;
+    mv.y = y;
 }
 
-void
-Body::MoveTo (float x, float y, float time)
+void Body::MoveTo(float x, float y, float time)
 {
-   mIsMoving = true;
-   mTime = 0.0;
-   mTimeTotal += time;
-   mMoveDest.x = x;
-   mMoveDest.y = y;
-   float dist_x = x - ms.x;
-   float dist_y = y - ms.y;
-   if (dist_x == 0)
-   {
-      mv.x = 0;
-      ma.x = 0;
-   }
-   else
-   {
-      mv.x = (2 * dist_x) / time;
-      ma.x = -(mv.x * mv.x) / (2 * dist_x);
-   }
-   if (dist_y == 0)
-   {
-      mv.y = 0;
-      ma.y = 0;
-   }
-   else
-   {
-      mv.y = (2 * dist_y) / time;
-      ma.y = -(mv.y * mv.y) / (2 * dist_y);
-   }
+    mIsMoving = true;
+    mTime = 0.0;
+    mTimeTotal += time;
+    mMoveDest.x = x;
+    mMoveDest.y = y;
+    float dist_x = x - ms.x;
+    float dist_y = y - ms.y;
+    if (dist_x == 0) {
+        mv.x = 0;
+        ma.x = 0;
+    } else {
+        mv.x = (2 * dist_x) / time;
+        ma.x = -(mv.x * mv.x) / (2 * dist_x);
+    }
+    if (dist_y == 0) {
+        mv.y = 0;
+        ma.y = 0;
+    } else {
+        mv.y = (2 * dist_y) / time;
+        ma.y = -(mv.y * mv.y) / (2 * dist_y);
+    }
 }
 
-void
-Body::SetAcceleration (float x, float y)
+void Body::SetAcceleration(float x, float y)
 {
-   ma.x = x;
-   ma.y = y;
+    ma.x = x;
+    ma.y = y;
 }
 
-void
-Body::Integrate (float dt)
+void Body::Integrate(float dt)
 {
-   float dt_secs = dt / 1000;
-   ms.x += mv.x * dt_secs;
-   ms.y += mv.y * dt_secs;
-   mv.x += ma.x * dt_secs;
-   mv.y += ma.y * dt_secs;
-   if ((mv.x > -10) && (mv.x < 10))
-   {
-      mv.x = 0;
-      ma.x = 0;
-   }
-   if ((mv.y > -10) && (mv.y < 10))
-   {
-      mv.y = 0;
-      ma.y = 0;
-   }
-   if (mIsMoving)
-   {
-      mTime += dt;
-      if (mTime >= mTimeTotal)
-      {
-         ms = mMoveDest;
-         mIsMoving = false;
-         mv.x = 0;
-         mv.y = 0;
-         ma.x = 0;
-         ma.y = 0;
-      }
-   }
+    float dt_secs = dt / 1000;
+    ms.x += mv.x * dt_secs;
+    ms.y += mv.y * dt_secs;
+    mv.x += ma.x * dt_secs;
+    mv.y += ma.y * dt_secs;
+    if ((mv.x > -10) && (mv.x < 10)) {
+        mv.x = 0;
+        ma.x = 0;
+    }
+    if ((mv.y > -10) && (mv.y < 10)) {
+        mv.y = 0;
+        ma.y = 0;
+    }
+    if (mIsMoving) {
+        mTime += dt;
+        if (mTime >= mTimeTotal) {
+            ms = mMoveDest;
+            mIsMoving = false;
+            mv.x = 0;
+            mv.y = 0;
+            ma.x = 0;
+            ma.y = 0;
+        }
+    }
 }

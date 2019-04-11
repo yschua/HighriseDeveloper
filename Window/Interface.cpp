@@ -28,112 +28,105 @@
 
 using namespace Gfx;
 
-Interface::Interface ()
+Interface::Interface()
 {
-   mLanguageCode = 0;
-   mSoundFxOn = false;
-   mMusicOn = false;
-   LoadSettings();
-   mChangedSettings = false;
-   mCurDay = 0;
+    mLanguageCode = 0;
+    mSoundFxOn = false;
+    mMusicOn = false;
+    LoadSettings();
+    mChangedSettings = false;
+    mCurDay = 0;
 }
 
-Interface::~Interface ()
+Interface::~Interface()
 {
-   if (mChangedSettings)
-   {
-      SaveSettings();
-   }
+    if (mChangedSettings) {
+        SaveSettings();
+    }
 }
 
 void Interface::LoadSettings()
 {
-   Settings::SettingsIni theSettings;
-   theSettings.Load();
-   bool bHasSettings = false;
-   if( theSettings.SettingsAreLoaded() )
-   {
-      int iCode = FromString<int>(theSettings.Get("Language.Code"));
-      if( iCode >0 && iCode < 5 )
-      {
-         SetLanguageCode (iCode);
-         bHasSettings = true;
-      }
-      mSoundFxOn = (theSettings.Get ("Sound.FX")[0] == '1' ? true : false ); // its a string, at the least it will have a null terminator
-      mMusicOn = (theSettings.Get ("Sound.Music")[0] == '1' ? true : false );
-   }
-   if (!bHasSettings)
-   {
-      SetLanguageCode (1);
-      theSettings.Set ("Sound.FX", (mSoundFxOn)? "1":"0", false );
-      theSettings.Set ("Sound.Music", (mMusicOn)? "1":"0", false );
-      theSettings.Set ("Language.Code", "1", true);
-   }
+    Settings::SettingsIni theSettings;
+    theSettings.Load();
+    bool bHasSettings = false;
+    if (theSettings.SettingsAreLoaded()) {
+        int iCode = FromString<int>(theSettings.Get("Language.Code"));
+        if (iCode > 0 && iCode < 5) {
+            SetLanguageCode(iCode);
+            bHasSettings = true;
+        }
+        mSoundFxOn = (theSettings.Get("Sound.FX")[0] == '1'
+                          ? true
+                          : false); // its a string, at the least it will have a null terminator
+        mMusicOn = (theSettings.Get("Sound.Music")[0] == '1' ? true : false);
+    }
+    if (!bHasSettings) {
+        SetLanguageCode(1);
+        theSettings.Set("Sound.FX", (mSoundFxOn) ? "1" : "0", false);
+        theSettings.Set("Sound.Music", (mMusicOn) ? "1" : "0", false);
+        theSettings.Set("Language.Code", "1", true);
+    }
 }
 
 void Interface::SaveSettings()
 {
-   Settings::SettingsIni theSettings;
-   theSettings.Load();
-   bool bHasSettings = false;
-   //char buf[8];
-   if( theSettings.SettingsAreLoaded() )
-   {
+    Settings::SettingsIni theSettings;
+    theSettings.Load();
+    bool bHasSettings = false;
+    // char buf[8];
+    if (theSettings.SettingsAreLoaded()) {
 
-      theSettings.Set ("Sound.FX", (mSoundFxOn)? "1":"0", false );
-      theSettings.Set ("Sound.Music", (mMusicOn)? "1":"0", false );
-      theSettings.Set ("Language.Code", ToString(mLanguageCode), true);
-   }
+        theSettings.Set("Sound.FX", (mSoundFxOn) ? "1" : "0", false);
+        theSettings.Set("Sound.Music", (mMusicOn) ? "1" : "0", false);
+        theSettings.Set("Language.Code", ToString(mLanguageCode), true);
+    }
 }
 
-void Interface::SetLanguageCode (int code)
+void Interface::SetLanguageCode(int code)
 {
-   mLanguageCode = code;
-   mClock.SetLanguage (code);
-   mChangedSettings = true;
-   mCurDay = 0;
+    mLanguageCode = code;
+    mClock.SetLanguage(code);
+    mChangedSettings = true;
+    mCurDay = 0;
 }
 
-void Interface::SetSoundFx (bool bFX)
+void Interface::SetSoundFx(bool bFX)
 {
-   mSoundFxOn = bFX;
-   // toddle the sound fx
-   mChangedSettings = true;
-   mCurDay = 0;
+    mSoundFxOn = bFX;
+    // toddle the sound fx
+    mChangedSettings = true;
+    mCurDay = 0;
 }
 
-void Interface::SetMusic ( bool bMusic)
+void Interface::SetMusic(bool bMusic)
 {
-   mMusicOn = bMusic;
-   // toggle the music player
-   mChangedSettings = true;
-   mCurDay = 0;
+    mMusicOn = bMusic;
+    // toggle the music player
+    mChangedSettings = true;
+    mCurDay = 0;
 }
 
-void Interface::PosCalc ()
+void Interface::PosCalc() {}
+
+void Interface::Update(float dt)
 {
+    static int count = 0;
+    mClock.Update(1); // 60); // 1 minute update
+    if (count < 1) {
+        count = (int)dt;
+        if (mClock.GetDayOfYear() != mCurDay) {
+            mStats.SetDayOfWeek(mClock.DayOfWeekToString());
+            mStats.SetDate(mClock.DateString());
+            mCurDay = mClock.GetDayOfYear();
+        }
+        mStats.Update();
+    }
+    count--;
 }
 
-void Interface::Update (float dt)
+void Interface::Draw()
 {
-   static int count = 0;
-   mClock.Update(1);//60); // 1 minute update
-   if( count < 1)
-   {
-      count = (int)dt;
-      if( mClock.GetDayOfYear() != mCurDay )
-      {
-         mStats.SetDayOfWeek (mClock.DayOfWeekToString());
-         mStats.SetDate (mClock.DateString());
-         mCurDay = mClock.GetDayOfYear();
-      }
-      mStats.Update();
-   }
-   count--;
-}
-
-void Interface::Draw ()
-{
-   mClock.Draw ();
-   mStats.Draw ();
+    mClock.Draw();
+    mStats.Draw();
 }

@@ -21,34 +21,35 @@
 
 using namespace Gfx;
 
-class FireAnimation : public AnimationBase   // flame and smoke partical animation
+class FireAnimation : public AnimationBase // flame and smoke partical animation
 {
 private:
-   std::vector <std::pair <Texture*, float> > mframes;
-   // frame 0 is an alpha panel of burning or exploisions
-   // frame 1 and 2 are particles
-   unsigned int mcurrent_frame;
-   unsigned int mPrimaryClock;
-   unsigned int mPlates[4];
+    std::vector<std::pair<Texture*, float>> mframes;
+    // frame 0 is an alpha panel of burning or exploisions
+    // frame 1 and 2 are particles
+    unsigned int mcurrent_frame;
+    unsigned int mPrimaryClock;
+    unsigned int mPlates[4];
 
-   float mtime;
+    float mtime;
+
 protected:
-   static const unsigned char kFlameColor[16][4];
-   static const unsigned char kSmokeColor[16][4];
-   static const float kUVs[16][4][2];
-   static const float kVertecies[16][4][3];
+    static const unsigned char kFlameColor[16][4];
+    static const unsigned char kSmokeColor[16][4];
+    static const float kUVs[16][4][2];
+    static const float kVertecies[16][4][3];
 
 public:
-   const unsigned char* GetFlameColor(int index) { return kFlameColor[mPlates[index]]; }
-   const unsigned char* GetSmokeColor(int index) { return kSmokeColor[mPlates[index]]; }
-   const float* GetUVs(int index, int rs) { return kUVs[mPlates[index]][rs]; }
-   const float* GetVertecies(int index, int pt) { return kVertecies[mPlates[index]][pt]; }
+    const unsigned char* GetFlameColor(int index) { return kFlameColor[mPlates[index]]; }
+    const unsigned char* GetSmokeColor(int index) { return kSmokeColor[mPlates[index]]; }
+    const float* GetUVs(int index, int rs) { return kUVs[mPlates[index]][rs]; }
+    const float* GetVertecies(int index, int pt) { return kVertecies[mPlates[index]][pt]; }
 
 public:
-   FireAnimation (int width, int height);
-   void AddFrame (Texture* pTex, float duration);
-   void Update (float dt);
-   void BindTexture();
+    FireAnimation(int width, int height);
+    void AddFrame(Texture* pTex, float duration);
+    void Update(float dt);
+    void BindTexture();
 };
 
 #endif //_FIREANIMATION_H

@@ -25,71 +25,66 @@
 
 namespace UI
 {
-   // this defines the coordinates to map the texture image from in pairs
-   const float OtherUVs[8] =
-   { 0.0f, 0.128f,  0.0f, 0.25f,  1.0f, 0.25f,  1.0f, 0.128f }; // trim the right rounded edge
-   const float StatBarUVs[8] =   // stats.png
-   { 0.0f, 0.0f,  0.0f, 0.125f,  1.0f, 0.125f,  1.0f, 0.0f };
+// this defines the coordinates to map the texture image from in pairs
+const float OtherUVs[8] = {
+    0.0f, 0.128f, 0.0f, 0.25f, 1.0f, 0.25f, 1.0f, 0.128f}; // trim the right rounded edge
+const float StatBarUVs[8] =                                // stats.png
+    {0.0f, 0.0f, 0.0f, 0.125f, 1.0f, 0.125f, 1.0f, 0.0f};
 }
 
-std::string itoa( int n )
+std::string itoa(int n)
 {
-   std::ostringstream s;
-   s << n;
-   return s.str();
+    std::ostringstream s;
+    s << n;
+    return s.str();
 }
 
 using namespace Gfx;
 
-Stats::Stats ()
+Stats::Stats()
 {
-   mNet = 100000;
-   mPopulation = 0;
-   mStars = 1;
-   mstrDayOfWeek = "Monday";
-   mstrDate = "1-1-2010";
+    mNet = 100000;
+    mPopulation = 0;
+    mStars = 1;
+    mstrDayOfWeek = "Monday";
+    mstrDate = "1-1-2010";
 
-   ImageManager * images = ImageManager::GetInstance ();
-   Texture* pTex = images->GetTexture ("Stats.png", GL_RGBA);
-   mOtherFace = new AnimationSingle (pTex, 256, 16);
-   mStatsFace = new AnimationSingle (pTex, 256, 16);
+    ImageManager* images = ImageManager::GetInstance();
+    Texture* pTex = images->GetTexture("Stats.png", GL_RGBA);
+    mOtherFace = new AnimationSingle(pTex, 256, 16);
+    mStatsFace = new AnimationSingle(pTex, 256, 16);
 
-   mOtherFace->SetUVs(UI::OtherUVs);
-   mStatsFace->SetUVs(UI::StatBarUVs);
-   PosCalc ();
-
+    mOtherFace->SetUVs(UI::OtherUVs);
+    mStatsFace->SetUVs(UI::StatBarUVs);
+    PosCalc();
 }
 
-Stats::~Stats ()
+Stats::~Stats() {}
+
+void Stats::PosCalc()
 {
+    Camera::GetInstance();
+    mOtherFace->SetPosition((Camera::GetInstance()->GetCamSize().x / 2) - 128, 0); // relative based on clock
+    mStatsFace->SetPosition((Camera::GetInstance()->GetCamSize().x / 2) - 128,
+                            -15); // relative based on clock
 }
 
-void
-Stats::PosCalc ()
+void Stats::Update()
 {
-   Camera::GetInstance ();
-   mOtherFace->SetPosition ((Camera::GetInstance ()->GetCamSize ().x / 2) - 128, 0); // relative based on clock
-   mStatsFace->SetPosition ((Camera::GetInstance ()->GetCamSize ().x / 2) - 128, -15); // relative based on clock
+    mstrNet = itoa(mNet);
+    mstrPopulation = itoa(mPopulation);
 }
 
-void
-Stats::Update ()
+void Stats::Draw()
 {
-   mstrNet = itoa( mNet );
-   mstrPopulation = itoa( mPopulation );
-}
-
-void
-Stats::Draw ()
-{
-   Render (mOtherFace);
-   Render (mStatsFace);
-   float x = mStatsFace->GetPositionX();
-   float y = mStatsFace->GetPositionY()+2;
-   RenderText( mStatsFace, x+40, y, mstrNet);
-   RenderText( mStatsFace, x+158, y, mstrPopulation);
-   x = mOtherFace->GetPositionX();
-   y = mOtherFace->GetPositionY();
-   RenderText( mStatsFace, x+30, y, mstrDayOfWeek);
-   RenderText( mStatsFace, x+158, y, mstrDate);
+    Render(mOtherFace);
+    Render(mStatsFace);
+    float x = mStatsFace->GetPositionX();
+    float y = mStatsFace->GetPositionY() + 2;
+    RenderText(mStatsFace, x + 40, y, mstrNet);
+    RenderText(mStatsFace, x + 158, y, mstrPopulation);
+    x = mOtherFace->GetPositionX();
+    y = mOtherFace->GetPositionY();
+    RenderText(mStatsFace, x + 30, y, mstrDayOfWeek);
+    RenderText(mStatsFace, x + 158, y, mstrDate);
 }

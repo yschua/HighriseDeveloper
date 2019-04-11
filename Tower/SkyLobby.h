@@ -27,18 +27,18 @@ class SerializerBase;
 class SkyLobby : public FloorBase, public Gfx::ModelObject
 {
 private:
-   Tiler* mTile;
+    Tiler* mTile;
 
 public:
-   SkyLobby (int x, int x2, int level, Tower * TowerParent);
-   static BaseType GetBaseType() { return BaseSkyLobby; }
-   virtual BaseType GetType() { return BaseSkyLobby; }
-   std::string GetTypeName() const override { return "skylobby"; }
+    SkyLobby(int x, int x2, int level, Tower* TowerParent);
+    static BaseType GetBaseType() { return BaseSkyLobby; }
+    virtual BaseType GetType() { return BaseSkyLobby; }
+    std::string GetTypeName() const override { return "skylobby"; }
 
-   void Update (float dt, int tod);
-   void Draw ();
-   void DrawFramework ();
-   void Save(SerializerBase& ser);
+    void Update(float dt, int tod);
+    void Draw();
+    void DrawFramework();
+    void Save(SerializerBase& ser);
 };
 
 #endif //_SKYLOBBY_H

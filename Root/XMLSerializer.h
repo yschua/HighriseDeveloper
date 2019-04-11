@@ -28,24 +28,25 @@ class TiXmlElement;
 class XMLSerializer : public SerializerBase
 {
 protected:
-   TiXmlElement* mpnParent;
+    TiXmlElement* mpnParent;
+
 public:
-   XMLSerializer (TiXmlElement* pnParent);
-   XMLSerializer( const char* tag );
-   virtual ~XMLSerializer ();
-   virtual void AddChild( const char*pName );
-   TiXmlElement* AddTiXMLChild( const char*pName );
-   void Add( const char* tag, int val );
-   void Add( const char* tag, float val );
-   void Add( const char* tag, double val );
-   void Add( const char* tag, const char* str );
-   const char* GetString( const char* tag );
-   double GetDouble( const char* tag );
-   float GetFloat( const char* tag );
-   int   GetInt( const char* tag );
-   SerializerBase* Spawn(const char* pName);
-   SerializerBase* GetFirstChild (const char* pName);
-   SerializerBase* GetNextSibling (const char* pName);
+    XMLSerializer(TiXmlElement* pnParent);
+    XMLSerializer(const char* tag);
+    virtual ~XMLSerializer();
+    virtual void AddChild(const char* pName);
+    TiXmlElement* AddTiXMLChild(const char* pName);
+    void Add(const char* tag, int val);
+    void Add(const char* tag, float val);
+    void Add(const char* tag, double val);
+    void Add(const char* tag, const char* str);
+    const char* GetString(const char* tag);
+    double GetDouble(const char* tag);
+    float GetFloat(const char* tag);
+    int GetInt(const char* tag);
+    SerializerBase* Spawn(const char* pName);
+    SerializerBase* GetFirstChild(const char* pName);
+    SerializerBase* GetNextSibling(const char* pName);
 };
 
 #endif // _XMLSERIALIZER_H

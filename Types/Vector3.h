@@ -2,10 +2,11 @@
 
 #include <SFML/Graphics.hpp>
 
-//typedef std::pair<float, float> Vector3;
-template <class T = float> class Vector3
+// typedef std::pair<float, float> Vector3;
+template <class T = float>
+class Vector3
 {
-    public:
+public:
     Vector3()
     {
         x = 0;
@@ -35,13 +36,13 @@ template <class T = float> class Vector3
     template <class U>
     Vector3& operator+(const Vector3<U>& Other)
     {
-        Vector3* temp = new Vector3(x+Other.x, y+Other.y, z+Other.z);
+        Vector3* temp = new Vector3(x + Other.x, y + Other.y, z + Other.z);
         return *temp;
     }
     template <class U>
     Vector3& operator+(const sf::Vector3<U>& Other)
     {
-        Vector3* temp = new Vector3(x+Other.x, y+Other.y);
+        Vector3* temp = new Vector3(x + Other.x, y + Other.y);
         return *temp;
     }
     template <class U>
@@ -63,12 +64,12 @@ template <class T = float> class Vector3
     template <class U>
     Vector3<T>& operator-(const Vector3<U>& Other)
     {
-       return *(new Vector3(-Other.x, -Other.y));
+        return *(new Vector3(-Other.x, -Other.y));
     }
     T x;
     T y;
     T z;
 };
 
-typedef Vector3 <float> Vector3f; // russ
-typedef Vector3 <int> Vector3i;   // likes this
+typedef Vector3<float> Vector3f; // russ
+typedef Vector3<int> Vector3i;   // likes this

@@ -27,13 +27,9 @@
 #include "../Tower/BuildStrategies.h"
 #include "../Tower/BuildFactory.h"
 
-Scene::Scene () : mpBackground(nullptr), mpBuildStrategy(nullptr)
-{
-}
+Scene::Scene() : mpBackground(nullptr), mpBuildStrategy(nullptr) {}
 
-Scene::~Scene ()
-{
-}
+Scene::~Scene() {}
 
 void Scene::SetTower(Tower* pTower)
 {
@@ -54,21 +50,15 @@ bool Scene::SetTool(int tool)
         ghostRoom.SetShownType(BaseEmpty);
         ghostRoom.SetWidth(1);
     }
-    
+
     return true;
 }
 
-void Scene::SetBackground(Background* pBG)
-{
-    mpBackground = pBG;
-}
+void Scene::SetBackground(Background* pBG) { mpBackground = pBG; }
 
-void Scene::Update(float dt, int timeOfDay)
-{
-    mpBackground->Update(timeOfDay);
-}
+void Scene::Update(float dt, int timeOfDay) { mpBackground->Update(timeOfDay); }
 
-void Scene::Draw ()
+void Scene::Draw()
 {
     mpBackground->Draw();
     mpTower->Draw();
@@ -81,21 +71,18 @@ void Scene::RenderFramework(int level)
         mpTower->DrawFramework(bLevelsOnly);
     } else {
         // only draw empty space slection zones
-        mpTower->GetLevel(level)->DrawEmptyFramework(); 
+        mpTower->GetLevel(level)->DrawEmptyFramework();
     }
 }
 
 void Scene::MoveGhostRoom(Vector2f& point)
 {
     Camera* pCam = Camera::GetInstance();
-    Vector3f vec = pCam->GetOGLPos (point);
+    Vector3f vec = pCam->GetOGLPos(point);
     mpTower->GetGhostRoom().Move(vec); // asp
 }
 
-void Scene::LoadWindows()
-{
-    m_roomWnd = std::make_unique<RoomWindow>();
-}
+void Scene::LoadWindows() { m_roomWnd = std::make_unique<RoomWindow>(); }
 
 // taking a mouse hit, send it through geometry to see what we hit
 void Scene::Hit(int hit, Vector2i& Scene)
@@ -104,8 +91,7 @@ void Scene::Hit(int hit, Vector2i& Scene)
         Level* pLevel = mpTower->FindLevelById(hit);
         if (pLevel != nullptr) {
             int x = static_cast<int>(mpTower->GetGhostRoom().GetX() / 9);
-            std::cout << "Mouse on Level: " << pLevel->GetLevel() <<
-                " Level ID: " << hit << std::endl;
+            std::cout << "Mouse on Level: " << pLevel->GetLevel() << " Level ID: " << hit << std::endl;
             mpBuildStrategy->BuildHere(mpTower, x, pLevel->GetLevel());
         } else {
             std::cout << "Mouse on unknown level, Level ID: " << hit << std::endl;

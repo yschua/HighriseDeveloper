@@ -24,36 +24,29 @@
 
 using namespace Gfx;
 
-
-Damage::Damage (int x, int x2, int level, Tower * TowerParent, AnimationSingle* pFrame)
-:  FloorBase (x, x2, level, TowerParent)
-,  mFire (64, 32)
+Damage::Damage(int x, int x2, int level, Tower* TowerParent, AnimationSingle* pFrame) :
+    FloorBase(x, x2, level, TowerParent),
+    mFire(64, 32)
 {
-   mpFrame = pFrame;
-   mpFrame->SetPosition (mX, mY);
-   ImageManager * image_man = ImageManager::GetInstance ();
-   mFire.SetPosition( mX, (float)((mLevel-1) * 36));
-   mFire.AddFrame( image_man->GetTexture ("Explode.png", GL_RGBA), 150.0f);
-   mFire.AddFrame( image_man->GetTexture ("Particle1.png", GL_RGBA), 120.0f);
-   mFire.AddFrame( image_man->GetTexture ("Particle2.png", GL_RGBA), 120.0f);
+    mpFrame = pFrame;
+    mpFrame->SetPosition(mX, mY);
+    ImageManager* image_man = ImageManager::GetInstance();
+    mFire.SetPosition(mX, (float)((mLevel - 1) * 36));
+    mFire.AddFrame(image_man->GetTexture("Explode.png", GL_RGBA), 150.0f);
+    mFire.AddFrame(image_man->GetTexture("Particle1.png", GL_RGBA), 120.0f);
+    mFire.AddFrame(image_man->GetTexture("Particle2.png", GL_RGBA), 120.0f);
 }
 
-void
-Damage::Update (float dt, int tod)
+void Damage::Update(float dt, int tod)
 {
-   // nothing happening
-   mFire.Update (20.0f);
+    // nothing happening
+    mFire.Update(20.0f);
 }
 
-void
-Damage::Draw ()
+void Damage::Draw()
 {
-   Render (mpFrame);
-   RenderParallax (&mFire, 35);
+    Render(mpFrame);
+    RenderParallax(&mFire, 35);
 }
 
-void
-Damage::DrawFramework ()
-{
-   RenderFramework (mpFrame, mID);
-}
+void Damage::DrawFramework() { RenderFramework(mpFrame, mID); }

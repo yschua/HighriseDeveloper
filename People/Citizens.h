@@ -26,36 +26,31 @@ class CitizensAgent;
 
 class Citizens // : public Storage // add the serialization base
 {
-   friend class CitizensAgent;
-private:
-   std::list <Person*> mPeople;  // reverted back to a list as we will only use a forward iterator
-protected:
-   static Citizens* minstance;
+    friend class CitizensAgent;
 
-   Citizens();
-   virtual ~Citizens(void);
+private:
+    std::list<Person*> mPeople; // reverted back to a list as we will only use a forward iterator
+protected:
+    static Citizens* minstance;
+
+    Citizens();
+    virtual ~Citizens(void);
 
 public:
-   // instance
-   static Citizens* get_Instance();
-   void destroy();
-   // properties
-   std::list <Person*>& get_Persons()
-   {
-      return mPeople;
-   }
-   size_t GetPopulation()
-   {
-      return mPeople.size();
-   }
-   size_t GetPopulationForTower(int Tower);
+    // instance
+    static Citizens* get_Instance();
+    void destroy();
+    // properties
+    std::list<Person*>& get_Persons() { return mPeople; }
+    size_t GetPopulation() { return mPeople.size(); }
+    size_t GetPopulationForTower(int Tower);
 
-   // methods
-   Person* NewPerson();
-   void DestroyPerson( Person* person );
+    // methods
+    Person* NewPerson();
+    void DestroyPerson(Person* person);
 
-   void Update (float dt);
-   void Draw(); // draw the people here
+    void Update(float dt);
+    void Draw(); // draw the people here
 };
 
 #endif //_CITIZENS_H

@@ -23,86 +23,78 @@
 #include "../Graphics/Camera.h"
 #include "Event.h"
 
-EventHandler::EventHandler ()
+EventHandler::EventHandler() { Cam = Camera::GetInstance(); }
+
+void EventHandler::Add(EventBase* Handler) { mHandlers.push_back(Handler); }
+
+bool EventHandler::HandleEvents(const sf::Event& Event)
 {
-   Cam = Camera::GetInstance ();
-}
+    switch (Event.type) {
+    case sf::Event::KeyPressed:
+        for (ConType::iterator i = mHandlers.begin(); i != mHandlers.end(); i++)
+            if ((*i)->OnKeyDown(Event.key.code))
+                return true;
+        // return true if one of our handlers returned true; ie the event was eaten
+        break;
 
-void
-EventHandler::Add (EventBase* Handler)
-{
-   mHandlers.push_back (Handler);
-}
+    case sf::Event::Resized:
+        for (ConType::iterator i = mHandlers.begin(); i != mHandlers.end(); i++)
+            (*i)->OnResize(Vector2i(Event.size.width, Event.size.height));
+        // We want all Event.handlers to receive this one; we don't want it to be "eaten"
+        break;
 
-bool EventHandler::HandleEvents (const sf::Event& Event)
-{
-   switch (Event.type)
-   {
-      case sf::Event::KeyPressed:
-         for (ConType::iterator i = mHandlers.begin (); i != mHandlers.end (); i++)
-            if ((*i)->OnKeyDown (Event.key.code))
-               return true;
-               // return true if one of our handlers returned true; ie the event was eaten
-      break;
+    case sf::Event::KeyReleased:
+        for (ConType::iterator i = mHandlers.begin(); i != mHandlers.end(); i++)
+            if ((*i)->OnKeyUp(Event.key.code))
+                return true;
+        break;
 
-      case sf::Event::Resized:
-         for (ConType::iterator i = mHandlers.begin (); i != mHandlers.end (); i++)
-            (*i)->OnResize (Vector2i(Event.size.width, Event.size.height));
-               // We want all Event.handlers to receive this one; we don't want it to be "eaten"
-      break;
+    case sf::Event::MouseButtonPressed:
+        for (ConType::iterator i = mHandlers.begin(); i != mHandlers.end(); i++)
+            if ((*i)->OnMouseDown(Event.mouseButton.button, Cam->GetLocalMouse(), Cam->GetLocalMouse()))
+                return true;
+        break;
 
-      case sf::Event::KeyReleased:
-         for (ConType::iterator i = mHandlers.begin (); i != mHandlers.end (); i++)
-            if ((*i)->OnKeyUp (Event.key.code))
-               return true;
-      break;
+    case sf::Event::MouseButtonReleased:
+        for (ConType::iterator i = mHandlers.begin(); i != mHandlers.end(); i++)
+            if ((*i)->OnMouseUp(Event.mouseButton.button, Cam->GetLocalMouse(), Cam->GetLocalMouse()))
+                return true;
+        break;
 
-      case sf::Event::MouseButtonPressed:
-         for (ConType::iterator i = mHandlers.begin (); i != mHandlers.end (); i++)
-            if ((*i)->OnMouseDown (Event.mouseButton.button, Cam->GetLocalMouse(), Cam->GetLocalMouse()))
-               return true;
-      break;
+    case sf::Event::MouseMoved:
+        for (ConType::iterator i = mHandlers.begin(); i != mHandlers.end(); i++)
+            if ((*i)->OnMouseMove(Cam->GetLocalMouse(), Cam->GetLocalMouse()))
+                return true;
+        break;
 
-      case sf::Event::MouseButtonReleased:
-         for (ConType::iterator i = mHandlers.begin (); i != mHandlers.end (); i++)
-            if ((*i)->OnMouseUp (Event.mouseButton.button, Cam->GetLocalMouse(), Cam->GetLocalMouse()))
-               return true;
-      break;
+    case sf::Event::Closed: {
+        // Throw a segfault to get a stack trace.
+        /*std::cout << "Closing!\n";
+        int* blah;
+        blah = '\0';
+        int blahah = *blah;*/ // try this instead          throw 3;
 
-      case sf::Event::MouseMoved:
-         for (ConType::iterator i = mHandlers.begin (); i != mHandlers.end (); i++)
-            if ((*i)->OnMouseMove (Cam->GetLocalMouse(), Cam->GetLocalMouse()))
-               return true;
-      break;
+        for (ConType::iterator i = mHandlers.begin(); i != mHandlers.end(); i++)
+            (*i)->OnClose();
+        // return true;
+        break;
+    }
 
-      case sf::Event::Closed: {
-         // Throw a segfault to get a stack trace.
-         /*std::cout << "Closing!\n";
-         int* blah;
-         blah = '\0';
-         int blahah = *blah;*/ // try this instead          throw 3;
+    case sf::Event::MouseWheelMoved:
+        for (ConType::iterator i = mHandlers.begin(); i != mHandlers.end(); i++)
+            if ((*i)->OnMouseWheel(Event.mouseWheel.delta))
+                return true;
+        break;
 
-         for (ConType::iterator i = mHandlers.begin (); i != mHandlers.end (); i++)
-            (*i)->OnClose ();
-               //return true;
-         break;
-      }
-
-      case sf::Event::MouseWheelMoved:
-         for (ConType::iterator i = mHandlers.begin (); i != mHandlers.end (); i++)
-            if ((*i)->OnMouseWheel (Event.mouseWheel.delta))
-               return true;
-      break;
-
-      // EXTREMELY HACKISH, we need a new way to do this. CUSTOM EVENTS!!!
-      case sf::Event::JoystickButtonPressed: // no event mutations
-         for (ConType::iterator i = mHandlers.begin (); i != mHandlers.end (); i++)
+    // EXTREMELY HACKISH, we need a new way to do this. CUSTOM EVENTS!!!
+    case sf::Event::JoystickButtonPressed: // no event mutations
+        for (ConType::iterator i = mHandlers.begin(); i != mHandlers.end(); i++)
             if ((*i)->OnToolHit("DOESNT WORK YET DUH!!!!")) // event does not support other events
-               return true;
+                return true;
 
-      default:
-         return false;
-      break;
-   }
-   return false;
+    default:
+        return false;
+        break;
+    }
+    return false;
 }

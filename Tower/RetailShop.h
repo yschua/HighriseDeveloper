@@ -25,52 +25,43 @@
 class Animation;
 class SerializerBase;
 
-enum RetailShop_state
-{
-   RS_Vacant,
-   RS_Occupied
-};
-enum RetailShop_mode
-{
-   RM_Night = 0, 
-   RM_DayUnoccupied,
-   RM_DayOccupied
-};
+enum RetailShop_state { RS_Vacant, RS_Occupied };
+enum RetailShop_mode { RM_Night = 0, RM_DayUnoccupied, RM_DayOccupied };
 
 class RetailShop : public FloorBase, public Gfx::ModelObject
 {
-   std::map<RetailShop_mode, AnimationBase*> manimations;
-   RetailShop_state mCurrentState;// vacant /occupied
-   RetailShop_mode  mCurrentMode; // day / night
-   int mCurrentAnimation;
-   int mPeopleInShop;
-   int mEmployees;
-   int mMaxPositions;
-   int mRetailShopStyle; // RetailShops, boardrooms, data centers, phone banks, etc
-   int mRetailShopNumner;
+    std::map<RetailShop_mode, AnimationBase*> manimations;
+    RetailShop_state mCurrentState; // vacant /occupied
+    RetailShop_mode mCurrentMode;   // day / night
+    int mCurrentAnimation;
+    int mPeopleInShop;
+    int mEmployees;
+    int mMaxPositions;
+    int mRetailShopStyle; // RetailShops, boardrooms, data centers, phone banks, etc
+    int mRetailShopNumner;
 
 public:
-   RetailShop (int x, int level, Tower * TowerParent);
-   static BaseType GetBaseType() { return BaseRetail; }
-   std::string GetTypeName() const override { return "retailshop"; }
+    RetailShop(int x, int level, Tower* TowerParent);
+    static BaseType GetBaseType() { return BaseRetail; }
+    std::string GetTypeName() const override { return "retailshop"; }
 
-   void Update (float dt, int tod);
-   void Draw ();
-   void DrawFramework ();
-   virtual BaseType GetType () { return BaseRetail; }
+    void Update(float dt, int tod);
+    void Draw();
+    void DrawFramework();
+    virtual BaseType GetType() { return BaseRetail; }
 
-   void RemoveImages();
-   void SetImages (int set);
-   void Save(SerializerBase& ser);
+    void RemoveImages();
+    void SetImages(int set);
+    void Save(SerializerBase& ser);
 
-   void PeopleInOut( int count );
-   bool PeopleApply( );    // get a job
-   void SetRetailShopNumber(int no) { mRetailShopNumner = no; }
-   int  GetRetailShopNumber() { return mRetailShopNumner; }
+    void PeopleInOut(int count);
+    bool PeopleApply(); // get a job
+    void SetRetailShopNumber(int no) { mRetailShopNumner = no; }
+    int GetRetailShopNumber() { return mRetailShopNumner; }
 
 private:
-   void RetailShopMode(int tod);
-   void RetailShopState();
+    void RetailShopMode(int tod);
+    void RetailShopState();
 };
 
 #endif //_RETAILSHOP_H

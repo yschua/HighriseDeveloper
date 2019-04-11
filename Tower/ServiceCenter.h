@@ -25,49 +25,40 @@
 class Animation;
 class SerializerBase;
 
-enum office_state
-{
-   SS_Vacant,
-   SS_Occupied
-};
-enum office_mode
-{
-   SM_Night = 0, 
-   SM_DayUnoccupied,
-   SM_DayOccupied
-};
+enum office_state { SS_Vacant, SS_Occupied };
+enum office_mode { SM_Night = 0, SM_DayUnoccupied, SM_DayOccupied };
 
 class ServiceCenter : public FloorBase, public Gfx::ModelObject
 {
-   std::map<office_mode, AnimationBase*> manimations;
-   office_state mCurrentState;// vacant /occupied
-   office_mode  mCurrentMode; // day / night
-   int mCurrentAnimation;
-   int mPeopleInService;
-   int mEmployees;
-   int mMaxPositions;
-   int mServiceNumner;
+    std::map<office_mode, AnimationBase*> manimations;
+    office_state mCurrentState; // vacant /occupied
+    office_mode mCurrentMode;   // day / night
+    int mCurrentAnimation;
+    int mPeopleInService;
+    int mEmployees;
+    int mMaxPositions;
+    int mServiceNumner;
 
 public:
-   ServiceCenter (int x, int level, Tower * TowerParent);
+    ServiceCenter(int x, int level, Tower* TowerParent);
 
-   void Update (float dt, int tod);
-   void Draw ();
-   void DrawFramework ();
-   virtual BaseType GetType () { return BaseOffice; }
+    void Update(float dt, int tod);
+    void Draw();
+    void DrawFramework();
+    virtual BaseType GetType() { return BaseOffice; }
 
-   void RemoveImages();
-   void SetImages (int set);
-   void Save(SerializerBase& ser);
+    void RemoveImages();
+    void SetImages(int set);
+    void Save(SerializerBase& ser);
 
-   void PeopleInOut( int count );
-   bool PeopleApply( );    // get a job
-   void SetServiceNumber(int no) { mServiceNumner = no; }
-   int  GetServiceNumber() { return mServiceNumner; }
+    void PeopleInOut(int count);
+    bool PeopleApply(); // get a job
+    void SetServiceNumber(int no) { mServiceNumner = no; }
+    int GetServiceNumber() { return mServiceNumner; }
 
 private:
-   void ServiceMode (int tod);
-   void ServiceState();
+    void ServiceMode(int tod);
+    void ServiceState();
 };
 
 #endif //_SERVICECENTER_H

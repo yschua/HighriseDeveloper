@@ -28,26 +28,18 @@ class TiXmlNode;
 // This renderes the Tower in the ModelSpaces with perspective, pan and zoom.
 namespace Root
 {
-   enum BillingFrequency
-   {
-      BF_Never = 0,
-      BF_Daily,
-      BF_Weekly,
-      BF_Monthly,
-      BF_Annually,
-      BF_Custome
-   }
+enum BillingFrequency { BF_Never = 0, BF_Daily, BF_Weekly, BF_Monthly, BF_Annually, BF_Custome }
 }
 
 class FinancialBase
 {
 
 private:
-   double BaseCost;
+    double BaseCost;
 
 public:
-   FinancialBase( ) {};
-   ~FinancialBase() {}
+    FinancialBase(){};
+    ~FinancialBase() {}
 };
 
 #endif //_FINANCIALBASE_H

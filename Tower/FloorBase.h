@@ -23,88 +23,87 @@ class Level;
 class TiXmlElement;
 class SerializerBase;
 
-enum BaseType
-{
-   BaseEmpty = 0,
-   BaseGhostRoom,
-   BaseApartment,
-   BaseCondo,
-   BaseOffice,
-   BaseRetail,
-   BaseRestaurant,
-   BaseHotel,
-   BaseVenue,
-   BaseHousekeeping,
-   BaseService,
-   BaseSecurity,
-   BaseClinic,
-   BaseRestroom,
-   BaseWasteManagement,
-   BaseSingleStair,
-   BaseElevator,
-   BaseSkyLobby
+enum BaseType {
+    BaseEmpty = 0,
+    BaseGhostRoom,
+    BaseApartment,
+    BaseCondo,
+    BaseOffice,
+    BaseRetail,
+    BaseRestaurant,
+    BaseHotel,
+    BaseVenue,
+    BaseHousekeeping,
+    BaseService,
+    BaseSecurity,
+    BaseClinic,
+    BaseRestroom,
+    BaseWasteManagement,
+    BaseSingleStair,
+    BaseElevator,
+    BaseSkyLobby
 };
 
 class FloorBase
 {
-   friend class Level;  // allows level to own these spaces by being able to set protected variables.
+    friend class Level; // allows level to own these spaces by being able to set protected variables.
 
 protected:
-   int mLevel;
-   int mID;
-   int mOccupants;
-   double mRent;
-   double mSalePrice; // sale price of this property
-   Tower * mTowerParent;
-   Person* mOwner;
+    int mLevel;
+    int mID;
+    int mOccupants;
+    double mRent;
+    double mSalePrice; // sale price of this property
+    Tower* mTowerParent;
+    Person* mOwner;
 
-//public:
-   float mX;    // lower left origin.x
-   float mX2;   // x vector = width
-   float mY;    // lower left origin.y
-   float mZ;
-               // y vector = height
-               // z vector = depth but not implement until 3D
-//   int mx, mx2, my;
-   static unsigned int NextID;   // all model objects will get one
+    // public:
+    float mX;  // lower left origin.x
+    float mX2; // x vector = width
+    float mY;  // lower left origin.y
+    float mZ;
+    // y vector = height
+    // z vector = depth but not implement until 3D
+    //   int mx, mx2, my;
+    static unsigned int NextID; // all model objects will get one
 public:
-   // CTOR
-   FloorBase (int x, int x2, int level, Tower * TowerParent);
-   virtual ~FloorBase();
-   static BaseType GetBaseType() { return BaseEmpty; }
-   // Properties
-   inline float GetX() { return mX; }
-   inline float GetX2() { return mX2; }
-   inline float GetY() { return mY; }
-   inline float GetZ() {return mZ; }
-   inline int   GetLevel() { return mLevel; }
-   inline int   GetID () { return mID; }
-   virtual double GetRent () { return 0; }
-   virtual double GetSalePrice () { return mSalePrice; }
+    // CTOR
+    FloorBase(int x, int x2, int level, Tower* TowerParent);
+    virtual ~FloorBase();
+    static BaseType GetBaseType() { return BaseEmpty; }
+    // Properties
+    inline float GetX() { return mX; }
+    inline float GetX2() { return mX2; }
+    inline float GetY() { return mY; }
+    inline float GetZ() { return mZ; }
+    inline int GetLevel() { return mLevel; }
+    inline int GetID() { return mID; }
+    virtual double GetRent() { return 0; }
+    virtual double GetSalePrice() { return mSalePrice; }
 
-   inline void SetX(float x) { mX = x; }
-   inline void SetX2(float x) { mX2 = x; }
-   inline void SetY(float y) { mY = y; }
-   inline void SetRent(double rent) { mRent = rent; }
-   inline void SetSalePrice(double price) { mSalePrice = price; }
+    inline void SetX(float x) { mX = x; }
+    inline void SetX2(float x) { mX2 = x; }
+    inline void SetY(float y) { mY = y; }
+    inline void SetRent(double rent) { mRent = rent; }
+    inline void SetSalePrice(double price) { mSalePrice = price; }
 
-   // Methods
-   virtual void Update (float dt, int tod);
-   virtual void Draw ();
-   virtual void DrawFramework () { }
-   virtual BaseType GetType () { return BaseEmpty; }
-   virtual std::string GetTypeName() const;
-   std::string GetName() const;
+    // Methods
+    virtual void Update(float dt, int tod);
+    virtual void Draw();
+    virtual void DrawFramework() {}
+    virtual BaseType GetType() { return BaseEmpty; }
+    virtual std::string GetTypeName() const;
+    std::string GetName() const;
 
-   void SetOwner (Person* pPerson);
-   bool IsVacant () { return (mOwner==NULL); }
+    void SetOwner(Person* pPerson);
+    bool IsVacant() { return (mOwner == NULL); }
 
-   virtual void Save(SerializerBase& ser);// iXmlElement* pnParent)
+    virtual void Save(SerializerBase& ser); // iXmlElement* pnParent)
 
-   static int mWidth;
-   static int mHeight;
+    static int mWidth;
+    static int mHeight;
 
-   static int GetNextID();
+    static int GetNextID();
 };
 
 #endif

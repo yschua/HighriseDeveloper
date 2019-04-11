@@ -25,46 +25,45 @@
 class Animation;
 class SerializerBase;
 
-enum Hotel_State
-{
-   HS_Vacant,
-   HS_UnoccupiedDay,
-   HS_UnoccupiedNight,
-   HS_OccupiedDay,
-   HS_OccupiedNight,
-   HS_OccupiedSleep
+enum Hotel_State {
+    HS_Vacant,
+    HS_UnoccupiedDay,
+    HS_UnoccupiedNight,
+    HS_OccupiedDay,
+    HS_OccupiedNight,
+    HS_OccupiedSleep
 };
 
 class HotelRoom : public FloorBase, public Gfx::ModelObject
 {
-   std::map<Hotel_State, AnimationBase*> manimations;
-   Hotel_State mCurrentState;// vacant /occupied/ day / night
-   int mCurrentAnimation;
-   int mOccupants;
-   int mRoomStyle; // Regular, Double, King, Suite
-   int mHotelNumner;
-   int mWidth;
+    std::map<Hotel_State, AnimationBase*> manimations;
+    Hotel_State mCurrentState; // vacant /occupied/ day / night
+    int mCurrentAnimation;
+    int mOccupants;
+    int mRoomStyle; // Regular, Double, King, Suite
+    int mHotelNumner;
+    int mWidth;
 
 public:
-   HotelRoom (int x, int level, Tower * TowerParent);
-   static BaseType GetBaseType() { return BaseHotel; }
-   std::string GetTypeName() const override { return "hotelRoom"; }
+    HotelRoom(int x, int level, Tower* TowerParent);
+    static BaseType GetBaseType() { return BaseHotel; }
+    std::string GetTypeName() const override { return "hotelRoom"; }
 
-   void Update (float dt, int tod);
-   void Draw ();
-   void DrawFramework ();
-   virtual BaseType GetType () { return BaseHotel; }
+    void Update(float dt, int tod);
+    void Draw();
+    void DrawFramework();
+    virtual BaseType GetType() { return BaseHotel; }
 
-   void RemoveImages();
-   void SetImages (int set);
-   void Save(SerializerBase& ser);
+    void RemoveImages();
+    void SetImages(int set);
+    void Save(SerializerBase& ser);
 
-   void PeopleInOut( int count );
-   void SetHotelNumber(int no) { mHotelNumner = no; }
-   int  GetHotelNumber() { return mHotelNumner; }
+    void PeopleInOut(int count);
+    void SetHotelNumber(int no) { mHotelNumner = no; }
+    int GetHotelNumber() { return mHotelNumner; }
 
 private:
-   void HotelState(int tod);
+    void HotelState(int tod);
 };
 
 #endif //_HOTEL_H

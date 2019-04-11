@@ -45,7 +45,10 @@ ElevatorMachine::ElevatorMachine(int x, int level, int width, Elevator* pElevato
     pos_calc();
 }
 
-ElevatorMachine::~ElevatorMachine() { delete mLifterAnimation; }
+ElevatorMachine::~ElevatorMachine()
+{
+    delete mLifterAnimation;
+}
 
 void ElevatorMachine::pos_calc()
 {

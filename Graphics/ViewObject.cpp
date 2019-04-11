@@ -28,7 +28,7 @@ ViewObject::ViewObject() {}
 void ViewObject::Render(AnimationBase* pBase)
 {
     float x = pBase->GetPositionX(); //-ms.x; position needs to be a member of modelObject, let physics access
-                                     //it to move it.
+                                     // it to move it.
     float y = (pBase->GetPositionY()); //-ms.y;
     float z = 100;                     // pBody->GetPositionZ();
     float x2 = x + pBase->GetWidth();
@@ -54,7 +54,7 @@ void ViewObject::Render(AnimationBase* pBase)
 void ViewObject::Render(AnimationBase* pBase, const float uvs[4][2])
 {
     float x = pBase->GetPositionX(); //-ms.x; position needs to be a member of modelObject, let physics access
-                                     //it to move it.
+                                     // it to move it.
     float y = (pBase->GetPositionY()); //-ms.y;
     float z = 100;                     // pBody->GetPositionZ();
     float x2 = x + pBase->GetWidth();

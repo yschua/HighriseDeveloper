@@ -48,7 +48,10 @@ SkyLobby::SkyLobby(int x, int x2, int level, Tower* TowerParent) : FloorBase(x, 
 
 void SkyLobby::Update(float dt, int tod) {}
 
-void SkyLobby::Draw() { Render(mTile); }
+void SkyLobby::Draw()
+{
+    Render(mTile);
+}
 
 void SkyLobby::DrawFramework()
 {

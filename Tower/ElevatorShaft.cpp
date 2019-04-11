@@ -48,4 +48,7 @@ ElevatorShaft::~ElevatorShaft() {}
 
 void ElevatorShaft::Update(float dt) {}
 
-void ElevatorShaft::Draw() { Render(mShaftTiler, true); }
+void ElevatorShaft::Draw()
+{
+    Render(mShaftTiler, true);
+}

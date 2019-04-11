@@ -25,7 +25,10 @@ BuildRemoveStrategy::BuildRemoveStrategy(BuildData& rBuildData) : BuildStrategyB
 
 BuildRemoveStrategy::~BuildRemoveStrategy() {}
 
-bool BuildRemoveStrategy::PlacingRoom() { return false; }
+bool BuildRemoveStrategy::PlacingRoom()
+{
+    return false;
+}
 
 bool BuildRemoveStrategy::BuildHere(Tower* pTower, int x, int y)
 {

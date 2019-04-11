@@ -28,7 +28,10 @@ RoomWindow::RoomWindow() : m_room(nullptr)
 
 RoomWindow::~RoomWindow() {}
 
-void RoomWindow::Show() { m_wnd->show(); }
+void RoomWindow::Show()
+{
+    m_wnd->show();
+}
 
 void RoomWindow::SetRoom(const FloorBase* room)
 {

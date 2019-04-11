@@ -76,7 +76,10 @@ SingleStair::SingleStair(SerializerBase& ser, short TopLevel, Tower* TowerParent
     LoadImages();
 }
 
-SingleStair::~SingleStair() { delete mSingleStairImage; };
+SingleStair::~SingleStair()
+{
+    delete mSingleStairImage;
+};
 
 void SingleStair::LoadImages()
 {
@@ -107,7 +110,10 @@ void SingleStair::Motion() {}
 // When idle cycle ends scan for destinations and calls.
 void SingleStair::Update(float dt) {}
 
-void SingleStair::Draw() { Render(mSingleStairImage); }
+void SingleStair::Draw()
+{
+    Render(mSingleStairImage);
+}
 
 void SingleStair::Save(SerializerBase& ser)
 {
@@ -122,4 +128,7 @@ void SingleStair::Save(SerializerBase& ser)
     ser.Add("maxcap", mMaxCap);
 }
 
-PersonQueue* SingleStair::FindQueue(int level) { return NULL; }
+PersonQueue* SingleStair::FindQueue(int level)
+{
+    return NULL;
+}

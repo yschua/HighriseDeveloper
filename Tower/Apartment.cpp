@@ -34,7 +34,10 @@ using namespace Gfx;
 //   apt_occupied_night,
 //   apt_sleep_night
 
-apartment_state Apartment::vacant(int tod) { return apt_unoccupied_day; }
+apartment_state Apartment::vacant(int tod)
+{
+    return apt_unoccupied_day;
+}
 
 apartment_state Apartment::unoccupied_day(int tod)
 {
@@ -125,9 +128,15 @@ void Apartment::Update(float dt, int tod)
     }
 }
 
-void Apartment::Draw() { Render(manimations[mCurrentState]); }
+void Apartment::Draw()
+{
+    Render(manimations[mCurrentState]);
+}
 
-void Apartment::DrawFramework() { RenderFramework(manimations[mCurrentState], mID); }
+void Apartment::DrawFramework()
+{
+    RenderFramework(manimations[mCurrentState], mID);
+}
 
 void Apartment::Save(SerializerBase& ser)
 {

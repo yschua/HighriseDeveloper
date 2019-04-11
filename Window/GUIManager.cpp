@@ -165,7 +165,10 @@ void GUIManager::setRootWindow(CEGUI::Window* Win)
     mpRootWind = Win;
 }
 
-CEGUI::Window* GUIManager::LoadLayout(const std::string& Name) { return LoadLayout(Name, mpRootWind); }
+CEGUI::Window* GUIManager::LoadLayout(const std::string& Name)
+{
+    return LoadLayout(Name, mpRootWind);
+}
 
 CEGUI::Window* GUIManager::LoadLayout(const std::string& Name, CEGUI::Window* Parent)
 {
@@ -174,7 +177,10 @@ CEGUI::Window* GUIManager::LoadLayout(const std::string& Name, CEGUI::Window* Pa
     return pLayout;
 }
 
-void GUIManager::Draw() { CEGUI::System::getSingleton().renderAllGUIContexts(); }
+void GUIManager::Draw()
+{
+    CEGUI::System::getSingleton().renderAllGUIContexts();
+}
 
 bool GUIManager::OnPreferences(const CEGUI::EventArgs& e)
 {

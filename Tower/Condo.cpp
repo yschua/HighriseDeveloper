@@ -34,7 +34,10 @@ using namespace Gfx;
 //   condo_occupied_night,
 //   condo_sleep_night
 
-Condo_State Condo::vacant(int tod) { return condo_unoccupied_day; }
+Condo_State Condo::vacant(int tod)
+{
+    return condo_unoccupied_day;
+}
 
 Condo_State Condo::unoccupied_day(int tod)
 {
@@ -136,7 +139,10 @@ void Condo::Draw()
     Render(manimations[condo_vacant]); // mCurrentState]);
 }
 
-void Condo::DrawFramework() { RenderFramework(manimations[mCurrentState], mID); }
+void Condo::DrawFramework()
+{
+    RenderFramework(manimations[mCurrentState], mID);
+}
 
 void Condo::Save(SerializerBase& ser)
 {

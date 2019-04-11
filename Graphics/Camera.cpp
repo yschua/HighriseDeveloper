@@ -65,9 +65,15 @@ Vector2i Camera::GetMouse()
     return ms2 + GetLocalMouse();
 }
 
-Vector2i Camera::GetLocalMouse() { return sf::Mouse::getPosition(*mpWindow); }
+Vector2i Camera::GetLocalMouse()
+{
+    return sf::Mouse::getPosition(*mpWindow);
+}
 
-void Camera::SetMaxFramerate(int rate) { mpWindow->setFramerateLimit(rate); }
+void Camera::SetMaxFramerate(int rate)
+{
+    mpWindow->setFramerateLimit(rate);
+}
 
 void Camera::SetSceneSize(Vector2f Size)
 {
@@ -341,7 +347,10 @@ Vector3f Camera::GetOGLPos(Vector2f winVec) // NeHe Productions at GameDev
         (float)posX - GetPositionX(), (float)posY + GetPositionY(), (float)posZ); // +GetPositionX());
 }
 
-bool Camera::GetEvent(sf::Event& event) { return mpWindow->pollEvent(event); }
+bool Camera::GetEvent(sf::Event& event)
+{
+    return mpWindow->pollEvent(event);
+}
 
 bool Camera::OnKeyDown(sf::Keyboard::Key Key)
 {
@@ -388,8 +397,14 @@ bool Camera::OnMouseWheel(int Delta)
     return true;
 }
 
-void Camera::ZoomIn() { Zoom(10); }
-void Camera::ZoomOut() { Zoom(-10); }
+void Camera::ZoomIn()
+{
+    Zoom(10);
+}
+void Camera::ZoomOut()
+{
+    Zoom(-10);
+}
 
 void Camera::Zoom(float Factor)
 {

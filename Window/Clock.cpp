@@ -36,13 +36,49 @@ const int Clock::kDays[] = {0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 303, 23
 
 const char* Clock::pszDaysOfWeek[] = // move to resources with more internationaliztion
     {
-        "Sun",      "Mon",      "Tue",       "Wed",       "Thu",        "Fri",      "Sat",     "Sunday",
-        "Monday",   "Tuesday",  "Wednesday", "Thursday",  "Friday",     "Saturday", // Credit to Google for
-                                                                                    // Translation
-        "Sonntag",  "Montag",   "Dienstag",  "Mittwoch",  "Donnerstag", "Freitag",  "Samstag", // Deutsch
-        "Domingo",  "Lunes",    "Martes",    "Miercoles", "Jueves",     "Viernes",  "Sabado",  // Espaniol
-        "Dimanche", "Lundi",    "mardi",     "mercredi",  "Jeudi",      "Vendredi", "Samedi",  // Franch
-        "Sabato",   "Domenica", "Lunedi",    "Martedì",   "Mercoledì",  "Giovedi",  "Venerdì"  // Italiano
+        "Sun",
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu",
+        "Fri",
+        "Sat",
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday", // Credit to Google for
+                    // Translation
+        "Sonntag",
+        "Montag",
+        "Dienstag",
+        "Mittwoch",
+        "Donnerstag",
+        "Freitag",
+        "Samstag", // Deutsch
+        "Domingo",
+        "Lunes",
+        "Martes",
+        "Miercoles",
+        "Jueves",
+        "Viernes",
+        "Sabado", // Espaniol
+        "Dimanche",
+        "Lundi",
+        "mardi",
+        "mercredi",
+        "Jeudi",
+        "Vendredi",
+        "Samedi", // Franch
+        "Sabato",
+        "Domenica",
+        "Lunedi",
+        "Martedì",
+        "Mercoledì",
+        "Giovedi",
+        "Venerdì" // Italiano
 };
 const char* Clock::pszMonths[] = // move to resources with more internationaliztion
     {

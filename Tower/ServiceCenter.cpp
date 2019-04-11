@@ -119,9 +119,15 @@ void ServiceCenter::Update(float dt, int tod)
     manimations[mCurrentMode]->Update(dt);
 }
 
-void ServiceCenter::Draw() { Render(manimations[mCurrentMode]); }
+void ServiceCenter::Draw()
+{
+    Render(manimations[mCurrentMode]);
+}
 
-void ServiceCenter::DrawFramework() { RenderFramework(manimations[mCurrentMode], mID); }
+void ServiceCenter::DrawFramework()
+{
+    RenderFramework(manimations[mCurrentMode], mID);
+}
 
 void ServiceCenter::Save(SerializerBase& ser)
 {

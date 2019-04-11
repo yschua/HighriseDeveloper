@@ -33,7 +33,10 @@ Routes::~Routes()
     // mRoutes.clear();
 }
 
-void Routes::AddRoute(RouteBase* route) { mRoutes.push_back(route); }
+void Routes::AddRoute(RouteBase* route)
+{
+    mRoutes.push_back(route);
+}
 
 void Routes::Update(float dt, int tod)
 {

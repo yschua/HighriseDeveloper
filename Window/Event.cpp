@@ -23,9 +23,15 @@
 #include "../Graphics/Camera.h"
 #include "Event.h"
 
-EventHandler::EventHandler() { Cam = Camera::GetInstance(); }
+EventHandler::EventHandler()
+{
+    Cam = Camera::GetInstance();
+}
 
-void EventHandler::Add(EventBase* Handler) { mHandlers.push_back(Handler); }
+void EventHandler::Add(EventBase* Handler)
+{
+    mHandlers.push_back(Handler);
+}
 
 bool EventHandler::HandleEvents(const sf::Event& Event)
 {

@@ -24,11 +24,17 @@
 #include "GameManager.h" // xml saver
 #include "SceneEvent.h"
 
-SceneEvent::SceneEvent(Scene* pScene) { mpScene = pScene; }
+SceneEvent::SceneEvent(Scene* pScene)
+{
+    mpScene = pScene;
+}
 
 SceneEvent::~SceneEvent() {}
 
-bool SceneEvent::OnToolHit(int tool) { return mpScene->SetTool(tool); }
+bool SceneEvent::OnToolHit(int tool)
+{
+    return mpScene->SetTool(tool);
+}
 
 bool SceneEvent::OnMouseDown(sf::Mouse::Button Button, Vector2i pointa, Vector2i pointb)
 {
@@ -47,7 +53,10 @@ bool SceneEvent::OnMouseMove(Vector2i pointa, Vector2i pointb)
     return true;
 }
 
-void SceneEvent::LoadWindows() { mpScene->LoadWindows(); }
+void SceneEvent::LoadWindows()
+{
+    mpScene->LoadWindows();
+}
 
 bool SceneEvent::OnOpen(const char* pPath)
 {

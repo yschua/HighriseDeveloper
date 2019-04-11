@@ -93,9 +93,15 @@ void Security::Update(float dt, int tod)
     manimations[mCurrentState]->Update(dt);
 }
 
-void Security::Draw() { Render(manimations[mCurrentState]); }
+void Security::Draw()
+{
+    Render(manimations[mCurrentState]);
+}
 
-void Security::DrawFramework() { RenderFramework(manimations[mCurrentState], mID); }
+void Security::DrawFramework()
+{
+    RenderFramework(manimations[mCurrentState], mID);
+}
 
 void Security::Save(SerializerBase& ser)
 {

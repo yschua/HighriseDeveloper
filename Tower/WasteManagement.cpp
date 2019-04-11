@@ -120,9 +120,15 @@ void WasteManagement::Update(float dt, int tod)
     manimations[mCurrentMode]->Update(dt);
 }
 
-void WasteManagement::Draw() { Render(manimations[mCurrentMode]); }
+void WasteManagement::Draw()
+{
+    Render(manimations[mCurrentMode]);
+}
 
-void WasteManagement::DrawFramework() { RenderFramework(manimations[mCurrentMode], mID); }
+void WasteManagement::DrawFramework()
+{
+    RenderFramework(manimations[mCurrentMode], mID);
+}
 
 void WasteManagement::Save(SerializerBase& ser)
 {

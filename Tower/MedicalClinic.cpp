@@ -121,9 +121,15 @@ void MedicalClinic::Update(float dt, int tod)
     manimations[mCurrentState]->Update(dt);
 }
 
-void MedicalClinic::Draw() { Render(manimations[mCurrentState]); }
+void MedicalClinic::Draw()
+{
+    Render(manimations[mCurrentState]);
+}
 
-void MedicalClinic::DrawFramework() { RenderFramework(manimations[mCurrentState], mID); }
+void MedicalClinic::DrawFramework()
+{
+    RenderFramework(manimations[mCurrentState], mID);
+}
 
 void MedicalClinic::Save(SerializerBase& ser)
 {

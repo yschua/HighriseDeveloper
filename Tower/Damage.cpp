@@ -49,4 +49,7 @@ void Damage::Draw()
     RenderParallax(&mFire, 35);
 }
 
-void Damage::DrawFramework() { RenderFramework(mpFrame, mID); }
+void Damage::DrawFramework()
+{
+    RenderFramework(mpFrame, mID);
+}

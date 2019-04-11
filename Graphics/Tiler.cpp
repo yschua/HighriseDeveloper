@@ -36,4 +36,7 @@ Tiler::Tiler(Texture* pTex, draw_direction direction, float x, float y, float z,
     // Hardware shader does the work !
 }
 
-void Tiler::SetClipping(bool clipping_mode) { mClipMode = clipping_mode; }
+void Tiler::SetClipping(bool clipping_mode)
+{
+    mClipMode = clipping_mode;
+}

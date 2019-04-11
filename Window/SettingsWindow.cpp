@@ -22,7 +22,10 @@ filename:   Theme Park application
 #include "Interface.h"
 #define LOOK "WindowsLook"
 
-SettingsWindow::SettingsWindow(Interface& rInterface) : mInterface(rInterface) { mpWnd = NULL; }
+SettingsWindow::SettingsWindow(Interface& rInterface) : mInterface(rInterface)
+{
+    mpWnd = NULL;
+}
 
 SettingsWindow::~SettingsWindow()
 {

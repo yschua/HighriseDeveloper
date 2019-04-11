@@ -74,4 +74,7 @@ void GhostRoom::Update(Tower* pTower)
     }
 }
 
-void GhostRoom::Draw() { RenderRectangle(&mBase); }
+void GhostRoom::Draw()
+{
+    RenderRectangle(&mBase);
+}

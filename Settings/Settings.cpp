@@ -2,7 +2,10 @@
 
 using namespace Settings;
 
-SettingsIni::SettingsIni() { mSettingsAreLoaded = false; }
+SettingsIni::SettingsIni()
+{
+    mSettingsAreLoaded = false;
+}
 
 void SettingsIni::Load()
 {
@@ -26,7 +29,10 @@ int SettingsIni::GetInt(const std::string& Pref)
     return IntValue;
 }
 
-int SettingsIni::Set(std::string Pref, std::string Value) { return Set(Pref, Value, false); }
+int SettingsIni::Set(std::string Pref, std::string Value)
+{
+    return Set(Pref, Value, false);
+}
 
 int SettingsIni::Set(std::string Pref, std::string Value, bool WriteImmediately)
 {

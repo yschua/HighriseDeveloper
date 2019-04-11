@@ -128,9 +128,15 @@ void Office::Update(float dt, int tod)
     manimations[mCurrentMode]->Update(dt);
 }
 
-void Office::Draw() { Render(manimations[mCurrentMode]); }
+void Office::Draw()
+{
+    Render(manimations[mCurrentMode]);
+}
 
-void Office::DrawFramework() { RenderFramework(manimations[mCurrentMode], mID); }
+void Office::DrawFramework()
+{
+    RenderFramework(manimations[mCurrentMode], mID);
+}
 
 void Office::Save(SerializerBase& ser)
 {

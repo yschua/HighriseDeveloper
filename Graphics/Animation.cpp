@@ -32,9 +32,15 @@ void Animation::AddFrame(Texture* pTex, float duration)
     mFrames.push_back(std::pair<Texture*, float>(pTex, duration));
 }
 
-void Animation::ClearFrames() { mFrames.clear(); }
+void Animation::ClearFrames()
+{
+    mFrames.clear();
+}
 
-void Animation::BindTexture() { sf::Texture::bind(mFrames[mCurrentFrame].first); }
+void Animation::BindTexture()
+{
+    sf::Texture::bind(mFrames[mCurrentFrame].first);
+}
 
 void Animation::Update(float dt)
 {
@@ -61,6 +67,9 @@ void AnimationSingle::SetSubRect(int x1, int y1, int x2, int y2)
     //   mSprite->SetSubRect (*subrect);
 }
 
-void AnimationSingle::BindTexture() { sf::Texture::bind(mpTexture); }
+void AnimationSingle::BindTexture()
+{
+    sf::Texture::bind(mpTexture);
+}
 
 AnimationEmpty::AnimationEmpty(int width, int height) : AnimationBase(width, height) {}

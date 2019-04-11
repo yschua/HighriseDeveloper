@@ -38,7 +38,10 @@ ImageManager* ImageManager::GetInstance()
     return mInstance;
 }
 
-void ImageManager::set_path(const std::string& prefix) { mpath_prefix = prefix; }
+void ImageManager::set_path(const std::string& prefix)
+{
+    mpath_prefix = prefix;
+}
 
 Texture*
 ImageManager::GetTexture(const std::string& name,

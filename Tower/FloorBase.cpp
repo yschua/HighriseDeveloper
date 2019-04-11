@@ -77,9 +77,15 @@ void FloorBase::Update(float dt, int tod)
     std::cout << "Floor base class: update function called" << std::endl;
 }
 
-void FloorBase::Draw() { std::cout << "Floor base class: Draw function called" << std::endl; }
+void FloorBase::Draw()
+{
+    std::cout << "Floor base class: Draw function called" << std::endl;
+}
 
-std::string FloorBase::GetTypeName() const { return "Room"; }
+std::string FloorBase::GetTypeName() const
+{
+    return "Room";
+}
 
 std::string FloorBase::GetName() const
 {

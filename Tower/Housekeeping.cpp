@@ -122,9 +122,15 @@ void Housekeeping::Update(float dt, int tod)
     manimations[mCurrentMode]->Update(dt);
 }
 
-void Housekeeping::Draw() { Render(manimations[mCurrentMode]); }
+void Housekeeping::Draw()
+{
+    Render(manimations[mCurrentMode]);
+}
 
-void Housekeeping::DrawFramework() { RenderFramework(manimations[mCurrentMode], mID); }
+void Housekeeping::DrawFramework()
+{
+    RenderFramework(manimations[mCurrentMode], mID);
+}
 
 void Housekeeping::Save(SerializerBase& ser)
 {

@@ -32,7 +32,10 @@
 
 #include "HighRiseDev.h"
 
-void debugprint() { std::cout << "Program exited correctly. Creating trace...\n"; }
+void debugprint()
+{
+    std::cout << "Program exited correctly. Creating trace...\n";
+}
 
 int main()
 {

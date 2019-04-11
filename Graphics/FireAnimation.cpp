@@ -114,7 +114,10 @@ void FireAnimation::AddFrame(Texture* pTex, float duration)
     mframes.push_back(std::pair<Texture*, float>(pTex, duration));
 }
 
-void FireAnimation::BindTexture() { sf::Texture::bind(mframes[mcurrent_frame].first); }
+void FireAnimation::BindTexture()
+{
+    sf::Texture::bind(mframes[mcurrent_frame].first);
+}
 
 void FireAnimation::Update(float dt)
 {

@@ -129,9 +129,15 @@ void RetailShop::Update(float dt, int tod)
     manimations[mCurrentMode]->Update(dt);
 }
 
-void RetailShop::Draw() { Render(manimations[mCurrentMode]); }
+void RetailShop::Draw()
+{
+    Render(manimations[mCurrentMode]);
+}
 
-void RetailShop::DrawFramework() { RenderFramework(manimations[mCurrentMode], mID); }
+void RetailShop::DrawFramework()
+{
+    RenderFramework(manimations[mCurrentMode], mID);
+}
 
 void RetailShop::Save(SerializerBase& ser)
 {

@@ -22,7 +22,10 @@
 
 PersonQueue::PersonQueue() {}
 
-void PersonQueue::AddPerson(Person* person) { mpQueue.push(person); }
+void PersonQueue::AddPerson(Person* person)
+{
+    mpQueue.push(person);
+}
 
 Person* PersonQueue::TakeNextPerson()
 {

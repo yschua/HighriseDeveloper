@@ -129,7 +129,10 @@ void Person::Update(int tod) // actual time
     }
 }
 
-void Person::Draw() { Render(manimations[mMood]); }
+void Person::Draw()
+{
+    Render(manimations[mMood]);
+}
 
 void Person::Draw(int vx, int vy)
 {
@@ -145,7 +148,10 @@ void Person::SetResidence(int level)
     mHome = 1;                       // pResidence
 }
 
-void Person::SetCurrent(int level) { mLocation.mLevel = level; }
+void Person::SetCurrent(int level)
+{
+    mLocation.mLevel = level;
+}
 
 void Person::ResetState()
 {

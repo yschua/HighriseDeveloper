@@ -54,9 +54,15 @@ bool Scene::SetTool(int tool)
     return true;
 }
 
-void Scene::SetBackground(Background* pBG) { mpBackground = pBG; }
+void Scene::SetBackground(Background* pBG)
+{
+    mpBackground = pBG;
+}
 
-void Scene::Update(float dt, int timeOfDay) { mpBackground->Update(timeOfDay); }
+void Scene::Update(float dt, int timeOfDay)
+{
+    mpBackground->Update(timeOfDay);
+}
 
 void Scene::Draw()
 {
@@ -82,7 +88,10 @@ void Scene::MoveGhostRoom(Vector2f& point)
     mpTower->GetGhostRoom().Move(vec); // asp
 }
 
-void Scene::LoadWindows() { m_roomWnd = std::make_unique<RoomWindow>(); }
+void Scene::LoadWindows()
+{
+    m_roomWnd = std::make_unique<RoomWindow>();
+}
 
 // taking a mouse hit, send it through geometry to see what we hit
 void Scene::Hit(int hit, Vector2i& Scene)

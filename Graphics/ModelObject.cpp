@@ -28,7 +28,7 @@ ModelObject::ModelObject() {}
 void ModelObject::Render(AnimationBase* pBase, bool bLight)
 {
     float x = pBase->GetPositionX(); //-ms.x; position needs to be a member of modelObject, let physics access
-                                     //it to move it.
+                                     // it to move it.
     float y = -pBase->GetPositionY(); //-ms.y;
     float z = pBase->GetPositionZ();
     float x2 = x + pBase->GetWidth();
@@ -78,7 +78,7 @@ void ModelObject::Render(AnimationBase* pBase, float x, float x2)
 void ModelObject::RenderRectangle(AnimationBase* pBase)
 {
     float x = pBase->GetPositionX(); //-ms.x; position needs to be a member of modelObject, let physics access
-                                     //it to move it.
+                                     // it to move it.
     float y = -pBase->GetPositionY(); //-ms.y;
     float z = 1;                      // pBase->GetPositionZ();
     float x2 = x + pBase->GetWidth();
@@ -121,7 +121,7 @@ void ModelObject::RenderTriangle(const float Verts[], const float Color[], float
 void ModelObject::Render(Tiler* pTiler, bool bLight)
 {
     float x = pTiler->GetPositionX();  //-ms.x; position needs to be a member of modelObject, let physics
-                                       //access it to move it.
+                                       // access it to move it.
     float y = -pTiler->GetPositionY(); //-ms.y;
     float z = 0;                       // pTiler->GetPositionZ();
     float x2 = x + pTiler->GetWidth();

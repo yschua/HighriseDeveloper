@@ -115,7 +115,10 @@ Elevator::Elevator(SerializerBase& ser, short TopLevel, Tower* TowerParent) :
     SetStopLevels();
 }
 
-Elevator::~Elevator() { delete mElevatorImage; };
+Elevator::~Elevator()
+{
+    delete mElevatorImage;
+};
 
 void Elevator::LoadImages()
 {
@@ -152,7 +155,10 @@ void Elevator::LoadImages()
         new ElevatorShaft(mX - 2, mTopLevel, mBottomLevel - 1, static_cast<int>(mWidth.x + 4), this);
 }
 
-void Elevator::ClearStops() { memset(mStops, 0, sizeof(mStops)); }
+void Elevator::ClearStops()
+{
+    memset(mStops, 0, sizeof(mStops));
+}
 
 void Elevator::SetStopLevels()
 {
@@ -398,7 +404,10 @@ void Elevator::Motion()
     PosCalc();
 }
 
-void Elevator::Update(float dt) { std::cout << "Elevator update without time called: " << std::endl; }
+void Elevator::Update(float dt)
+{
+    std::cout << "Elevator update without time called: " << std::endl;
+}
 
 // Elevator is either in motion or idle( doors open, loading, unloading, no calls )
 // When idle do nothing. Idle times are set when the elevator arrives at a floor

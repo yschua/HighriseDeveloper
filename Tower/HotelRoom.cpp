@@ -120,9 +120,15 @@ void HotelRoom::Update(float dt, int tod)
     manimations[mCurrentState]->Update(dt);
 }
 
-void HotelRoom::Draw() { Render(manimations[mCurrentState]); }
+void HotelRoom::Draw()
+{
+    Render(manimations[mCurrentState]);
+}
 
-void HotelRoom::DrawFramework() { RenderFramework(manimations[mCurrentState], mID); }
+void HotelRoom::DrawFramework()
+{
+    RenderFramework(manimations[mCurrentState], mID);
+}
 
 void HotelRoom::Save(SerializerBase& ser)
 {

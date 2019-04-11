@@ -15,8 +15,10 @@
 */
 
 #include "BuildRemoveStrategy.h"
-#include <iostream>
+
 #include "Tower.h"
+
+#include <iostream>
 
 BuildRemoveStrategy::BuildRemoveStrategy(BuildData& rBuildData) : BuildStrategyBase(rBuildData)
 {

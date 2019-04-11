@@ -15,10 +15,12 @@
  */
 
 // head and tail queue. People in and out while waiting for elevators, trams, rail and buses.
-#include <iostream>
+#include "PersonQueue.h"
+
 #include "../People/Person.h"
 #include "Elevator.h"
-#include "PersonQueue.h"
+
+#include <iostream>
 
 PersonQueue::PersonQueue() {}
 

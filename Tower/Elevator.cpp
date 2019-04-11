@@ -14,28 +14,28 @@
  *   along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <cstring>
-#include <cstdlib>
-#include <map>
-#include <iostream>
-#include "../Root/Physics.h"
-#include "../Graphics/Image.h"
-#include "../Graphics/Animation.h"
-#include "../Graphics/Tiler.h"
-#include "../Root/SerializerBase.h"
-#include "../People/Person.h"
+#include "Elevator.h"
 
-#include "PersonQueue.h"
-#include "RouteBase.h" // Elevators route (levels).
+#include "../Graphics/Animation.h"
+#include "../Graphics/Image.h"
+#include "../Graphics/Tiler.h"
+#include "../People/Person.h"
+#include "../Root/HighRiseException.h"
+#include "../Root/Physics.h"
+#include "../Root/SerializerBase.h"
 #include "ElevatorBase.h"
 #include "ElevatorMachine.h"
-#include "ElevatorShaft.h"
 #include "ElevatorPit.h"
-#include "Elevator.h"
+#include "ElevatorShaft.h"
 #include "Level.h"
+#include "PersonQueue.h"
+#include "RouteBase.h" // Elevators route (levels).
 #include "Tower.h"
 
-#include "../Root/HighRiseException.h"
+#include <cstdlib>
+#include <cstring>
+#include <iostream>
+#include <map>
 
 using namespace Gfx;
 

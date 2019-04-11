@@ -14,11 +14,12 @@
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <vector>
-#include "../Types/Vector2.h"
 #include "FireAnimation.h"
 
 #include "../Root/HighRiseException.h"
+#include "../Types/Vector2.h"
+
+#include <vector>
 
 const unsigned char FireAnimation::kFlameColor[16][4] = {
     {255, 240, 49, 255}, //

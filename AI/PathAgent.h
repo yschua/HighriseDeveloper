@@ -26,6 +26,8 @@
 #ifndef _PATHAGENT_H
 #define _PATHAGENT_H
 
+#include "../People/Person.h"
+
 struct Location; // from person
 
 class Person;

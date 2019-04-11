@@ -17,10 +17,10 @@
 #ifndef _WasteManagement_H
 #define _WasteManagement_H
 
-#include <map>
-
 #include "../Graphics/ModelObject.h"
 #include "FloorBase.h"
+
+#include <map>
 
 class Animation;
 class SerializerBase;

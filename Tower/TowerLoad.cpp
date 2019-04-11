@@ -1,13 +1,14 @@
-#include <iostream>
-#include <vector>
-#include <list>
-#include <map>
-#include "../xml/tinyxml/tinyxml.h"
 #include "../Types/String.h"
+#include "../xml/tinyxml/tinyxml.h"
+#include "Apartment.h"
 #include "Level.h"
 #include "Office.h"
-#include "Apartment.h"
 #include "Tower.h"
+
+#include <iostream>
+#include <list>
+#include <map>
+#include <vector>
 
 /*bool Tower::Load(TiXmlNode* nTower)
 {

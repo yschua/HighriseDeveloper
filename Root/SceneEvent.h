@@ -23,10 +23,10 @@
 #include "../Resources.h"
 
 // Include libraries first
-#include <utility>
-#include <cstring>
-
 #include "../Window/Event.h" // event base
+
+#include <cstring>
+#include <utility>
 
 class Scene;
 

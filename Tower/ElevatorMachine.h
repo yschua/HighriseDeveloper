@@ -24,7 +24,7 @@ class Elevator;
 class FloorBase;
 class Animation;
 
-class ElevatorMachine : public ElevatorBase, public ModelObject
+class ElevatorMachine : public ElevatorBase, public Gfx::ModelObject
 {
 public:
     enum ElevatorMachine_State { LMS_Idle = 0, LMS_Down = 1, LMS_Up = 2 };

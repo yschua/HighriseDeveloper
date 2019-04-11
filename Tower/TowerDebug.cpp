@@ -14,25 +14,24 @@
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <iostream>
-#include <vector> // changed from list to vector so the collection can be scrolled in up and down
-#include <list>
-
-#include "../Root/Physics.h"
 #include "../Graphics/Animation.h"
 #include "../Graphics/Image.h"
-#include "Routes.h"
-#include "ElevatorBase.h"
+#include "../Root/HighRiseException.h"
+#include "../Root/Physics.h"
+#include "Apartment.h"
+#include "Damage.h"
 #include "Elevator.h"
+#include "ElevatorBase.h"
 #include "FloorBase.h"
 #include "Level.h"
 #include "Lobby.h"
-#include "Apartment.h"
 #include "Office.h"
-#include "Damage.h"
+#include "Routes.h"
 #include "Tower.h"
 
-#include "../Root/HighRiseException.h"
+#include <iostream>
+#include <list>
+#include <vector> // changed from list to vector so the collection can be scrolled in up and down
 // This is a debug stub to load a building for early dev
 
 void Tower::DebugLoad(int x, int y, int x2)

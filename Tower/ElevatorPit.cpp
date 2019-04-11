@@ -14,14 +14,15 @@
  *   along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "ElevatorPit.h"
+
+#include "../Graphics/Animation.h"
+#include "../Graphics/Image.h"
+#include "../Graphics/Tiler.h"
+#include "../Root/Physics.h"
+
 #include <cstdlib>
 #include <iostream>
-#include "../Root/Physics.h"
-#include "../Graphics/Animation.h"
-#include "../Graphics/Tiler.h"
-#include "../Graphics/Image.h"
-
-#include "ElevatorPit.h"
 
 class Elevator;
 

@@ -13,17 +13,18 @@
  *   You should have received a copy of the GNU General Public License
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
+#include "ElevatorBase.h"
+
+#include "../Graphics/Animation.h"
+#include "../Graphics/Image.h"
+#include "../Graphics/Tiler.h"
+#include "../Root/Physics.h"
+#include "Elevator.h"
+#include "RouteBase.h"
+
 #include <cstdlib>
 #include <iostream>
 #include <map>
-#include "../Root/Physics.h"
-#include "../Graphics/Image.h"
-#include "../Graphics/Animation.h"
-#include "../Graphics/Tiler.h"
-
-#include "RouteBase.h"
-#include "Elevator.h"
-#include "ElevatorBase.h"
 
 using namespace Gfx;
 

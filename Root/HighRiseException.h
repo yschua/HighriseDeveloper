@@ -2,6 +2,9 @@
 #ifndef _HIGHRISEEXCEPTION_H
 #define _HIGHRISEEXCEPTION_H
 
+#include <exception>
+#include <string>
+
 using namespace std;
 
 class HighriseException : public std::exception

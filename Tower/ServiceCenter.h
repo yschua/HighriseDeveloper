@@ -17,10 +17,10 @@
 #ifndef _SERVICECENTER_H
 #define _SERVICECENTER_H
 
-#include <map>
-
 #include "../Graphics/ModelObject.h"
 #include "FloorBase.h"
+
+#include <map>
 
 class Animation;
 class SerializerBase;

@@ -24,14 +24,15 @@
 // the person procedes there. If time exceeds A&B limit then a moderate distance is searched. Same
 // for limit C but forther. If still no satifaction, enter drastic mode( leave, move etc).
 
-#include <vector>
-#include "../People/Person.h"
-#include "../Tower/Routes.h"
-#include "../Tower/RouteBase.h"
-#include "../Tower/Tower.h"
-#include "../AI/CitizensAgent.h"
-
 #include "PathAgent.h"
+
+#include "../AI/CitizensAgent.h"
+#include "../People/Person.h"
+#include "../Tower/RouteBase.h"
+#include "../Tower/Routes.h"
+#include "../Tower/Tower.h"
+
+#include <vector>
 
 PathAgent::PathAgent(Person* person) : mPerson(person) {}
 

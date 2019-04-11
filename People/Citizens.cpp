@@ -18,12 +18,13 @@
 // Everyone in your city will be here including non-residents of your tower(s).
 // This is stritly the data storage collection of persons and where they are created and destroyed.
 
-#include <list>
-#include <iostream>
-#include "Person.h"
-#include "../Root/HighRiseException.h"
-
 #include "Citizens.h"
+
+#include "../Root/HighRiseException.h"
+#include "Person.h"
+
+#include <iostream>
+#include <list>
 
 Citizens* Citizens::minstance = NULL;
 

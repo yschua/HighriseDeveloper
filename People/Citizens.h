@@ -20,6 +20,8 @@
 #ifndef _CITIZENS_H
 #define _CITIZENS_H
 
+#include <list>
+
 struct Location; // from person
 class Person;
 class CitizensAgent;

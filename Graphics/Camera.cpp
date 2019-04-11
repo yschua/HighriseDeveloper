@@ -14,25 +14,22 @@
  *along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "../Resources.h"
-
-#include <iostream>
-#include <cstring>
-#include <SFML/System.hpp>
-#include <SFML/Graphics.hpp>
-
-#include "../Root/Physics.h"
-#include "../Scene/Scene.h"
-#include "../AI/CitizensAgent.h"
-#include "../AI/CitizensAgent.h"
-
-#include "Image.h"
-#include "Animation.h"
-#include "ModelObject.h" // 3d abstract
-#include "ViewObject.h"  // 2d abstract
 #include "Camera.h"
 
+#include "../AI/CitizensAgent.h"
+#include "../Resources.h"
+#include "../Root/Physics.h"
+#include "../Scene/Scene.h"
+#include "Animation.h"
+#include "Image.h"
+#include "ModelObject.h" // 3d abstract
+#include "ViewObject.h"  // 2d abstract
+
+#include <SFML/Graphics.hpp>
+#include <SFML/System.hpp>
+#include <cstring>
 #include <gl/GLU.h>
+#include <iostream>
 
 #define FIELD_OF_VIEW 90.0f // this controls how long the focal view of the camera is in OpenGL
 Camera* Camera::mpInstance = NULL;

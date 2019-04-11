@@ -22,6 +22,7 @@
 struct Location;
 class Tower;
 class FloorSpace;
+class FloorBase;
 
 class FloorAgent
 {

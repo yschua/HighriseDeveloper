@@ -24,7 +24,7 @@ class FloorBase;
 // class Camera;
 class Tiler;
 
-class ElevatorShaft : public ElevatorBase, public ModelObject
+class ElevatorShaft : public ElevatorBase, public Gfx::ModelObject
 {
 protected:
     short mTopLevel;

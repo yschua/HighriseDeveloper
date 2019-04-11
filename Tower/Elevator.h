@@ -36,10 +36,11 @@ class PersonQueue;
 class Tower;
 class SerializerBase;
 
-#include <vector>
-#include "../Root/Physics.h"
 #include "../Graphics/ModelObject.h"
+#include "../Root/Physics.h"
 #include "RouteBase.h"
+
+#include <vector>
 
 // Setting elevator levels serviced.
 //

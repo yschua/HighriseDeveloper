@@ -14,29 +14,30 @@
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <map>
-#include <list>
-#include <vector>
-#include <iostream>
+#include "BuildStrategies.h"
 
 #include "../Window/Event.h"
-#include "Routes.h"
-#include "FloorBase.h"
-#include "Level.h"
-#include "Tower.h"
-#include "Condo.h"
-#include "Office.h"
-#include "Security.h"
 #include "Apartment.h"
-#include "HotelRoom.h"
-#include "Housekeeping.h"
-#include "RetailShop.h"
-#include "SingleStair.h"
-#include "MedicalClinic.h"
-#include "WasteManagement.h"
-#include "BuildStrategies.h"
 #include "BuildData.h"
 #include "BuildRemoveStrategy.h"
+#include "Condo.h"
+#include "FloorBase.h"
+#include "HotelRoom.h"
+#include "Housekeeping.h"
+#include "Level.h"
+#include "MedicalClinic.h"
+#include "Office.h"
+#include "RetailShop.h"
+#include "Routes.h"
+#include "Security.h"
+#include "SingleStair.h"
+#include "Tower.h"
+#include "WasteManagement.h"
+
+#include <iostream>
+#include <list>
+#include <map>
+#include <vector>
 
 using namespace TowerObjects;
 

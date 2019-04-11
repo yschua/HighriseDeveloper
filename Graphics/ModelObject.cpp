@@ -14,12 +14,14 @@
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <iostream>
+#include "ModelObject.h"
+
 #include "Animation.h"
 #include "FireAnimation.h"
-#include "Tiler.h"
 #include "Texture.h"
-#include "ModelObject.h"
+#include "Tiler.h"
+
+#include <iostream>
 
 using namespace Gfx;
 

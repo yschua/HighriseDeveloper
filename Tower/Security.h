@@ -17,10 +17,10 @@
 #ifndef _SECURITY_H
 #define _SECURITY_H
 
-#include <map>
-
 #include "../Graphics/ModelObject.h"
 #include "FloorBase.h"
+
+#include <map>
 
 class Animation;
 class SerializerBase;

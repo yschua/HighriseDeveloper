@@ -17,10 +17,10 @@
 #ifndef _HOTEL_H
 #define _HOTEL_H
 
-#include <map>
-
 #include "../Graphics/ModelObject.h"
 #include "FloorBase.h"
+
+#include <map>
 
 class Animation;
 class SerializerBase;

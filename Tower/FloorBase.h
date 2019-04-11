@@ -17,6 +17,8 @@
 #ifndef _FLOORBASE_H
 #define _FLOORBASE_H
 
+#include <string>
+
 class Tower;
 class Person;
 class Level;
@@ -96,7 +98,7 @@ public:
     std::string GetName() const;
 
     void SetOwner(Person* pPerson);
-    bool IsVacant() { return (mOwner == NULL); }
+    bool IsVacant() { return (mOwner == nullptr); }
 
     virtual void Save(SerializerBase& ser); // iXmlElement* pnParent)
 

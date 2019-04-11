@@ -14,8 +14,9 @@
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <iostream>
 #include "Physics.h"
+
+#include <iostream>
 
 Body::Body(int width, int height)
 {

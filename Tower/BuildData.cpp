@@ -14,10 +14,11 @@
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <iostream>
+#include "BuildData.h"
+
 #include "../Root/SerializerBase.h"
 
-#include "BuildData.h"
+#include <iostream>
 
 BuildData::BuildData()
 {

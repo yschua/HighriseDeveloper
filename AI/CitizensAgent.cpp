@@ -24,23 +24,24 @@
 // the person procedes there. If time exceeds A&B limit then a moderate distance is searched. Same
 // for limit C but forther. If still no satifaction, enter drastic mode( leave, move etc).
 
-#include <list>
-#include <vector>
-#include <iostream>
-#include <cstdlib>
+#include "CitizensAgent.h"
+
+#include "../People/Citizens.h"
 #include "../People/Person.h"
-#include "../Tower/Routes.h"
+#include "../Root/HighRiseException.h"
+#include "../Tower/Level.h"
+#include "../Tower/Office.h"
 #include "../Tower/PersonQueue.h"
 #include "../Tower/RouteBase.h"
-#include "../Tower/Office.h"
+#include "../Tower/Routes.h"
 #include "../Tower/Tower.h"
-#include "../Tower/Level.h"
-#include "../Root/HighRiseException.h"
-#include "../People/Citizens.h"
 #include "FloorAgent.h"
-
 #include "PathAgent.h"
-#include "CitizensAgent.h"
+
+#include <cstdlib>
+#include <iostream>
+#include <list>
+#include <vector>
 
 CitizensAgent::CitizensAgent(Tower& tower) // use a tower agent for multiple towers
     :

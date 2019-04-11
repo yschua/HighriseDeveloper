@@ -14,17 +14,17 @@
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "Apartment.h"
+
+#include "../Graphics/Animation.h"
+#include "../Graphics/Image.h"
+#include "../Root/Physics.h"
+#include "../Root/SerializerBase.h"
+#include "../Types/String.h"
+
 #include <iostream>
 #include <map>
 #include <vector>
-#include "../Root/Physics.h"
-#include "../Graphics/Image.h"
-#include "../Graphics/Animation.h"
-#include "../Root/SerializerBase.h"
-
-#include "../Types/String.h"
-
-#include "Apartment.h"
 
 using namespace Gfx;
 

@@ -17,11 +17,11 @@
 #ifndef _CAMERA_H
 #define _CAMERA_H
 
-#include "../Types/Vector2.h"
-#include "../Types/Rect.h"
 #include "../Root/Physics.h"
-#include "../Window/Interface.h"
+#include "../Types/Rect.h"
+#include "../Types/Vector2.h"
 #include "../Window/Event.h"
+#include "../Window/Interface.h"
 
 class Animation;
 class AnimationSingle;

@@ -14,17 +14,18 @@
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "Background.h"
+
+#include "../Graphics/Animation.h"
+#include "../Graphics/Image.h"
+#include "../Graphics/Tiler.h"
+#include "../Root/HighRiseException.h"
+#include "../Root/Physics.h"
+
+#include <cstring>
 #include <iostream>
 #include <map>
-#include <cstring>
 #include <vector>
-#include "../Root/Physics.h"
-#include "../Graphics/Image.h"
-#include "../Graphics/Animation.h"
-#include "../Graphics/Tiler.h"
-
-#include "Background.h"
-#include "../Root/HighRiseException.h"
 
 using namespace Gfx;
 

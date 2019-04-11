@@ -14,17 +14,18 @@
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <iostream>
-#include <map>
+#include "BuildFactory.h"
+
 #include "../Root/SerializerBase.h"
 #include "../Window/Event.h"
+#include "BuildData.h"
+#include "BuildRemoveStrategy.h"
+#include "BuildStrategies.h"
 #include "FloorBase.h"
 #include "Tower.h"
 
-#include "BuildData.h"
-#include "BuildStrategies.h"
-#include "BuildFactory.h"
-#include "BuildRemoveStrategy.h"
+#include <iostream>
+#include <map>
 
 namespace TowerObjects
 {
@@ -45,7 +46,7 @@ BuildFactory* BuildFactory::GetInstance()
 
 void BuildFactory::Register(BuildData* bd)
 {
-    mBuildTypes.insert(std::pair<int, BuildData*>(bd->BuildType, bd));
+    mBuildTypes.insert(std::make_pair(bd->BuildType, bd));
 }
 
 BuildStrategyBase* BuildFactory::CreateStrategy(int ToolID, Tower* pTower)

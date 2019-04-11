@@ -1,8 +1,9 @@
 #pragma once
 
+#include "Vector2.h"
+
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#include "Vector2.h"
 
 // TODO don't think this is used
 

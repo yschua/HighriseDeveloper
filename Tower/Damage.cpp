@@ -14,13 +14,14 @@
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <iostream>
-#include "../Root/Physics.h"
-#include "../Graphics/Image.h"
+#include "Damage.h"
+
 #include "../Graphics/Animation.h"
+#include "../Graphics/Image.h"
+#include "../Root/Physics.h"
 #include "FloorBase.h"
 
-#include "Damage.h"
+#include <iostream>
 
 using namespace Gfx;
 

@@ -19,8 +19,14 @@
 #ifndef _DAMAGE_H
 #define _DAMAGE_H
 
-#include "../Graphics/ModelObject.h"
 #include "../Graphics/FireAnimation.h"
+#include "../Graphics/ModelObject.h"
+#include "FloorBase.h"
+
+#include <string>
+
+class AnimationSingle;
+class Tower;
 
 class Damage : public FloorBase, public Gfx::ModelObject
 {

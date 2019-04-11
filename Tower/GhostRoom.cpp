@@ -14,13 +14,13 @@
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "../Graphics/Image.h"
-#include "FloorBase.h"
-#include "../Types/String.h"
-#include "Tower.h"
-#include "Level.h"
-
 #include "GhostRoom.h"
+
+#include "../Graphics/Image.h"
+#include "../Types/String.h"
+#include "FloorBase.h"
+#include "Level.h"
+#include "Tower.h"
 
 using namespace Gfx;
 // using namespace TowerObjects;

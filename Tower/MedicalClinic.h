@@ -17,10 +17,10 @@
 #ifndef _MEDICALCLINIC_H
 #define _MEDICALCLINIC_H
 
-#include <map>
-
 #include "../Graphics/ModelObject.h"
 #include "FloorBase.h"
+
+#include <map>
 
 class Animation;
 class SerializerBase;

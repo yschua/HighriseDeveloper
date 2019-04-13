@@ -33,7 +33,6 @@ public:
     FloorAgent(Tower& tower);
     ~FloorAgent();
 
-    bool AddFloorSpace(FloorBase* pFS, int x, int x2, int y);
     FloorBase* FindWork(int preferences);
     FloorBase* FindAHome(int preferences);
     FloorBase* FindAHotel(int preferences);

@@ -33,27 +33,15 @@ FloorAgent::FloorAgent(Tower& tower) : mTower(tower) {}
 
 FloorAgent::~FloorAgent() {}
 
-bool FloorAgent::AddFloorSpace(FloorBase* pFS, int x, int x2, int y)
-{
-    Level* pLevel = mTower.GetLevel(y);
-    if (pLevel->TestForEmptySpace(x, x2)) {
-        pFS->SetX((float)x);
-        pFS->SetX2((float)x2);
-        pLevel->AddFloorSpace(pFS);
-    }
-    return true;
-}
-
 FloorBase* FloorAgent::FindWork(int preferences)
 {
-    Level::FloorIterType fit;
     Tower::LevelIterator lit;
     Tower::LevelVector& levels = mTower.GetLevels();
     for (lit = levels.begin(); lit != levels.end(); lit++) {
         Level* pLevel = (*lit);
-        Level::FloorMap& rooms = pLevel->GetFloorSpaces();
-        for (fit = rooms.begin(); fit != rooms.end(); fit++) {
-            FloorBase* pRoom = (*fit).second;
+        auto& rooms = pLevel->GetFloorSpaces();
+        for (auto fit = rooms.begin(); fit != rooms.end(); fit++) {
+            FloorBase* pRoom = (*fit).second.get();
             if (pRoom->GetType() ==
                 BaseOffice) //&& !pRoom->IsVacant()) employers will move in ans open the office for hire
             {
@@ -70,14 +58,13 @@ FloorBase* FloorAgent::FindWork(int preferences)
 
 FloorBase* FloorAgent::FindAHome(int preferences)
 {
-    Level::FloorIterType fit;
     Tower::LevelIterator lit;
     Tower::LevelVector& levels = mTower.GetLevels();
     for (lit = levels.begin(); lit != levels.end(); lit++) {
         Level* pLevel = (*lit);
-        Level::FloorMap& rooms = pLevel->GetFloorSpaces();
-        for (fit = rooms.begin(); fit != rooms.end(); fit++) {
-            FloorBase* pRoom = (*fit).second;
+        auto& rooms = pLevel->GetFloorSpaces();
+        for (auto fit = rooms.begin(); fit != rooms.end(); fit++) {
+            FloorBase* pRoom = (*fit).second.get();
             if (preferences == 1) {
                 if (pRoom->GetType() == BaseCondo && pRoom->IsVacant()) {
                     return pRoom;

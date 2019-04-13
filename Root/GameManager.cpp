@@ -202,26 +202,30 @@ bool GameManager::LoadTower(TiXmlNode* pnTower, Tower* pTower)
                         XEnd = FromString<int>(pnXEnd->FirstChild()->Value());
                     }
                     // Need a better way to do this...
-                    FloorBase* pRoom = NULL;
+                    std::unique_ptr<FloorBase> pRoom;
                     if (Type == "office") {
-                        pRoom = new Office(XPos, levelno, pTower);
-                        pTower->GetLevel(levelno)->AddFloorSpace(pRoom);
+                        pRoom = std::make_unique<Office>(XPos, levelno, pTower);
+                        pRoom->SetRent(dRent);
+                        pTower->GetLevel(levelno)->AddFloorSpace(std::move(pRoom));
                     } else if (Type == "apartment") {
-                        pRoom = new Apartment(XPos, levelno, pTower);
-                        pTower->GetLevel(levelno)->AddFloorSpace(pRoom);
+                        pRoom = std::make_unique<Apartment>(XPos, levelno, pTower);
+                        pRoom->SetRent(dRent);
+                        pTower->GetLevel(levelno)->AddFloorSpace(std::move(pRoom));
                     } else if (Type == "condo") {
-                        pRoom = new Condo(XPos, levelno, pTower);
-                        pTower->GetLevel(levelno)->AddFloorSpace(pRoom);
+                        pRoom = std::make_unique<Condo>(XPos, levelno, pTower);
+                        pRoom->SetRent(dRent);
+                        pTower->GetLevel(levelno)->AddFloorSpace(std::move(pRoom));
                     } else if (Type == "hotelroom") {
-                        pRoom = new HotelRoom(XPos, levelno, pTower);
-                        pTower->GetLevel(levelno)->AddFloorSpace(pRoom);
+                        pRoom = std::make_unique<Office>(XPos, levelno, pTower);
+                        pRoom->SetRent(dRent);
+                        pTower->GetLevel(levelno)->AddFloorSpace(std::move(pRoom));
                     } else if (Type == "skylobby") {
-                        pRoom = new SkyLobby(XPos, XEnd, levelno, pTower);
-                        pTower->GetLevel(levelno)->AddFloorSpace(pRoom);
+                        pRoom = std::make_unique<SkyLobby>(XPos, XEnd, levelno, pTower);
+                        pRoom->SetRent(dRent);
+                        pTower->GetLevel(levelno)->AddFloorSpace(std::move(pRoom));
                     } else {
                         std::cout << "WARNING: " << Type << " is an invalid room type!\n";
                     }
-                    pRoom->SetRent(dRent);
                     std::cout << "DEBUG: New " << Type << " on floor " << levelno << " (position " << XPos
                               << ")\n";
                 }
@@ -247,10 +251,9 @@ bool GameManager::SaveTower(TiXmlElement* pnTower, Tower* pTower)
         XMLSerializer xmlLevel(pnLevel);
         pLevel->Save(xmlLevel);
         pnTower->LinkEndChild(pnLevel);
-        Level::FloorMap& fps = pLevel->GetFloorSpaces();
-        Level::FloorIterType it;
-        for (it = fps.begin(); it != fps.end(); it++) {
-            FloorBase* pFB = (*it).second;
+        auto& fps = pLevel->GetFloorSpaces();
+        for (auto it = fps.begin(); it != fps.end(); it++) {
+            FloorBase* pFB = (*it).second.get();
             TiXmlElement* pnSpace = new TiXmlElement("room");
             XMLSerializer xmlRoom(pnSpace);
             pFB->Save(xmlRoom);

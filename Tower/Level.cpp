@@ -89,9 +89,8 @@ bool Level::HasLobby()
     if (mLevel == 0)
         return true;
 
-    Level::FloorIterType i;
-    for (i = mFloorSpaces.begin(); i != mFloorSpaces.end(); i++) {
-        FloorBase* pFB = (*i).second;
+    for (auto i = mFloorSpaces.begin(); i != mFloorSpaces.end(); i++) {
+        FloorBase* pFB = (*i).second.get();
         if (pFB->GetType() == BaseSkyLobby) {
             return true;
         }
@@ -99,9 +98,9 @@ bool Level::HasLobby()
     return false;
 }
 
-bool Level::AddFloorSpace(FloorBase* floor)
+bool Level::AddFloorSpace(std::unique_ptr<FloorBase> floor)
 {
-    mFloorSpaces.insert(std::pair<unsigned int, FloorBase*>(floor->GetID(), floor));
+    mFloorSpaces.insert(std::make_pair(floor->GetID(), std::move(floor)));
     //   if (floor->mX < mX)
     //      mX = (int)floor->mX;
     //   if (floor->mX2 > mX2)
@@ -114,7 +113,6 @@ bool Level::RemoveFloorSpace(FloorBase* floor)
 {
     mFloorSpaces.erase(floor->GetID());
     ScanFloorSpace();
-    delete floor;
     return true;
 }
 
@@ -139,11 +137,10 @@ void Level::SetFloorPositions(int x, int x2)
 void Level::Update(float dt, int tod)
 {
     mRentCollected = 0;
-    Level::FloorIterType i;
     if (dt == 1 && mNextRentDay > 330)
         mNextRentDay = 1;
-    for (i = mFloorSpaces.begin(); i != mFloorSpaces.end(); i++) {
-        FloorBase* pFB = (*i).second;
+    for (auto i = mFloorSpaces.begin(); i != mFloorSpaces.end(); i++) {
+        FloorBase* pFB = (*i).second.get();
         pFB->Update(20, tod);
 
         if (dt >= mNextRentDay) {
@@ -158,9 +155,8 @@ void Level::Update(float dt, int tod)
 // Function that calls the OpenGL rendering in the subclass.
 void Level::Draw()
 {
-    Level::FloorIterType i;
-    for (i = mFloorSpaces.begin(); i != mFloorSpaces.end(); i++) {
-        FloorBase* pFB = (*i).second;
+    for (auto i = mFloorSpaces.begin(); i != mFloorSpaces.end(); i++) {
+        FloorBase* pFB = (*i).second.get();
         if (pFB) {
             pFB->Draw();
         }
@@ -179,9 +175,8 @@ void Level::DrawFramework(bool LevelOnly)
     if (LevelOnly) {
         RenderFramework(mTheLevel, mID);
     } else {
-        Level::FloorIterType i;
-        for (i = mFloorSpaces.begin(); i != mFloorSpaces.end(); i++) {
-            FloorBase* pFB = (*i).second;
+        for (auto i = mFloorSpaces.begin(); i != mFloorSpaces.end(); i++) {
+            FloorBase* pFB = (*i).second.get();
             pFB->DrawFramework();
         }
         // RenderFramework (*nFireEscapeLeft); these three need framework draw too
@@ -206,9 +201,9 @@ void Level::DrawEmptyFramework()
 
 FloorBase* Level::GetSpaceByID(int id)
 {
-    FloorIterType it = mFloorSpaces.find(id);
+    auto it = mFloorSpaces.find(id);
     if (it != mFloorSpaces.end()) {
-        FloorBase* fb = (*it).second;
+        FloorBase* fb = (*it).second.get();
         return fb;
     }
     return NULL;
@@ -216,9 +211,8 @@ FloorBase* Level::GetSpaceByID(int id)
 
 FloorBase* Level::FindSpace(int x)
 {
-    Level::FloorIterType it;
-    for (it = mFloorSpaces.begin(); it != mFloorSpaces.end(); ++it) {
-        FloorBase* pFB = (*it).second;
+    for (auto it = mFloorSpaces.begin(); it != mFloorSpaces.end(); ++it) {
+        FloorBase* pFB = (*it).second.get();
         if (x >= pFB->GetX() && x < pFB->GetX2()) {
             return pFB;
         }
@@ -229,9 +223,8 @@ FloorBase* Level::FindSpace(int x)
 // Possible Deprecation
 bool Level::TestForEmptySpace(int x, int x2)
 {
-    Level::FloorIterType it;
-    for (it = mFloorSpaces.begin(); it != mFloorSpaces.end(); ++it) {
-        FloorBase* pFB = (*it).second;
+    for (auto it = mFloorSpaces.begin(); it != mFloorSpaces.end(); ++it) {
+        FloorBase* pFB = (*it).second.get();
         if ((x >= pFB->GetX() && x <= pFB->GetX2()) || (x >= pFB->GetX() && x2 <= pFB->GetX2())) {
             return false;
         }
@@ -272,9 +265,8 @@ void Level::ScanFloorSpace() // Marks the gird for what is in the space
     }
     try {
         memset(mpFloorSpaceGrid, 0, sizeof(unsigned char) * mFloorSpaceGridSize);
-        Level::FloorIterType it;
-        for (it = mFloorSpaces.begin(); it != mFloorSpaces.end(); ++it) {
-            FloorBase* pFB = (*it).second;
+        for (auto it = mFloorSpaces.begin(); it != mFloorSpaces.end(); ++it) {
+            FloorBase* pFB = (*it).second.get();
             int x = int((pFB->GetX() - this->mX) / 9);
             int x2 = int((pFB->GetX2() - this->mX) / 9);
 

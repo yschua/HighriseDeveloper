@@ -63,11 +63,11 @@ public:
         int xx = x * Level::mUnitSize;
         bool bAvail = pLevel->IsSpaceEmpty(xx, xx + mBuildData.UnitsWide * Level::mUnitSize);
         if (bAvail) {
-            FloorBase* pRoom =
-                new T(xx, y, pTower); // OnToolHit is going to set this up, when we hit the floor
+            // OnToolHit is going to set this up, when we hit the floor
+            auto pRoom = std::make_unique<T>(xx, y, pTower);
             pRoom->SetRent(mBuildData.RentalCost);
             pRoom->SetSalePrice(mBuildData.PurchasePrice);
-            pLevel->AddFloorSpace(pRoom);
+            pLevel->AddFloorSpace(std::move(pRoom));
             pTower->AdjustFunds(-mBuildData.BuildCost);
         }
         return true;

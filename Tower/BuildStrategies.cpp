@@ -19,7 +19,6 @@
 #include "../Window/Event.h"
 #include "Apartment.h"
 #include "BuildData.h"
-#include "BuildRemoveStrategy.h"
 #include "Condo.h"
 #include "FloorBase.h"
 #include "HotelRoom.h"
@@ -52,12 +51,7 @@ BuildStrategyBase* BuildStrategyBase::CreateStrategy(BuildData* pBuildData, Towe
 {
     BuildStrategyBase* pBuildStrategy = NULL;
 
-    if (pBuildData == nullptr) {
-        BuildData dummy;
-        pBuildStrategy = new BuildRemoveStrategy(dummy);
-        pBuildStrategy->ShowGhostBuild(pTower);
-        return pBuildStrategy;
-    }
+    if (pBuildData == nullptr) return nullptr;
 
     int iUnits = pBuildData->UnitsWide;
     int iLevels = pBuildData->LevelsHigh;

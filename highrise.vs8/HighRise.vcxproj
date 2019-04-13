@@ -126,7 +126,6 @@
     <ClInclude Include="..\Settings\Settings.h" />
     <ClInclude Include="..\Tower\Apartment.h" />
     <ClInclude Include="..\Tower\BuildFactory.h" />
-    <ClInclude Include="..\Tower\BuildRemoveStrategy.h" />
     <ClInclude Include="..\Tower\BuildStrategies.h" />
     <ClInclude Include="..\Tower\Condo.h" />
     <ClInclude Include="..\Tower\Damage.h" />
@@ -194,7 +193,6 @@
     <ClCompile Include="..\Tower\Apartment.cpp" />
     <ClCompile Include="..\Tower\BuildData.cpp" />
     <ClCompile Include="..\Tower\BuildFactory.cpp" />
-    <ClCompile Include="..\Tower\BuildRemoveStrategy.cpp" />
     <ClCompile Include="..\Tower\BuildStrategies.cpp" />
     <ClCompile Include="..\Tower\Condo.cpp" />
     <ClCompile Include="..\Tower\Damage.cpp" />

@@ -19,7 +19,6 @@
 #include "../Root/SerializerBase.h"
 #include "../Window/Event.h"
 #include "BuildData.h"
-#include "BuildRemoveStrategy.h"
 #include "BuildStrategies.h"
 #include "FloorBase.h"
 #include "Tower.h"

@@ -234,7 +234,6 @@
       <Filter>People</Filter>
     </ClInclude>
     <ClInclude Include="..\HighRiseDev.h" />
-    <ClInclude Include="..\Tower\BuildRemoveStrategy.h" />
     <ClInclude Include="..\Window\RoomWindow.h" />
   </ItemGroup>
   <ItemGroup>
@@ -422,7 +421,6 @@
       <Filter>People</Filter>
     </ClCompile>
     <ClCompile Include="..\HighRiseDev.cpp" />
-    <ClCompile Include="..\Tower\BuildRemoveStrategy.cpp" />
     <ClCompile Include="..\Window\RoomWindow.cpp" />
   </ItemGroup>
   <ItemGroup>

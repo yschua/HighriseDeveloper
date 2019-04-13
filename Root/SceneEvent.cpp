@@ -40,7 +40,7 @@ bool SceneEvent::OnMouseDown(sf::Mouse::Button Button, Vector2i pointa, Vector2i
     Camera* pCam = Camera::GetInstance();
     int hit = pCam->RenderFramework(mpScene, pointa, 0);
     if (hit) {
-        mpScene->Hit(hit, pointa);
+        mpScene->Hit(hit);
     }
     return false; // leave the message in for the pointer
 }

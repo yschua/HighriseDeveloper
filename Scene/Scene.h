@@ -37,12 +37,14 @@ public:
     void Update(float dt, int timeOfDay);
     void Draw();
     void RenderFramework(int level); // hit test run
-    void Hit(int hit, Vector2i& point);
+    void Hit(int hit);
     void MoveGhostRoom(Vector2f& point);
     Tower* GetTower() const { return mpTower; }
     void LoadWindows();
 
 private:
+    enum class Tool {Select, Build, Remove};
+    Tool m_tool;
     Tower* mpTower;
     Background* mpBackground;
     BuildStrategyBase* mpBuildStrategy; // Place floor objects

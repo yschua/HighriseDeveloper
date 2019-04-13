@@ -27,7 +27,7 @@
 
 #include <iostream>
 
-Scene::Scene() : mpBackground(nullptr), mpBuildStrategy(nullptr) {}
+Scene::Scene() : mpBackground(nullptr), mpBuildStrategy(nullptr), m_tool(Tool::Select) {}
 
 Scene::~Scene() {}
 
@@ -45,10 +45,12 @@ bool Scene::SetTool(int tool)
         // building new room
         auto pBuildFactory = TowerObjects::BuildFactory::GetInstance();
         mpBuildStrategy = pBuildFactory->CreateStrategy(tool, mpTower);
+        m_tool = Tool::Build;
     } else {
         auto& ghostRoom = mpTower->GetGhostRoom();
         ghostRoom.SetShownType(BaseEmpty);
         ghostRoom.SetWidth(1);
+        m_tool = (tool == HR_Remove) ? Tool::Remove : Tool::Select;
     }
 
     return true;
@@ -94,20 +96,22 @@ void Scene::LoadWindows()
 }
 
 // taking a mouse hit, send it through geometry to see what we hit
-void Scene::Hit(int hit, Vector2i& Scene)
+void Scene::Hit(int hit)
 {
-    if (mpBuildStrategy != nullptr) {
-        Level* pLevel = mpTower->FindLevelById(hit);
-        if (pLevel != nullptr) {
-            int x = static_cast<int>(mpTower->GetGhostRoom().GetX() / 9);
-            std::cout << "Mouse on Level: " << pLevel->GetLevel() << " Level ID: " << hit << std::endl;
-            mpBuildStrategy->BuildHere(mpTower, x, pLevel->GetLevel());
-        } else {
-            std::cout << "Mouse on unknown level, Level ID: " << hit << std::endl;
+    auto level = mpTower->FindLevel(mpTower->GetGhostRoom().GetLevel());
+
+    if (level == nullptr) return;
+
+    if (m_tool == Tool::Build && mpBuildStrategy != nullptr) {
+        int x = static_cast<int>(mpTower->GetGhostRoom().GetX() / 9);
+        mpBuildStrategy->BuildHere(mpTower, x, level->GetLevel());
+    } else if (m_tool == Tool::Remove) {
+        auto room = level->GetSpaceByID(hit);
+        if (room != nullptr) {
+            level->RemoveFloorSpace(room);
         }
-    } else {
-        auto level = mpTower->FindLevel(mpTower->GetGhostRoom().GetLevel());
-        const auto room = level->GetSpaceByID(hit);
+    } else if (m_tool == Tool::Select) {
+        auto room = level->GetSpaceByID(hit);
         if (room != nullptr) {
             m_roomWnd->SetRoom(room);
             m_roomWnd->Show();

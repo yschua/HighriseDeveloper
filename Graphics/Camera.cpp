@@ -351,38 +351,27 @@ bool Camera::GetEvent(sf::Event& event)
 
 bool Camera::OnKeyDown(sf::Keyboard::Key Key)
 {
-    if (Key == sf::Keyboard::D) {
-        if (mv.x > 0)
-            mv.x = 0;
+    return false;
+}
+
+void Camera::MoveCamera()
+{
+    if (!mpWindow->hasFocus()) return;
+
+    mv.x = mv.y = 0.f;
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
         mv.x += 0.4f * mZoomFactor;
-        ma.x = -0.25f * mZoomFactor;
-        // if (mv.x == 0) mv.x = 0.5*mZoomFactor;
     }
-    if (Key == sf::Keyboard::S) {
-        if (mv.y < 0)
-            mv.y = 0;
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
         mv.y += -0.3f * mZoomFactor;
-        ma.y = 0.25f * mZoomFactor;
-        // if (mv.y == 0) mv.y = -0.5*mZoomFactor;
     }
-    if (Key == sf::Keyboard::A) {
-        if (mv.x < 0)
-            mv.x = 0;
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
         mv.x += -0.4f * mZoomFactor;
-        ma.x = 0.25f * mZoomFactor;
-        // if (mv.x == 0) mv.x = -0.5*mZoomFactor;
     }
-    if (Key == sf::Keyboard::W) {
-        if (mv.y > 0)
-            mv.y = 0;
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
         mv.y += 0.3f * mZoomFactor;
-        ma.y = -0.25f * mZoomFactor;
-        // if (mv.y == 0) mv.y = 0.5*mZoomFactor;
     }
-    if (Key == sf::Keyboard::E) {
-        SetVelocity(0, 0);
-    }
-    return true;
 }
 
 bool Camera::OnMouseWheel(int Delta)

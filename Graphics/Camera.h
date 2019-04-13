@@ -32,24 +32,6 @@ class CitizensAgent;
 
 class Camera : public Body, public EventBase
 {
-private:
-    Vector2f mScene, mCam;
-    sf::Window* mpWindow;
-    static Camera* mpInstance;
-    float mZoomFactor;
-    float mAspect;
-    bool mIgnoreCamera;
-    Vector2i mMouseStartPos;
-    bool mMovingView;
-    sf::Rect<float> mBounds;
-    Camera();
-
-protected:
-    ~Camera(){};
-    void Zoom(float Factor);
-    void SetStatic(bool set);
-    // instance
-
 public:
     static Camera* GetInstance();
     // properties
@@ -62,29 +44,41 @@ public:
     Vector2f GetCamSize() { return mCam; }
     Vector2i GetMouse();
     Vector2i GetLocalMouse();
-
     // methods
     void SetActive();
     void Display();
     void Clear();
     void InitGL();
-
     void DrawModel(Scene* pModel);
     void DrawPeople(CitizensAgent* peeps);
     void DrawInterface(Interface* pI);
     int RenderFramework(Scene* pModel, Vector2f mouse, int level); // level == 0, render the whole tower.
     int TranslateX(Scene* pModel, Vector2f mouse);
     Vector3f GetOGLPos(Vector2f winVec); // Where is the confounded mouse pointer in 3D
-    void Create(const std::string& caption);
     void Center(int x, int y);
     bool GetEvent(sf::Event& event);
     void ZoomIn();
     void ZoomOut();
-
     // Event hanlders
     bool OnKeyDown(sf::Keyboard::Key Key);
     bool OnMouseWheel(int Delta);
     bool OnResize(Vector2i);
+    void MoveCamera();
+
+private:
+    Camera();
+    ~Camera(){};
+    void Zoom(float Factor);
+
+    Vector2f mScene, mCam;
+    sf::Window* mpWindow;
+    static Camera* mpInstance;
+    float mZoomFactor;
+    float mAspect;
+    bool mIgnoreCamera;
+    Vector2i mMouseStartPos;
+    bool mMovingView;
+    sf::Rect<float> mBounds;
 };
 
 #endif

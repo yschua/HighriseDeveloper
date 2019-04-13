@@ -95,6 +95,7 @@ int main()
             while (cam->GetEvent(Event)) {
                 Events.HandleEvents(Event);
             }
+            cam->MoveCamera();
             // drawing scope
             cam->Clear();
             cam->SetActive();

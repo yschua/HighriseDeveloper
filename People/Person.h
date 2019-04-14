@@ -84,6 +84,7 @@ public:
         MS_Happy,   // it's great living/working here :)
         MS_Excited  // somebody got a raise.
     };
+
     enum Activity_State {
         AS_Sleeping, // first four are done at home (mostly).
         AS_Relaxing,
@@ -108,9 +109,8 @@ public:
         AS_HotelHunting
     };
 
-    enum Current_State // had to add this to describe what a person is doing while heading to work, home or
-                       // play.
-    {
+    // had to add this to describe what a person is doing while heading to work, home or play.
+    enum Current_State {
         // may also cover other activities. A Person.heading to work may also be stuck in an elevator queue.
         CS_Idle = 0,     // Idle is defined as doing nothing
         CS_Busy,         // Waiting for a timed event to trigger their next move. At work, sleeping etc.
@@ -121,26 +121,9 @@ public:
         CS_Waiting       // In queue
     };
 
-private:
-    Location mLocation;
-    Path mWorkPath; // To and from work, stays permanant as long as working.
-    // Changes if they change jobs or the business goes bust.
-    Path mOtherPath; // To and from other activities when they go shopping etc.
-    // Changes almost daily
-    Health_State mHealth;
-    Mood_State mMood;
-    Activity_State mActivity;
-    Current_State mCurrentState; // Covers busy, waiting, walking, riding.
-    int mOccupation;             // school and retired are valid occupations
-    std::map<Mood_State, AnimationSingle*> manimations;
-    // not set on if this will be a class or enum
-
-    unsigned int mHome;   // Where's the Crib
-    unsigned int mWorkID; // number of the office or buisinee we work in
 public:
-    // CTOR/DTOR
     Person(Location& loc); // x is their starting point, usually in the lobby.
-    virtual ~Person(void);
+    virtual ~Person();
 
     // Properties
     Path& get_WorkPath() // this gets called to fill and route to and from work.
@@ -182,6 +165,28 @@ public:
     void SetCurrent(int Level);
     int GetCurrent() { return mLocation.mLevel; }
     void ResetState();
+
+private:
+    void GoingToWork();
+    void Working(int tod);
+    void LunchBreak(int tod);
+    void GoingHome();
+    void Sleep(int tod);
+
+    Location mLocation;
+    Path mWorkPath; // To and from work, stays permanant as long as working.
+                    // Changes if they change jobs or the business goes bust.
+    Path mOtherPath; // To and from other activities when they go shopping etc.
+                        // Changes almost daily
+    Health_State mHealth;
+    Mood_State mMood;
+    Activity_State mActivity;
+    Current_State mCurrentState; // Covers busy, waiting, walking, riding.
+    int mOccupation;             // school and retired are valid occupations
+    std::map<Mood_State, AnimationSingle*> manimations;
+    // not set on if this will be a class or enum
+    unsigned int mHome;   // Where's the Crib
+    unsigned int mWorkID; // number of the office or buisinee we work in
 };
 
 #endif //_PERSON_H

@@ -81,7 +81,7 @@ void Citizens::Update(float dt)
        }*/
 }
 
-Person* Citizens::NewPerson()
+Person* Citizens::CreateNewPerson()
 {
     Location loc;
     Person* person = new Person(loc);

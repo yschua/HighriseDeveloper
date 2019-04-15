@@ -58,15 +58,14 @@ void Person::Update(int tod) // actual time
     {
         SetActivity(AS_JobHunting);
         return;
-    } else if (mHome < 1 && mActivity == AS_GoingHome) {
-        if (this->mOccupation > 1) {
-            SetActivity(AS_CondoHunting);
-        } else {
-            SetActivity(AS_ApartmentHunting);
-        }
-        return;
-        // mActivity = AS_CondoHunting; // if income < $n AS_ApartmentHunting.
-    }
+    } //else if (mHome < 1 && mActivity == AS_GoingHome) {
+    //    if (this->mOccupation > 1) {
+    //        SetActivity(AS_CondoHunting);
+    //    } else {
+    //        SetActivity(AS_ApartmentHunting);
+    //    }
+    //    return;
+    //}
 
     switch (mActivity) {
     case AS_GoingToWork:
@@ -156,8 +155,7 @@ void Person::Working(int tod)
 
 void Person::LunchBreak(int tod)
 {
-    if (tod > 13 * 60) // do lunch
-    {
+    if (tod > 13 * 60) {
         SetActivity(AS_GoingToWork);
         SetCurrentState(Person::CS_Walking);
     }
@@ -176,14 +174,14 @@ void Person::GoingHome()
         }
     } else {
         SetActivity(AS_Relaxing); // offices and businesses show employees at work.
-        mLocation.mLevel = mWorkPath.mPathList[mWorkPath.index]
-            .mLevel; // this will bring the car to the office level at days end
+        // this will bring the car to the office level at days end
+        mLocation.mLevel = mWorkPath.mPathList[mWorkPath.index].mLevel; 
     }
 }
 
 void Person::Sleep(int tod)
 {
-    if (tod > 6 * 60 && tod < 14 * 60) {
+    if (tod > 8 * 60 && tod < 14 * 60) {
         SetActivity(AS_GoingToWork);
         SetCurrentState(CS_Busy);
     }

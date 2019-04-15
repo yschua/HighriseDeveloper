@@ -51,8 +51,10 @@ void CitizensAgent::Update(float dt, int tod)
 {
     // Shouldn't Citizens be a member within each Tower? Supposedly you would want this seperate.
     Citizens* citizens = Citizens::get_Instance(); // the citizens object that holds the people collection
-    if ((rand() % 4) == 3)                         // TODO: need a better spawn mechanism, raised to 100
-    {
+
+    // TODO: need a better spawn mechanism, raised to 100
+    size_t limit = 16;
+    if ((rand() % 4) == 3 && citizens->get_Persons().size() < limit) {
         // Location loc; // all zeros
         Person* peep = citizens->CreateNewPerson();
         //      Person* peep = new Person( loc );
@@ -84,6 +86,9 @@ void CitizensAgent::Update(float dt, int tod)
             break;
         case Person::AS_GoingHome:
             GoingHome(person);
+            break;
+        case Person::AS_LunchBreak:
+            LunchBreak(person, tod);
             break;
         default:
             break;
@@ -148,7 +153,7 @@ void CitizensAgent::JobHunting(Person* person, int tod)
             if (tod >= 6 * 60 && tod < 16 * 60) {
                 person->SetActivity(Person::AS_GoingToWork);
             } else {
-                person->SetActivity(Person::AS_Relaxing);
+                person->SetActivity(Person::AS_Sleeping);
             }
             if ((rand() % 6) ==
                 2) // one out of 6 will make good money to afford more than an apartment
@@ -200,9 +205,9 @@ void CitizensAgent::GoingToWork(Person* person)
     if (workPath.index < workPath.size) {
         int idx = workPath.index;
         int curLevel = person->get_Location().mLevel;
-        if (curLevel == workPath.mPathList[idx]
-            .mLevel) // or tower is not = curtower (on a bus, train, car or skycab ).
-        {
+
+        if (curLevel == workPath.mPathList[idx].mLevel) 
+        { // or tower is not = curtower (on a bus, train, car or skycab ).
             // just moving on the same level
         } else {
             switch (person->GetCurrentState()) {
@@ -284,9 +289,42 @@ void CitizensAgent::GoingHome(Person* person)
                 idx = workPath.index;
                 // fall through
             default:
-                RoutePerson(curLevel, workPath, person);
+                RoutePerson(idx, workPath, person);
             }
         }
     } else {
+    }
+}
+
+void CitizensAgent::LunchBreak(Person* person, int tod)
+{
+    Path& workPath = person->get_WorkPath(); // for now just doing work
+    if (workPath.index > 0) {
+        int idx = 0;
+        int curLevel = person->get_Location().mLevel;
+        if (curLevel == workPath.mPathList[idx].mLevel) {
+            // just moving on the same level
+        } else {
+            switch (person->GetCurrentState()) {
+            case Person::CS_Waiting:
+                // tally up wait states
+                break;
+            case Person::CS_Riding:
+                // enroute
+                break;
+            case Person::CS_Disembarking:
+                if (workPath.index > 0) {
+                    workPath.index--; // TODO: wait for elevator, we are moving ahead before getting
+                                      // to the level
+                }
+                person->SetCurrentState(Person::CS_Walking);
+                person->SetCurrent(workPath.mPathList[idx].mLevel);
+                curLevel = workPath.mPathList[idx].mLevel;
+                idx = workPath.index;
+                // fall through
+            default:
+                RoutePerson(idx, workPath, person);
+            }
+        }
     }
 }

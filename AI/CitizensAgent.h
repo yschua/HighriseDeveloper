@@ -50,6 +50,7 @@ private:
     void GoingToWork(Person* person);
     void ClockingOut(Person* person);
     void GoingHome(Person* person);
+    void LunchBreak(Person* person, int tod);
 };
 
 #endif //_CITIZENSAGENT_H

@@ -43,7 +43,7 @@ int main()
     Camera* cam = Camera::GetInstance();
 
     cam->SetSceneSize(Vector2f(1920, 1920));
-    cam->SetMaxFramerate(60);
+    cam->SetMaxFramerate(0);
     cam->SetActive();
     cam->InitGL();
 
@@ -57,11 +57,12 @@ int main()
     sf::String Title(string("Alpha"));
 
     std::cout << "Basic loading finished....\n";
+
     try {
         theScene.SetBackground(new Background(-80, -1908, cam->GetSceneSize().x, cam->GetSceneSize().y));
-
         SceneEvent SceneEV(&theScene);
         GUIManager Gui(SceneEV, *pInterface); //, &theTower);
+
         try {
             GameManager tm(theScene);
             tm.LoadBuildPack("data/xml/DefaultBuildPack.xml"); // use settings for path and pack name
@@ -85,6 +86,12 @@ int main()
         theTower.DebugLoad(1, 1, 1);
         std::cout << "Starting event loop...\n";
         int cycle = 0;
+
+        // TODO need to test when framerate is higher than physics
+        sf::Time dt = sf::milliseconds(10); // 100 updates per second
+        sf::Time accumulator;
+        sf::Clock timer;
+
         // The main event loop. Processed about 30 times per second, although
         // lower framerates shouldn't slow down the game when we get it all
         // working properly.
@@ -96,10 +103,10 @@ int main()
                 Events.HandleEvents(Event);
             }
             cam->MoveCamera();
+
             // drawing scope
             cam->Clear();
             cam->SetActive();
-            cam->Integrate(80);
             cam->DrawModel(&theScene); // the background and tower(s).
             cam->DrawInterface(pInterface);
             cam->DrawPeople(&People);
@@ -107,28 +114,37 @@ int main()
             cam->Display();
             // end drawing scope
 
-            // update scope, thread candidates
-            switch (cycle++) {
-            case 0:
-                theScene.Update(80, pInterface->GetTimeOfDay());
-                break;
-            case 1:
-                pInterface->mStats.SetPopulation(theTower.GetPopulation());
-                pInterface->mStats.SetNet((int)theTower.GetAvailableFunds());
-                pInterface->Update(20);
-                break;
-            default:
-                static int cc_count = 30; // only once in a while
-                if (cc_count < 1) {
-                    People.Update(800, pInterface->GetTimeOfDay());
-                    cc_count = 20;
+            sf::Time frameTime = timer.restart();
+            accumulator += frameTime;
+
+            while (accumulator >= dt) {
+                cam->Integrate(80);
+
+                // update scope, thread candidates
+                switch (cycle++) {
+                case 0:
+                    theScene.Update(80, pInterface->GetTimeOfDay());
+                    break;
+                case 1:
+                    pInterface->mStats.SetPopulation(theTower.GetPopulation());
+                    pInterface->mStats.SetNet((int)theTower.GetAvailableFunds());
+                    pInterface->Update(20);
+                    break;
+                default:
+                    static int cc_count = 30; // only once in a while
+                    if (cc_count < 1) {
+                        People.Update(800, pInterface->GetTimeOfDay());
+                        cc_count = 20;
+                    }
+                    cc_count--;
+                    cycle = 0;
+                    break;
                 }
-                cc_count--;
-                cycle = 0;
-                break;
+                theTower.Update((float)pInterface->GetDayOfYear(), pInterface->GetTimeOfDay());
+
+                accumulator -= dt;
+                // end update scope
             }
-            theTower.Update((float)pInterface->GetDayOfYear(), pInterface->GetTimeOfDay());
-            // end update scope
         }
         std::cout << mev.IsRunning() << "\n";
         delete pInterface;
@@ -138,5 +154,6 @@ int main()
         char t[4];
         std::cin.get(t[0]);
     }
+
     return 0;
 }

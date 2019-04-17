@@ -361,16 +361,16 @@ void Camera::MoveCamera()
     mv.x = mv.y = 0.f;
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-        mv.x += 0.4f * mZoomFactor;
+        mv.x += mZoomFactor;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-        mv.y += -0.3f * mZoomFactor;
+        mv.y += -1.f * mZoomFactor;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-        mv.x += -0.4f * mZoomFactor;
+        mv.x += -1.f * mZoomFactor;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-        mv.y += 0.3f * mZoomFactor;
+        mv.y += mZoomFactor;
     }
 }
 

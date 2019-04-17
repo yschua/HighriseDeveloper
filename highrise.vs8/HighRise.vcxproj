@@ -158,6 +158,7 @@
     <ClInclude Include="..\Window\Event.h" />
     <ClInclude Include="..\Window\GUIManager.h" />
     <ClInclude Include="..\Window\Interface.h" />
+    <ClInclude Include="..\Window\MainEvent.h" />
     <ClInclude Include="..\Window\RoomWindow.h" />
     <ClInclude Include="..\Window\SettingsWindow.h" />
     <ClInclude Include="..\Window\Stats.h" />
@@ -224,6 +225,7 @@
       <BrowseInformation Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</BrowseInformation>
     </ClCompile>
     <ClCompile Include="..\Window\Interface.cpp" />
+    <ClCompile Include="..\Window\MainEvent.cpp" />
     <ClCompile Include="..\Window\RoomWindow.cpp" />
     <ClCompile Include="..\Window\SettingsWindow.cpp" />
     <ClCompile Include="..\Window\Stats.cpp" />

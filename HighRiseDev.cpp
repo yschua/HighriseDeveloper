@@ -25,6 +25,7 @@
 #include "Tower/Routes.h"
 #include "Tower/Tower.h"
 #include "Window/GUIManager.h"
+#include "Window/MainEvent.h"
 
 #include <CEGUI/CEGUI.h>
 #include <iostream>
@@ -74,9 +75,9 @@ int main()
         Events.Add(&Gui);
         Events.Add(cam);
 
-        MainEvent mev;
+        MainEvent mainEvt;
         Events.Add(&SceneEV);
-        Events.Add(&mev);
+        Events.Add(&mainEvt);
 
         // Load the test tower
         SceneEV.OnOpen("data/xml/Tower.xml");
@@ -88,14 +89,13 @@ int main()
         int cycle = 0;
 
         // TODO need to test when framerate is higher than physics
-        sf::Time dt = sf::milliseconds(10); // 100 updates per second
         sf::Time accumulator;
         sf::Clock timer;
 
         // The main event loop. Processed about 30 times per second, although
         // lower framerates shouldn't slow down the game when we get it all
         // working properly.
-        while (mev.IsRunning()) {
+        while (!mainEvt.IsClosed()) {
             // This should be here so we can create custom events later,
             // and also so we can create fake events for debugging.
             sf::Event Event;
@@ -116,9 +116,13 @@ int main()
 
             sf::Time frameTime = timer.restart();
             accumulator += frameTime;
+            const auto& dt = mainEvt.GetDt();
 
             while (accumulator >= dt) {
-                cam->Integrate(80);
+                cam->Integrate(dt.asMilliseconds());
+                accumulator -= dt;
+
+                if (mainEvt.IsPaused()) break;
 
                 // update scope, thread candidates
                 switch (cycle++) {
@@ -142,11 +146,10 @@ int main()
                 }
                 theTower.Update((float)pInterface->GetDayOfYear(), pInterface->GetTimeOfDay());
 
-                accumulator -= dt;
                 // end update scope
             }
         }
-        std::cout << mev.IsRunning() << "\n";
+
         delete pInterface;
     } catch (HighriseException* ex) {
         std::cout << "Exception caught in main: " << ex->get_Message();

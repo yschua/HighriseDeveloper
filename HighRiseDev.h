@@ -32,22 +32,4 @@
 #include "Window/Event.h"
 #include "Window/Interface.h"
 
-class MainEvent : public EventBase
-{
-    bool mbRunning;
 
-public:
-    MainEvent() { mbRunning = true; }
-    bool IsRunning() { return mbRunning; }
-    bool OnClose()
-    {
-        mbRunning = false;
-        return true;
-    }
-};
-
-class ToolEvent : public EventBase
-{
-public:
-    ToolEvent() {}
-};

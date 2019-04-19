@@ -32,7 +32,7 @@ public:
     Scene();
     ~Scene();
     void SetTower(Tower* pTower);
-    void SetBackground(Background* pBG);
+    void SetBackground(std::unique_ptr<Background> pBG);
     bool SetTool(int tool);
     void Update(float dt, int timeOfDay);
     void Draw();
@@ -46,7 +46,7 @@ private:
     enum class Tool {Select, Build, Remove};
     Tool m_tool;
     Tower* mpTower;
-    Background* mpBackground;
+    std::unique_ptr<Background> mpBackground;
     BuildStrategyBase* mpBuildStrategy; // Place floor objects
     std::unique_ptr<RoomWindow> m_roomWnd;
 };

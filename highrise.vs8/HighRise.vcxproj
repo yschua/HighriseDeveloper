@@ -112,9 +112,9 @@
     <ClInclude Include="..\Graphics\Texture.h" />
     <ClInclude Include="..\Graphics\Tiler.h" />
     <ClInclude Include="..\Graphics\ViewObject.h" />
-    <ClInclude Include="..\HighRiseDev.h" />
     <ClInclude Include="..\People\Citizens.h" />
     <ClInclude Include="..\People\Person.h" />
+    <ClInclude Include="..\Root\Game.h" />
     <ClInclude Include="..\Root\GameManager.h" />
     <ClInclude Include="..\Root\HighRiseException.h" />
     <ClInclude Include="..\Root\Physics.h" />
@@ -183,6 +183,7 @@
     <ClCompile Include="..\HighRiseDev.cpp" />
     <ClCompile Include="..\People\Citizens.cpp" />
     <ClCompile Include="..\People\Person.cpp" />
+    <ClCompile Include="..\Root\Game.cpp" />
     <ClCompile Include="..\Root\GameManager.cpp" />
     <ClCompile Include="..\Root\HighRiseException.cpp" />
     <ClCompile Include="..\Root\Physics.cpp" />

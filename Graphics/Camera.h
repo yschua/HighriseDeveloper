@@ -67,12 +67,10 @@ public:
 
 private:
     Camera();
-    ~Camera(){};
     void Zoom(float Factor);
 
     Vector2f mScene, mCam;
     sf::Window* mpWindow;
-    static Camera* mpInstance;
     float mZoomFactor;
     float mAspect;
     bool mIgnoreCamera;

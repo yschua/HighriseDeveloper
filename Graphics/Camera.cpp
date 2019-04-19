@@ -32,7 +32,6 @@
 #include <iostream>
 
 #define FIELD_OF_VIEW 90.0f // this controls how long the focal view of the camera is in OpenGL
-Camera* Camera::mpInstance = NULL;
 
 Camera::Camera() : Body(1280, 720), mBounds(-1600, -1280, 1700, 1340)
 {
@@ -81,10 +80,8 @@ void Camera::SetSceneSize(Vector2f Size)
 
 Camera* Camera::GetInstance()
 {
-    if (mpInstance == NULL) {
-        mpInstance = new Camera();
-    }
-    return mpInstance;
+    static Camera camera;
+    return &camera;
 }
 
 void
@@ -97,10 +94,7 @@ Camera::Clear()
 
 void Camera::SetActive()
 {
-    glViewport(0,
-               0,
-               (GLsizei)mCam.x,
-               (GLsizei)mCam.y); // this->ms.x, ms.y); these were negative need to fixe this so the
+    glViewport(0, 0, (GLsizei)mCam.x, (GLsizei)mCam.y);
     glEnable(GL_TEXTURE_2D);
     //   mpWindow->SetActive (true);
 }

@@ -233,8 +233,15 @@
     <ClInclude Include="..\People\Person.h">
       <Filter>People</Filter>
     </ClInclude>
-    <ClInclude Include="..\HighRiseDev.h" />
-    <ClInclude Include="..\Window\RoomWindow.h" />
+    <ClInclude Include="..\Window\RoomWindow.h">
+      <Filter>Window</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Window\MainEvent.h">
+      <Filter>Window</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Root\Game.h">
+      <Filter>Root</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Window\Clock.cpp">
@@ -421,7 +428,15 @@
       <Filter>People</Filter>
     </ClCompile>
     <ClCompile Include="..\HighRiseDev.cpp" />
-    <ClCompile Include="..\Window\RoomWindow.cpp" />
+    <ClCompile Include="..\Window\RoomWindow.cpp">
+      <Filter>Window</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Window\MainEvent.cpp">
+      <Filter>Window</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Root\Game.cpp">
+      <Filter>Root</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

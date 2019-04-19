@@ -102,9 +102,9 @@ void Body::SetAcceleration(float x, float y)
     ma.y = y;
 }
 
-void Body::Integrate(float dt)
+void Body::Integrate(sf::Time dt)
 {
-    float dt_secs = dt / 1000;
+    float dt_secs = dt.asSeconds();
     ms.x += mv.x * dt_secs;
     ms.y += mv.y * dt_secs;
     mv.x += ma.x * dt_secs;
@@ -118,7 +118,7 @@ void Body::Integrate(float dt)
         ma.y = 0;
     }
     if (mIsMoving) {
-        mTime += dt;
+        mTime += static_cast<float>(dt.asMilliseconds());
         if (mTime >= mTimeTotal) {
             ms = mMoveDest;
             mIsMoving = false;

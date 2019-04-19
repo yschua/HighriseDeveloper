@@ -56,9 +56,9 @@ bool Scene::SetTool(int tool)
     return true;
 }
 
-void Scene::SetBackground(Background* pBG)
+void Scene::SetBackground(std::unique_ptr<Background> pBG)
 {
-    mpBackground = pBG;
+    mpBackground = std::move(pBG);
 }
 
 void Scene::Update(float dt, int timeOfDay)

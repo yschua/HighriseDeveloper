@@ -75,7 +75,7 @@ public:
     void SetVelocity(const Vector2f& NewV) { mv = NewV; }
     void SetAcceleration(const Vector2f& NewA) { ma = NewA; }
 
-    void Integrate(float dt);
+    void Integrate(sf::Time dt);
     void MoveTo(float x, float y, float time);
 };
 

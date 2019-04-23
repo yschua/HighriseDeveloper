@@ -34,7 +34,7 @@ public:
     void SetTower(Tower* pTower);
     void SetBackground(std::unique_ptr<Background> pBG);
     bool SetTool(int tool);
-    void Update(float dt, int timeOfDay);
+    void Update(int timeOfDay);
     void Draw();
     void RenderFramework(int level); // hit test run
     void Hit(int hit);

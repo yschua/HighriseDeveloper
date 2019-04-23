@@ -20,6 +20,11 @@
 #include "../Scene/Background.h"
 #include "GameManager.h"
 
+const int Game::m_updateRate = 100; // number of updates per second
+const int Game::m_clockRate = 70; // number of updates for one game minute to pass
+
+Game::Game() : m_mainEvt(m_updateRate) {}
+
 void Game::Initialize()
 {
     // Camera manages the window, opengl, and some drawing
@@ -65,35 +70,25 @@ void Game::ProcessInput()
 
 void Game::Update()
 {
-    m_camera->Integrate(m_mainEvt.GetDt());
+    const auto& dt = m_mainEvt.GetDt();
+
+    // UI updates here so it still works when paused
+    m_camera->Integrate(dt);
 
     if (m_mainEvt.IsPaused()) return;
 
-    int time = m_interface.GetTimeOfDay();
-    static int cycle = 0; // temp
+    // Simulation updates here
+    m_interface.mStats.SetPopulation(m_tower->GetPopulation());
+    m_interface.mStats.SetNet(static_cast<int>(m_tower->GetAvailableFunds()));
+    m_interface.UpdateStats();
 
-    switch (cycle++) {
-    case 0:
-        m_scene.Update(80, time);
-        break;
-    case 1:
-        m_interface.mStats.SetPopulation(m_tower->GetPopulation());
-        m_interface.mStats.SetNet(static_cast<int>(m_tower->GetAvailableFunds()));
-        m_interface.Update(20);
-        break;
-    default:
-        static int cc_count = 30; // only once in a while
-        if (cc_count < 1) {
-            m_citizensAgent->Update(800, time);
-            cc_count = 20;
-        }
-        cc_count--;
-        cycle = 0;
-        break;
-    }
+    m_interface.UpdateTime(m_clockRate);
+    const int time = m_interface.GetTimeOfDay();
 
-    int day = m_interface.GetDayOfYear();
-    m_tower->Update(static_cast<float>(day), time);
+    // TODO fix spawn rate
+    m_citizensAgent->Update(time);
+
+    m_tower->Update(static_cast<float>(m_interface.GetDayOfYear()), time);
 }
 
 void Game::Render()
@@ -114,7 +109,6 @@ void Game::GameLoop()
 
     while (!m_mainEvt.IsClosed()) {
         ProcessInput();
-        Render();
 
         auto frameTime = timer.restart();
         accumulator += frameTime;
@@ -124,6 +118,8 @@ void Game::GameLoop()
             Update();
             accumulator -= dt;
         }
+
+        Render();
     }
 }
 

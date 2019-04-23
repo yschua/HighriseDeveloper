@@ -38,6 +38,9 @@ Interface::Interface()
     LoadSettings();
     mChangedSettings = false;
     mCurDay = 0;
+    m_ticks = 0;
+
+    UpdateStats();
 }
 
 Interface::~Interface()
@@ -109,26 +112,26 @@ void Interface::SetMusic(bool bMusic)
     mCurDay = 0;
 }
 
-void Interface::PosCalc() {}
-
-void Interface::Update(float dt)
+void Interface::UpdateTime(int clockRate)
 {
-    static int count = 0;
-    mClock.Update(1); // 60); // 1 minute update
-    if (count < 1) {
-        count = (int)dt;
-        if (mClock.GetDayOfYear() != mCurDay) {
-            mStats.SetDayOfWeek(mClock.DayOfWeekToString());
-            mStats.SetDate(mClock.DateString());
-            mCurDay = mClock.GetDayOfYear();
-        }
-        mStats.Update();
-    }
-    count--;
+    if (m_ticks++ < clockRate) return;
+
+    m_ticks = 0;
+    mClock.Update(1);
 }
 
 void Interface::Draw()
 {
     mClock.Draw();
     mStats.Draw();
+}
+
+void Interface::UpdateStats()
+{
+    if (mClock.GetDayOfYear() != mCurDay) {
+        mStats.SetDayOfWeek(mClock.DayOfWeekToString());
+        mStats.SetDate(mClock.DateString());
+        mCurDay = mClock.GetDayOfYear();
+    }
+    mStats.Update();
 }

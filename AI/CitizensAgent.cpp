@@ -47,7 +47,7 @@ CitizensAgent::CitizensAgent(Tower& tower) : mTower(tower) {}
 
 CitizensAgent::~CitizensAgent() {}
 
-void CitizensAgent::Update(float dt, int tod)
+void CitizensAgent::Update(int tod)
 {
     // Shouldn't Citizens be a member within each Tower? Supposedly you would want this seperate.
     Citizens* citizens = Citizens::get_Instance(); // the citizens object that holds the people collection

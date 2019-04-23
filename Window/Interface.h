@@ -29,6 +29,7 @@ private:
     bool mMusicOn;
     int mLanguageCode;
     int mCurDay;
+    int m_ticks;
 
 public: // these should be protected
     Clock mClock;
@@ -51,8 +52,8 @@ public:
     int GetTimeOfDay() { return mClock.GetTimeOfDay(); }
     int GetDayOfYear() { return mClock.GetDayOfYear(); }
 
-    void PosCalc();
-    void Update(float dt);
+    void UpdateTime(int clockRate);
+    void UpdateStats();
     void Draw();
 };
 

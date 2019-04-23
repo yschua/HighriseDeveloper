@@ -22,7 +22,7 @@
 class MainEvent : public EventBase
 {
 public:
-    MainEvent();
+    MainEvent(int updateRate);
     virtual ~MainEvent();
     bool OnClose() override;
     bool OnKeyDown(sf::Keyboard::Key key) override;
@@ -31,8 +31,9 @@ public:
     sf::Time GetDt() const;
 
 private:
-    static const sf::Time m_dtNormal;
-    static const sf::Time m_dtFast;
+    static const float m_fastMultiplier;
+    const sf::Time m_dtNormal;
+    const sf::Time m_dtFast;
     sf::Time m_dt; // timestep
     bool m_closed;
     bool m_paused;

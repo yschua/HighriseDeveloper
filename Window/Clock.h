@@ -65,6 +65,9 @@ public:
     const char* DayOfWeekToString();
     const char* MonthToString();
     const char* DateString();
+
+private:
+    void UpdateClockHands();
 };
 
 #endif // _CLOCK_H

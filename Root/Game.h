@@ -33,6 +33,7 @@ class Camera;
 class Game
 {
 public:
+    Game();
     void Run();
 
 private:
@@ -42,6 +43,9 @@ private:
     void Update();
     void Render();
     void GameLoop();
+
+    static const int m_updateRate;
+    static const int m_clockRate;
 
     Interface m_interface;
     Scene m_scene;

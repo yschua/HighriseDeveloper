@@ -131,6 +131,8 @@ Clock::Clock()
     memcpy(mHourHand.Colors[1], kszColor2, 4);
     memcpy(mHourHand.Colors[2], kszColor0, 4);
     memcpy(mHourHand.Colors[3], kszColor2, 4);
+
+    UpdateClockHands();
 }
 
 Clock::~Clock() {}
@@ -203,10 +205,7 @@ void Clock::Update(int minutes)
             }
         }
     }
-    int mins = mTimeOfDay % 60;
-    float hours = (float)mTimeOfDay / 30;
-    mHourHand.Angle = 360.0f / 24 * hours;
-    mMinuteHand.Angle = 360.0f / 60 * mins;
+    UpdateClockHands();
 }
 
 void Clock::Draw()
@@ -214,4 +213,12 @@ void Clock::Draw()
     Render(mClockFace);
     Render(&mHourHand);
     Render(&mMinuteHand);
+}
+
+void Clock::UpdateClockHands()
+{
+    int mins = mTimeOfDay % 60;
+    float hours = mTimeOfDay / 30.f;
+    mHourHand.Angle = 360.f / 24 * hours;
+    mMinuteHand.Angle = 360.f / 60 * mins;
 }

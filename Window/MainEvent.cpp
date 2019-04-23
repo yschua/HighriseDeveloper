@@ -16,10 +16,15 @@
 
 #include "MainEvent.h"
 
-const sf::Time MainEvent::m_dtNormal = sf::milliseconds(10);
-const sf::Time MainEvent::m_dtFast = sf::milliseconds(1);
+const float m_fastMultipier = 10.f;
 
-MainEvent::MainEvent() : m_closed(false), m_paused(false), m_dt(m_dtNormal) {}
+MainEvent::MainEvent(int updateRate) : 
+    m_closed(false),
+    m_paused(false),
+    m_dtNormal(sf::seconds(1.f / updateRate)),
+    m_dtFast(m_dtNormal / m_fastMultipier),
+    m_dt(m_dtNormal)
+{}
 
 MainEvent::~MainEvent() {}
 

@@ -61,7 +61,7 @@ void Scene::SetBackground(std::unique_ptr<Background> pBG)
     mpBackground = std::move(pBG);
 }
 
-void Scene::Update(float dt, int timeOfDay)
+void Scene::Update(int timeOfDay)
 {
     mpBackground->Update(timeOfDay);
 }

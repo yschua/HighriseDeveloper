@@ -36,7 +36,7 @@ class CitizensAgent
 public:
     CitizensAgent(Tower& mTower); // use a tower agent for multiple towers
     virtual ~CitizensAgent();
-    void Update(float dt, int tod);
+    void Update(int tod);
     void Draw(); // People
     void RoutePerson(int curLevel, Path& Path, Person* peep);
 

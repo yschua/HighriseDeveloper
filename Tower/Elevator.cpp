@@ -465,8 +465,6 @@ void Elevator::Draw()
 
     mElevatorShaft->Draw();
     mLiftMachine->Draw();
-    //   mcam->Draw (*mLiftPit );
-    //   mcam->Draw (*mElevatorImage);
     Render(mLiftPit);
     Render(mElevatorImage);
     for (int idx = 0; idx < mRidersOnBoard && idx < 16; ++idx) {

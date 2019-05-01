@@ -98,37 +98,36 @@ public:
     Elevator(SerializerBase& ser, short TopLevel, Tower* TowerParent);
     virtual ~Elevator();
 
-    virtual void Update(float dt, int tod);
-    virtual void Update(float dt);
-    virtual void Draw();
-    virtual void DrawFramework() {} // later we do lifts to
-
     static BaseType GetBaseType() { return BaseElevator; }
     static const char* GetTypeString() { return "elevator"; }
 
-    inline std::vector<PersonQueue*>* GetPersonQueues() { return mRouteQueues; }
-    inline int GetNumber() { return mNumber; }
-    void ClearStops();
-    void Save(SerializerBase& ser);
-    PersonQueue* FindQueue(int level);
-    bool StopsOnLevel(int level);
-    int FindLobby();
+    virtual void DrawFramework() {} // later we do lifts to
 
-protected:
+    // RouteBase overrides
+    bool SetCallButton(RoutingRequest& req) override;
+    void SetFloorButton(RoutingRequest& req) override;
+    int LoadPerson(Person* person, RoutingRequest& req) override; // return space remaining
+    void Update(float dt, int tod) override;
+    void Update(float dt) override;
+    void Draw() override;
+    void Save(SerializerBase& ser) override;
+    PersonQueue* FindQueue(int level) override;
+    bool StopsOnLevel(int level) override;
+    int FindLobby() override;
+
+private:
     void LoadImages();
     void PosCalc();
-    virtual bool SetCallButton(RoutingRequest& req);
-    virtual void SetFloorButton(RoutingRequest& req);
-    int LoadPerson(Person* person, RoutingRequest& req); // returns space remaining
-    Person* UnloadPerson();                              // returns space remaining
+    Person* UnloadPerson();
     void NextCallButton();
     void Motion();
     void SetDestination(int level);
     void SetQueues();
     void SetStopLevels();
     void SetMinMax();
+    void ClearStops();
 
-protected:
+private:
     static int gElevatorsNumber;
     static const int mStandingPositions[];
 

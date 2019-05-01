@@ -28,9 +28,13 @@ class ElevatorMachine : public ElevatorBase, public Gfx::ModelObject
 {
 public:
     enum ElevatorMachine_State { LMS_Idle = 0, LMS_Down = 1, LMS_Up = 2 };
+    
+    ElevatorMachine(int x, int level, int width, Elevator* pElevator);
+    virtual ~ElevatorMachine();
 
-private:
-    ElevatorMachine_State mState; // Controls this things motion
+    void pos_calc();
+    virtual void Update(float dt);
+    virtual void Draw();
 
 protected:
     short mDirection;
@@ -39,15 +43,8 @@ protected:
     short mFirstFrame;
     Animation* mLifterAnimation;
 
-public:
-    // CTOR/DTOR
-    ElevatorMachine(int x, int level, int width, Elevator* pElevator);
-    virtual ~ElevatorMachine();
-
-    // Implemantation
-    void pos_calc();
-    virtual void Update(float dt);
-    virtual void Draw();
+private:
+    ElevatorMachine_State mState; // Controls this things motion
 };
 
 #endif //_ELEVATORMACHINE_H

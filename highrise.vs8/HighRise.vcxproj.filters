@@ -140,9 +140,6 @@
     <ClInclude Include="..\Tower\ElevatorMachine.h">
       <Filter>Tower</Filter>
     </ClInclude>
-    <ClInclude Include="..\Tower\ElevatorPit.h">
-      <Filter>Tower</Filter>
-    </ClInclude>
     <ClInclude Include="..\Tower\ElevatorShaft.h">
       <Filter>Tower</Filter>
     </ClInclude>
@@ -329,9 +326,6 @@
       <Filter>Tower</Filter>
     </ClCompile>
     <ClCompile Include="..\Tower\ElevatorMachine.cpp">
-      <Filter>Tower</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Tower\ElevatorPit.cpp">
       <Filter>Tower</Filter>
     </ClCompile>
     <ClCompile Include="..\Tower\ElevatorShaft.cpp">

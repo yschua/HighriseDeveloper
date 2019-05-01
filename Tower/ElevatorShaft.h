@@ -19,29 +19,25 @@
 
 #include "../Graphics/ModelObject.h"
 #include "ElevatorBase.h"
-class Elevator;
+
 class FloorBase;
-// class Camera;
 class Tiler;
 
 class ElevatorShaft : public ElevatorBase, public Gfx::ModelObject
 {
+public:
+    ElevatorShaft(int x, int topLevel, int bottomLevel, int width, Elevator* pElevator);
+    virtual ~ElevatorShaft();
+
+    virtual void Update(float dt);
+    virtual void Draw();
+
 protected:
     short mTopLevel;
     short mBottomLevel; // if these are changed, update the tiler ShaftImages
 
     // moved from elevator and changed name to ShaftTiler to show it is a tiler object
     Tiler* mShaftTiler; // temporary to make a nice looking demo :]
-                        // Camera* mcam;
-
-public:
-    // CTOR/DTOR
-    ElevatorShaft(int x, int topLevel, int bottomLevel, int width, Elevator* pElevator);
-    virtual ~ElevatorShaft();
-
-    // Implemantation
-    virtual void Update(float dt);
-    virtual void Draw();
 };
 
 #endif //_ELEVATORSHAFT_H

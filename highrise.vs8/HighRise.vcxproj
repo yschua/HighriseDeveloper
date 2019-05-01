@@ -132,7 +132,6 @@
     <ClInclude Include="..\Tower\Elevator.h" />
     <ClInclude Include="..\Tower\ElevatorBase.h" />
     <ClInclude Include="..\Tower\ElevatorMachine.h" />
-    <ClInclude Include="..\Tower\ElevatorPit.h" />
     <ClInclude Include="..\Tower\ElevatorShaft.h" />
     <ClInclude Include="..\Tower\FloorBase.h" />
     <ClInclude Include="..\Tower\GhostRoom.h" />
@@ -201,7 +200,6 @@
     <ClCompile Include="..\Tower\Elevator.cpp" />
     <ClCompile Include="..\Tower\ElevatorBase.cpp" />
     <ClCompile Include="..\Tower\ElevatorMachine.cpp" />
-    <ClCompile Include="..\Tower\ElevatorPit.cpp" />
     <ClCompile Include="..\Tower\ElevatorShaft.cpp" />
     <ClCompile Include="..\Tower\FloorBase.cpp" />
     <ClCompile Include="..\Tower\GhostRoom.cpp" />

@@ -25,7 +25,6 @@
 #include "../Root/SerializerBase.h"
 #include "ElevatorBase.h"
 #include "ElevatorMachine.h"
-#include "ElevatorPit.h"
 #include "ElevatorShaft.h"
 #include "Level.h"
 #include "PersonQueue.h"
@@ -42,11 +41,6 @@ using namespace Gfx;
 // this object is the elevator collection (Machines, Shaft, Pit) and the car.
 // At this time there is no LiftCar class.
 
-// Elevator* Elevator::Create( Lift_Styles style, int x, short BottomLevel, short TopLevel, Tower *
-// TowerParent )
-//{
-//   return new Elevator( style, x, BottomLevel, TopLevel, TowerParent );
-//}
 int Elevator::gElevatorsNumber = 1; // start with 1 to keep engineers happy
 
 const int Elevator::mStandingPositions[16] = {12, 20, 16, 4, 18, 22, 6, 24, 8, 10, 2, 5, 9, 13, 17, 21};
@@ -124,6 +118,7 @@ void Elevator::LoadImages()
 {
     ImageManager* images = ImageManager::GetInstance();
     const char* pImageName = "Elevator_u_n.png";
+
     switch (mLiftStyle) {
     case LS_Standard:
         mWidth.x = 32;
@@ -141,18 +136,32 @@ void Elevator::LoadImages()
         pImageName = "Elevator_o_x.png";
         break;
     }
-    mElevatorImage = new AnimationSingle(
-        images->GetTexture(pImageName, GL_RGBA), static_cast<int>(mWidth.x), static_cast<int>(mHeight.y));
+
+    mElevatorImage = new AnimationSingle(images->GetTexture(pImageName, GL_RGBA),
+                                         static_cast<int>(mWidth.x),
+                                         static_cast<int>(mHeight.y));
+
     mRiderImage = new AnimationSingle(images->GetTexture("Person_e.png", GL_RGBA), 8, 16);
+
     mRiderImage->SetPosition((float)mX + 8,
                              (float)(mBottomLevel - 1) * -36); // neg 36 so it becomed positive for model view
-    mLiftMachine = new ElevatorMachine(mX - 2, mTopLevel + 1, static_cast<int>(mWidth.x + 4), this);
-    mLiftPit =
-        new AnimationSingle(images->GetTexture("LiftPit_1.png", GL_RGBA), static_cast<int>(mWidth.x + 4), 36);
+
+    mLiftMachine = new ElevatorMachine(mX - 2,
+                                       mTopLevel + 1,
+                                       static_cast<int>(mWidth.x + 4),
+                                       this);
+
+    mLiftPit = new AnimationSingle(images->GetTexture("LiftPit_1.png", GL_RGBA),
+                                   static_cast<int>(mWidth.x + 4), 36);
+
     mLiftPit->SetPosition((float)mX - 2,
                           (float)(mBottomLevel - 1) * -36); // neg 36 so it becomed positive for model view
-    mElevatorShaft =
-        new ElevatorShaft(mX - 2, mTopLevel, mBottomLevel - 1, static_cast<int>(mWidth.x + 4), this);
+
+    mElevatorShaft = new ElevatorShaft(mX - 2,
+                                       mTopLevel,
+                                       mBottomLevel - 1,
+                                       static_cast<int>(mWidth.x + 4),
+                                       this);
 }
 
 void Elevator::ClearStops()
@@ -463,10 +472,9 @@ void Elevator::Draw()
     for (int idx = 0; idx < mRidersOnBoard && idx < 16; ++idx) {
         Render(mRiderImage, (float)(mX + mStandingPositions[idx]), (float)(mX + mStandingPositions[idx] + 8));
     }
-    QueueIterType it;
     int il = mBottomLevel;
     int index = 0;
-    for (it = mRouteQueues->begin(); it != mRouteQueues->end(); ++it) {
+    for (auto it = mRouteQueues->begin(); it != mRouteQueues->end(); ++it) {
         PersonQueue* pQ = (*it);
         pQ->Draw(mX + 18, 36 * il);
         il++;
@@ -502,21 +510,11 @@ void Elevator::Save(SerializerBase& ser)
     ser.Add("maxcap", mMaxCap);
 }
 
-/*
-<type>transport</type>
-<name>Elevator</name>
-<cost>9</cost>
-<gfx>
-...
-</gfx>
-*/
-
 void Elevator::SetQueues()
 {
     if (mRouteQueues == NULL) {
-        mRouteQueues = new QueueType();
+        mRouteQueues = new std::vector<PersonQueue*>();
     }
-    QueueIterType it;
     int count = mTopLevel - mBottomLevel + 1;
     for (int idx = 0; idx < count; ++idx) {
         PersonQueue* pQ = new PersonQueue();

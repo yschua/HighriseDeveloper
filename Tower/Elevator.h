@@ -24,13 +24,11 @@
 // ListPit is the crash landing pit below in the event of a break failure.
 // This three parts build the shaft for the elevator/lift to run in.
 
-// these decls allow inclusion of this header without the need to load these class headers.
 // class RouteBase;
 struct RoutingRequest;
 class AnimationSingle;
 class ElevatorMachine; // mover above
 class ElevatorShaft;   // holds the tiler to show the shaft
-class ElevatorPit;     // landing pit below
 class Person;
 class PersonQueue;
 class Tower;
@@ -62,6 +60,7 @@ class SerializerBase;
 
 #define STOP_HERE 0x01
 #define STOP_ISLOBBY 0x02
+
 struct FloorStop {
     short mLevel;
     char mLevelFlag;
@@ -87,7 +86,47 @@ public:
         LOS_ReturnToHome, // Send car to set home floor
     };
 
-    enum LiftStyle { LS_Small = 0, LS_Standard, LS_HighCapacity, LS_Freight, LS_Express };
+    enum LiftStyle {
+        LS_Small = 0,
+        LS_Standard,
+        LS_HighCapacity,
+        LS_Freight,
+        LS_Express
+    };
+
+    Elevator(LiftStyle style, int x, short BottLevel, short TopLevel, Tower* TowerParent);
+    Elevator(SerializerBase& ser, short TopLevel, Tower* TowerParent);
+    virtual ~Elevator();
+
+    virtual void Update(float dt, int tod);
+    virtual void Update(float dt);
+    virtual void Draw();
+    virtual void DrawFramework() {} // later we do lifts to
+
+    static BaseType GetBaseType() { return BaseElevator; }
+    static const char* GetTypeString() { return "elevator"; }
+
+    inline std::vector<PersonQueue*>* GetPersonQueues() { return mRouteQueues; }
+    inline int GetNumber() { return mNumber; }
+    void ClearStops();
+    void Save(SerializerBase& ser);
+    PersonQueue* FindQueue(int level);
+    bool StopsOnLevel(int level);
+    int FindLobby();
+
+protected:
+    void LoadImages();
+    void PosCalc();
+    virtual bool SetCallButton(RoutingRequest& req);
+    virtual void SetFloorButton(RoutingRequest& req);
+    int LoadPerson(Person* person, RoutingRequest& req); // returns space remaining
+    Person* UnloadPerson();                              // returns space remaining
+    void NextCallButton();
+    void Motion();
+    void SetDestination(int level);
+    void SetQueues();
+    void SetStopLevels();
+    void SetMinMax();
 
 protected:
     static int gElevatorsNumber;
@@ -118,7 +157,7 @@ protected:
 
     short mStartRoute;
     short mEndRoute;
-    short mEnd2;
+    short mEnd2; // unused
     short mRidersOnBoard;
     short mFloorCount;
     short mMaxCap;
@@ -131,60 +170,8 @@ protected:
     LiftOps_State mLiftOperation;
     LiftStyle mLiftStyle;
     std::vector<PersonQueue*>* mRouteQueues; // person queue for elevators that stop on this level
-    typedef std::vector<PersonQueue*> QueueType;
-    typedef std::vector<PersonQueue*>::iterator QueueIterType;
 
     Tower* mTowerParent;
-
-public:
-    // CTOR/DTOR  Use create to make on
-    Elevator(LiftStyle style, int x, short BottLevel, short TopLevel, Tower* TowerParent);
-    Elevator(SerializerBase& ser, short TopLevel, Tower* TowerParent);
-    virtual ~Elevator();
-
-    static Elevator* Create(LiftStyle style,
-                            int x,
-                            short BottomLevel,
-                            short TopLevel,
-                            Tower* TowerParent); // this is rejected for som reason
-    static BaseType GetBaseType() { return BaseElevator; }
-    static const char* GetTypeString() { return "elevator"; }
-
-    // Properties
-    inline int GetNumber() { return mNumber; }
-
-    // Methods
-
-    void ClearStops();
-    void Move(int x, int y);
-    void Resize(int x, int y);
-
-protected:
-    void LoadImages();
-    void PosCalc();
-    virtual bool SetCallButton(RoutingRequest& req);
-    virtual void SetFloorButton(RoutingRequest& req);
-    int LoadPerson(Person* person, RoutingRequest& req); // returns space remaining
-    Person* UnloadPerson();                              // returns space remaining
-    void NextCallButton();
-    void Motion();
-    void SetDestination(int level);
-    void SetQueues();
-    void SetStopLevels();
-    void SetMinMax();
-
-public:
-    virtual void Update(float dt, int tod);
-    virtual void Update(float dt);
-    virtual void Draw();
-    virtual void DrawFramework() {} // later we do lifts to
-
-    void Save(SerializerBase& ser);
-
-    inline QueueType* GetPersonQueues() { return mRouteQueues; }
-    PersonQueue* FindQueue(int level);
-    bool StopsOnLevel(int level);
-    int FindLobby();
 };
 
 #endif

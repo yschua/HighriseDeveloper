@@ -23,7 +23,9 @@
 
 #include <iostream>
 
-Person::Person(Location& loc)
+int Person::m_nextId = 0;
+
+Person::Person(Location& loc) : m_id(m_nextId++)
 {
     mHealth = HS_Well;
     mMood = MS_Content;

@@ -205,9 +205,8 @@ bool Elevator::SetCallButton(RoutingRequest& req)
 {
     bool bIsOnFloor = false;
     int reqLevel = req.OriginLevel - mBottomLevel;
-    int cur_level = (mPosition - 18) / 36 - mBottomLevel;
-    
-    if (cur_level == reqLevel && CanStop()) {
+
+    if (GetCurrentLevel() == reqLevel && CanStop()) {
         SetFloorButton(req);
         bIsOnFloor = true;
     } else {

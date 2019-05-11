@@ -53,8 +53,8 @@ void CitizensAgent::Update(int tod)
     Citizens* citizens = Citizens::get_Instance(); // the citizens object that holds the people collection
 
     // TODO: need a better spawn mechanism, raised to 100
-    size_t limit = 16;
-    if ((rand() % 4) == 3 && citizens->get_Persons().size() < limit) {
+    size_t limit = 10;
+    if (citizens->get_Persons().size() < limit) {
         // Location loc; // all zeros
         Person* peep = citizens->CreateNewPerson();
         //      Person* peep = new Person( loc );
@@ -103,6 +103,9 @@ void CitizensAgent::RoutePerson(int index, Path& Path, Person* peep)
         RoutingRequest req; // routing code needs to queue this person
         req.OriginLevel = peep->GetCurrent();
         req.DestinLevel = Path.mPathList[index].mLevel;
+
+        if (req.OriginLevel == req.DestinLevel) return;
+
         int rte = Path.mPathList[index].mRoute;
         if (rte >= 0 && rte < static_cast<int>(routeList.GetRoutes().size())) {
             RouteBase* route = routeList.GetRoutes()[rte];
@@ -115,6 +118,7 @@ void CitizensAgent::RoutePerson(int index, Path& Path, Person* peep)
                 // Level* pLevel = mTower.GetLevel(curLevel);
                 PersonQueue* pQ = route->FindQueue(peep->GetCurrent());
                 if (pQ) {
+                    peep->get_WorkPath().index = index;
                     pQ->AddPerson(peep);
                 }
             }
@@ -299,7 +303,7 @@ void CitizensAgent::GoingHome(Person* person)
 void CitizensAgent::LunchBreak(Person* person, int tod)
 {
     Path& workPath = person->get_WorkPath(); // for now just doing work
-    if (workPath.index > 0) {
+    if (workPath.index >= 0) {
         int idx = 0;
         int curLevel = person->get_Location().mLevel;
         if (curLevel == workPath.mPathList[idx].mLevel) {

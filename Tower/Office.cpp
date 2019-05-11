@@ -71,7 +71,7 @@ Office::Office(int x, int level, Tower* TowerParent) :
     std::cout << "New office at " << mX << ", " << mY << " level " << mLevel << std::endl;
     mPeopleInOffice = 0;
     mEmployees = 0;
-    mMaxPositions = rand() % 6 + 2;
+    mMaxPositions = 5;
     mOfficeStyle = 0;
     SetImages(0);
 }

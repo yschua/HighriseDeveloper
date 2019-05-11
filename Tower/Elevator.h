@@ -62,17 +62,6 @@ struct Rider {
 class Elevator : public Body, public RouteBase, public Gfx::ModelObject // Quad morphic
 {
 public:
-    enum LiftOps_State {
-        LOS_EStop = 0,
-        LOS_FireMode,
-        LOS_Waiting,
-        LOS_WxpressUp,
-        LOS_ExpressDown,
-        LOS_NearestCall,
-        LOS_FullService,  // Normal any call operation.
-        LOS_ReturnToHome, // Send car to set home floor
-    };
-
     enum LiftStyle {
         LS_Small = 0,
         LS_Standard,
@@ -113,6 +102,8 @@ private:
     int FindNearestCall() const; // parent
     bool KeepMovingInCurrentDirection() const;
     int GetNumLevels() const;
+    int GetCurrentLevel() const;
+    bool CanStop() const;
 
 private:
     static int gElevatorsNumber;
@@ -126,32 +117,25 @@ private:
 
     Rider mRiders[32];
 
-    // Controls this things motion
+    // Serializer attributes
+    int mNumber; // number of this lift
     int mX;
     int mY;
     float mZ;
-
-    int mNumber; // number of this lift
-    short mCurrentLevel;
-    short mDirection;
     short mTopLevel;
     short mBottomLevel;
     short mPosition;
+    short mDirection;
     short mIdleTime;
-    short mOffset; // adjust for starting floor.
-
-    short mStartRoute;
-    short mEndRoute;
     short mEnd2; // unused
+    short mOffset; // adjust for starting floor.
     short mRidersOnBoard;
-    short mFloorCount;
     short mMaxCap;
 
     // calculated values
     short mMaxFloorY;
     short mMinFloorY;
 
-    LiftOps_State mLiftOperation;
     LiftStyle mLiftStyle;
     std::vector<PersonQueue*>* mRouteQueues; // person queue for elevators that stop on this level
 

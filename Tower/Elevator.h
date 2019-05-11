@@ -54,9 +54,10 @@ struct FloorButton
     bool m_enabled;
 };
 
-struct Rider {
-    Person* mPerson;
-    short mDestLevel;
+struct Rider
+{
+    Person* m_person;
+    int m_destLevel;
 };
 
 class Elevator : public Body, public RouteBase, public Gfx::ModelObject // Quad morphic
@@ -104,6 +105,7 @@ private:
     int GetNumLevels() const;
     int GetCurrentLevel() const;
     bool CanStop() const;
+    int GetNumRiders() const;
 
 private:
     static int gElevatorsNumber;
@@ -114,8 +116,6 @@ private:
     AnimationSingle* mRiderImage;
     ElevatorMachine* mLiftMachine;
     ElevatorShaft* mElevatorShaft;
-
-    Rider mRiders[32];
 
     // Serializer attributes
     int mNumber; // number of this lift
@@ -141,10 +141,13 @@ private:
 
     Tower* mTowerParent;
 
+    // TODO lobby should be level value of 0, consistent with the rest
+
     std::map<int, FloorButton> m_floorButtons;
-    std::map<int, CallButton> m_callButtons; // parent
+    std::map<int, CallButton> m_callButtons; // parent, should also check if there are people queuing
     bool m_idle;
     bool m_dirUp;
+    std::vector<Rider> m_riders;
 };
 
 #endif

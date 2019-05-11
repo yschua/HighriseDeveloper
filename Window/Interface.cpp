@@ -112,12 +112,13 @@ void Interface::SetMusic(bool bMusic)
     mCurDay = 0;
 }
 
-void Interface::UpdateTime(int clockRate)
+bool Interface::UpdateTime(int clockRate)
 {
-    if (m_ticks++ < clockRate) return;
+    if (m_ticks++ < clockRate) return false;
 
     m_ticks = 0;
     mClock.Update(1);
+	return true;
 }
 
 void Interface::Draw()

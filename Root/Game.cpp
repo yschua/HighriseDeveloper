@@ -82,11 +82,12 @@ void Game::Update()
     m_interface.mStats.SetNet(static_cast<int>(m_tower->GetAvailableFunds()));
     m_interface.UpdateStats();
 
-    m_interface.UpdateTime(m_clockRate);
+    bool timeChanged = m_interface.UpdateTime(m_clockRate);
     const int time = m_interface.GetTimeOfDay();
 
-    // TODO fix spawn rate
-    m_citizensAgent->Update(time);
+	if (timeChanged) {
+		m_citizensAgent->Update(time);
+	}
 
     m_tower->Update(static_cast<float>(m_interface.GetDayOfYear()), time);
 }

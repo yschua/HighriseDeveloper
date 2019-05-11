@@ -52,7 +52,7 @@ public:
     int GetTimeOfDay() { return mClock.GetTimeOfDay(); }
     int GetDayOfYear() { return mClock.GetDayOfYear(); }
 
-    void UpdateTime(int clockRate);
+    bool UpdateTime(int clockRate);
     void UpdateStats();
     void Draw();
 };

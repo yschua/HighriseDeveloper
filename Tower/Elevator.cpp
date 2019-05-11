@@ -62,7 +62,6 @@ Elevator::Elevator(LiftStyle style, int x, short BottomLevel, short TopLevel, To
 
     mRidersOnBoard = 0;
     mMaxCap = (style == LS_HighCapacity) ? 30 : 15;
-    memset(mRiders, 0, sizeof(mRiders));
 
     mX = x + 2;
     mY = (int)(mBottomLevel * 36);
@@ -190,9 +189,9 @@ void Elevator::SetStopLevels()
 
 void Elevator::PosCalc()
 {
-    mElevatorImage->SetPosition((float)mX,
-                                (float)(mY - (mOffset + mPosition) + 4)); // elevator sprite is only 32x32
-    mRiderImage->SetPosition((float)mX, (float)(mY - (mOffset + mPosition) + 18)); // people
+    // elevator sprite is only 32x32
+    mElevatorImage->SetPosition((float)mX, (float)(mY - (mOffset + mPosition) + 4));
+    mRiderImage->SetPosition((float)mX, (float)(mY - (mOffset + mPosition) + 18));
 }
 
 void Elevator::SetFloorButton(RoutingRequest& req) // OK, take me there
@@ -226,32 +225,26 @@ bool Elevator::SetCallButton(RoutingRequest& req)
 
 int Elevator::LoadPerson(Person* person, RoutingRequest& req) // returns space remaining
 {
-    if (mRidersOnBoard < mMaxCap) {
-        mRiders[mRidersOnBoard].mDestLevel = req.DestinLevel - mBottomLevel;
-        mRiders[mRidersOnBoard].mPerson = person;
-        mRidersOnBoard++;
-        this->SetFloorButton(req);
+    if (GetNumRiders() < mMaxCap) {
+        int destLevel = req.DestinLevel - mBottomLevel;
+        m_riders.push_back(Rider{person, destLevel});
+        std::cout << "load " << person->GetId() << " to: " << destLevel << "\n";
+        SetFloorButton(req);
     }
-    return mMaxCap - mRidersOnBoard;
+    return mMaxCap - GetNumRiders();
 }
 
-Person* Elevator::UnloadPerson() // returns space remaining
+Person* Elevator::UnloadPerson()
 {
-    Person* person = NULL;
-    int idx = 0;
-    for (; idx < mRidersOnBoard; ++idx) {
-        if (mRiders[idx].mDestLevel == GetCurrentLevel()) {
-            person = mRiders[idx].mPerson;
-            mRiders[idx].mPerson = 0;
-            mRidersOnBoard--;
-            break;
+    for (auto it = m_riders.begin(); it != m_riders.end(); ++it) {
+        if (it->m_destLevel == GetCurrentLevel()) {
+            auto person = it->m_person;
+            m_riders.erase(it);
+            std::cout << "unload " << person->GetId() << " at: " << GetCurrentLevel() << "\n";
+            return person;
         }
     }
-    for (; idx < mRidersOnBoard; ++idx) {
-        mRiders[idx].mDestLevel = mRiders[idx + 1].mDestLevel;
-        mRiders[idx].mPerson = mRiders[idx + 1].mPerson;
-    }
-    return person;
+    return nullptr;
 }
 
 void Elevator::SetMinMax() // call when the elevator is created and when the shaft length is changed
@@ -323,12 +316,16 @@ bool Elevator::CanStop() const
     return mPosition % 36 == 0;
 }
 
+int Elevator::GetNumRiders() const
+{
+    return static_cast<int>(m_riders.size());
+}
+
 void Elevator::Motion()
 {
     const int currentLevel = GetCurrentLevel();
 
-    if (mRidersOnBoard > 0) m_idle = false;
-
+    if (GetNumRiders() > 0) m_idle = false;
 
     if (m_idle) {
         int callLevel = FindNearestCall();
@@ -389,8 +386,9 @@ void Elevator::Update(float dt, int tod)
         if (person == NULL && personOn == NULL) {
             mIdleTime--;
         } else {
-            if (person != NULL)
+            if (person != NULL) {
                 person->SetCurrentState(Person::CS_Disembarking);
+            }
             if (personOn != NULL) {
                 int curLevel = personOn->get_Location().mLevel;
                 int idx = personOn->get_WorkPath().index;
@@ -424,7 +422,7 @@ void Elevator::Draw()
     mLiftMachine->Draw();
     Render(mLiftPit);
     Render(mElevatorImage);
-    for (int idx = 0; idx < mRidersOnBoard && idx < 16; ++idx) {
+    for (int idx = 0; idx < GetNumRiders() && idx < 16; ++idx) {
         Render(mRiderImage, (float)(mX + mStandingPositions[idx]), (float)(mX + mStandingPositions[idx] + 8));
     }
     int il = mBottomLevel;

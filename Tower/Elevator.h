@@ -40,31 +40,18 @@ class SerializerBase;
 
 #include <vector>
 
-// Setting elevator levels serviced.
-//
-// The UI should read the FloorStops array and the range of floors.
-// Then display all available floors and ticking those floors in the FloorStops array.
-// The user will be able to untick levels to diable and tick levels to enable.
-// Then the FloorStops array is reloaded with only floors that are ticked.
+struct CallButton
+{
+    CallButton() : m_callUp(false), m_callDown(false) {}
+    bool m_callUp;
+    bool m_callDown;
+};
 
-// Other
-//
-// This code and the routing agent can determine which elevators reach which levels
-//  to determine what paths are available virtically through the tower.
-// ButtonFlag is the direction a person wishes to travel to their destination.
-// BUTTON_UP and BUTTON_DOWN are the bit flags.
-
-#define BUTTON_UP 0x01   // this is a call to floor
-#define BUTTON_DOWN 0x02 // this is a call to floor
-#define DESTINATION 0x04 // this is a level destination
-
-#define STOP_HERE 0x01
-#define STOP_ISLOBBY 0x02
-
-struct FloorStop {
-    short mLevel;
-    char mLevelFlag;
-    char mButtonFlag;
+struct FloorButton
+{
+    FloorButton(bool enabled=true) : m_stopping(false), m_enabled(enabled) {}
+    bool m_stopping;
+    bool m_enabled;
 };
 
 struct Rider {
@@ -119,13 +106,13 @@ private:
     void LoadImages();
     void PosCalc();
     Person* UnloadPerson();
-    void NextCallButton();
     void Motion();
-    void SetDestination(int level);
     void SetQueues();
     void SetStopLevels();
     void SetMinMax();
-    void ClearStops();
+    int FindNearestCall() const; // parent
+    bool KeepMovingInCurrentDirection() const;
+    int GetNumLevels() const;
 
 private:
     static int gElevatorsNumber;
@@ -138,7 +125,6 @@ private:
     ElevatorShaft* mElevatorShaft;
 
     Rider mRiders[32];
-    FloorStop mStops[32];
 
     // Controls this things motion
     int mX;
@@ -164,13 +150,17 @@ private:
     // calculated values
     short mMaxFloorY;
     short mMinFloorY;
-    short mDestinatonY;
 
     LiftOps_State mLiftOperation;
     LiftStyle mLiftStyle;
     std::vector<PersonQueue*>* mRouteQueues; // person queue for elevators that stop on this level
 
     Tower* mTowerParent;
+
+    std::map<int, FloorButton> m_floorButtons;
+    std::map<int, CallButton> m_callButtons; // parent
+    bool m_idle;
+    bool m_dirUp;
 };
 
 #endif

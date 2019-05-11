@@ -49,7 +49,9 @@ Elevator::Elevator(LiftStyle style, int x, short BottomLevel, short TopLevel, To
     mLiftStyle(style),
     mLiftOperation(LOS_Waiting),
     mTowerParent(TowerParent),
-    Body(32, 32)
+    Body(32, 32),
+    m_dirUp(true),
+    m_idle(true)
 {
     mCurrentLevel = 1;
     mTopLevel = TopLevel;
@@ -64,8 +66,6 @@ Elevator::Elevator(LiftStyle style, int x, short BottomLevel, short TopLevel, To
     mRidersOnBoard = 0;
     mMaxCap = (style == LS_HighCapacity) ? 30 : 15;
     memset(mRiders, 0, sizeof(mRiders));
-    ClearStops();
-    memset(mStops, 0, sizeof(mStops));
 
     mStartRoute = mBottomLevel;
     mEndRoute = mBottomLevel;
@@ -107,6 +107,9 @@ Elevator::Elevator(SerializerBase& ser, short TopLevel, Tower* TowerParent) :
     SetQueues();
     SetMinMax();
     SetStopLevels();
+
+    m_idle = (mDirection == 0);
+    m_dirUp = (mDirection != -1);
 }
 
 Elevator::~Elevator()
@@ -164,38 +167,26 @@ void Elevator::LoadImages()
                                        this);
 }
 
-void Elevator::ClearStops()
-{
-    memset(mStops, 0, sizeof(mStops));
-}
-
 void Elevator::SetStopLevels()
 {
-    int levels = mTopLevel - mBottomLevel + 1;
+    const int numLevels = mTopLevel - mBottomLevel + 1;
     int level = mBottomLevel;
-    int stop = 0;
     switch (mLiftStyle) {
     case LS_Standard:
-        for (int idx = 0; idx < levels; ++idx) {
-            Level* pLevel = mTowerParent->GetLevel(level);
-            if (pLevel && pLevel->HasLobby()) {
-                mStops[idx].mLevelFlag = STOP_HERE | STOP_ISLOBBY;
-            } else {
-                mStops[idx].mLevelFlag = STOP_HERE;
-            }
-            mStops[idx].mLevel = level++;
+        for (int idx = 0; idx < numLevels; ++idx) {
+            m_floorButtons.insert(std::make_pair(idx, FloorButton()));
+            m_callButtons.insert(std::make_pair(idx, CallButton()));
         }
         break;
     case LS_HighCapacity:
-        for (int idx = 0; idx < levels; ++idx) {
-            Level* pLevel = mTowerParent->GetLevel(level);
+        for (int idx = 0; idx < numLevels; ++idx) {
+            Level* pLevel = mTowerParent->GetLevel(level++);
             if (pLevel && pLevel->HasLobby()) {
-                mStops[stop++].mLevel = level;
-                mStops[idx].mLevelFlag = STOP_HERE | STOP_ISLOBBY;
+                m_floorButtons.insert(std::make_pair(idx, FloorButton()));
             } else {
-                mStops[idx].mLevelFlag = 0;
+                m_floorButtons.insert(std::make_pair(idx, FloorButton(false)));
             }
-            level++;
+            m_callButtons.insert(std::make_pair(idx, CallButton()));
         }
         break;
     case LS_Freight:
@@ -213,16 +204,13 @@ void Elevator::PosCalc()
 
 void Elevator::SetFloorButton(RoutingRequest& req) // OK, take me there
 {
-    std::cout << "Route: origin: " << mStartRoute << " end: " << mEndRoute << std::endl;
     int reqLevel = req.DestinLevel - mBottomLevel;
-    mStops[reqLevel].mButtonFlag |= DESTINATION;
+    m_floorButtons[reqLevel].m_stopping = true;
 }
 
-bool Elevator::SetCallButton(
-    RoutingRequest& req) // where is an elevator when you need one, I've pushed this button 5 times already
+bool Elevator::SetCallButton(RoutingRequest& req)
 {
     bool bIsOnFloor = false;
-    int dirFlag = (req.DestinLevel > req.OriginLevel) ? BUTTON_UP : BUTTON_DOWN;
     int reqLevel = req.OriginLevel - mBottomLevel;
     int cur_level = (mPosition - 18) / 36 - mBottomLevel;
     int align = mPosition % 36; // zero if we are aligned with a floor (safe stop)
@@ -232,7 +220,11 @@ bool Elevator::SetCallButton(
         bIsOnFloor = true;
     } else {
         if (reqLevel >= 0 && reqLevel < mFloorCount) {
-            mStops[reqLevel].mButtonFlag |= dirFlag;
+            if (req.DestinLevel > req.OriginLevel) {
+                m_callButtons[reqLevel].m_callUp = true;
+            } else {
+                m_callButtons[reqLevel].m_callDown = true;
+            }
         } else {
             std::cout << "Elevator Call for wrong floor level: " << req.OriginLevel
                       << " computed index: " << reqLevel;
@@ -275,141 +267,110 @@ void Elevator::SetMinMax() // call when the elevator is created and when the sha
 {
     mMaxFloorY = mTopLevel * 36;
     mMinFloorY = mBottomLevel * 36;
-    mDestinatonY = mPosition;
 }
 
-void Elevator::SetDestination(int level)
+int Elevator::FindNearestCall() const
 {
-    mEndRoute = level;
-    mStartRoute = mCurrentLevel;
-    mDirection = (mStartRoute < mEndRoute) ? 1 : -1;
-    mDestinatonY =
-        ((mStartRoute == mEndRoute) ? (mStartRoute + mBottomLevel) * 36 : (mEndRoute + mBottomLevel) * 36);
-    if (mDestinatonY > mMaxFloorY)
-        mDestinatonY = mMaxFloorY;
-    else if (mDestinatonY < mMinFloorY)
-        mDestinatonY = mMinFloorY;
-}
+    // search outwards from current level
+    int up = mCurrentLevel + 1;
+    int down = mCurrentLevel - 1;
+    bool searchUp = true;
+    while (up < GetNumLevels() || down >= 0) {
+        int level = (searchUp) ? up : down;
+        if (m_callButtons.at(level).m_callDown) {
+            return level;
+        }
+        if (m_callButtons.at(level).m_callUp) {
+            return level;
+        }
 
-void Elevator::NextCallButton()
-{
-    int nPasses = 2; // only 2 directions
-    int curStop = mCurrentLevel;
-    bool bDown = (mDirection < 1 && curStop > 0);
-    mDirection = 0;
-    while (nPasses > 0) {
-        if (bDown) // search down
-        {
-            --nPasses;
-            for (int idx = 0; idx < curStop; ++idx) // find the lowest lit button
-            {
-                if (mStops[idx].mButtonFlag) {
-                    nPasses = 0; // found a button lit, done with main loop but we have to check precidence
-                    // on the way down we stop on destination floors or floors with lit down buttons or
-                    // proceed to the lowest floor with a lit up button. later on the way up we will stop on
-                    // floors with lit up buttons.
-                    if (mStops[idx].mButtonFlag) //& (BUTTON_DOWN|DESTINATION) )
-                    {
-                        SetDestination(idx);
-                        break;
-                    }
-                }
-            }
-            if (nPasses > 0) // only true if we have not looked down yet
-            {
-                if (mDirection < 0) {
-                    mDirection = 0;
-                }
-            }
-            bDown = false; // search up if not found
+        if (searchUp) {
+            up++;
+            if (down >= 0) searchUp = false;
         } else {
-            --nPasses;
-            for (int idx = mFloorCount; idx > curStop; --idx) // find the highest lit button
-            {
-                if (mStops[idx].mButtonFlag) {
-                    nPasses = 0; // found a button lit, done with main loop but we have to check precidence
-                    // on the way up we stop on destination floors or floors with lit up buttons or proceed to
-                    // the highest floor with a lit down button. later on the way down we will stop on floors
-                    // with lit down buttons.
-                    if (mStops[idx].mButtonFlag) //& (BUTTON_UP|DESTINATION) )
-                    {
-                        SetDestination(idx);
-                        break;
-                    }
-                }
+            down--;
+            if (up < GetNumLevels()) searchUp = true;
+        }
+    }
+    return -1;
+}
+
+bool Elevator::KeepMovingInCurrentDirection() const
+{
+    if (m_dirUp) {
+        for (int level = mCurrentLevel + 1; level < GetNumLevels(); level++) {
+            if (m_floorButtons.at(level).m_stopping ||
+                m_callButtons.at(level).m_callDown ||
+                m_callButtons.at(level).m_callUp) {
+                return true;
             }
-            if (nPasses > 0) // only true if we have not looked down yet
-            {
-                if (mDirection > 0) {
-                    mDirection = 0;
-                }
-                bDown = true;
+        }
+    } else {
+        for (int level = mCurrentLevel - 1; level >= 0; level--) {
+            if (m_floorButtons.at(level).m_stopping ||
+                m_callButtons.at(level).m_callDown ||
+                m_callButtons.at(level).m_callUp) {
+                return true;
             }
         }
     }
+    return false;
+}
+
+int Elevator::GetNumLevels() const
+{
+    return static_cast<int>(m_floorButtons.size());
 }
 
 void Elevator::Motion()
 {
     int align = mPosition % 36; // zero if we are aligned with a floor (safe stop)
-    mCurrentLevel = (mPosition) / 36 - mBottomLevel;
-    int index = mCurrentLevel; // - mBottomLevel;
+    mCurrentLevel = mPosition / 36 - mBottomLevel;
+    int index = mCurrentLevel;
     if (index < 0 || index > mFloorCount)
         throw new HighriseException("Elevator: Error in current floor index");
 
-    switch (mDirection) {
-    case 0:
-        // now running on call button logic
-        if (align == 0 && mStops[index].mButtonFlag) {
-            mStops[index].mButtonFlag = 0; // clear any condition
-        }
-        NextCallButton();
-        if (mDirection == 0) {
+    if (mRidersOnBoard > 0) m_idle = false;
+
+    bool canStop = (align == 0);
+
+    if (m_idle) {
+        int callLevel = FindNearestCall();
+        if (callLevel == -1) {
+            // do nothing
             mIdleTime = 20;
-        }
-        break;
-    case 1:
-        if (mPosition < mDestinatonY) {
-            if (align == 0 && mStops[index].mButtonFlag & (BUTTON_UP | DESTINATION)) {
-                mStops[index].mButtonFlag &= BUTTON_DOWN; // clear all but down
-                mIdleTime = 10;
-            }
-            mPosition += 1; // faster lifts
-            mLiftMachine->Update(1);
         } else {
-            NextCallButton();
-            if (align == 0 && mStops[index].mButtonFlag & (BUTTON_UP | DESTINATION)) {
-                mStops[index].mButtonFlag &= BUTTON_DOWN; // clear all but down
-            }
-            if (mDirection != 1) // no longer up
-            {
-                mStops[index].mButtonFlag = 0;
-            }
-            mStartRoute = mEndRoute; // this stops the elevator at the destination to wait for a request.
-            mIdleTime = 20;
+            // start movement
+            m_idle = false;
+            m_dirUp = (callLevel > mCurrentLevel);
+            mIdleTime = 10;
         }
-        break;
-    case -1:
-        if (mPosition > mDestinatonY) {
-            if (align == 0 && mStops[index].mButtonFlag & (BUTTON_DOWN | DESTINATION)) {
-                mStops[index].mButtonFlag &= BUTTON_UP; // clear all but up
-                mIdleTime = 10;
+    } else if (canStop) {
+        // check for stop on call or floor
+        if (m_callButtons[mCurrentLevel].m_callDown || m_callButtons[mCurrentLevel].m_callUp) {
+            m_callButtons[mCurrentLevel].m_callDown = m_callButtons[mCurrentLevel].m_callUp = false;
+            mIdleTime = 10;
+        }
+        if (m_floorButtons[mCurrentLevel].m_stopping) {
+            m_floorButtons[mCurrentLevel].m_stopping = false;
+            mIdleTime = 10;
+        }
+
+        // check remaining stops in both directions
+        if (mIdleTime == 0 && !KeepMovingInCurrentDirection()) {
+            m_dirUp = !m_dirUp; // change direction
+            if (!KeepMovingInCurrentDirection()) {
+                m_idle = true;
             }
-            mPosition -= 1;
-            mLiftMachine->Update(-1);
-        } else {
-            if (align == 0 && mStops[index].mButtonFlag & (BUTTON_DOWN | DESTINATION)) {
-                mStops[index].mButtonFlag &= BUTTON_UP; // clear all but up
-            }
-            if (mDirection != -1) // no longer up
-            {
-                mStops[index].mButtonFlag = 0;
-            }
-            NextCallButton();
-            mStartRoute = mEndRoute; // this stops the elevator at the destination to wait for a request.
-            mIdleTime = 20;
         }
     }
+
+    if (mIdleTime == 0) {
+        // moving
+        mPosition += m_dirUp ? 1 : -1;
+        mLiftMachine->Update(1);
+    }
+
     PosCalc();
 }
 
@@ -476,12 +437,12 @@ void Elevator::Draw()
         PersonQueue* pQ = (*it);
         pQ->Draw(mX + 18, 36 * il);
         il++;
-        if (mStops[index].mButtonFlag & BUTTON_UP) {
+        if (m_callButtons[index].m_callUp) {
             RenderTriangle(ArrowUp, ArrowLit, mX + 4.f, il * 36.f - 48, 0.0f);
         } else {
             RenderTriangle(ArrowUp, ArrowDim, mX + 4.f, il * 36.f - 48, 0.0f);
         }
-        if (mStops[index].mButtonFlag & BUTTON_DOWN) {
+        if (m_callButtons[index].m_callDown) {
             RenderTriangle(ArrowDown, ArrowLit, mX + 4.f, il * 36.f - 48, 0.0f);
         } else {
             RenderTriangle(ArrowDown, ArrowDim, mX + 4.f, il * 36.f - 48, 0.0f);
@@ -534,20 +495,12 @@ bool Elevator::StopsOnLevel(int level)
 {
     unsigned int index = level - mBottomLevel;
     if (index >= 0 && index < mRouteQueues->size()) {
-        if (mStops[index].mLevelFlag & STOP_HERE) {
-            return true;
-        }
+        return m_floorButtons[index].m_enabled;
     }
     return false;
 }
 
 int Elevator::FindLobby()
 {
-    int count = mTopLevel - mBottomLevel + 1;
-    for (int idx = 0; idx < count; ++idx) {
-        if ((mStops[idx].mLevelFlag & STOP_ISLOBBY) && (mStops[idx].mLevelFlag & STOP_HERE)) {
-            return mStops[idx].mLevel;
-        }
-    }
     return false;
 }

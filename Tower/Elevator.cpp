@@ -362,7 +362,7 @@ void Elevator::Motion()
         }
     }
 
-    if (mIdleTime == 0) {
+    if (mIdleTime == 0 && !m_idle) {
         // moving
         mPosition += m_dirUp ? 1 : -1;
         mLiftMachine->Update(1);

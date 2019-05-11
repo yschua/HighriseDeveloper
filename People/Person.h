@@ -165,8 +165,11 @@ public:
     void SetCurrent(int Level);
     int GetCurrent() { return mLocation.mLevel; }
     void ResetState();
+    int GetId() const { return m_id; }
 
 private:
+    static int m_nextId;
+    const int m_id;
     void GoingToWork();
     void Working(int tod);
     void LunchBreak(int tod);

@@ -147,7 +147,7 @@ void Person::Working(int tod)
         SetActivity(AS_ClockingOut);
         SetCurrentState(Person::CS_Walking);
         mWorkPath.index--;                               // this is the return trip home
-    } else if (tod > 11 * 60 + 45 && tod < 13 * 60 + 15) // do lunch
+    } else if (tod > 12 * 60 && tod < 12 * 60 + 15) // do lunch
     {
         SetActivity(AS_LunchBreak);
         SetCurrentState(Person::CS_Walking);

@@ -109,17 +109,22 @@ void Game::GameLoop()
     sf::Time accumulator;
 
     while (!m_mainEvt.IsClosed()) {
-        ProcessInput();
-
-        auto frameTime = timer.restart();
+        auto frameTime = timer.getElapsedTime();
+        if (frameTime > sf::milliseconds(250)) {
+            frameTime = sf::milliseconds(250);
+        }
         accumulator += frameTime;
         const auto& dt = m_mainEvt.GetDt();
+
+        ProcessInput();
 
         while (accumulator >= dt) {
             Update();
             accumulator -= dt;
         }
 
+        timer.restart();
+        // breakpoints after here will increase the frameTime and break shit
         Render();
     }
 }

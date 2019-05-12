@@ -24,8 +24,6 @@
 // ListPit is the crash landing pit below in the event of a break failure.
 // This three parts build the shaft for the elevator/lift to run in.
 
-// class RouteBase;
-struct RoutingRequest;
 class AnimationSingle;
 class ElevatorMachine; // mover above
 class ElevatorShaft;   // holds the tiler to show the shaft
@@ -71,8 +69,7 @@ public:
         LS_Express
     };
 
-    Elevator(LiftStyle style, int x, short BottLevel, short TopLevel, Tower* TowerParent);
-    Elevator(SerializerBase& ser, short TopLevel, Tower* TowerParent);
+    Elevator(LiftStyle style, int x, int bottomLevel, int topLevel, Tower* tower);
     virtual ~Elevator();
 
     static BaseType GetBaseType() { return BaseElevator; }
@@ -99,7 +96,6 @@ private:
     void Motion();
     void SetQueues();
     void SetStopLevels();
-    void SetMinMax();
     int FindNearestCall() const; // parent
     bool KeepMovingInCurrentDirection() const;
     int GetNumLevels() const;
@@ -108,8 +104,7 @@ private:
     int GetNumRiders() const;
 
 private:
-    static int gElevatorsNumber;
-    static const int mStandingPositions[];
+    static int m_nextId;
 
     AnimationSingle* mElevatorImage;
     AnimationSingle* mLiftPit;
@@ -118,28 +113,20 @@ private:
     ElevatorShaft* mElevatorShaft;
 
     // Serializer attributes
-    int mNumber; // number of this lift
+    const int m_id;
     int mX;
     int mY;
     float mZ;
-    short mTopLevel;
-    short mBottomLevel;
-    short mPosition;
-    short mDirection;
-    short mIdleTime;
-    short mEnd2; // unused
-    short mOffset; // adjust for starting floor.
-    short mRidersOnBoard;
-    short mMaxCap;
-
-    // calculated values
-    short mMaxFloorY;
-    short mMinFloorY;
+    int mTopLevel;
+    int mBottomLevel;
+    int m_carPosition;
+    int mIdleTime;
+    int m_maxRiders;
 
     LiftStyle mLiftStyle;
     std::vector<PersonQueue*>* mRouteQueues; // person queue for elevators that stop on this level
 
-    Tower* mTowerParent;
+    Tower* m_tower;
 
     // TODO lobby should be level value of 0, consistent with the rest
 

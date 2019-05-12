@@ -61,6 +61,7 @@ struct Rider
 class Elevator : public Body, public RouteBase, public Gfx::ModelObject // Quad morphic
 {
 public:
+    // not implemented yet
     enum LiftStyle {
         LS_Small = 0,
         LS_Standard,
@@ -69,7 +70,7 @@ public:
         LS_Express
     };
 
-    Elevator(LiftStyle style, int x, int bottomLevel, int topLevel, Tower* tower);
+    Elevator(LiftStyle type, int x, int bottomLevel, int topLevel, Tower* tower);
     virtual ~Elevator();
 
     static BaseType GetBaseType() { return BaseElevator; }
@@ -95,8 +96,8 @@ private:
     Person* UnloadPerson();
     void Motion();
     void SetQueues();
-    void SetStopLevels();
-    int FindNearestCall() const; // parent
+    void InitStopLevels();
+    std::pair<bool, int> FindNearestCall() const; // parent
     bool KeepMovingInCurrentDirection() const;
     int GetNumLevels() const;
     int GetCurrentLevel() const;
@@ -117,13 +118,13 @@ private:
     int mX;
     int mY;
     float mZ;
-    int mTopLevel;
-    int mBottomLevel;
+    int m_topLevel;
+    int m_bottomLevel;
     int m_carPosition;
     int mIdleTime;
     int m_maxRiders;
 
-    LiftStyle mLiftStyle;
+    LiftStyle m_type;
     std::vector<PersonQueue*>* mRouteQueues; // person queue for elevators that stop on this level
 
     Tower* m_tower;

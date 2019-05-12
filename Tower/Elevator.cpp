@@ -36,77 +36,39 @@
 #include <iostream>
 #include <map>
 
-using namespace Gfx;
+int Elevator::m_nextId = 0;
 
-// this object is the elevator collection (Machines, Shaft, Pit) and the car.
-// At this time there is no LiftCar class.
-
-int Elevator::gElevatorsNumber = 1; // start with 1 to keep engineers happy
-
-const int Elevator::mStandingPositions[16] = {12, 20, 16, 4, 18, 22, 6, 24, 8, 10, 2, 5, 9, 13, 17, 21};
-
-Elevator::Elevator(LiftStyle style, int x, short BottomLevel, short TopLevel, Tower* TowerParent) :
-    mLiftStyle(style),
-    mTowerParent(TowerParent),
+Elevator::Elevator(LiftStyle style, int x, int bottomLevel, int topLevel, Tower* tower) :
     Body(32, 32),
+    m_id(m_nextId++),
+    mLiftStyle(style),
+    m_tower(tower),
     m_dirUp(true),
     m_idle(true)
 {
-    mTopLevel = TopLevel;
-    mBottomLevel = BottomLevel;
-    mPosition = (mBottomLevel)*36;
-    mDirection = -1;
+    mTopLevel = topLevel;
+    mBottomLevel = bottomLevel;
+    m_carPosition = mBottomLevel * 36;
     mIdleTime = 10;
-    mEnd2 = -1;
-    mOffset = mBottomLevel * 36;
-
-    mRidersOnBoard = 0;
-    mMaxCap = (style == LS_HighCapacity) ? 30 : 15;
+    m_maxRiders = (style == LS_HighCapacity) ? 30 : 15;
 
     mX = x + 2;
-    mY = (int)(mBottomLevel * 36);
+    mY = mBottomLevel * 36;
     mZ = -0.49f; // slightly in front of the tower
 
-    mNumber = gElevatorsNumber++; // set number;
     LoadImages();
     mRouteQueues = NULL;
     SetQueues();
-    SetMinMax();
     SetStopLevels();
-}
-
-Elevator::Elevator(SerializerBase& ser, short TopLevel, Tower* TowerParent) :
-    Body(32, 32),
-    mTowerParent(TowerParent)
-{
-    //"type", "standard elevator"
-    mNumber = ser.GetInt("number");
-    mX = ser.GetInt("startx");
-    mY = ser.GetInt("starty");
-    mZ = ser.GetFloat("startz");
-    mTopLevel = (short)ser.GetInt("toplevel");
-    mBottomLevel = (short)ser.GetInt("bottomlevel");
-    mPosition = (short)ser.GetInt("position");
-    mDirection = (short)ser.GetInt("direction");
-    mIdleTime = (short)ser.GetInt("idletime");
-    mEnd2 = (short)ser.GetInt("end2");
-    mOffset = (short)ser.GetInt("offset");
-    mRidersOnBoard = (short)ser.GetInt("ridersonboard");
-    mMaxCap = (short)ser.GetInt("maxcap");
-    mOffset = mBottomLevel * 36;
-    LoadImages();
-    mRouteQueues = NULL;
-    SetQueues();
-    SetMinMax();
-    SetStopLevels();
-
-    m_idle = (mDirection == 0);
-    m_dirUp = (mDirection != -1);
 }
 
 Elevator::~Elevator()
 {
     delete mElevatorImage;
+    delete mRiderImage;
+    delete mLiftMachine;
+    delete mLiftPit;
+    delete mElevatorShaft;
 };
 
 void Elevator::LoadImages()
@@ -172,7 +134,7 @@ void Elevator::SetStopLevels()
         break;
     case LS_HighCapacity:
         for (int idx = 0; idx < numLevels; ++idx) {
-            Level* pLevel = mTowerParent->GetLevel(level++);
+            Level* pLevel = m_tower->GetLevel(level++);
             if (pLevel && pLevel->HasLobby()) {
                 m_floorButtons.insert(std::make_pair(idx, FloorButton()));
             } else {
@@ -189,9 +151,10 @@ void Elevator::SetStopLevels()
 
 void Elevator::PosCalc()
 {
+    const int offset = mBottomLevel * 36; // adjust for starting floor.
     // elevator sprite is only 32x32
-    mElevatorImage->SetPosition((float)mX, (float)(mY - (mOffset + mPosition) + 4));
-    mRiderImage->SetPosition((float)mX, (float)(mY - (mOffset + mPosition) + 18));
+    mElevatorImage->SetPosition((float)mX, (float)(mY - (offset + m_carPosition) + 4));
+    mRiderImage->SetPosition((float)mX, (float)(mY - (offset + m_carPosition) + 18));
 }
 
 void Elevator::SetFloorButton(RoutingRequest& req) // OK, take me there
@@ -225,13 +188,13 @@ bool Elevator::SetCallButton(RoutingRequest& req)
 
 int Elevator::LoadPerson(Person* person, RoutingRequest& req) // returns space remaining
 {
-    if (GetNumRiders() < mMaxCap) {
+    if (GetNumRiders() < m_maxRiders) {
         int destLevel = req.DestinLevel - mBottomLevel;
         m_riders.push_back(Rider{person, destLevel});
         std::cout << "load " << person->GetId() << " to: " << destLevel << "\n";
         SetFloorButton(req);
     }
-    return mMaxCap - GetNumRiders();
+    return m_maxRiders - GetNumRiders();
 }
 
 Person* Elevator::UnloadPerson()
@@ -245,12 +208,6 @@ Person* Elevator::UnloadPerson()
         }
     }
     return nullptr;
-}
-
-void Elevator::SetMinMax() // call when the elevator is created and when the shaft length is changed
-{
-    mMaxFloorY = mTopLevel * 36;
-    mMinFloorY = mBottomLevel * 36;
 }
 
 int Elevator::FindNearestCall() const
@@ -308,12 +265,12 @@ int Elevator::GetNumLevels() const
 
 int Elevator::GetCurrentLevel() const
 {
-    return mPosition / 36 - mBottomLevel;
+    return m_carPosition / 36 - mBottomLevel;
 }
 
 bool Elevator::CanStop() const
 {
-    return mPosition % 36 == 0;
+    return m_carPosition % 36 == 0;
 }
 
 int Elevator::GetNumRiders() const
@@ -360,7 +317,7 @@ void Elevator::Motion()
 
     if (mIdleTime == 0 && !m_idle) {
         // moving
-        mPosition += m_dirUp ? 1 : -1;
+        m_carPosition += m_dirUp ? 1 : -1;
         mLiftMachine->Update(1);
     }
 
@@ -417,14 +374,20 @@ void Elevator::Draw()
     const float ArrowUp[] = {-3.0f, 3.0f, 0.1f, 0.0f, 6.0f, 0.1f, 3.0f, 3.0f, 0.1f};
     const float ArrowDim[] = {0.1f, 0.4f, 0.1f, 0.7f};
     const float ArrowLit[] = {0.2f, 1.0f, 0.2f, 1.0f};
+    const std::vector<int> standingPos = {12, 20, 16, 4, 18, 22, 6, 24, 8, 10, 2, 5, 9, 13, 17, 21};
 
     mElevatorShaft->Draw();
     mLiftMachine->Draw();
     Render(mLiftPit);
     Render(mElevatorImage);
-    for (int idx = 0; idx < GetNumRiders() && idx < 16; ++idx) {
-        Render(mRiderImage, (float)(mX + mStandingPositions[idx]), (float)(mX + mStandingPositions[idx] + 8));
+
+    const size_t numRiders = static_cast<size_t>(GetNumRiders());
+    for (int idx = 0; idx < std::min(numRiders, standingPos.size()); ++idx) {
+        Render(mRiderImage,
+               (float)(mX + standingPos[idx]),
+               (float)(mX + standingPos[idx] + 8));
     }
+
     int il = mBottomLevel;
     int index = 0;
     for (auto it = mRouteQueues->begin(); it != mRouteQueues->end(); ++it) {
@@ -447,20 +410,6 @@ void Elevator::Draw()
 
 void Elevator::Save(SerializerBase& ser)
 {
-    ser.Add("type", "standard elevator");
-    ser.Add("number", mNumber);
-    ser.Add("startx", mX);
-    ser.Add("starty", mY);
-    ser.Add("startz", mZ);
-    ser.Add("toplevel", mTopLevel);
-    ser.Add("bottomlevel", mBottomLevel);
-    ser.Add("position", mPosition);
-    ser.Add("direction", mDirection);
-    ser.Add("idletime", mIdleTime);
-    ser.Add("end2", mEnd2);
-    ser.Add("offset", mOffset);
-    ser.Add("ridersonboard", mRidersOnBoard);
-    ser.Add("maxcap", mMaxCap);
 }
 
 void Elevator::SetQueues()
@@ -496,5 +445,5 @@ bool Elevator::StopsOnLevel(int level)
 
 int Elevator::FindLobby()
 {
-    return false;
+    return 0;
 }

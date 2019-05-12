@@ -38,28 +38,28 @@
 
 int Elevator::m_nextId = 0;
 
-Elevator::Elevator(LiftStyle style, int x, int bottomLevel, int topLevel, Tower* tower) :
+Elevator::Elevator(LiftStyle type, int x, int bottomLevel, int topLevel, Tower* tower) :
     Body(32, 32),
     m_id(m_nextId++),
-    mLiftStyle(style),
+    m_type(type),
     m_tower(tower),
     m_dirUp(true),
     m_idle(true)
 {
-    mTopLevel = topLevel;
-    mBottomLevel = bottomLevel;
-    m_carPosition = mBottomLevel * 36;
+    m_topLevel = topLevel;
+    m_bottomLevel = bottomLevel;
+    m_carPosition = m_bottomLevel * 36;
     mIdleTime = 10;
-    m_maxRiders = (style == LS_HighCapacity) ? 30 : 15;
+    m_maxRiders = (m_type == LS_HighCapacity) ? 30 : 15;
 
     mX = x + 2;
-    mY = mBottomLevel * 36;
+    mY = m_bottomLevel * 36;
     mZ = -0.49f; // slightly in front of the tower
 
     LoadImages();
     mRouteQueues = NULL;
     SetQueues();
-    SetStopLevels();
+    InitStopLevels();
 }
 
 Elevator::~Elevator()
@@ -76,7 +76,7 @@ void Elevator::LoadImages()
     ImageManager* images = ImageManager::GetInstance();
     const char* pImageName = "Elevator_u_n.png";
 
-    switch (mLiftStyle) {
+    switch (m_type) {
     case LS_Standard:
         mWidth.x = 32;
         break;
@@ -101,10 +101,10 @@ void Elevator::LoadImages()
     mRiderImage = new AnimationSingle(images->GetTexture("Person_e.png", GL_RGBA), 8, 16);
 
     mRiderImage->SetPosition((float)mX + 8,
-                             (float)(mBottomLevel - 1) * -36); // neg 36 so it becomed positive for model view
+                             (float)(m_bottomLevel - 1) * -36); // neg 36 so it becomed positive for model view
 
     mLiftMachine = new ElevatorMachine(mX - 2,
-                                       mTopLevel + 1,
+                                       m_topLevel + 1,
                                        static_cast<int>(mWidth.x + 4),
                                        this);
 
@@ -112,46 +112,26 @@ void Elevator::LoadImages()
                                    static_cast<int>(mWidth.x + 4), 36);
 
     mLiftPit->SetPosition((float)mX - 2,
-                          (float)(mBottomLevel - 1) * -36); // neg 36 so it becomed positive for model view
+                          (float)(m_bottomLevel - 1) * -36); // neg 36 so it becomed positive for model view
 
     mElevatorShaft = new ElevatorShaft(mX - 2,
-                                       mTopLevel,
-                                       mBottomLevel - 1,
+                                       m_topLevel,
+                                       m_bottomLevel - 1,
                                        static_cast<int>(mWidth.x + 4),
                                        this);
 }
 
-void Elevator::SetStopLevels()
+void Elevator::InitStopLevels()
 {
-    const int numLevels = mTopLevel - mBottomLevel + 1;
-    int level = mBottomLevel;
-    switch (mLiftStyle) {
-    case LS_Standard:
-        for (int idx = 0; idx < numLevels; ++idx) {
-            m_floorButtons.insert(std::make_pair(idx, FloorButton()));
-            m_callButtons.insert(std::make_pair(idx, CallButton()));
-        }
-        break;
-    case LS_HighCapacity:
-        for (int idx = 0; idx < numLevels; ++idx) {
-            Level* pLevel = m_tower->GetLevel(level++);
-            if (pLevel && pLevel->HasLobby()) {
-                m_floorButtons.insert(std::make_pair(idx, FloorButton()));
-            } else {
-                m_floorButtons.insert(std::make_pair(idx, FloorButton(false)));
-            }
-            m_callButtons.insert(std::make_pair(idx, CallButton()));
-        }
-        break;
-    case LS_Freight:
-    case LS_Express:
-        break;
+    for (int level = m_bottomLevel; level <= m_topLevel; level++) {
+        m_callButtons.insert(std::make_pair(level, CallButton()));
+        m_floorButtons.insert(std::make_pair(level, FloorButton()));
     }
 }
 
 void Elevator::PosCalc()
 {
-    const int offset = mBottomLevel * 36; // adjust for starting floor.
+    const int offset = m_bottomLevel * 36; // adjust for starting floor.
     // elevator sprite is only 32x32
     mElevatorImage->SetPosition((float)mX, (float)(mY - (offset + m_carPosition) + 4));
     mRiderImage->SetPosition((float)mX, (float)(mY - (offset + m_carPosition) + 18));
@@ -159,39 +139,31 @@ void Elevator::PosCalc()
 
 void Elevator::SetFloorButton(RoutingRequest& req) // OK, take me there
 {
-    int reqLevel = req.DestinLevel - mBottomLevel;
-    m_floorButtons[reqLevel].m_stopping = true;
+    m_floorButtons[req.DestinLevel].m_stopping = true;
 }
 
 bool Elevator::SetCallButton(RoutingRequest& req)
 {
-    bool bIsOnFloor = false;
-    int reqLevel = req.OriginLevel - mBottomLevel;
+    bool isOnFloor = false;
 
-    if (GetCurrentLevel() == reqLevel && CanStop()) {
+    if (GetCurrentLevel() == req.OriginLevel && CanStop()) {
         SetFloorButton(req);
-        bIsOnFloor = true;
+        isOnFloor = true;
     } else {
-        if (reqLevel >= 0 && reqLevel < GetNumLevels()) {
-            if (req.DestinLevel > req.OriginLevel) {
-                m_callButtons[reqLevel].m_callUp = true;
-            } else {
-                m_callButtons[reqLevel].m_callDown = true;
-            }
+        if (req.DestinLevel > req.OriginLevel) {
+            m_callButtons[req.OriginLevel].m_callUp = true;
         } else {
-            std::cout << "Elevator Call for wrong floor level: " << req.OriginLevel
-                      << " computed index: " << reqLevel;
+            m_callButtons[req.OriginLevel].m_callDown = true;
         }
     }
-    return bIsOnFloor;
+    return isOnFloor;
 }
 
 int Elevator::LoadPerson(Person* person, RoutingRequest& req) // returns space remaining
 {
     if (GetNumRiders() < m_maxRiders) {
-        int destLevel = req.DestinLevel - mBottomLevel;
-        m_riders.push_back(Rider{person, destLevel});
-        std::cout << "load " << person->GetId() << " to: " << destLevel << "\n";
+        m_riders.push_back(Rider{person, req.DestinLevel});
+        std::cout << "load " << person->GetId() << " to: " << req.DestinLevel << "\n";
         SetFloorButton(req);
     }
     return m_maxRiders - GetNumRiders();
@@ -210,36 +182,36 @@ Person* Elevator::UnloadPerson()
     return nullptr;
 }
 
-int Elevator::FindNearestCall() const
+std::pair<bool, int> Elevator::FindNearestCall() const
 {
     // search outwards from current level
     int up = GetCurrentLevel() + 1;
     int down = GetCurrentLevel() - 1;
     bool searchUp = true;
-    while (up < GetNumLevels() || down >= 0) {
+    while (up <= m_topLevel || down >= m_bottomLevel) {
         int level = (searchUp) ? up : down;
         if (m_callButtons.at(level).m_callDown) {
-            return level;
+            return std::make_pair(true, level);
         }
         if (m_callButtons.at(level).m_callUp) {
-            return level;
+            return std::make_pair(true, level);
         }
 
         if (searchUp) {
             up++;
-            if (down >= 0) searchUp = false;
+            if (down >= m_bottomLevel) searchUp = false;
         } else {
             down--;
-            if (up < GetNumLevels()) searchUp = true;
+            if (up <= m_topLevel) searchUp = true;
         }
     }
-    return -1;
+    return std::make_pair(false, 0);
 }
 
 bool Elevator::KeepMovingInCurrentDirection() const
 {
     if (m_dirUp) {
-        for (int level = GetCurrentLevel() + 1; level < GetNumLevels(); level++) {
+        for (int level = GetCurrentLevel() + 1; level <= m_topLevel; level++) {
             if (m_floorButtons.at(level).m_stopping ||
                 m_callButtons.at(level).m_callDown ||
                 m_callButtons.at(level).m_callUp) {
@@ -247,7 +219,7 @@ bool Elevator::KeepMovingInCurrentDirection() const
             }
         }
     } else {
-        for (int level = GetCurrentLevel() - 1; level >= 0; level--) {
+        for (int level = GetCurrentLevel() - 1; level >= m_bottomLevel; level--) {
             if (m_floorButtons.at(level).m_stopping ||
                 m_callButtons.at(level).m_callDown ||
                 m_callButtons.at(level).m_callUp) {
@@ -265,7 +237,7 @@ int Elevator::GetNumLevels() const
 
 int Elevator::GetCurrentLevel() const
 {
-    return m_carPosition / 36 - mBottomLevel;
+    return m_carPosition / 36;
 }
 
 bool Elevator::CanStop() const
@@ -282,16 +254,19 @@ void Elevator::Motion()
 {
     const int currentLevel = GetCurrentLevel();
 
-    if (GetNumRiders() > 0) m_idle = false;
+    if (GetNumRiders() > 0)
+        m_idle = false;
 
     if (m_idle) {
-        int callLevel = FindNearestCall();
-        if (callLevel == -1) {
+        auto call = FindNearestCall();
+        bool valid = call.first;
+        if (!valid) {
             // do nothing
             mIdleTime = 20;
         } else {
             // start movement
             m_idle = false;
+            int callLevel = call.second;
             m_dirUp = (callLevel > currentLevel);
             mIdleTime = 10;
         }
@@ -336,7 +311,7 @@ void Elevator::Update(float dt, int tod)
 {
     if (mIdleTime > 0) {
         Person* person = UnloadPerson();
-        PersonQueue* pQ = (*mRouteQueues)[GetCurrentLevel()];
+        PersonQueue* pQ = (*mRouteQueues)[GetCurrentLevel() - m_bottomLevel];
         Person* personOn = pQ->TakeNextPerson();
         pQ->Update();
 
@@ -382,13 +357,13 @@ void Elevator::Draw()
     Render(mElevatorImage);
 
     const size_t numRiders = static_cast<size_t>(GetNumRiders());
-    for (int idx = 0; idx < std::min(numRiders, standingPos.size()); ++idx) {
+    for (size_t idx = 0; idx < std::min(numRiders, standingPos.size()); ++idx) {
         Render(mRiderImage,
                (float)(mX + standingPos[idx]),
                (float)(mX + standingPos[idx] + 8));
     }
 
-    int il = mBottomLevel;
+    int il = m_bottomLevel;
     int index = 0;
     for (auto it = mRouteQueues->begin(); it != mRouteQueues->end(); ++it) {
         PersonQueue* pQ = (*it);
@@ -417,7 +392,7 @@ void Elevator::SetQueues()
     if (mRouteQueues == NULL) {
         mRouteQueues = new std::vector<PersonQueue*>();
     }
-    int count = mTopLevel - mBottomLevel + 1;
+    int count = m_topLevel - m_bottomLevel + 1;
     for (int idx = 0; idx < count; ++idx) {
         PersonQueue* pQ = new PersonQueue();
         mRouteQueues->push_back(pQ);
@@ -426,7 +401,7 @@ void Elevator::SetQueues()
 
 PersonQueue* Elevator::FindQueue(int level)
 {
-    unsigned int index = level - mBottomLevel;
+    unsigned int index = level - m_bottomLevel;
     if (index >= 0 && index < mRouteQueues->size()) {
         PersonQueue* pQ = (*mRouteQueues)[index];
         return pQ;
@@ -436,11 +411,7 @@ PersonQueue* Elevator::FindQueue(int level)
 
 bool Elevator::StopsOnLevel(int level)
 {
-    unsigned int index = level - mBottomLevel;
-    if (index >= 0 && index < mRouteQueues->size()) {
-        return m_floorButtons[index].m_enabled;
-    }
-    return false;
+    return m_floorButtons.at(level).m_enabled;
 }
 
 int Elevator::FindLobby()

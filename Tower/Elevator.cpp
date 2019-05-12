@@ -57,8 +57,7 @@ Elevator::Elevator(LiftStyle type, int x, int bottomLevel, int topLevel, Tower* 
     mZ = -0.49f; // slightly in front of the tower
 
     LoadImages();
-    mRouteQueues = NULL;
-    SetQueues();
+    InitQueues();
     InitStopLevels();
 }
 
@@ -311,9 +310,7 @@ void Elevator::Update(float dt, int tod)
 {
     if (mIdleTime > 0) {
         Person* person = UnloadPerson();
-        PersonQueue* pQ = (*mRouteQueues)[GetCurrentLevel() - m_bottomLevel];
-        Person* personOn = pQ->TakeNextPerson();
-        pQ->Update();
+        Person* personOn = m_queues[GetCurrentLevel()].TakeNextPerson();
 
         if (person == NULL && personOn == NULL) {
             mIdleTime--;
@@ -363,23 +360,26 @@ void Elevator::Draw()
                (float)(mX + standingPos[idx] + 8));
     }
 
-    int il = m_bottomLevel;
-    int index = 0;
-    for (auto it = mRouteQueues->begin(); it != mRouteQueues->end(); ++it) {
-        PersonQueue* pQ = (*it);
-        pQ->Draw(mX + 18, 36 * il);
-        il++;
-        if (m_callButtons[index].m_callUp) {
-            RenderTriangle(ArrowUp, ArrowLit, mX + 4.f, il * 36.f - 48, 0.0f);
-        } else {
-            RenderTriangle(ArrowUp, ArrowDim, mX + 4.f, il * 36.f - 48, 0.0f);
-        }
-        if (m_callButtons[index].m_callDown) {
-            RenderTriangle(ArrowDown, ArrowLit, mX + 4.f, il * 36.f - 48, 0.0f);
-        } else {
-            RenderTriangle(ArrowDown, ArrowDim, mX + 4.f, il * 36.f - 48, 0.0f);
-        }
-        index++;
+    for (const auto& call : m_callButtons) {
+        int level = call.first;
+        const auto& callButton = call.second;
+
+        if (callButton.m_callUp)
+            std::string s;
+
+        RenderTriangle(
+            ArrowUp,
+            callButton.m_callUp ? ArrowLit : ArrowDim,
+            mX + 4.f,
+            level * 36.f - 12,
+            0.f);
+
+        RenderTriangle(
+            ArrowDown,
+            callButton.m_callDown ? ArrowLit : ArrowDim,
+            mX + 4.f,
+            level * 36.f - 12,
+            0.f);
     }
 }
 
@@ -387,26 +387,16 @@ void Elevator::Save(SerializerBase& ser)
 {
 }
 
-void Elevator::SetQueues()
+void Elevator::InitQueues()
 {
-    if (mRouteQueues == NULL) {
-        mRouteQueues = new std::vector<PersonQueue*>();
-    }
-    int count = m_topLevel - m_bottomLevel + 1;
-    for (int idx = 0; idx < count; ++idx) {
-        PersonQueue* pQ = new PersonQueue();
-        mRouteQueues->push_back(pQ);
+    for (int level = m_bottomLevel; level <= m_topLevel; level++) {
+        m_queues.insert(std::make_pair(level, PersonQueue()));
     }
 }
 
-PersonQueue* Elevator::FindQueue(int level)
+void Elevator::AddToQueue(int level, Person* person)
 {
-    unsigned int index = level - m_bottomLevel;
-    if (index >= 0 && index < mRouteQueues->size()) {
-        PersonQueue* pQ = (*mRouteQueues)[index];
-        return pQ;
-    }
-    return NULL;
+    m_queues[level].AddPerson(person);
 }
 
 bool Elevator::StopsOnLevel(int level)

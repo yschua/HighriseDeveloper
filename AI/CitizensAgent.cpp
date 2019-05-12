@@ -115,12 +115,8 @@ void CitizensAgent::RoutePerson(int index, Path& Path, Person* peep)
                 route->LoadPerson(peep, req);
             } else {
                 peep->SetCurrentState(Person::CS_Waiting);
-                // Level* pLevel = mTower.GetLevel(curLevel);
-                PersonQueue* pQ = route->FindQueue(peep->GetCurrent());
-                if (pQ) {
-                    peep->get_WorkPath().index = index;
-                    pQ->AddPerson(peep);
-                }
+                peep->get_WorkPath().index = index;
+                route->AddToQueue(peep->GetCurrent(), peep);
             }
         }
     }

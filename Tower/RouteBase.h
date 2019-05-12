@@ -40,7 +40,7 @@ public:
     virtual void Update(float dt) = 0;
     virtual void Draw() = 0;
     virtual void Save(SerializerBase& ser) = 0;
-    virtual PersonQueue* FindQueue(int level) = 0;
+    virtual void AddToQueue(int level, Person* person) = 0;
     virtual bool StopsOnLevel(int level) = 0;
     virtual int FindLobby() = 0;
 };

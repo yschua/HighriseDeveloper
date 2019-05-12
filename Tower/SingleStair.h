@@ -94,7 +94,7 @@ public:
     virtual void DrawFramework() {} // geometry test
 
     void Save(SerializerBase& ser);
-    PersonQueue* FindQueue(int level);
+    void AddToQueue(int level, Person* person) override {}
 };
 }
 

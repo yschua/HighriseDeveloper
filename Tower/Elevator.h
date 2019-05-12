@@ -86,7 +86,7 @@ public:
     void Update(float dt) override;
     void Draw() override;
     void Save(SerializerBase& ser) override;
-    PersonQueue* FindQueue(int level) override;
+    void AddToQueue(int level, Person* person) override;
     bool StopsOnLevel(int level) override;
     int FindLobby() override;
 
@@ -95,7 +95,7 @@ private:
     void PosCalc();
     Person* UnloadPerson();
     void Motion();
-    void SetQueues();
+    void InitQueues();
     void InitStopLevels();
     std::pair<bool, int> FindNearestCall() const; // parent
     bool KeepMovingInCurrentDirection() const;
@@ -113,29 +113,24 @@ private:
     ElevatorMachine* mLiftMachine;
     ElevatorShaft* mElevatorShaft;
 
-    // Serializer attributes
     const int m_id;
     int mX;
     int mY;
     float mZ;
+    int mIdleTime;
     int m_topLevel;
     int m_bottomLevel;
     int m_carPosition;
-    int mIdleTime;
     int m_maxRiders;
 
     LiftStyle m_type;
-    std::vector<PersonQueue*>* mRouteQueues; // person queue for elevators that stop on this level
-
     Tower* m_tower;
-
-    // TODO lobby should be level value of 0, consistent with the rest
-
     std::map<int, FloorButton> m_floorButtons;
     std::map<int, CallButton> m_callButtons; // parent, should also check if there are people queuing
     bool m_idle;
     bool m_dirUp;
     std::vector<Rider> m_riders;
+    std::map<int, PersonQueue> m_queues;
 };
 
 #endif

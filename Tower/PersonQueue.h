@@ -14,30 +14,24 @@
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// head and tail queue. People in and out while waiting for elevators, trams, rail and buses.
-
-#pragma once
 #ifndef _PERSONQUEUE_H
 #define _PERSONQUEUE_H
+
 #include <queue>
 
 class Person;
-class CitizenAgent; // to move people
-class RouteBase;
 
-class PersonQueue // Abstract, does not even have a CPP file at this point.
+class PersonQueue 
 {
-protected:
-    short mSweepIndex; // moves through the queue filling gaps
-    // Person** mpQueue;
-    std::queue<Person*> mpQueue;
-
 public:
     PersonQueue();
     void AddPerson(Person* person);
     Person* TakeNextPerson();
     void Update();
     void Draw(int vx, int vy);
+
+private:
+    std::queue<Person*> m_queue;
 };
 
 #endif //_PERSONQUEUE_H

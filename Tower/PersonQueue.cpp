@@ -22,30 +22,28 @@
 
 #include <iostream>
 
-PersonQueue::PersonQueue() {}
+PersonQueue::PersonQueue()
+{
+}
 
 void PersonQueue::AddPerson(Person* person)
 {
-    mpQueue.push(person);
+    m_queue.push(person);
 }
 
 Person* PersonQueue::TakeNextPerson()
 {
-    Person* person = 0;
-    if (!mpQueue.empty()) {
-        person = mpQueue.front();
-        mpQueue.pop();
-    }
+    if (m_queue.empty()) return nullptr;
+
+    auto person = m_queue.front();
+    m_queue.pop();
     return person;
 }
 
-void PersonQueue::Update() {}
+void PersonQueue::Update()
+{
+}
 
 void PersonQueue::Draw(int vx, int vy)
 {
-    /*   for( unsigned int x = 0; x < mpQueue.size(); ++x )
-       {
-          Person* peep = mpQueue[x];
-          peep->Draw(vx,vy);
-       }*/
 }

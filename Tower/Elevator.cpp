@@ -364,9 +364,6 @@ void Elevator::Draw()
         int level = call.first;
         const auto& callButton = call.second;
 
-        if (callButton.m_callUp)
-            std::string s;
-
         RenderTriangle(
             ArrowUp,
             callButton.m_callUp ? ArrowLit : ArrowDim,

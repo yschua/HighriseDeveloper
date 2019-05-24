@@ -85,9 +85,9 @@ void Game::Update()
     bool timeChanged = m_interface.UpdateTime(m_clockRate);
     const int time = m_interface.GetTimeOfDay();
 
-	if (timeChanged) {
-		m_citizensAgent->Update(time);
-	}
+    if (timeChanged) {
+        m_citizensAgent->Update(time);
+    }
 
     m_tower->Update(static_cast<float>(m_interface.GetDayOfYear()), time);
 }

@@ -117,7 +117,6 @@ private:
     int mX;
     int mY;
     float mZ;
-    int mIdleTime;
     int m_topLevel;
     int m_bottomLevel;
     int m_carPosition;
@@ -128,6 +127,7 @@ private:
     std::map<int, FloorButton> m_floorButtons;
     std::map<int, CallButton> m_callButtons; // parent, should also check if there are people queuing
     bool m_idle;
+    bool m_stop;
     bool m_dirUp;
     std::vector<Rider> m_riders;
     std::map<int, PersonQueue> m_queues;

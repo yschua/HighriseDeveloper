@@ -118,7 +118,7 @@ bool Interface::UpdateTime(int clockRate)
 
     m_ticks = 0;
     mClock.Update(1);
-	return true;
+    return true;
 }
 
 void Interface::Draw()

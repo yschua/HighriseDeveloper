@@ -44,12 +44,12 @@ Elevator::Elevator(LiftStyle type, int x, int bottomLevel, int topLevel, Tower* 
     m_type(type),
     m_tower(tower),
     m_dirUp(true),
-    m_idle(true)
+    m_idle(true),
+    m_stop(true)
 {
     m_topLevel = topLevel;
     m_bottomLevel = bottomLevel;
     m_carPosition = m_bottomLevel * 36;
-    mIdleTime = 10;
     m_maxRiders = (m_type == LS_HighCapacity) ? 30 : 15;
 
     mX = x + 2;
@@ -253,35 +253,36 @@ void Elevator::Motion()
 {
     const int currentLevel = GetCurrentLevel();
 
-    if (GetNumRiders() > 0)
+    if (GetNumRiders() > 0) {
         m_idle = false;
+    }
 
     if (m_idle) {
+        // check for calls
         auto call = FindNearestCall();
         bool valid = call.first;
-        if (!valid) {
-            // do nothing
-            mIdleTime = 20;
-        } else {
-            // start movement
+        if (valid) {
             m_idle = false;
             int callLevel = call.second;
             m_dirUp = (callLevel > currentLevel);
-            mIdleTime = 10;
         }
     } else if (CanStop()) {
-        // check for stop on call or floor
-        if (m_callButtons[currentLevel].m_callDown || m_callButtons[currentLevel].m_callUp) {
-            m_callButtons[currentLevel].m_callDown = m_callButtons[currentLevel].m_callUp = false;
-            mIdleTime = 10;
+        // check if current level has call
+        auto& callButton = m_callButtons[currentLevel];
+        if (callButton.m_callDown || callButton.m_callUp) {
+            callButton.m_callDown = callButton.m_callUp = false;
+            m_stop = true;
         }
-        if (m_floorButtons[currentLevel].m_stopping) {
-            m_floorButtons[currentLevel].m_stopping = false;
-            mIdleTime = 10;
+        
+        // check if stopping on current level
+        auto& floorButton = m_floorButtons[currentLevel];
+        if (floorButton.m_stopping) {
+            floorButton.m_stopping = false;
+            m_stop = true;
         }
 
         // check remaining stops in both directions
-        if (mIdleTime == 0 && !KeepMovingInCurrentDirection()) {
+        if (!m_stop && !KeepMovingInCurrentDirection()) {
             m_dirUp = !m_dirUp; // change direction
             if (!KeepMovingInCurrentDirection()) {
                 m_idle = true;
@@ -289,13 +290,14 @@ void Elevator::Motion()
         }
     }
 
-    if (mIdleTime == 0 && !m_idle) {
+    if (!m_stop && !m_idle) {
         // moving
         m_carPosition += m_dirUp ? 1 : -1;
         mLiftMachine->Update(1);
     }
 
     PosCalc();
+    mLiftMachine->Update(1);
 }
 
 void Elevator::Update(float dt)
@@ -308,36 +310,35 @@ void Elevator::Update(float dt)
 // When idle cycle ends scan for destinations and calls.
 void Elevator::Update(float dt, int tod)
 {
-    if (mIdleTime > 0) {
-        Person* person = UnloadPerson();
-        Person* personOn = m_queues[GetCurrentLevel()].TakeNextPerson();
+    static int motionDelay = 0;
 
-        if (person == NULL && personOn == NULL) {
-            mIdleTime--;
-        } else {
-            if (person != NULL) {
-                person->SetCurrentState(Person::CS_Disembarking);
-            }
-            if (personOn != NULL) {
-                int curLevel = personOn->get_Location().mLevel;
-                int idx = personOn->get_WorkPath().index;
-                if (idx < 0)
-                    idx = 0; // bug patch
-
-                // personOn->SetCurrentState( Person::CS_Boarding );
-                RoutingRequest req; // routing code needs to queue this person
-                req.OriginLevel = curLevel;
-                req.DestinLevel = personOn->get_WorkPath().mPathList[idx].mLevel;
-                personOn->SetCurrentState(Person::CS_Riding);
-                LoadPerson(personOn, req);
-            }
-            mIdleTime += 2;
-        }
-    } else {
-        mIdleTime = 0;
-        Motion();
+    if (!m_stop) {
+        if (motionDelay-- <= 0) Motion();
+        return;
     }
-    mLiftMachine->Update(1);
+
+    // unload person from elevator
+    auto personUnload = UnloadPerson();
+    if (personUnload != nullptr) {
+        personUnload->SetCurrentState(Person::CS_Disembarking);
+        return;
+    }
+
+    // load person on elevator from queue
+    const int currentLevel = GetCurrentLevel();
+    auto personLoad = m_queues[currentLevel].TakeNextPerson();
+    if (personLoad != nullptr) {
+        int idx = personLoad->get_WorkPath().index;
+        if (idx < 0) idx = 0;
+        int toLevel = personLoad->get_WorkPath().mPathList[idx].mLevel;
+        personLoad->SetCurrentState(Person::CS_Riding);
+        LoadPerson(personLoad, RoutingRequest{currentLevel, toLevel});
+        return;
+    }
+
+    // initiate motion
+    m_stop = false;
+    motionDelay = 20;
 }
 
 void Elevator::Draw()

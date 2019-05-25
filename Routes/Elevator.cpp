@@ -26,10 +26,10 @@
 #include "ElevatorBase.h"
 #include "ElevatorMachine.h"
 #include "ElevatorShaft.h"
-#include "Level.h"
+#include "../Tower/Level.h"
 #include "PersonQueue.h"
 #include "RouteBase.h" // Elevators route (levels).
-#include "Tower.h"
+#include "../Tower/Tower.h"
 
 #include <cstdlib>
 #include <cstring>

@@ -27,9 +27,9 @@
 #include "MedicalClinic.h"
 #include "Office.h"
 #include "RetailShop.h"
-#include "Routes.h"
+#include "../Routes/Routes.h"
 #include "Security.h"
-#include "SingleStair.h"
+#include "../Routes/SingleStair.h"
 #include "Tower.h"
 #include "WasteManagement.h"
 

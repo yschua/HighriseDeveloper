@@ -20,12 +20,12 @@
 #include "../Graphics/Texture.h"
 #include "../Root/Physics.h"
 #include "../Scene/Scene.h"
-#include "Elevator.h"
-#include "ElevatorBase.h"
+#include "../Routes/Elevator.h"
+#include "../Routes/ElevatorBase.h"
 #include "FloorBase.h"
 #include "Level.h"
 #include "Lobby.h"
-#include "Routes.h"
+#include "../Routes/Routes.h"
 
 #include <list>
 #include <vector> // changed from list to vector so the collection can be scrolled in up and down

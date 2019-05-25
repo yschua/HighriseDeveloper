@@ -28,8 +28,8 @@
 
 #include "../AI/CitizensAgent.h"
 #include "../People/Person.h"
-#include "../Tower/RouteBase.h"
-#include "../Tower/Routes.h"
+#include "../Routes/RouteBase.h"
+#include "../Routes/Routes.h"
 #include "../Tower/Tower.h"
 
 #include <vector>

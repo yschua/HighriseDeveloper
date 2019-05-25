@@ -35,6 +35,9 @@
     <Filter Include="People">
       <UniqueIdentifier>{d441b62a-80b3-4c2e-bae8-51f3d7afe0b9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Routes">
+      <UniqueIdentifier>{8f9dc1ca-1466-4a7c-af38-0c1683bccc9e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="HighRiseDev.rc">
@@ -131,18 +134,6 @@
     <ClInclude Include="..\Tower\Damage.h">
       <Filter>Tower</Filter>
     </ClInclude>
-    <ClInclude Include="..\Tower\Elevator.h">
-      <Filter>Tower</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Tower\ElevatorBase.h">
-      <Filter>Tower</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Tower\ElevatorMachine.h">
-      <Filter>Tower</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Tower\ElevatorShaft.h">
-      <Filter>Tower</Filter>
-    </ClInclude>
     <ClInclude Include="..\Tower\FloorBase.h">
       <Filter>Tower</Filter>
     </ClInclude>
@@ -167,22 +158,10 @@
     <ClInclude Include="..\Tower\Office.h">
       <Filter>Tower</Filter>
     </ClInclude>
-    <ClInclude Include="..\Tower\PersonQueue.h">
-      <Filter>Tower</Filter>
-    </ClInclude>
     <ClInclude Include="..\Tower\RetailShop.h">
       <Filter>Tower</Filter>
     </ClInclude>
-    <ClInclude Include="..\Tower\RouteBase.h">
-      <Filter>Tower</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Tower\Routes.h">
-      <Filter>Tower</Filter>
-    </ClInclude>
     <ClInclude Include="..\Tower\Security.h">
-      <Filter>Tower</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Tower\SingleStair.h">
       <Filter>Tower</Filter>
     </ClInclude>
     <ClInclude Include="..\Tower\SkyLobby.h">
@@ -238,6 +217,30 @@
     </ClInclude>
     <ClInclude Include="..\Root\Game.h">
       <Filter>Root</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Routes\Elevator.h">
+      <Filter>Routes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Routes\ElevatorBase.h">
+      <Filter>Routes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Routes\ElevatorMachine.h">
+      <Filter>Routes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Routes\ElevatorShaft.h">
+      <Filter>Routes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Routes\RouteBase.h">
+      <Filter>Routes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Routes\Routes.h">
+      <Filter>Routes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Routes\SingleStair.h">
+      <Filter>Routes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Routes\PersonQueue.h">
+      <Filter>Routes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -319,18 +322,6 @@
     <ClCompile Include="..\Tower\Damage.cpp">
       <Filter>Tower</Filter>
     </ClCompile>
-    <ClCompile Include="..\Tower\Elevator.cpp">
-      <Filter>Tower</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Tower\ElevatorBase.cpp">
-      <Filter>Tower</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Tower\ElevatorMachine.cpp">
-      <Filter>Tower</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Tower\ElevatorShaft.cpp">
-      <Filter>Tower</Filter>
-    </ClCompile>
     <ClCompile Include="..\Tower\FloorBase.cpp">
       <Filter>Tower</Filter>
     </ClCompile>
@@ -355,19 +346,10 @@
     <ClCompile Include="..\Tower\Office.cpp">
       <Filter>Tower</Filter>
     </ClCompile>
-    <ClCompile Include="..\Tower\PersonQueue.cpp">
-      <Filter>Tower</Filter>
-    </ClCompile>
     <ClCompile Include="..\Tower\RetailShop.cpp">
       <Filter>Tower</Filter>
     </ClCompile>
-    <ClCompile Include="..\Tower\Routes.cpp">
-      <Filter>Tower</Filter>
-    </ClCompile>
     <ClCompile Include="..\Tower\Security.cpp">
-      <Filter>Tower</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Tower\SingleStair.cpp">
       <Filter>Tower</Filter>
     </ClCompile>
     <ClCompile Include="..\Tower\SkyLobby.cpp">
@@ -430,6 +412,27 @@
     </ClCompile>
     <ClCompile Include="..\Root\Game.cpp">
       <Filter>Root</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Routes\Elevator.cpp">
+      <Filter>Routes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Routes\ElevatorBase.cpp">
+      <Filter>Routes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Routes\ElevatorMachine.cpp">
+      <Filter>Routes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Routes\ElevatorShaft.cpp">
+      <Filter>Routes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Routes\Routes.cpp">
+      <Filter>Routes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Routes\SingleStair.cpp">
+      <Filter>Routes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Routes\PersonQueue.cpp">
+      <Filter>Routes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -26,7 +26,6 @@
 
 #include "PathAgent.h"
 
-#include "../AI/CitizensAgent.h"
 #include "../People/Person.h"
 #include "../Routes/RouteBase.h"
 #include "../Routes/Routes.h"
@@ -54,7 +53,6 @@ bool PathAgent::findPath(Location& origin, Location& dest, Tower& tower)
     // normally we would use the commented code but for now I've pluged direct to a single elevator
     // Routes* routeList = Routes::GetInstance();
     Routes& routeList = tower.GetRoutes();
-    CitizensAgent People(tower);
     // for (i = routeList.get_Routes().begin (); i != routeList.get_Routes().end (); i++)
     //{
     //   RouteBase* route = (*i);

@@ -16,22 +16,12 @@
 
 #include "Tower.h"
 
-#include "../Graphics/Image.h"
-#include "../Graphics/Texture.h"
-#include "../Root/Physics.h"
 #include "../Scene/Scene.h"
-#include "../Routes/Elevator.h"
-#include "../Routes/ElevatorBase.h"
-#include "FloorBase.h"
 #include "Level.h"
 #include "Lobby.h"
 #include "../Routes/Routes.h"
 
-#include <list>
-#include <vector> // changed from list to vector so the collection can be scrolled in up and down
-
 Tower::Tower(int towerNo, int NoSubLevels, Scene& rScene) :
-    mTowerNo(towerNo),
     mNo_SubLevels(NoSubLevels),
     mScene(rScene),
     mGhostRoom(0, 0)
@@ -50,8 +40,7 @@ Tower::Tower(int towerNo, int NoSubLevels, Scene& rScene) :
 
 Tower::~Tower()
 {
-    std::vector<Level*>::iterator iLevel;
-    for (iLevel = mLevels.begin(); iLevel != mLevels.end(); ++iLevel) {
+    for (auto iLevel = mLevels.begin(); iLevel != mLevels.end(); ++iLevel) {
         Level* pLevel = (*iLevel);
         delete pLevel;
     }
@@ -79,15 +68,6 @@ Level* Tower::GetLevel(int level) // positive gets you a level above, negative g
     return mLevels[index];
 }
 
-Level* Tower::FindLevelById(int id)
-{
-    for (auto pLevel : mLevels) {
-        if (pLevel->GetID() == id)
-            return pLevel;
-    }
-    return nullptr;
-}
-
 Level* Tower::FindLevel(int level)
 {
     for (auto pLevel : mLevels) {
@@ -99,11 +79,6 @@ Level* Tower::FindLevel(int level)
 
 void Tower::Update(float dt, int timeOfDay)
 {
-    //   std::vector<Level *>::iterator iLevel;
-    //   for (iLevel = mLevels.begin (); iLevel != mLevels.end (); ++iLevel)
-    //   {
-    //      (*iLevel)->Update( dt, timeOfDay );
-    //   }
     mFloorWorkingOn++;
     if (mFloorWorkingOn >= static_cast<int>(mLevels.size())) {
         mFloorWorkingOn = 0; // set to lowest level
@@ -119,8 +94,7 @@ void Tower::Update(float dt, int timeOfDay)
 
 void Tower::Draw()
 {
-    std::vector<Level*>::iterator iLevel;
-    for (iLevel = mLevels.begin(); iLevel != mLevels.end(); ++iLevel) {
+    for (auto iLevel = mLevels.begin(); iLevel != mLevels.end(); ++iLevel) {
         (*iLevel)->Draw();
     }
     mGhostRoom.Draw();
@@ -128,10 +102,8 @@ void Tower::Draw()
 }
 
 void Tower::DrawFramework(bool bLevelsOnly)
-
 {
-    std::vector<Level*>::iterator iLevel;
-    for (iLevel = mLevels.begin(); iLevel != mLevels.end(); ++iLevel) {
+    for (auto iLevel = mLevels.begin(); iLevel != mLevels.end(); ++iLevel) {
         (*iLevel)->DrawFramework(bLevelsOnly);
     }
     //   mRoutes.RenderFramework(); do these later
@@ -143,13 +115,4 @@ void Tower::EnterTower(Person* pPerson)
     // when implemented, this funcition will place people into a queue, for an elevator, at the checkin desk
     // etc.
     mPopulation++;
-}
-
-// AI interface
-void Tower::LeaveTower(Person* pPerson)
-{
-    // when implemented, this function will take people out of the building, walking, bus, train etc.
-    mPopulation--;
-    if (mPopulation < 0)
-        mPopulation = 0;
 }

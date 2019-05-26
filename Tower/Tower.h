@@ -23,45 +23,20 @@
 #include "../Graphics/ModelObject.h"
 #include "GhostRoom.h" // local for speed
 #include "../Routes/Routes.h"
+#include <vector>
 
-class FloorBase; // aggregate of floor spaces for offices, condos and hotels
 class Level;
-class Elevator;
-class TowerAgent;
-class FloorAgent;
-class GameManager;
 class Routes;
 class Person;
 class Scene;
-class BuildStairStrategy;
 
 // Tower is a ModelObject along with all the FloorSpace entities
 // This renderes the Tower in the ModelSpaces with perspective, pan and zoom.
 class Tower : public Gfx::ModelObject
 {
-    friend class TowerAgent;
-    friend class FloorAgent;
-    friend class GameManager;
-    friend class BuildStairStrategy;
-
-    int mTowerNo;
-    int mNo_SubLevels;
-    int mPopulation; // People in the tower currently
-    int mFloorWorkingOn;
-    double mAvailableFunds;
-
-    std::vector<Level*> mLevels; // Lobby is at mNo_SubLevels not zero
-    Routes mRoutes;
-    Scene& mScene; // this is where all the towers are modeled in OpenGL.
-    GhostRoom mGhostRoom;
-
 public:
-    typedef std::vector<Level*>::iterator LevelIterator;
-    typedef std::vector<Level*> LevelVector;
-
-    // ctor/dtor
     Tower(int towerNo, int NoSubLevels, Scene& rScene);
-    ~Tower();
+    virtual ~Tower();
 
     // properties
     inline Routes& GetRoutes() { return mRoutes; } // For routing citizens
@@ -71,11 +46,6 @@ public:
     inline Scene& GetScene() { return mScene; }
     inline GhostRoom& GetGhostRoom() { return mGhostRoom; }
 
-protected:
-    inline LevelVector& GetLevels() { return mLevels; }
-    inline Routes::RoutesVector& GetRouteList() { return mRoutes.GetRoutes(); }
-    // methods
-public:
     Level* NewLevel(int x, int y, int x2);
     Level* GetLevel(int level); // positive gets you a level above, negative gets you a basement level
 
@@ -85,15 +55,24 @@ public:
 
     // AI interface
     void EnterTower(Person* pPerson);
-    void LeaveTower(Person* pPerson);
-    Level* FindLevelById(int id);
     Level* FindLevel(int level);
-
-    // bool Load(TiXmlNode* nTower);
-    // bool Save(TiXmlElement* pnParent);
 
     // Debug Methods
     void DebugLoad(int x, int y, int x2); // this simply pumps floor objects and elevators into the tower.
+
+    inline std::vector<Level*>& GetLevels() { return mLevels; }
+    inline Routes::RoutesVector& GetRouteList() { return mRoutes.GetRoutes(); }
+
+private:
+    int mNo_SubLevels;
+    int mPopulation; // People in the tower currently
+    int mFloorWorkingOn;
+    double mAvailableFunds;
+
+    std::vector<Level*> mLevels; // Lobby is at mNo_SubLevels not zero
+    Routes mRoutes;
+    Scene& mScene; // this is where all the towers are modeled in OpenGL.
+    GhostRoom mGhostRoom;
 };
 
 #endif //_TOWER_H

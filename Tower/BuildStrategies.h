@@ -40,7 +40,7 @@ public:
 
 public:
     virtual bool PlacingRoom() { return false; }
-    virtual bool BuildHere(Tower* pTowwer, int x, int y);
+    virtual bool BuildHere(Tower* pTowwer, int x, int y); // TODO maybe pass GhostRoom instead of x,y
     virtual void ShowGhostBuild(Tower* pTower);
 };
 

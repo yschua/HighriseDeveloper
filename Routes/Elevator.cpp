@@ -181,6 +181,7 @@ Person* Elevator::UnloadPerson()
     return nullptr;
 }
 
+// TODO std::optional
 std::pair<bool, int> Elevator::FindNearestCall() const
 {
     // search outwards from current level
@@ -405,4 +406,15 @@ bool Elevator::StopsOnLevel(int level)
 int Elevator::FindLobby()
 {
     return 0;
+}
+
+std::vector<int> Elevator::GetConnectedLevels() const
+{
+    std::vector<int> levels;
+    for (const auto& floorButton : m_floorButtons) {
+        if (floorButton.second.m_enabled) {
+            levels.push_back(floorButton.first);
+        }
+    }
+    return levels;
 }

@@ -27,7 +27,7 @@
 #define _CITIZENSAGENT_H
 
 struct Location; // from person
-struct Path;
+struct Path_;
 class Person;
 class Tower;
 
@@ -38,7 +38,7 @@ public:
     virtual ~CitizensAgent();
     void Update(int tod);
     void Draw(); // People
-    void RoutePerson(int curLevel, Path& Path, Person* peep);
+    void RoutePerson(int curLevel, Path_& Path, Person* peep);
 
 protected:
     Tower& mTower; // must have one or more

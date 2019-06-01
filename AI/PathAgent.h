@@ -37,7 +37,7 @@ class PathAgent
 {
 private:
     Person* mPerson;
-    Path mCurrentPath; // local scratch
+    Path_ mCurrentPath; // local scratch
 
 public:
     bool findPath(Location& origin, Location& dest, Tower& tower);

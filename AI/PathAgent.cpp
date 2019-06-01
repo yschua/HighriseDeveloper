@@ -48,7 +48,7 @@ PathAgent::~PathAgent() {}
 
 bool PathAgent::findPath(Location& origin, Location& dest, Tower& tower)
 {
-    Path& path = mPerson->get_WorkPath(); // for now just doing work
+    Path_& path = mPerson->get_WorkPath(); // for now just doing work
     path.clear();
     // normally we would use the commented code but for now I've pluged direct to a single elevator
     // Routes* routeList = Routes::GetInstance();

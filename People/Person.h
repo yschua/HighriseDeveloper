@@ -50,12 +50,12 @@ struct Location {
     }
 };
 
-struct Path // this could have been a list<T> but it would slow this high traffic structure
+struct Path_ // this could have been a list<T> but it would slow this high traffic structure
 {
     short size;            // elements in play at this time
     short index;           // the current position of the person in the array.
     Location mPathList[8]; // the max is 4 or so transistions a person cares to make.
-    Path() { clear(); }
+    Path_() { clear(); }
     void clear()
     {
         for (int idx = 0; idx < 8; ++idx) {
@@ -126,11 +126,11 @@ public:
     virtual ~Person();
 
     // Properties
-    Path& get_WorkPath() // this gets called to fill and route to and from work.
+    Path_& get_WorkPath() // this gets called to fill and route to and from work.
     {
         return mWorkPath;
     }
-    Path& get_OtherPath() // this gets called to fill, move the person and alternate checking paths.
+    Path_& get_OtherPath() // this gets called to fill, move the person and alternate checking paths.
     {
         return mOtherPath;
     }
@@ -177,9 +177,9 @@ private:
     void Sleep(int tod);
 
     Location mLocation;
-    Path mWorkPath; // To and from work, stays permanant as long as working.
+    Path_ mWorkPath; // To and from work, stays permanant as long as working.
                     // Changes if they change jobs or the business goes bust.
-    Path mOtherPath; // To and from other activities when they go shopping etc.
+    Path_ mOtherPath; // To and from other activities when they go shopping etc.
                         // Changes almost daily
     Health_State mHealth;
     Mood_State mMood;

@@ -96,7 +96,7 @@ void CitizensAgent::Update(int tod)
     }
 }
 
-void CitizensAgent::RoutePerson(int index, Path& Path, Person* peep)
+void CitizensAgent::RoutePerson(int index, Path_& Path, Person* peep)
 {
     Routes& routeList = mTower.GetRoutes();
     if (routeList.GetRoutes().size() > 0) {
@@ -201,7 +201,7 @@ void CitizensAgent::ApartmentHunting(Person* person)
 
 void CitizensAgent::GoingToWork(Person* person)
 {
-    Path& workPath = person->get_WorkPath(); // for now just doing work
+    Path_& workPath = person->get_WorkPath(); // for now just doing work
     if (workPath.index < workPath.size) {
         int idx = workPath.index;
         int curLevel = person->get_Location().mLevel;
@@ -248,7 +248,7 @@ void CitizensAgent::GoingToWork(Person* person)
 
 void CitizensAgent::ClockingOut(Person* person)
 {
-    Path& workPath = person->get_WorkPath(); // for now just doing work
+    Path_& workPath = person->get_WorkPath(); // for now just doing work
     if (workPath.index > 0) {
         int idx = workPath.index;
         int curLevel = person->get_Location().mLevel;
@@ -264,7 +264,7 @@ void CitizensAgent::ClockingOut(Person* person)
 
 void CitizensAgent::GoingHome(Person* person)
 {
-    Path& workPath = person->get_WorkPath(); // for now just doing work
+    Path_& workPath = person->get_WorkPath(); // for now just doing work
     if (workPath.index >= 0) {
         int idx = workPath.index;
         int curLevel = person->get_Location().mLevel;
@@ -298,7 +298,7 @@ void CitizensAgent::GoingHome(Person* person)
 
 void CitizensAgent::LunchBreak(Person* person, int tod)
 {
-    Path& workPath = person->get_WorkPath(); // for now just doing work
+    Path_& workPath = person->get_WorkPath(); // for now just doing work
     if (workPath.index >= 0) {
         int idx = 0;
         int curLevel = person->get_Location().mLevel;

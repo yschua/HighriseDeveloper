@@ -17,6 +17,7 @@
 #ifndef _ROUTEBASE_H
 #define _ROUTEBASE_H
 #include "../Tower/FloorBase.h"
+#include <vector>
 
 class SerializerBase; // visitor;
 class Person;
@@ -43,6 +44,7 @@ public:
     virtual void AddToQueue(int level, Person* person) = 0;
     virtual bool StopsOnLevel(int level) = 0;
     virtual int FindLobby() = 0;
+    virtual std::vector<int> GetConnectedLevels() const { return std::vector<int>(); }
 };
 
 #endif //_ROUTEBASE_H

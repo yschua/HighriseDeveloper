@@ -23,6 +23,7 @@
 #include "../Graphics/ModelObject.h"
 #include "GhostRoom.h" // local for speed
 #include "../Routes/Routes.h"
+#include "../AI/PathFinding.h"
 #include <vector>
 
 class Level;
@@ -56,6 +57,7 @@ public:
     // AI interface
     void EnterTower(Person* pPerson);
     Level* FindLevel(int level);
+    std::unique_ptr<Path> FindPath(int startLevel, int goalLevel);
 
     // Debug Methods
     void DebugLoad(int x, int y, int x2); // this simply pumps floor objects and elevators into the tower.
@@ -73,6 +75,7 @@ private:
     Routes mRoutes;
     Scene& mScene; // this is where all the towers are modeled in OpenGL.
     GhostRoom mGhostRoom;
+    PathFinding m_pathFinding;
 };
 
 #endif //_TOWER_H

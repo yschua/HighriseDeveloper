@@ -242,6 +242,9 @@
     <ClInclude Include="..\Routes\PersonQueue.h">
       <Filter>Routes</Filter>
     </ClInclude>
+    <ClInclude Include="..\AI\PathFinding.h">
+      <Filter>AI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Window\Clock.cpp">
@@ -433,6 +436,9 @@
     </ClCompile>
     <ClCompile Include="..\Routes\PersonQueue.cpp">
       <Filter>Routes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\AI\PathFinding.cpp">
+      <Filter>AI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

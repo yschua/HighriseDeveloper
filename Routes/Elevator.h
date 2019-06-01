@@ -89,6 +89,7 @@ public:
     void AddToQueue(int level, Person* person) override;
     bool StopsOnLevel(int level) override;
     int FindLobby() override;
+    std::vector<int> GetConnectedLevels() const override;
 
 private:
     void LoadImages();
@@ -124,7 +125,7 @@ private:
 
     LiftStyle m_type;
     Tower* m_tower;
-    std::map<int, FloorButton> m_floorButtons;
+    std::map<int, FloorButton> m_floorButtons; // TODO maybe use LevelNumber typedef int
     std::map<int, CallButton> m_callButtons; // parent, should also check if there are people queuing
     bool m_idle;
     bool m_stop;

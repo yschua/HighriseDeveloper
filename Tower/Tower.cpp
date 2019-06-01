@@ -24,7 +24,8 @@
 Tower::Tower(int towerNo, int NoSubLevels, Scene& rScene) :
     mNo_SubLevels(NoSubLevels),
     mScene(rScene),
-    mGhostRoom(0, 0)
+    mGhostRoom(0, 0),
+    m_pathFinding(this)
 {
     mPopulation = 0;
     mAvailableFunds = 0;
@@ -115,4 +116,9 @@ void Tower::EnterTower(Person* pPerson)
     // when implemented, this funcition will place people into a queue, for an elevator, at the checkin desk
     // etc.
     mPopulation++;
+}
+
+std::unique_ptr<Path> Tower::FindPath(int startLevel, int goalLevel)
+{
+    return m_pathFinding.AStar(startLevel, goalLevel);
 }

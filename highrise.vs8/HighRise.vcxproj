@@ -103,6 +103,7 @@
     <ClInclude Include="..\AI\CitizensAgent.h" />
     <ClInclude Include="..\AI\FloorAgent.h" />
     <ClInclude Include="..\AI\PathAgent.h" />
+    <ClInclude Include="..\AI\PathFinding.h" />
     <ClInclude Include="..\Graphics\Animation.h" />
     <ClInclude Include="..\Graphics\Camera.h" />
     <ClInclude Include="..\Graphics\ErrorImage.h" />
@@ -169,6 +170,7 @@
     <ClCompile Include="..\AI\CitizensAgent.cpp" />
     <ClCompile Include="..\AI\FloorAgent.cpp" />
     <ClCompile Include="..\AI\PathAgent.cpp" />
+    <ClCompile Include="..\AI\PathFinding.cpp" />
     <ClCompile Include="..\Graphics\Animation.cpp" />
     <ClCompile Include="..\Graphics\AnimationBase.cpp" />
     <ClCompile Include="..\Graphics\Camera.cpp" />

@@ -160,7 +160,7 @@ void CitizensAgent::JobHunting(Person* person, int tod)
                 person->SetOccupation(2);
             else
                 person->SetOccupation(1);
-            person->SetWorkID(pFB->GetID());
+            person->SetWorkID(pFB);
             PathAgent Path(person);
             Path.findPath(person->get_Location(), dest, mTower);
 
@@ -232,7 +232,7 @@ void CitizensAgent::GoingToWork(Person* person)
             if (workPath.index == workPath.size) {
                 try {
                     Level* pLevel = mTower.GetLevel(workPath.mPathList[workPath.size - 1].mLevel);
-                    FloorBase* pFB = pLevel->GetSpaceByID(person->GetWorkID());
+                    FloorBase* pFB = person->GetWorkID();
                     if (pFB && pFB->GetType() == BaseOffice) {
                         Office* pOffice = reinterpret_cast<Office*>(pFB);
                         pOffice->PeopleInOut(1);
@@ -253,7 +253,7 @@ void CitizensAgent::ClockingOut(Person* person)
         int idx = workPath.index;
         int curLevel = person->get_Location().mLevel;
         Level* pLevel = mTower.GetLevel(curLevel);
-        FloorBase* pFB = pLevel->GetSpaceByID(person->GetWorkID());
+        FloorBase* pFB = person->GetWorkID();
         if (pFB && pFB->GetType() == BaseOffice) {
             Office* pOffice = reinterpret_cast<Office*>(pFB);
             pOffice->PeopleInOut(-1);

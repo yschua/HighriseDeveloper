@@ -148,11 +148,11 @@ public:
     void SetOccupation(int occ) { mOccupation = occ; }
     int GetOccupation() { return mOccupation; }
     Location& get_Location() { return mLocation; }
-    unsigned int GetWorkID() // number of the office or buisinee we work in
+    FloorBase* GetWorkID() // number of the office or buisinee we work in
     {
         return mWorkID;
     }
-    void SetWorkID(unsigned int id)
+    void SetWorkID(FloorBase* id)
     {
         mWorkID = id; // number of the office or buisinee we work in
     }
@@ -189,7 +189,7 @@ private:
     std::map<Mood_State, AnimationSingle*> manimations;
     // not set on if this will be a class or enum
     unsigned int mHome;   // Where's the Crib
-    unsigned int mWorkID; // number of the office or buisinee we work in
+    FloorBase* mWorkID; // number of the office or buisinee we work in
 };
 
 #endif //_PERSON_H

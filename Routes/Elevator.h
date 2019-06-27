@@ -86,7 +86,7 @@ public:
     void Update(float dt) override;
     void Draw() override;
     void Save(SerializerBase& ser) override;
-    void AddToQueue(int level, Person* person) override;
+    void AddToQueue(int level, Person* person, const RoutingRequest& req) override;
     bool StopsOnLevel(int level) override;
     int FindLobby() override;
     std::vector<int> GetConnectedLevels() const override;

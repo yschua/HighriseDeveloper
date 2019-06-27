@@ -82,6 +82,7 @@ public:
     inline int GetID() { return mID; }
     virtual double GetRent() { return 0; }
     virtual double GetSalePrice() { return mSalePrice; }
+    Tower* GetTower() const { return mTowerParent; }
 
     inline void SetX(float x) { mX = x; }
     inline void SetX2(float x) { mX2 = x; }

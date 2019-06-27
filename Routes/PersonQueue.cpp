@@ -26,14 +26,14 @@ PersonQueue::PersonQueue()
 {
 }
 
-void PersonQueue::AddPerson(Person* person)
+void PersonQueue::AddPerson(Person* person, const RoutingRequest& req)
 {
-    m_queue.push(person);
+    m_queue.push(std::make_pair(person, req));
 }
 
-Person* PersonQueue::TakeNextPerson()
+std::pair<Person*, RoutingRequest> PersonQueue::TakeNextPerson()
 {
-    if (m_queue.empty()) return nullptr;
+    if (m_queue.empty()) return std::make_pair(nullptr, RoutingRequest());
 
     auto person = m_queue.front();
     m_queue.pop();

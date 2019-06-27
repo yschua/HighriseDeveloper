@@ -245,6 +245,15 @@
     <ClInclude Include="..\AI\PathFinding.h">
       <Filter>AI</Filter>
     </ClInclude>
+    <ClInclude Include="..\People\ActivityStateMachine.h">
+      <Filter>People</Filter>
+    </ClInclude>
+    <ClInclude Include="..\People\IActivityState.h">
+      <Filter>People</Filter>
+    </ClInclude>
+    <ClInclude Include="..\People\ActivityState.h">
+      <Filter>People</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Window\Clock.cpp">
@@ -439,6 +448,12 @@
     </ClCompile>
     <ClCompile Include="..\AI\PathFinding.cpp">
       <Filter>AI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\People\ActivityStateMachine.cpp">
+      <Filter>People</Filter>
+    </ClCompile>
+    <ClCompile Include="..\People\ActivityState.cpp">
+      <Filter>People</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -26,24 +26,32 @@
 #ifndef _PATHAGENT_H
 #define _PATHAGENT_H
 
-#include "../People/Person.h"
+#include <memory>
 
 struct Location; // from person
 
 class Person;
 class Tower;
+class FloorBase;
+class Path;
 
 class PathAgent
 {
 private:
     Person* mPerson;
-    Path_ mCurrentPath; // local scratch
 
 public:
     bool findPath(Location& origin, Location& dest, Tower& tower);
     PathAgent(Person* person);
     PathAgent(Person* person, int level); // deposit person on this level;
     virtual ~PathAgent(void);
+
+    void StartPathing(FloorBase* from, FloorBase* to);
+    void UpdatePathing();
+    void EndPathing();
+    bool IsPathing() const;
+private:
+    std::unique_ptr<Path> m_path;
 };
 
 #endif //_PATHAGENT_H

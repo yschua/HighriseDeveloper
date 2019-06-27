@@ -63,36 +63,11 @@ void CitizensAgent::Update(int tod)
         //citizens->Update(dt);
         // log      std::cout << "Your city added 1 person" << " Population in city: " <<
         // citizens->GetPopulation() << std::endl;
+        JobHunting(peep, tod);
     }
 
     for (Person* person : citizens->get_Persons()) {
         person->Update(tod);
-        // use a state engine to replace this
-        switch (person->get_Activity()) {
-        case Person::AS_JobHunting:
-            JobHunting(person, tod);
-            break;
-        case Person::AS_CondoHunting:
-            CondoHunting(person);
-            break;
-        case Person::AS_ApartmentHunting:
-            ApartmentHunting(person);
-            break;
-        case Person::AS_GoingToWork:
-            GoingToWork(person);
-            break;
-        case Person::AS_ClockingOut:
-            ClockingOut(person);
-            break;
-        case Person::AS_GoingHome:
-            GoingHome(person);
-            break;
-        case Person::AS_LunchBreak:
-            LunchBreak(person, tod);
-            break;
-        default:
-            break;
-        }
     }
 }
 
@@ -116,7 +91,7 @@ void CitizensAgent::RoutePerson(int index, Path_& Path, Person* peep)
             } else {
                 peep->SetCurrentState(Person::CS_Waiting);
                 peep->get_WorkPath().index = index;
-                route->AddToQueue(peep->GetCurrent(), peep);
+                route->AddToQueue(peep->GetCurrent(), peep, req);
             }
         }
     }
@@ -242,7 +217,6 @@ void CitizensAgent::GoingToWork(Person* person)
                 }
             }
         }
-    } else {
     }
 }
 

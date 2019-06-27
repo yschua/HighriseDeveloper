@@ -17,10 +17,10 @@
 // People that make the tower thrive, treat them well and you prosper.
 // Annoy them and they will fight back
 // Make them made and they take their money elsewhere.
-#pragma once
 #ifndef _PERSON_H
 #define _PERSON_H
 
+#include "ActivityStateMachine.h"
 #include "../Graphics/ModelObject.h"
 
 #include <map>
@@ -166,6 +166,7 @@ public:
     int GetCurrent() { return mLocation.mLevel; }
     void ResetState();
     int GetId() const { return m_id; }
+    ActivityStateMachine& GetActivityStateMachine();
 
 private:
     static int m_nextId;
@@ -190,6 +191,7 @@ private:
     // not set on if this will be a class or enum
     unsigned int mHome;   // Where's the Crib
     FloorBase* mWorkID; // number of the office or buisinee we work in
+    ActivityStateMachine m_activityState;
 };
 
 #endif //_PERSON_H

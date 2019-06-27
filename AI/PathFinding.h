@@ -57,10 +57,11 @@ public:
     Path() {}
     virtual ~Path() {}
     inline void Add(RouteRequest req) { m_path.push_back(req); }
-    inline void Reset() { m_it = m_path.begin(); }
+    inline void ResetIterator() { m_it = m_path.begin(); }
     inline RouteRequest GetRouteRequest() const { return *m_it; }
     inline void Advance() { m_it++; }
     inline bool IsEnd() const { return m_it == m_path.end(); }
+    int GetDestinationLevel() const;
 
 private:
     std::vector<RouteRequest> m_path;

@@ -322,18 +322,18 @@ void Elevator::Update(float dt, int tod)
     auto personUnload = UnloadPerson();
     if (personUnload != nullptr) {
         personUnload->SetCurrentState(Person::CS_Disembarking);
+        personUnload->SetCurrent(GetCurrentLevel());
         return;
     }
 
     // load person on elevator from queue
     const int currentLevel = GetCurrentLevel();
-    auto personLoad = m_queues[currentLevel].TakeNextPerson();
+    Person* personLoad;
+    RoutingRequest req;
+    std::tie(personLoad, req) = m_queues[currentLevel].TakeNextPerson();
     if (personLoad != nullptr) {
-        int idx = personLoad->get_WorkPath().index;
-        if (idx < 0) idx = 0;
-        int toLevel = personLoad->get_WorkPath().mPathList[idx].mLevel;
         personLoad->SetCurrentState(Person::CS_Riding);
-        LoadPerson(personLoad, RoutingRequest{currentLevel, toLevel});
+        LoadPerson(personLoad, req);
         return;
     }
 
@@ -393,9 +393,9 @@ void Elevator::InitQueues()
     }
 }
 
-void Elevator::AddToQueue(int level, Person* person)
+void Elevator::AddToQueue(int level, Person* person, const RoutingRequest& req)
 {
-    m_queues[level].AddPerson(person);
+    m_queues[level].AddPerson(person, req);
 }
 
 bool Elevator::StopsOnLevel(int level)

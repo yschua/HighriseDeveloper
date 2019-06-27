@@ -108,3 +108,51 @@ bool PathAgent::findPath(Location& origin, Location& dest, Tower& tower)
     path.size = CarsTaken; // 2;
     return true;
 }
+
+void PathAgent::StartPathing(FloorBase* from, FloorBase* to)
+{
+    // if from == to == nullptr throw something
+
+    auto tower = (from) ? from->GetTower() : to->GetTower();
+    int fromLevel = (from) ? from->GetLevel() : 0;
+    int toLevel = (to) ? to->GetLevel() : 0;
+
+    m_path = std::move(tower->FindPath(fromLevel, toLevel));
+}
+
+void PathAgent::UpdatePathing()
+{
+    int currentLevel = mPerson->GetCurrent();
+
+    if (currentLevel == m_path->GetDestinationLevel()) {
+        EndPathing();
+        return;
+    }
+
+    if (m_path->IsEnd()) return;
+
+    const auto& req = m_path->GetRouteRequest();
+
+    if (currentLevel != req.m_from) return;
+
+    RoutingRequest reqOld = {req.m_from, req.m_to};
+    auto route = req.m_route;
+
+    if (route->SetCallButton(reqOld)) {
+        route->LoadPerson(mPerson, reqOld);
+    } else {
+        route->AddToQueue(currentLevel, mPerson, reqOld);
+    }
+
+    m_path->Advance();
+}
+
+void PathAgent::EndPathing()
+{
+    m_path.reset();
+}
+
+bool PathAgent::IsPathing() const
+{
+    return (m_path != nullptr);
+}

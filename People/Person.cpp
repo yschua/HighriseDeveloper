@@ -25,7 +25,7 @@
 
 int Person::m_nextId = 0;
 
-Person::Person(Location& loc) : m_id(m_nextId++)
+Person::Person(Location& loc) : m_id(m_nextId++), m_activityState(*this)
 {
     mHealth = HS_Well;
     mMood = MS_Content;
@@ -51,43 +51,7 @@ Person::~Person(void) {}
 
 void Person::Update(int tod) // actual time
 {
-    // check time of day, what activity should we be doing.
-    if (tod > 20 * 60 && !(mActivity == AS_Sleeping)) {
-        SetActivity(AS_Sleeping);
-    }
-
-    if (mOccupation < 1) // && age > 16 )
-    {
-        SetActivity(AS_JobHunting);
-        return;
-    } //else if (mHome < 1 && mActivity == AS_GoingHome) {
-    //    if (this->mOccupation > 1) {
-    //        SetActivity(AS_CondoHunting);
-    //    } else {
-    //        SetActivity(AS_ApartmentHunting);
-    //    }
-    //    return;
-    //}
-
-    switch (mActivity) {
-    case AS_GoingToWork:
-        GoingToWork();
-        break;
-    case AS_Working:
-        Working(tod);
-        break;
-    case AS_LunchBreak:
-        LunchBreak(tod);
-        break;
-    case AS_GoingHome:
-        GoingHome();
-        break;
-    case AS_Sleeping:
-        Sleep(tod);
-        break;
-    default:
-        break;
-    }
+    m_activityState.Update(tod);
 }
 
 void Person::Draw()
@@ -187,4 +151,9 @@ void Person::Sleep(int tod)
         SetActivity(AS_GoingToWork);
         SetCurrentState(CS_Busy);
     }
+}
+
+ActivityStateMachine& Person::GetActivityStateMachine()
+{
+    return m_activityState;
 }

@@ -131,6 +131,8 @@ static std::unique_ptr<Path> ConstructPath(
 
         path->Add(RouteRequest{route, from->GetLevel(), to->GetLevel()});
     }
+    path->ResetIterator();
+
     return path;
 }
 
@@ -183,4 +185,9 @@ std::unique_ptr<Path> PathFinding::AStar(int startLevel, int goalLevel)
     }
 
     return nullptr;
+}
+
+int Path::GetDestinationLevel() const
+{
+    return m_path.empty() ? 0 : m_path.back().m_to;
 }

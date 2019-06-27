@@ -94,7 +94,7 @@ public:
     virtual void DrawFramework() {} // geometry test
 
     void Save(SerializerBase& ser);
-    void AddToQueue(int level, Person* person) override {}
+    void AddToQueue(int level, Person* person, const RoutingRequest& req) override {}
 };
 }
 

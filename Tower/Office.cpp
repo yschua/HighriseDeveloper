@@ -81,7 +81,7 @@ void Office::OfficeMode(int tod)
     if (mPeopleInOffice > 0) // some people are at work
     {
         mCurrentMode = OM_DayOccupied;
-    } else if (tod > 8 * 60 && tod < 16 * 60) {
+    } else if (tod > 8 * 60 && tod < 18 * 60) {
         mCurrentMode = OM_DayUnoccupied;
     } else {
         mCurrentMode = OM_Night;

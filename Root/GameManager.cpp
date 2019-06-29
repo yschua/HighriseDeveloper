@@ -242,10 +242,9 @@ bool GameManager::LoadTower(TiXmlNode* pnTower, Tower* pTower)
 
 bool GameManager::SaveTower(TiXmlElement* pnTower, Tower* pTower)
 {
-    Tower::LevelIterator it;
-    Tower::LevelVector& theLevels = pTower->GetLevels(); // Lobby is at mNo_SubLevels not zero
+    std::vector<Level*>& theLevels = pTower->GetLevels(); // Lobby is at mNo_SubLevels not zero
 
-    for (it = theLevels.begin(); it != theLevels.end(); it++) {
+    for (auto it = theLevels.begin(); it != theLevels.end(); it++) {
         Level* pLevel = (*it);
         TiXmlElement* pnLevel = new TiXmlElement("level");
         XMLSerializer xmlLevel(pnLevel);

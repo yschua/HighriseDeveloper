@@ -28,6 +28,7 @@
 #include "Office.h"
 #include "../Routes/Routes.h"
 #include "Tower.h"
+#include "../AI/PathFinding.h"
 
 #include <iostream>
 #include <list>
@@ -45,6 +46,7 @@ void Tower::DebugLoad(int x, int y, int x2)
         Level* pLevel = GetLevel(0);
         pElevator = new Elevator(Elevator::LS_HighCapacity, 472 + 144, 0, 15, this);
         GetRoutes().AddRoute(pElevator);
+        m_pathFinding.ConstructGraph();
     } catch (...) {
         throw new HighriseException("Debug Alpha Building failed to create");
     }

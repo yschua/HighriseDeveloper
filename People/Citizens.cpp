@@ -56,14 +56,10 @@ Citizens::Citizens() {}
 Citizens::~Citizens()
 {
     std::cout << "Cleaning up Citizens";
-    try {
-        std::list<Person*>::iterator i;
-        for (i = mPeople.begin(); i != mPeople.end(); i++) {
-            Person* peep = (*i);
-            delete peep;
-        }
-    } catch (...) {
-        throw new HighriseException("Error in Citezens destructor");
+    std::list<Person*>::iterator i;
+    for (i = mPeople.begin(); i != mPeople.end(); i++) {
+        Person* peep = (*i);
+        delete peep;
     }
 }
 
@@ -83,8 +79,7 @@ void Citizens::Update(float dt)
 
 Person* Citizens::CreateNewPerson()
 {
-    Location loc;
-    Person* person = new Person(loc);
+    Person* person = new Person();
     mPeople.push_back(person);
     return person;
 }
@@ -108,7 +103,7 @@ size_t Citizens::GetPopulationForTower(int Tower)
     for (i = mPeople.begin(); i != mPeople.end(); i++) {
         Person* peep = (*i);
         // if(peep->get_Location().m_Tower == Tower )
-        if (peep->get_Location().mLevel != 0)
+        if (peep->GetCurrent() != 0)
             pop++;
     }
     return pop;

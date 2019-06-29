@@ -103,6 +103,7 @@
     <ClInclude Include="..\AI\CitizensAgent.h" />
     <ClInclude Include="..\AI\FloorAgent.h" />
     <ClInclude Include="..\AI\PathAgent.h" />
+    <ClInclude Include="..\AI\PathFinding.h" />
     <ClInclude Include="..\Graphics\Animation.h" />
     <ClInclude Include="..\Graphics\Camera.h" />
     <ClInclude Include="..\Graphics\ErrorImage.h" />
@@ -113,7 +114,10 @@
     <ClInclude Include="..\Graphics\Tiler.h" />
     <ClInclude Include="..\Graphics\ViewObject.h" />
     <ClInclude Include="..\People\Citizens.h" />
+    <ClInclude Include="..\People\IActivityState.h" />
     <ClInclude Include="..\People\Person.h" />
+    <ClInclude Include="..\People\ActivityState.h" />
+    <ClInclude Include="..\People\ActivityStateMachine.h" />
     <ClInclude Include="..\Root\Game.h" />
     <ClInclude Include="..\Root\GameManager.h" />
     <ClInclude Include="..\Root\HighRiseException.h" />
@@ -169,6 +173,7 @@
     <ClCompile Include="..\AI\CitizensAgent.cpp" />
     <ClCompile Include="..\AI\FloorAgent.cpp" />
     <ClCompile Include="..\AI\PathAgent.cpp" />
+    <ClCompile Include="..\AI\PathFinding.cpp" />
     <ClCompile Include="..\Graphics\Animation.cpp" />
     <ClCompile Include="..\Graphics\AnimationBase.cpp" />
     <ClCompile Include="..\Graphics\Camera.cpp" />
@@ -182,6 +187,8 @@
     <ClCompile Include="..\HighRiseDev.cpp" />
     <ClCompile Include="..\People\Citizens.cpp" />
     <ClCompile Include="..\People\Person.cpp" />
+    <ClCompile Include="..\People\ActivityState.cpp" />
+    <ClCompile Include="..\People\ActivityStateMachine.cpp" />
     <ClCompile Include="..\Root\Game.cpp" />
     <ClCompile Include="..\Root\GameManager.cpp" />
     <ClCompile Include="..\Root\HighRiseException.cpp" />

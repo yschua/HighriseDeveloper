@@ -35,9 +35,8 @@ FloorAgent::~FloorAgent() {}
 
 FloorBase* FloorAgent::FindWork(int preferences)
 {
-    Tower::LevelIterator lit;
-    Tower::LevelVector& levels = mTower.GetLevels();
-    for (lit = levels.begin(); lit != levels.end(); lit++) {
+    std::vector<Level*>& levels = mTower.GetLevels();
+    for (auto lit = levels.begin(); lit != levels.end(); lit++) {
         Level* pLevel = (*lit);
         auto& rooms = pLevel->GetFloorSpaces();
         for (auto fit = rooms.begin(); fit != rooms.end(); fit++) {
@@ -58,9 +57,8 @@ FloorBase* FloorAgent::FindWork(int preferences)
 
 FloorBase* FloorAgent::FindAHome(int preferences)
 {
-    Tower::LevelIterator lit;
-    Tower::LevelVector& levels = mTower.GetLevels();
-    for (lit = levels.begin(); lit != levels.end(); lit++) {
+    std::vector<Level*>& levels = mTower.GetLevels();
+    for (auto lit = levels.begin(); lit != levels.end(); lit++) {
         Level* pLevel = (*lit);
         auto& rooms = pLevel->GetFloorSpaces();
         for (auto fit = rooms.begin(); fit != rooms.end(); fit++) {

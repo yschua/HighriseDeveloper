@@ -25,13 +25,13 @@ class PersonQueue
 {
 public:
     PersonQueue();
-    void AddPerson(Person* person);
-    Person* TakeNextPerson();
+    void AddPerson(Person* person, int to);
+    std::pair<Person*, int> TakeNextPerson();
     void Update();
     void Draw(int vx, int vy);
 
 private:
-    std::queue<Person*> m_queue;
+    std::queue<std::pair<Person*, int>> m_queue;
 };
 
 #endif //_PERSONQUEUE_H

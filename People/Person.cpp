@@ -14,8 +14,6 @@
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// People that make the tower thrive.
-
 #include "Person.h"
 
 #include "../Graphics/Animation.h"
@@ -25,12 +23,11 @@
 
 int Person::m_nextId = 0;
 
-Person::Person(Location& loc) : m_id(m_nextId++)
+Person::Person() : m_id(m_nextId++), m_activityState(*this), m_location(0)
 {
     mHealth = HS_Well;
     mMood = MS_Content;
     ResetState();
-    mLocation = loc; // copy
     ImageManager* pImageMam = ImageManager::GetInstance();
     Texture* ptexHappy = pImageMam->GetTexture("Person_h.png", GL_RGBA);
     Texture* ptexAnnoied = pImageMam->GetTexture("Person_a.png", GL_RGBA);
@@ -47,47 +44,12 @@ Person::Person(Location& loc) : m_id(m_nextId++)
     manimations[MS_Excited] = new AnimationSingle(ptexHappy, 8, 16);
     manimations[MS_Excited]->SetPosition(590, 0);
 }
+
 Person::~Person(void) {}
 
 void Person::Update(int tod) // actual time
 {
-    // check time of day, what activity should we be doing.
-    if (tod > 20 * 60 && !(mActivity == AS_Sleeping)) {
-        SetActivity(AS_Sleeping);
-    }
-
-    if (mOccupation < 1) // && age > 16 )
-    {
-        SetActivity(AS_JobHunting);
-        return;
-    } //else if (mHome < 1 && mActivity == AS_GoingHome) {
-    //    if (this->mOccupation > 1) {
-    //        SetActivity(AS_CondoHunting);
-    //    } else {
-    //        SetActivity(AS_ApartmentHunting);
-    //    }
-    //    return;
-    //}
-
-    switch (mActivity) {
-    case AS_GoingToWork:
-        GoingToWork();
-        break;
-    case AS_Working:
-        Working(tod);
-        break;
-    case AS_LunchBreak:
-        LunchBreak(tod);
-        break;
-    case AS_GoingHome:
-        GoingHome();
-        break;
-    case AS_Sleeping:
-        Sleep(tod);
-        break;
-    default:
-        break;
-    }
+    m_activityState.Update(tod);
 }
 
 void Person::Draw()
@@ -100,91 +62,17 @@ void Person::Draw(int vx, int vy)
     Render(manimations[mMood], static_cast<float>(vx), static_cast<float>(vx + 8));
 }
 
-void Person::SetResidence(int level)
-{
-    SetActivity(AS_GoingHome);
-    mWorkPath.mPathList[0].mLevel = level;
-    mWorkPath.mPathList[0].mX = 400; // need this
-    mHome = 1;                       // pResidence
-}
-
 void Person::SetCurrent(int level)
 {
-    mLocation.mLevel = level;
+    m_location = level;
 }
 
 void Person::ResetState()
 {
-    mActivity = AS_JobHunting; // noob, starts out looking for home, job etc.
     mOccupation = 0;
-    mHome = 0;
-    mCurrentState = CS_Idle;
 }
 
-void Person::GoingToWork()
+ActivityStateMachine& Person::GetActivityStateMachine()
 {
-    if (mWorkPath.index < mWorkPath.size) {
-        Location& cur = mWorkPath.mPathList[mWorkPath.index];
-        // TODO: check building first but for now we only have 1
-        if (cur.mLevel == mLocation.mLevel) {
-            mLocation.mX = cur.mX; // TODO: Move peep in animator
-            mWorkPath.index++;
-        } else {
-            // waiting or on an elevator
-        }
-    }
-    if (mWorkPath.index >= mWorkPath.size) // this can be handled better and also need to check times
-    {
-        mLocation.mLevel = mWorkPath.mPathList[mWorkPath.index - 1]
-            .mLevel; // this will bring the car to the office level at days end
-        SetActivity(AS_Working);        // offices and businesses show employees at work.
-    }
-}
-
-void Person::Working(int tod)
-{
-    if (tod > 17 * 60) {
-        SetActivity(AS_ClockingOut);
-        SetCurrentState(Person::CS_Walking);
-        mWorkPath.index--;                               // this is the return trip home
-    } else if (tod > 12 * 60 && tod < 12 * 60 + 15) // do lunch
-    {
-        SetActivity(AS_LunchBreak);
-        SetCurrentState(Person::CS_Walking);
-        mWorkPath.index--; // this is the return trip home
-    }
-}
-
-void Person::LunchBreak(int tod)
-{
-    if (tod > 13 * 60) {
-        SetActivity(AS_GoingToWork);
-        SetCurrentState(Person::CS_Walking);
-    }
-}
-
-void Person::GoingHome()
-{
-    if (mWorkPath.index > 0) {
-        Location& cur = mWorkPath.mPathList[mWorkPath.index];
-        // TODO: check building first but for now we only have 1
-        if (cur.mLevel == mLocation.mLevel) {
-            mLocation.mX = cur.mX; // TODO: Move peep in animator
-            mWorkPath.index--;
-        } else {
-            // waiting or on an elevator
-        }
-    } else {
-        SetActivity(AS_Relaxing); // offices and businesses show employees at work.
-        // this will bring the car to the office level at days end
-        mLocation.mLevel = mWorkPath.mPathList[mWorkPath.index].mLevel; 
-    }
-}
-
-void Person::Sleep(int tod)
-{
-    if (tod > 8 * 60 && tod < 14 * 60) {
-        SetActivity(AS_GoingToWork);
-        SetCurrentState(CS_Busy);
-    }
+    return m_activityState;
 }

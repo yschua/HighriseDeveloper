@@ -32,8 +32,8 @@
 
 using namespace Gfx;
 
-const int Level::mUnitSize =
-    9; // used as he minimum pixels that any level or empty floor space can be. Snap-To-Grid
+// used as he minimum pixels that any level or empty floor space can be. Snap-To-Grid
+const int Level::mUnitSize = 9; 
 
 Level::Level(int level, int x, int y, int x2, Tower* TowerParent) : mTowerParent(TowerParent)
 {

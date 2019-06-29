@@ -14,43 +14,24 @@
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// When somone wants to go somewhere, just hand them over to their own personal travel agent.
-// "MyPathAgent 2500 will take you to your destination quickly and safely, only 19.95 + S&H"
-// The Citezens Agent will hand people to this agent when they enter a travel state.
-// A location and destination will be set for the person(s) preparing to embark. The path agent will
-// then find the best path to that destination. Folks in the tower(s) will be transitioned from
-// point to point. The nearest elevalor is found and enqueued. Should the wait time exceed A limt
-// the PA will look for the another elevator close by that stops on the level desired. It found then
-// the person procedes there. If time exceeds A&B limit then a moderate distance is searched. Same
-// for limit C but forther. If still no satifaction, enter drastic mode( leave, move etc).
 #ifndef _CITIZENSAGENT_H
 #define _CITIZENSAGENT_H
 
-struct Location; // from person
-struct Path;
 class Person;
 class Tower;
 
 class CitizensAgent
 {
 public:
-    CitizensAgent(Tower& mTower); // use a tower agent for multiple towers
+    CitizensAgent(Tower& mTower);
     virtual ~CitizensAgent();
     void Update(int tod);
-    void Draw(); // People
-    void RoutePerson(int curLevel, Path& Path, Person* peep);
-
-protected:
-    Tower& mTower; // must have one or more
+    void Draw();
 
 private:
     void JobHunting(Person* person, int tod);
-    void CondoHunting(Person* person);
-    void ApartmentHunting(Person* person);
-    void GoingToWork(Person* person);
-    void ClockingOut(Person* person);
-    void GoingHome(Person* person);
-    void LunchBreak(Person* person, int tod);
+
+    Tower& mTower;
 };
 
 #endif //_CITIZENSAGENT_H

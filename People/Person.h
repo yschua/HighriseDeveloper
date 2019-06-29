@@ -17,52 +17,15 @@
 // People that make the tower thrive, treat them well and you prosper.
 // Annoy them and they will fight back
 // Make them made and they take their money elsewhere.
-#pragma once
 #ifndef _PERSON_H
 #define _PERSON_H
 
+#include "ActivityStateMachine.h"
 #include "../Graphics/ModelObject.h"
 
 #include <map>
 
 class AnimationSingle;
-
-// temporary home for some structures
-// If Location is a destination and mBuilding <=0 then this person is leaving.
-// If Location is a currentLocation and mBuilding = 0 then this person is outside
-// Above subject to change.
-
-struct Location {
-    short mRoute; // changed from state to route meaning any elevator, stairs or other mode of traversal.
-    short mBuilding;
-    short mLevel; // 0 = lobby
-    short mX;     // 0 = outide the building
-    Location()
-    {
-        clear(); // any time this structure is instantiated, clear the inner data
-    }
-    void clear()
-    {
-        mRoute = -1;
-        mBuilding = 0;
-        mLevel = 0;
-        mX = 490;
-    }
-};
-
-struct Path // this could have been a list<T> but it would slow this high traffic structure
-{
-    short size;            // elements in play at this time
-    short index;           // the current position of the person in the array.
-    Location mPathList[8]; // the max is 4 or so transistions a person cares to make.
-    Path() { clear(); }
-    void clear()
-    {
-        for (int idx = 0; idx < 8; ++idx) {
-            mPathList[idx].clear();
-        }
-    }
-};
 
 class Person : public Gfx::ModelObject
 {
@@ -85,74 +48,17 @@ public:
         MS_Excited  // somebody got a raise.
     };
 
-    enum Activity_State {
-        AS_Sleeping, // first four are done at home (mostly).
-        AS_Relaxing,
-        AS_Playing,
-        AS_Reading,
-        AS_GoingToWork,
-        AS_Working,
-        AS_ClockingOut,
-        AS_GoingHome,
-        AS_Shopping,
-        AS_BreakFast,
-        AS_LunchBreak, // be sure the service personell take one
-        AS_Dining,     // if you order take out, go home and eat it, was that dine in or eat out?
-        AS_RestRoom,
-        AS_OnVacation, // we'll post pics in the lobby when we return
-        AS_Evacuating,
-        AS_WatchingMovie,
-        AS_Socializing,
-        AS_JobHunting,
-        AS_ApartmentHunting,
-        AS_CondoHunting, // Income dependant.
-        AS_HotelHunting
-    };
-
-    // had to add this to describe what a person is doing while heading to work, home or play.
-    enum Current_State {
-        // may also cover other activities. A Person.heading to work may also be stuck in an elevator queue.
-        CS_Idle = 0,     // Idle is defined as doing nothing
-        CS_Busy,         // Waiting for a timed event to trigger their next move. At work, sleeping etc.
-        CS_Walking,      // Ok good, going somewhere
-        CS_Riding,       // In a vehicle, elevator, train, car etc.
-        CS_Disembarking, // Car just dropped a person off;
-        CS_Boarding,     // Car picking up person
-        CS_Waiting       // In queue
-    };
-
 public:
-    Person(Location& loc); // x is their starting point, usually in the lobby.
+    Person(); // x is their starting point, usually in the lobby.
     virtual ~Person();
 
-    // Properties
-    Path& get_WorkPath() // this gets called to fill and route to and from work.
-    {
-        return mWorkPath;
-    }
-    Path& get_OtherPath() // this gets called to fill, move the person and alternate checking paths.
-    {
-        return mOtherPath;
-    }
-
-    Activity_State get_Activity() // inline for faster access, same isolation, just quicker code.
-    {
-        return mActivity;
-    }
-    void SetActivity(Activity_State state) { mActivity = state; }
-    Current_State GetCurrentState() // inline for faster access, same isolation, just quicker code.
-    {
-        return mCurrentState;
-    }
-    void SetCurrentState(Current_State state) { mCurrentState = state; }
     void SetOccupation(int occ) { mOccupation = occ; }
     int GetOccupation() { return mOccupation; }
-    Location& get_Location() { return mLocation; }
-    unsigned int GetWorkID() // number of the office or buisinee we work in
+    FloorBase* GetWorkID() // number of the office or buisinee we work in
     {
         return mWorkID;
     }
-    void SetWorkID(unsigned int id)
+    void SetWorkID(FloorBase* id)
     {
         mWorkID = id; // number of the office or buisinee we work in
     }
@@ -161,35 +67,24 @@ public:
     virtual void Draw();
     virtual void Draw(int vx, int vy);
     virtual int DrawFramework(int id) { return 0; }
-    void SetResidence(int level);
     void SetCurrent(int Level);
-    int GetCurrent() { return mLocation.mLevel; }
+    int GetCurrent() { return m_location; }
     void ResetState();
     int GetId() const { return m_id; }
+    ActivityStateMachine& GetActivityStateMachine();
 
 private:
     static int m_nextId;
     const int m_id;
-    void GoingToWork();
-    void Working(int tod);
-    void LunchBreak(int tod);
-    void GoingHome();
-    void Sleep(int tod);
 
-    Location mLocation;
-    Path mWorkPath; // To and from work, stays permanant as long as working.
-                    // Changes if they change jobs or the business goes bust.
-    Path mOtherPath; // To and from other activities when they go shopping etc.
-                        // Changes almost daily
+    int m_location; // location is level for now
     Health_State mHealth;
     Mood_State mMood;
-    Activity_State mActivity;
-    Current_State mCurrentState; // Covers busy, waiting, walking, riding.
     int mOccupation;             // school and retired are valid occupations
     std::map<Mood_State, AnimationSingle*> manimations;
     // not set on if this will be a class or enum
-    unsigned int mHome;   // Where's the Crib
-    unsigned int mWorkID; // number of the office or buisinee we work in
+    FloorBase* mWorkID; // number of the office or buisinee we work in
+    ActivityStateMachine m_activityState;
 };
 
 #endif //_PERSON_H

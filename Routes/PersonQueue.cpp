@@ -14,26 +14,20 @@
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// head and tail queue. People in and out while waiting for elevators, trams, rail and buses.
 #include "PersonQueue.h"
-
-#include "../People/Person.h"
-#include "Elevator.h"
-
-#include <iostream>
 
 PersonQueue::PersonQueue()
 {
 }
 
-void PersonQueue::AddPerson(Person* person)
+void PersonQueue::AddPerson(Person* person, int to)
 {
-    m_queue.push(person);
+    m_queue.push(std::make_pair(person, to));
 }
 
-Person* PersonQueue::TakeNextPerson()
+std::pair<Person*, int> PersonQueue::TakeNextPerson()
 {
-    if (m_queue.empty()) return nullptr;
+    if (m_queue.empty()) return std::make_pair(nullptr, 0);
 
     auto person = m_queue.front();
     m_queue.pop();

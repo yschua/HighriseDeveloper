@@ -14,36 +14,27 @@
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// When somone wants to go somewhere, just hand them over to their own personal travel agent.
-// "MyPathAgent 2500 will take you to your destination quickly and safely, only 19.95 + S&H"
-// The Activities Agent will hand people to this agent when they enter a travel state.
-// A location and destination will be set for the person(s) preparing to embark. The path agent will
-// then find the best path to that destination. Folks in the tower(s) will be transitioned from
-// point to point. The nearest elevalor is found and enqueued. Should the wait time exceed A limt
-// the PA will look for the another elevator close by that stops on the level desired. It found then
-// the person procedes there. If time exceeds A&B limit then a moderate distance is searched. Same
-// for limit C but forther. If still no satifaction, enter drastic mode( leave, move etc).
 #ifndef _PATHAGENT_H
 #define _PATHAGENT_H
 
-#include "../People/Person.h"
-
-struct Location; // from person
+#include <memory>
 
 class Person;
-class Tower;
+class FloorBase;
+class Path;
 
 class PathAgent
 {
-private:
-    Person* mPerson;
-    Path mCurrentPath; // local scratch
-
 public:
-    bool findPath(Location& origin, Location& dest, Tower& tower);
-    PathAgent(Person* person);
-    PathAgent(Person* person, int level); // deposit person on this level;
-    virtual ~PathAgent(void);
+    PathAgent(Person& person);
+    virtual ~PathAgent();
+    void StartPathing(FloorBase* from, FloorBase* to);
+    void UpdatePathing();
+    void EndPathing();
+    bool IsPathing() const;
+private:
+    std::unique_ptr<Path> m_path;
+    Person& m_person;
 };
 
 #endif //_PATHAGENT_H

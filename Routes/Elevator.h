@@ -79,16 +79,17 @@ public:
     virtual void DrawFramework() {} // later we do lifts to
 
     // RouteBase overrides
-    bool SetCallButton(RoutingRequest& req) override;
-    void SetFloorButton(RoutingRequest& req) override;
-    int LoadPerson(Person* person, RoutingRequest& req) override; // return space remaining
+    bool SetCallButton(int from, int to) override;
+    void SetFloorButton(int to) override;
+    int LoadPerson(Person* person, int to) override;
     void Update(float dt, int tod) override;
     void Update(float dt) override;
     void Draw() override;
     void Save(SerializerBase& ser) override;
-    void AddToQueue(int level, Person* person) override;
+    void AddToQueue(int level, Person* person, int to) override;
     bool StopsOnLevel(int level) override;
     int FindLobby() override;
+    std::vector<int> GetConnectedLevels() const override;
 
 private:
     void LoadImages();
@@ -124,7 +125,7 @@ private:
 
     LiftStyle m_type;
     Tower* m_tower;
-    std::map<int, FloorButton> m_floorButtons;
+    std::map<int, FloorButton> m_floorButtons; // TODO maybe use LevelNumber typedef int
     std::map<int, CallButton> m_callButtons; // parent, should also check if there are people queuing
     bool m_idle;
     bool m_stop;

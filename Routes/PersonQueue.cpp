@@ -16,9 +16,6 @@
 
 #include "PersonQueue.h"
 
-#include "../People/Person.h"
-//#include "Elevator.h"
-
 PersonQueue::PersonQueue()
 {
 }

@@ -23,12 +23,11 @@
 
 int Person::m_nextId = 0;
 
-Person::Person(Location& loc) : m_id(m_nextId++), m_activityState(*this)
+Person::Person() : m_id(m_nextId++), m_activityState(*this), m_location(0)
 {
     mHealth = HS_Well;
     mMood = MS_Content;
     ResetState();
-    mLocation = loc; // copy
     ImageManager* pImageMam = ImageManager::GetInstance();
     Texture* ptexHappy = pImageMam->GetTexture("Person_h.png", GL_RGBA);
     Texture* ptexAnnoied = pImageMam->GetTexture("Person_a.png", GL_RGBA);
@@ -65,7 +64,7 @@ void Person::Draw(int vx, int vy)
 
 void Person::SetCurrent(int level)
 {
-    mLocation.mLevel = level;
+    m_location = level;
 }
 
 void Person::ResetState()

@@ -71,15 +71,8 @@ void CitizensAgent::JobHunting(Person* person, int tod)
         FloorAgent agent(mTower);
         FloorBase* pFB = agent.FindWork(0);
         if (pFB != NULL) {
-            Location dest;
-            dest.mBuilding = 1;
-            dest.mLevel = pFB->GetLevel(); // TODO:  get a real job finder
-            dest.mRoute = 0; // plugged into first elevater until pathfinder does the job.
-            dest.mX = 1;     // TODO:  find the room number
-                             // Log               std::cout << "A new person has entered your building looking for work
-                             // on Level# " << dest.mLevel << std::endl;
-            if ((rand() % 6) ==
-                2) // one out of 6 will make good money to afford more than an apartment
+            // one out of 6 will make good money to afford more than an apartment
+            if ((rand() % 6) == 2)
                 person->SetOccupation(2);
             else
                 person->SetOccupation(1);

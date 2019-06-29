@@ -27,29 +27,6 @@
 
 class AnimationSingle;
 
-// temporary home for some structures
-// If Location is a destination and mBuilding <=0 then this person is leaving.
-// If Location is a currentLocation and mBuilding = 0 then this person is outside
-// Above subject to change.
-
-struct Location {
-    short mRoute; // changed from state to route meaning any elevator, stairs or other mode of traversal.
-    short mBuilding;
-    short mLevel; // 0 = lobby
-    short mX;     // 0 = outide the building
-    Location()
-    {
-        clear(); // any time this structure is instantiated, clear the inner data
-    }
-    void clear()
-    {
-        mRoute = -1;
-        mBuilding = 0;
-        mLevel = 0;
-        mX = 490;
-    }
-};
-
 class Person : public Gfx::ModelObject
 {
 public:
@@ -72,12 +49,11 @@ public:
     };
 
 public:
-    Person(Location& loc); // x is their starting point, usually in the lobby.
+    Person(); // x is their starting point, usually in the lobby.
     virtual ~Person();
 
     void SetOccupation(int occ) { mOccupation = occ; }
     int GetOccupation() { return mOccupation; }
-    Location& get_Location() { return mLocation; }
     FloorBase* GetWorkID() // number of the office or buisinee we work in
     {
         return mWorkID;
@@ -92,7 +68,7 @@ public:
     virtual void Draw(int vx, int vy);
     virtual int DrawFramework(int id) { return 0; }
     void SetCurrent(int Level);
-    int GetCurrent() { return mLocation.mLevel; }
+    int GetCurrent() { return m_location; }
     void ResetState();
     int GetId() const { return m_id; }
     ActivityStateMachine& GetActivityStateMachine();
@@ -101,7 +77,7 @@ private:
     static int m_nextId;
     const int m_id;
 
-    Location mLocation;
+    int m_location; // location is level for now
     Health_State mHealth;
     Mood_State mMood;
     int mOccupation;             // school and retired are valid occupations

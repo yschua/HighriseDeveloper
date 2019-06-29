@@ -22,7 +22,6 @@
 
 #include <list>
 
-struct Location; // from person
 class Person;
 class CitizensAgent;
 

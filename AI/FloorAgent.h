@@ -13,13 +13,10 @@
  *   You should have received a copy of the GNU General Public License
  *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
  */
-// look for vacancies and fill them.
-// Might be able to partner with the citizens agent to find jobs and places to live and play.
 
 #ifndef _FLOORAGENT_H
 #define _FLOORAGENT_H
 
-struct Location;
 class Tower;
 class FloorSpace;
 class FloorBase;

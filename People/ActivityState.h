@@ -54,4 +54,16 @@ private:
     Person& m_person;
 };
 
+class LunchState : public IActivityState
+{
+public:
+    LunchState(Person& person);
+    void Update(int time) override;
+    void Enter() override;
+    void Exit() override;
+    FloorBase* GetLocation() const override;
+private:
+    Person& m_person;
+};
+
 #endif // _ACTIVITYSTATE_H

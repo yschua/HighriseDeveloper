@@ -25,6 +25,7 @@ ActivityStateMachine::ActivityStateMachine(Person& person) : m_pathAgent(&person
 
     m_states[Id::Home] = std::make_unique<HomeState>(person);
     m_states[Id::Work] = std::make_unique<WorkState>(person);
+    m_states[Id::Lunch] = std::make_unique<LunchState>(person);
 
     m_currentState = m_states[Id::Home].get();
 }

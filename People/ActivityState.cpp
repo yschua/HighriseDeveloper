@@ -51,6 +51,9 @@ WorkState::WorkState(Person& person) : m_person(person)
 
 void WorkState::Update(int time)
 {
+    if (time > 12 * 60 && time < 12 * 60 + 15)
+        m_person.GetActivityStateMachine().Change(Id::Lunch);
+
     if (time > 17 * 60)
         m_person.GetActivityStateMachine().Change(Id::Home);
 }
@@ -72,4 +75,28 @@ void WorkState::Exit()
 FloorBase* WorkState::GetLocation() const
 {
     return m_person.GetWorkID();
+}
+
+LunchState::LunchState(Person& person) : m_person(person)
+{
+}
+
+void LunchState::Update(int time)
+{
+    if (time > 13 * 60)
+        m_person.GetActivityStateMachine().Change(Id::Work);
+}
+
+void LunchState::Enter()
+{
+    std::cout << m_person.GetId() << " going to lunch\n";
+}
+
+void LunchState::Exit()
+{
+}
+
+FloorBase* LunchState::GetLocation() const
+{
+    return 0;
 }

@@ -321,7 +321,6 @@ void Elevator::Update(float dt, int tod)
     // unload person from elevator
     auto personUnload = UnloadPerson();
     if (personUnload != nullptr) {
-        personUnload->SetCurrentState(Person::CS_Disembarking);
         personUnload->SetCurrent(GetCurrentLevel());
         return;
     }
@@ -332,7 +331,6 @@ void Elevator::Update(float dt, int tod)
     RoutingRequest req;
     std::tie(personLoad, req) = m_queues[currentLevel].TakeNextPerson();
     if (personLoad != nullptr) {
-        personLoad->SetCurrentState(Person::CS_Riding);
         LoadPerson(personLoad, req);
         return;
     }

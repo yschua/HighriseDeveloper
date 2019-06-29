@@ -16,22 +16,11 @@
 
 #include "CitizensAgent.h"
 
-#include "../People/Citizens.h"
-#include "../People/Person.h"
-#include "../Root/HighRiseException.h"
-#include "../Tower/Level.h"
-#include "../Tower/Office.h"
-#include "../Routes/PersonQueue.h"
-#include "../Routes/RouteBase.h"
-#include "../Routes/Routes.h"
-#include "../Tower/Tower.h"
 #include "FloorAgent.h"
 #include "PathAgent.h"
-
-#include <cstdlib>
-#include <iostream>
-#include <list>
-#include <vector>
+#include "../People/Citizens.h"
+#include "../People/Person.h"
+#include "../Tower/Tower.h"
 
 CitizensAgent::CitizensAgent(Tower& tower) : mTower(tower) {}
 
@@ -61,32 +50,6 @@ void CitizensAgent::Update(int tod)
     }
 }
 
-void CitizensAgent::RoutePerson(int index, Path_& Path, Person* peep)
-{
-    Routes& routeList = mTower.GetRoutes();
-    if (routeList.GetRoutes().size() > 0) {
-        RoutingRequest req; // routing code needs to queue this person
-        req.OriginLevel = peep->GetCurrent();
-        req.DestinLevel = Path.mPathList[index].mLevel;
-
-        if (req.OriginLevel == req.DestinLevel) return;
-
-        int rte = Path.mPathList[index].mRoute;
-        if (rte >= 0 && rte < static_cast<int>(routeList.GetRoutes().size())) {
-            RouteBase* route = routeList.GetRoutes()[rte];
-            bool IsBoarding = route->SetCallButton(req);
-            if (IsBoarding) {
-                peep->SetCurrentState(Person::CS_Riding);
-                route->LoadPerson(peep, req);
-            } else {
-                peep->SetCurrentState(Person::CS_Waiting);
-                peep->get_WorkPath().index = index;
-                route->AddToQueue(peep->GetCurrent(), peep, req);
-            }
-        }
-    }
-}
-
 void CitizensAgent::Draw()
 {
     Citizens* citizens = Citizens::get_Instance(); // the citizens object that holds the people collection
@@ -96,15 +59,15 @@ void CitizensAgent::Draw()
     // TODO: Need to create a better interface that provides a clear persons iteration.
     for (i = persons.begin(); i != persons.end(); i++) {
         Person* peep = (*i);
-        if (peep && peep->GetCurrentState() == Person::AS_JobHunting) {
-            peep->Draw(320, 36); // standing outside
-        }
+        //if (peep && peep->GetCurrentState() == Person::AS_JobHunting) {
+        //    peep->Draw(320, 36); // standing outside
+        //}
     }
 }
 
 void CitizensAgent::JobHunting(Person* person, int tod)
 {
-    if (person->GetCurrentState() == Person::CS_Idle) {
+    //if (person->GetCurrentState() == Person::CS_Idle) {
         FloorAgent agent(mTower);
         FloorBase* pFB = agent.FindWork(0);
         if (pFB != NULL) {
@@ -115,11 +78,6 @@ void CitizensAgent::JobHunting(Person* person, int tod)
             dest.mX = 1;     // TODO:  find the room number
                              // Log               std::cout << "A new person has entered your building looking for work
                              // on Level# " << dest.mLevel << std::endl;
-            if (tod >= 6 * 60 && tod < 16 * 60) {
-                person->SetActivity(Person::AS_GoingToWork);
-            } else {
-                person->SetActivity(Person::AS_Sleeping);
-            }
             if ((rand() % 6) ==
                 2) // one out of 6 will make good money to afford more than an apartment
                 person->SetOccupation(2);
@@ -129,164 +87,5 @@ void CitizensAgent::JobHunting(Person* person, int tod)
 
             mTower.EnterTower(person);
         }
-    }
-}
-
-void CitizensAgent::CondoHunting(Person* person)
-{
-    FloorAgent agent(mTower);
-    FloorBase* pFB = agent.FindAHome(1); // condo
-    if (pFB != NULL) {
-        pFB->SetOwner(person);
-        mTower.AdjustFunds(pFB->GetSalePrice()); // buy condo
-        person->SetResidence(pFB->GetLevel());
-        person->SetActivity(Person::AS_GoingHome);
-        person->SetCurrentState(Person::CS_Idle);
-    } else {
-        person->SetActivity(Person::AS_ApartmentHunting);
-    }
-}
-
-void CitizensAgent::ApartmentHunting(Person* person)
-{
-    // Set up cheap housing (not in the original tower game.
-    FloorAgent agent(mTower);
-    FloorBase* pFB = agent.FindAHome(0);
-    if (pFB != NULL) {
-        pFB->SetOwner(person);
-        mTower.AdjustFunds(100); // lease
-        person->SetResidence(pFB->GetLevel());
-        person->SetActivity(Person::AS_GoingHome);
-        person->SetCurrentState(Person::CS_Idle);
-    }
-    // else keep looking
-}
-
-void CitizensAgent::GoingToWork(Person* person)
-{
-    Path_& workPath = person->get_WorkPath(); // for now just doing work
-    if (workPath.index < workPath.size) {
-        int idx = workPath.index;
-        int curLevel = person->get_Location().mLevel;
-
-        if (curLevel == workPath.mPathList[idx].mLevel) 
-        { // or tower is not = curtower (on a bus, train, car or skycab ).
-            // just moving on the same level
-        } else {
-            switch (person->GetCurrentState()) {
-            case Person::CS_Waiting:
-                // tally up wait states
-                break;
-            case Person::CS_Riding:
-                // enroute
-                break;
-            case Person::CS_Disembarking:
-                person->SetCurrent(workPath.mPathList[idx].mLevel);
-                curLevel = workPath.mPathList[idx].mLevel;
-                workPath.index++;
-                person->SetCurrentState(Person::CS_Walking);
-                idx = workPath.index;
-                // fall through
-            default:
-                RoutePerson(idx, workPath, person);
-            }
-            // workPath.index++; // TODO: wait for elevator, we are moving ahead before getting to the
-            // level
-            if (workPath.index == workPath.size) {
-                try {
-                    Level* pLevel = mTower.GetLevel(workPath.mPathList[workPath.size - 1].mLevel);
-                    FloorBase* pFB = person->GetWorkID();
-                    if (pFB && pFB->GetType() == BaseOffice) {
-                        Office* pOffice = reinterpret_cast<Office*>(pFB);
-                        pOffice->PeopleInOut(1);
-                    }
-                } catch (...) {
-                    person->SetOccupation(0); // unemployed
-                }
-            }
-        }
-    }
-}
-
-void CitizensAgent::ClockingOut(Person* person)
-{
-    Path_& workPath = person->get_WorkPath(); // for now just doing work
-    if (workPath.index > 0) {
-        int idx = workPath.index;
-        int curLevel = person->get_Location().mLevel;
-        Level* pLevel = mTower.GetLevel(curLevel);
-        FloorBase* pFB = person->GetWorkID();
-        if (pFB && pFB->GetType() == BaseOffice) {
-            Office* pOffice = reinterpret_cast<Office*>(pFB);
-            pOffice->PeopleInOut(-1);
-        }
-    }
-    person->SetActivity(Person::AS_GoingHome);
-}
-
-void CitizensAgent::GoingHome(Person* person)
-{
-    Path_& workPath = person->get_WorkPath(); // for now just doing work
-    if (workPath.index >= 0) {
-        int idx = workPath.index;
-        int curLevel = person->get_Location().mLevel;
-        if (curLevel == workPath.mPathList[idx].mLevel) {
-            // just moving on the same level
-        } else {
-            switch (person->GetCurrentState()) {
-            case Person::CS_Waiting:
-                // tally up wait states
-                break;
-            case Person::CS_Riding:
-                // enroute
-                break;
-            case Person::CS_Disembarking:
-                if (workPath.index > 0) {
-                    workPath.index--; // TODO: wait for elevator, we are moving ahead before getting
-                                      // to the level
-                }
-                person->SetCurrentState(Person::CS_Walking);
-                person->SetCurrent(workPath.mPathList[idx].mLevel);
-                curLevel = workPath.mPathList[idx].mLevel;
-                idx = workPath.index;
-                // fall through
-            default:
-                RoutePerson(idx, workPath, person);
-            }
-        }
-    } else {
-    }
-}
-
-void CitizensAgent::LunchBreak(Person* person, int tod)
-{
-    Path_& workPath = person->get_WorkPath(); // for now just doing work
-    if (workPath.index >= 0) {
-        int idx = 0;
-        int curLevel = person->get_Location().mLevel;
-        if (curLevel == workPath.mPathList[idx].mLevel) {
-            // just moving on the same level
-        } else {
-            switch (person->GetCurrentState()) {
-            case Person::CS_Waiting:
-                // tally up wait states
-                break;
-            case Person::CS_Riding:
-                // enroute
-                break;
-            case Person::CS_Disembarking:
-                if (workPath.index > 0) {
-                    workPath.index--; // TODO: wait for elevator, we are moving ahead before getting
-                                      // to the level
-                }
-                person->SetCurrentState(Person::CS_Walking);
-                person->SetCurrent(workPath.mPathList[idx].mLevel);
-                curLevel = workPath.mPathList[idx].mLevel;
-                idx = workPath.index;
-                // fall through
-            default:
-                RoutePerson(idx, workPath, person);
-            }
-        }
-    }
+    //}
 }

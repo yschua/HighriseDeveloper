@@ -136,34 +136,34 @@ void Elevator::PosCalc()
     mRiderImage->SetPosition((float)mX, (float)(mY - (offset + m_carPosition) + 18));
 }
 
-void Elevator::SetFloorButton(RoutingRequest& req) // OK, take me there
+void Elevator::SetFloorButton(int to) // OK, take me there
 {
-    m_floorButtons[req.DestinLevel].m_stopping = true;
+    m_floorButtons[to].m_stopping = true;
 }
 
-bool Elevator::SetCallButton(RoutingRequest& req)
+bool Elevator::SetCallButton(int from, int to)
 {
     bool isOnFloor = false;
 
-    if (GetCurrentLevel() == req.OriginLevel && CanStop()) {
-        SetFloorButton(req);
+    if (GetCurrentLevel() == from && CanStop()) {
+        SetFloorButton(to);
         isOnFloor = true;
     } else {
-        if (req.DestinLevel > req.OriginLevel) {
-            m_callButtons[req.OriginLevel].m_callUp = true;
+        if (to > from) {
+            m_callButtons[from].m_callUp = true;
         } else {
-            m_callButtons[req.OriginLevel].m_callDown = true;
+            m_callButtons[from].m_callDown = true;
         }
     }
     return isOnFloor;
 }
 
-int Elevator::LoadPerson(Person* person, RoutingRequest& req) // returns space remaining
+int Elevator::LoadPerson(Person* person, int to)
 {
     if (GetNumRiders() < m_maxRiders) {
-        m_riders.push_back(Rider{person, req.DestinLevel});
-        std::cout << "load " << person->GetId() << " to: " << req.DestinLevel << "\n";
-        SetFloorButton(req);
+        m_riders.push_back(Rider{person, to});
+        std::cout << "load " << person->GetId() << " to: " << to << "\n";
+        SetFloorButton(to);
     }
     return m_maxRiders - GetNumRiders();
 }
@@ -328,10 +328,10 @@ void Elevator::Update(float dt, int tod)
     // load person on elevator from queue
     const int currentLevel = GetCurrentLevel();
     Person* personLoad;
-    RoutingRequest req;
-    std::tie(personLoad, req) = m_queues[currentLevel].TakeNextPerson();
+    int to;
+    std::tie(personLoad, to) = m_queues[currentLevel].TakeNextPerson();
     if (personLoad != nullptr) {
-        LoadPerson(personLoad, req);
+        LoadPerson(personLoad, to);
         return;
     }
 
@@ -391,9 +391,9 @@ void Elevator::InitQueues()
     }
 }
 
-void Elevator::AddToQueue(int level, Person* person, const RoutingRequest& req)
+void Elevator::AddToQueue(int level, Person* person, int to)
 {
-    m_queues[level].AddPerson(person, req);
+    m_queues[level].AddPerson(person, to);
 }
 
 bool Elevator::StopsOnLevel(int level)

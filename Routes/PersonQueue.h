@@ -17,8 +17,6 @@
 #ifndef _PERSONQUEUE_H
 #define _PERSONQUEUE_H
 
-#include "RouteBase.h"
-
 #include <queue>
 
 class Person;
@@ -27,13 +25,13 @@ class PersonQueue
 {
 public:
     PersonQueue();
-    void AddPerson(Person* person, const RoutingRequest& req);
-    std::pair<Person*, RoutingRequest> TakeNextPerson();
+    void AddPerson(Person* person, int to);
+    std::pair<Person*, int> TakeNextPerson();
     void Update();
     void Draw(int vx, int vy);
 
 private:
-    std::queue<std::pair<Person*, RoutingRequest>> m_queue;
+    std::queue<std::pair<Person*, int>> m_queue;
 };
 
 #endif //_PERSONQUEUE_H

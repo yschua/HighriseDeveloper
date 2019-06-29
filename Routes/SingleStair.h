@@ -26,7 +26,6 @@
 
 // these decls allow inclusion of this header without the need to load these class headers.
 // class RouteBase;
-struct RoutingRequest;
 class AnimationSingle;
 class Person;
 class PersonQueue;
@@ -75,26 +74,21 @@ public:
     // Properties
     inline int GetNumber() { return mNumber; }
 
-    // Methods
-    void Move(int x, int y);
-    void Resize(int x, int y);
-
 protected:
     void LoadImages();
     void PosCalc();
 
-    int LoadPerson(Person* person, RoutingRequest& req); // returns space remaining
+    int LoadPerson(Person* person, int to);
     void Motion();
-    void SetDestination(int level);
-    bool SetCallButton(RoutingRequest& req) { return false; } // call the elevator
-    void SetFloorButton(RoutingRequest& req) {}               // once inside, select a floor
+    bool SetCallButton(int from, int to) override { return false; }
+    void SetFloorButton(int to) override {}
 public:
     virtual void Update(float dt);
     virtual void Draw();
     virtual void DrawFramework() {} // geometry test
 
     void Save(SerializerBase& ser);
-    void AddToQueue(int level, Person* person, const RoutingRequest& req) override {}
+    void AddToQueue(int level, Person* person, int to) override {}
 };
 }
 

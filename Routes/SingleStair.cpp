@@ -93,7 +93,7 @@ void SingleStair::PosCalc()
     mSingleStairImage->SetPosition((float)mX, (float)mY); // SingleStair sprite is only 32x32
 }
 
-int SingleStair::LoadPerson(Person* person, RoutingRequest& req) // returns space remaining
+int SingleStair::LoadPerson(Person* person, int to ) // returns space remaining
 {
     if (mWalkersOnStairs < mMaxCap) {
         //      mRiders[mWalkersOnStairs].mDestLevel = destLevel;

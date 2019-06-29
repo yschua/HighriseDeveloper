@@ -79,14 +79,14 @@ public:
     virtual void DrawFramework() {} // later we do lifts to
 
     // RouteBase overrides
-    bool SetCallButton(RoutingRequest& req) override;
-    void SetFloorButton(RoutingRequest& req) override;
-    int LoadPerson(Person* person, RoutingRequest& req) override; // return space remaining
+    bool SetCallButton(int from, int to) override;
+    void SetFloorButton(int to) override;
+    int LoadPerson(Person* person, int to) override;
     void Update(float dt, int tod) override;
     void Update(float dt) override;
     void Draw() override;
     void Save(SerializerBase& ser) override;
-    void AddToQueue(int level, Person* person, const RoutingRequest& req) override;
+    void AddToQueue(int level, Person* person, int to) override;
     bool StopsOnLevel(int level) override;
     int FindLobby() override;
     std::vector<int> GetConnectedLevels() const override;

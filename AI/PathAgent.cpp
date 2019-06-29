@@ -50,13 +50,11 @@ void PathAgent::UpdatePathing()
 
     if (currentLevel != req.m_from) return;
 
-    RoutingRequest reqOld = {req.m_from, req.m_to};
     auto route = req.m_route;
-
-    if (route->SetCallButton(reqOld)) {
-        route->LoadPerson(&m_person, reqOld);
+    if (route->SetCallButton(req.m_from, req.m_to)) {
+        route->LoadPerson(&m_person, req.m_to);
     } else {
-        route->AddToQueue(currentLevel, &m_person, reqOld);
+        route->AddToQueue(currentLevel, &m_person, req.m_to);
     }
 
     m_path->Advance();

@@ -19,7 +19,7 @@
 #include "ActivityState.h"
 #include "../Tower/FloorBase.h"
 
-ActivityStateMachine::ActivityStateMachine(Person& person) : m_pathAgent(&person)
+ActivityStateMachine::ActivityStateMachine(Person& person) : m_pathAgent(person)
 {
     using Id = IActivityState::Id;
 

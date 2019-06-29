@@ -14,16 +14,6 @@
 *   along with Highrise Developer.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-// When somone wants to go somewhere, just hand them over to their own personal travel agent.
-// "MyPathAgent 2500 will take you to your destination quickly and safely, only 19.95 + S&H"
-// The Citizens Agent will hand people to this agent when they enter a travel state.
-// A location and destination will be set for the person(s) preparing to embark. The path agent will
-// then find the best path to that destination. Folks in the tower(s) will be transitioned from
-// point to point. The nearest elevalor is found and enqueued. Should the wait time exceed A limt
-// the PA will look for the another elevator close by that stops on the level desired. It found then
-// the person procedes there. If time exceeds A&B limit then a moderate distance is searched. Same
-// for limit C but forther. If still no satifaction, enter drastic mode( leave, move etc).
-
 #include "CitizensAgent.h"
 
 #include "../People/Citizens.h"
@@ -136,8 +126,6 @@ void CitizensAgent::JobHunting(Person* person, int tod)
             else
                 person->SetOccupation(1);
             person->SetWorkID(pFB);
-            PathAgent Path(person);
-            Path.findPath(person->get_Location(), dest, mTower);
 
             mTower.EnterTower(person);
         }

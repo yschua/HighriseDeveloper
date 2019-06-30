@@ -38,6 +38,8 @@ GUIManager::GUIManager(SceneEvent& rse, Interface& rInterface) :
         using namespace CEGUI;
 
         mpRenderer = &OpenGLRenderer::create();
+        mpRenderer->enableExtraStateSettings(true);
+
         mpSystem = &System::create(*mpRenderer);
 
         LoadResource();

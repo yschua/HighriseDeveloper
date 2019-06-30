@@ -323,14 +323,14 @@ Vector3f Camera::GetOGLPos(Vector2f winVec) // NeHe Productions at GameDev
 
     GLfloat winX = winVec.x;
     GLfloat winY = winVec.y; //(float)viewport[3] - winVec.y;
-    GLfloat winZ[16];
-    memset(winZ, 0, sizeof(winZ));
-    glReadPixels((int)winX, int(winY), 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, winZ);
+    GLfloat winZ;
+
+    glReadPixels((int)winX, int(winY), 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &winZ);
 
     GLdouble posX = 0;
     GLdouble posY = 0;
     GLdouble posZ = 0;
-    gluUnProject(winX, winY, winZ[0], modelview, projection, viewport, &posX, &posY, &posZ);
+    gluUnProject(winX, winY, winZ, modelview, projection, viewport, &posX, &posY, &posZ);
 
     glMatrixMode(GL_MODELVIEW);
     glPopMatrix();
@@ -393,5 +393,5 @@ void Camera::Zoom(float Factor)
     if ((Factor < 0 && mZoomFactor > -900) || (Factor > 0 && mZoomFactor < -40)) {
         mZoomFactor += Factor;
     }
-    std::cout << "ZF=" << mZoomFactor << "\n";
+    //std::cout << "ZF=" << mZoomFactor << "\n";
 }
